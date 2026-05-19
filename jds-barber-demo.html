@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JD's Barber Shop — 22 Years in Northeast Philadelphia</title>
+<style>
+  :root {
+    --green: #1A3A1A;
+    --green-light: #2D6B2D;
+    --lime: #6ABF3C;
+    --dark: #0A0F0A;
+    --dark-2: #101810;
+    --gray: #7A8B7A;
+    --cream: #F2F7F2;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--dark); color: var(--white); font-family: 'Verdana', sans-serif; }
+
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(10,15,10,0.97); backdrop-filter: blur(10px);
+    padding: 18px 50px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 3px solid var(--lime);
+  }
+  .logo { font-size: 1.4rem; font-weight: 900; color: var(--white); letter-spacing: 2px; text-transform: uppercase; }
+  .logo span { color: var(--lime); }
+  .nav-links a { color: #aaa; text-decoration: none; margin-left: 28px; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--lime); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 130px 60px 80px;
+    position: relative; background: var(--dark);
+    overflow: hidden;
+  }
+  .hero-number {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 35vw; font-weight: 900; color: rgba(106,191,60,0.04);
+    line-height: 1; pointer-events: none; letter-spacing: -10px;
+  }
+  .hero-year-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 20px; background: rgba(106,191,60,0.15);
+    border: 1px solid rgba(106,191,60,0.3); margin-bottom: 30px;
+    width: fit-content;
+  }
+  .hero-year-badge span { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--lime); }
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem); font-weight: 900;
+    line-height: 0.95; text-transform: uppercase; letter-spacing: -2px;
+    max-width: 800px; margin-bottom: 30px;
+  }
+  .hero h1 .accent { color: var(--lime); display: block; }
+  .hero-sub { color: rgba(255,255,255,0.6); font-size: 1rem; line-height: 1.7; max-width: 520px; margin-bottom: 40px; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-lime {
+    display: inline-block; padding: 16px 36px;
+    background: var(--lime); color: var(--dark);
+    font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-size: 0.85rem;
+    transition: all 0.3s; border: 2px solid var(--lime);
+  }
+  .btn-lime:hover { background: #80cc52; transform: translateY(-2px); }
+  .btn-wire {
+    display: inline-block; padding: 16px 36px;
+    background: transparent; color: var(--lime);
+    font-weight: bold; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-size: 0.85rem;
+    border: 2px solid var(--lime); transition: all 0.3s;
+  }
+  .btn-wire:hover { background: var(--lime); color: var(--dark); }
+
+  /* DECADE STRIP */
+  .decade-strip {
+    background: var(--lime); padding: 16px 50px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  .decade-strip-text { font-size: 0.8rem; letter-spacing: 2px; font-weight: 900; text-transform: uppercase; color: var(--dark); }
+  .decade-pill {
+    background: var(--dark); color: var(--lime); padding: 8px 20px;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold;
+  }
+
+  /* SECTION */
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { display: block; font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--lime); margin-bottom: 12px; }
+  .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+  .section-sub { color: var(--gray); line-height: 1.8; }
+
+  /* SERVICES */
+  .services-section { padding: 90px 50px; background: var(--dark-2); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; background: rgba(106,191,60,0.1); margin-top: 50px; }
+  .service-card { background: var(--dark); padding: 36px 28px; border-top: 3px solid transparent; transition: all 0.3s; }
+  .service-card:hover { border-top-color: var(--lime); background: var(--dark-2); }
+  .service-card h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .service-card p { color: var(--gray); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+  .service-price { color: var(--lime); font-weight: bold; }
+
+  /* LEGACY */
+  .legacy-section { padding: 90px 50px; background: var(--dark); }
+  .legacy-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .legacy-visual {
+    background: var(--dark-2); min-height: 400px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 1px solid rgba(106,191,60,0.15); gap: 20px;
+  }
+  .legacy-visual .big-num { font-size: 8rem; font-weight: 900; color: var(--lime); line-height: 1; }
+  .legacy-visual .big-label { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gray); }
+
+  /* HOURS */
+  .hours-section { background: var(--green); padding: 80px 50px; }
+  .hours-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .hours-inner .section-title { color: var(--white); }
+  .hours-table { width: 100%; }
+  .hours-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { color: rgba(255,255,255,0.6); }
+  .hours-time { color: var(--lime); font-weight: bold; }
+
+  /* REVIEWS */
+  .reviews-section { padding: 90px 50px; background: var(--dark-2); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; margin-top: 50px; background: rgba(106,191,60,0.05); }
+  .review-card { background: var(--dark); padding: 32px 28px; }
+  .stars { color: var(--lime); font-size: 0.9rem; margin-bottom: 14px; }
+  .review-text { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.7; margin-bottom: 14px; font-style: italic; }
+  .reviewer { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* CTA */
+  .cta-section { padding: 100px 50px; text-align: center; background: var(--lime); }
+  .cta-section h2 { font-size: 3rem; font-weight: 900; color: var(--dark); margin-bottom: 20px; text-transform: uppercase; }
+  .cta-section p { color: rgba(0,0,0,0.6); max-width: 500px; margin: 0 auto 40px; line-height: 1.7; }
+  .cta-section .btn-dark {
+    display: inline-block; padding: 16px 36px;
+    background: var(--dark); color: var(--lime);
+    font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-size: 0.85rem;
+    border: 2px solid var(--dark); transition: all 0.3s;
+  }
+  .cta-section .btn-dark:hover { background: var(--green); }
+  .cta-info { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-top: 50px; }
+  .cta-info-item strong { display: block; font-size: 1.1rem; color: var(--dark); }
+  .cta-info-item span { font-size: 0.8rem; color: rgba(0,0,0,0.55); }
+
+  footer { background: var(--dark); padding: 28px 50px; text-align: center; }
+  footer p { color: #333; font-size: 0.85rem; }
+  footer a { color: var(--lime); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-number { display: none; }
+    .services-section, .legacy-section, .reviews-section { padding: 60px 24px; }
+    .legacy-inner { grid-template-columns: 1fr; }
+    .hours-section { padding: 60px 24px; }
+    .hours-inner { grid-template-columns: 1fr; }
+    .cta-section { padding: 70px 24px; }
+    .cta-section h2 { font-size: 2rem; }
+    footer { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">JD's <span>Barber</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#legacy">Legacy</a>
+    <a href="#hours">Hours</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-number">22</div>
+  <div class="hero-year-badge">
+    <span>✂ In Business Since 2004</span>
+  </div>
+  <h1>Northeast Philly's <span class="accent">Trusted</span> Barber.</h1>
+  <p class="hero-sub">22 years of fresh cuts on Aldine Street. JD's Barber Shop is where the neighborhood comes for clean fades, classic cuts, and a barber that knows your name.</p>
+  <div class="hero-cta">
+    <a href="tel:2153384034" class="btn-lime">Call (215) 338-4034</a>
+    <a href="#services" class="btn-wire">See Services</a>
+  </div>
+</section>
+
+<!-- DECADE STRIP -->
+<div class="decade-strip">
+  <span class="decade-strip-text">✂ 22 Years Serving Northeast Philadelphia · Walk-Ins Welcome · Trusted by Thousands</span>
+  <span class="decade-pill">Est. 2004</span>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-inner">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title">Services & Pricing</h2>
+    <p class="section-sub">No frills. No gimmicks. Just great haircuts from a barber who's been at it for over two decades.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Men's Haircut</h3>
+        <p>Classic and modern cuts. Scissor, clipper, or a blend — whatever fits your style and your face shape. Every cut comes with a lineup.</p>
+        <div class="service-price">$18 – $25</div>
+      </div>
+      <div class="service-card">
+        <h3>Fade</h3>
+        <p>Skin fade, low, mid, or high. JD's fades are clean, tight, and even — the kind you have to show off to people.</p>
+        <div class="service-price">$22 – $30</div>
+      </div>
+      <div class="service-card">
+        <h3>Lineup & Edge Up</h3>
+        <p>Crisp hairline, temple cleanup, and sideburn shaping. Add this to any cut for a sharper finish.</p>
+        <div class="service-price">$10</div>
+      </div>
+      <div class="service-card">
+        <h3>Beard Trim</h3>
+        <p>Shape, trim, and define your beard. Straight razor finish for a clean, polished look.</p>
+        <div class="service-price">$12 – $18</div>
+      </div>
+      <div class="service-card">
+        <h3>Kids Cut (Under 12)</h3>
+        <p>Patient and precise. We take our time with the little ones so they look great and actually sit still for the picture.</p>
+        <div class="service-price">$15</div>
+      </div>
+      <div class="service-card">
+        <h3>Full Combo</h3>
+        <p>Haircut, lineup, and beard all in one visit. Show up fresh, leave looking your best.</p>
+        <div class="service-price">$30 – $40</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGACY -->
+<section class="legacy-section" id="legacy">
+  <div class="legacy-inner">
+    <div class="legacy-visual">
+      <div class="big-num">22</div>
+      <div class="big-label">Years in Business</div>
+    </div>
+    <div>
+      <span class="section-label">Our Story</span>
+      <h2 class="section-title">Built on Trust. Built in Philly.</h2>
+      <p class="section-sub">JD's Barber Shop opened its doors over 22 years ago on Aldine Street and never left. While businesses come and go, JD's has stayed — because when you do great work and treat people right, they keep coming back.</p>
+      <p class="section-sub" style="margin-top:16px;">Three generations of families from Northeast Philadelphia have gotten their haircuts here. Fathers who came as kids now bring their own sons. That kind of loyalty is built one cut at a time.</p>
+      <p class="section-sub" style="margin-top:16px;">If you're in the 19136 area and haven't been — it's time to come in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<div class="hours-section" id="hours">
+  <div class="hours-inner">
+    <div>
+      <span class="section-label">When to Come</span>
+      <h2 class="section-title">Hours of Operation</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.6);">Walk-ins always welcome — no appointment needed. Just come in when you're ready and we'll take care of you like we always have.</p>
+      <br><br>
+      <a href="tel:2153384034" class="btn-lime">Call (215) 338-4034</a>
+    </div>
+    <div>
+      <div class="hours-table">
+        <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">9:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">8:00 AM – 5:00 PM</span></div>
+        <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time" style="color:#555">Closed</span></div>
+      </div>
+      <p style="color:var(--gray); font-size:0.82rem; margin-top:20px;">Hours may vary. Call to confirm: <a href="tel:2153384034" style="color:var(--lime)">(215) 338-4034</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="section-inner">
+    <span class="section-label">Community</span>
+    <h2 class="section-title">What Northeast Philly Says</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"My father took me here when I was 8. Now I take my son. 22 years later and JD still gives the cleanest fade in the neighborhood. Some things don't change."</p>
+        <div class="reviewer">— Google Review, Long-time Client</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Best kept secret on Aldine. No fancy shop, no long waits, just a good barber who takes pride in his work. My go-to for years."</p>
+        <div class="reviewer">— Local Review</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Walk-ins always get taken care of fast. JD is personable, professional, and his cuts last. Doesn't matter who I'm seeing after — I always come in sharp."</p>
+        <div class="reviewer">— Mayfair Resident</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2>Come See JD.</h2>
+  <p>Walk in any day of the week. 22 years of great cuts and counting — you've got nothing to worry about.</p>
+  <a href="tel:2153384034" class="btn-dark">Call (215) 338-4034</a>
+  <div class="cta-info">
+    <div class="cta-info-item"><strong>3300 Aldine St</strong><span>Philadelphia, PA 19136</span></div>
+    <div class="cta-info-item"><strong>(215) 338-4034</strong><span>Call During Hours</span></div>
+    <div class="cta-info-item"><strong>Walk-Ins Only</strong><span>No Appointment Needed</span></div>
+    <div class="cta-info-item"><strong>22 Years</strong><span>In Business</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 JD's Barber Shop · 3300 Aldine St, Philadelphia PA 19136 · <a href="tel:2153384034">(215) 338-4034</a></p>
+</footer>
+</body>
+</html>
