@@ -384,5 +384,252 @@
   <div class="foot-contact">3300 Aldine St · (215) 338-4034</div>
 </footer>
 
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║           CUSTOM BOOKING SYSTEM                     ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<style>
+#bov{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px)}
+#bmod{background:#111111;border:1px solid #c9a07b44;border-radius:6px;width:100%;max-width:540px;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,0.8)}
+/* Header */
+#bhdr{background:#c9a07b;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+#bhdr-title{font-family:Georgia,serif;font-size:0.95rem;color:#111111;letter-spacing:0.04em;margin:0;font-weight:400}
+#bhdr-sub{font-family:Arial,sans-serif;font-size:0.65rem;color:#111111;opacity:0.65;letter-spacing:0.15em;text-transform:uppercase;margin-top:3px}
+#bclosebtn{background:none;border:none;color:#111111;font-size:1.5rem;cursor:pointer;opacity:0.65;line-height:1;padding:0 2px;transition:opacity .2s}
+#bclosebtn:hover{opacity:1}
+/* Steps indicator */
+#binds{display:flex;flex-shrink:0;background:#111111;border-bottom:1px solid rgba(255,255,255,0.06)}
+.bind{flex:1;padding:11px 4px;text-align:center;font-family:Arial,sans-serif;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.22);border-bottom:2px solid transparent;transition:all .3s;user-select:none}
+.bind.bactive{color:#c9a07b;border-color:#c9a07b}
+.bind.bdone{color:rgba(255,255,255,0.4)}
+/* Scrollable body */
+#bbody{padding:26px 22px;overflow-y:auto;flex:1}
+.bstep{display:none}
+.bstep.bshow{display:block;animation:bfade .25s ease}
+@keyframes bfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.bstitle{font-family:Georgia,serif;font-size:1.15rem;color:rgba(255,255,255,0.92);margin:0 0 18px;font-weight:400}
+/* Services */
+#bsvcs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bsvc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:4px;padding:14px;cursor:pointer;transition:all .2s}
+.bsvc:hover{border-color:#c9a07b;background:rgba(255,255,255,0.07)}
+.bsvc.bsel{border-color:#c9a07b;background:#c9a07b1a}
+.bsvc-n{font-family:Arial,sans-serif;font-size:0.81rem;color:rgba(255,255,255,0.85);margin-bottom:8px;line-height:1.3}
+.bsvc-m{display:flex;justify-content:space-between}
+.bsvc-p{font-family:Arial,sans-serif;font-size:0.88rem;color:#c9a07b;font-weight:700}
+.bsvc-d{font-family:Arial,sans-serif;font-size:0.65rem;color:rgba(255,255,255,0.28)}
+/* Calendar */
+#bcalnav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+#bcalmonth{font-family:Arial,sans-serif;font-size:0.82rem;color:rgba(255,255,255,0.8);letter-spacing:0.1em;text-transform:uppercase}
+.bcalnb{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);width:30px;height:30px;cursor:pointer;border-radius:3px;font-size:1rem;line-height:1;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.bcalnb:hover{border-color:#c9a07b;color:#c9a07b}
+#bcalgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.bcaldow{font-family:Arial,sans-serif;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);text-align:center;padding:5px 0}
+.bcalday{font-family:Arial,sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.72);text-align:center;padding:8px 2px;cursor:pointer;border-radius:3px;border:1px solid transparent;transition:all .15s}
+.bcalday:hover:not(.bdis):not(.bemp){border-color:#c9a07b;color:#c9a07b}
+.bcalday.bsel{background:#c9a07b;color:#111111;font-weight:700}
+.bcalday.bdis{color:rgba(255,255,255,0.14);cursor:not-allowed}
+.bcalday.bemp{cursor:default}
+.bcalday.btoday{border-color:rgba(255,255,255,0.18)}
+/* Times */
+#btgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.btime{font-family:Arial,sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.7);text-align:center;padding:11px 4px;border:1px solid rgba(255,255,255,0.09);border-radius:3px;cursor:pointer;transition:all .2s}
+.btime:hover{border-color:#c9a07b;color:#c9a07b}
+.btime.bsel{background:#c9a07b;color:#111111;border-color:#c9a07b;font-weight:700}
+/* Form */
+.bsum{background:rgba(255,255,255,0.04);border:1px solid #c9a07b33;border-radius:4px;padding:14px 16px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.bsum-i span{display:block}
+.bsuml{font-family:Arial,sans-serif;font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:#c9a07b;margin-bottom:3px}
+.bsumv{font-family:Arial,sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.82)}
+.bfield{margin-bottom:14px}
+.bfield label{display:block;font-family:Arial,sans-serif;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:7px}
+.bfield input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.11);border-radius:3px;padding:12px 13px;font-family:Arial,sans-serif;font-size:0.88rem;color:rgba(255,255,255,0.9);outline:none;transition:border-color .2s;box-sizing:border-box}
+.bfield input:focus{border-color:#c9a07b}
+.bfield input::placeholder{color:rgba(255,255,255,0.2)}
+#bferr{font-family:Arial,sans-serif;font-size:0.73rem;color:#e06060;margin-bottom:10px;display:none}
+#bcnfbtn{width:100%;padding:14px;background:#c9a07b;color:#111111;border:none;font-family:Arial,sans-serif;font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background .2s;border-radius:3px}
+#bcnfbtn:hover{background:#b48a62}
+/* Confirmation */
+#bchkwrap{text-align:center;padding:12px 0 24px}
+#bchk{width:70px;height:70px;background:#c9a07b;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:2.2rem;color:#111111;animation:bpop .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bpop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+#bchkwrap h2{font-family:Georgia,serif;font-size:1.55rem;color:rgba(255,255,255,0.95);font-weight:400;margin:0 0 6px}
+#bchkwrap .bchksub{font-family:Arial,sans-serif;font-size:0.84rem;color:rgba(255,255,255,0.42);margin-bottom:22px}
+#bcnfbox{background:rgba(255,255,255,0.04);border:1px solid #c9a07b33;border-radius:4px;padding:14px 18px;margin-bottom:18px;text-align:left}
+.bcrow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.bcrow:last-child{border-bottom:none}
+.bck{font-family:Arial,sans-serif;font-size:0.63rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+.bcv{font-family:Arial,sans-serif;font-size:0.82rem;color:rgba(255,255,255,0.85);text-align:right}
+#bcallnote{font-family:Arial,sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.65}
+#bcallnote strong{color:#c9a07b}
+#bdonebtn{width:100%;margin-top:14px;padding:13px;background:transparent;color:#c9a07b;border:1px solid #c9a07b;font-family:Arial,sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;border-radius:3px}
+#bdonebtn:hover{background:#c9a07b;color:#111111}
+/* Nav */
+#bnav{padding:14px 22px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;flex-shrink:0;min-height:52px}
+#bbackbtn{background:none;border:none;color:rgba(255,255,255,0.38);font-family:Arial,sans-serif;font-size:0.75rem;letter-spacing:0.1em;cursor:pointer;padding:6px 0;transition:color .2s}
+#bbackbtn:hover{color:rgba(255,255,255,0.75)}
+/* Responsive */
+@media(max-width:500px){#bsvcs{grid-template-columns:1fr}#btgrid{grid-template-columns:repeat(3,1fr)}#bsum{grid-template-columns:1fr 1fr}}
+</style>
+
+<div id="bov" onclick="if(event.target===this)bClose()">
+  <div id="bmod">
+    <div id="bhdr">
+      <div><div id="bhdr-title">Book an Appointment</div><div id="bhdr-sub">JD's Barber Shop</div></div>
+      <button id="bclosebtn" onclick="bClose()">✕</button>
+    </div>
+    <div id="binds">
+      <div class="bind bactive" id="bind1">Service</div>
+      <div class="bind" id="bind2">Date</div>
+      <div class="bind" id="bind3">Time</div>
+      <div class="bind" id="bind4">Your Info</div>
+    </div>
+    <div id="bbody">
+      <div class="bstep bshow" id="bst1">
+        <p class="bstitle">What service do you need?</p>
+        <div id="bsvcs"></div>
+      </div>
+      <div class="bstep" id="bst2">
+        <p class="bstitle">Pick a date</p>
+        <div id="bcalnav">
+          <button class="bcalnb" onclick="bCalMv(-1)">&#8249;</button>
+          <div id="bcalmonth"></div>
+          <button class="bcalnb" onclick="bCalMv(1)">&#8250;</button>
+        </div>
+        <div id="bcalgrid"></div>
+      </div>
+      <div class="bstep" id="bst3">
+        <p class="bstitle">Choose a time</p>
+        <div id="btgrid"></div>
+      </div>
+      <div class="bstep" id="bst4">
+        <p class="bstitle">Almost done</p>
+        <div class="bsum">
+          <div class="bsum-i"><span class="bsuml">Service</span><span class="bsumv" id="bsumS"></span></div>
+          <div class="bsum-i"><span class="bsuml">Date</span><span class="bsumv" id="bsumD"></span></div>
+          <div class="bsum-i"><span class="bsuml">Time</span><span class="bsumv" id="bsumT"></span></div>
+        </div>
+        <div class="bfield"><label>Your Name</label><input id="bnameinp" type="text" placeholder="First & last name" autocomplete="name"></div>
+        <div class="bfield"><label>Phone Number</label><input id="bphinp" type="tel" placeholder="(215) 555-0100" autocomplete="tel"></div>
+        <div id="bferr">Please fill in both fields to continue.</div>
+        <button id="bcnfbtn" onclick="bSubmit()">Confirm Booking &rarr;</button>
+      </div>
+      <div class="bstep" id="bst5">
+        <div id="bchkwrap">
+          <div id="bchk">&#10003;</div>
+          <h2>You&#39;re all set!</h2>
+          <p class="bchksub">Your request has been received.</p>
+          <div id="bcnfbox">
+            <div class="bcrow"><span class="bck">Service</span><span class="bcv" id="bcS"></span></div>
+            <div class="bcrow"><span class="bck">Date</span><span class="bcv" id="bcD"></span></div>
+            <div class="bcrow"><span class="bck">Time</span><span class="bcv" id="bcT"></span></div>
+            <div class="bcrow"><span class="bck">Price</span><span class="bcv" id="bcP"></span></div>
+          </div>
+          <p id="bcallnote">We&#39;ll call you at <strong id="bcPh"></strong> to confirm your appointment.</p>
+          <button id="bdonebtn" onclick="bClose()">Done &#10003;</button>
+        </div>
+      </div>
+    </div>
+    <div id="bnav"><button id="bbackbtn" onclick="bBack()" style="display:none">&#8592; Back</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+var CFG={name:'JD\'s Barber Shop',phone:'(215) 338-4034',openDays:[1, 2, 3, 4, 5, 6],openHour:9,closeHour:18,
+  services:[{name:"Haircut",price:"$18",dur:"30 min"},{name:"Fade (Low/Mid/High)",price:"$22",dur:"45 min"},{name:"Skin Fade",price:"$25",dur:"45 min"},{name:"Taper",price:"$20",dur:"40 min"},{name:"Lineup / Edge Up",price:"$8",dur:"15 min"},{name:"Beard Trim",price:"$12",dur:"20 min"},{name:"Cut + Beard Combo",price:"$32",dur:"50 min"},{name:"Kids' Cut (12 & under)",price:"$15",dur:"25 min"}]};
+var S={step:1,svc:null,date:null,time:null,calD:new Date()};
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+window.openBooking=function(){
+  document.getElementById('bov').style.display='flex';
+  document.body.style.overflow='hidden';
+  S={step:1,svc:null,date:null,time:null,calD:new Date()};
+  bGo(1); bRenderSvcs();
+};
+window.bClose=function(){
+  document.getElementById('bov').style.display='none';
+  document.body.style.overflow='';
+};
+window.bBack=function(){if(S.step>1)bGo(S.step-1);};
+window.bCalMv=function(d){S.calD=new Date(S.calD.getFullYear(),S.calD.getMonth()+d,1);bRenderCal();};
+window.bSubmit=function(){
+  var n=document.getElementById('bnameinp').value.trim();
+  var p=document.getElementById('bphinp').value.trim();
+  var e=document.getElementById('bferr');
+  if(!n||!p){e.style.display='block';return;}
+  e.style.display='none';
+  document.getElementById('bcS').textContent=S.svc.name;
+  document.getElementById('bcD').textContent=S.date;
+  document.getElementById('bcT').textContent=S.time;
+  document.getElementById('bcP').textContent=S.svc.price;
+  document.getElementById('bcPh').textContent=p;
+  bGo(5);
+};
+
+function bGo(n){
+  S.step=n;
+  document.querySelectorAll('.bstep').forEach(function(e){e.classList.remove('bshow');});
+  document.getElementById('bst'+n).classList.add('bshow');
+  [1,2,3,4].forEach(function(i){
+    var el=document.getElementById('bind'+i);
+    el.className='bind'+(i===n?' bactive':i<n?' bdone':'');
+  });
+  document.getElementById('bbackbtn').style.display=(n>1&&n<5)?'block':'none';
+  if(n===2)bRenderCal();
+  if(n===3)bRenderTimes();
+  if(n===4){document.getElementById('bsumS').textContent=S.svc.name;document.getElementById('bsumD').textContent=S.date?S.date.split(',')[0]:'-';document.getElementById('bsumT').textContent=S.time||'-';}
+}
+
+function bRenderSvcs(){
+  var g=document.getElementById('bsvcs');g.innerHTML='';
+  CFG.services.forEach(function(svc){
+    var d=document.createElement('div');
+    d.className='bsvc'+(S.svc&&S.svc.name===svc.name?' bsel':'');
+    d.innerHTML='<div class="bsvc-n">'+svc.name+'</div><div class="bsvc-m"><span class="bsvc-p">'+svc.price+'</span><span class="bsvc-d">'+svc.dur+'</span></div>';
+    (function(sv,el){el.onclick=function(){S.svc=sv;document.querySelectorAll('.bsvc').forEach(function(c){c.classList.remove('bsel');});el.classList.add('bsel');setTimeout(function(){bGo(2);},320);};})(svc,d);
+    g.appendChild(d);
+  });
+}
+
+function bRenderCal(){
+  var now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var m=S.calD.getMonth(),y=S.calD.getFullYear();
+  document.getElementById('bcalmonth').textContent=MONTHS[m]+' '+y;
+  var g=document.getElementById('bcalgrid');g.innerHTML='';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(function(dw){var e=document.createElement('div');e.className='bcaldow';e.textContent=dw;g.appendChild(e);});
+  var first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='bcalday bemp';g.appendChild(e);}
+  for(var day=1;day<=days;day++){
+    var el=document.createElement('div');el.className='bcalday';
+    var dt=new Date(y,m,day),dow=dt.getDay();
+    var ds=MONTHS[m]+' '+day+', '+y;
+    var isPast=dt<today,isClosed=CFG.openDays.indexOf(dow)===-1;
+    if(isPast||isClosed){el.classList.add('bdis');}
+    else{
+      if(S.date===ds)el.classList.add('bsel');
+      if(dt.getTime()===today.getTime())el.classList.add('btoday');
+      (function(dStr,elem){elem.onclick=function(){S.date=dStr;document.querySelectorAll('.bcalday').forEach(function(c){c.classList.remove('bsel');});elem.classList.add('bsel');setTimeout(function(){bGo(3);},320);};})(ds,el);
+    }
+    el.textContent=day;g.appendChild(el);
+  }
+}
+
+function bRenderTimes(){
+  var g=document.getElementById('btgrid');g.innerHTML='';
+  for(var h=CFG.openHour;h<CFG.closeHour;h++){
+    [':00',':30'].forEach(function(min){
+      var ampm=h<12?'AM':'PM',hh=h%12||12;
+      var t=hh+min+' '+ampm;
+      var el=document.createElement('div');el.className='btime'+(S.time===t?' bsel':'');
+      el.textContent=t;
+      (function(tm,elem){elem.onclick=function(){S.time=tm;document.querySelectorAll('.btime').forEach(function(c){c.classList.remove('bsel');});elem.classList.add('bsel');setTimeout(function(){bGo(4);},280);};})(t,el);
+      g.appendChild(el);
+    });
+  }
+}
+})();
+</script>
+<!-- ══════════════════════════════════════════════════════ -->
+
 </body>
 </html>
