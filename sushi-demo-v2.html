@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="description" content="Sa Sushi — Fresh handcrafted sushi rolls, sashimi and nigiri in Northeast Philadelphia. Order via WhatsApp, DoorDash, or Uber Eats."/>
+  <title>Sa Sushi — Northeast Philadelphia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --sage:#7D9150;--sage2:#9aab5e;--sage3:#b8cc88;--olive:#4a5e28;
+      --cream:#F7F4EC;--cream2:#EDE9DF;--dark:#1a1a16;--mid:#5a5648;--muted:#9a9080;
+      --white:#FDFCF8;--green:#25D366;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);color:var(--dark);font-family:"DM Sans",sans-serif;overflow-x:hidden}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--sage);border-radius:2px}
+
+    /* ANNOUNCEMENT BAR */
+    .ann-bar{background:var(--sage);padding:9px 24px;text-align:center;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.9);font-weight:600}
+    .ann-bar a{color:rgba(255,255,255,.75);text-decoration:none;margin-left:16px;border-bottom:1px solid rgba(255,255,255,.3)}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:200;padding:0 60px;display:flex;align-items:center;justify-content:space-between;height:76px;background:var(--cream);border-bottom:1px solid rgba(125,145,80,.15);transition:box-shadow .4s}
+    nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.07)}
+    .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .nav-logo svg{width:44px;height:44px;flex-shrink:0}
+    .nav-logo-text{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-weight:500;color:var(--dark);line-height:1}
+    .nav-logo-text span{display:block;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);font-family:"DM Sans",sans-serif;font-weight:500;margin-top:1px}
+    .nav-links{display:flex;gap:40px;list-style:none}
+    .nav-links a{font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .3s;font-weight:500}
+    .nav-links a:hover{color:var(--sage)}
+    .nav-cta{font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--white);background:var(--green);padding:11px 22px;text-decoration:none;font-weight:700;transition:background .3s}
+    .nav-cta:hover{background:#1fba59}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:24px;height:1.5px;background:var(--dark);border-radius:2px;transition:all .3s}
+    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+    .mobile-nav{position:fixed;inset:0;z-index:190;background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .3s}
+    .mobile-nav.open{opacity:1;pointer-events:all}
+    .m-nav-link{font-family:"Cormorant Garamond",serif;font-size:3rem;font-weight:300;color:var(--dark);text-decoration:none;letter-spacing:.04em;transition:color .3s}
+    .m-nav-link:hover{color:var(--sage)}
+
+    /* HERO — full bleed with overlay (proven structure) */
+    .hero{
+      position:relative;
+      width:100%;
+      height:88vh;
+      min-height:560px;
+      background:url("https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1600&q=90") center 35%/cover no-repeat;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(105deg, rgba(247,244,236,.97) 0%, rgba(247,244,236,.92) 44%, rgba(247,244,236,.55) 68%, rgba(0,0,0,0) 100%);
+      z-index:1;
+    }
+    .hero-inner{
+      position:relative;z-index:2;
+      padding:0 80px;
+      max-width:620px;
+    }
+    .hero-badge-wrap{margin-bottom:32px}
+    .hero-badge-wrap svg{width:96px;height:96px}
+    .hero-eyebrow{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+    .hero-eyebrow::before{content:"";display:block;width:24px;height:1px;background:var(--sage)}
+    .hero-heading{font-family:"Cormorant Garamond",serif;font-size:clamp(3.4rem,5.5vw,5.8rem);font-weight:300;line-height:.95;color:var(--dark);margin-bottom:22px}
+    .hero-heading em{font-style:italic;color:var(--sage)}
+    .hero-sub{font-size:.82rem;line-height:1.9;color:var(--mid);margin-bottom:36px;max-width:400px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-wa{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;padding:13px 28px;text-decoration:none;font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;transition:background .3s,transform .2s}
+    .btn-wa:hover{background:#1fba59;transform:translateY(-2px)}
+    .btn-sage{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--sage);border:1px solid rgba(125,145,80,.5);padding:13px 28px;text-decoration:none;font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;transition:all .3s}
+    .btn-sage:hover{background:var(--sage);color:#fff;border-color:var(--sage)}
+
+    /* MARQUEE */
+    .marquee{background:var(--dark);overflow:hidden;padding:12px 0}
+    .mq-track{display:flex;animation:mq 26s linear infinite;white-space:nowrap}
+    .mq-item{flex-shrink:0;padding:0 28px;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:500;display:flex;align-items:center;gap:24px}
+    .mq-dot{width:3px;height:3px;background:var(--sage2);border-radius:50%}
+    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes heroZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+
+    /* COMMONS */
+    .s-label{font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;color:var(--sage);margin-bottom:10px}
+    .s-head{font-family:"Cormorant Garamond",serif;font-size:clamp(2.6rem,4.5vw,4rem);font-weight:300;line-height:1.05;color:var(--dark)}
+    .s-head em{font-style:italic;color:var(--sage)}
+    .btn-ghost-sage{display:inline-block;border:1px solid rgba(125,145,80,.35);color:var(--sage);padding:13px 40px;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:background .3s,color .3s,border-color .3s}
+    .btn-ghost-sage:hover{background:var(--sage);color:#fff;border-color:var(--sage)}
+
+    /* FEATURED */
+    .featured-sec{padding:100px 60px;background:var(--white)}
+    .featured-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px}
+    .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .feat-card{background:var(--cream);overflow:hidden;transition:transform .4s,box-shadow .4s}
+    .feat-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.1)}
+    .feat-img{height:260px;background-size:cover;background-position:center;transition:transform .6s}
+    .feat-card:hover .feat-img{transform:scale(1.04)}
+    .feat-body{padding:28px 28px 32px}
+    .feat-tag{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+    .feat-name{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:400;color:var(--dark);margin-bottom:8px;line-height:1.15}
+    .feat-desc{font-size:.73rem;line-height:1.75;color:var(--muted);margin-bottom:18px}
+    .feat-foot{display:flex;justify-content:space-between;align-items:center}
+    .feat-price{font-family:"Cormorant Garamond",serif;font-size:1.4rem;color:var(--sage);font-style:italic}
+    .feat-order{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap .3s}
+    .feat-card:hover .feat-order{gap:8px}
+    .feat-order::after{content:"→"}
+
+    /* MENU */
+    .menu-sec{padding:100px 60px;background:var(--cream)}
+    .menu-hdr{margin-bottom:16px}
+    .menu-tabs{display:flex;border-bottom:1px solid rgba(125,145,80,.15);margin-top:36px;overflow-x:auto;scrollbar-width:none}
+    .menu-tabs::-webkit-scrollbar{display:none}
+    .menu-tab{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:11px 22px;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:color .3s,border-color .3s;background:none;border-top:none;border-left:none;border-right:none;font-family:"DM Sans",sans-serif;font-weight:500;white-space:nowrap;flex-shrink:0}
+    .menu-tab.active{color:var(--sage);border-bottom-color:var(--sage)}
+    .menu-tab:hover{color:var(--dark)}
+    .menu-panel{display:none;padding-top:40px}
+    .menu-panel.active{display:block}
+    .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(125,145,80,.08)}
+    .mi{background:var(--cream);padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;transition:background .3s}
+    .mi:hover{background:var(--cream2)}
+    .mi-name{font-family:"Cormorant Garamond",serif;font-size:1.15rem;font-weight:400;color:var(--dark);margin-bottom:4px;line-height:1.2}
+    .mi-desc{font-size:.71rem;line-height:1.7;color:var(--muted)}
+    .mi-price{font-family:"Cormorant Garamond",serif;font-size:1.12rem;color:var(--sage);font-style:italic;white-space:nowrap;padding-top:2px}
+    .menu-cta-row{text-align:center;margin-top:48px}
+
+    /* ORDER */
+    .order-sec{padding:100px 60px;background:var(--white);position:relative;overflow:hidden}
+    .order-sec::before{content:"注文";position:absolute;font-family:"Cormorant Garamond",serif;font-size:22vw;color:rgba(125,145,80,.04);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap}
+    .order-hdr{text-align:center;margin-bottom:60px}
+    .order-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:0 auto}
+    .oc{background:var(--cream);padding:44px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;text-decoration:none;color:var(--dark);transition:background .3s,transform .3s,box-shadow .3s;border:1px solid rgba(125,145,80,.1)}
+    .oc:hover{background:var(--white);transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.08);border-color:var(--oc-color,var(--sage))}
+    .oc-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+    .oc-platform{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--oc-color,var(--sage))}
+    .oc-name{font-family:"Cormorant Garamond",serif;font-size:1.4rem;font-weight:400;color:var(--dark)}
+    .oc-desc{font-size:.7rem;line-height:1.7;color:var(--muted)}
+    .oc-btn{font-size:.59rem;letter-spacing:.16em;text-transform:uppercase;color:var(--oc-color,var(--sage));font-weight:600;margin-top:auto;display:flex;align-items:center;gap:4px}
+    .oc-btn::after{content:"→";transition:transform .3s}
+    .oc:hover .oc-btn::after{transform:translateX(4px)}
+
+    /* GALLERY */
+    .gallery-sec{background:var(--cream2)}
+    .gallery-label-row{padding:60px 60px 40px;display:flex;justify-content:space-between;align-items:flex-end}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:280px 280px;gap:3px}
+    .gc{overflow:hidden;position:relative;cursor:pointer}
+    .gc:nth-child(1){grid-column:1/3;grid-row:1/2}
+    .gc:nth-child(2){grid-column:3/4}
+    .gc:nth-child(3){grid-column:4/5}
+    .gc:nth-child(4){grid-column:1/2}
+    .gc:nth-child(5){grid-column:2/4}
+    .gc:nth-child(6){grid-column:4/5}
+    .gc-img{width:100%;height:100%;background-size:cover;background-position:center;filter:brightness(.82) saturate(.9);transition:transform .7s,filter .5s}
+    .gc:hover .gc-img{transform:scale(1.06);filter:brightness(.95) saturate(1.1)}
+    .gc-ov{position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(to top,rgba(20,20,16,.55),transparent 55%);opacity:0;transition:opacity .4s}
+    .gc:hover .gc-ov{opacity:1}
+    .gc-label{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+
+    /* ABOUT */
+    .about-sec{padding:120px 60px;background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+    .about-logo{width:160px;height:160px;margin-bottom:36px}
+    .about-head{font-family:"Cormorant Garamond",serif;font-size:clamp(2.2rem,3.5vw,3.4rem);font-weight:300;line-height:1.15;color:var(--dark);margin-bottom:24px}
+    .about-head em{font-style:italic;color:var(--sage)}
+    .about-body{font-size:.83rem;line-height:2;color:var(--muted);margin-bottom:14px}
+    .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-top:36px;border-top:1px solid rgba(125,145,80,.15);margin-top:20px}
+    .stat-n{font-family:"Cormorant Garamond",serif;font-size:2.6rem;font-weight:300;color:var(--sage);line-height:1;margin-bottom:4px}
+    .stat-l{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .about-photo{width:100%;height:520px;background:url("https://images.unsplash.com/photo-1617196034183-421b4040ed20?auto=format&fit=crop&w=800&q=85") center/cover no-repeat;filter:brightness(.88)}
+
+    /* HOURS */
+    .hours-sec{padding:100px 60px;background:var(--dark);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .hours-head{font-family:"Cormorant Garamond",serif;font-size:clamp(2.8rem,4.5vw,4.5rem);font-weight:300;line-height:1.05;color:#fff;margin-bottom:20px}
+    .hours-head em{font-style:italic;color:var(--sage2)}
+    .hours-sub{font-size:.8rem;line-height:1.85;color:rgba(255,255,255,.45);margin-bottom:28px}
+    .hours-phone{font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:rgba(255,255,255,.8)}
+    .hours-addr{font-size:.8rem;line-height:1.8;color:rgba(255,255,255,.5);margin-top:6px}
+    .hr-row{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+    .hr-row:first-child{border-top:1px solid rgba(255,255,255,.07)}
+    .hr-day{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:500}
+    .hr-time{font-family:"Cormorant Garamond",serif;font-size:1.1rem;color:#fff}
+    .hr-badge{background:rgba(125,145,80,.2);border:1px solid rgba(125,145,80,.3);font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sage2);padding:3px 9px}
+    .platforms-row{margin-top:32px;padding-top:32px;border-top:1px solid rgba(255,255,255,.07)}
+    .platforms-label{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+    .platforms-pills{display:flex;gap:10px;flex-wrap:wrap}
+    .platform-pill{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.1);padding:5px 14px;transition:border-color .3s,color .3s}
+    .platform-pill:hover{border-color:var(--sage2);color:var(--sage2)}
+
+    /* FOOTER */
+    footer{background:#0e0e0b;padding:60px 60px 30px;border-top:1px solid rgba(255,255,255,.05)}
+    .ft-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:44px;gap:40px}
+    .ft-logo-wrap{display:flex;align-items:center;gap:14px}
+    .ft-logo-wrap svg{width:48px;height:48px;flex-shrink:0}
+    .ft-logo-txt{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:300;color:var(--cream)}
+    .ft-logo-txt span{display:block;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage2);font-family:"DM Sans",sans-serif;margin-top:2px}
+    .ft-cols{display:flex;gap:52px}
+    .ft-col-title{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sage2);margin-bottom:14px}
+    .ft-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+    .ft-links a{font-size:.73rem;color:rgba(242,237,230,.28);text-decoration:none;transition:color .3s}
+    .ft-links a:hover{color:var(--sage2)}
+    .ft-btm{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.05)}
+    .ft-copy{font-size:.64rem;color:rgba(242,237,230,.18)}
+    .ft-ig a{font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,237,230,.28);text-decoration:none;transition:color .3s}
+    .ft-ig a:hover{color:var(--sage2)}
+
+    /* SCROLL TOP */
+    .scroll-top{position:fixed;bottom:32px;left:32px;z-index:300;width:44px;height:44px;background:var(--sage);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s,background .3s}
+    .scroll-top.visible{opacity:1;transform:translateY(0)}
+    .scroll-top:hover{background:var(--olive)}
+
+    /* LIGHTBOX */
+    .lightbox{position:fixed;inset:0;z-index:2000;background:rgba(10,10,8,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+    .lightbox.open{opacity:1;pointer-events:all}
+    .lb-img{width:900px;height:600px;max-width:90vw;max-height:85vh;background-size:cover;background-position:center;transform:scale(.94);transition:transform .35s}
+    .lightbox.open .lb-img{transform:scale(1)}
+    .lb-close{position:absolute;top:22px;right:26px;font-size:2rem;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer;line-height:1;transition:color .2s}
+    .lb-close:hover{color:var(--sage2)}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:1.8rem;color:rgba(255,255,255,.25);background:none;border:none;cursor:pointer;padding:20px 14px;transition:color .2s}
+    .lb-nav:hover{color:var(--sage2)}
+    .lb-prev{left:10px}.lb-next{right:10px}
+
+    /* NEXO */
+    #nexoBadge{position:fixed;bottom:32px;right:32px;z-index:500;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(90,86,72,.4);cursor:pointer;transition:color .3s;background:none;border:none;padding:0;font-family:"DM Sans",sans-serif;font-weight:500}
+    #nexoBadge:hover{color:var(--dark)}
+    #nexoPopup{position:fixed;bottom:60px;right:32px;z-index:499;width:232px;background:rgba(247,244,236,.97);border:1px solid rgba(125,145,80,.2);backdrop-filter:blur(20px);padding:20px 22px;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .3s,transform .3s}
+    #nexoPopup.open{opacity:1;pointer-events:all;transform:translateY(0)}
+    .np-label{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+    .np-brand{font-size:.98rem;font-weight:600;color:var(--dark);margin-bottom:3px}
+    .np-handle{font-size:.7rem;color:var(--muted);margin-bottom:14px}
+    .np-cta{display:block;text-align:center;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;padding:9px;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;text-decoration:none}
+
+
+    /* ABOUT PHOTOS */
+    .about-photos-col{display:flex;flex-direction:column;gap:12px}
+    .about-photo-main{height:340px;background:url("https://images.unsplash.com/photo-1617196034183-421b4040ed20?auto=format&fit=crop&w=800&q=85") center 40%/cover no-repeat;filter:brightness(.88)}
+    .about-photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .about-photo-sm{height:200px;background-size:cover;filter:brightness(.85);transition:filter .4s}
+    .about-photo-sm:hover{filter:brightness(.95)}
+
+    /* WHY SECTION */
+    .why-sec{padding:100px 60px;background:var(--cream2)}
+    .why-inner{max-width:1100px;margin:0 auto}
+    .why-hdr{text-align:center;margin-bottom:56px}
+    .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .why-card{background:var(--cream);padding:36px 28px;border-bottom:2px solid transparent;transition:border-color .3s,transform .3s,box-shadow .3s}
+    .why-card:hover{border-bottom-color:var(--sage);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.07)}
+    .why-icon{font-size:1.8rem;margin-bottom:16px}
+    .why-title{font-family:"Cormorant Garamond",serif;font-size:1.3rem;font-weight:400;color:var(--dark);margin-bottom:10px}
+    .why-desc{font-size:.75rem;line-height:1.8;color:var(--muted)}
+
+    /* REVIEWS */
+    .reviews-sec{padding:100px 60px;background:var(--white)}
+    .reviews-hdr{text-align:center;margin-bottom:52px}
+    .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+    .rv{background:var(--cream);padding:36px 32px;position:relative}
+    .rv::before{content:'"';font-family:"Cormorant Garamond",serif;font-size:5rem;color:var(--sage3);position:absolute;top:16px;left:24px;line-height:1;opacity:.6}
+    .rv-stars{color:var(--sage);font-size:.85rem;margin-bottom:16px;letter-spacing:2px}
+    .rv-text{font-size:.8rem;line-height:1.85;color:var(--mid);margin-bottom:20px;padding-top:8px}
+    .rv-author{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+    @media(max-width:900px){
+      .why-grid{grid-template-columns:1fr 1fr}
+      .reviews-grid{grid-template-columns:1fr}
+      .about-photo-main,.about-photo-sm{height:220px}
+      .why-sec,.reviews-sec{padding:72px 24px}
+    }
+
+    /* SCROLL REVEAL */
+    .rup{opacity:0;transform:translateY(28px)}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      nav{padding:0 24px}
+      .nav-links,.nav-cta{display:none}
+      .hamburger{display:flex}
+      .hero-inner{padding:0 28px}
+      .featured-sec,.menu-sec,.order-sec,.about-sec,.hours-sec,footer{padding:72px 24px}
+      .featured-hdr{flex-direction:column;align-items:flex-start;gap:16px}
+      .featured-grid{grid-template-columns:1fr}
+      .menu-grid,.about-sec,.hours-sec{grid-template-columns:1fr}
+      .about-photo{height:320px}
+      .order-grid{grid-template-columns:1fr 1fr}
+      .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:220px 220px 220px}
+      .gc:nth-child(1),.gc:nth-child(2),.gc:nth-child(3),.gc:nth-child(4),.gc:nth-child(5),.gc:nth-child(6){grid-column:auto;grid-row:auto}
+      .gallery-label-row{padding:40px 24px 24px;flex-direction:column;gap:16px}
+      .ft-top{flex-direction:column}
+      .ft-cols{flex-wrap:wrap;gap:28px}
+      .ft-btm{flex-direction:column;gap:10px;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ann-bar">Order Now &nbsp;·&nbsp; WhatsApp · DoorDash · Uber Eats · GrubHub &nbsp;<a href="#order">See options →</a></div>
+
+  <nav id="nav">
+    <a href="#" class="nav-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" fill="#f7f4ec" stroke="#9aab5e" stroke-width="1.2" stroke-dasharray="4,5.5"/>
+        <path id="nt" d="M 28,100 A 72,72 0 0,1 172,100" fill="none"/>
+        <text font-size="14" font-family="DM Sans,sans-serif" font-weight="600" fill="#1a1a16" letter-spacing="4"><textPath href="#nt" startOffset="14%">SA  SUSHI</textPath></text>
+        <line x1="100" y1="145" x2="100" y2="72" stroke="#7d9150" stroke-width="1.4" stroke-linecap="round"/>
+        <ellipse cx="100" cy="67" rx="9" ry="18" fill="#9aab5e" transform="rotate(-4,100,67)" opacity=".85"/>
+        <ellipse cx="87" cy="86" rx="7.5" ry="15" fill="#7d9150" transform="rotate(-38,87,86)" opacity=".8"/>
+        <ellipse cx="113" cy="86" rx="7.5" ry="15" fill="#7d9150" transform="rotate(38,113,86)" opacity=".8"/>
+        <ellipse cx="90" cy="108" rx="6.5" ry="13" fill="#9aab5e" transform="rotate(-32,90,108)" opacity=".7"/>
+        <ellipse cx="110" cy="108" rx="6.5" ry="13" fill="#9aab5e" transform="rotate(32,110,108)" opacity=".7"/>
+        <ellipse cx="100" cy="128" rx="5.5" ry="11" fill="#b8cc88" opacity=".6"/>
+      </svg>
+      <div class="nav-logo-text">Sa Sushi<span>Northeast Philadelphia</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#hours">Hours</a></li>
+    </ul>
+    <a href="https://api.whatsapp.com/message/YZTX2WNJKGCQA1?autoload=1&app_absent=0" class="nav-cta" target="_blank">&#128172; WhatsApp</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-badge-wrap">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#9aab5e" stroke-width="1.2" stroke-dasharray="4,5.5"/>
+          <path id="ht" d="M 28,100 A 72,72 0 0,1 172,100" fill="none"/>
+          <text font-size="14" font-family="DM Sans,sans-serif" font-weight="600" fill="#1a1a16" letter-spacing="4"><textPath href="#ht" startOffset="14%">SA  SUSHI</textPath></text>
+          <line x1="100" y1="145" x2="100" y2="72" stroke="#7d9150" stroke-width="1.4" stroke-linecap="round"/>
+          <ellipse cx="100" cy="67" rx="9" ry="18" fill="#9aab5e" transform="rotate(-4,100,67)" opacity=".85"/>
+          <ellipse cx="87" cy="86" rx="7.5" ry="15" fill="#7d9150" transform="rotate(-38,87,86)" opacity=".8"/>
+          <ellipse cx="113" cy="86" rx="7.5" ry="15" fill="#7d9150" transform="rotate(38,113,86)" opacity=".8"/>
+          <ellipse cx="90" cy="108" rx="6.5" ry="13" fill="#9aab5e" transform="rotate(-32,90,108)" opacity=".7"/>
+          <ellipse cx="110" cy="108" rx="6.5" ry="13" fill="#9aab5e" transform="rotate(32,110,108)" opacity=".7"/>
+          <ellipse cx="100" cy="128" rx="5.5" ry="11" fill="#b8cc88" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="hero-eyebrow">Northeast Philadelphia</div>
+      <h1 class="hero-heading">Fresh<br /><em>Japanese</em><br />Sushi</h1>
+      <p class="hero-sub">Handcrafted rolls, premium sashimi, and nigiri — made fresh to order. Message us on WhatsApp or order through your favorite app.</p>
+      <div class="hero-actions">
+        <a href="https://api.whatsapp.com/message/YZTX2WNJKGCQA1?autoload=1&app_absent=0" class="btn-wa" target="_blank">&#128172; Order on WhatsApp</a>
+        <a href="#menu" class="btn-sage">View Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="mq-track">
+      <div class="mq-item">Hot Rolls<span class="mq-dot"></span>Uramaki<span class="mq-dot"></span>Sashimi<span class="mq-dot"></span>Nigiri<span class="mq-dot"></span>Chef's Specials<span class="mq-dot"></span>WhatsApp Orders<span class="mq-dot"></span>DoorDash<span class="mq-dot"></span>Uber Eats<span class="mq-dot"></span>GrubHub<span class="mq-dot"></span>Fresh Daily<span class="mq-dot"></span></div>
+      <div class="mq-item">Hot Rolls<span class="mq-dot"></span>Uramaki<span class="mq-dot"></span>Sashimi<span class="mq-dot"></span>Nigiri<span class="mq-dot"></span>Chef's Specials<span class="mq-dot"></span>WhatsApp Orders<span class="mq-dot"></span>DoorDash<span class="mq-dot"></span>Uber Eats<span class="mq-dot"></span>GrubHub<span class="mq-dot"></span>Fresh Daily<span class="mq-dot"></span></div>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <section class="featured-sec" id="featured">
+    <div class="featured-hdr">
+      <div><div class="s-label rup">Must Try</div><h2 class="s-head rup">Chef's <em>Favorites</em></h2></div>
+      <a href="#menu" class="btn-ghost-sage rup">Full Menu</a>
+    </div>
+    <div class="featured-grid">
+      <div class="feat-card">
+        <div class="feat-img" style="background-image:url('https://images.unsplash.com/photo-1582050609688-e0f07b900e3b?auto=format&fit=crop&w=700&q=85');background-position:center 40%"></div>
+        <div class="feat-body">
+          <div class="feat-tag">Hot Roll</div>
+          <div class="feat-name">Dragon Roll</div>
+          <div class="feat-desc">Shrimp tempura, cream cheese, avocado on top, eel sauce, sesame</div>
+          <div class="feat-foot"><span class="feat-price">$15</span><a href="https://api.whatsapp.com/message/YZTX2WNJKGCQA1" class="feat-order" target="_blank">Order</a></div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-img" style="background-image:url('https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=700&q=85');background-position:center 30%"></div>
+        <div class="feat-body">
+          <div class="feat-tag">Special Roll</div>
+          <div class="feat-name">Philly Especial</div>
+          <div class="feat-desc">Salmon, cream cheese, avocado, topped with tuna &amp; spicy mayo</div>
+          <div class="feat-foot"><span class="feat-price">$15</span><a href="https://api.whatsapp.com/message/YZTX2WNJKGCQA1" class="feat-order" target="_blank">Order</a></div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-img" style="background-image:url('https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=700&q=85');background-position:center 45%"></div>
+        <div class="feat-body">
+          <div class="feat-tag">Sashimi</div>
+          <div class="feat-name">Sashimi Deluxe</div>
+          <div class="feat-desc">Chef's selection of salmon, tuna, and yellowtail (15 pcs)</div>
+          <div class="feat-foot"><span class="feat-price">$36</span><a href="https://api.whatsapp.com/message/YZTX2WNJKGCQA1" class="feat-order" target="_blank">Order</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-sec" id="menu">
+    <div class="menu-hdr"><div class="s-label rup">Explore</div><h2 class="s-head rup">Our <em>Menu</em></h2></div>
+    <div class="menu-tabs">
+                  <button class="menu-tab active" data-tab="hot">Hot Rolls</button>
+      <button class="menu-tab" data-tab="ura">Uramaki Rolls</button>
+      <button class="menu-tab" data-tab="chefs">Chef's Specials</button>
+      <button class="menu-tab" data-tab="special">Special Rolls</button>
+      <button class="menu-tab" data-tab="app">Appetizers</button>
+      <button class="menu-tab" data-tab="sash">Sashimi</button>
+      <button class="menu-tab" data-tab="nig">Nigiri</button>
+      <button class="menu-tab" data-tab="hossmaki">Hossmaki Rolls</button>
+      <button class="menu-tab" data-tab="joes">Joes</button>
+      <button class="menu-tab" data-tab="temaki">Temaki</button>
+      <button class="menu-tab" data-tab="combo">Combo Boxes</button>
+      <button class="menu-tab" data-tab="party">Party Trays</button>
+    </div>
+    <div class="menu-panel active" data-panel="hot"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Hot Philly</div><div class="mi-desc">Cream cheese and salmon, topped with tartare sauce and scallions</div></div><div class="mi-price">$17.50</div></div>
+      <div class="mi"><div><div class="mi-name">Hot Camar&#227;o</div><div class="mi-desc">Cream cheese and shrimp, topped with tare sauce and scallions</div></div><div class="mi-price">$18.75</div></div>
+      <div class="mi"><div><div class="mi-name">Hot Camar&#227;o Tarta</div><div class="mi-desc">Shrimp, cream cheese, deep fried &mdash; topped with shrimp tartare, tare sauce and scallions</div></div><div class="mi-price">$20.00</div></div>
+      <div class="mi"><div><div class="mi-name">Hot Salm&#227;o Tartar</div><div class="mi-desc">Cream cheese and salmon, topped with salmon tartare, tare sauce and scallions</div></div><div class="mi-price">$20.00</div></div>
+      <div class="mi"><div><div class="mi-name">Hot Crispy</div><div class="mi-desc">Cream cheese and salmon, topped with crispy flakes, chili pepper jelly, tare, lemon zest and scallions</div></div><div class="mi-price">$18.75</div></div>
+      <div class="mi"><div><div class="mi-name">Hot Citrus</div><div class="mi-desc">Cream cheese, salmon, topped with breaded shrimp, pepper jelly, lemon zest and scallions</div></div><div class="mi-price">$20.00</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="ura"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Philly Roll</div><div class="mi-desc">Salmon, cream cheese</div></div><div class="mi-price">$13.75</div></div>
+      <div class="mi"><div><div class="mi-name">Monopoly</div><div class="mi-desc">Fried salmon with cream cheese, topped with tare sauce and special sauce</div></div><div class="mi-price">$15.00</div></div>
+      <div class="mi"><div><div class="mi-name">Dragon Roll</div><div class="mi-desc">Tempura shrimp, mayonnaise, tare sauce, scallions</div></div><div class="mi-price">$15.00</div></div>
+      <div class="mi"><div><div class="mi-name">Kani Tempura</div><div class="mi-desc">Kani tempura, cream cheese, topped with tare sauce</div></div><div class="mi-price">$12.50</div></div>
+      <div class="mi"><div><div class="mi-name">Kani Roll</div><div class="mi-desc">Kani, cream cheese</div></div><div class="mi-price">$10.00</div></div>
+      <div class="mi"><div><div class="mi-name">California</div><div class="mi-desc">Kani, mango, cucumber</div></div><div class="mi-price">$13.75</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="chefs"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Philly Especial</div><div class="mi-desc">Smoked salmon, cream cheese, scallions, topped with salmon</div></div><div class="mi-price">$17.50</div></div>
+      <div class="mi"><div><div class="mi-name">Shrimp Esp</div><div class="mi-desc">Breaded shrimp, cream cheese, topped with smoked salmon, pepper jelly, tare sauce</div></div><div class="mi-price">$17.50</div></div>
+      <div class="mi"><div><div class="mi-name">Kani Especial</div><div class="mi-desc">Crab, cream cheese, cucumber, green onion, topped with salmon, tare sauce and special sauce</div></div><div class="mi-price">$17.50</div></div>
+      <div class="mi"><div><div class="mi-name">Ebi Crispy</div><div class="mi-desc">Shrimp tartare topped with kani, crispy onions, pepper jelly, tare sauce, scallions, masago</div></div><div class="mi-price">$18.75</div></div>
+      <div class="mi"><div><div class="mi-name">Salm&#227;o Crispy</div><div class="mi-desc">Fried salmon, cream cheese, topped with crab, crispy onions, special sauce, tare, lemon zest, scallions</div></div><div class="mi-price">$18.75</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="special"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Shrimp Tempura</div><div class="mi-desc">Shrimp tempura, cream cheese, topped with shrimp, special sauce and tare sauce</div></div><div class="mi-price">$15.60</div></div>
+      <div class="mi"><div><div class="mi-name">Sophia Crispy</div><div class="mi-desc">Shrimp tempura, cream cheese, topped with salmon, pepper jelly, tare sauce, scallions, lemon zest and crispy onions</div></div><div class="mi-price">$18.00</div></div>
+      <div class="mi"><div><div class="mi-name">Salm&#227;o Esp</div><div class="mi-desc">Salmon tartare topped with torched salmon, tare sauce, and scallions</div></div><div class="mi-price">$15.60</div></div>
+      <div class="mi"><div><div class="mi-name">Tarta Ebi</div><div class="mi-desc">Shrimp tartare topped with salmon and tare sauce</div></div><div class="mi-price">$16.80</div></div>
+      <div class="mi"><div><div class="mi-name">Rossoni</div><div class="mi-desc">Shrimp, crab, cucumber, cream cheese &mdash; whole roll fried, topped with tare sauce and scallions</div></div><div class="mi-price">$20.40</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="app"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Gyoza (8 pcs)</div><div class="mi-desc">Pork and vegetables</div></div><div class="mi-price">$12.00</div></div>
+      <div class="mi"><div><div class="mi-name">Mix of Mushrooms</div><div class="mi-desc">Saut&eacute;ed mix of shiitake and shimeji mushrooms in butter and scallions</div></div><div class="mi-price">$10.00</div></div>
+      <div class="mi"><div><div class="mi-name">Steak Egg Roll</div><div class="mi-desc">Crispy egg roll filled with steak</div></div><div class="mi-price">$12.00</div></div>
+      <div class="mi"><div><div class="mi-name">Sunomono</div><div class="mi-desc">Cucumber salad, rice vinegar dressing</div></div><div class="mi-price">$6.00</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="sash"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Salmon Sashimi (5 pcs)</div><div class="mi-desc">Fresh raw salmon</div></div><div class="mi-price">$14.40</div></div>
+      <div class="mi"><div><div class="mi-name">Torched Salmon (5 pcs)</div><div class="mi-desc">Lightly torched salmon</div></div><div class="mi-price">$14.40</div></div>
+      <div class="mi"><div><div class="mi-name">Special Sashimi (5 pcs)</div><div class="mi-desc">Seared salmon with herb sauce and lemon zest, Flor de Sal</div></div><div class="mi-price">$15.60</div></div>
+      <div class="mi"><div><div class="mi-name">Truffle Sashimi (5 pcs)</div><div class="mi-desc">Salmon with truffle oil, lemon zest, and sea salt flakes</div></div><div class="mi-price">$15.60</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="nig"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Salmon Duo (2 pcs)</div><div class="mi-desc">Fresh salmon over rice</div></div><div class="mi-price">$8.40</div></div>
+      <div class="mi"><div><div class="mi-name">Torched Salmon Duo (2 pcs)</div><div class="mi-desc">Seared salmon with cream cheese, tare sauce, and scallions</div></div><div class="mi-price">$9.60</div></div>
+      <div class="mi"><div><div class="mi-name">Special Salmon Duo (2 pcs)</div><div class="mi-desc">Seared salmon with herb sauce and lemon zest</div></div><div class="mi-price">$10.80</div></div>
+      <div class="mi"><div><div class="mi-name">Truffle Salmon Duo (2 pcs)</div><div class="mi-desc">Salmon with truffle oil and lemon zest</div></div><div class="mi-price">$10.80</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="hossmaki"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Salmon Hossomaki (8 pcs)</div><div class="mi-desc">Thin sushi roll of salmon and rice wrapped in nori</div></div><div class="mi-price">$9.60</div></div>
+      <div class="mi"><div><div class="mi-name">Kani Hossomaki (8 pcs)</div><div class="mi-desc">Thin nori roll with sushi rice and kani (crab stick)</div></div><div class="mi-price">$9.60</div></div>
+      <div class="mi"><div><div class="mi-name">Shrimp Hossomaki (8 pcs)</div><div class="mi-desc">Shrimp and sushi rice rolled in nori</div></div><div class="mi-price">$12.00</div></div>
+      <div class="mi"><div><div class="mi-name">Cucumber Hossomaki (8 pcs)</div><div class="mi-desc">Cucumber with sushi rice, wrapped in nori</div></div><div class="mi-price">$7.20</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="joes"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Joe Philly (4 pcs)</div><div class="mi-desc">Rice wrapped with thinly sliced salmon, topped with cream cheese, scallions and tare sauce</div></div><div class="mi-price">$13.20</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Crispy (4 pcs)</div><div class="mi-desc">Rice wrapped with thinly sliced salmon and cream cheese, topped with crispy onions</div></div><div class="mi-price">$13.20</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Kani (4 pcs)</div><div class="mi-desc">Rice wrapped with thinly sliced salmon, torched, topped with cream cheese, crispy kani, tare sauce and scallions</div></div><div class="mi-price">$14.40</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Salmon (4 pcs)</div><div class="mi-desc">Rice wrapped with thinly sliced salmon, topped with salmon tartare and tare</div></div><div class="mi-price">$14.40</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Sophia &mdash; No Rice (4 pcs)</div><div class="mi-desc">Thinly sliced salmon, cream cheese, breaded shrimp, torched, topped with sweet &amp; sour sauce, tare and scallions</div></div><div class="mi-price">$14.40</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Cucumber Special (4 pcs)</div><div class="mi-desc">Rice wrapped with thin cucumber slice, topped with salmon tartare and scallions</div></div><div class="mi-price">$14.40</div></div>
+      <div class="mi"><div><div class="mi-name">Joe S&#225; (4 pcs)</div><div class="mi-desc">Rice wrapped with thinly sliced salmon, cream cheese, shrimp, lemon zest, tare sauce and scallions (seared)</div></div><div class="mi-price">$15.60</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Shrimp (4 pcs)</div><div class="mi-desc">Rice wrapped with thinly sliced salmon, topped with shrimp tartare and scallions</div></div><div class="mi-price">$15.60</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Shimeji (4 pcs)</div><div class="mi-desc">Shimeji mushrooms, cream cheese, and scallions (with cucumber)</div></div><div class="mi-price">$12.00</div></div>
+      <div class="mi"><div><div class="mi-name">Joe Cucumber (4 pcs)</div><div class="mi-desc">Salmon cube, cucumber slice, lemon zest and sea salt flakes</div></div><div class="mi-price">$9.60</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="temaki"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Fried Temaki</div><div class="mi-desc">Salmon, cream cheese and scallions wrapped in nori, lightly breaded and deep fried. Finished with tare sauce and scallions</div></div><div class="mi-price">$18.00</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="combo"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Small Combo Box (16 pcs)</div><div class="mi-desc">1 Hot Philly Roll, 1 Shrimp Tempura Roll</div></div><div class="mi-price">$27.00</div></div>
+      <div class="mi"><div><div class="mi-name">Combo Box 1 (32 pcs)</div><div class="mi-desc">2 Hot Philly Rolls, 2 Kani Tempura Rolls</div></div><div class="mi-price">$48.00</div></div>
+      <div class="mi"><div><div class="mi-name">Salmon Mix Combo Box (32 pcs)</div><div class="mi-desc">1 Hot Philly, 1 Shrimp Tempura, 1 Monopoly, 1 Salmon Hossomaki</div></div><div class="mi-price">$47.00</div></div>
+      <div class="mi"><div><div class="mi-name">Special Mix Combo Box (28 pcs)</div><div class="mi-desc">1 Hot Philly, 1 Shrimp Tempura, 1 Monopoly, 1 Joe Kani</div></div><div class="mi-price">$51.00</div></div>
+      <div class="mi"><div><div class="mi-name">Chef's Mixed Combo Box (32 pcs)</div><div class="mi-desc">1 Hot Philly, 1 Sophia Crispy, 1 Shrimp Tempura, 1 Kani Tempura</div></div><div class="mi-price">$52.00</div></div>
+      <div class="mi"><div><div class="mi-name">Premium Salmon Combo Box (18 pcs)</div><div class="mi-desc">1 Joe Sophia, 2 Torched Nigiri, 2 Sashimi</div></div><div class="mi-price">$52.00</div></div>
+      <div class="mi"><div><div class="mi-name">Hot Philly Combo Box (32 pcs)</div><div class="mi-desc">4 Hot Philly Rolls</div></div><div class="mi-price">$56.00</div></div>
+      <div class="mi"><div><div class="mi-name">Hot &amp; Sophia Combo Box (32 pcs)</div><div class="mi-desc">2 Hot Philly Rolls, 2 Sophia Crispy Rolls</div></div><div class="mi-price">$58.00</div></div>
+    </div></div>
+    <div class="menu-panel" data-panel="party"><div class="menu-grid">
+      <div class="mi"><div><div class="mi-name">Party Tray 3 &mdash; Salmon &amp; Classic (104 pcs)</div><div class="mi-desc">2 Monopoly, 2 Philly Roll, 2 Kani Roll, 1 Salmon Hossomaki, 2 Salmon Esp, 2 Shrimp Esp, 2 Hot Philly</div></div><div class="mi-price">$156.00</div></div>
+      <div class="mi"><div><div class="mi-name">Party Tray 2 &mdash; Classic Mixed (104 pcs)</div><div class="mi-desc">1 Shrimp Tempura, 2 Kani Tempura, 2 Monopoly, 1 Shrimp Esp, 2 Salmon Esp, 1 Kani Roll, 1 Philly Roll, 3 Hot Philly</div></div><div class="mi-price">$160.00</div></div>
+      <div class="mi"><div><div class="mi-name">Party Tray 1 &mdash; Mixed Sushi Platter (92 pcs)</div><div class="mi-desc">1 Salmon Hossomaki, 3 Joe Sophia, 2 Hot Philly, 1 Futomaki, 1 Salmon Esp, 1 Sophia Crispy, 1 Shrimp Esp, 1 Shrimp Tempura, 1 Kani Tempura, 1 Monopoly</div></div><div class="mi-price">$164.00</div></div>
+      <div class="mi"><div><div class="mi-name">Party Tray 4 &mdash; Premium Hot (104 pcs)</div><div class="mi-desc">2 Salmon Esp, 3 Shrimp Esp, 3 Hot Philly, 4 Sophia Crispy, 1 Shrimp Tempura</div></div><div class="mi-price">$183.00</div></div>
+    </div></div>
+    <div class="menu-cta-row"><a href="#order" class="btn-ghost-sage rup">Order Online Now</a></div>
+  </section>
+
+  <!-- ORDER -->
+  <section class="order-sec" id="order">
+    <div class="order-hdr">
+      <div class="s-label rup" style="justify-content:center;display:flex">Order Your Way</div>
+      <h2 class="s-head rup" style="text-align:center">Four Ways to <em>Get Your Fix</em></h2>
+    </div>
+    <div class="order-grid">
+      <a href="https://api.whatsapp.com/message/YZTX2WNJKGCQA1?autoload=1&app_absent=0" class="oc" target="_blank" style="--oc-color:#25D366">
+        <div class="oc-icon" style="background:#25D366">&#128172;</div>
+        <div class="oc-platform">Direct</div><div class="oc-name">WhatsApp</div>
+        <div class="oc-desc">Message us directly. Custom orders, fast response.</div>
+        <div class="oc-btn" style="color:#25D366">Order Now</div>
+      </a>
+      <a href="https://www.doordash.com/store/35321781" class="oc" target="_blank" style="--oc-color:#FF3008">
+        <div class="oc-icon" style="background:#FF3008">&#128661;</div>
+        <div class="oc-platform">Delivery</div><div class="oc-name">DoorDash</div>
+        <div class="oc-desc">Fast delivery with real-time tracking.</div>
+        <div class="oc-btn" style="color:#FF3008">Order Now</div>
+      </a>
+      <a href="https://www.ubereats.com/store/sa-sushi-2618-rhawn-st/HT8Cn0hUWEG0LMzO02BzgQ" class="oc" target="_blank" style="--oc-color:#06C167">
+        <div class="oc-icon" style="background:#06C167">&#128692;</div>
+        <div class="oc-platform">Delivery</div><div class="oc-name">Uber Eats</div>
+        <div class="oc-desc">Seamless delivery with easy reordering.</div>
+        <div class="oc-btn" style="color:#06C167">Order Now</div>
+      </a>
+      <a href="https://www.grubhub.com/restaurant/sa-sushi-2618-rhawn-street-philadelphia/14238632" class="oc" target="_blank" style="--oc-color:#F63440">
+        <div class="oc-icon" style="background:#F63440">&#129961;</div>
+        <div class="oc-platform">Delivery</div><div class="oc-name">GrubHub</div>
+        <div class="oc-desc">Fast, reliable delivery on GrubHub.</div>
+        <div class="oc-btn" style="color:#F63440">Order Now</div>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- WHY SA SUSHI -->
+  <section class="why-sec">
+    <div class="why-inner">
+      <div class="why-hdr">
+        <div class="s-label rup">Why Choose Us</div>
+        <h2 class="s-head rup">Made With <em>Intention</em></h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card rup">
+          <div class="why-icon">🌿</div>
+          <div class="why-title">Fresh Daily</div>
+          <div class="why-desc">Every roll is made to order. We never pre-make or cut corners on freshness.</div>
+        </div>
+        <div class="why-card rup">
+          <div class="why-icon">📲</div>
+          <div class="why-title">Order Your Way</div>
+          <div class="why-desc">WhatsApp, DoorDash, Uber Eats, or GrubHub — pick what works for you.</div>
+        </div>
+        <div class="why-card rup">
+          <div class="why-icon">🍣</div>
+          <div class="why-title">30+ Rolls</div>
+          <div class="why-desc">From classic Philly to specialty chef rolls — there's something for every craving.</div>
+        </div>
+        <div class="why-card rup">
+          <div class="why-icon">📍</div>
+          <div class="why-title">NE Philly's Own</div>
+          <div class="why-desc">Proudly serving the Northeast Philadelphia community from 2618 Rhawn St.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-sec">
+    <div class="reviews-hdr">
+      <div class="s-label rup">What People Say</div>
+      <h2 class="s-head rup">Loved by the <em>Neighborhood</em></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="rv rup">
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-text">"Best sushi in Northeast Philly — hands down. The Dragon Roll is incredible. Fresh, fast, and the WhatsApp ordering makes it so easy."</div>
+        <div class="rv-author">— Maria T., Yelp Review</div>
+      </div>
+      <div class="rv rup">
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-text">"The Philly Especial is my go-to every week. Quality is consistently amazing and the portions are generous. Highly recommend."</div>
+        <div class="rv-author">— James R., Google Review</div>
+      </div>
+      <div class="rv rup">
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-text">"Ordered through WhatsApp and had my food in 25 minutes. Presentation was beautiful and it tasted even better than it looked."</div>
+        <div class="rv-author">— Sofia M., Yelp Review</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="https://www.yelp.com/biz/sa-sushi-philadelphia" class="btn-ghost-sage rup" target="_blank">Read More Reviews on Yelp</a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-sec" id="gallery">
+    <div class="gallery-label-row">
+      <div><div class="s-label rup">Fresh Every Day</div><h2 class="s-head rup">From Our <em>Kitchen</em></h2></div>
+      <a href="https://instagram.com/sa__sushi" class="btn-ghost-sage rup" target="_blank">@sa__sushi on Instagram</a>
+    </div>
+    <div class="gallery-grid">
+      <div class="gc" data-lbsrc="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1200&q=90"><div class="gc-img" style="background-image:url('https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=85');background-position:center 35%"></div><div class="gc-ov"><span class="gc-label">Signature Platter</span></div></div>
+      <div class="gc" data-lbsrc="https://images.unsplash.com/photo-1617196034183-421b4040ed20?auto=format&fit=crop&w=900&q=90"><div class="gc-img" style="background-image:url('https://images.unsplash.com/photo-1617196034183-421b4040ed20?auto=format&fit=crop&w=600&q=85');background-position:center 40%"></div><div class="gc-ov"><span class="gc-label">Nigiri</span></div></div>
+      <div class="gc" data-lbsrc="https://images.unsplash.com/photo-1582050609688-e0f07b900e3b?auto=format&fit=crop&w=900&q=90"><div class="gc-img" style="background-image:url('https://images.unsplash.com/photo-1582050609688-e0f07b900e3b?auto=format&fit=crop&w=600&q=85');background-position:center 30%"></div><div class="gc-ov"><span class="gc-label">Chef's Special</span></div></div>
+      <div class="gc" data-lbsrc="https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?auto=format&fit=crop&w=900&q=90"><div class="gc-img" style="background-image:url('https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?auto=format&fit=crop&w=600&q=85');background-position:center 50%"></div><div class="gc-ov"><span class="gc-label">Freshly Plated</span></div></div>
+      <div class="gc" data-lbsrc="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=1200&q=90"><div class="gc-img" style="background-image:url('https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=900&q=85');background-position:center 40%"></div><div class="gc-ov"><span class="gc-label">Dragon Roll</span></div></div>
+      <div class="gc" data-lbsrc="https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=900&q=90"><div class="gc-img" style="background-image:url('https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=600&q=85');background-position:center 45%"></div><div class="gc-ov"><span class="gc-label">Premium Sashimi</span></div></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-sec" id="about">
+    <div>
+      <svg class="about-logo rup" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" fill="#f7f4ec" stroke="#9aab5e" stroke-width="1.5" stroke-dasharray="4,5.5"/>
+        <path id="at" d="M 28,100 A 72,72 0 0,1 172,100" fill="none"/>
+        <text font-size="14" font-family="DM Sans,sans-serif" font-weight="600" fill="#1a1a16" letter-spacing="4"><textPath href="#at" startOffset="14%">SA  SUSHI</textPath></text>
+        <line x1="100" y1="145" x2="100" y2="72" stroke="#7d9150" stroke-width="1.6" stroke-linecap="round"/>
+        <ellipse cx="100" cy="67" rx="10" ry="20" fill="#9aab5e" transform="rotate(-4,100,67)" opacity=".85"/>
+        <ellipse cx="86" cy="87" rx="8.5" ry="17" fill="#7d9150" transform="rotate(-38,86,87)" opacity=".8"/>
+        <ellipse cx="114" cy="87" rx="8.5" ry="17" fill="#7d9150" transform="rotate(38,114,87)" opacity=".8"/>
+        <ellipse cx="89" cy="110" rx="7" ry="14" fill="#9aab5e" transform="rotate(-32,89,110)" opacity=".7"/>
+        <ellipse cx="111" cy="110" rx="7" ry="14" fill="#9aab5e" transform="rotate(32,111,110)" opacity=".7"/>
+        <ellipse cx="100" cy="130" rx="6" ry="12" fill="#b8cc88" opacity=".6"/>
+      </svg>
+      <div class="s-label rup">Our Story</div>
+      <h2 class="about-head rup">Fresh Fish.<br /><em>Real</em> Craft.</h2>
+      <p class="about-body rup">Sa Sushi brings handcrafted Japanese rolls, premium sashimi, and creative specialty rolls right here to Northeast Philadelphia. Every roll is made fresh to order — no shortcuts, no compromises.</p>
+      <p class="about-body rup">Order via WhatsApp for the personal touch, or find us on DoorDash, Uber Eats, and GrubHub. We'll have it to you fast and fresh, every time.</p>
+      <div class="about-stats rup">
+        <div><div class="stat-n">30+</div><div class="stat-l">Roll Varieties</div></div>
+        <div><div class="stat-n">4</div><div class="stat-l">Ways to Order</div></div>
+        <div><div class="stat-n">NE</div><div class="stat-l">Philadelphia</div></div>
+      </div>
+    </div>
+    <div class="about-photos-col">
+      <div class="about-photo-main"></div>
+      <div class="about-photo-pair">
+        <div class="about-photo-sm" style="background-image:url('https://images.unsplash.com/photo-1582050609688-e0f07b900e3b?auto=format&fit=crop&w=500&q=85');background-position:center 30%"></div>
+        <div class="about-photo-sm" style="background-image:url('https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=500&q=85');background-position:center 40%"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOURS -->
+  <section class="hours-sec" id="hours">
+    <div>
+      <div class="s-label rup" style="color:rgba(154,171,94,.7)">Find Us</div>
+      <h2 class="hours-head rup">Come In or<br />Order <em>Online</em></h2>
+      <p class="hours-sub rup">Dine in, take out, or get it delivered. We're ready when you are.</p>
+      <div class="hours-phone rup">(267) 541-6033</div>
+      <div class="hours-addr rup">2618 Rhawn Street<br />Philadelphia, PA 19152</div>
+      <div class="platforms-row rup">
+        <div class="platforms-label">Available on</div>
+        <div class="platforms-pills">
+          <span class="platform-pill">WhatsApp</span><span class="platform-pill">DoorDash</span><span class="platform-pill">Uber Eats</span><span class="platform-pill">GrubHub</span>
+        </div>
+      </div>
+    </div>
+    <div class="rup">
+      <div class="hr-row"><span class="hr-day">Monday – Thursday</span><span class="hr-time">11:00 AM – 10:00 PM</span></div>
+      <div class="hr-row"><span class="hr-day">Friday – Saturday</span><span class="hr-time">11:00 AM – 11:00 PM</span><span class="hr-badge">Late</span></div>
+      <div class="hr-row"><span class="hr-day">Sunday</span><span class="hr-time">12:00 PM – 9:00 PM</span></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-top">
+      <div>
+        <div class="ft-logo-wrap">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#9aab5e" stroke-width="1.2" stroke-dasharray="4,5.5"/>
+            <line x1="100" y1="145" x2="100" y2="72" stroke="#7d9150" stroke-width="1.4" stroke-linecap="round"/>
+            <ellipse cx="100" cy="67" rx="9" ry="18" fill="#9aab5e" transform="rotate(-4,100,67)" opacity=".85"/>
+            <ellipse cx="87" cy="86" rx="7.5" ry="15" fill="#7d9150" transform="rotate(-38,87,86)" opacity=".8"/>
+            <ellipse cx="113" cy="86" rx="7.5" ry="15" fill="#7d9150" transform="rotate(38,113,86)" opacity=".8"/>
+          </svg>
+          <div class="ft-logo-txt">Sa Sushi<span>Northeast Philadelphia</span></div>
+        </div>
+      </div>
+      <div class="ft-cols">
+        <div><div class="ft-col-title">Navigate</div><ul class="ft-links"><li><a href="#menu">Menu</a></li><li><a href="#order">Order</a></li><li><a href="#about">About</a></li><li><a href="#hours">Hours</a></li></ul></div>
+        <div><div class="ft-col-title">Order On</div><ul class="ft-links"><li><a href="https://api.whatsapp.com/message/YZTX2WNJKGCQA1" target="_blank">WhatsApp</a></li><li><a href="https://www.doordash.com/store/35321781" target="_blank">DoorDash</a></li><li><a href="https://www.ubereats.com/store/sa-sushi-2618-rhawn-st/HT8Cn0hUWEG0LMzO02BzgQ" target="_blank">Uber Eats</a></li><li><a href="https://www.grubhub.com/restaurant/sa-sushi-2618-rhawn-street-philadelphia/14238632" target="_blank">GrubHub</a></li></ul></div>
+        <div><div class="ft-col-title">Connect</div><ul class="ft-links"><li><a href="https://www.instagram.com/sa__sushi" target="_blank">@sa__sushi</a></li><li><a href="https://www.yelp.com/biz/sa-sushi-philadelphia" target="_blank">Yelp Reviews</a></li><li><a href="tel:+12675416033">(267) 541-6033</a></li></ul></div>
+      </div>
+    </div>
+    <div class="ft-btm">
+      <div class="ft-copy">© 2025 Sa Sushi &nbsp;·&nbsp; 2618 Rhawn St, Philadelphia PA 19152</div>
+      <div class="ft-ig"><a href="https://www.instagram.com/sa__sushi" target="_blank">Instagram @sa__sushi</a></div>
+    </div>
+  </footer>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#menu" class="m-nav-link">Menu</a>
+    <a href="#order" class="m-nav-link">Order</a>
+    <a href="#about" class="m-nav-link">About</a>
+    <a href="#hours" class="m-nav-link">Hours</a>
+  </div>
+
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="closeLB()">&#215;</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
+    <div class="lb-img" id="lbImg"></div>
+    <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+  </div>
+
+  <button id="nexoBadge" onclick="document.getElementById('nexoPopup').classList.toggle('open')">Built by NEXO</button>
+  <div id="nexoPopup">
+    <div class="np-label">Made by</div>
+    <div class="np-brand">NEXO Digital Studio</div>
+    <div class="np-handle">@studiobynexo</div>
+    <a href="https://instagram.com/studiobynexo" class="np-cta" target="_blank">Check us out on Instagram</a>
+  </div>
+
+  <script>
+  (function(){
+    // Nav scroll
+    var n=document.getElementById("nav");
+    window.addEventListener("scroll",function(){n.classList.toggle("scrolled",scrollY>40)});
+
+    // Hamburger
+    var b=document.getElementById("hamburger"),mn=document.getElementById("mobileNav");
+    b.addEventListener("click",function(){b.classList.toggle("open");mn.classList.toggle("open");document.body.style.overflow=mn.classList.contains("open")?"hidden":""});
+    mn.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){b.classList.remove("open");mn.classList.remove("open");document.body.style.overflow=""})});
+
+    // Scroll top
+    var st=document.getElementById("scrollTop");
+    window.addEventListener("scroll",function(){st.classList.toggle("visible",scrollY>400)});
+
+    // Menu tabs
+    document.querySelectorAll(".menu-tab").forEach(function(t){
+      t.addEventListener("click",function(){
+        document.querySelectorAll(".menu-tab").forEach(function(x){x.classList.remove("active")});
+        document.querySelectorAll(".menu-panel").forEach(function(x){x.classList.remove("active")});
+        t.classList.add("active");
+        var p=document.querySelector("[data-panel='"+t.dataset.tab+"']");
+        if(p)p.classList.add("active");
+      });
+    });
+
+    // Lightbox
+    var imgs=[],cur=0,lb=document.getElementById("lightbox"),lbI=document.getElementById("lbImg");
+    document.querySelectorAll("[data-lbsrc]").forEach(function(el,i){
+      imgs.push(el.dataset.lbsrc);
+      el.style.cursor="pointer";
+      el.addEventListener("click",function(){openLB(i)});
+    });
+    window.openLB=function(i){cur=i;lbI.style.backgroundImage="url("+imgs[cur]+")";lb.classList.add("open");document.body.style.overflow="hidden"};
+    window.closeLB=function(){lb.classList.remove("open");document.body.style.overflow=""};
+    window.lbNav=function(d){cur=(cur+d+imgs.length)%imgs.length;lbI.style.backgroundImage="url("+imgs[cur]+")"};
+    lb.addEventListener("click",function(e){if(e.target===lb)closeLB()});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeLB();if(e.key==="ArrowLeft")lbNav(-1);if(e.key==="ArrowRight")lbNav(1)});
+
+    // GSAP scroll reveals
+    if(typeof gsap!=="undefined"&&typeof ScrollTrigger!=="undefined"){
+      gsap.registerPlugin(ScrollTrigger);
+      document.querySelectorAll(".rup").forEach(function(el){
+        gsap.to(el,{opacity:1,y:0,duration:.85,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 89%",toggleActions:"play none none none"}});
+      });
+      gsap.from(".feat-card",{y:36,opacity:0,duration:.8,stagger:.12,scrollTrigger:{trigger:".featured-grid",start:"top 87%"}});
+      gsap.from(".oc",{y:32,opacity:0,duration:.75,stagger:.09,scrollTrigger:{trigger:".order-grid",start:"top 87%"}});
+      gsap.from(".gc",{y:20,opacity:0,duration:.7,stagger:.08,scrollTrigger:{trigger:".gallery-grid",start:"top 89%"}});
+    }
+  })();
+  </script>
+</body>
+</html>
