@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continental Hairstyling for Men — 8424 Bustleton Ave, Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0a0a0a;
+    --off-black: #111;
+    --charcoal: #1c1c1c;
+    --amber: #c8912a;
+    --amber-light: #e5aa42;
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --gray: #888;
+    --light-gray: #ccc;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--cream); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 56px;
+    background: rgba(10,10,10,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,145,42,0.15);
+  }
+  .nav-logo {
+    display: flex; flex-direction: column;
+  }
+  .nav-logo-main { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: white; line-height: 1; }
+  .nav-logo-sub { font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); margin-top: 3px; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--light-gray); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--amber); }
+  .nav-book { background: var(--amber); color: var(--black) !important; padding: 10px 24px; font-weight: 600; }
+
+  /* HERITAGE HERO */
+  .hero {
+    position: relative; height: 100vh; min-height: 640px;
+    display: flex; align-items: center; overflow: hidden;
+    padding-top: 70px;
+  }
+  .hero-photo {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 55%;
+    overflow: hidden;
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+  .hero-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, rgba(10,10,10,0.4) 40%, transparent 100%);
+  }
+  .hero-left { position: relative; z-index: 2; padding: 0 72px; width: 55%; }
+  .watermark {
+    position: absolute; left: -20px; top: 50%; transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+    font-size: 28vw; line-height: 1; color: transparent;
+    -webkit-text-stroke: 1px rgba(200,145,42,0.08);
+    pointer-events: none; user-select: none; white-space: nowrap;
+    z-index: 1;
+  }
+  .hero-content { position: relative; z-index: 3; }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 6.5rem; line-height: 0.9; text-transform: uppercase; color: white;
+    margin-bottom: 32px;
+  }
+  .hero-title span { display: block; }
+  .hero-title .accent { color: var(--amber); }
+  .hero-desc { max-width: 380px; font-size: 0.92rem; color: rgba(245,240,232,0.7); line-height: 1.8; font-weight: 300; margin-bottom: 40px; }
+  .hero-btns { display: flex; gap: 16px; }
+  .btn-amber { background: var(--amber); color: var(--black); padding: 15px 34px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; }
+  .btn-amber:hover { background: var(--amber-light); }
+  .btn-ghost { background: transparent; color: var(--cream); padding: 15px 34px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; border: 1.5px solid rgba(245,240,232,0.3); cursor: pointer; transition: all 0.2s; }
+  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+  /* LEGACY STRIP */
+  .legacy-strip {
+    background: var(--amber);
+    display: flex; overflow: hidden; white-space: nowrap;
+    padding: 14px 0;
+  }
+  .legacy-ticker {
+    display: flex; animation: ticker 20s linear infinite;
+    gap: 0;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--black); padding: 0 48px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .ticker-dot { width: 5px; height: 5px; background: var(--black); border-radius: 50%; }
+
+  /* ABOUT */
+  .about-section {
+    padding: 120px 72px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+    align-items: center;
+    background: var(--off-black);
+  }
+  .about-left {}
+  .section-label { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 16px; }
+  .about-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 3.8rem; text-transform: uppercase; line-height: 0.95; color: white; margin-bottom: 32px; }
+  .about-text { font-size: 0.92rem; color: rgba(245,240,232,0.65); line-height: 1.9; font-weight: 300; margin-bottom: 24px; }
+  .legacy-stat { display: flex; gap: 48px; margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .stat-block {}
+  .stat-number { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 3.5rem; color: var(--amber); line-height: 1; }
+  .stat-text { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-top: 4px; }
+  .about-right { position: relative; }
+  .about-img-main { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+  .about-img-accent {
+    position: absolute; bottom: -32px; left: -32px;
+    width: 45%; aspect-ratio: 1; object-fit: cover;
+    border: 4px solid var(--black);
+  }
+  .year-badge {
+    position: absolute; top: -20px; right: -20px;
+    width: 100px; height: 100px;
+    background: var(--amber); border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .year-badge-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--black); line-height: 1; }
+  .year-badge-label { font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--black); }
+
+  /* SERVICES */
+  .services-section { padding: 100px 72px; background: var(--charcoal); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 1100px; margin-top: 56px; }
+  .svc { background: var(--off-black); padding: 44px 36px; position: relative; overflow: hidden; transition: transform 0.3s; }
+  .svc:hover { transform: translateY(-4px); }
+  .svc-num { position: absolute; top: 24px; right: 24px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 2.5rem; color: rgba(200,145,42,0.08); }
+  .svc-icon { font-size: 2rem; margin-bottom: 20px; }
+  .svc-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: white; margin-bottom: 10px; }
+  .svc-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.7; margin-bottom: 20px; }
+  .svc-price { font-size: 1.1rem; font-weight: 600; color: var(--amber); }
+  .svc-line { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--amber); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .svc:hover .svc-line { transform: scaleX(1); }
+
+  /* HOURS */
+  .hours-section { background: var(--black); padding: 100px 72px; }
+  .hours-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1100px; }
+  .hours-block h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 2.8rem; text-transform: uppercase; color: white; margin-bottom: 40px; }
+  .hours-rows { display: flex; flex-direction: column; gap: 0; }
+  .hour-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.9rem; }
+  .hour-row .day { color: var(--gray); }
+  .hour-row .time { color: var(--cream); }
+  .hour-row.today { }
+  .hour-row.today .day, .hour-row.today .time { color: var(--amber); font-weight: 600; }
+  .closed-text { color: rgba(255,255,255,0.35); font-style: italic; }
+  .contact-block h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 2.8rem; text-transform: uppercase; color: white; margin-bottom: 40px; }
+  .contact-rows { display: flex; flex-direction: column; gap: 28px; }
+  .c-row { display: flex; gap: 18px; }
+  .c-icon { color: var(--amber); font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+  .c-lbl { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+  .c-val { color: var(--cream); font-size: 0.92rem; line-height: 1.5; }
+  .map-box { margin-top: 36px; width: 100%; height: 200px; border: none; filter: grayscale(1) brightness(0.6); }
+
+  footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); text-align: center; padding: 28px; font-size: 0.75rem; color: rgba(255,255,255,0.2); letter-spacing: 0.08em; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: 0.65s ease; }
+  .revealed { opacity: 1; transform: none; }
+
+  @media(max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { flex-direction: column; padding-top: 80px; align-items: flex-start; }
+    .hero-photo { display: none; }
+    .hero-left { width: 100%; padding: 40px 24px; }
+    .hero-title { font-size: 3.8rem; }
+    .watermark { font-size: 50vw; }
+    .about-section { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
+    .services-section { padding: 60px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .hours-section { padding: 60px 24px; }
+    .hours-inner { grid-template-columns: 1fr; gap: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-main">Continental</div>
+    <div class="nav-logo-sub">Hairstyling for Men · Est. 1965</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#" class="nav-book" onclick="openBooking();return false;">Book a Cut</a></li>
+  </ul>
+</nav>
+
+<!-- HERITAGE HERO -->
+<section class="hero">
+  <div class="watermark">1965</div>
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1200&q=85" alt="Barbershop">
+  </div>
+  <div class="hero-left">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Northeast Philadelphia · Est. 1965</div>
+      <h1 class="hero-title">
+        <span>60</span>
+        <span>Years</span>
+        <span class="accent">of Sharp.</span>
+      </h1>
+      <p class="hero-desc">Since 1965, Continental Hairstyling for Men has been the barbershop Northeast Philadelphia trusts. Three generations of clients. One standard of excellence. Walk-ins always welcome.</p>
+      <div class="hero-btns">
+        <button class="btn-amber" onclick="openBooking();return false;">Book a Cut</button>
+        <button class="btn-ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Our Story</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="legacy-strip">
+  <div class="legacy-ticker">
+    <div class="ticker-item"><span>Est. 1965</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Northeast Philadelphia</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Classic Cuts</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Walk-Ins Welcome</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>60 Years Strong</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Bustleton Ave</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>The Original Barbershop</span><div class="ticker-dot"></div></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="ticker-item"><span>Est. 1965</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Northeast Philadelphia</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Classic Cuts</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Walk-Ins Welcome</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>60 Years Strong</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>Bustleton Ave</span><div class="ticker-dot"></div></div>
+    <div class="ticker-item"><span>The Original Barbershop</span><div class="ticker-dot"></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-left">
+    <p class="section-label reveal">The Legacy</p>
+    <h2 class="about-title reveal">Northeast<br>Philly's<br>Oldest<br>Barbershop</h2>
+    <p class="about-text reveal">When Continental Hairstyling opened its doors in 1965, Northeast Philadelphia looked very different. Decades have come and gone — but one thing hasn't changed: the commitment to a perfect cut, every time.</p>
+    <p class="about-text reveal">Our barbers have been cutting hair longer than most apps have existed. No gimmicks, no Instagram trends. Just skilled hands, quality tools, and the craft that keeps generations of Philadelphia men coming back.</p>
+    <div class="legacy-stat reveal">
+      <div class="stat-block">
+        <div class="stat-number" id="cnt1">0</div>
+        <div class="stat-text">Years Open</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number">3+</div>
+        <div class="stat-text">Generations of Clients</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number">5★</div>
+        <div class="stat-text">Yelp Rating</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-right reveal">
+    <img class="about-img-main" src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&q=85" alt="Barbershop interior">
+    <img class="about-img-accent" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&q=85" alt="Haircut">
+    <div class="year-badge">
+      <div class="year-badge-num">1965</div>
+      <div class="year-badge-label">Est.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <p class="section-label reveal">What We Do</p>
+  <h2 class="about-title reveal">The Classic Menu</h2>
+  <div class="services-grid">
+    <div class="svc reveal">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">✂️</div>
+      <div class="svc-name">Haircut</div>
+      <div class="svc-desc">Classic men's haircut with precision scissors or clippers. Shaped exactly how you like it.</div>
+      <div class="svc-price">Starting at $20</div>
+      <div class="svc-line"></div>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">🪒</div>
+      <div class="svc-name">Beard Trim</div>
+      <div class="svc-desc">Straight razor or scissor trim. Your beard, shaped clean and tight the way it should be.</div>
+      <div class="svc-price">Starting at $10</div>
+      <div class="svc-line"></div>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">💈</div>
+      <div class="svc-name">Cut + Shave Combo</div>
+      <div class="svc-desc">The full experience. Haircut plus a hot towel straight razor shave — the way it used to be done.</div>
+      <div class="svc-price">Starting at $35</div>
+      <div class="svc-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours-section" id="hours">
+  <div class="hours-inner">
+    <div class="hours-block">
+      <h2>Hours</h2>
+      <div class="hours-rows" id="hoursRows">
+        <div class="hour-row" data-day="Monday"><span class="day">Monday</span><span class="time closed-text">Closed</span></div>
+        <div class="hour-row" data-day="Tuesday"><span class="day">Tuesday</span><span class="time">9:00 AM – 6:00 PM</span></div>
+        <div class="hour-row" data-day="Wednesday"><span class="day">Wednesday</span><span class="time">9:00 AM – 6:00 PM</span></div>
+        <div class="hour-row" data-day="Thursday"><span class="day">Thursday</span><span class="time">9:00 AM – 6:00 PM</span></div>
+        <div class="hour-row" data-day="Friday"><span class="day">Friday</span><span class="time">9:00 AM – 6:00 PM</span></div>
+        <div class="hour-row" data-day="Saturday"><span class="day">Saturday</span><span class="time">9:00 AM – 6:00 PM</span></div>
+        <div class="hour-row" data-day="Sunday"><span class="day">Sunday</span><span class="time closed-text">Closed</span></div>
+      </div>
+    </div>
+    <div class="contact-block">
+      <h2>Visit Us</h2>
+      <div class="contact-rows">
+        <div class="c-row">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-lbl">Address</div>
+            <div class="c-val">8424 Bustleton Ave<br>Philadelphia, PA 19152</div>
+          </div>
+        </div>
+        <div class="c-row">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-lbl">Phone</div>
+            <div class="c-val">(215) 728-7956</div>
+          </div>
+        </div>
+        <div class="c-row">
+          <div class="c-icon">💈</div>
+          <div>
+            <div class="c-lbl">Walk-ins</div>
+            <div class="c-val">Always welcome · No appointment needed</div>
+          </div>
+        </div>
+      </div>
+      <iframe class="map-box" src="https://maps.google.com/maps?q=8424+Bustleton+Ave+Philadelphia+PA+19152&output=embed" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Continental Hairstyling for Men · Est. 1965 · 8424 Bustleton Ave, Philadelphia PA 19152 · (215) 728-7956</footer>
+
+<script>
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('.hour-row').forEach(row => {
+  if(row.dataset.day === today) row.classList.add('today');
+});
+
+function countUp(el, target, dur) {
+  let s = 0, step = target / (dur / 16);
+  const t = setInterval(() => {
+    s = Math.min(s + step, target);
+    el.textContent = Math.floor(s);
+    if(s >= target) clearInterval(t);
+  }, 16);
+}
+let done = false;
+new IntersectionObserver(entries => {
+  if(entries[0].isIntersecting && !done) {
+    done = true;
+    countUp(document.getElementById('cnt1'), 60, 1400);
+  }
+}).observe(document.querySelector('.about-section'));
+
+const ro = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting) x.target.classList.add('revealed'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+
+<style>
+#bookingOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+#bookingOverlay.open{display:flex}
+#bookingBox{background:#0a0a0a;width:min(92vw,520px);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);font-family:inherit}
+#bookingHeader{background:#c8912a;color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+#bookingHeader h3{margin:0;font-size:1.1rem;font-weight:600}
+#closeBooking{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1}
+#bookingBody{padding:24px}
+.book-step{display:none}.book-step.active{display:block}
+.book-step h4{margin:0 0 16px;font-size:1rem;color:#555}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.svc-card{border:2px solid #e0e0e0;border-radius:8px;padding:12px;cursor:pointer;transition:.2s}
+.svc-card:hover,.svc-card.selected{border-color:#c8912a;background:#e8c88a}
+.svc-card .svc-name{font-weight:600;font-size:.9rem;color:#0a0a0a}
+.svc-card .svc-meta{font-size:.78rem;color:#888;margin-top:3px}
+.cal-wrap{background:#f9f9f9;border-radius:8px;padding:14px}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cal-nav button{background:none;border:1px solid #ddd;border-radius:6px;padding:4px 10px;cursor:pointer}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-day-header{font-size:.7rem;color:#999;font-weight:600;padding:4px 0}
+.cal-day{font-size:.82rem;padding:6px 4px;border-radius:6px;cursor:pointer}
+.cal-day:hover:not(.disabled):not(.empty){background:#e8c88a}
+.cal-day.selected{background:#c8912a;color:#fff}
+.cal-day.disabled{color:#ccc;cursor:default}
+.cal-day.empty{cursor:default}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.time-slot{border:2px solid #e0e0e0;border-radius:8px;padding:10px;text-align:center;cursor:pointer;font-size:.85rem;transition:.2s}
+.time-slot:hover,.time-slot.selected{border-color:#c8912a;background:#e8c88a;color:#0a0a0a}
+.contact-summary{background:#f5f5f5;border-radius:8px;padding:14px;margin-bottom:16px;font-size:.85rem;color:#555}
+.contact-summary strong{color:#222}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:.82rem;color:#666;margin-bottom:5px}
+.form-row input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box}
+.book-btn{background:#c8912a;color:#fff;border:none;padding:12px 24px;border-radius:8px;width:100%;font-size:.95rem;font-weight:600;cursor:pointer;margin-top:10px;transition:.2s}
+.book-btn:hover{background:#8a6010}
+.book-btn.secondary{background:#eee;color:#333}
+.book-btn.secondary:hover{background:#ddd}
+.confirm-wrap{text-align:center;padding:20px 0}
+.confirm-icon{font-size:3.5rem;margin-bottom:10px}
+.confirm-wrap h3{color:#c8912a;margin:0 0 8px}
+.confirm-wrap p{color:#666;font-size:.9rem}
+.step-indicator{display:flex;gap:6px;margin-bottom:20px}
+.step-dot{height:4px;flex:1;border-radius:2px;background:#e0e0e0;transition:.3s}
+.step-dot.done{background:#c8912a}
+</style>
+
+<div id="bookingOverlay">
+<div id="bookingBox">
+  <div id="bookingHeader">
+    <h3>Book at Continental Hairstyling for Men</h3>
+    <button id="closeBooking" onclick="closeBooking()">&#x2715;</button>
+  </div>
+  <div id="bookingBody">
+    <div class="step-indicator">
+      <div class="step-dot" id="dot0"></div>
+      <div class="step-dot" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+    </div>
+
+    <div class="book-step active" id="step0">
+      <h4>Choose a Service</h4>
+      <div class="svc-grid" id="svcGrid"></div>
+    </div>
+
+    <div class="book-step" id="step1">
+      <h4>Pick a Date</h4>
+      <div class="cal-wrap">
+        <div class="cal-nav">
+          <button onclick="prevMonth()">&#8249;</button>
+          <span id="calTitle"></span>
+          <button onclick="nextMonth()">&#8250;</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(0)">Back</button>
+    </div>
+
+    <div class="book-step" id="step2">
+      <h4>Choose a Time</h4>
+      <div class="time-grid" id="timeGrid"></div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(1)">Back</button>
+    </div>
+
+    <div class="book-step" id="step3">
+      <h4>Your Details</h4>
+      <div class="contact-summary" id="contactSummary"></div>
+      <div class="form-row"><label>Full Name</label><input id="bookName" type="text" placeholder="Your name"></div>
+      <div class="form-row"><label>Phone Number</label><input id="bookPhone" type="tel" placeholder="(215) 555-0000"></div>
+      <button class="book-btn" onclick="submitBooking()">Confirm Booking</button>
+      <button class="book-btn secondary" style="margin-top:8px" onclick="goStep(2)">Back</button>
+    </div>
+
+    <div class="book-step" id="step4">
+      <div class="confirm-wrap">
+        <div class="confirm-icon">&#10003;</div>
+        <h3>You&rsquo;re all set!</h3>
+        <p>We&rsquo;ll call you at <strong id="confirmPhone"></strong> to confirm your appointment at Continental Hairstyling for Men.</p>
+        <p style="margin-top:8px;font-size:.8rem;color:#aaa">Questions? Call us at (215) 728-7956</p>
+        <button class="book-btn" style="margin-top:20px" onclick="closeBooking()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+var BK_SERVICES = [{ name: "Haircut", price: "$20", duration: "30 min" }, { name: "Beard Trim", price: "$10", duration: "15 min" }, { name: "Cut + Beard", price: "$28", duration: "45 min" }, { name: "Hot Towel Shave", price: "$20", duration: "30 min" }, { name: "Senior Cut", price: "$15", duration: "30 min" }];
+var BK_OPEN_DAYS = [2, 3, 4, 5, 6];
+var BK_9 = 9;
+var BK_18 = 18;
+var bkStep=0, bkService=null, bkDate=null, bkTime=null;
+var calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
+
+function openBooking(){
+  document.getElementById('bookingOverlay').classList.add('open');
+  bkStep=0; bkService=null; bkDate=null; bkTime=null;
+  renderServices(); goStep(0);
+}
+function closeBooking(){document.getElementById('bookingOverlay').classList.remove('open');}
+document.getElementById('bookingOverlay').addEventListener('click',function(e){if(e.target===this)closeBooking();});
+
+function goStep(n){
+  document.querySelectorAll('.book-step').forEach(function(el,i){
+    el.classList.toggle('active',i===n);
+  });
+  document.querySelectorAll('.step-dot').forEach(function(el,i){
+    el.classList.toggle('done',i<=n);
+  });
+  bkStep=n;
+  if(n===1)renderCal();
+  if(n===2)renderTimes();
+}
+
+function renderServices(){
+  var g=document.getElementById('svcGrid'); g.innerHTML='';
+  BK_SERVICES.forEach(function(s,i){
+    var d=document.createElement('div');
+    d.className='svc-card'+(bkService&&bkService.name===s.name?' selected':'');
+    d.innerHTML='<div class="svc-name">'+s.name+'</div><div class="svc-meta">'+s.price+' &bull; '+s.duration+'</div>';
+    d.onclick=function(){bkService=s;document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){goStep(1);},250);};
+    g.appendChild(d);
+  });
+}
+
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+function renderCal(){
+  document.getElementById('calTitle').textContent=MONTHS[calMonth]+' '+calYear;
+  var g=document.getElementById('calGrid'); g.innerHTML='';
+  DAYS.forEach(function(d){var h=document.createElement('div');h.className='cal-day-header';h.textContent=d;g.appendChild(h);});
+  var first=new Date(calYear,calMonth,1).getDay();
+  var days=new Date(calYear,calMonth+1,0).getDate();
+  var today=new Date(); today.setHours(0,0,0,0);
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='cal-day empty';g.appendChild(e);}
+  for(var d=1;d<=days;d++){
+    var dt=new Date(calYear,calMonth,d);
+    var cell=document.createElement('div');
+    cell.className='cal-day';
+    var isPast=dt<today;
+    var isClosed=BK_OPEN_DAYS.indexOf(dt.getDay())<0;
+    if(isPast||isClosed){cell.classList.add('disabled');}
+    else{
+      if(bkDate&&bkDate.getTime()===dt.getTime())cell.classList.add('selected');
+      (function(date){cell.onclick=function(){bkDate=date;renderCal();setTimeout(function(){goStep(2);},200);}})(dt);
+    }
+    cell.textContent=d; g.appendChild(cell);
+  }
+}
+function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
+function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();}
+
+function renderTimes(){
+  var g=document.getElementById('timeGrid'); g.innerHTML='';
+  for(var h=BK_9;h<BK_18;h++){
+    ['00','30'].forEach(function(m){
+      var label=(h>12?h-12:h)+':'+m+' '+(h>=12?'PM':'AM');
+      var slot=document.createElement('div');
+      slot.className='time-slot'+(bkTime===label?' selected':'');
+      slot.textContent=label;
+      (function(t){slot.onclick=function(){bkTime=t;document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){updateSummary();goStep(3);},200);};})(label);
+      g.appendChild(slot);
+    });
+  }
+}
+
+function updateSummary(){
+  var d=bkDate?['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][bkDate.getDay()]+', '+MONTHS[bkDate.getMonth()]+' '+bkDate.getDate():'';
+  document.getElementById('contactSummary').innerHTML='<strong>Service:</strong> '+(bkService?bkService.name:'')+' &mdash; '+(bkService?bkService.price:'')+'<br><strong>Date:</strong> '+d+'<br><strong>Time:</strong> '+(bkTime||'');
+}
+
+function submitBooking(){
+  var n=document.getElementById('bookName').value.trim();
+  var p=document.getElementById('bookPhone').value.trim();
+  if(!n||!p){alert('Please fill in your name and phone number.');return;}
+  document.getElementById('confirmPhone').textContent=p;
+  goStep(4);
+}
+</script>
+
+</body>
+</html>

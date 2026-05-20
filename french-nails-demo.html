@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>French Nails — 6524 Castor Ave, Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cream: #faf6f0;
+    --blush: #e8c5b0;
+    --rose: #c17b5e;
+    --deep: #2a1a14;
+    --mid: #6b4535;
+    --light-rose: #f5ddd0;
+    --gold: #c9a96e;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 48px;
+    background: rgba(250,246,240,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(193,123,94,0.15);
+  }
+  .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em; color: var(--rose); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--mid); font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-book { background: var(--rose); color: white !important; padding: 10px 22px; border-radius: 2px; }
+
+  /* GALLERY MOSAIC HERO */
+  .hero {
+    margin-top: 68px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 4px;
+    height: calc(100vh - 68px);
+    max-height: 600px;
+    position: relative;
+  }
+  .hero-tile { overflow: hidden; position: relative; }
+  .hero-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .hero-tile:hover img { transform: scale(1.05); }
+  .hero-tile.main {
+    grid-column: 1 / 3; grid-row: 1 / 2;
+  }
+  .hero-tile.tall {
+    grid-column: 3 / 4; grid-row: 1 / 3;
+  }
+  .hero-tile.wide {
+    grid-column: 1 / 2; grid-row: 2 / 3;
+  }
+  .hero-tile.small {
+    grid-column: 2 / 3; grid-row: 2 / 3;
+  }
+  .hero-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0; top: 0;
+    background: linear-gradient(135deg, rgba(42,26,20,0.55) 0%, transparent 60%);
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 48px;
+    pointer-events: none;
+  }
+  .hero-overlay .eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blush); margin-bottom: 12px; }
+  .hero-overlay h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; font-weight: 300; color: white; line-height: 1.05; margin-bottom: 16px; }
+  .hero-overlay p { color: rgba(255,255,255,0.82); font-size: 0.95rem; font-weight: 300; max-width: 360px; line-height: 1.7; margin-bottom: 28px; }
+  .hero-btns { display: flex; gap: 14px; pointer-events: all; }
+  .btn-primary { background: var(--rose); color: white; padding: 14px 32px; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; }
+  .btn-primary:hover { background: var(--mid); }
+  .btn-outline { background: transparent; color: white; padding: 14px 32px; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; border: 1.5px solid rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s; }
+  .btn-outline:hover { background: rgba(255,255,255,0.15); }
+
+  /* STATS STRIP */
+  .stats-strip {
+    background: var(--deep);
+    display: flex; justify-content: center; gap: 0;
+  }
+  .stat-item {
+    flex: 1; max-width: 220px;
+    padding: 32px 24px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; color: var(--gold); font-weight: 300; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  /* SERVICES */
+  .section { padding: 96px 48px; }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--deep); margin-bottom: 48px; line-height: 1.15; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .service-card {
+    background: white; padding: 40px 32px;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--rose); transform: scaleX(0); transition: transform 0.3s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .service-icon { font-size: 1.8rem; margin-bottom: 16px; }
+  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--deep); margin-bottom: 8px; }
+  .service-desc { font-size: 0.85rem; color: #888; line-height: 1.7; margin-bottom: 16px; }
+  .service-price { font-size: 1.1rem; font-weight: 600; color: var(--rose); }
+
+  /* PHOTOS ROW */
+  .photos-section { background: var(--light-rose); padding: 80px 0; }
+  .photos-scroll {
+    display: flex; gap: 4px; overflow-x: auto; padding: 0 48px;
+    scrollbar-width: none;
+  }
+  .photos-scroll::-webkit-scrollbar { display: none; }
+  .photo-card { min-width: 280px; height: 360px; overflow: hidden; flex-shrink: 0; }
+  .photo-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .photo-card:hover img { transform: scale(1.06); }
+
+  /* REVIEWS */
+  .reviews-section { padding: 96px 48px; background: white; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1100px; margin: 0 auto; }
+  .review-card { padding: 36px; background: var(--cream); border-left: 3px solid var(--rose); }
+  .review-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 14px; }
+  .review-text { font-size: 0.9rem; color: #555; line-height: 1.8; font-style: italic; margin-bottom: 16px; }
+  .review-author { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+
+  /* HOURS + CONTACT */
+  .info-section {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    background: var(--deep);
+  }
+  .info-panel { padding: 80px 64px; }
+  .info-panel:first-child { border-right: 1px solid rgba(255,255,255,0.08); }
+  .info-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: white; font-weight: 300; margin-bottom: 36px; }
+  .hours-list { list-style: none; }
+  .hours-list li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.88rem; }
+  .hours-list .day { color: rgba(255,255,255,0.6); }
+  .hours-list .time { color: white; font-weight: 500; }
+  .hours-list .today-row .day,
+  .hours-list .today-row .time { color: var(--gold); font-weight: 600; }
+  .contact-items { display: flex; flex-direction: column; gap: 24px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 16px; }
+  .contact-icon { color: var(--rose); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+  .contact-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+  .contact-val { color: white; font-size: 0.95rem; }
+  .map-embed { margin-top: 32px; width: 100%; height: 220px; border: none; filter: grayscale(0.3); }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center; padding: 32px; font-size: 0.78rem;
+    color: rgba(255,255,255,0.3); letter-spacing: 0.08em;
+  }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .revealed { opacity: 1; transform: none; }
+
+  /* MOBILE */
+  @media(max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px; max-height: 440px; }
+    .hero-tile.tall { grid-row: 1 / 3; }
+    .hero-tile.small { display: none; }
+    .hero-overlay h1 { font-size: 2.2rem; }
+    .hero-overlay p { display: none; }
+    .section { padding: 60px 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .info-section { grid-template-columns: 1fr; }
+    .info-panel { padding: 48px 24px; }
+    .stats-strip { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">French Nails</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#" class="nav-book" onclick="openBooking();return false;">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- GALLERY MOSAIC HERO -->
+<section class="hero">
+  <div class="hero-tile main">
+    <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=1200&q=80" alt="Nail art">
+    <div class="hero-overlay">
+      <p class="eyebrow">Est. 15+ Years · Northeast Philadelphia</p>
+      <h1>Your Nails.<br>Your Statement.</h1>
+      <p>Expert nail care on Castor Ave — manicures, pedicures, gel nails, and more. Judy and her team have been making Philly nails perfect for over 15 years.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openBooking();return false;">Book Appointment</button>
+        <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Our Services</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tile tall">
+    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" alt="Nail design">
+  </div>
+  <div class="hero-tile wide">
+    <img src="https://images.unsplash.com/photo-1610992015762-45dca7fa3a85?w=800&q=80" alt="Pedicure">
+  </div>
+  <div class="hero-tile small">
+    <img src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?w=600&q=80" alt="Gel nails">
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num" id="stat1">0</div>
+    <div class="stat-label">Google Reviews</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="stat2">0</div>
+    <div class="stat-label">Years Open</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4.2★</div>
+    <div class="stat-label">Google Rating</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">15+</div>
+    <div class="stat-label">Services Offered</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">What We Offer</p>
+    <h2 class="section-title reveal">Premium Nail Services<br><em>at Honest Prices</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">💅</div>
+        <div class="service-name">Classic Manicure</div>
+        <div class="service-desc">Shape, buff, cuticle care, and polish. The foundation of beautiful hands.</div>
+        <div class="service-price">Starting at $18</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">✨</div>
+        <div class="service-name">Gel Manicure</div>
+        <div class="service-desc">Long-lasting gel polish that stays chip-free for weeks. Beautiful finish every time.</div>
+        <div class="service-price">Starting at $35</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🌸</div>
+        <div class="service-name">Pedicure</div>
+        <div class="service-desc">Soothing soak, exfoliation, massage, and a flawless polish to complete your look.</div>
+        <div class="service-price">Starting at $28</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🔲</div>
+        <div class="service-name">Acrylic Full Set</div>
+        <div class="service-desc">Durable acrylic nails custom-shaped and styled to your preference.</div>
+        <div class="service-price">Starting at $45</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🎨</div>
+        <div class="service-name">Nail Art & Design</div>
+        <div class="service-desc">French tips, ombre, floral, geometric — custom nail art for any occasion.</div>
+        <div class="service-price">Starting at $10 add-on</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">👁️</div>
+        <div class="service-name">Lash & Facial</div>
+        <div class="service-desc">Eyelash services and relaxing facials to complete your beauty routine.</div>
+        <div class="service-price">Starting at $25</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO SCROLL -->
+<div class="photos-section">
+  <div style="padding: 0 48px 32px; max-width:1200px; margin: 0 auto;">
+    <p class="section-label">Gallery</p>
+    <h2 class="section-title" style="margin-bottom:24px;">Our Work</h2>
+  </div>
+  <div class="photos-scroll">
+    <div class="photo-card"><img src="https://images.unsplash.com/photo-1690749138086-7422f71dc159?w=600&q=80" alt="Nail art"></div>
+    <div class="photo-card"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=600&q=80" alt="Gel nails"></div>
+    <div class="photo-card"><img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=600&q=80" alt="Pedicure"></div>
+    <div class="photo-card"><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=600&q=80" alt="Nail design"></div>
+    <div class="photo-card"><img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=600&q=80" alt="Manicure"></div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">Client Love</p>
+    <h2 class="section-title reveal">What Castor Ave Says</h2>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Been coming here for years. Judy always makes sure I'm happy with my nails before I leave. Best nail salon on Castor Ave, hands down."</div>
+        <div class="review-author">— Google Review</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Great prices, clean salon, and they never rush you. My gel manicure lasts every time. This is my go-to spot in Northeast Philly."</div>
+        <div class="review-author">— Google Review</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">"Love this place! Mom-and-pop shop with real attention to detail. They do beautiful nail art and the pedicure chairs are so relaxing."</div>
+        <div class="review-author">— Google Review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS + CONTACT -->
+<section class="info-section" id="hours">
+  <div class="info-panel">
+    <h3 class="info-title">Hours</h3>
+    <ul class="hours-list" id="hoursList">
+      <li><span class="day">Monday</span><span class="time">9:00 AM – 7:30 PM</span></li>
+      <li><span class="day">Tuesday</span><span class="time">9:00 AM – 7:30 PM</span></li>
+      <li><span class="day">Wednesday</span><span class="time">9:00 AM – 7:30 PM</span></li>
+      <li><span class="day">Thursday</span><span class="time">9:00 AM – 7:30 PM</span></li>
+      <li><span class="day">Friday</span><span class="time">9:00 AM – 7:30 PM</span></li>
+      <li><span class="day">Saturday</span><span class="time">9:00 AM – 6:00 PM</span></li>
+      <li><span class="day">Sunday</span><span class="time">10:00 AM – 5:00 PM</span></li>
+    </ul>
+  </div>
+  <div class="info-panel">
+    <h3 class="info-title">Find Us</h3>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Address</div>
+          <div class="contact-val">6524 Castor Ave<br>Philadelphia, PA 19149</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val">(215) 288-5376</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Today's Hours</div>
+          <div class="contact-val" id="todayHours">Open 9AM – 7:30PM</div>
+        </div>
+      </div>
+    </div>
+    <iframe class="map-embed" src="https://maps.google.com/maps?q=6524+Castor+Ave+Philadelphia+PA+19149&output=embed" allowfullscreen></iframe>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 French Nails · 6524 Castor Ave, Philadelphia PA 19149 · (215) 288-5376</p>
+</footer>
+
+<script>
+// Highlight today's hours
+(function(){
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const today = days[new Date().getDay()];
+  document.querySelectorAll('.hours-list li').forEach(li => {
+    if(li.querySelector('.day').textContent === today) li.classList.add('today-row');
+  });
+})();
+
+// Count up stats
+function countUp(el, target, duration) {
+  let start = 0, step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = Math.floor(start);
+    if(start >= target) clearInterval(timer);
+  }, 16);
+}
+
+// Intersection Observer for reveals + stats
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Stats count-up on scroll
+let statsDone = false;
+const statsStrip = document.querySelector('.stats-strip');
+const statsObs = new IntersectionObserver(entries => {
+  if(entries[0].isIntersecting && !statsDone) {
+    statsDone = true;
+    countUp(document.getElementById('stat1'), 208, 1200);
+    countUp(document.getElementById('stat2'), 15, 800);
+  }
+}, { threshold: 0.3 });
+if(statsStrip) statsObs.observe(statsStrip);
+</script>
+
+
+<style>
+#bookingOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+#bookingOverlay.open{display:flex}
+#bookingBox{background:#faf6f0;width:min(92vw,520px);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);font-family:inherit}
+#bookingHeader{background:#c17b5e;color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+#bookingHeader h3{margin:0;font-size:1.1rem;font-weight:600}
+#closeBooking{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1}
+#bookingBody{padding:24px}
+.book-step{display:none}.book-step.active{display:block}
+.book-step h4{margin:0 0 16px;font-size:1rem;color:#555}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.svc-card{border:2px solid #e0e0e0;border-radius:8px;padding:12px;cursor:pointer;transition:.2s}
+.svc-card:hover,.svc-card.selected{border-color:#c17b5e;background:#e8c5b0}
+.svc-card .svc-name{font-weight:600;font-size:.9rem;color:#2a1a14}
+.svc-card .svc-meta{font-size:.78rem;color:#888;margin-top:3px}
+.cal-wrap{background:#f9f9f9;border-radius:8px;padding:14px}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cal-nav button{background:none;border:1px solid #ddd;border-radius:6px;padding:4px 10px;cursor:pointer}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-day-header{font-size:.7rem;color:#999;font-weight:600;padding:4px 0}
+.cal-day{font-size:.82rem;padding:6px 4px;border-radius:6px;cursor:pointer}
+.cal-day:hover:not(.disabled):not(.empty){background:#e8c5b0}
+.cal-day.selected{background:#c17b5e;color:#fff}
+.cal-day.disabled{color:#ccc;cursor:default}
+.cal-day.empty{cursor:default}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.time-slot{border:2px solid #e0e0e0;border-radius:8px;padding:10px;text-align:center;cursor:pointer;font-size:.85rem;transition:.2s}
+.time-slot:hover,.time-slot.selected{border-color:#c17b5e;background:#e8c5b0;color:#2a1a14}
+.contact-summary{background:#f5f5f5;border-radius:8px;padding:14px;margin-bottom:16px;font-size:.85rem;color:#555}
+.contact-summary strong{color:#222}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:.82rem;color:#666;margin-bottom:5px}
+.form-row input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box}
+.book-btn{background:#c17b5e;color:#fff;border:none;padding:12px 24px;border-radius:8px;width:100%;font-size:.95rem;font-weight:600;cursor:pointer;margin-top:10px;transition:.2s}
+.book-btn:hover{background:#6b4535}
+.book-btn.secondary{background:#eee;color:#333}
+.book-btn.secondary:hover{background:#ddd}
+.confirm-wrap{text-align:center;padding:20px 0}
+.confirm-icon{font-size:3.5rem;margin-bottom:10px}
+.confirm-wrap h3{color:#c17b5e;margin:0 0 8px}
+.confirm-wrap p{color:#666;font-size:.9rem}
+.step-indicator{display:flex;gap:6px;margin-bottom:20px}
+.step-dot{height:4px;flex:1;border-radius:2px;background:#e0e0e0;transition:.3s}
+.step-dot.done{background:#c17b5e}
+</style>
+
+<div id="bookingOverlay">
+<div id="bookingBox">
+  <div id="bookingHeader">
+    <h3>Book at French Nails</h3>
+    <button id="closeBooking" onclick="closeBooking()">&#x2715;</button>
+  </div>
+  <div id="bookingBody">
+    <div class="step-indicator">
+      <div class="step-dot" id="dot0"></div>
+      <div class="step-dot" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+    </div>
+
+    <div class="book-step active" id="step0">
+      <h4>Choose a Service</h4>
+      <div class="svc-grid" id="svcGrid"></div>
+    </div>
+
+    <div class="book-step" id="step1">
+      <h4>Pick a Date</h4>
+      <div class="cal-wrap">
+        <div class="cal-nav">
+          <button onclick="prevMonth()">&#8249;</button>
+          <span id="calTitle"></span>
+          <button onclick="nextMonth()">&#8250;</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(0)">Back</button>
+    </div>
+
+    <div class="book-step" id="step2">
+      <h4>Choose a Time</h4>
+      <div class="time-grid" id="timeGrid"></div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(1)">Back</button>
+    </div>
+
+    <div class="book-step" id="step3">
+      <h4>Your Details</h4>
+      <div class="contact-summary" id="contactSummary"></div>
+      <div class="form-row"><label>Full Name</label><input id="bookName" type="text" placeholder="Your name"></div>
+      <div class="form-row"><label>Phone Number</label><input id="bookPhone" type="tel" placeholder="(215) 555-0000"></div>
+      <button class="book-btn" onclick="submitBooking()">Confirm Booking</button>
+      <button class="book-btn secondary" style="margin-top:8px" onclick="goStep(2)">Back</button>
+    </div>
+
+    <div class="book-step" id="step4">
+      <div class="confirm-wrap">
+        <div class="confirm-icon">&#10003;</div>
+        <h3>You&rsquo;re all set!</h3>
+        <p>We&rsquo;ll call you at <strong id="confirmPhone"></strong> to confirm your appointment at French Nails.</p>
+        <p style="margin-top:8px;font-size:.8rem;color:#aaa">Questions? Call us at (215) 288-5376</p>
+        <button class="book-btn" style="margin-top:20px" onclick="closeBooking()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+var BK_SERVICES = [{ name: "Classic Manicure", price: "$18", duration: "45 min" }, { name: "Gel Manicure", price: "$35", duration: "60 min" }, { name: "Pedicure", price: "$28", duration: "60 min" }, { name: "Acrylic Full Set", price: "$45", duration: "90 min" }, { name: "Mani + Pedi Combo", price: "$42", duration: "90 min" }, { name: "Nail Art", price: "$10+", duration: "30 min" }];
+var BK_OPEN_DAYS = [0, 1, 2, 3, 4, 5, 6];
+var BK_9 = 9;
+var BK_20 = 20;
+var bkStep=0, bkService=null, bkDate=null, bkTime=null;
+var calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
+
+function openBooking(){
+  document.getElementById('bookingOverlay').classList.add('open');
+  bkStep=0; bkService=null; bkDate=null; bkTime=null;
+  renderServices(); goStep(0);
+}
+function closeBooking(){document.getElementById('bookingOverlay').classList.remove('open');}
+document.getElementById('bookingOverlay').addEventListener('click',function(e){if(e.target===this)closeBooking();});
+
+function goStep(n){
+  document.querySelectorAll('.book-step').forEach(function(el,i){
+    el.classList.toggle('active',i===n);
+  });
+  document.querySelectorAll('.step-dot').forEach(function(el,i){
+    el.classList.toggle('done',i<=n);
+  });
+  bkStep=n;
+  if(n===1)renderCal();
+  if(n===2)renderTimes();
+}
+
+function renderServices(){
+  var g=document.getElementById('svcGrid'); g.innerHTML='';
+  BK_SERVICES.forEach(function(s,i){
+    var d=document.createElement('div');
+    d.className='svc-card'+(bkService&&bkService.name===s.name?' selected':'');
+    d.innerHTML='<div class="svc-name">'+s.name+'</div><div class="svc-meta">'+s.price+' &bull; '+s.duration+'</div>';
+    d.onclick=function(){bkService=s;document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){goStep(1);},250);};
+    g.appendChild(d);
+  });
+}
+
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+function renderCal(){
+  document.getElementById('calTitle').textContent=MONTHS[calMonth]+' '+calYear;
+  var g=document.getElementById('calGrid'); g.innerHTML='';
+  DAYS.forEach(function(d){var h=document.createElement('div');h.className='cal-day-header';h.textContent=d;g.appendChild(h);});
+  var first=new Date(calYear,calMonth,1).getDay();
+  var days=new Date(calYear,calMonth+1,0).getDate();
+  var today=new Date(); today.setHours(0,0,0,0);
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='cal-day empty';g.appendChild(e);}
+  for(var d=1;d<=days;d++){
+    var dt=new Date(calYear,calMonth,d);
+    var cell=document.createElement('div');
+    cell.className='cal-day';
+    var isPast=dt<today;
+    var isClosed=BK_OPEN_DAYS.indexOf(dt.getDay())<0;
+    if(isPast||isClosed){cell.classList.add('disabled');}
+    else{
+      if(bkDate&&bkDate.getTime()===dt.getTime())cell.classList.add('selected');
+      (function(date){cell.onclick=function(){bkDate=date;renderCal();setTimeout(function(){goStep(2);},200);}})(dt);
+    }
+    cell.textContent=d; g.appendChild(cell);
+  }
+}
+function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
+function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();}
+
+function renderTimes(){
+  var g=document.getElementById('timeGrid'); g.innerHTML='';
+  for(var h=BK_9;h<BK_20;h++){
+    ['00','30'].forEach(function(m){
+      var label=(h>12?h-12:h)+':'+m+' '+(h>=12?'PM':'AM');
+      var slot=document.createElement('div');
+      slot.className='time-slot'+(bkTime===label?' selected':'');
+      slot.textContent=label;
+      (function(t){slot.onclick=function(){bkTime=t;document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){updateSummary();goStep(3);},200);};})(label);
+      g.appendChild(slot);
+    });
+  }
+}
+
+function updateSummary(){
+  var d=bkDate?['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][bkDate.getDay()]+', '+MONTHS[bkDate.getMonth()]+' '+bkDate.getDate():'';
+  document.getElementById('contactSummary').innerHTML='<strong>Service:</strong> '+(bkService?bkService.name:'')+' &mdash; '+(bkService?bkService.price:'')+'<br><strong>Date:</strong> '+d+'<br><strong>Time:</strong> '+(bkTime||'');
+}
+
+function submitBooking(){
+  var n=document.getElementById('bookName').value.trim();
+  var p=document.getElementById('bookPhone').value.trim();
+  if(!n||!p){alert('Please fill in your name and phone number.');return;}
+  document.getElementById('confirmPhone').textContent=p;
+  goStep(4);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China City Restaurant — 6612 Castor Ave, Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --red: #b8292a;
+    --red-dark: #8a1f20;
+    --red-light: #e04040;
+    --gold: #d4a843;
+    --gold-light: #f0c860;
+    --black: #0d0d0d;
+    --off-black: #1a1010;
+    --cream: #faf6f0;
+    --warm: #f0e8da;
+    --gray: #888;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--cream); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 56px;
+    background: rgba(13,13,13,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,168,67,0.2);
+  }
+  .nav-brand { display: flex; flex-direction: column; }
+  .nav-brand-main { font-family: 'Noto Serif', serif; font-size: 1.3rem; color: var(--gold); letter-spacing: 0.04em; }
+  .nav-brand-sub { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(212,168,67,0.6); margin-top: 2px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: rgba(250,246,240,0.7); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-order { background: var(--red); color: white !important; padding: 10px 22px; font-weight: 600; }
+
+  /* HORIZONTAL PHOTO STRIP HERO */
+  .hero { padding-top: 70px; }
+  .photo-strip {
+    display: flex; gap: 3px; height: 65vh; min-height: 420px;
+    overflow: hidden;
+  }
+  .strip-panel { position: relative; overflow: hidden; flex: 1; cursor: pointer; transition: flex 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .strip-panel:hover { flex: 2.5; }
+  .strip-panel img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .strip-panel:hover img { transform: scale(1.04); }
+  .strip-panel-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,13,13,0.8) 0%, transparent 50%);
+    display: flex; align-items: flex-end; padding: 20px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .strip-panel:hover .strip-panel-overlay { opacity: 1; }
+  .strip-panel-label { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+
+  /* HEADLINE BELOW STRIP */
+  .hero-text {
+    background: var(--off-black); padding: 64px 72px;
+    display: flex; justify-content: space-between; align-items: center; gap: 80px;
+    border-bottom: 1px solid rgba(212,168,67,0.15);
+  }
+  .hero-text-left {}
+  .ht-eyebrow { font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .ht-title { font-family: 'Noto Serif', serif; font-size: 3.5rem; font-weight: 700; color: white; line-height: 1.05; }
+  .ht-title span { display: block; }
+  .ht-title .accent { color: var(--gold); font-style: italic; }
+  .hero-text-right { text-align: right; max-width: 360px; }
+  .ht-desc { color: rgba(250,246,240,0.65); font-size: 0.92rem; line-height: 1.8; font-weight: 300; margin-bottom: 28px; }
+  .btn-gold { background: var(--gold); color: var(--black); padding: 14px 34px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline-gold { background: transparent; color: var(--gold); padding: 14px 34px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border: 1.5px solid var(--gold); cursor: pointer; transition: all 0.2s; margin-left: 12px; }
+  .btn-outline-gold:hover { background: rgba(212,168,67,0.1); }
+
+  /* STATS */
+  .stats-row {
+    background: var(--red); display: flex; justify-content: center;
+  }
+  .stat { flex: 1; max-width: 200px; padding: 28px 16px; text-align: center; border-right: 1px solid rgba(255,255,255,0.15); }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-family: 'Noto Serif', serif; font-size: 2.2rem; font-weight: 700; color: white; }
+  .stat-l { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-top: 4px; }
+
+  /* MENU HIGHLIGHTS */
+  .menu-section { padding: 100px 72px; background: var(--off-black); }
+  .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .section-title { font-family: 'Noto Serif', serif; font-size: 2.8rem; color: white; margin-bottom: 64px; line-height: 1.15; }
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 1100px; }
+  .menu-cat { background: var(--black); padding: 36px 32px; }
+  .menu-cat-title { font-family: 'Noto Serif', serif; font-size: 1.3rem; color: var(--gold); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid rgba(212,168,67,0.2); }
+  .menu-item { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .menu-item:last-child { border-bottom: none; }
+  .item-name { font-size: 0.88rem; color: rgba(250,246,240,0.8); }
+  .item-price { font-size: 0.85rem; color: var(--gold); font-weight: 600; white-space: nowrap; margin-left: 12px; }
+
+  /* ORDER CTA */
+  .order-cta {
+    background: var(--red-dark);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 48px; text-align: center;
+    border-top: 1px solid rgba(212,168,67,0.15);
+  }
+  .order-cta h2 { font-family: 'Noto Serif', serif; font-size: 2.8rem; color: white; margin-bottom: 16px; }
+  .order-cta p { color: rgba(255,255,255,0.65); font-size: 0.95rem; margin-bottom: 36px; max-width: 480px; }
+  .order-cta .btn-gold { font-size: 0.9rem; padding: 16px 44px; }
+
+  /* REVIEWS */
+  .reviews-section { padding: 100px 72px; background: var(--black); }
+  .reviews-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1100px; margin-top: 48px; }
+  .review-box { background: var(--off-black); padding: 36px; border-left: 3px solid var(--red); }
+  .r-stars { color: var(--gold); margin-bottom: 14px; font-size: 0.88rem; }
+  .r-text { font-size: 0.88rem; line-height: 1.8; color: rgba(250,246,240,0.65); font-style: italic; margin-bottom: 14px; }
+  .r-author { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+
+  /* HOURS */
+  .hours-section { background: var(--off-black); padding: 100px 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-top: 1px solid rgba(212,168,67,0.1); }
+  .hours-col h3 { font-family: 'Noto Serif', serif; font-size: 2rem; color: var(--gold); margin-bottom: 36px; }
+  .h-list { list-style: none; }
+  .h-list li { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.88rem; }
+  .h-list .day { color: var(--gray); }
+  .h-list .time { color: var(--cream); }
+  .h-list .tr-today .day, .h-list .tr-today .time { color: var(--gold); font-weight: 600; }
+  .contact-info { display: flex; flex-direction: column; gap: 24px; }
+  .c-block { display: flex; gap: 16px; }
+  .c-icon { color: var(--gold); font-size: 1rem; margin-top: 3px; }
+  .c-lbl { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); margin-bottom: 3px; }
+  .c-val { color: var(--cream); font-size: 0.9rem; }
+  .map-box { margin-top: 28px; width: 100%; height: 200px; border: none; filter: grayscale(0.6) brightness(0.7); }
+
+  footer { background: var(--black); border-top: 1px solid rgba(212,168,67,0.1); text-align: center; padding: 28px; font-size: 0.74rem; color: rgba(250,246,240,0.2); letter-spacing: 0.06em; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: 0.7s ease; }
+  .revealed { opacity: 1; transform: none; }
+
+  @media(max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .photo-strip { height: 40vh; }
+    .hero-text { flex-direction: column; padding: 48px 24px; }
+    .hero-text-right { text-align: left; }
+    .ht-title { font-size: 2.2rem; }
+    .stats-row { flex-wrap: wrap; }
+    .menu-section, .reviews-section { padding: 60px 24px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .reviews-row { grid-template-columns: 1fr; }
+    .hours-section { grid-template-columns: 1fr; padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-main">China City Restaurant</div>
+    <div class="nav-brand-sub">Authentic Chinese · 6612 Castor Ave</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#" class="nav-order" onclick="openBooking();return false;">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- HORIZONTAL PHOTO STRIP -->
+<section class="hero">
+  <div class="photo-strip">
+    <div class="strip-panel">
+      <img src="https://images.unsplash.com/photo-1623669219949-2bb00f351eee?w=700&q=85" alt="Chinese food">
+      <div class="strip-panel-overlay"><span class="strip-panel-label">Dumplings</span></div>
+    </div>
+    <div class="strip-panel">
+      <img src="https://images.unsplash.com/photo-1670518045382-b68878eebecc?w=700&q=85" alt="Chinese dish">
+      <div class="strip-panel-overlay"><span class="strip-panel-label">Entrees</span></div>
+    </div>
+    <div class="strip-panel">
+      <img src="https://images.unsplash.com/photo-1600470944938-b301e41001c8?w=700&q=85" alt="Noodles">
+      <div class="strip-panel-overlay"><span class="strip-panel-label">Noodles</span></div>
+    </div>
+    <div class="strip-panel">
+      <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=700&q=85" alt="Rice dishes">
+      <div class="strip-panel-overlay"><span class="strip-panel-label">Rice Dishes</span></div>
+    </div>
+    <div class="strip-panel">
+      <img src="https://images.unsplash.com/photo-1600470854227-9817ae6f9c48?w=700&q=85" alt="Soup">
+      <div class="strip-panel-overlay"><span class="strip-panel-label">Soups</span></div>
+    </div>
+  </div>
+  <div class="hero-text">
+    <div class="hero-text-left">
+      <p class="ht-eyebrow">Castor Ave, Northeast Philadelphia · Est. decades</p>
+      <h1 class="ht-title">
+        <span>Real Chinese.</span>
+        <span class="accent">Real Good.</span>
+      </h1>
+    </div>
+    <div class="hero-text-right">
+      <p class="ht-desc">Authentic Chinese cuisine served fresh, every day of the week. Dine in, take out, or delivery — whatever works for you. The neighborhood's favorite Chinese restaurant on Castor Ave.</p>
+      <button class="btn-gold" onclick="openBooking();return false;">Order Now</button>
+      <button class="btn-outline-gold" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">See Menu</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat"><div class="stat-n">4★</div><div class="stat-l">Google Rating</div></div>
+  <div class="stat"><div class="stat-n">7</div><div class="stat-l">Days a Week</div></div>
+  <div class="stat"><div class="stat-n">11AM</div><div class="stat-l">Opens Daily</div></div>
+  <div class="stat"><div class="stat-n">10PM</div><div class="stat-l">Last Orders</div></div>
+</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <p class="section-eyebrow reveal">What's Cooking</p>
+  <h2 class="section-title reveal">Our Menu Highlights</h2>
+  <div class="menu-grid">
+    <div class="menu-cat reveal">
+      <div class="menu-cat-title">🥟 Appetizers</div>
+      <div class="menu-item"><span class="item-name">Spring Rolls</span><span class="item-price">$1.95</span></div>
+      <div class="menu-item"><span class="item-name">Dumplings (6 pc.)</span><span class="item-price">$6.75</span></div>
+      <div class="menu-item"><span class="item-name">Fantail Shrimp (6 pc.)</span><span class="item-price">$6.50</span></div>
+      <div class="menu-item"><span class="item-name">BBQ Spareribs (6 pc.)</span><span class="item-price">$9.25</span></div>
+      <div class="menu-item"><span class="item-name">Wonton Soup</span><span class="item-price">$4.50</span></div>
+    </div>
+    <div class="menu-cat reveal">
+      <div class="menu-cat-title">🍜 Noodles & Rice</div>
+      <div class="menu-item"><span class="item-name">Pork Fried Rice</span><span class="item-price">$7.95</span></div>
+      <div class="menu-item"><span class="item-name">Chicken Lo Mein</span><span class="item-price">$9.50</span></div>
+      <div class="menu-item"><span class="item-name">Beef Chow Fun</span><span class="item-price">$10.95</span></div>
+      <div class="menu-item"><span class="item-name">Shrimp Fried Rice</span><span class="item-price">$9.95</span></div>
+      <div class="menu-item"><span class="item-name">Vegetable Lo Mein</span><span class="item-price">$8.25</span></div>
+    </div>
+    <div class="menu-cat reveal">
+      <div class="menu-cat-title">🍗 Chef's Favorites</div>
+      <div class="menu-item"><span class="item-name">General Tso's Chicken</span><span class="item-price">$12.95</span></div>
+      <div class="menu-item"><span class="item-name">Orange Chicken</span><span class="item-price">$12.50</span></div>
+      <div class="menu-item"><span class="item-name">Beef with Broccoli</span><span class="item-price">$12.95</span></div>
+      <div class="menu-item"><span class="item-name">Sesame Shrimp</span><span class="item-price">$14.95</span></div>
+      <div class="menu-item"><span class="item-name">Moo Shu Pork</span><span class="item-price">$11.50</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER CTA -->
+<div class="order-cta">
+  <h2>Ready to Order?</h2>
+  <p>We offer dine-in, takeout, and delivery. Call us or walk in — we're open every day from 11AM to 10PM on Castor Ave.</p>
+  <button class="btn-gold" onclick="openBooking();return false;">Place an Order</button>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <p class="section-eyebrow reveal">What Customers Say</p>
+  <h2 class="section-title reveal" style="font-size:2.4rem;">Castor Ave Approved</h2>
+  <div class="reviews-row">
+    <div class="review-box reveal">
+      <div class="r-stars">★★★★★</div>
+      <div class="r-text">"China city is a great place to get good Chinese food at a great price. My family orders from here all the time — quick delivery and always fresh."</div>
+      <div class="r-author">— Google Review</div>
+    </div>
+    <div class="review-box reveal">
+      <div class="r-stars">★★★★★</div>
+      <div class="r-text">"Been ordering from here for years. The General Tso's is the best in Northeast Philly, hands down. Portions are huge and prices are very fair."</div>
+      <div class="r-author">— Google Review</div>
+    </div>
+    <div class="review-box reveal">
+      <div class="r-stars">★★★★☆</div>
+      <div class="r-text">"Solid neighborhood Chinese spot. Fast service, consistent food, and they actually remember your usual order after a few visits. That's real community."</div>
+      <div class="r-author">— Google Review</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS + CONTACT -->
+<section class="hours-section" id="hours">
+  <div class="hours-col">
+    <h3>Hours</h3>
+    <ul class="h-list" id="hrList">
+      <li><span class="day">Monday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+      <li><span class="day">Tuesday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+      <li><span class="day">Wednesday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+      <li><span class="day">Thursday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+      <li><span class="day">Friday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+      <li><span class="day">Saturday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+      <li><span class="day">Sunday</span><span class="time">11:00 AM – 10:00 PM</span></li>
+    </ul>
+  </div>
+  <div class="hours-col">
+    <h3>Find Us</h3>
+    <div class="contact-info">
+      <div class="c-block"><div class="c-icon">📍</div><div><div class="c-lbl">Address</div><div class="c-val">6612 Castor Ave<br>Philadelphia, PA 19149</div></div></div>
+      <div class="c-block"><div class="c-icon">📞</div><div><div class="c-lbl">Phone</div><div class="c-val">(215) 728-0277</div></div></div>
+      <div class="c-block"><div class="c-icon">🚗</div><div><div class="c-lbl">Parking</div><div class="c-val">Street parking available on Castor Ave</div></div></div>
+    </div>
+    <iframe class="map-box" src="https://maps.google.com/maps?q=6612+Castor+Ave+Philadelphia+PA+19149&output=embed" allowfullscreen></iframe>
+  </div>
+</section>
+
+<footer>© 2026 China City Restaurant · 6612 Castor Ave, Philadelphia PA 19149 · (215) 728-0277</footer>
+
+<script>
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('#hrList li').forEach(li => {
+  if(li.querySelector('.day').textContent === today) li.classList.add('tr-today');
+});
+const ro = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting) x.target.classList.add('revealed'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+
+<style>
+#bookingOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+#bookingOverlay.open{display:flex}
+#bookingBox{background:#fdf8f0;width:min(92vw,520px);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);font-family:inherit}
+#bookingHeader{background:#b8292a;color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+#bookingHeader h3{margin:0;font-size:1.1rem;font-weight:600}
+#closeBooking{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1}
+#bookingBody{padding:24px}
+.book-step{display:none}.book-step.active{display:block}
+.book-step h4{margin:0 0 16px;font-size:1rem;color:#555}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.svc-card{border:2px solid #e0e0e0;border-radius:8px;padding:12px;cursor:pointer;transition:.2s}
+.svc-card:hover,.svc-card.selected{border-color:#b8292a;background:#d4a843}
+.svc-card .svc-name{font-weight:600;font-size:.9rem;color:#0d0d0d}
+.svc-card .svc-meta{font-size:.78rem;color:#888;margin-top:3px}
+.cal-wrap{background:#f9f9f9;border-radius:8px;padding:14px}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cal-nav button{background:none;border:1px solid #ddd;border-radius:6px;padding:4px 10px;cursor:pointer}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-day-header{font-size:.7rem;color:#999;font-weight:600;padding:4px 0}
+.cal-day{font-size:.82rem;padding:6px 4px;border-radius:6px;cursor:pointer}
+.cal-day:hover:not(.disabled):not(.empty){background:#d4a843}
+.cal-day.selected{background:#b8292a;color:#fff}
+.cal-day.disabled{color:#ccc;cursor:default}
+.cal-day.empty{cursor:default}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.time-slot{border:2px solid #e0e0e0;border-radius:8px;padding:10px;text-align:center;cursor:pointer;font-size:.85rem;transition:.2s}
+.time-slot:hover,.time-slot.selected{border-color:#b8292a;background:#d4a843;color:#0d0d0d}
+.contact-summary{background:#f5f5f5;border-radius:8px;padding:14px;margin-bottom:16px;font-size:.85rem;color:#555}
+.contact-summary strong{color:#222}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:.82rem;color:#666;margin-bottom:5px}
+.form-row input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box}
+.book-btn{background:#b8292a;color:#fff;border:none;padding:12px 24px;border-radius:8px;width:100%;font-size:.95rem;font-weight:600;cursor:pointer;margin-top:10px;transition:.2s}
+.book-btn:hover{background:#8a1a1a}
+.book-btn.secondary{background:#eee;color:#333}
+.book-btn.secondary:hover{background:#ddd}
+.confirm-wrap{text-align:center;padding:20px 0}
+.confirm-icon{font-size:3.5rem;margin-bottom:10px}
+.confirm-wrap h3{color:#b8292a;margin:0 0 8px}
+.confirm-wrap p{color:#666;font-size:.9rem}
+.step-indicator{display:flex;gap:6px;margin-bottom:20px}
+.step-dot{height:4px;flex:1;border-radius:2px;background:#e0e0e0;transition:.3s}
+.step-dot.done{background:#b8292a}
+</style>
+
+<div id="bookingOverlay">
+<div id="bookingBox">
+  <div id="bookingHeader">
+    <h3>Book at China City Restaurant</h3>
+    <button id="closeBooking" onclick="closeBooking()">&#x2715;</button>
+  </div>
+  <div id="bookingBody">
+    <div class="step-indicator">
+      <div class="step-dot" id="dot0"></div>
+      <div class="step-dot" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+    </div>
+
+    <div class="book-step active" id="step0">
+      <h4>Choose a Service</h4>
+      <div class="svc-grid" id="svcGrid"></div>
+    </div>
+
+    <div class="book-step" id="step1">
+      <h4>Pick a Date</h4>
+      <div class="cal-wrap">
+        <div class="cal-nav">
+          <button onclick="prevMonth()">&#8249;</button>
+          <span id="calTitle"></span>
+          <button onclick="nextMonth()">&#8250;</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(0)">Back</button>
+    </div>
+
+    <div class="book-step" id="step2">
+      <h4>Choose a Time</h4>
+      <div class="time-grid" id="timeGrid"></div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(1)">Back</button>
+    </div>
+
+    <div class="book-step" id="step3">
+      <h4>Your Details</h4>
+      <div class="contact-summary" id="contactSummary"></div>
+      <div class="form-row"><label>Full Name</label><input id="bookName" type="text" placeholder="Your name"></div>
+      <div class="form-row"><label>Phone Number</label><input id="bookPhone" type="tel" placeholder="(215) 555-0000"></div>
+      <button class="book-btn" onclick="submitBooking()">Confirm Booking</button>
+      <button class="book-btn secondary" style="margin-top:8px" onclick="goStep(2)">Back</button>
+    </div>
+
+    <div class="book-step" id="step4">
+      <div class="confirm-wrap">
+        <div class="confirm-icon">&#10003;</div>
+        <h3>You&rsquo;re all set!</h3>
+        <p>We&rsquo;ll call you at <strong id="confirmPhone"></strong> to confirm your appointment at China City Restaurant.</p>
+        <p style="margin-top:8px;font-size:.8rem;color:#aaa">Questions? Call us at (215) 728-0277</p>
+        <button class="book-btn" style="margin-top:20px" onclick="closeBooking()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+var BK_SERVICES = [{ name: "Table Reservation", price: "Free", duration: "—" }, { name: "Takeout Pre-Order", price: "Menu Price", duration: "—" }, { name: "Lunch Special", price: "$8.95", duration: "—" }, { name: "Family Dinner Pack", price: "$34.95", duration: "—" }, { name: "Party Catering Quote", price: "Custom", duration: "—" }];
+var BK_OPEN_DAYS = [0, 1, 2, 3, 4, 5, 6];
+var BK_11 = 11;
+var BK_22 = 22;
+var bkStep=0, bkService=null, bkDate=null, bkTime=null;
+var calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
+
+function openBooking(){
+  document.getElementById('bookingOverlay').classList.add('open');
+  bkStep=0; bkService=null; bkDate=null; bkTime=null;
+  renderServices(); goStep(0);
+}
+function closeBooking(){document.getElementById('bookingOverlay').classList.remove('open');}
+document.getElementById('bookingOverlay').addEventListener('click',function(e){if(e.target===this)closeBooking();});
+
+function goStep(n){
+  document.querySelectorAll('.book-step').forEach(function(el,i){
+    el.classList.toggle('active',i===n);
+  });
+  document.querySelectorAll('.step-dot').forEach(function(el,i){
+    el.classList.toggle('done',i<=n);
+  });
+  bkStep=n;
+  if(n===1)renderCal();
+  if(n===2)renderTimes();
+}
+
+function renderServices(){
+  var g=document.getElementById('svcGrid'); g.innerHTML='';
+  BK_SERVICES.forEach(function(s,i){
+    var d=document.createElement('div');
+    d.className='svc-card'+(bkService&&bkService.name===s.name?' selected':'');
+    d.innerHTML='<div class="svc-name">'+s.name+'</div><div class="svc-meta">'+s.price+' &bull; '+s.duration+'</div>';
+    d.onclick=function(){bkService=s;document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){goStep(1);},250);};
+    g.appendChild(d);
+  });
+}
+
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+function renderCal(){
+  document.getElementById('calTitle').textContent=MONTHS[calMonth]+' '+calYear;
+  var g=document.getElementById('calGrid'); g.innerHTML='';
+  DAYS.forEach(function(d){var h=document.createElement('div');h.className='cal-day-header';h.textContent=d;g.appendChild(h);});
+  var first=new Date(calYear,calMonth,1).getDay();
+  var days=new Date(calYear,calMonth+1,0).getDate();
+  var today=new Date(); today.setHours(0,0,0,0);
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='cal-day empty';g.appendChild(e);}
+  for(var d=1;d<=days;d++){
+    var dt=new Date(calYear,calMonth,d);
+    var cell=document.createElement('div');
+    cell.className='cal-day';
+    var isPast=dt<today;
+    var isClosed=BK_OPEN_DAYS.indexOf(dt.getDay())<0;
+    if(isPast||isClosed){cell.classList.add('disabled');}
+    else{
+      if(bkDate&&bkDate.getTime()===dt.getTime())cell.classList.add('selected');
+      (function(date){cell.onclick=function(){bkDate=date;renderCal();setTimeout(function(){goStep(2);},200);}})(dt);
+    }
+    cell.textContent=d; g.appendChild(cell);
+  }
+}
+function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
+function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();}
+
+function renderTimes(){
+  var g=document.getElementById('timeGrid'); g.innerHTML='';
+  for(var h=BK_11;h<BK_22;h++){
+    ['00','30'].forEach(function(m){
+      var label=(h>12?h-12:h)+':'+m+' '+(h>=12?'PM':'AM');
+      var slot=document.createElement('div');
+      slot.className='time-slot'+(bkTime===label?' selected':'');
+      slot.textContent=label;
+      (function(t){slot.onclick=function(){bkTime=t;document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){updateSummary();goStep(3);},200);};})(label);
+      g.appendChild(slot);
+    });
+  }
+}
+
+function updateSummary(){
+  var d=bkDate?['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][bkDate.getDay()]+', '+MONTHS[bkDate.getMonth()]+' '+bkDate.getDate():'';
+  document.getElementById('contactSummary').innerHTML='<strong>Service:</strong> '+(bkService?bkService.name:'')+' &mdash; '+(bkService?bkService.price:'')+'<br><strong>Date:</strong> '+d+'<br><strong>Time:</strong> '+(bkTime||'');
+}
+
+function submitBooking(){
+  var n=document.getElementById('bookName').value.trim();
+  var p=document.getElementById('bookPhone').value.trim();
+  if(!n||!p){alert('Please fill in your name and phone number.');return;}
+  document.getElementById('confirmPhone').textContent=p;
+  goStep(4);
+}
+</script>
+
+</body>
+</html>

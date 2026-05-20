@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Castor Nail & Spa — 6396 Castor Ave, Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --plum: #4a2040;
+    --plum-light: #6b3660;
+    --blush: #f0d6e4;
+    --blush-mid: #e0b8cf;
+    --champagne: #f8f2ee;
+    --white: #ffffff;
+    --gold: #c4965e;
+    --dark: #1a1015;
+    --mid: #6b5060;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito Sans', sans-serif; background: var(--champagne); color: var(--dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 48px;
+    background: rgba(248,242,238,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(74,32,64,0.1);
+  }
+  .brand { display: flex; flex-direction: column; }
+  .brand-main { font-family: 'Libre Baskerville', serif; font-size: 1.25rem; color: var(--plum); font-style: italic; }
+  .brand-sub { font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-top: 2px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--mid); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--plum); }
+  .nav-cta { background: var(--plum); color: white !important; padding: 10px 22px; border-radius: 40px; }
+
+  /* DUAL-PANEL SPLIT HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    height: 100vh; min-height: 640px;
+    margin-top: 62px;
+  }
+  .panel { position: relative; overflow: hidden; }
+  .panel-img { width: 100%; height: 100%; object-fit: cover; transition: transform 8s ease; }
+  .panel:hover .panel-img { transform: scale(1.03); }
+  .panel-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 56px 48px; }
+  .panel-left .panel-overlay { background: linear-gradient(to top, rgba(74,32,64,0.85) 0%, rgba(74,32,64,0.2) 60%, transparent 100%); }
+  .panel-right .panel-overlay { background: linear-gradient(to top, rgba(26,16,21,0.8) 0%, rgba(26,16,21,0.15) 60%, transparent 100%); }
+  .panel-label { font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--blush-mid); margin-bottom: 10px; }
+  .panel-title { font-family: 'Libre Baskerville', serif; font-size: 2.8rem; font-weight: 400; color: white; line-height: 1.1; margin-bottom: 16px; }
+  .panel-title em { font-style: italic; color: var(--blush); }
+  .panel-cta { display: inline-block; background: white; color: var(--plum); padding: 12px 28px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s; border-radius: 2px; }
+  .panel-cta:hover { background: var(--blush); }
+  .hero-divider {
+    position: absolute; left: 50%; top: 0; bottom: 0; width: 4px;
+    background: var(--gold); transform: translateX(-50%);
+    z-index: 10;
+  }
+  .hero-center-badge {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    z-index: 20;
+    width: 90px; height: 90px; background: var(--champagne); border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 0 6px rgba(196,150,94,0.15);
+  }
+  .hero-center-badge .badge-text { font-family: 'Libre Baskerville', serif; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--plum); text-align: center; line-height: 1.4; }
+  .hero-center-badge .badge-amp { font-size: 1.4rem; color: var(--gold); line-height: 1; }
+
+  /* INTRO STRIP */
+  .intro-strip {
+    background: var(--plum); color: white;
+    text-align: center; padding: 56px 48px;
+  }
+  .intro-strip p { font-family: 'Libre Baskerville', serif; font-size: 1.5rem; font-style: italic; font-weight: 400; max-width: 700px; margin: 0 auto; line-height: 1.6; color: var(--blush); }
+  .intro-strip p strong { color: white; font-style: normal; }
+
+  /* SERVICES */
+  .services-section { padding: 100px 56px; background: var(--white); }
+  .section-tag { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .section-h { font-family: 'Libre Baskerville', serif; font-size: 2.6rem; font-weight: 400; color: var(--plum); margin-bottom: 60px; line-height: 1.15; }
+  .services-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; max-width: 1100px; }
+  .svc-block { padding: 40px; background: var(--champagne); display: flex; flex-direction: column; gap: 8px; transition: background 0.2s; }
+  .svc-block:hover { background: var(--blush); }
+  .svc-block .svc-header { display: flex; justify-content: space-between; align-items: center; }
+  .svc-block .svc-title { font-family: 'Libre Baskerville', serif; font-size: 1.25rem; color: var(--plum); }
+  .svc-block .svc-price { font-size: 1rem; font-weight: 600; color: var(--gold); }
+  .svc-block .svc-desc { font-size: 0.85rem; color: var(--mid); line-height: 1.7; }
+
+  /* PERKS */
+  .perks-section { background: var(--blush); padding: 80px 56px; }
+  .perks-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 1100px; margin-top: 48px; }
+  .perk { text-align: center; }
+  .perk-icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .perk-title { font-family: 'Libre Baskerville', serif; font-size: 1.1rem; color: var(--plum); margin-bottom: 8px; }
+  .perk-desc { font-size: 0.82rem; color: var(--mid); line-height: 1.6; }
+
+  /* HOURS */
+  .hours-section { background: var(--champagne); padding: 100px 56px; }
+  .hours-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1000px; }
+  .hours-col h3 { font-family: 'Libre Baskerville', serif; font-size: 2rem; color: var(--plum); margin-bottom: 36px; }
+  .hour-list { list-style: none; }
+  .hour-list li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(74,32,64,0.1); font-size: 0.88rem; }
+  .hour-list .day { color: var(--mid); }
+  .hour-list .time { color: var(--dark); font-weight: 600; }
+  .hour-list .today-row .day, .hour-list .today-row .time { color: var(--plum); font-weight: 700; }
+  .c-info { display: flex; flex-direction: column; gap: 24px; }
+  .c-line { display: flex; gap: 16px; }
+  .c-icon { color: var(--gold); font-size: 1.1rem; }
+  .c-lbl { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-bottom: 3px; }
+  .c-val { color: var(--dark); font-size: 0.92rem; }
+  .map-box { margin-top: 32px; width: 100%; height: 200px; border: none; }
+
+  footer { background: var(--plum); text-align: center; padding: 28px; font-size: 0.76rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: 0.7s ease; }
+  .revealed { opacity: 1; transform: none; }
+
+  @media(max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; height: auto; }
+    .panel { height: 50vh; }
+    .hero-divider { display: none; }
+    .hero-center-badge { display: none; }
+    .panel-title { font-size: 2rem; }
+    .services-two-col { grid-template-columns: 1fr; }
+    .perks-grid { grid-template-columns: 1fr 1fr; }
+    .hours-inner { grid-template-columns: 1fr; gap: 48px; }
+    .services-section, .perks-section, .hours-section { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <div class="brand-main">Castor Nail & Spa</div>
+    <div class="brand-sub">6396 Castor Ave · Northeast Philadelphia</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#" class="nav-cta" onclick="openBooking();return false;">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- DUAL-PANEL HERO -->
+<section class="hero" style="position:relative;">
+  <div class="panel panel-left">
+    <img class="panel-img" src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=85" alt="Nails">
+    <div class="panel-overlay">
+      <div class="panel-label">Nail Services</div>
+      <h2 class="panel-title">Perfect<br><em>Nails</em></h2>
+      <button class="panel-cta" onclick="openBooking();return false;">Book Nails</button>
+    </div>
+  </div>
+  <div class="hero-divider"></div>
+  <div class="hero-center-badge">
+    <div class="badge-text">Castor</div>
+    <div class="badge-amp">&</div>
+    <div class="badge-text">Spa</div>
+  </div>
+  <div class="panel panel-right">
+    <img class="panel-img" src="https://images.unsplash.com/photo-1695048200788-80c5dd0d6a90?w=900&q=85" alt="Spa">
+    <div class="panel-overlay">
+      <div class="panel-label">Spa Services</div>
+      <h2 class="panel-title">Pure<br><em>Relaxation</em></h2>
+      <button class="panel-cta" onclick="openBooking();return false;">Book Spa</button>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<div class="intro-strip">
+  <p><em>"A sanctuary of beauty and calm on Castor Ave."</em> We combine expert nail care with genuine spa luxury — so you leave looking great <strong>and</strong> feeling completely refreshed.</p>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <p class="section-tag reveal">What We Offer</p>
+  <h2 class="section-h reveal">Nails & Spa,<br>Under One Roof</h2>
+  <div class="services-two-col">
+    <div class="svc-block reveal">
+      <div class="svc-header">
+        <div class="svc-title">Gel Manicure</div>
+        <div class="svc-price">From $30</div>
+      </div>
+      <div class="svc-desc">Long-lasting gel polish with prep, shape, cuticle care, and flawless finish.</div>
+    </div>
+    <div class="svc-block reveal">
+      <div class="svc-header">
+        <div class="svc-title">Acrylic Full Set</div>
+        <div class="svc-price">From $45</div>
+      </div>
+      <div class="svc-desc">Custom-shaped acrylic nails with your choice of color, design, or French tip.</div>
+    </div>
+    <div class="svc-block reveal">
+      <div class="svc-header">
+        <div class="svc-title">Spa Pedicure</div>
+        <div class="svc-price">From $35</div>
+      </div>
+      <div class="svc-desc">Relaxing soak, sugar scrub exfoliation, extended massage, and expert polish.</div>
+    </div>
+    <div class="svc-block reveal">
+      <div class="svc-header">
+        <div class="svc-title">Paraffin Wax Treatment</div>
+        <div class="svc-price">From $15 add-on</div>
+      </div>
+      <div class="svc-desc">Warm paraffin wax dip that deeply moisturizes skin and soothes joints — pure luxury.</div>
+    </div>
+    <div class="svc-block reveal">
+      <div class="svc-header">
+        <div class="svc-title">Mani + Pedi Combo</div>
+        <div class="svc-price">$40</div>
+      </div>
+      <div class="svc-desc">Our most popular package — classic manicure and full pedicure at an unbeatable value.</div>
+    </div>
+    <div class="svc-block reveal">
+      <div class="svc-header">
+        <div class="svc-title">Nail Art & Design</div>
+        <div class="svc-price">From $10 add-on</div>
+      </div>
+      <div class="svc-desc">French tips, floral, ombre, geometric — our technicians do it all with care.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PERKS -->
+<section class="perks-section">
+  <p class="section-tag reveal">Why Choose Us</p>
+  <h2 class="section-h reveal" style="color:var(--plum);">What Sets Us Apart</h2>
+  <div class="perks-grid">
+    <div class="perk reveal">
+      <div class="perk-icon">🍷</div>
+      <div class="perk-title">Complimentary Refreshments</div>
+      <div class="perk-desc">Relax with wine or soft drinks while we take care of you.</div>
+    </div>
+    <div class="perk reveal">
+      <div class="perk-icon">✨</div>
+      <div class="perk-title">Hospital-Grade Sanitation</div>
+      <div class="perk-desc">Sterilized instruments and individual pedicure kits every time, no exceptions.</div>
+    </div>
+    <div class="perk reveal">
+      <div class="perk-icon">💅</div>
+      <div class="perk-title">Expert Technicians</div>
+      <div class="perk-desc">Skilled, licensed professionals who take real pride in their craft.</div>
+    </div>
+    <div class="perk reveal">
+      <div class="perk-icon">💰</div>
+      <div class="perk-title">Fair, Honest Prices</div>
+      <div class="perk-desc">Premium services at prices the neighborhood can actually afford.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS + CONTACT -->
+<section class="hours-section" id="hours">
+  <div class="hours-inner">
+    <div class="hours-col">
+      <h3>Hours</h3>
+      <ul class="hour-list" id="hrList">
+        <li><span class="day">Monday</span><span class="time">9:30 AM – 7:00 PM</span></li>
+        <li><span class="day">Tuesday</span><span class="time">9:30 AM – 7:00 PM</span></li>
+        <li><span class="day">Wednesday</span><span class="time">9:30 AM – 7:00 PM</span></li>
+        <li><span class="day">Thursday</span><span class="time">9:30 AM – 7:00 PM</span></li>
+        <li><span class="day">Friday</span><span class="time">9:30 AM – 7:00 PM</span></li>
+        <li><span class="day">Saturday</span><span class="time">9:00 AM – 6:30 PM</span></li>
+        <li><span class="day">Sunday</span><span class="time">Closed</span></li>
+      </ul>
+    </div>
+    <div class="hours-col">
+      <h3>Visit Us</h3>
+      <div class="c-info">
+        <div class="c-line">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-lbl">Address</div>
+            <div class="c-val">6396 Castor Ave<br>Philadelphia, PA 19149</div>
+          </div>
+        </div>
+        <div class="c-line">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-lbl">Phone</div>
+            <div class="c-val">(215) 744-1434</div>
+          </div>
+        </div>
+        <div class="c-line">
+          <div class="c-icon">📱</div>
+          <div>
+            <div class="c-lbl">Instagram</div>
+            <div class="c-val">@castornail</div>
+          </div>
+        </div>
+      </div>
+      <iframe class="map-box" src="https://maps.google.com/maps?q=6396+Castor+Ave+Philadelphia+PA+19149&output=embed" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Castor Nail & Spa · 6396 Castor Ave, Philadelphia PA 19149 · (215) 744-1434</footer>
+
+<script>
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('#hrList li').forEach(li => {
+  if(li.querySelector('.day').textContent === today) li.classList.add('today-row');
+});
+const ro = new IntersectionObserver(e => {
+  e.forEach(x => { if(x.isIntersecting) x.target.classList.add('revealed'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+
+<style>
+#bookingOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+#bookingOverlay.open{display:flex}
+#bookingBox{background:#f8f2ee;width:min(92vw,520px);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);font-family:inherit}
+#bookingHeader{background:#4a2040;color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+#bookingHeader h3{margin:0;font-size:1.1rem;font-weight:600}
+#closeBooking{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1}
+#bookingBody{padding:24px}
+.book-step{display:none}.book-step.active{display:block}
+.book-step h4{margin:0 0 16px;font-size:1rem;color:#555}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.svc-card{border:2px solid #e0e0e0;border-radius:8px;padding:12px;cursor:pointer;transition:.2s}
+.svc-card:hover,.svc-card.selected{border-color:#4a2040;background:#f0d6e4}
+.svc-card .svc-name{font-weight:600;font-size:.9rem;color:#1e0e18}
+.svc-card .svc-meta{font-size:.78rem;color:#888;margin-top:3px}
+.cal-wrap{background:#f9f9f9;border-radius:8px;padding:14px}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cal-nav button{background:none;border:1px solid #ddd;border-radius:6px;padding:4px 10px;cursor:pointer}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-day-header{font-size:.7rem;color:#999;font-weight:600;padding:4px 0}
+.cal-day{font-size:.82rem;padding:6px 4px;border-radius:6px;cursor:pointer}
+.cal-day:hover:not(.disabled):not(.empty){background:#f0d6e4}
+.cal-day.selected{background:#4a2040;color:#fff}
+.cal-day.disabled{color:#ccc;cursor:default}
+.cal-day.empty{cursor:default}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.time-slot{border:2px solid #e0e0e0;border-radius:8px;padding:10px;text-align:center;cursor:pointer;font-size:.85rem;transition:.2s}
+.time-slot:hover,.time-slot.selected{border-color:#4a2040;background:#f0d6e4;color:#1e0e18}
+.contact-summary{background:#f5f5f5;border-radius:8px;padding:14px;margin-bottom:16px;font-size:.85rem;color:#555}
+.contact-summary strong{color:#222}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:.82rem;color:#666;margin-bottom:5px}
+.form-row input{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;box-sizing:border-box}
+.book-btn{background:#4a2040;color:#fff;border:none;padding:12px 24px;border-radius:8px;width:100%;font-size:.95rem;font-weight:600;cursor:pointer;margin-top:10px;transition:.2s}
+.book-btn:hover{background:#2a0a20}
+.book-btn.secondary{background:#eee;color:#333}
+.book-btn.secondary:hover{background:#ddd}
+.confirm-wrap{text-align:center;padding:20px 0}
+.confirm-icon{font-size:3.5rem;margin-bottom:10px}
+.confirm-wrap h3{color:#4a2040;margin:0 0 8px}
+.confirm-wrap p{color:#666;font-size:.9rem}
+.step-indicator{display:flex;gap:6px;margin-bottom:20px}
+.step-dot{height:4px;flex:1;border-radius:2px;background:#e0e0e0;transition:.3s}
+.step-dot.done{background:#4a2040}
+</style>
+
+<div id="bookingOverlay">
+<div id="bookingBox">
+  <div id="bookingHeader">
+    <h3>Book at Castor Nail & Spa</h3>
+    <button id="closeBooking" onclick="closeBooking()">&#x2715;</button>
+  </div>
+  <div id="bookingBody">
+    <div class="step-indicator">
+      <div class="step-dot" id="dot0"></div>
+      <div class="step-dot" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
+      <div class="step-dot" id="dot4"></div>
+    </div>
+
+    <div class="book-step active" id="step0">
+      <h4>Choose a Service</h4>
+      <div class="svc-grid" id="svcGrid"></div>
+    </div>
+
+    <div class="book-step" id="step1">
+      <h4>Pick a Date</h4>
+      <div class="cal-wrap">
+        <div class="cal-nav">
+          <button onclick="prevMonth()">&#8249;</button>
+          <span id="calTitle"></span>
+          <button onclick="nextMonth()">&#8250;</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(0)">Back</button>
+    </div>
+
+    <div class="book-step" id="step2">
+      <h4>Choose a Time</h4>
+      <div class="time-grid" id="timeGrid"></div>
+      <button class="book-btn secondary" style="margin-top:12px" onclick="goStep(1)">Back</button>
+    </div>
+
+    <div class="book-step" id="step3">
+      <h4>Your Details</h4>
+      <div class="contact-summary" id="contactSummary"></div>
+      <div class="form-row"><label>Full Name</label><input id="bookName" type="text" placeholder="Your name"></div>
+      <div class="form-row"><label>Phone Number</label><input id="bookPhone" type="tel" placeholder="(215) 555-0000"></div>
+      <button class="book-btn" onclick="submitBooking()">Confirm Booking</button>
+      <button class="book-btn secondary" style="margin-top:8px" onclick="goStep(2)">Back</button>
+    </div>
+
+    <div class="book-step" id="step4">
+      <div class="confirm-wrap">
+        <div class="confirm-icon">&#10003;</div>
+        <h3>You&rsquo;re all set!</h3>
+        <p>We&rsquo;ll call you at <strong id="confirmPhone"></strong> to confirm your appointment at Castor Nail & Spa.</p>
+        <p style="margin-top:8px;font-size:.8rem;color:#aaa">Questions? Call us at (215) 744-1434</p>
+        <button class="book-btn" style="margin-top:20px" onclick="closeBooking()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+var BK_SERVICES = [{ name: "Manicure", price: "$18", duration: "45 min" }, { name: "Gel Manicure", price: "$32", duration: "60 min" }, { name: "Pedicure", price: "$30", duration: "60 min" }, { name: "Acrylic Full Set", price: "$48", duration: "90 min" }, { name: "Waxing", price: "$12+", duration: "20 min" }, { name: "Lash Extensions", price: "$80", duration: "120 min" }];
+var BK_OPEN_DAYS = [1, 2, 3, 4, 5, 6];
+var BK_9 = 9;
+var BK_19 = 19;
+var bkStep=0, bkService=null, bkDate=null, bkTime=null;
+var calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
+
+function openBooking(){
+  document.getElementById('bookingOverlay').classList.add('open');
+  bkStep=0; bkService=null; bkDate=null; bkTime=null;
+  renderServices(); goStep(0);
+}
+function closeBooking(){document.getElementById('bookingOverlay').classList.remove('open');}
+document.getElementById('bookingOverlay').addEventListener('click',function(e){if(e.target===this)closeBooking();});
+
+function goStep(n){
+  document.querySelectorAll('.book-step').forEach(function(el,i){
+    el.classList.toggle('active',i===n);
+  });
+  document.querySelectorAll('.step-dot').forEach(function(el,i){
+    el.classList.toggle('done',i<=n);
+  });
+  bkStep=n;
+  if(n===1)renderCal();
+  if(n===2)renderTimes();
+}
+
+function renderServices(){
+  var g=document.getElementById('svcGrid'); g.innerHTML='';
+  BK_SERVICES.forEach(function(s,i){
+    var d=document.createElement('div');
+    d.className='svc-card'+(bkService&&bkService.name===s.name?' selected':'');
+    d.innerHTML='<div class="svc-name">'+s.name+'</div><div class="svc-meta">'+s.price+' &bull; '+s.duration+'</div>';
+    d.onclick=function(){bkService=s;document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){goStep(1);},250);};
+    g.appendChild(d);
+  });
+}
+
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+function renderCal(){
+  document.getElementById('calTitle').textContent=MONTHS[calMonth]+' '+calYear;
+  var g=document.getElementById('calGrid'); g.innerHTML='';
+  DAYS.forEach(function(d){var h=document.createElement('div');h.className='cal-day-header';h.textContent=d;g.appendChild(h);});
+  var first=new Date(calYear,calMonth,1).getDay();
+  var days=new Date(calYear,calMonth+1,0).getDate();
+  var today=new Date(); today.setHours(0,0,0,0);
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='cal-day empty';g.appendChild(e);}
+  for(var d=1;d<=days;d++){
+    var dt=new Date(calYear,calMonth,d);
+    var cell=document.createElement('div');
+    cell.className='cal-day';
+    var isPast=dt<today;
+    var isClosed=BK_OPEN_DAYS.indexOf(dt.getDay())<0;
+    if(isPast||isClosed){cell.classList.add('disabled');}
+    else{
+      if(bkDate&&bkDate.getTime()===dt.getTime())cell.classList.add('selected');
+      (function(date){cell.onclick=function(){bkDate=date;renderCal();setTimeout(function(){goStep(2);},200);}})(dt);
+    }
+    cell.textContent=d; g.appendChild(cell);
+  }
+}
+function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
+function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();}
+
+function renderTimes(){
+  var g=document.getElementById('timeGrid'); g.innerHTML='';
+  for(var h=BK_9;h<BK_19;h++){
+    ['00','30'].forEach(function(m){
+      var label=(h>12?h-12:h)+':'+m+' '+(h>=12?'PM':'AM');
+      var slot=document.createElement('div');
+      slot.className='time-slot'+(bkTime===label?' selected':'');
+      slot.textContent=label;
+      (function(t){slot.onclick=function(){bkTime=t;document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected');});this.classList.add('selected');setTimeout(function(){updateSummary();goStep(3);},200);};})(label);
+      g.appendChild(slot);
+    });
+  }
+}
+
+function updateSummary(){
+  var d=bkDate?['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][bkDate.getDay()]+', '+MONTHS[bkDate.getMonth()]+' '+bkDate.getDate():'';
+  document.getElementById('contactSummary').innerHTML='<strong>Service:</strong> '+(bkService?bkService.name:'')+' &mdash; '+(bkService?bkService.price:'')+'<br><strong>Date:</strong> '+d+'<br><strong>Time:</strong> '+(bkTime||'');
+}
+
+function submitBooking(){
+  var n=document.getElementById('bookName').value.trim();
+  var p=document.getElementById('bookPhone').value.trim();
+  if(!n||!p){alert('Please fill in your name and phone number.');return;}
+  document.getElementById('confirmPhone').textContent=p;
+  goStep(4);
+}
+</script>
+
+</body>
+</html>
