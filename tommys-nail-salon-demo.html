@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tommy's Nail Salon — Bustleton Ave, Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --purple:#5a3e7a;
+  --purple-light:#7b5a9e;
+  --lavender:#c4b0d8;
+  --blush:#f7e8f0;
+  --white:#ffffff;
+  --black:#1a1020;
+  --gray:#7a6a82;
+  --light:#faf5ff;
+}
+body{font-family:'Josefin Sans',sans-serif;background:#fff;color:var(--black);overflow-x:hidden}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,0.97);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(90,62,122,0.12);
+}
+.nav-logo{
+  font-family:'Lora',serif;font-size:22px;font-weight:600;
+  color:var(--purple);text-decoration:none;
+}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  color:var(--gray);text-decoration:none;font-size:12px;
+  letter-spacing:0.15em;text-transform:uppercase;font-weight:600;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--purple)}
+.nav-cta{
+  background:var(--purple);color:#fff;padding:11px 28px;
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;transition:background 0.2s;
+}
+.nav-cta:hover{background:var(--purple-light)}
+
+/* ===== HERO — SPLIT-SCREEN ===== */
+.hero{
+  padding-top:72px;
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  overflow:hidden;
+}
+.hero-photo{
+  position:relative;overflow:hidden;
+}
+.hero-photo img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  min-height:100vh;
+  transition:transform 0.8s ease;
+}
+.hero-photo:hover img{transform:scale(1.04)}
+.hero-photo-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right, transparent 60%, rgba(255,255,255,0.15));
+}
+.hero-right{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:60px 8% 60px 7%;
+  background:var(--light);
+}
+.h-eyebrow{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--purple);font-weight:700;margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.h-eyebrow::before{content:'';width:28px;height:1px;background:var(--purple)}
+.h-title{
+  font-family:'Lora',serif;
+  font-size:clamp(42px,5vw,68px);
+  color:var(--black);line-height:1.05;margin-bottom:24px;
+}
+.h-title em{font-style:italic;color:var(--purple-light)}
+.h-desc{
+  font-size:16px;color:var(--gray);line-height:1.8;
+  font-weight:300;max-width:400px;margin-bottom:40px;
+}
+.h-cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn-purple{
+  background:var(--purple);color:#fff;padding:16px 38px;
+  font-size:12px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;
+  text-decoration:none;display:inline-block;transition:background 0.2s;
+}
+.btn-purple:hover{background:var(--purple-light)}
+.btn-ghost{
+  border:1px solid var(--purple);color:var(--purple);padding:15px 30px;
+  font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;
+  text-decoration:none;display:inline-block;transition:all 0.2s;
+}
+.btn-ghost:hover{background:var(--purple);color:#fff}
+.h-stats{
+  margin-top:52px;display:flex;gap:36px;flex-wrap:wrap;
+  padding-top:32px;border-top:1px solid rgba(90,62,122,0.15);
+}
+.h-stat{}
+.h-stat-num{
+  font-family:'Lora',serif;font-size:36px;font-weight:600;
+  color:var(--purple);line-height:1;
+}
+.h-stat-label{
+  font-size:10px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--gray);margin-top:4px;
+}
+
+/* ===== SERVICES ===== */
+.services{padding:100px 8%;background:#fff}
+.s-eyebrow{
+  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--purple);font-weight:700;margin-bottom:16px;
+}
+.s-title{
+  font-family:'Lora',serif;font-size:clamp(36px,5vw,56px);
+  color:var(--black);line-height:1.05;margin-bottom:16px;
+}
+.s-sub{
+  font-size:16px;color:var(--gray);max-width:480px;
+  line-height:1.8;font-weight:300;margin-bottom:60px;
+}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2px;background:rgba(90,62,122,0.1);
+}
+.svc{
+  background:#fff;padding:36px 30px;transition:background 0.3s;
+}
+.svc:hover{background:var(--purple)}
+.svc:hover .svc-n,.svc:hover .svc-p,.svc:hover .svc-d{color:#fff}
+.svc-n{
+  font-family:'Lora',serif;font-size:20px;font-weight:600;
+  color:var(--black);margin-bottom:8px;transition:color 0.3s;
+}
+.svc-p{font-size:13px;color:var(--purple);font-weight:700;margin-bottom:8px;transition:color 0.3s;letter-spacing:0.05em}
+.svc-d{font-size:14px;color:var(--gray);line-height:1.6;transition:color 0.3s}
+
+/* ===== GALLERY ===== */
+.gallery{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:280px 280px;
+  gap:4px;
+}
+.gallery-item{overflow:hidden}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-item.span2{grid-column:span 2}
+
+/* ===== REVIEWS ===== */
+.reviews{padding:100px 8%;background:var(--blush)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:56px}
+.rev{background:#fff;padding:36px 32px}
+.rev-stars{color:var(--purple-light);font-size:16px;margin-bottom:14px}
+.rev-text{font-size:15px;color:var(--gray);line-height:1.8;font-style:italic;margin-bottom:20px}
+.rev-name{font-family:'Lora',serif;font-size:17px;color:var(--black);font-weight:600}
+.rev-where{font-size:12px;color:var(--gray);margin-top:2px}
+
+/* ===== HOURS ===== */
+.hours{
+  padding:100px 8%;background:var(--light);
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+}
+@media(max-width:768px){.hours{grid-template-columns:1fr;gap:40px}}
+.hr-row{
+  display:flex;justify-content:space-between;padding:14px 0;
+  border-bottom:1px solid rgba(90,62,122,0.1);font-size:15px;color:var(--gray);
+}
+.hr-row .d{font-weight:600;color:var(--black)}
+.h-today .d,.h-today .t{color:var(--purple)!important;font-weight:700}
+.cbox{background:var(--purple);padding:48px 40px}
+.cb-label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.cb-val{font-size:16px;color:#fff;font-weight:500;margin-bottom:28px}
+.cb-val a{color:#fff;text-decoration:none}
+
+/* ===== MAP / FOOTER ===== */
+.map-section iframe{width:100%;height:360px;display:block;border:none}
+footer{
+  background:var(--black);padding:40px 8%;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+}
+.f-logo{font-family:'Lora',serif;font-size:22px;color:var(--lavender);font-weight:600}
+.f-sub{font-size:12px;color:rgba(255,255,255,0.3);margin-top:4px}
+.f-right{font-size:13px;color:rgba(255,255,255,0.3);text-align:right}
+
+@media(max-width:768px){
+  nav .nav-links{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-photo{display:none}
+  .gallery{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px}
+  .gallery-item.span2{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Tommy's Nail Salon</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openBooking();return false;">Book Now</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=85" alt="Beautiful nail art">
+    <div class="hero-photo-overlay"></div>
+  </div>
+  <div class="hero-right">
+    <div class="h-eyebrow">Bustleton Ave · Northeast Philadelphia</div>
+    <h1 class="h-title">Beautiful<br>Nails.<br><em>Every Visit.</em></h1>
+    <p class="h-desc">Manicures, pedicures, acrylics, waxing, and nail art — done right, every single time. Tommy's has been the go-to nail salon on Bustleton for over a decade.</p>
+    <div class="h-cta">
+      <a href="#" class="btn-purple" onclick="openBooking();return false;">Book Appointment</a>
+      <a href="tel:2153359989" class="btn-ghost">(215) 335-9989</a>
+    </div>
+    <div class="h-stats">
+      <div class="h-stat">
+        <div class="h-stat-num">102+</div>
+        <div class="h-stat-label">Happy Reviews</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num">4.4★</div>
+        <div class="h-stat-label">Average Rating</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num">6</div>
+        <div class="h-stat-label">Days a Week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="s-eyebrow">Our Services</div>
+  <h2 class="s-title">EVERYTHING<br>YOUR NAILS NEED</h2>
+  <p class="s-sub">From your first appointment to your regular refill — Tommy's delivers quality nail care you can count on.</p>
+  <div class="svc-grid">
+    <div class="svc">
+      <div class="svc-n">Classic Manicure</div>
+      <div class="svc-p">From $18 <small style="font-size:10px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-d">Shape, buff, cuticle care and regular polish. Clean, classic results.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">Pedicure</div>
+      <div class="svc-p">From $30 <small style="font-size:10px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-d">Soak, exfoliate, massage, nail trim, polish. Relax and refresh.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">Acrylic Full Set</div>
+      <div class="svc-p">From $40 <small style="font-size:10px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-d">Full acrylic set in your preferred length and shape. Fill available from $25.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">Nail Art & Designs</div>
+      <div class="svc-p">From $5 per nail <small style="font-size:10px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-d">Custom art, gems, ombré, flowers. Bring inspo or let us create.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">Waxing</div>
+      <div class="svc-p">From $10 <small style="font-size:10px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-d">Eyebrow, lip, chin, or full face. Quick, clean, and comfortable.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-n">Men's Manicure & Pedicure</div>
+      <div class="svc-p">From $35 combo <small style="font-size:10px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-d">Clean-up, shape, buff, and moisture — no polish required.</div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery" id="gallery">
+  <div class="gallery-item span2">
+    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=900&q=80" alt="Nail salon work">
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80" alt="Nail art">
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1604654894938-eedb9b0e08a4?w=500&q=80" alt="Nail color">
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500&q=80" alt="Pedicure">
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1604653562218-c8c9b9c8e3e1?w=500&q=80" alt="Nails close up">
+  </div>
+</div>
+
+<section class="reviews" id="reviews">
+  <div class="s-eyebrow">Client Reviews</div>
+  <h2 class="s-title">102+ FIVE-STAR<br>REVIEWS</h2>
+  <div class="reviews-grid">
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Been going to Tommy's for years. They're always consistent and the prices are unbeatable. My nails last 3 weeks every time."</p>
+      <div class="rev-name">Brianna W.</div>
+      <div class="rev-where">Google Review · Bustleton</div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Super clean, friendly staff, and they do amazing nail art. I asked for a custom design and they nailed it perfectly. 10/10 recommend."</p>
+      <div class="rev-name">Jasmine A.</div>
+      <div class="rev-where">Google Review · NE Philadelphia</div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Great pedicure and my technician was so nice. Quick service with no long wait. I'll definitely be making this my regular spot."</p>
+      <div class="rev-name">Marcus L.</div>
+      <div class="rev-where">Google Review · Mayfair</div>
+    </div>
+  </div>
+</section>
+
+<section class="hours" id="hours">
+  <div>
+    <div class="s-eyebrow">Hours</div>
+    <h2 class="s-title">VISIT US<br>6 DAYS A WEEK</h2>
+    <div id="hoursTable">
+      <div class="hr-row"><span class="d">Monday</span><span class="t">9:00 AM – 7:00 PM</span></div>
+      <div class="hr-row"><span class="d">Tuesday</span><span class="t">9:00 AM – 7:00 PM</span></div>
+      <div class="hr-row"><span class="d">Wednesday</span><span class="t">9:00 AM – 7:00 PM</span></div>
+      <div class="hr-row"><span class="d">Thursday</span><span class="t">9:00 AM – 7:00 PM</span></div>
+      <div class="hr-row"><span class="d">Friday</span><span class="t">9:00 AM – 7:00 PM</span></div>
+      <div class="hr-row"><span class="d">Saturday</span><span class="t">9:00 AM – 7:00 PM</span></div>
+      <div class="hr-row"><span class="d">Sunday</span><span class="t">Closed</span></div>
+    </div>
+  </div>
+  <div class="cbox">
+    <div class="cb-label">Phone</div>
+    <div class="cb-val"><a href="tel:2153359989">(215) 335-9989</a></div>
+    <div class="cb-label">Address</div>
+    <div class="cb-val" style="margin-bottom:0">6932 Bustleton Ave<br>Philadelphia, PA 19149</div>
+    <div style="margin-top:32px">
+      <a href="#" class="btn-purple" onclick="openBooking();return false;" style="display:inline-block;background:#fff;color:var(--purple)">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<div class="map-section">
+  <iframe src="https://maps.google.com/maps?q=6932+Bustleton+Ave,+Philadelphia,+PA+19149&output=embed&z=15" allowfullscreen loading="lazy"></iframe>
+</div>
+
+<footer>
+  <div>
+    <div class="f-logo">Tommy's Nail Salon</div>
+    <div class="f-sub">6932 Bustleton Ave · Philadelphia, PA 19149 · Mon–Sat 9AM–7PM</div>
+  </div>
+  <div class="f-right">
+    <div>(215) 335-9989</div>
+    <div style="margin-top:4px">Walk-ins Welcome</div>
+  </div>
+</footer>
+
+<script>
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today=days[new Date().getDay()];
+document.querySelectorAll('.hr-row').forEach(row=>{
+  if(row.querySelector('.d')&&row.querySelector('.d').textContent===today){
+    row.classList.add('h-today');
+  }
+});
+function openBooking(){
+  alert('Booking system — coming in your live site!');
+}
+</script>
+</body>
+</html>

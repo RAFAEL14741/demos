@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mega Nail Salon & Spa — Bustleton Ave, Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --rose:#c47a8a;
+  --rose-deep:#a05068;
+  --champagne:#f5ede0;
+  --champagne-dark:#e8d5c0;
+  --black:#111111;
+  --gray:#7a7067;
+  --white:#ffffff;
+  --light:#faf7f3;
+}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--black);overflow-x:hidden}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,0.97);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(196,122,138,0.15);
+}
+.nav-logo{
+  font-family:'DM Serif Display',serif;
+  font-size:22px;color:var(--black);
+  text-decoration:none;
+}
+.nav-logo span{color:var(--rose-deep)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  color:var(--gray);text-decoration:none;
+  font-size:13px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--rose-deep)}
+.nav-cta{
+  background:var(--rose-deep);
+  color:#fff;padding:11px 28px;
+  font-size:12px;letter-spacing:0.12em;
+  text-transform:uppercase;font-weight:600;
+  text-decoration:none;transition:background 0.2s;
+}
+.nav-cta:hover{background:#8a3e56}
+
+/* ===== HERO — EDITORIAL FULL-BLEED ===== */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1600&q=85') center 30%/cover no-repeat;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(17,17,17,0.88) 0%, rgba(17,17,17,0.4) 50%, rgba(17,17,17,0.1) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:80px 8%;
+  width:100%;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;
+}
+@media(max-width:768px){.hero-content{grid-template-columns:1fr}}
+.hero-left{}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--rose);font-weight:600;margin-bottom:24px;
+}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--rose)}
+.hero-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(52px,6.5vw,88px);
+  color:#fff;line-height:1.0;margin-bottom:24px;
+}
+.hero-title em{font-style:italic;color:var(--rose)}
+.hero-desc{
+  font-size:17px;color:rgba(255,255,255,0.7);line-height:1.8;
+  font-weight:300;max-width:440px;margin-bottom:36px;
+}
+.hero-cta-row{display:flex;gap:16px;flex-wrap:wrap}
+.btn-rose{
+  background:var(--rose-deep);color:#fff;
+  padding:16px 40px;font-size:13px;letter-spacing:0.12em;
+  text-transform:uppercase;font-weight:600;
+  text-decoration:none;display:inline-block;transition:background 0.2s;
+}
+.btn-rose:hover{background:#8a3e56}
+.btn-phone{
+  border:1px solid rgba(255,255,255,0.3);color:#fff;
+  padding:15px 32px;font-size:13px;letter-spacing:0.1em;
+  text-transform:uppercase;font-weight:500;
+  text-decoration:none;display:inline-block;transition:border-color 0.2s;
+}
+.btn-phone:hover{border-color:#fff}
+.hero-right{
+  display:flex;flex-direction:column;gap:20px;
+  padding-bottom:8px;
+}
+.hero-stat{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 24px;
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.stat-val{
+  font-family:'DM Serif Display',serif;
+  font-size:36px;color:#fff;line-height:1;
+}
+.stat-val span{color:var(--rose)}
+.stat-l{font-size:12px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em}
+
+/* ===== SERVICES ===== */
+.services{padding:100px 8%;background:var(--light)}
+.section-eyebrow{
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--rose-deep);font-weight:600;margin-bottom:16px;
+}
+.section-title{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(38px,5vw,60px);color:var(--black);
+  line-height:1.0;margin-bottom:16px;
+}
+.section-sub{
+  font-size:16px;color:var(--gray);max-width:500px;
+  line-height:1.8;font-weight:300;margin-bottom:64px;
+}
+.services-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;
+}
+.svc-card{
+  background:#fff;border:1px solid rgba(196,122,138,0.15);
+  padding:36px 32px;transition:all 0.3s;
+}
+.svc-card:hover{border-color:var(--rose);transform:translateY(-4px);box-shadow:0 12px 40px rgba(160,80,104,0.1)}
+.svc-icon{font-size:28px;margin-bottom:16px}
+.svc-name{
+  font-family:'DM Serif Display',serif;font-size:21px;
+  color:var(--black);margin-bottom:8px;
+}
+.svc-price{font-size:14px;color:var(--rose-deep);font-weight:600;margin-bottom:10px}
+.svc-desc{font-size:14px;color:var(--gray);line-height:1.6}
+
+/* ===== ABOUT ===== */
+.about{
+  padding:100px 8%;background:var(--champagne);
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+@media(max-width:768px){.about{grid-template-columns:1fr;gap:40px}}
+.about-img{position:relative}
+.about-img img{width:100%;height:520px;object-fit:cover;display:block}
+.about-img-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top, rgba(160,80,104,0.85), transparent);
+  padding:32px 28px;
+}
+.about-img-overlay .review-count{
+  font-family:'DM Serif Display',serif;
+  font-size:48px;color:#fff;line-height:1;
+}
+.about-img-overlay .review-label{font-size:12px;color:rgba(255,255,255,0.8);letter-spacing:0.1em;text-transform:uppercase}
+.about-content{}
+.about-p{font-size:16px;color:var(--gray);line-height:1.8;font-weight:300;margin-bottom:20px}
+.feature-list{margin-top:32px;list-style:none}
+.feature-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 0;border-bottom:1px solid rgba(196,122,138,0.2);
+  font-size:15px;color:var(--black);
+}
+.feature-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--rose-deep);flex-shrink:0;
+}
+
+/* ===== REVIEWS ===== */
+.reviews{padding:100px 8%;background:#fff}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;margin-top:60px}
+.rev-card{
+  background:var(--light);padding:36px 32px;
+  border-bottom:3px solid var(--rose);
+}
+.rev-stars{color:var(--rose);font-size:16px;margin-bottom:12px}
+.rev-text{font-size:15px;color:var(--gray);line-height:1.8;font-style:italic;margin-bottom:20px}
+.rev-author{font-family:'DM Serif Display',serif;font-size:17px;color:var(--black)}
+.rev-source{font-size:12px;color:var(--gray);margin-top:2px}
+
+/* ===== HOURS ===== */
+.hours-section{
+  padding:100px 8%;background:var(--champagne);
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+}
+@media(max-width:768px){.hours-section{grid-template-columns:1fr;gap:40px}}
+.hours-row{
+  display:flex;justify-content:space-between;padding:14px 0;
+  border-bottom:1px solid rgba(196,122,138,0.2);font-size:15px;color:var(--gray);
+}
+.hours-row .d{font-weight:500;color:var(--black)}
+.hours-today .d,.hours-today .t{color:var(--rose-deep)!important;font-weight:600}
+.contact-panel{
+  background:var(--black);padding:48px 40px;
+}
+.cp-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:4px}
+.cp-val{font-size:16px;color:#fff;font-weight:500;margin-bottom:28px}
+.cp-val a{color:#fff;text-decoration:none}
+
+/* ===== MAP / FOOTER ===== */
+.map-section iframe{width:100%;height:360px;display:block;border:none}
+footer{
+  background:var(--black);padding:40px 8%;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+}
+.f-logo{font-family:'DM Serif Display',serif;font-size:22px;color:#fff}
+.f-logo span{color:var(--rose)}
+.f-sub{font-size:12px;color:rgba(255,255,255,0.3);margin-top:4px}
+.f-right{font-size:13px;color:rgba(255,255,255,0.3);text-align:right}
+
+@media(max-width:768px){nav .nav-links{display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo"><span>Mega</span> Nail Salon & Spa</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openBooking();return false;">Book Now</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Bustleton Ave · Northeast Philadelphia</div>
+      <h1 class="hero-title">Nails Done<br><em>Beautifully.</em></h1>
+      <p class="hero-desc">Premium manicures, pedicures, nail art, and spa services on Bustleton Ave. Walk in or book ahead — we're ready for you.</p>
+      <div class="hero-cta-row">
+        <a href="#" class="btn-rose" onclick="openBooking();return false;">Book Appointment</a>
+        <a href="tel:2152144066" class="btn-phone">(215) 214-4066</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="stat-val">137<span>+</span></div>
+        <div class="stat-l">5-Star Reviews</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-val">4.3<span>★</span></div>
+        <div class="stat-l">Average Rating</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-val">7<span> days</span></div>
+        <div class="stat-l">Open Weekly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-eyebrow">Our Services</div>
+  <h2 class="section-title">FULL NAIL &<br>SPA MENU</h2>
+  <p class="section-sub">From a quick polish change to a full spa pedicure with soak and massage — Mega has every service you need.</p>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-icon">💅</div>
+      <div class="svc-name">Classic Manicure</div>
+      <div class="svc-price">From $18 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Shape, buff, cuticle care, and polish. A clean, polished finish every time.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">🦶</div>
+      <div class="svc-name">Spa Pedicure</div>
+      <div class="svc-price">From $35 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Soak, scrub, massage, and polish. 30-minute treatment that'll have you walking out renewed.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">✨</div>
+      <div class="svc-name">Dip Powder Nails</div>
+      <div class="svc-price">From $45 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Strong, chip-resistant dip that lasts 3–4 weeks. Huge color selection available.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">🌸</div>
+      <div class="svc-name">Gel Nail Extensions</div>
+      <div class="svc-price">From $55 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Full set gel extensions — length, shape, and color of your choice. High-shine finish.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">🎨</div>
+      <div class="svc-name">Nail Art & Designs</div>
+      <div class="svc-price">From $5 / nail <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Flowers, geometric patterns, ombré, 3D designs — the possibilities are endless.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon">♻️</div>
+      <div class="svc-name">Nail Fill / Polish Change</div>
+      <div class="svc-price">From $30 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Quick fill or fresh color swap. In and out in under 30 minutes.</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=800&q=80" alt="Nail salon interior">
+    <div class="about-img-overlay">
+      <div class="review-count">137+</div>
+      <div class="review-label">Verified 5-Star Reviews</div>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-eyebrow">Our Salon</div>
+    <h2 class="section-title">BUSTLETON'S<br>PREMIER<br>NAIL DESTINATION</h2>
+    <p class="about-p">Mega Nail Salon & Spa has been a fixture on Bustleton Ave for years — a full-service nail salon that takes pride in precision, cleanliness, and making every client feel taken care of.</p>
+    <p class="about-p">Our team takes the time to listen to what you want, deliver consistent quality, and make sure you love how you leave. That's how we built 137+ reviews.</p>
+    <ul class="feature-list">
+      <li class="feature-item"><div class="feature-dot"></div>All tools sanitized between every client</li>
+      <li class="feature-item"><div class="feature-dot"></div>Walk-ins welcome · Appointments preferred</li>
+      <li class="feature-item"><div class="feature-dot"></div>Wide color selection — 200+ shades</li>
+      <li class="feature-item"><div class="feature-dot"></div>Nail repair service available</li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="section-eyebrow">Client Reviews</div>
+  <h2 class="section-title">4.3 STARS ACROSS<br>137+ REVIEWS</h2>
+  <div class="reviews-grid">
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Been coming here for 3 years and I've never had a bad set. Gina is amazing with dip powder and the prices are totally fair."</p>
+      <div class="rev-author">Ashley M.</div>
+      <div class="rev-source">Google Review · Bustleton</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Love this place! I've been getting my nails done here for years. They are very experienced and always do a great job — really clean too."</p>
+      <div class="rev-author">Destiny R.</div>
+      <div class="rev-source">Google Review · NE Philadelphia</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Great nail designs and super fast. I got a full set with art and was in and out in under an hour. Will absolutely be back."</p>
+      <div class="rev-author">Jenna T.</div>
+      <div class="rev-source">Google Review · Somerton</div>
+    </div>
+  </div>
+</section>
+
+<section class="hours-section" id="hours">
+  <div>
+    <div class="section-eyebrow">Hours</div>
+    <h2 class="section-title">OPEN<br>7 DAYS</h2>
+    <div id="hoursTable">
+      <div class="hours-row"><span class="d">Monday</span><span class="t">9:30 AM – 7:00 PM</span></div>
+      <div class="hours-row"><span class="d">Tuesday</span><span class="t">9:30 AM – 7:00 PM</span></div>
+      <div class="hours-row"><span class="d">Wednesday</span><span class="t">9:30 AM – 7:00 PM</span></div>
+      <div class="hours-row"><span class="d">Thursday</span><span class="t">9:30 AM – 7:00 PM</span></div>
+      <div class="hours-row"><span class="d">Friday</span><span class="t">9:30 AM – 7:00 PM</span></div>
+      <div class="hours-row"><span class="d">Saturday</span><span class="t">9:30 AM – 7:00 PM</span></div>
+      <div class="hours-row"><span class="d">Sunday</span><span class="t">10:00 AM – 6:00 PM</span></div>
+    </div>
+  </div>
+  <div class="contact-panel">
+    <div class="section-eyebrow" style="color:var(--rose)">Contact</div>
+    <h3 style="font-family:'DM Serif Display',serif;font-size:36px;color:#fff;font-weight:400;margin-bottom:32px;line-height:1">BOOK OR<br>WALK IN</h3>
+    <div class="cp-label">Phone</div>
+    <div class="cp-val"><a href="tel:2152144066">(215) 214-4066</a></div>
+    <div class="cp-label">Address</div>
+    <div class="cp-val" style="margin-bottom:0">8356 Bustleton Ave<br>Philadelphia, PA 19152</div>
+    <div style="margin-top:32px">
+      <a href="#" class="btn-rose" onclick="openBooking();return false;" style="display:inline-block">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<div class="map-section">
+  <iframe src="https://maps.google.com/maps?q=8356+Bustleton+Ave,+Philadelphia,+PA+19152&output=embed&z=15" allowfullscreen loading="lazy"></iframe>
+</div>
+
+<footer>
+  <div>
+    <div class="f-logo"><span>Mega</span> Nail Salon & Spa</div>
+    <div class="f-sub">8356 Bustleton Ave · NE Philadelphia · 7 Days a Week</div>
+  </div>
+  <div class="f-right">
+    <div>(215) 214-4066</div>
+    <div style="margin-top:4px">Walk-ins Welcome</div>
+  </div>
+</footer>
+
+<script>
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today=days[new Date().getDay()];
+document.querySelectorAll('.hours-row').forEach(row=>{
+  if(row.querySelector('.d')&&row.querySelector('.d').textContent===today){
+    row.classList.add('hours-today');
+  }
+});
+function openBooking(){
+  alert('Booking system — coming in your live site!');
+}
+</script>
+</body>
+</html>

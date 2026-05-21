@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky Line Hair Salon — Northeast Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#0a0a0a;
+  --gold:#c9a84c;
+  --gold-light:#e8c96a;
+  --cream:#f7f3ec;
+  --gray:#6b7280;
+  --white:#ffffff;
+}
+body{font-family:'Jost',sans-serif;background:#fff;color:var(--black);overflow-x:hidden}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(10,10,10,0.96);
+  backdrop-filter:blur(8px);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:700;
+  color:var(--gold);
+  text-decoration:none;
+  letter-spacing:0.06em;
+}
+.nav-logo span{color:#fff}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{
+  color:rgba(255,255,255,0.65);
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  font-weight:500;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  padding:10px 28px;
+  font-size:12px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-weight:600;
+  text-decoration:none;
+  transition:all 0.2s;
+}
+.nav-cta:hover{background:var(--gold);color:var(--black)}
+
+/* ===== HERO — GALLERY MOSAIC ===== */
+.hero{
+  padding-top:88px;
+  min-height:100vh;
+  background:var(--black);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  overflow:hidden;
+}
+.hero-left{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:60px 7% 60px 8%;
+}
+.hero-eyebrow{
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:600;
+  margin-bottom:24px;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,6vw,82px);
+  font-weight:600;
+  color:#fff;
+  line-height:1.0;
+  margin-bottom:24px;
+}
+.hero-title em{
+  font-style:italic;
+  color:var(--gold);
+}
+.hero-desc{
+  font-size:16px;
+  color:rgba(255,255,255,0.6);
+  line-height:1.8;
+  max-width:420px;
+  margin-bottom:48px;
+  font-weight:300;
+}
+.hero-cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn-gold{
+  background:var(--gold);
+  color:var(--black);
+  padding:16px 40px;
+  font-size:13px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-weight:600;
+  text-decoration:none;
+  display:inline-block;
+  transition:background 0.2s;
+}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-ghost{
+  color:#fff;
+  font-size:13px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  font-weight:500;
+  text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+  transition:color 0.2s;
+}
+.btn-ghost:hover{color:var(--gold)}
+.hero-badge{
+  margin-top:56px;
+  display:flex;align-items:center;gap:20px;
+  padding:20px 24px;
+  border:1px solid rgba(201,168,76,0.2);
+  max-width:320px;
+}
+.badge-star{font-size:32px;color:var(--gold)}
+.badge-info{}
+.badge-rating{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:700;
+  color:#fff;line-height:1;
+}
+.badge-reviews{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px}
+
+.hero-right{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:3px;
+}
+.mosaic-tile{overflow:hidden}
+.mosaic-tile img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.6s ease;
+}
+.mosaic-tile:hover img{transform:scale(1.05)}
+.mosaic-tile.large{grid-row:1/3;grid-column:1/2}
+
+/* ===== DIVIDER ===== */
+.gold-divider{
+  height:2px;
+  background:linear-gradient(to right, var(--black), var(--gold), var(--black));
+}
+
+/* ===== SERVICES ===== */
+.services{
+  padding:100px 8%;
+  background:var(--cream);
+}
+.section-eyebrow{
+  font-size:11px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);
+  font-weight:600;margin-bottom:16px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,5vw,64px);
+  font-weight:600;color:var(--black);
+  line-height:1.0;margin-bottom:16px;
+}
+.section-sub{
+  font-size:16px;color:var(--gray);
+  max-width:520px;line-height:1.8;
+  margin-bottom:64px;font-weight:300;
+}
+.services-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1px;
+  background:rgba(201,168,76,0.15);
+}
+.svc{
+  background:var(--cream);
+  padding:40px 32px;
+  transition:background 0.3s;
+  cursor:default;
+}
+.svc:hover{background:var(--black)}
+.svc:hover .svc-name,.svc:hover .svc-desc,.svc:hover .svc-price{color:#fff}
+.svc:hover .svc-dot{background:var(--gold)}
+.svc-dot{
+  width:8px;height:8px;
+  background:var(--black);
+  margin-bottom:20px;
+  transition:background 0.3s;
+}
+.svc-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:600;
+  color:var(--black);margin-bottom:10px;
+  transition:color 0.3s;
+}
+.svc-price{
+  font-size:14px;color:var(--gold);
+  font-weight:600;margin-bottom:10px;
+  transition:color 0.3s;
+}
+.svc-desc{
+  font-size:14px;color:var(--gray);
+  line-height:1.6;transition:color 0.3s;
+}
+
+/* ===== TEAM / WHY ===== */
+.why{
+  padding:100px 8%;
+  background:var(--black);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+}
+@media(max-width:768px){.why{grid-template-columns:1fr;gap:40px}}
+.why-img img{
+  width:100%;height:520px;
+  object-fit:cover;display:block;
+}
+.why-content .section-title{color:#fff}
+.why-content .section-sub{color:rgba(255,255,255,0.55)}
+.why-list{list-style:none}
+.why-item{
+  display:flex;gap:16px;
+  padding:20px 0;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.why-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:600;
+  color:var(--gold);
+  line-height:1;min-width:40px;
+}
+.why-text h4{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:600;
+  color:#fff;margin-bottom:6px;
+}
+.why-text p{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.6}
+
+/* ===== REVIEWS ===== */
+.reviews{padding:100px 8%;background:#fff}
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:32px;margin-top:60px;
+}
+.rev-card{padding:40px 32px;border:1px solid rgba(201,168,76,0.2);position:relative}
+.rev-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;color:var(--gold);
+  line-height:0.6;margin-bottom:16px;
+}
+.rev-text{
+  font-size:15px;color:var(--gray);
+  line-height:1.8;font-style:italic;
+  margin-bottom:24px;
+}
+.rev-author{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:600;color:var(--black);
+}
+.rev-stars{color:var(--gold);font-size:14px;margin-top:4px}
+
+/* ===== HOURS ===== */
+.hours{padding:100px 8%;background:var(--cream)}
+.hours-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;margin-top:56px;
+}
+@media(max-width:768px){.hours-grid{grid-template-columns:1fr;gap:40px}}
+.hours-row{
+  display:flex;justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid rgba(10,10,10,0.1);
+  font-size:15px;color:var(--gray);
+}
+.hours-row .day{font-weight:500;color:var(--black)}
+.hours-today .day,.hours-today .time{color:var(--gold)!important;font-weight:600}
+.contact-box{background:var(--black);padding:48px 40px}
+.contact-box .section-eyebrow{color:var(--gold)}
+.contact-box .section-title{color:#fff;margin-bottom:32px}
+.cinfo-row{
+  display:flex;gap:16px;margin-bottom:24px;
+  align-items:flex-start;
+}
+.cinfo-icon{
+  color:var(--gold);font-size:20px;
+  margin-top:2px;
+}
+.cinfo-label{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
+.cinfo-val{font-size:16px;color:#fff;font-weight:500}
+.cinfo-val a{color:#fff;text-decoration:none}
+
+/* ===== MAP ===== */
+.map-section iframe{width:100%;height:360px;display:block;border:none}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--black);padding:40px 8%;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+  border-top:1px solid rgba(201,168,76,0.15);
+}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;color:var(--gold);
+  letter-spacing:0.06em;font-weight:600;
+}
+.footer-tag{font-size:12px;color:rgba(255,255,255,0.3);margin-top:4px}
+.footer-info{font-size:13px;color:rgba(255,255,255,0.35);text-align:right}
+
+@media(max-width:768px){
+  nav .nav-links{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo"><span>SKY LINE</span> Hair Salon</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Our Story</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openBooking();return false;">Book Appointment</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Bustleton Ave · Northeast Philadelphia</div>
+    <h1 class="hero-title">YOUR HAIR.<br><em>YOUR STYLE.</em><br>PERFECTED.</h1>
+    <p class="hero-desc">Skilled stylists. Premium cuts. A salon that takes the time to get it right — every single visit.</p>
+    <div class="hero-cta-row">
+      <a href="#" class="btn-gold" onclick="openBooking();return false;">Book Appointment</a>
+      <a href="tel:2153422952" class="btn-ghost">📞 (215) 342-2952</a>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-star">★</div>
+      <div class="badge-info">
+        <div class="badge-rating">4.2 Stars</div>
+        <div class="badge-reviews">240+ Verified Customer Reviews</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="mosaic-tile large">
+      <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt="Hair salon">
+    </div>
+    <div class="mosaic-tile">
+      <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=400&q=80" alt="Hair styling">
+    </div>
+    <div class="mosaic-tile">
+      <img src="https://images.unsplash.com/photo-1582095133179-bfd08e2fb6b8?w=400&q=80" alt="Hair color">
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<section class="services" id="services">
+  <div class="section-eyebrow">Our Services</div>
+  <h2 class="section-title">WHAT WE<br>SPECIALIZE IN</h2>
+  <p class="section-sub">Whether you're coming in for a quick trim or a full transformation — we bring the same level of care to every chair.</p>
+  <div class="services-list">
+    <div class="svc">
+      <div class="svc-dot"></div>
+      <div class="svc-name">Men's Haircut</div>
+      <div class="svc-price">From $20 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Fade, taper, classic or modern cut. Clipper work or scissor finish.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-dot"></div>
+      <div class="svc-name">Women's Cut & Style</div>
+      <div class="svc-price">From $35 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Precision cuts, layers, blowout and style included.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-dot"></div>
+      <div class="svc-name">Hair Coloring</div>
+      <div class="svc-price">From $65 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Single process color, highlights, balayage, or touch-up. Full consultation included.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-dot"></div>
+      <div class="svc-name">Beard Grooming & Shave</div>
+      <div class="svc-price">From $15 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Shape-up, beard trim, hot towel finish. Add-on or standalone.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-dot"></div>
+      <div class="svc-name">Kids Haircut</div>
+      <div class="svc-price">From $15 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Patient, experienced stylists for kids of all ages. Quick and comfortable.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-dot"></div>
+      <div class="svc-name">Head Shave</div>
+      <div class="svc-price">From $25 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
+      <div class="svc-desc">Hot lather straight razor head shave. Scalp treatment optional.</div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="why-img">
+    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80" alt="Barber at work">
+  </div>
+  <div class="why-content">
+    <div class="section-eyebrow">Why Sky Line</div>
+    <h2 class="section-title" style="color:#fff">THE SALON<br>BUSTLETON<br>TRUSTS</h2>
+    <p class="section-sub">Walk-ins welcome. Appointments get priority. Either way, you'll leave looking sharp.</p>
+    <ul class="why-list">
+      <li class="why-item">
+        <div class="why-num">01</div>
+        <div class="why-text">
+          <h4>Skilled for Every Hair Type</h4>
+          <p>Straight, curly, textured — our stylists are trained on all hair types and current techniques.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-num">02</div>
+        <div class="why-text">
+          <h4>Fair, Transparent Pricing</h4>
+          <p>No surprise charges. We tell you the price before we start.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <div class="why-num">03</div>
+        <div class="why-text">
+          <h4>7 Days a Week</h4>
+          <p>Open every day — including weekends and evenings for working clients.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="section-eyebrow">What Clients Say</div>
+  <h2 class="section-title">240+ FIVE-STAR<br>REVIEWS</h2>
+  <div class="reviews-grid">
+    <div class="rev-card">
+      <div class="rev-quote">"</div>
+      <p class="rev-text">Great haircut, super friendly staff. Been going here for years and they always get it exactly right. Best salon on Bustleton.</p>
+      <div class="rev-author">Julio M.</div>
+      <div class="rev-stars">★★★★★ · Google Review</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-quote">"</div>
+      <p class="rev-text">Really cheap prices for the quality. The stylist listened to what I wanted and delivered perfectly. Walk-in wait was quick too.</p>
+      <div class="rev-author">Sandra K.</div>
+      <div class="rev-stars">★★★★★ · Google Review</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-quote">"</div>
+      <p class="rev-text">Brought my son here for his first real haircut. They were patient with him and he looks amazing. We'll be back every month!</p>
+      <div class="rev-author">Maria T.</div>
+      <div class="rev-stars">★★★★★ · Google Review</div>
+    </div>
+  </div>
+</section>
+
+<section class="hours" id="hours">
+  <div class="section-eyebrow">Hours & Location</div>
+  <h2 class="section-title">VISIT US<br>ON BUSTLETON</h2>
+  <div class="hours-grid">
+    <div>
+      <div id="hoursTable">
+        <div class="hours-row"><span class="day">Monday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Tuesday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Wednesday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Thursday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Friday</span><span class="time">9:30 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span class="day">Saturday</span><span class="time">9:30 AM – 5:00 PM</span></div>
+        <div class="hours-row"><span class="day">Sunday</span><span class="time">9:30 AM – 4:00 PM</span></div>
+      </div>
+    </div>
+    <div class="contact-box">
+      <div class="section-eyebrow">Contact</div>
+      <h3 class="section-title" style="font-size:40px">GET IN<br>TOUCH</h3>
+      <div class="cinfo-row">
+        <div class="cinfo-icon">📞</div>
+        <div>
+          <div class="cinfo-label">Phone</div>
+          <div class="cinfo-val"><a href="tel:2153422952">(215) 342-2952</a></div>
+        </div>
+      </div>
+      <div class="cinfo-row">
+        <div class="cinfo-icon">📍</div>
+        <div>
+          <div class="cinfo-label">Address</div>
+          <div class="cinfo-val">8308 Bustleton Ave<br>Philadelphia, PA 19152</div>
+        </div>
+      </div>
+      <div style="margin-top:32px">
+        <a href="#" class="btn-gold" onclick="openBooking();return false;" style="display:inline-block">Book Appointment</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="map-section">
+  <iframe src="https://maps.google.com/maps?q=8308+Bustleton+Ave,+Philadelphia,+PA+19152&output=embed&z=15" allowfullscreen loading="lazy"></iframe>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo">Sky Line Hair Salon</div>
+    <div class="footer-tag">8308 Bustleton Ave · NE Philadelphia · 7 Days a Week</div>
+  </div>
+  <div class="footer-info">
+    <div>(215) 342-2952</div>
+    <div style="margin-top:4px">Walk-ins Welcome</div>
+  </div>
+</footer>
+
+<script>
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today=days[new Date().getDay()];
+document.querySelectorAll('.hours-row').forEach(row=>{
+  if(row.querySelector('.day')&&row.querySelector('.day').textContent===today){
+    row.classList.add('hours-today');
+  }
+});
+function openBooking(){
+  alert('Booking system — coming in your live site!');
+}
+</script>
+</body>
+</html>

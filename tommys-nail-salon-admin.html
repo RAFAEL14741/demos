@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tommy's Nail Salon — Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--purple:#5a3e7a;--lavender:#c4b0d8;--bg:#faf5ff;--black:#1a1020;--white:#fff;--gray:#7a6a82}
+body{font-family:'Josefin Sans',sans-serif;background:var(--bg);min-height:100vh}
+#loginScreen{position:fixed;inset:0;z-index:999;background:var(--black);display:flex;align-items:center;justify-content:center}
+.login-box{text-align:center;padding:48px 56px;border:1px solid rgba(90,62,122,0.3)}
+.login-logo{font-family:'Lora',serif;font-size:26px;font-weight:600;color:var(--lavender);margin-bottom:8px}
+.login-sub{font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:36px}
+.pin-display{font-family:'Lora',serif;font-size:48px;font-weight:600;color:var(--lavender);letter-spacing:0.3em;min-height:60px;margin-bottom:28px}
+.pin-grid{display:grid;grid-template-columns:repeat(3,72px);gap:8px;justify-content:center;margin-bottom:8px}
+.pin-btn{height:72px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#fff;font-family:'Lora',serif;font-size:28px;font-weight:600;cursor:pointer;transition:background 0.15s}
+.pin-btn:hover{background:rgba(90,62,122,0.4)}
+.pin-clear{margin-top:8px;font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer;letter-spacing:0.12em;text-transform:uppercase}
+#dashboard{display:none}
+.topbar{background:var(--black);padding:16px 32px;display:flex;justify-content:space-between;align-items:center}
+.topbar-logo{font-family:'Lora',serif;font-size:20px;font-weight:600;color:var(--lavender)}
+.topbar-right{display:flex;align-items:center;gap:20px}
+.topbar-date{font-size:12px;color:rgba(255,255,255,0.4)}
+.logout-btn{font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer;border:none;background:none;letter-spacing:0.12em;text-transform:uppercase}
+.dash{padding:28px 32px}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.kpi{background:#fff;padding:24px;border-left:4px solid var(--purple)}
+.kpi-val{font-family:'Lora',serif;font-size:44px;font-weight:600;color:var(--black);line-height:1}
+.kpi-val span{font-size:22px}
+.kpi-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-top:4px}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.card{background:#fff;padding:24px}
+.card-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:var(--black);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.add-btn{background:var(--purple);color:#fff;border:none;padding:8px 20px;font-weight:700;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);padding:10px 12px;text-align:left;border-bottom:2px solid var(--bg)}
+td{font-size:14px;padding:12px;border-bottom:1px solid var(--bg);color:var(--black)}
+.status{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px}
+.status.confirmed{background:#d1fae5;color:#065f46}.status.pending{background:#fef3c7;color:#92400e}.status.completed{background:#e5e7eb;color:#374151}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-head{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);text-align:center;padding:6px 0}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--black);position:relative}
+.cal-day.today{background:var(--purple);color:#fff;font-weight:700}
+.cal-day.has-appt::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--purple);position:absolute;bottom:2px}
+.cal-day.today.has-appt::after{background:#fff}
+.cal-day.empty{opacity:0.2}
+.svc-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bg)}
+.svc-edit{font-size:11px;color:var(--purple);cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;background:none;border:none}
+@media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Tommy's Nail Salon</div>
+    <div class="login-sub">Staff Access — Enter PIN</div>
+    <div class="pin-display" id="pinDisplay">____</div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="enterPin('1')">1</button><button class="pin-btn" onclick="enterPin('2')">2</button><button class="pin-btn" onclick="enterPin('3')">3</button>
+      <button class="pin-btn" onclick="enterPin('4')">4</button><button class="pin-btn" onclick="enterPin('5')">5</button><button class="pin-btn" onclick="enterPin('6')">6</button>
+      <button class="pin-btn" onclick="enterPin('7')">7</button><button class="pin-btn" onclick="enterPin('8')">8</button><button class="pin-btn" onclick="enterPin('9')">9</button>
+      <button class="pin-btn" onclick="enterPin('0')" style="grid-column:2">0</button>
+    </div>
+    <div class="pin-clear" onclick="clearPin()">Clear ×</div>
+  </div>
+</div>
+<div id="dashboard">
+  <div class="topbar"><div class="topbar-logo">Tommy's Nail Salon — Admin</div><div class="topbar-right"><div class="topbar-date" id="topbarDate"></div><button class="logout-btn" onclick="logout()">Logout</button></div></div>
+  <div class="dash">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-label">Today's Appointments</div></div>
+      <div class="kpi"><div class="kpi-val">13</div><div class="kpi-label">This Week</div></div>
+      <div class="kpi"><div class="kpi-val">4.4<span>★</span></div><div class="kpi-label">Google Rating</div></div>
+      <div class="kpi"><div class="kpi-val">102+</div><div class="kpi-label">Total Reviews</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Upcoming Appointments <button class="add-btn" onclick="openBooking()">+ Add</button></div>
+        <table>
+          <thead><tr><th>Time</th><th>Client</th><th>Service</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>9:30 AM</td><td>Brianna W.</td><td>Acrylic Full Set</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>10:30 AM</td><td>Jasmine A.</td><td>Gel Nails + Nail Art</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>12:00 PM</td><td>Marcus L.</td><td>Men's Mani + Pedi</td><td><span class="status pending">Pending</span></td></tr>
+            <tr><td>1:30 PM</td><td>Carla M.</td><td>Pedicure</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>3:00 PM</td><td>Taylor R.</td><td>Acrylic Fill</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>4:00 PM</td><td>Destiny H.</td><td>Classic Manicure</td><td><span class="status pending">Pending</span></td></tr>
+            <tr><td>5:00 PM</td><td>Sofia B.</td><td>Eyebrow Wax</td><td><span class="status completed">Completed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px"><div class="card-title">This Month</div><div class="cal-grid" id="calGrid"></div></div>
+        <div class="card">
+          <div class="card-title">Services</div>
+          <div class="svc-row"><span>Manicure</span><span style="color:var(--gray)">$18</span><button class="svc-edit">Edit</button></div>
+          <div class="svc-row"><span>Pedicure</span><span style="color:var(--gray)">$30</span><button class="svc-edit">Edit</button></div>
+          <div class="svc-row"><span>Acrylic Set</span><span style="color:var(--gray)">$40</span><button class="svc-edit">Edit</button></div>
+          <div class="svc-row"><span>Waxing</span><span style="color:var(--gray)">$10+</span><button class="svc-edit">Edit</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+let pin='';
+function enterPin(d){if(pin.length>=4)return;pin+=d;document.getElementById('pinDisplay').textContent=pin.replace(/./g,'●').padEnd(4,'_');if(pin.length===4){setTimeout(()=>{if(pin==='1234'){document.getElementById('loginScreen').style.display='none';document.getElementById('dashboard').style.display='block';initDash();}else{pin='';document.getElementById('pinDisplay').textContent='____';alert('Incorrect PIN');}},200);}}
+function clearPin(){pin='';document.getElementById('pinDisplay').textContent='____'}
+function logout(){document.getElementById('loginScreen').style.display='flex';document.getElementById('dashboard').style.display='none';clearPin();}
+function initDash(){const now=new Date();document.getElementById('topbarDate').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});buildCal(now);}
+function buildCal(now){const cal=document.getElementById('calGrid');cal.innerHTML='';['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{const h=document.createElement('div');h.className='cal-head';h.textContent=d;cal.appendChild(h);});const first=new Date(now.getFullYear(),now.getMonth(),1).getDay();const days=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();const ap=[2,4,6,9,11,13,16,18,20,23,25,27,30];for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day empty';cal.appendChild(e);}for(let d=1;d<=days;d++){const e=document.createElement('div');e.className='cal-day';e.textContent=d;if(d===now.getDate())e.classList.add('today');if(ap.includes(d))e.classList.add('has-appt');cal.appendChild(e);}}
+function openBooking(){alert('Add Booking — coming in your live system!');}
+</script>
+</body>
+</html>

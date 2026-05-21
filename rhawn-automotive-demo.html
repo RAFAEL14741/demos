@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhawn Automotive — Philadelphia's Trusted Auto Repair Since 1993</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0d1b2e;
+  --red:#c0392b;
+  --silver:#a0aab4;
+  --chrome:#e8ecef;
+  --white:#ffffff;
+  --gray:#6b7280;
+  --light:#f4f6f8;
+}
+body{font-family:'Barlow',sans-serif;background:#fff;color:var(--navy);overflow-x:hidden}
+
+/* ===== HERO — HERITAGE WATERMARK ===== */
+.hero{
+  position:relative;
+  min-height:100vh;
+  background:var(--navy);
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=1600&q=80') center/cover no-repeat;
+  opacity:0.18;
+}
+.hero-watermark{
+  position:absolute;
+  right:-2%;
+  bottom:-8%;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(180px,28vw,420px);
+  font-weight:900;
+  color:rgba(255,255,255,0.04);
+  line-height:1;
+  user-select:none;
+  letter-spacing:-0.03em;
+}
+.hero-accent-line{
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:6px;
+  background:var(--red);
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 8% 0 12%;
+  max-width:700px;
+}
+.hero-tag{
+  display:inline-block;
+  background:var(--red);
+  color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:6px 16px;
+  margin-bottom:28px;
+}
+.hero-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(52px,7vw,96px);
+  font-weight:900;
+  color:#fff;
+  line-height:0.9;
+  letter-spacing:-0.02em;
+  margin-bottom:10px;
+}
+.hero-title span{color:var(--red)}
+.hero-subtitle{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(18px,2.5vw,28px);
+  color:var(--silver);
+  font-weight:400;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  margin-bottom:30px;
+}
+.hero-desc{
+  font-size:17px;
+  color:rgba(255,255,255,0.72);
+  line-height:1.7;
+  max-width:480px;
+  margin-bottom:40px;
+}
+.hero-cta-row{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{
+  background:var(--red);
+  color:#fff;
+  padding:16px 36px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  border:none;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  transition:background 0.2s;
+}
+.btn-primary:hover{background:#a93226}
+.btn-outline{
+  border:2px solid rgba(255,255,255,0.3);
+  color:#fff;
+  padding:14px 32px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  text-decoration:none;display:inline-block;
+  transition:border-color 0.2s,color 0.2s;
+}
+.btn-outline:hover{border-color:#fff}
+.hero-stats{
+  margin-top:56px;
+  display:flex;gap:48px;flex-wrap:wrap;
+}
+.stat-item{}
+.stat-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:44px;
+  font-weight:900;
+  color:var(--red);
+  line-height:1;
+}
+.stat-label{
+  font-size:12px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--silver);
+  margin-top:4px;
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 8%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(13,27,46,0.95);
+  backdrop-filter:blur(8px);
+}
+.nav-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;
+  font-size:22px;
+  color:#fff;
+  letter-spacing:0.04em;
+  text-decoration:none;
+}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  color:rgba(255,255,255,0.7);
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  font-weight:600;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:#fff}
+.nav-cta{
+  background:var(--red);
+  color:#fff;
+  padding:10px 24px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:background 0.2s;
+}
+.nav-cta:hover{background:#a93226}
+
+/* ===== TRUST BAR ===== */
+.trust-bar{
+  background:var(--red);
+  padding:16px 8%;
+  display:flex;justify-content:center;gap:48px;flex-wrap:wrap;
+}
+.trust-item{
+  display:flex;align-items:center;gap:10px;
+  color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+}
+.trust-icon{font-size:18px}
+
+/* ===== SERVICES ===== */
+.services{padding:100px 8%}
+.section-tag{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--red);
+  margin-bottom:14px;
+}
+.section-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(36px,5vw,60px);
+  font-weight:900;
+  color:var(--navy);
+  line-height:1.0;
+  margin-bottom:16px;
+}
+.section-sub{
+  font-size:17px;
+  color:var(--gray);
+  max-width:500px;
+  line-height:1.7;
+  margin-bottom:56px;
+}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:2px;
+}
+.service-card{
+  background:var(--light);
+  padding:36px 32px;
+  position:relative;
+  overflow:hidden;
+  transition:background 0.2s;
+}
+.service-card:hover{background:var(--navy)}
+.service-card:hover .svc-title,.service-card:hover .svc-price,.service-card:hover .svc-desc{color:#fff}
+.service-card:hover .svc-num{color:rgba(255,255,255,0.06)}
+.svc-num{
+  position:absolute;right:20px;top:14px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:80px;font-weight:900;
+  color:rgba(13,27,46,0.04);
+  line-height:1;
+  transition:color 0.2s;
+}
+.svc-icon{font-size:28px;margin-bottom:14px}
+.svc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:700;
+  color:var(--navy);
+  margin-bottom:8px;
+  transition:color 0.2s;
+}
+.svc-price{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:18px;font-weight:600;
+  color:var(--red);
+  margin-bottom:10px;
+  transition:color 0.2s;
+}
+.svc-desc{font-size:14px;color:var(--gray);line-height:1.6;transition:color 0.2s}
+
+/* ===== ABOUT STRIP ===== */
+.about-strip{
+  background:var(--navy);
+  padding:100px 8%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+@media(max-width:768px){.about-strip{grid-template-columns:1fr;gap:40px}}
+.about-img{
+  position:relative;
+}
+.about-img img{
+  width:100%;
+  height:480px;
+  object-fit:cover;
+  display:block;
+}
+.about-img-badge{
+  position:absolute;
+  bottom:24px;right:24px;
+  background:var(--red);
+  padding:20px 24px;
+  text-align:center;
+}
+.badge-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:52px;font-weight:900;
+  color:#fff;line-height:1;
+}
+.badge-text{
+  font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.8);
+}
+.about-content{}
+.about-content .section-tag{color:var(--silver)}
+.about-content .section-title{color:#fff}
+.about-p{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:20px}
+.about-list{list-style:none;margin-top:24px}
+.about-list li{
+  display:flex;align-items:center;gap:12px;
+  font-size:15px;color:rgba(255,255,255,0.75);
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.about-list li::before{content:"✓";color:var(--red);font-weight:700;font-size:16px}
+
+/* ===== REVIEWS ===== */
+.reviews{padding:100px 8%;background:var(--light)}
+.reviews-header{text-align:center;margin-bottom:60px}
+.reviews-header .section-sub{margin:0 auto}
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+}
+.review-card{
+  background:#fff;
+  padding:32px;
+  border-left:4px solid var(--red);
+}
+.review-stars{color:#f59e0b;font-size:16px;margin-bottom:12px}
+.review-text{
+  font-size:15px;color:var(--gray);line-height:1.7;
+  margin-bottom:20px;font-style:italic;
+}
+.review-author{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:700;font-size:15px;color:var(--navy);
+  letter-spacing:0.04em;text-transform:uppercase;
+}
+.review-date{font-size:12px;color:var(--gray);margin-top:2px}
+
+/* ===== HOURS ===== */
+.hours-contact{
+  padding:100px 8%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+}
+@media(max-width:768px){.hours-contact{grid-template-columns:1fr;gap:40px}}
+.hours-table{width:100%;border-collapse:collapse}
+.hours-table tr{border-bottom:1px solid #e5e7eb}
+.hours-table td{padding:14px 0;font-size:15px;color:var(--gray)}
+.hours-table td:first-child{font-weight:600;color:var(--navy);width:140px}
+.hours-today td:first-child,.hours-today td:last-child{color:var(--red)!important;font-weight:700}
+.contact-item{
+  display:flex;align-items:flex-start;gap:16px;
+  margin-bottom:28px;
+}
+.contact-icon{
+  width:44px;height:44px;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:18px;flex-shrink:0;
+}
+.contact-label{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
+.contact-value{font-size:16px;color:var(--navy);font-weight:600}
+.contact-value a{color:var(--navy);text-decoration:none}
+.contact-value a:hover{color:var(--red)}
+
+/* ===== MAP ===== */
+.map-section iframe{width:100%;height:380px;display:block;border:none;filter:grayscale(20%)}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--navy);
+  padding:40px 8%;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+}
+.footer-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:22px;
+  color:#fff;letter-spacing:0.04em;
+}
+.footer-logo span{color:var(--red)}
+.footer-tagline{font-size:13px;color:var(--silver);margin-top:4px}
+.footer-right{
+  font-size:13px;color:rgba(255,255,255,0.4);
+  text-align:right;
+}
+
+/* ===== BOOKING MODAL PLACEHOLDER ===== */
+#bookingModal{display:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .hero-content{padding:0 6%;padding-top:120px}
+  nav .nav-links{display:none}
+  .trust-bar{gap:24px}
+  .hero-stats{gap:28px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">RHAWN <span>AUTO</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openBooking();return false;">Book Service</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">1993</div>
+  <div class="hero-accent-line"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Northeast Philadelphia's Trusted Shop</div>
+    <div class="hero-title">RHAWN<br><span>AUTO</span><br>MOTIVE</div>
+    <div class="hero-subtitle">Family Owned · Since 1993</div>
+    <p class="hero-desc">Three decades of honest repairs, fair prices, and neighbors you can trust. From oil changes to engine work — we've kept Northeast Philly moving since 1993.</p>
+    <div class="hero-cta-row">
+      <a href="#" class="btn-primary" onclick="openBooking();return false;">Schedule Service</a>
+      <a href="tel:2153335426" class="btn-outline">(215) 333-5426</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" id="yearsCount">0</div>
+        <div class="stat-label">Years in Business</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="reviewsCount">0</div>
+        <div class="stat-label">5-Star Reviews</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4.9<span style="font-size:24px">★</span></div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">🔧</span> ASE Certified Mechanics</div>
+  <div class="trust-item"><span class="trust-icon">🛡️</span> No Hidden Fees</div>
+  <div class="trust-item"><span class="trust-icon">📋</span> Free Diagnostics</div>
+  <div class="trust-item"><span class="trust-icon">🏘️</span> NE Philly's Local Shop</div>
+</div>
+
+<section class="services" id="services">
+  <div class="section-tag">What We Do</div>
+  <h2 class="section-title">FULL-SERVICE<br>AUTO REPAIR</h2>
+  <p class="section-sub">From routine maintenance to complex repairs — we handle it all with the same care and honesty we've had since day one.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">🛢️</div>
+      <div class="svc-title">Oil Change & Maintenance</div>
+      <div class="svc-price">From $39.95</div>
+      <div class="svc-desc">Full synthetic or conventional. Filter included. Multi-point inspection at no extra charge.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">🔩</div>
+      <div class="svc-title">Brakes & Rotors</div>
+      <div class="svc-price">From $149 / axle</div>
+      <div class="svc-desc">Pad replacement, rotor resurfacing, or full rotor swap. All work inspected before leaving the lot.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">🔄</div>
+      <div class="svc-title">Tires & Alignment</div>
+      <div class="svc-price">From $99 / tire installed</div>
+      <div class="svc-desc">All major brands. 4-wheel alignment, TPMS reset, balancing. We'll match competitor pricing.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">⚙️</div>
+      <div class="svc-title">Engine & Transmission</div>
+      <div class="svc-price">Free Estimate</div>
+      <div class="svc-desc">Diagnostics, timing belts, fluid flushes, rebuilt transmissions. We'll explain everything first.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">🚗</div>
+      <div class="svc-title">Suspension & Steering</div>
+      <div class="svc-price">From $129</div>
+      <div class="svc-desc">Shocks, struts, sway bars, tie rods. Handling issues diagnosed same day.</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">🔍</div>
+      <div class="svc-title">Diagnostics & Inspection</div>
+      <div class="svc-price">From $49 <small style="font-size:12px;color:#6b7280">[CONFIRM]</small></div>
+      <div class="svc-desc">Check-engine light, pre-purchase inspection, PA state inspection. Fast turnaround.</div>
+    </div>
+  </div>
+</section>
+
+<section class="about-strip" id="about">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1617886322168-72b886573c35?w=800&q=80" alt="Mechanic at work">
+    <div class="about-img-badge">
+      <div class="badge-num">30+</div>
+      <div class="badge-text">Years Serving<br>NE Philly</div>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-tag">Our Story</div>
+    <h2 class="section-title" style="color:#fff">THE SHOP YOUR<br>NEIGHBORS TRUST</h2>
+    <p class="about-p">Rhawn Automotive opened its doors in 1993 — right here on Roosevelt Blvd in Northeast Philadelphia. We started as a family operation and we've stayed that way for over 30 years.</p>
+    <p class="about-p">No upsells. No mystery charges. Just straight talk about what your car needs and what it doesn't. That's why our customers bring their parents' cars, their kids' cars, and then their grandkids' cars.</p>
+    <ul class="about-list">
+      <li>500+ verified 5-star Google reviews</li>
+      <li>Family owned and operated since 1993</li>
+      <li>European vehicle specialists on staff</li>
+      <li>Most repairs completed same day</li>
+      <li>Free multi-point inspection with every service</li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="reviews-header">
+    <div class="section-tag">What Customers Say</div>
+    <h2 class="section-title">4.9 STARS ACROSS<br>500+ REVIEWS</h2>
+    <p class="section-sub">Real feedback from real Northeast Philly neighbors who've trusted us for years.</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Been coming here for 15 years. They're always honest — they've actually talked me out of unnecessary repairs. You won't find that at a chain shop."</p>
+      <div class="review-author">Michael T.</div>
+      <div class="review-date">Google Review · NE Philadelphia</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Brought my Audi in for a brake issue. They diagnosed it in an hour, gave me a fair price, and had it done by noon. Absolutely the best shop in the area."</p>
+      <div class="review-author">Christine R.</div>
+      <div class="review-date">Google Review · Somerton</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"My whole family goes here. My parents started going in the 90s and now I take my car there too. They treat you like a person, not a transaction."</p>
+      <div class="review-author">Kevin M.</div>
+      <div class="review-date">Google Review · Roosevelt Blvd</div>
+    </div>
+  </div>
+</section>
+
+<section class="hours-contact" id="hours">
+  <div>
+    <div class="section-tag">Hours of Operation</div>
+    <h2 class="section-title">WE'RE<br>OPEN</h2>
+    <table class="hours-table" id="hoursTable">
+      <tr><td>Monday</td><td>8:00 AM – 6:00 PM</td></tr>
+      <tr><td>Tuesday</td><td>8:00 AM – 6:00 PM</td></tr>
+      <tr><td>Wednesday</td><td>8:00 AM – 6:00 PM</td></tr>
+      <tr><td>Thursday</td><td>8:00 AM – 6:00 PM</td></tr>
+      <tr><td>Friday</td><td>8:00 AM – 6:00 PM</td></tr>
+      <tr><td>Saturday</td><td>8:00 AM – 2:00 PM</td></tr>
+      <tr><td>Sunday</td><td>Closed</td></tr>
+    </table>
+  </div>
+  <div>
+    <div class="section-tag">Contact Us</div>
+    <h2 class="section-title">GET IN<br>TOUCH</h2>
+    <div class="contact-item">
+      <div class="contact-icon">📞</div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value"><a href="tel:2153335426">(215) 333-5426</a></div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📍</div>
+      <div>
+        <div class="contact-label">Address</div>
+        <div class="contact-value">7959 Roosevelt Blvd<br>Philadelphia, PA 19152</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">🔧</div>
+      <div>
+        <div class="contact-label">Service</div>
+        <div class="contact-value">Walk-ins welcome<br>Appointments preferred</div>
+      </div>
+    </div>
+    <div style="margin-top:32px">
+      <a href="#" class="btn-primary" onclick="openBooking();return false;" style="display:inline-block">Schedule Service</a>
+    </div>
+  </div>
+</section>
+
+<div class="map-section">
+  <iframe src="https://maps.google.com/maps?q=7959+Roosevelt+Blvd,+Philadelphia,+PA+19152&output=embed&z=15" allowfullscreen loading="lazy"></iframe>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo">RHAWN <span>AUTOMOTIVE</span></div>
+    <div class="footer-tagline">Family Owned · NE Philadelphia · Since 1993</div>
+  </div>
+  <div class="footer-right">
+    <div>7959 Roosevelt Blvd, Philadelphia PA 19152</div>
+    <div style="margin-top:4px">(215) 333-5426</div>
+  </div>
+</footer>
+
+<script>
+// Count-up animation
+function countUp(el, target, suffix){
+  let start=0;
+  const duration=2000;
+  const step=duration/target;
+  const timer=setInterval(()=>{
+    start++;
+    el.textContent=start+(suffix||'');
+    if(start>=target)clearInterval(timer);
+  },step>16?step:16);
+}
+// Trigger on scroll
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      countUp(document.getElementById('yearsCount'),32,'+');
+      countUp(document.getElementById('reviewsCount'),500,'+');
+      observer.disconnect();
+    }
+  });
+},{threshold:0.3});
+const statsEl=document.querySelector('.hero-stats');
+if(statsEl)observer.observe(statsEl);
+
+// Highlight today's hours
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const today=days[new Date().getDay()];
+document.querySelectorAll('.hours-table tr').forEach(tr=>{
+  if(tr.cells[0]&&tr.cells[0].textContent===today){
+    tr.classList.add('hours-today');
+  }
+});
+
+function openBooking(){
+  alert('Booking system — coming in your live site!');
+}
+</script>
+</body>
+</html>

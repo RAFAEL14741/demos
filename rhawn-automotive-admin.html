@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhawn Automotive — Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0d1b2e;--red:#c0392b;--silver:#a0aab4;--bg:#f0f3f7;--white:#fff;--gray:#6b7280}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh}
+/* LOGIN */
+#loginScreen{
+  position:fixed;inset:0;z-index:999;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+}
+.login-box{text-align:center;padding:48px 56px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1)}
+.login-logo{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:#fff;margin-bottom:8px}
+.login-logo span{color:var(--red)}
+.login-sub{font-size:13px;color:var(--silver);margin-bottom:36px}
+.pin-display{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:52px;font-weight:900;color:var(--red);
+  letter-spacing:0.3em;min-height:64px;margin-bottom:28px;
+}
+.pin-grid{display:grid;grid-template-columns:repeat(3,72px);gap:8px;justify-content:center;margin-bottom:8px}
+.pin-btn{
+  height:72px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  color:#fff;font-family:'Barlow Condensed',sans-serif;
+  font-size:28px;font-weight:700;cursor:pointer;
+  transition:background 0.15s;
+}
+.pin-btn:hover{background:var(--red)}
+.pin-clear{margin-top:8px;font-size:12px;color:var(--silver);cursor:pointer;letter-spacing:0.1em;text-transform:uppercase}
+/* DASHBOARD */
+#dashboard{display:none}
+.topbar{
+  background:var(--navy);padding:16px 32px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.topbar-logo{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#fff}
+.topbar-logo span{color:var(--red)}
+.topbar-right{display:flex;align-items:center;gap:20px}
+.topbar-date{font-size:13px;color:var(--silver)}
+.logout-btn{
+  font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;
+  text-transform:uppercase;cursor:pointer;border:none;background:none;
+}
+.dash{padding:28px 32px}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.kpi{background:#fff;padding:24px;border-top:3px solid var(--red)}
+.kpi-val{font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--navy);line-height:1}
+.kpi-val span{font-size:24px}
+.kpi-label{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);margin-top:4px}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.card{background:#fff;padding:24px}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--navy);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.add-btn{background:var(--red);color:#fff;border:none;padding:8px 20px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);padding:10px 12px;text-align:left;border-bottom:2px solid var(--bg);background:#fafafa}
+td{font-size:14px;padding:12px;border-bottom:1px solid var(--bg);color:var(--navy)}
+.status{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px}
+.status.confirmed{background:#d1fae5;color:#065f46}
+.status.pending{background:#fef3c7;color:#92400e}
+.status.completed{background:#e5e7eb;color:#374151}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-head{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);text-align:center;padding:6px 0}
+.cal-day{
+  aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-size:13px;font-weight:500;color:var(--navy);border-radius:3px;cursor:default;
+  position:relative;
+}
+.cal-day.today{background:var(--red);color:#fff}
+.cal-day.has-appt::after{
+  content:'';width:5px;height:5px;border-radius:50%;background:var(--red);
+  position:absolute;bottom:3px;
+}
+.cal-day.today.has-appt::after{background:#fff}
+.cal-day.empty{opacity:0.2}
+.svc-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--bg)}
+.svc-name{font-size:14px;font-weight:500;color:var(--navy)}
+.svc-price{font-size:14px;color:var(--gray)}
+.svc-edit{font-size:11px;color:var(--red);cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;background:none;border:none}
+@media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">RHAWN <span>AUTO</span></div>
+    <div class="login-sub">Staff Access — Enter PIN</div>
+    <div class="pin-display" id="pinDisplay">____</div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="enterPin('1')">1</button>
+      <button class="pin-btn" onclick="enterPin('2')">2</button>
+      <button class="pin-btn" onclick="enterPin('3')">3</button>
+      <button class="pin-btn" onclick="enterPin('4')">4</button>
+      <button class="pin-btn" onclick="enterPin('5')">5</button>
+      <button class="pin-btn" onclick="enterPin('6')">6</button>
+      <button class="pin-btn" onclick="enterPin('7')">7</button>
+      <button class="pin-btn" onclick="enterPin('8')">8</button>
+      <button class="pin-btn" onclick="enterPin('9')">9</button>
+      <button class="pin-btn" onclick="enterPin('0')" style="grid-column:2">0</button>
+    </div>
+    <div class="pin-clear" onclick="clearPin()">Clear ×</div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-logo">RHAWN <span>AUTOMOTIVE</span> Admin</div>
+    <div class="topbar-right">
+      <div class="topbar-date" id="topbarDate"></div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+  <div class="dash">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-label">Today's Appointments</div></div>
+      <div class="kpi"><div class="kpi-val">11</div><div class="kpi-label">This Week</div></div>
+      <div class="kpi"><div class="kpi-val">4.9<span>★</span></div><div class="kpi-label">Google Rating</div></div>
+      <div class="kpi"><div class="kpi-val">521+</div><div class="kpi-label">Total Reviews</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Upcoming Appointments <button class="add-btn" onclick="openBooking()">+ Add</button></div>
+        <table>
+          <thead><tr><th>Time</th><th>Customer</th><th>Service</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>8:30 AM</td><td>Michael T.</td><td>Oil Change & Rotate</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>9:15 AM</td><td>Christine R.</td><td>Brake Replacement</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>10:00 AM</td><td>Kevin M.</td><td>Diagnostics / Check Engine</td><td><span class="status pending">Pending</span></td></tr>
+            <tr><td>11:30 AM</td><td>Sandra L.</td><td>Tire Installation x2</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>1:00 PM</td><td>James O.</td><td>Alignment + Suspension Check</td><td><span class="status pending">Pending</span></td></tr>
+            <tr><td>2:30 PM</td><td>Ana R.</td><td>Oil Change</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td>4:00 PM</td><td>David C.</td><td>PA State Inspection</td><td><span class="status completed">Completed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-title">This Month</div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Services</div>
+          <div class="svc-row"><span class="svc-name">Oil Change</span><span class="svc-price">$39.95</span><button class="svc-edit">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Brake Service</span><span class="svc-price">$149/axle</span><button class="svc-edit">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Tire Install</span><span class="svc-price">$99/tire</span><button class="svc-edit">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Alignment</span><span class="svc-price">$89</span><button class="svc-edit">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Diagnostics</span><span class="svc-price">$49</span><button class="svc-edit">Edit</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let pin='';
+function enterPin(d){
+  if(pin.length>=4)return;
+  pin+=d;
+  document.getElementById('pinDisplay').textContent=pin.replace(/./g,'●').padEnd(4,'_');
+  if(pin.length===4){
+    setTimeout(()=>{
+      if(pin==='1234'){document.getElementById('loginScreen').style.display='none';document.getElementById('dashboard').style.display='block';initDash();}
+      else{pin='';document.getElementById('pinDisplay').textContent='____';alert('Incorrect PIN');}
+    },200);
+  }
+}
+function clearPin(){pin='';document.getElementById('pinDisplay').textContent='____'}
+function logout(){document.getElementById('loginScreen').style.display='flex';document.getElementById('dashboard').style.display='none';clearPin();}
+function initDash(){
+  const now=new Date();
+  document.getElementById('topbarDate').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  buildCal(now);
+}
+function buildCal(now){
+  const cal=document.getElementById('calGrid');
+  cal.innerHTML='';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{
+    const h=document.createElement('div');h.className='cal-head';h.textContent=d;cal.appendChild(h);
+  });
+  const first=new Date(now.getFullYear(),now.getMonth(),1).getDay();
+  const days=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+  const apptDays=[3,5,8,10,12,15,17,19,22,24];
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day empty';e.textContent='';cal.appendChild(e);}
+  for(let d=1;d<=days;d++){
+    const e=document.createElement('div');e.className='cal-day';e.textContent=d;
+    if(d===now.getDate())e.classList.add('today');
+    if(apptDays.includes(d))e.classList.add('has-appt');
+    cal.appendChild(e);
+  }
+}
+function openBooking(){alert('Add Booking — coming in your live system!');}
+</script>
+</body>
+</html>
