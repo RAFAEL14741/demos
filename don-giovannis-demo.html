@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don Giovanni's Restaurant — Philadelphia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --crimson:#8B1A1A;
+  --gold:#C9974C;
+  --cream:#FAF3E8;
+  --parchment:#F2E4CA;
+  --dark:#1A0F0A;
+  --text:#3A2A1A;
+  --muted:#8A7060;
+  --border:rgba(201,151,76,.25);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
+
+/* Custom cursor */
+#cursor{position:fixed;width:8px;height:8px;background:var(--crimson);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;width:32px;height:32px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:opacity .3s}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(26,15,10,.92);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--cream);letter-spacing:.03em}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{color:rgba(250,243,232,.75);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--crimson);color:var(--cream);font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.65rem 1.5rem;border:none;cursor:none}
+
+/* Hero */
+.hero{min-height:100vh;background:var(--dark);position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(139,26,26,.35) 0%,transparent 65%),radial-gradient(ellipse at 75% 25%,rgba(201,151,76,.12) 0%,transparent 50%)}
+.hero-texture{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9974c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-content{position:relative;z-index:2;padding:0 3rem;max-width:820px;margin-left:8vw}
+.hero-eyebrow{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;overflow:hidden}
+.hero-eyebrow span{display:inline-block}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,7vw,6rem);line-height:1.05;color:var(--cream);margin-bottom:1.8rem}
+.hero-title .line{overflow:hidden;display:block}
+.hero-title .line span{display:inline-block;transform:translateY(110%)}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-body{font-size:1rem;line-height:1.75;color:rgba(250,243,232,.65);max-width:520px;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:1.2rem;align-items:center}
+.btn-primary{background:var(--crimson);color:var(--cream);font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.9rem 2.2rem;border:none;cursor:none;transition:background .3s}
+.btn-primary:hover{background:#a52020}
+.btn-ghost{font-size:.82rem;font-weight:500;letter-spacing:.08em;color:rgba(250,243,232,.7);text-decoration:none;display:flex;align-items:center;gap:.5rem;cursor:none}
+.hero-badge{position:absolute;right:8vw;bottom:12vh;background:var(--gold);color:var(--dark);width:120px;height:120px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Playfair Display',serif}
+.hero-badge strong{font-size:2rem;font-weight:900;line-height:1}
+.hero-badge span{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.hero-scroll span{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,243,232,.4)}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollLine 2s ease infinite}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Stats bar */
+.stats-bar{background:var(--crimson);padding:1.5rem 3rem;display:flex;justify-content:space-around}
+.stat-item{text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--cream);display:block}
+.stat-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,243,232,.65)}
+
+/* Marquee */
+.marquee-wrap{background:var(--dark);padding:.85rem 0;overflow:hidden;border-top:1px solid rgba(201,151,76,.2)}
+.marquee-track{display:flex;width:max-content;animation:marquee 28s linear infinite}
+.marquee-item{padding:0 2.5rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,151,76,.7);white-space:nowrap}
+.marquee-dot{color:var(--crimson)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Menu section */
+.menu-section{padding:8rem 3rem;background:var(--cream)}
+.section-header{text-align:center;margin-bottom:5rem}
+.section-tag{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);line-height:1.15;color:var(--dark)}
+.section-title em{font-style:italic;color:var(--crimson)}
+.section-rule{width:60px;height:2px;background:var(--gold);margin:1.5rem auto 0}
+.menu-tabs{display:flex;gap:0;justify-content:center;margin-bottom:3.5rem;border:1px solid var(--border)}
+.menu-tab{padding:.85rem 2rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;background:transparent;border:none;cursor:none;color:var(--muted);transition:all .3s;position:relative}
+.menu-tab.active{background:var(--crimson);color:var(--cream)}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);max-width:900px;margin:0 auto}
+.menu-item{background:var(--cream);padding:1.8rem 2rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;transition:background .3s}
+.menu-item:hover{background:var(--parchment)}
+.menu-info{}
+.menu-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--dark);margin-bottom:.35rem}
+.menu-desc{font-size:.8rem;line-height:1.5;color:var(--muted)}
+.menu-price{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--crimson);white-space:nowrap;flex-shrink:0}
+
+/* Story section */
+.story-section{background:var(--dark);padding:8rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.story-visual{position:relative}
+.story-frame{background:var(--crimson);aspect-ratio:3/4;max-width:420px;position:relative;overflow:hidden}
+.story-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(26,15,10,.8))}
+.story-frame-inner{position:absolute;inset:1rem;border:1px solid rgba(201,151,76,.3)}
+.story-frame-text{position:absolute;bottom:2rem;left:2rem;right:2rem}
+.story-frame-text h4{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--cream)}
+.story-frame-text p{font-size:.8rem;color:var(--gold)}
+.story-accent{position:absolute;top:-1.5rem;right:-1.5rem;background:var(--gold);color:var(--dark);padding:1rem 1.5rem;font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700}
+.story-text .section-tag{text-align:left}
+.story-text .section-title{text-align:left}
+.story-text .section-rule{margin:1.5rem 0 2rem}
+.story-body p{font-size:.95rem;line-height:1.85;color:rgba(250,243,232,.7);margin-bottom:1.2rem}
+.story-signatures{display:flex;gap:2rem;margin-top:2.5rem}
+.signature-item{}
+.signature-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-style:italic;color:var(--gold)}
+.signature-role{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,243,232,.45)}
+
+/* Specialties */
+.specials-section{background:var(--parchment);padding:8rem 3rem}
+.specials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;max-width:1100px;margin:0 auto}
+.special-card{background:var(--cream);padding:2.5rem 2rem;text-align:center;border-bottom:3px solid transparent;transition:border-color .3s,transform .3s}
+.special-card:hover{border-color:var(--crimson);transform:translateY(-4px)}
+.special-icon{width:52px;height:52px;background:var(--crimson);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.4rem}
+.special-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--dark);margin-bottom:.75rem}
+.special-desc{font-size:.85rem;line-height:1.6;color:var(--muted)}
+.special-price{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--crimson);font-weight:700;margin-top:1rem}
+
+/* Reviews */
+.reviews-section{background:var(--dark);padding:8rem 3rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1100px;margin:3.5rem auto 0;background:rgba(201,151,76,.15)}
+.review-card{background:var(--dark);padding:2.5rem 2rem}
+.review-stars{color:var(--gold);font-size:1rem;letter-spacing:.1em;margin-bottom:1rem}
+.review-text{font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;line-height:1.7;color:rgba(250,243,232,.8);margin-bottom:1.5rem}
+.review-author{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.review-platform{font-size:.72rem;color:var(--gold);margin-top:.25rem}
+
+/* Reserve section */
+.reserve-section{background:var(--crimson);padding:8rem 3rem;text-align:center}
+.reserve-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);color:var(--cream);margin-bottom:1rem}
+.reserve-body{font-size:1rem;color:rgba(250,243,232,.75);margin-bottom:2.5rem}
+.reserve-btn{background:var(--cream);color:var(--crimson);font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1.1rem 3rem;border:none;cursor:none;transition:all .3s;display:inline-block}
+.reserve-btn:hover{background:var(--parchment)}
+.reserve-info{display:flex;gap:4rem;justify-content:center;margin-top:3.5rem}
+.info-item{text-align:center}
+.info-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,243,232,.55);margin-bottom:.4rem}
+.info-val{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--cream)}
+
+/* Footer */
+footer{background:var(--dark);padding:3rem;text-align:center;border-top:1px solid rgba(201,151,76,.15)}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--cream);margin-bottom:.5rem}
+.footer-logo span{color:var(--gold)}
+.footer-note{font-size:.75rem;color:var(--muted)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(26,15,10,.85);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--cream);width:min(560px,95vw);max-height:90vh;overflow-y:auto}
+.modal-header{background:var(--crimson);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.modal-header h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--cream)}
+.modal-close{background:none;border:none;color:rgba(250,243,232,.7);font-size:1.5rem;cursor:none;line-height:1}
+.modal-body{padding:2.5rem}
+.step-indicator{display:flex;gap:.5rem;margin-bottom:2rem}
+.step-dot{flex:1;height:3px;background:var(--border)}
+.step-dot.done{background:var(--crimson)}
+.step-dot.active{background:var(--gold)}
+.step-content{display:none}
+.step-content.active{display:block}
+.step-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.choice-btn{background:var(--parchment);border:2px solid transparent;padding:1rem 1.2rem;text-align:left;cursor:none;transition:all .25s}
+.choice-btn:hover,.choice-btn.selected{border-color:var(--crimson);background:var(--cream)}
+.choice-btn .choice-name{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--dark)}
+.choice-btn .choice-price{font-size:.78rem;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;margin-top:1rem}
+.cal-label{font-size:.68rem;text-align:center;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.cal-day{padding:.6rem .2rem;text-align:center;font-size:.82rem;cursor:none;border:1px solid transparent;transition:all .2s}
+.cal-day:not(.disabled):hover,.cal-day.selected{background:var(--crimson);color:var(--cream);border-color:var(--crimson)}
+.cal-day.disabled{color:var(--border);cursor:not-allowed}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1rem}
+.time-btn{padding:.75rem;text-align:center;font-size:.82rem;border:1px solid var(--border);cursor:none;transition:all .2s;background:transparent}
+.time-btn:hover,.time-btn.selected{background:var(--crimson);color:var(--cream);border-color:var(--crimson)}
+.form-group{margin-bottom:1.2rem}
+.form-label{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem;display:block}
+.form-input{width:100%;padding:.85rem 1rem;background:var(--parchment);border:1px solid var(--border);font-size:.9rem;color:var(--text);font-family:'Inter',sans-serif;outline:none;transition:border-color .3s}
+.form-input:focus{border-color:var(--crimson)}
+.confirm-box{background:var(--parchment);padding:1.5rem;margin-bottom:1.5rem}
+.confirm-row{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.confirm-row:last-child{border-bottom:none;font-weight:600}
+.confirm-row span:first-child{color:var(--muted)}
+.step-nav{display:flex;gap:1rem;margin-top:2rem}
+.btn-next{flex:1;background:var(--crimson);color:var(--cream);padding:1rem;border:none;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:none}
+.btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);padding:1rem 1.5rem;font-size:.82rem;cursor:none}
+.success-msg{text-align:center;padding:2rem 0}
+.success-icon{font-size:3rem;margin-bottom:1rem}
+.success-msg h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--crimson);margin-bottom:.75rem}
+.success-msg p{font-size:.9rem;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">Don <span>Giovanni's</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#specials">Specials</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Reserve a Table</button>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span>Est. 1986 · 7100 Castor Ave, Philadelphia</span></div>
+    <h1 class="hero-title">
+      <span class="line"><span>Authentic Italian,</span></span>
+      <span class="line"><span>Cooked with <em>Passion</em></span></span>
+      <span class="line"><span>&amp; Tradition.</span></span>
+    </h1>
+    <p class="hero-body">Family recipes passed down for generations. Hand-tossed dough, house-made sauces, and the warmth of a real neighborhood table — right here in Castor Ave.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="openModal()">Book a Table</button>
+      <a href="#menu" class="btn-ghost">View Our Menu →</a>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <strong>4.9</strong>
+    <span>★★★★★</span>
+    <span>On Slice</span>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num">38</span><span class="stat-label">Years Open</span></div>
+  <div class="stat-item"><span class="stat-num">50+</span><span class="stat-label">Menu Items</span></div>
+  <div class="stat-item"><span class="stat-num">4.9★</span><span class="stat-label">Average Rating</span></div>
+  <div class="stat-item"><span class="stat-num">1000s</span><span class="stat-label">Happy Families</span></div>
+</div>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee">
+    <span class="marquee-item">Pizza al Forno</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Pasta Carbonara</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Chicken Parmigiana</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Sicilian Pies</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Fresh Calzones</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Stromboli</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Tiramisu</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Cannoli</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Pizza al Forno</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Pasta Carbonara</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Chicken Parmigiana</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Sicilian Pies</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Fresh Calzones</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Stromboli</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Tiramisu</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Cannoli</span><span class="marquee-item marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- Menu -->
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <div class="section-tag">What We Serve</div>
+    <h2 class="section-title">Our <em>Menu</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="switchTab(this,'pizza')">Pizza</button>
+    <button class="menu-tab" onclick="switchTab(this,'pasta')">Pasta</button>
+    <button class="menu-tab" onclick="switchTab(this,'entrees')">Entrees</button>
+    <button class="menu-tab" onclick="switchTab(this,'desserts')">Desserts</button>
+  </div>
+  <div class="menu-grid" id="menu-grid">
+    <div class="menu-item"><div class="menu-info"><div class="menu-name">Margherita</div><div class="menu-desc">House tomato sauce, fresh mozzarella, basil</div></div><div class="menu-price">$12</div></div>
+    <div class="menu-item"><div class="menu-info"><div class="menu-name">Sicilian Square</div><div class="menu-desc">Thick crust, rich tomato, blend cheese</div></div><div class="menu-price">$14</div></div>
+    <div class="menu-item"><div class="menu-info"><div class="menu-name">White Pizza</div><div class="menu-desc">Garlic oil, ricotta, mozzarella, spinach</div></div><div class="menu-price">$13</div></div>
+    <div class="menu-item"><div class="menu-info"><div class="menu-name">Pepperoni Lover's</div><div class="menu-desc">Double pepperoni, extra mozzarella</div></div><div class="menu-price">$15</div></div>
+    <div class="menu-item"><div class="menu-info"><div class="menu-name">Veggie Supreme</div><div class="menu-desc">Mushrooms, peppers, onion, olives, artichoke</div></div><div class="menu-price">$14</div></div>
+    <div class="menu-item"><div class="menu-info"><div class="menu-name">Don Giovanni Special</div><div class="menu-desc">Sausage, roasted peppers, caramelized onion</div></div><div class="menu-price">$16</div></div>
+  </div>
+</section>
+
+<!-- Story -->
+<section class="story-section" id="story">
+  <div class="story-visual">
+    <div class="story-frame">
+      <div class="story-frame-inner"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#3a1a0a 0%,#8b1a1a 100%);display:flex;align-items:center;justify-content:center">
+        <span style="font-size:5rem">🍕</span>
+      </div>
+      <div class="story-frame-text">
+        <h4>Family Kitchen</h4>
+        <p>Philadelphia, Since 1986</p>
+      </div>
+    </div>
+    <div class="story-accent">38 Years<br>of Flavor</div>
+  </div>
+  <div class="story-text">
+    <div class="section-tag">Our Story</div>
+    <h2 class="section-title">A Family Recipe,<br>A <em>Neighborhood</em> Tradition</h2>
+    <div class="section-rule"></div>
+    <div class="story-body">
+      <p>Don Giovanni's has been serving Northeast Philadelphia since 1986. What started as a small pizzeria on Castor Avenue has grown into a beloved institution — but we've never lost sight of what matters: real food, real flavors, and real family.</p>
+      <p>Every pie is hand-tossed. Every sauce is made from scratch. Every visit is like coming home. That's the Don Giovanni's promise — the same one we've kept for nearly four decades.</p>
+    </div>
+    <div class="story-signatures">
+      <div class="signature-item"><div class="signature-name">Giovanni</div><div class="signature-role">Founder & Head Chef</div></div>
+      <div class="signature-item"><div class="signature-name">Maria</div><div class="signature-role">Co-founder</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Specials -->
+<section class="specials-section" id="specials">
+  <div class="section-header">
+    <div class="section-tag">House Favorites</div>
+    <h2 class="section-title">Chef's <em>Specialties</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="specials-grid">
+    <div class="special-card">
+      <div class="special-icon">🍝</div>
+      <div class="special-name">Pasta al Forno</div>
+      <div class="special-desc">Baked pasta with house Bolognese, béchamel, and three-cheese crust — the recipe that started it all.</div>
+      <div class="special-price">From $14</div>
+    </div>
+    <div class="special-card">
+      <div class="special-icon">🍗</div>
+      <div class="special-name">Chicken Parm</div>
+      <div class="special-desc">Hand-breaded cutlets, house marinara, fresh mozzarella, oven-finished. A Philadelphia classic done right.</div>
+      <div class="special-price">From $16</div>
+    </div>
+    <div class="special-card">
+      <div class="special-icon">🥐</div>
+      <div class="special-name">Stromboli Roll</div>
+      <div class="special-desc">Our signature dough packed with premium fillings, baked golden. Perfect for groups and takeout.</div>
+      <div class="special-price">From $11</div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews-section" id="reviews">
+  <div class="section-header" style="text-align:center;margin-bottom:0">
+    <div class="section-tag">What They Say</div>
+    <h2 class="section-title" style="color:var(--cream)">A Table Full of <em style="color:var(--gold)">Love</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Best pizza in Northeast Philly, no contest. Been coming here since I was a kid — 30 years later, it still tastes exactly the same."</div>
+      <div class="review-author">Michael R.</div>
+      <div class="review-platform">Google Review</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"The Sicilian square is out of this world. Thick, crispy bottom, perfectly seasoned sauce. My whole family orders from here every Friday night."</div>
+      <div class="review-author">Lisa T.</div>
+      <div class="review-platform">Slice</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Don Giovanni's is a Philly institution. The chicken parm is better than anything I've had in South Philly. Real, honest Italian food."</div>
+      <div class="review-author">Anthony M.</div>
+      <div class="review-platform">Yelp</div>
+    </div>
+  </div>
+</section>
+
+<!-- Reserve -->
+<section class="reserve-section" id="reserve">
+  <h2 class="reserve-title">Ready for a Real Italian Dinner?</h2>
+  <p class="reserve-body">Book your table or place an order for pickup and delivery. Dine-in, takeout, and catering available.</p>
+  <button class="reserve-btn" onclick="openModal()">Reserve a Table</button>
+  <div class="reserve-info">
+    <div class="info-item"><div class="info-label">Address</div><div class="info-val">7100 Castor Ave, Phila.</div></div>
+    <div class="info-item"><div class="info-label">Phone</div><div class="info-val">(215) 278-4811</div></div>
+    <div class="info-item"><div class="info-label">Hours</div><div class="info-val">Mon–Thu 11am–11pm</div></div>
+    <div class="info-item"><div class="info-label">Delivery</div><div class="info-val">DoorDash · Slice · GH</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Don <span>Giovanni's</span></div>
+  <div class="footer-note">7100 Castor Ave, Philadelphia, PA 19149 · (215) 278-4811 · Demo site by NEXO Agency</div>
+</footer>
+
+<!-- Booking Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Reserve Your Table</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="step-indicator">
+        <div class="step-dot active" id="sd1"></div>
+        <div class="step-dot" id="sd2"></div>
+        <div class="step-dot" id="sd3"></div>
+        <div class="step-dot" id="sd4"></div>
+        <div class="step-dot" id="sd5"></div>
+      </div>
+      <!-- Step 1: Party size & occasion -->
+      <div class="step-content active" id="step1">
+        <div class="step-label">Step 1 of 4 — Party Size</div>
+        <div class="choice-grid">
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">1–2 Guests</div><div class="choice-price">Cozy table</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">3–4 Guests</div><div class="choice-price">Family booth</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">5–8 Guests</div><div class="choice-price">Large table</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">9+ Guests</div><div class="choice-price">Private event</div></button>
+        </div>
+        <div class="step-nav"><button class="btn-next" onclick="nextStep(1)">Continue →</button></div>
+      </div>
+      <!-- Step 2: Date -->
+      <div class="step-content" id="step2">
+        <div class="step-label">Step 2 of 4 — Pick a Date</div>
+        <div class="cal-grid" id="cal"></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(2)">← Back</button><button class="btn-next" onclick="nextStep(2)">Continue →</button></div>
+      </div>
+      <!-- Step 3: Time -->
+      <div class="step-content" id="step3">
+        <div class="step-label">Step 3 of 4 — Pick a Time</div>
+        <div class="time-grid">
+          <button class="time-btn" onclick="selectTime(this)">11:30 AM</button>
+          <button class="time-btn" onclick="selectTime(this)">12:00 PM</button>
+          <button class="time-btn" onclick="selectTime(this)">12:30 PM</button>
+          <button class="time-btn" onclick="selectTime(this)">1:00 PM</button>
+          <button class="time-btn" onclick="selectTime(this)">5:00 PM</button>
+          <button class="time-btn" onclick="selectTime(this)">5:30 PM</button>
+          <button class="time-btn" onclick="selectTime(this)">6:00 PM</button>
+          <button class="time-btn" onclick="selectTime(this)">7:00 PM</button>
+          <button class="time-btn" onclick="selectTime(this)">8:00 PM</button>
+        </div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(3)">← Back</button><button class="btn-next" onclick="nextStep(3)">Continue →</button></div>
+      </div>
+      <!-- Step 4: Contact -->
+      <div class="step-content" id="step4">
+        <div class="step-label">Step 4 of 4 — Your Details</div>
+        <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="gname" type="text" placeholder="Your name"></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" id="gphone" type="tel" placeholder="(215) 000-0000"></div>
+        <div class="form-group"><label class="form-label">Special Requests</label><input class="form-input" type="text" placeholder="Allergies, anniversary, etc."></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(4)">← Back</button><button class="btn-next" onclick="submitReservation()">Confirm Reservation</button></div>
+      </div>
+      <!-- Step 5: Confirm -->
+      <div class="step-content" id="step5">
+        <div class="success-msg">
+          <div class="success-icon">🍕</div>
+          <h3>Table Reserved!</h3>
+          <p>Thank you! We'll confirm your table at Don Giovanni's by phone. We look forward to seeing you soon.</p>
+          <div style="margin-top:1.5rem"><button class="btn-next" onclick="closeModal()">Done</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Cursor
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+gsap.to('.hero-title .line span',{duration:1.1,y:0,ease:'expo.out',stagger:.13,delay:.3});
+gsap.from('.hero-eyebrow span',{duration:.9,y:20,opacity:0,ease:'expo.out',delay:.15});
+gsap.from('.hero-body',{duration:1,y:20,opacity:0,ease:'expo.out',delay:.7});
+gsap.from('.hero-actions',{duration:1,y:20,opacity:0,ease:'expo.out',delay:.9});
+gsap.from('.hero-badge',{duration:1.2,scale:.5,opacity:0,ease:'back.out(1.5)',delay:1.1});
+gsap.utils.toArray('.menu-item').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.6,y:30,opacity:0,ease:'expo.out',delay:i*.04})});
+gsap.from('.story-frame',{scrollTrigger:{trigger:'.story-section',start:'top 70%'},duration:1,x:-60,opacity:0,ease:'expo.out'});
+gsap.from('.story-text > *',{scrollTrigger:{trigger:'.story-section',start:'top 70%'},duration:.9,y:40,opacity:0,ease:'expo.out',stagger:.12});
+gsap.utils.toArray('.special-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:40,opacity:0,ease:'expo.out',delay:i*.12})});
+gsap.utils.toArray('.review-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.1})});
+
+// Menu tabs
+const menuData={
+  pizza:[
+    {n:'Margherita',d:'House tomato sauce, fresh mozzarella, basil',p:'$12'},
+    {n:'Sicilian Square',d:'Thick crust, rich tomato, blend cheese',p:'$14'},
+    {n:'White Pizza',d:'Garlic oil, ricotta, mozzarella, spinach',p:'$13'},
+    {n:'Pepperoni Lover\'s',d:'Double pepperoni, extra mozzarella',p:'$15'},
+    {n:'Veggie Supreme',d:'Mushrooms, peppers, onion, olives, artichoke',p:'$14'},
+    {n:'Don Giovanni Special',d:'Sausage, roasted peppers, caramelized onion',p:'$16'}
+  ],
+  pasta:[
+    {n:'Pasta Carbonara',d:'Pancetta, egg yolk cream, Pecorino Romano',p:'$15'},
+    {n:'Pasta al Forno',d:'Baked Bolognese, béchamel, three-cheese crust',p:'$16'},
+    {n:'Penne Arrabiata',d:'Spicy tomato, garlic, crushed red pepper',p:'$13'},
+    {n:'Fettuccine Alfredo',d:'House Alfredo, Parmesan, fresh parsley',p:'$14'},
+    {n:'Linguine Vongole',d:'Manila clams, white wine, garlic, olive oil',p:'$17'},
+    {n:'Rigatoni Sausage',d:'Italian sausage, fennel, cherry tomato',p:'$15'}
+  ],
+  entrees:[
+    {n:'Chicken Parmigiana',d:'Hand-breaded, house marinara, fresh mozz',p:'$16'},
+    {n:'Veal Scallopini',d:'White wine, capers, lemon butter sauce',p:'$19'},
+    {n:'Eggplant Parm',d:'Oven-baked, house marinara, mozzarella',p:'$14'},
+    {n:'Stromboli',d:'Choice of filling, baked golden, marinara dip',p:'$11'},
+    {n:'Calzone',d:'Fresh ricotta, mozzarella, your choice of fillings',p:'$12'},
+    {n:'Meatball Sub',d:'House meatballs, marinara, provolone',p:'$10'}
+  ],
+  desserts:[
+    {n:'Cannoli',d:'Fresh ricotta filling, chocolate chips, powdered sugar',p:'$5'},
+    {n:'Tiramisu',d:'House-made, espresso-soaked ladyfingers, mascarpone',p:'$7'},
+    {n:'Sfogliatella',d:'Crispy shell pastry with ricotta filling',p:'$4'},
+    {n:'Panna Cotta',d:'Vanilla bean, fresh berry compote',p:'$6'},
+    {n:'Gelato',d:'Rotating daily flavors, house-made',p:'$4'},
+    {n:'Zeppole',d:'Fried dough, powdered sugar, Nutella dip',p:'$5'}
+  ]
+};
+function switchTab(btn,cat){
+  document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const g=document.getElementById('menu-grid');
+  g.innerHTML=menuData[cat].map(i=>`<div class="menu-item"><div class="menu-info"><div class="menu-name">${i.n}</div><div class="menu-desc">${i.d}</div></div><div class="menu-price">${i.p}</div></div>`).join('');
+  gsap.from(g.children,{duration:.4,y:15,opacity:0,stagger:.05,ease:'expo.out'});
+}
+
+// Modal
+let currentStep=1,selDate='',selTime='',selParty='';
+function openModal(){document.getElementById('modal').classList.add('open');buildCal()}
+function closeModal(){document.getElementById('modal').classList.remove('open');currentStep=1;showStep(1)}
+function buildCal(){
+  const cal=document.getElementById('cal');
+  const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  cal.innerHTML=days.map(d=>`<div class="cal-label">${d}</div>`).join('');
+  for(let i=1;i<=30;i++){
+    const dis=i<new Date().getDate()&&new Date().getMonth()===new Date().getMonth();
+    cal.innerHTML+=`<div class="cal-day${dis?' disabled':''}" onclick="selectDay(this,'${i}')">${i}</div>`;
+  }
+}
+function selectDay(el,d){document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selDate='May '+d}
+function selectTime(el){document.querySelectorAll('.time-btn').forEach(t=>t.classList.remove('selected'));el.classList.add('selected');selTime=el.textContent}
+function selectChoice(el){document.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');selParty=el.querySelector('.choice-name').textContent}
+function showStep(n){
+  document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  document.querySelectorAll('.step-dot').forEach((d,i)=>{d.classList.remove('active','done');if(i<n-1)d.classList.add('done');else if(i===n-1)d.classList.add('active')});
+}
+function nextStep(n){showStep(n+1);currentStep=n+1}
+function prevStep(n){showStep(n-1);currentStep=n-1}
+function submitReservation(){showStep(5)}
+
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+</script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gloria's Hair Fashion & Beauty — Philadelphia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --terra:#C1603A;
+  --blush:#F0D5C0;
+  --warm-white:#FDF6EE;
+  --sand:#E8CEAA;
+  --deep:#2A1A0F;
+  --plum:#6B3A4C;
+  --muted:#9A7A6A;
+  --border:rgba(193,96,58,.18);
+}
+html{scroll-behavior:smooth}
+body{background:var(--warm-white);color:var(--deep);font-family:'Jost',sans-serif;overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:7px;height:7px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;width:30px;height:30px;border:1.5px solid rgba(193,96,58,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 3.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(253,246,238,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600;color:var(--deep);letter-spacing:.04em}
+.nav-logo span{color:var(--terra)}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{color:rgba(42,26,15,.55);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--terra)}
+.nav-cta{background:transparent;border:1.5px solid var(--terra);color:var(--terra);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.5rem;cursor:none;transition:all .3s}
+.nav-cta:hover{background:var(--terra);color:var(--warm-white)}
+
+/* Hero — full-bleed editorial */
+.hero{min-height:100vh;background:var(--deep);position:relative;display:grid;grid-template-rows:1fr auto;overflow:hidden}
+.hero-bg-pattern{position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(193,96,58,.03) 40px,rgba(193,96,58,.03) 41px)}
+.hero-circles{position:absolute;top:-15vw;right:-10vw;width:60vw;height:60vw;border-radius:50%;border:1px solid rgba(193,96,58,.08)}
+.hero-circles::before{content:'';position:absolute;inset:6vw;border-radius:50%;border:1px solid rgba(193,96,58,.06)}
+.hero-circles::after{content:'';position:absolute;inset:12vw;border-radius:50%;border:1px solid rgba(193,96,58,.04)}
+.hero-body-wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;align-items:flex-end;min-height:100vh;padding:8rem 3.5rem 5rem}
+.hero-left{}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(193,96,58,.8);margin-bottom:2rem;display:flex;align-items:center;gap:.75rem}
+.hero-eyebrow::before{content:'';width:2rem;height:1px;background:var(--terra)}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7.5vw,7rem);line-height:.95;color:var(--warm-white);font-weight:600}
+.hero-title .line{overflow:hidden;display:block}
+.hero-title .line span{display:inline-block;transform:translateY(110%)}
+.hero-title em{font-style:italic;color:var(--terra)}
+.hero-right{text-align:right;padding-left:3rem}
+.hero-desc{font-size:.95rem;line-height:1.85;color:rgba(253,246,238,.55);margin-bottom:2.5rem;max-width:340px;margin-left:auto}
+.hero-badge-row{display:flex;align-items:center;justify-content:flex-end;gap:1.5rem;margin-bottom:2.5rem}
+.badge-item{text-align:center}
+.badge-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--terra);display:block;font-weight:600;line-height:1}
+.badge-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(253,246,238,.45)}
+.badge-divider{width:1px;height:40px;background:var(--border)}
+.hero-cta-row{display:flex;gap:1rem;justify-content:flex-end}
+.btn-terra{background:var(--terra);color:var(--warm-white);font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.9rem 2rem;border:none;cursor:none;transition:background .3s}
+.btn-terra:hover{background:#a84d2a}
+.btn-outline{background:transparent;border:1px solid rgba(253,246,238,.25);color:rgba(253,246,238,.65);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:.9rem 1.8rem;cursor:none;transition:all .3s}
+.btn-outline:hover{border-color:var(--terra);color:var(--terra)}
+.hero-scroll-bar{position:relative;z-index:2;padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(253,246,238,.08)}
+.scroll-hint{display:flex;align-items:center;gap:.75rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(253,246,238,.35)}
+.scroll-hint::before{content:'';width:30px;height:1px;background:rgba(253,246,238,.2)}
+.hero-quote{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(253,246,238,.3)}
+
+/* Marquee */
+.marquee-wrap{background:var(--terra);padding:.8rem 0;overflow:hidden}
+.marquee-track{display:flex;width:max-content;animation:marquee 26s linear infinite}
+.marquee-item{padding:0 2.5rem;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(253,246,238,.85);white-space:nowrap}
+.marquee-dot{color:rgba(253,246,238,.4)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Services — vertical accordion */
+.services-section{background:var(--warm-white);padding:8rem 3.5rem}
+.services-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1100px;margin:0 auto}
+.services-left .section-tag{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);margin-bottom:.75rem}
+.services-left .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);line-height:1.1;color:var(--deep)}
+.services-left .section-title em{font-style:italic;color:var(--terra)}
+.services-left .section-body{font-size:.9rem;line-height:1.8;color:var(--muted);margin:1.5rem 0 2.5rem}
+.services-left .rule{width:40px;height:2px;background:var(--terra)}
+.accordion{margin-top:2rem}
+.acc-item{border-bottom:1px solid var(--border)}
+.acc-header{display:flex;align-items:center;justify-content:space-between;padding:1.3rem 0;cursor:none}
+.acc-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--deep)}
+.acc-right{display:flex;align-items:center;gap:1.5rem}
+.acc-price{font-size:.9rem;font-weight:600;color:var(--terra)}
+.acc-arrow{width:24px;height:24px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--muted);transition:all .3s}
+.acc-item.open .acc-arrow{background:var(--terra);color:var(--warm-white);border-color:var(--terra);transform:rotate(180deg)}
+.acc-body{display:none;padding-bottom:1.2rem}
+.acc-body p{font-size:.85rem;line-height:1.7;color:var(--muted)}
+.services-right{}
+.svc-visual-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:4.5rem}
+.svc-vis-card{padding:1.8rem 1.5rem;background:var(--blush);border-bottom:2px solid transparent;transition:border-color .3s}
+.svc-vis-card:first-child{grid-column:1/-1;background:var(--terra)}
+.svc-vis-card:first-child .svc-vis-name{color:var(--warm-white)}
+.svc-vis-card:first-child .svc-vis-desc{color:rgba(253,246,238,.7)}
+.svc-vis-card:first-child .svc-vis-price{color:var(--sand)}
+.svc-vis-card:hover{border-color:var(--terra)}
+.svc-vis-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--deep);margin-bottom:.5rem}
+.svc-vis-desc{font-size:.8rem;line-height:1.55;color:var(--muted);margin-bottom:1rem}
+.svc-vis-price{font-size:.9rem;font-weight:600;color:var(--terra)}
+
+/* Team */
+.team-section{background:var(--blush);padding:8rem 3.5rem}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:4rem;max-width:1000px;margin-left:auto;margin-right:auto}
+.team-card{background:var(--warm-white);padding:2rem 1.8rem;text-align:center}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:var(--terra);margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--deep);margin-bottom:.3rem}
+.team-role{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);margin-bottom:.8rem}
+.team-bio{font-size:.82rem;line-height:1.6;color:var(--muted)}
+
+/* Reviews */
+.reviews-section{background:var(--deep);padding:8rem 3.5rem}
+.reviews-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem}
+.reviews-intro-left .section-tag{color:var(--terra);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.75rem}
+.reviews-intro-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);color:var(--warm-white);line-height:1.1}
+.reviews-intro-left h2 em{font-style:italic;color:var(--terra)}
+.reviews-big-num{font-family:'Cormorant Garamond',serif;font-size:7rem;font-weight:700;color:rgba(193,96,58,.15);line-height:1;text-align:right}
+.review-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(253,246,238,.06)}
+.review-card{background:var(--deep);padding:2.5rem 2rem}
+.review-stars{color:var(--terra);font-size:.9rem;margin-bottom:1rem}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.7;color:rgba(253,246,238,.75);margin-bottom:1.5rem}
+.review-author{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* CTA */
+.cta-section{background:var(--terra);padding:8rem 3.5rem;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'GLORIA\'S';font-family:'Cormorant Garamond',serif;font-size:14rem;font-weight:700;color:rgba(253,246,238,.06);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+.cta-inner{position:relative;z-index:2}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);color:var(--warm-white);margin-bottom:1rem}
+.cta-body{font-size:1rem;color:rgba(253,246,238,.7);margin-bottom:2.5rem}
+.cta-btn{background:var(--warm-white);color:var(--terra);font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:1.1rem 3rem;border:none;cursor:none;transition:all .3s}
+.cta-btn:hover{background:var(--blush)}
+.cta-info{display:flex;gap:4rem;justify-content:center;margin-top:3.5rem}
+.info-item{text-align:center}
+.info-label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(253,246,238,.5);margin-bottom:.4rem}
+.info-val{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--warm-white);font-weight:600}
+footer{background:var(--deep);padding:2.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--warm-white)}
+.footer-logo span{color:var(--terra)}
+.footer-note{font-size:.72rem;color:var(--muted)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(42,26,15,.85);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--warm-white);width:min(540px,95vw);max-height:90vh;overflow-y:auto}
+.modal-header{background:var(--terra);padding:1.8rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.modal-header h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--warm-white)}
+.modal-close{background:none;border:none;color:rgba(253,246,238,.7);font-size:1.4rem;cursor:none}
+.modal-body{padding:2.5rem}
+.step-indicator{display:flex;gap:.5rem;margin-bottom:2rem}
+.step-dot{flex:1;height:2px;background:var(--border)}
+.step-dot.done{background:var(--terra)}
+.step-dot.active{background:rgba(193,96,58,.5)}
+.step-content{display:none}
+.step-content.active{display:block}
+.step-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:1.2rem}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.choice-btn{background:var(--blush);border:2px solid transparent;padding:1rem 1.2rem;text-align:left;cursor:none;transition:all .25s}
+.choice-btn:hover,.choice-btn.selected{border-color:var(--terra);background:var(--warm-white)}
+.choice-btn .choice-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--deep);font-weight:600}
+.choice-btn .choice-price{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.35rem}
+.cal-label{font-size:.65rem;text-align:center;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.cal-day{padding:.6rem .2rem;text-align:center;font-size:.8rem;cursor:none;border:1px solid transparent;transition:all .2s}
+.cal-day:not(.disabled):hover,.cal-day.selected{background:var(--terra);color:var(--warm-white);border-color:var(--terra)}
+.cal-day.disabled{color:var(--border)}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.time-btn{padding:.75rem;text-align:center;font-size:.8rem;border:1px solid var(--border);cursor:none;transition:all .2s;background:transparent;color:var(--deep)}
+.time-btn:hover,.time-btn.selected{background:var(--terra);color:var(--warm-white);border-color:var(--terra)}
+.form-group{margin-bottom:1.1rem}
+.form-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;display:block}
+.form-input{width:100%;padding:.85rem 1rem;background:var(--blush);border:1px solid var(--border);font-size:.9rem;color:var(--deep);font-family:'Jost',sans-serif;outline:none;transition:border-color .3s}
+.form-input:focus{border-color:var(--terra)}
+.step-nav{display:flex;gap:1rem;margin-top:2rem}
+.btn-next{flex:1;background:var(--terra);color:var(--warm-white);padding:1rem;border:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:none}
+.btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);padding:1rem 1.2rem;font-size:.78rem;cursor:none}
+.success-msg{text-align:center;padding:2rem 0}
+.success-icon{font-size:3rem;margin-bottom:1rem}
+.success-msg h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--terra);margin-bottom:.75rem}
+.success-msg p{font-size:.9rem;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<nav>
+  <div class="nav-logo">Gloria's <span>Hair</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Book Appointment</button>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-circles"></div>
+  <div class="hero-body-wrap">
+    <div class="hero-left">
+      <div class="hero-eyebrow">6751 Castor Ave, Philadelphia · Est. since the community needed us</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Where <em>Beauty</em></span></span>
+        <span class="line"><span>Meets Craft,</span></span>
+        <span class="line"><span>Every Visit.</span></span>
+      </h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-desc">Gloria's has been the neighborhood's trusted hair destination for years. Cuts, color, blowouts, relaxers — done by hands that truly care about your look.</p>
+      <div class="hero-badge-row">
+        <div class="badge-item"><span class="badge-num">100%</span><span class="badge-label">Recommended</span></div>
+        <div class="badge-divider"></div>
+        <div class="badge-item"><span class="badge-num">5★</span><span class="badge-label">Google Rating</span></div>
+        <div class="badge-divider"></div>
+        <div class="badge-item"><span class="badge-num">NE</span><span class="badge-label">Philly Trusted</span></div>
+      </div>
+      <div class="hero-cta-row">
+        <button class="btn-terra" onclick="openModal()">Book Now</button>
+        <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Our Services</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-bar">
+    <div class="scroll-hint">Scroll to explore</div>
+    <div class="hero-quote">"Good hair speaks before you do."</div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Cuts & Styling</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Color & Highlights</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Blowout</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Relaxer</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Deep Conditioning</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Natural Styles</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Keratin Treatment</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Cuts & Styling</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Color & Highlights</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Blowout</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Relaxer</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Deep Conditioning</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Natural Styles</span><span class="marquee-item marquee-dot">·</span>
+    <span class="marquee-item">Keratin Treatment</span><span class="marquee-item marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- Services -->
+<section class="services-section" id="services">
+  <div class="services-layout">
+    <div class="services-left">
+      <div class="section-tag">What We Offer</div>
+      <h2 class="section-title">Hair Services<br>Done with <em>Love</em></h2>
+      <p class="services-left section-body">Every client deserves to feel beautiful. Our stylists take the time to understand your hair type, texture, and goals before touching a single strand.</p>
+      <div class="rule"></div>
+      <div class="accordion">
+        <div class="acc-item"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-name">Haircuts & Styling</span><div class="acc-right"><span class="acc-price">From $35</span><span class="acc-arrow">▾</span></div></div><div class="acc-body"><p>Precision cuts for every hair type — straight, wavy, curly, or coily. Includes consultation, shampoo, cut, and style.</p></div></div>
+        <div class="acc-item"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-name">Color & Highlights</span><div class="acc-right"><span class="acc-price">From $65</span><span class="acc-arrow">▾</span></div></div><div class="acc-body"><p>Full color, partial highlights, balayage, and toning. All color work includes a complimentary conditioning treatment.</p></div></div>
+        <div class="acc-item"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-name">Blowout & Flat Iron</span><div class="acc-right"><span class="acc-price">From $45</span><span class="acc-arrow">▾</span></div></div><div class="acc-body"><p>Sleek, voluminous, or smooth — your choice. Long-lasting results using professional heat tools and finishing products.</p></div></div>
+        <div class="acc-item"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-name">Relaxer & Texturizer</span><div class="acc-right"><span class="acc-price">From $70</span><span class="acc-arrow">▾</span></div></div><div class="acc-body"><p>Professional relaxer services with scalp protection and post-treatment conditioning. We use premium professional brands.</p></div></div>
+        <div class="acc-item"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-name">Natural Styles</span><div class="acc-right"><span class="acc-price">From $50</span><span class="acc-arrow">▾</span></div></div><div class="acc-body"><p>Twist-outs, braid-outs, rod sets, and wash-n-go styles. We celebrate and enhance your natural texture.</p></div></div>
+        <div class="acc-item"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-name">Keratin Treatment</span><div class="acc-right"><span class="acc-price">From $120</span><span class="acc-arrow">▾</span></div></div><div class="acc-body"><p>Smooth frizz, reduce styling time, and add serious shine. Results last 3–4 months. Includes shampoo and blow-dry.</p></div></div>
+      </div>
+    </div>
+    <div class="services-right">
+      <div class="svc-visual-cards">
+        <div class="svc-vis-card"><div class="svc-vis-name">Signature Blowout</div><div class="svc-vis-desc">Our most-booked service — shampoo, deep condition, professional blow-dry, and style with a flat iron finish. You'll walk out glowing.</div><div class="svc-vis-price">$55 · 60 min</div></div>
+        <div class="svc-vis-card"><div class="svc-vis-name">Color Refresh</div><div class="svc-vis-desc">Root touch-up or glossing treatment to bring life back to your existing color.</div><div class="svc-vis-price">$65 · 75 min</div></div>
+        <div class="svc-vis-card"><div class="svc-vis-name">Deep Condition</div><div class="svc-vis-desc">Intense moisture mask with steam treatment. Perfect add-on or standalone service.</div><div class="svc-vis-price">$30 · 30 min</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="team-section" id="team">
+  <div style="text-align:center;margin-bottom:0">
+    <div class="section-tag" style="text-align:center;margin-bottom:.7rem">The Stylists</div>
+    <h2 class="section-title" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);text-align:center;color:var(--deep)">Hands That <em style="font-style:italic;color:var(--terra)">Care</em></h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card"><div class="team-avatar">💇</div><div class="team-name">Gloria</div><div class="team-role">Owner & Master Stylist</div><div class="team-bio">25+ years in hair. Known for making every client feel like a VIP. Her cuts are clean, her color is art.</div></div>
+    <div class="team-card"><div class="team-avatar">✂</div><div class="team-name">Yvette</div><div class="team-role">Color Specialist</div><div class="team-bio">Balayage, highlights, and full color transformations. Clients travel across Philly just for her colorwork.</div></div>
+    <div class="team-card"><div class="team-avatar">💅</div><div class="team-name">Tanya</div><div class="team-role">Natural Hair Specialist</div><div class="team-bio">Expert in textured and natural styles. Wash-n-gos, twist-outs, rod sets — Tanya makes it look effortless.</div></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-intro">
+    <div class="reviews-intro-left">
+      <div class="section-tag">What Clients Say</div>
+      <h2>A Salon That <em>Cares</em></h2>
+    </div>
+    <div class="reviews-big-num">5★</div>
+  </div>
+  <div class="review-cards">
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Gloria is an absolute gem. Been going to her for 10 years. She knows exactly what my hair needs and always delivers. Best salon on Castor Ave."</div><div class="review-author">Sandra P. · Google</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Got my color done by Yvette — exactly what I wanted. The whole team is warm, professional, and they make you feel so comfortable."</div><div class="review-author">Maria L. · Facebook</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"100% recommended. Very friendly, excellent service. My natural curls have never looked this good. Tanya is magic with natural hair."</div><div class="review-author">Keisha W. · Google</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title">Your Best Hair Day Starts Here</h2>
+    <p class="cta-body">Book your appointment at Gloria's — walk-ins welcome, but reservations guarantee your spot.</p>
+    <button class="cta-btn" onclick="openModal()">Book an Appointment</button>
+    <div class="cta-info">
+      <div class="info-item"><div class="info-label">Address</div><div class="info-val">6751 Castor Ave</div></div>
+      <div class="info-item"><div class="info-label">Phone</div><div class="info-val">(215) 722-1444</div></div>
+      <div class="info-item"><div class="info-label">Mon–Thu</div><div class="info-val">9am – 6pm</div></div>
+      <div class="info-item"><div class="info-label">Fri–Sat</div><div class="info-val">8am – 7pm</div></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">Gloria's <span>Hair</span></div>
+  <div class="footer-note">6751 Castor Ave, Philadelphia, PA 19149 · Demo by NEXO Agency</div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header"><h2>Book at Gloria's</h2><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="step-indicator"><div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div></div>
+      <div class="step-content active" id="step1">
+        <div class="step-label">Step 1 — Choose a Service</div>
+        <div class="choice-grid">
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Haircut & Style</div><div class="choice-price">From $35</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Color & Highlights</div><div class="choice-price">From $65</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Blowout</div><div class="choice-price">From $45</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Relaxer</div><div class="choice-price">From $70</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Natural Styles</div><div class="choice-price">From $50</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Keratin Treatment</div><div class="choice-price">From $120</div></button>
+        </div>
+        <div class="step-nav"><button class="btn-next" onclick="nextStep(1)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step2">
+        <div class="step-label">Step 2 — Pick Your Stylist</div>
+        <div class="choice-grid">
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Gloria</div><div class="choice-price">Master Stylist</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Yvette</div><div class="choice-price">Color Expert</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Tanya</div><div class="choice-price">Natural Hair</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Any Available</div><div class="choice-price">First open</div></button>
+        </div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(2)">← Back</button><button class="btn-next" onclick="nextStep(2)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step3">
+        <div class="step-label">Step 3 — Pick a Date</div>
+        <div class="cal-grid" id="cal"></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(3)">← Back</button><button class="btn-next" onclick="nextStep(3)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step4">
+        <div class="step-label">Step 4 — Your Info</div>
+        <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text" placeholder="Your name"></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="(215) 000-0000"></div>
+        <div class="form-group"><label class="form-label">Hair Notes</label><input class="form-input" type="text" placeholder="Hair type, length, any concerns..."></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(4)">← Back</button><button class="btn-next" onclick="submitBooking()">Confirm Booking</button></div>
+      </div>
+      <div class="step-content" id="step5">
+        <div class="success-msg"><div class="success-icon">💇</div><h3>You're All Set!</h3><p>We'll confirm your appointment at Gloria's Hair by phone. See you soon, beautiful!</p><div style="margin-top:1.5rem"><button class="btn-next" onclick="closeModal()">Done</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+gsap.registerPlugin(ScrollTrigger);
+gsap.to('.hero-title .line span',{duration:1.15,y:0,ease:'expo.out',stagger:.13,delay:.4});
+gsap.from('.hero-eyebrow',{duration:1,x:-30,opacity:0,ease:'expo.out',delay:.2});
+gsap.from('.hero-right',{duration:1,x:30,opacity:0,ease:'expo.out',delay:.7});
+gsap.from('.hero-scroll-bar',{duration:1,y:20,opacity:0,ease:'expo.out',delay:1.1});
+gsap.utils.toArray('.acc-item').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},duration:.6,y:20,opacity:0,ease:'expo.out',delay:i*.08})});
+gsap.utils.toArray('.svc-vis-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.1})});
+gsap.utils.toArray('.team-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.1})});
+gsap.utils.toArray('.review-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.1})});
+function toggleAcc(header){const item=header.closest('.acc-item');const wasOpen=item.classList.contains('open');document.querySelectorAll('.acc-item').forEach(i=>{i.classList.remove('open');i.querySelector('.acc-body').style.display='none'});if(!wasOpen){item.classList.add('open');item.querySelector('.acc-body').style.display='block'}}
+function openModal(){document.getElementById('modal').classList.add('open');buildCal()}
+function closeModal(){document.getElementById('modal').classList.remove('open');currentStep=1;showStep(1)}
+function buildCal(){const cal=document.getElementById('cal');const days=['Su','Mo','Tu','We','Th','Fr','Sa'];cal.innerHTML=days.map(d=>`<div class="cal-label">${d}</div>`).join('');for(let i=1;i<=30;i++){cal.innerHTML+=`<div class="cal-day" onclick="selectDay(this)">${i}</div>`}}
+function selectDay(el){document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function selectChoice(el){const parent=el.closest('.choice-grid');parent.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected')}
+let currentStep=1;
+function showStep(n){document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));document.getElementById('step'+n).classList.add('active');document.querySelectorAll('.step-dot').forEach((d,i)=>{d.classList.remove('active','done');if(i<n-1)d.classList.add('done');else if(i===n-1)d.classList.add('active')})}
+function nextStep(n){showStep(n+1);currentStep=n+1}
+function prevStep(n){showStep(n-1);currentStep=n-1}
+function submitBooking(){showStep(5)}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+</script>
+</body>
+</html>

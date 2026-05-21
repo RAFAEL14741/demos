@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BarberTime — Admin Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#C8A84B;--hover:#a88a38;--bg:#0A0A0A;--surface:#141414;--card:#1c1c1c;--text:#F5F0E8;--muted:#888}
+body{font-family:'Space Grotesk',sans-serif;background:#f5f0e8;color:#1a1a1a;min-height:100vh}
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg)}
+.login-box{background:var(--surface);border:1px solid #2a2a2a;border-radius:16px;padding:48px 40px;width:min(90vw,380px);text-align:center}
+.login-logo{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--primary);margin-bottom:4px}
+.login-sub{font-size:.78rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:32px}
+.pin-display{font-size:2rem;letter-spacing:12px;height:48px;margin-bottom:20px;color:var(--text)}
+.pin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.pin-btn{background:#222;border:1px solid #333;border-radius:10px;padding:16px;font-size:1.2rem;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:.15s;color:var(--text)}
+.pin-btn:hover{background:#2a2a2a;border-color:var(--primary)}
+.pin-btn.wide{grid-column:span 2}
+.pin-enter{background:var(--primary);color:#0A0A0A;border:none;border-radius:10px;padding:16px;width:100%;font-size:1rem;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:1px}
+.pin-enter:hover{background:var(--hover)}
+.pin-error{color:#e74c3c;font-size:.85rem;margin-top:10px;height:20px}
+#dashboard{display:none;min-height:100vh;background:#f5f0e8}
+.top-nav{background:#0A0A0A;color:var(--text);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--primary)}
+.top-nav .brand{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--primary)}
+.logout-btn{background:rgba(200,168,75,0.15);border:1px solid var(--primary);color:var(--primary);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.8rem}
+.main-wrap{padding:24px;max-width:1200px;margin:0 auto}
+.page-title{font-family:'DM Serif Display',serif;font-size:2rem;color:#0A0A0A;margin-bottom:4px}
+.page-date{font-size:.82rem;color:#999;margin-bottom:24px}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.kpi-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.08);border-top:3px solid var(--primary)}
+.kpi-label{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-bottom:8px}
+.kpi-val{font-family:'DM Serif Display',serif;font-size:2.4rem;color:#0A0A0A;line-height:1}
+.kpi-sub{font-size:.75rem;color:#bbb;margin-top:4px}
+.grid-2{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:20px}
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.card-title{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.add-btn{background:#0A0A0A;color:var(--primary);border:1px solid var(--primary);padding:7px 16px;border-radius:8px;font-size:.8rem;cursor:pointer}
+table{width:100%;border-collapse:collapse}
+th{font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:#aaa;text-align:left;padding:8px 12px;border-bottom:2px solid #f5f0e8}
+td{padding:10px 12px;border-bottom:1px solid #f9f7f3;font-size:.88rem}
+tr:last-child td{border-bottom:none}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:600}
+.status-confirmed{background:#fef3cd;color:#7a5c00}
+.status-pending{background:#fff3cd;color:#856404}
+.status-completed{background:#e8e8e8;color:#666}
+.svc-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f5f0e8}
+.svc-row:last-child{border-bottom:none}
+.svc-name{font-size:.9rem;font-weight:500}
+.svc-price{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--primary)}
+.hours-row{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:8px}
+.hours-row.today-hours{font-weight:600;color:#0A0A0A}
+.hours-day{color:#888}
+@media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}.grid-2{grid-template-columns:1fr}}
+</style></head><body>
+<div id="loginScreen"><div class="login-box">
+  <div class="login-logo">BarberTime</div>
+  <div class="login-sub">Staff Access</div>
+  <div class="pin-display" id="pinDisplay">· · · ·</div>
+  <div class="pin-grid">
+    <button class="pin-btn" onclick="addPin('1')">1</button><button class="pin-btn" onclick="addPin('2')">2</button><button class="pin-btn" onclick="addPin('3')">3</button>
+    <button class="pin-btn" onclick="addPin('4')">4</button><button class="pin-btn" onclick="addPin('5')">5</button><button class="pin-btn" onclick="addPin('6')">6</button>
+    <button class="pin-btn" onclick="addPin('7')">7</button><button class="pin-btn" onclick="addPin('8')">8</button><button class="pin-btn" onclick="addPin('9')">9</button>
+    <button class="pin-btn wide" onclick="clearPin()">Clear</button><button class="pin-btn" onclick="addPin('0')">0</button>
+  </div>
+  <button class="pin-enter" onclick="checkPin()">ENTER →</button>
+  <div class="pin-error" id="pinError"></div>
+</div></div>
+<div id="dashboard">
+  <div class="top-nav">
+    <div class="brand">BarberTime — Admin</div>
+    <div style="display:flex;align-items:center;gap:16px;font-size:.85rem;color:#888">
+      <span id="navDate"></span>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+  <div class="main-wrap">
+    <div class="page-title">Dashboard</div>
+    <div class="page-date" id="pageDate"></div>
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="kpi-label">Today's Bookings</div><div class="kpi-val">9</div><div class="kpi-sub">3 walk-ins included</div></div>
+      <div class="kpi-card"><div class="kpi-label">This Week</div><div class="kpi-val">42</div><div class="kpi-sub">↑ 6 from last week</div></div>
+      <div class="kpi-card"><div class="kpi-label">Avg Service</div><div class="kpi-val">$28</div><div class="kpi-sub">per client</div></div>
+      <div class="kpi-card"><div class="kpi-label">New Clients</div><div class="kpi-val">7</div><div class="kpi-sub">this week via site</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title"><span>Booking Requests</span><button class="add-btn" onclick="addDemoRow()">+ Add</button></div>
+        <table><thead><tr><th>Client</th><th>Service</th><th>Barber</th><th>Time</th><th>Phone</th><th>Status</th></tr></thead>
+        <tbody id="bookingTable">
+          <tr><td>Marcus W.</td><td>Fade + Lineup</td><td>Tony</td><td>10:00 AM</td><td>(215) 555-0133</td><td><span class="status-badge status-confirmed">Confirmed</span></td></tr>
+          <tr><td>Devon H.</td><td>Taper</td><td>Marcus</td><td>11:30 AM</td><td>(215) 555-0278</td><td><span class="status-badge status-confirmed">Confirmed</span></td></tr>
+          <tr><td>Chris A.</td><td>Hot Towel Shave</td><td>Tony</td><td>2:00 PM</td><td>(267) 555-0319</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+          <tr><td>Jaylen M.</td><td>Kids Cut</td><td>Any</td><td>3:30 PM</td><td>(215) 555-0445</td><td><span class="status-badge status-pending">Pending</span></td></tr>
+          <tr><td>Ray Santos</td><td>Beard Trim</td><td>Marcus</td><td>5:00 PM</td><td>(215) 555-0512</td><td><span class="status-badge status-completed">Completed</span></td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-title">Services & Pricing</div>
+          <div class="svc-row"><span class="svc-name">Fade + Lineup</span><span class="svc-price">$30</span></div>
+          <div class="svc-row"><span class="svc-name">Taper Cut</span><span class="svc-price">$25</span></div>
+          <div class="svc-row"><span class="svc-name">Hot Towel Shave</span><span class="svc-price">$35</span></div>
+          <div class="svc-row"><span class="svc-name">Kids Cut (under 12)</span><span class="svc-price">$20</span></div>
+          <div class="svc-row"><span class="svc-name">Beard Trim</span><span class="svc-price">$15</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Hours</div>
+          <div class="hours-row today-hours"><span class="hours-day">Mon–Fri</span><span>9 AM – 7 PM</span></div>
+          <div class="hours-row"><span class="hours-day">Saturday</span><span>8 AM – 6 PM</span></div>
+          <div class="hours-row"><span class="hours-day">Sunday</span><span>Closed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+let pin='';const CORRECT='1234';
+function addPin(d){if(pin.length<4){pin+=d;updateDisp()}}
+function clearPin(){pin='';updateDisp();document.getElementById('pinError').textContent=''}
+function updateDisp(){document.getElementById('pinDisplay').textContent=pin.length===0?'· · · ·':'● '.repeat(pin.length).trim()+(pin.length<4?' · '.repeat(4-pin.length).trim():'')}
+function checkPin(){if(pin===CORRECT){document.getElementById('loginScreen').style.display='none';document.getElementById('dashboard').style.display='block';const ds=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});document.getElementById('navDate').textContent=ds;document.getElementById('pageDate').textContent=ds}else{document.getElementById('pinError').textContent='Incorrect PIN. Try again.';pin='';updateDisp()}}
+function logout(){document.getElementById('loginScreen').style.display='flex';document.getElementById('dashboard').style.display='none';pin='';updateDisp()}
+function addDemoRow(){const t=document.getElementById('bookingTable');const r=t.insertRow(0);r.innerHTML='<td>New Client</td><td>Fade</td><td>—</td><td>—</td><td>—</td><td><span class="status-badge status-pending">Pending</span></td>'}
+document.addEventListener('keydown',e=>{if(e.key>='0'&&e.key<='9')addPin(e.key);if(e.key==='Enter')checkPin();if(e.key==='Backspace'){pin=pin.slice(0,-1);updateDisp()}})
+</script></body></html>

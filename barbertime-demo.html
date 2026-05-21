@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BarberTime — Philadelphia's Premier Barbershop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0A0A0A;
+  --offblack:#111111;
+  --panel:#1A1A1A;
+  --gold:#C8A84B;
+  --gold-light:#E8C97A;
+  --white:#F5F0E8;
+  --muted:#666;
+  --red:#C0392B;
+  --border:rgba(200,168,75,.18);
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;width:28px;height:28px;border:1.5px solid rgba(200,168,75,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--white)}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(245,240,232,.5);font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--black);font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 1.6rem;border:none;cursor:none;transition:background .3s}
+.nav-cta:hover{background:var(--gold-light)}
+
+/* Hero — split screen */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--black)}
+.hero-left{position:relative;background:var(--offblack);display:flex;align-items:flex-end;padding:5rem 4rem;border-right:1px solid var(--border);overflow:hidden}
+.hero-left-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(200,168,75,.025) 60px,rgba(200,168,75,.025) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(200,168,75,.025) 60px,rgba(200,168,75,.025) 61px)}
+.barber-pole{position:absolute;top:0;right:3rem;width:18px;height:100%;background:repeating-linear-gradient(180deg,var(--red) 0%,var(--red) 18%,var(--white) 18%,var(--white) 36%,#1a4fa8 36%,#1a4fa8 54%,var(--white) 54%,var(--white) 72%,var(--red) 72%,var(--red) 90%);opacity:.12}
+.hero-left-content{position:relative;z-index:2}
+.hero-num{font-size:10rem;font-weight:700;line-height:1;color:rgba(200,168,75,.06);position:absolute;top:4rem;left:3rem;font-family:'DM Serif Display',serif}
+.hero-tag{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-left:2rem;position:relative}
+.hero-tag::before{content:'';position:absolute;left:0;top:50%;width:1.4rem;height:1px;background:var(--gold)}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,4.5rem);line-height:1.05;color:var(--white)}
+.hero-title .line{overflow:hidden;display:block}
+.hero-title .line span{display:inline-block;transform:translateY(110%)}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-cta-wrap{margin-top:2.5rem;display:flex;gap:1rem;align-items:center}
+.btn-gold{background:var(--gold);color:var(--black);font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.85rem 2rem;border:none;cursor:none;transition:background .3s}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:rgba(245,240,232,.65);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.5rem;cursor:none;transition:all .3s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 3.5rem 5rem;position:relative;overflow:hidden}
+.hero-right::before{content:'BARBER\ATIME';white-space:pre;font-size:7rem;font-weight:700;color:rgba(200,168,75,.04);line-height:1;position:absolute;top:3rem;right:-1rem;text-align:right}
+.hero-right-content{position:relative;z-index:2}
+.hero-body{font-size:.95rem;line-height:1.8;color:rgba(245,240,232,.55);margin-bottom:3rem;max-width:360px;margin-left:auto}
+.rating-display{display:flex;align-items:center;gap:1.5rem;border-top:1px solid var(--border);padding-top:2rem;margin-left:auto;max-width:360px}
+.rating-big{font-size:3.5rem;font-weight:700;color:var(--gold);line-height:1;font-family:'DM Serif Display',serif}
+.rating-detail .stars{color:var(--gold);font-size:1rem;letter-spacing:.05em}
+.rating-detail .count{font-size:.75rem;color:var(--muted);margin-top:.25rem}
+
+/* Marquee */
+.marquee-wrap{background:var(--gold);padding:.75rem 0;overflow:hidden}
+.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite}
+.marquee-item{padding:0 2rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--black);font-weight:700;white-space:nowrap}
+.marquee-dot{color:rgba(10,10,10,.4)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Services */
+.services-section{background:var(--offblack);padding:7rem 0}
+.section-inner{padding:0 4rem}
+.section-header-flex{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+.section-tag{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);line-height:1.1}
+.section-title em{font-style:italic;color:var(--gold)}
+.svc-all-note{font-size:.8rem;color:var(--muted)}
+/* Horizontal scroll track */
+.svc-scroll-outer{overflow-x:auto;padding:0 4rem;scrollbar-width:none}
+.svc-scroll-outer::-webkit-scrollbar{display:none}
+.svc-track{display:flex;gap:2px;width:max-content;padding-bottom:1rem}
+.svc-card{width:240px;background:var(--panel);padding:2rem 1.8rem;border-top:3px solid transparent;transition:border-color .3s,transform .3s;flex-shrink:0}
+.svc-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.svc-number{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.svc-name{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--white);margin-bottom:.75rem}
+.svc-desc{font-size:.82rem;line-height:1.6;color:var(--muted);margin-bottom:1.5rem}
+.svc-price{font-size:1.2rem;font-weight:700;color:var(--gold)}
+.svc-time{font-size:.72rem;color:var(--muted);margin-left:.5rem}
+/* Scroll progress indicator */
+.scroll-progress-bar{height:2px;background:var(--border);margin:2rem 4rem 0;position:relative}
+.scroll-progress-fill{height:100%;width:30%;background:var(--gold);transition:width .3s}
+
+/* Barbers section */
+.barbers-section{background:var(--black);padding:7rem 4rem}
+.barbers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:4rem;background:var(--border)}
+.barber-card{background:var(--black);padding:2.5rem 2rem;text-align:center}
+.barber-avatar{width:90px;height:90px;border-radius:50%;background:var(--panel);margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;border:2px solid var(--border)}
+.barber-name{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--white);margin-bottom:.35rem}
+.barber-spec{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.barber-bio{font-size:.82rem;line-height:1.6;color:var(--muted);margin:1rem 0 1.5rem}
+.barber-badge{display:inline-block;background:var(--panel);border:1px solid var(--border);padding:.3rem .8rem;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Process section */
+.process-section{background:var(--panel);padding:7rem 4rem}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4rem;position:relative}
+.process-steps::before{content:'';position:absolute;top:2.5rem;left:10%;right:10%;height:1px;background:var(--border)}
+.process-step{text-align:center;padding:0 1.5rem;position:relative}
+.process-num{width:50px;height:50px;border:1px solid var(--gold);color:var(--gold);font-family:'DM Serif Display',serif;font-size:1.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;background:var(--panel);position:relative;z-index:1}
+.process-title{font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.75rem;letter-spacing:.03em}
+.process-desc{font-size:.78rem;line-height:1.6;color:var(--muted)}
+
+/* Reviews */
+.reviews-section{background:var(--offblack);padding:7rem 4rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:4rem;background:var(--border)}
+.review-card{background:var(--offblack);padding:2.5rem 2rem}
+.review-stars{color:var(--gold);font-size:.95rem;letter-spacing:.05em;margin-bottom:1rem}
+.review-text{font-family:'DM Serif Display',serif;font-size:1rem;font-style:italic;line-height:1.7;color:rgba(245,240,232,.8);margin-bottom:1.5rem}
+.review-author{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Book section */
+.book-section{background:var(--gold);padding:8rem 4rem;text-align:center}
+.book-title{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--black);margin-bottom:1rem}
+.book-body{font-size:1rem;color:rgba(10,10,10,.7);margin-bottom:2.5rem}
+.book-btn{background:var(--black);color:var(--gold);font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1.1rem 3rem;border:none;cursor:none;transition:all .3s}
+.book-btn:hover{background:var(--offblack)}
+.book-info{display:flex;gap:4rem;justify-content:center;margin-top:3.5rem}
+.info-item{text-align:center}
+.info-label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(10,10,10,.5);margin-bottom:.4rem}
+.info-val{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--black);font-weight:600}
+
+footer{background:var(--black);padding:2.5rem 4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--white)}
+.footer-logo span{color:var(--gold)}
+.footer-note{font-size:.72rem;color:var(--muted)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--panel);width:min(540px,95vw);max-height:90vh;overflow-y:auto;border:1px solid var(--border)}
+.modal-header{background:var(--black);padding:1.8rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.modal-header h2{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--white)}
+.modal-header h2 span{color:var(--gold)}
+.modal-close{background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:none}
+.modal-body{padding:2.5rem}
+.step-indicator{display:flex;gap:.4rem;margin-bottom:2rem}
+.step-dot{flex:1;height:2px;background:var(--border)}
+.step-dot.done{background:var(--gold)}
+.step-dot.active{background:var(--gold-light)}
+.step-content{display:none}
+.step-content.active{display:block}
+.step-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.choice-btn{background:var(--black);border:1px solid var(--border);padding:1.1rem 1.2rem;text-align:left;cursor:none;transition:all .25s}
+.choice-btn:hover,.choice-btn.selected{border-color:var(--gold);background:var(--offblack)}
+.choice-btn .choice-name{font-weight:600;color:var(--white);font-size:.9rem}
+.choice-btn .choice-price{font-size:.78rem;color:var(--gold);margin-top:.3rem}
+.choice-btn .choice-time{font-size:.72rem;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem}
+.cal-label{font-size:.65rem;text-align:center;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.cal-day{padding:.6rem .2rem;text-align:center;font-size:.8rem;cursor:none;border:1px solid transparent;transition:all .2s;color:rgba(245,240,232,.7)}
+.cal-day:not(.disabled):hover,.cal-day.selected{background:var(--gold);color:var(--black);font-weight:700;border-color:var(--gold)}
+.cal-day.disabled{color:var(--border);cursor:not-allowed}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.time-btn{padding:.7rem .3rem;text-align:center;font-size:.78rem;border:1px solid var(--border);cursor:none;transition:all .2s;color:var(--white);background:transparent}
+.time-btn:hover,.time-btn.selected{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:700}
+.form-group{margin-bottom:1.1rem}
+.form-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;display:block}
+.form-input{width:100%;padding:.85rem 1rem;background:var(--black);border:1px solid var(--border);font-size:.88rem;color:var(--white);font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color .3s}
+.form-input:focus{border-color:var(--gold)}
+.step-nav{display:flex;gap:.8rem;margin-top:2rem}
+.btn-next{flex:1;background:var(--gold);color:var(--black);padding:.95rem;border:none;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:none}
+.btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);padding:.95rem 1.2rem;font-size:.78rem;cursor:none}
+.success-msg{text-align:center;padding:2rem 0}
+.success-icon{font-size:3rem;margin-bottom:1rem}
+.success-msg h3{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:.75rem}
+.success-msg p{font-size:.88rem;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <div class="nav-logo">Barber<span>Time</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#barbers">Team</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Book Now</button>
+</nav>
+
+<!-- Hero — split screen -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-left-bg"></div>
+    <div class="barber-pole"></div>
+    <div class="hero-num">01</div>
+    <div class="hero-left-content">
+      <div class="hero-tag">7065 Castor Ave · Philadelphia, PA</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Sharp Cuts.</span></span>
+        <span class="line"><span><em>Real</em> Craft.</span></span>
+        <span class="line"><span>Every Time.</span></span>
+      </h1>
+      <div class="hero-cta-wrap">
+        <button class="btn-gold" onclick="openModal()">Book Your Cut</button>
+        <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">See Services</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-content">
+      <p class="hero-body">Castor Ave's go-to barbershop since day one. We don't just cut hair — we shape confidence. Classic fades, skin tapers, beard work, kids' cuts — done right, every time.</p>
+      <div class="rating-display">
+        <div class="rating-big">4.7</div>
+        <div class="rating-detail">
+          <div class="stars">★★★★★</div>
+          <div class="count">93+ Google Reviews</div>
+          <div style="font-size:.7rem;color:var(--gold);margin-top:.25rem;letter-spacing:.1em;text-transform:uppercase">Rhawnhurst's #1 Shop</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Skin Fade</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Taper Cut</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Beard Trim</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Kids Cuts</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Line-Up</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Hot Towel Shave</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Curly Cut</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Walk-In Welcome</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Skin Fade</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Taper Cut</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Beard Trim</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Kids Cuts</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Line-Up</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Hot Towel Shave</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Curly Cut</span><span class="marquee-item marquee-dot">✂</span>
+    <span class="marquee-item">Walk-In Welcome</span><span class="marquee-item marquee-dot">✂</span>
+  </div>
+</div>
+
+<!-- Services -->
+<section class="services-section" id="services">
+  <div class="section-inner">
+    <div class="section-header-flex">
+      <div><div class="section-tag" style="margin-bottom:.6rem">What We Do</div><h2 class="section-title">Our <em>Services</em></h2></div>
+      <div class="svc-all-note">Scroll to see all →</div>
+    </div>
+  </div>
+  <div class="svc-scroll-outer" id="svcScroll" onscroll="updateProgress(this)">
+    <div class="svc-track">
+      <div class="svc-card"><div class="svc-number">01</div><div class="svc-name">Skin Fade</div><div class="svc-desc">Zero to long, graduated blend. Clean edges, natural taper. The gold standard.</div><div><span class="svc-price">$28</span><span class="svc-time">~30 min</span></div></div>
+      <div class="svc-card"><div class="svc-number">02</div><div class="svc-name">Classic Taper</div><div class="svc-desc">Traditional barbershop taper with scissor or clipper finish. Timeless.</div><div><span class="svc-price">$24</span><span class="svc-time">~25 min</span></div></div>
+      <div class="svc-card"><div class="svc-number">03</div><div class="svc-name">Beard Trim & Shape</div><div class="svc-desc">Line-up, sculpt, and define. Straight razor edges, hot towel finish.</div><div><span class="svc-price">$18</span><span class="svc-time">~20 min</span></div></div>
+      <div class="svc-card"><div class="svc-number">04</div><div class="svc-name">Cut + Beard</div><div class="svc-desc">The full package — haircut plus beard work, one visit.</div><div><span class="svc-price">$42</span><span class="svc-time">~50 min</span></div></div>
+      <div class="svc-card"><div class="svc-number">05</div><div class="svc-name">Kids Cut</div><div class="svc-desc">Under 12. Patient, friendly, fast. Kids love us.</div><div><span class="svc-price">$20</span><span class="svc-time">~20 min</span></div></div>
+      <div class="svc-card"><div class="svc-number">06</div><div class="svc-name">Hot Towel Shave</div><div class="svc-desc">Old-school straight razor experience. Pre-shave oil, hot towel, aftershave balm.</div><div><span class="svc-price">$32</span><span class="svc-time">~40 min</span></div></div>
+      <div class="svc-card"><div class="svc-number">07</div><div class="svc-name">Line-Up Only</div><div class="svc-desc">Edge up hairline, temple, and neck. Quick and clean.</div><div><span class="svc-price">$14</span><span class="svc-time">~15 min</span></div></div>
+      <div class="svc-card"><div class="svc-number">08</div><div class="svc-name">Curly / Textured</div><div class="svc-desc">Dry cutting technique for curly and textured hair. Shape without frizz.</div><div><span class="svc-price">$30</span><span class="svc-time">~35 min</span></div></div>
+    </div>
+  </div>
+  <div class="scroll-progress-bar" style="margin:2rem 4rem 0"><div class="scroll-progress-fill" id="svcProgress"></div></div>
+</section>
+
+<!-- Barbers -->
+<section class="barbers-section" id="barbers">
+  <div class="section-tag" style="margin-bottom:.6rem">The Team</div>
+  <h2 class="section-title">Meet Your <em>Barbers</em></h2>
+  <div class="barbers-grid">
+    <div class="barber-card"><div class="barber-avatar">✂</div><div class="barber-name">Marco</div><div class="barber-spec">Head Barber · 12 Years</div><div class="barber-bio">Specializes in skin fades and textured cuts. If you want it clean, Marco delivers every time.</div><div class="barber-badge">Fades & Tapers</div></div>
+    <div class="barber-card"><div class="barber-avatar">💈</div><div class="barber-name">Darius</div><div class="barber-spec">Senior Barber · 8 Years</div><div class="barber-bio">The beard king. Straight razor shaves, lineups, and beard sculpting are his specialty.</div><div class="barber-badge">Beards & Shaves</div></div>
+    <div class="barber-card"><div class="barber-avatar">⚡</div><div class="barber-name">Jaylen</div><div class="barber-spec">Barber · 4 Years</div><div class="barber-bio">The fastest hands in the shop. Walk-in friendly, curly cuts, and kids are his thing.</div><div class="barber-badge">Curly & Kids</div></div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process-section" id="process">
+  <div class="section-tag" style="margin-bottom:.6rem">How It Works</div>
+  <h2 class="section-title">From <em>Book</em> to Chair</h2>
+  <div class="process-steps">
+    <div class="process-step"><div class="process-num">01</div><div class="process-title">Pick Your Service</div><div class="process-desc">Choose from our full menu — cuts, beards, shaves, kids, and combos.</div></div>
+    <div class="process-step"><div class="process-num">02</div><div class="process-num" style="font-size:0">.</div><div class="process-title" style="margin-top:-3.2rem">Pick Your Barber</div><div class="process-desc">Request a specific barber or let us match you based on availability.</div></div>
+    <div class="process-step"><div class="process-num">03</div><div class="process-title">Pick Your Time</div><div class="process-desc">Book online or just walk in — we always make room.</div></div>
+    <div class="process-step"><div class="process-num">04</div><div class="process-title">Get in the Chair</div><div class="process-desc">Come in, relax, and leave looking sharp. It's that simple.</div></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews-section" id="reviews">
+  <div class="section-tag" style="margin-bottom:.6rem">4.7★ on Google</div>
+  <h2 class="section-title">What <em>Clients</em> Say</h2>
+  <div class="reviews-grid">
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Best barbershop in Rhawnhurst. Marco does the cleanest fades I've ever seen. Been coming here for 5 years, never going anywhere else."</div><div class="review-author">James K. · Google</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Walked in on a Saturday with no appointment, Darius took me right in. Beard trim was insane. These guys really know their craft."</div><div class="review-author">Andre M. · Google</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Bring my son here every two weeks. Jaylen is great with kids — patient, quick, and my son actually looks forward to haircuts now."</div><div class="review-author">Denise W. · Google</div></div>
+  </div>
+</section>
+
+<!-- Book CTA -->
+<section class="book-section">
+  <h2 class="book-title">Ready to Look Sharp?</h2>
+  <p class="book-body">Book online or walk in — we're open 6 days a week on Castor Ave.</p>
+  <button class="book-btn" onclick="openModal()">Book Your Appointment</button>
+  <div class="book-info">
+    <div class="info-item"><div class="info-label">Address</div><div class="info-val">7065 Castor Ave</div></div>
+    <div class="info-item"><div class="info-label">Phone</div><div class="info-val">(215) 722-8463</div></div>
+    <div class="info-item"><div class="info-label">Tue–Fri</div><div class="info-val">8am – 7pm</div></div>
+    <div class="info-item"><div class="info-label">Saturday</div><div class="info-val">8am – 4pm</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Barber<span>Time</span></div>
+  <div class="footer-note">7065 Castor Ave, Philadelphia, PA 19149 · Demo by NEXO Agency</div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Book at <span>BarberTime</span></h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="step-indicator"><div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div></div>
+      <div class="step-content active" id="step1">
+        <div class="step-label">Step 1 — Choose Your Service</div>
+        <div class="choice-grid">
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Skin Fade</div><div class="choice-price">$28</div><div class="choice-time">~30 min</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Classic Taper</div><div class="choice-price">$24</div><div class="choice-time">~25 min</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Cut + Beard</div><div class="choice-price">$42</div><div class="choice-time">~50 min</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Beard Trim</div><div class="choice-price">$18</div><div class="choice-time">~20 min</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Hot Towel Shave</div><div class="choice-price">$32</div><div class="choice-time">~40 min</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Kids Cut</div><div class="choice-price">$20</div><div class="choice-time">~20 min</div></button>
+        </div>
+        <div class="step-nav"><button class="btn-next" onclick="nextStep(1)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step2">
+        <div class="step-label">Step 2 — Pick a Barber</div>
+        <div class="choice-grid">
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Marco</div><div class="choice-price">Fades & Tapers</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Darius</div><div class="choice-price">Beards & Shaves</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Jaylen</div><div class="choice-price">Curly & Kids</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Any Available</div><div class="choice-price">First open</div></button>
+        </div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(2)">← Back</button><button class="btn-next" onclick="nextStep(2)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step3">
+        <div class="step-label">Step 3 — Pick a Date</div>
+        <div class="cal-grid" id="cal"></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(3)">← Back</button><button class="btn-next" onclick="nextStep(3)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step4">
+        <div class="step-label">Step 4 — Your Info</div>
+        <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Full name"></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="(215) 000-0000"></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(4)">← Back</button><button class="btn-next" onclick="submitBooking()">Confirm Booking</button></div>
+      </div>
+      <div class="step-content" id="step5">
+        <div class="success-msg"><div class="success-icon">✂</div><h3>You're Booked!</h3><p>We'll text you a confirmation. See you at BarberTime — 7065 Castor Ave.</p><div style="margin-top:1.5rem"><button class="btn-next" onclick="closeModal()">Done</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+gsap.registerPlugin(ScrollTrigger);
+gsap.to('.hero-title .line span',{duration:1.1,y:0,ease:'expo.out',stagger:.13,delay:.4});
+gsap.from('.hero-tag',{duration:.9,x:-20,opacity:0,ease:'expo.out',delay:.2});
+gsap.from('.hero-cta-wrap',{duration:1,y:20,opacity:0,ease:'expo.out',delay:.9});
+gsap.from('.hero-right-content',{duration:1,x:40,opacity:0,ease:'expo.out',delay:.6});
+gsap.utils.toArray('.svc-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.6,y:30,opacity:0,ease:'expo.out',delay:i*.04})});
+gsap.utils.toArray('.barber-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:40,opacity:0,ease:'expo.out',delay:i*.12})});
+gsap.utils.toArray('.process-step').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.12})});
+gsap.utils.toArray('.review-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.1})});
+function updateProgress(el){const p=el.scrollLeft/(el.scrollWidth-el.clientWidth);document.getElementById('svcProgress').style.width=(p*100)+'%'}
+// Modal
+let currentStep=1;
+function openModal(){document.getElementById('modal').classList.add('open');buildCal()}
+function closeModal(){document.getElementById('modal').classList.remove('open');currentStep=1;showStep(1)}
+function buildCal(){
+  const cal=document.getElementById('cal');
+  const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  cal.innerHTML=days.map(d=>`<div class="cal-label">${d}</div>`).join('');
+  for(let i=1;i<=30;i++){cal.innerHTML+=`<div class="cal-day" onclick="selectDay(this)">${i}</div>`}
+}
+function selectDay(el){document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function selectChoice(el){const parent=el.closest('.choice-grid');parent.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected')}
+function showStep(n){document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));document.getElementById('step'+n).classList.add('active');document.querySelectorAll('.step-dot').forEach((d,i)=>{d.classList.remove('active','done');if(i<n-1)d.classList.add('done');else if(i===n-1)d.classList.add('active')})}
+function nextStep(n){showStep(n+1);currentStep=n+1}
+function prevStep(n){showStep(n-1);currentStep=n-1}
+function submitBooking(){showStep(5)}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+</script>
+</body>
+</html>

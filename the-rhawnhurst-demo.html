@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rhawnhurst — Philadelphia's Neighborhood Bar & Lounge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1117;
+  --dark:#161B22;
+  --panel:#1C2128;
+  --brick:#8B3A2A;
+  --neon:#F5C518;
+  --neon-glow:rgba(245,197,24,.2);
+  --cream:#F0E6D3;
+  --muted:#6B7280;
+  --border:rgba(245,197,24,.15);
+  --red:#C0392B;
+}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--cream);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:6px;height:6px;background:var(--neon);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;width:26px;height:26px;border:1px solid rgba(245,197,24,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(13,17,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--cream);letter-spacing:.08em}
+.nav-logo span{color:var(--neon)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(240,230,211,.5);font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--neon)}
+.nav-cta{background:var(--neon);color:var(--navy);font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.5rem;border:none;cursor:none;transition:all .3s}
+.nav-cta:hover{box-shadow:0 0 20px var(--neon-glow)}
+
+/* Hero */
+.hero{min-height:100vh;background:var(--navy);position:relative;display:grid;grid-template-columns:55% 45%;overflow:hidden}
+.hero-left{position:relative;display:flex;align-items:flex-end;padding:6rem 4rem 5rem;border-right:1px solid var(--border);overflow:hidden}
+/* Brick texture */
+.hero-left::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(139,58,42,.06) 28px,rgba(139,58,42,.06) 30px),repeating-linear-gradient(90deg,transparent,transparent 50px,rgba(139,58,42,.04) 50px,rgba(139,58,42,.04) 52px)}
+/* Neon sign glow */
+.neon-sign{position:absolute;top:5rem;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:4rem;color:var(--neon);letter-spacing:.12em;text-shadow:0 0 20px var(--neon),0 0 40px var(--neon-glow),0 0 80px rgba(245,197,24,.08);animation:flicker 8s ease-in-out infinite;white-space:nowrap}
+@keyframes flicker{0%,95%,100%{opacity:1}96%{opacity:.85}97%{opacity:1}98%{opacity:.9}}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--neon);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+.hero-eyebrow::before{content:'';width:2rem;height:1px;background:var(--neon)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,7.5rem);line-height:.92;color:var(--cream);letter-spacing:.04em}
+.hero-title .line{overflow:hidden;display:block}
+.hero-title .line span{display:inline-block;transform:translateY(110%)}
+.hero-title .line span.gold{color:var(--neon)}
+.hero-btns{display:flex;gap:1rem;margin-top:2.5rem}
+.btn-neon{background:var(--neon);color:var(--navy);font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.85rem 2rem;border:none;cursor:none;transition:all .3s}
+.btn-neon:hover{box-shadow:0 0 25px var(--neon-glow)}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:rgba(240,230,211,.6);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.8rem;cursor:none;transition:all .3s}
+.btn-ghost:hover{border-color:var(--neon);color:var(--neon)}
+.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 3.5rem 5rem;position:relative}
+/* Big faded text */
+.hero-right::before{content:'EST\A1986';white-space:pre;position:absolute;top:3rem;right:2rem;font-family:'Bebas Neue',sans-serif;font-size:5rem;line-height:1.1;color:rgba(245,197,24,.04);text-align:right}
+.hero-info-wrap{position:relative;z-index:2}
+.hero-rating{display:flex;align-items:center;gap:1.2rem;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.rating-num{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:var(--neon);line-height:1}
+.rating-info .stars{color:var(--neon);font-size:.95rem}
+.rating-info .count{font-size:.75rem;color:var(--muted);margin-top:.2rem}
+.hero-desc{font-size:.9rem;line-height:1.8;color:rgba(240,230,211,.55);margin-bottom:2rem}
+.hero-amenities{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.amenity{display:flex;align-items:center;gap:.6rem;font-size:.78rem;color:rgba(240,230,211,.6)}
+.amenity::before{content:'✓';color:var(--neon);font-weight:700}
+
+/* Marquee */
+.marquee-wrap{background:var(--brick);padding:.75rem 0;overflow:hidden}
+.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite}
+.marquee-item{padding:0 2rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);white-space:nowrap;font-weight:500}
+.marquee-dot{color:var(--neon)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Menu section — dark grid */
+.menu-section{background:var(--dark);padding:7rem 3rem}
+.section-header{margin-bottom:4rem}
+.section-tag{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neon);margin-bottom:.6rem}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.06em;color:var(--cream)}
+.section-title span{color:var(--neon)}
+.menu-layout{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--border);max-width:1050px}
+.menu-col{background:var(--dark);padding:2.5rem}
+.menu-col-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.08em;color:var(--neon);margin-bottom:1.5rem;border-bottom:1px solid var(--border);padding-bottom:.75rem}
+.menu-row{display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-bottom:1px solid rgba(245,197,24,.06)}
+.menu-row:last-child{border-bottom:none}
+.menu-name{font-size:.9rem;font-weight:500;color:var(--cream)}
+.menu-sub{font-size:.75rem;color:var(--muted);margin-top:.2rem}
+.menu-price{font-size:.95rem;font-weight:700;color:var(--neon);white-space:nowrap;margin-left:1rem}
+
+/* Events section */
+.events-section{background:var(--navy);padding:7rem 3rem}
+.events-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:3.5rem;background:var(--border);max-width:1050px}
+.event-card{background:var(--navy);padding:2rem 1.8rem}
+.event-day{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--neon);line-height:1;margin-bottom:.3rem}
+.event-name{font-size:.9rem;font-weight:600;color:var(--cream);margin-bottom:.5rem}
+.event-desc{font-size:.78rem;line-height:1.55;color:var(--muted)}
+.event-time{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,197,24,.6);margin-top:.75rem}
+
+/* Gallery section — irregular grid */
+.gallery-section{background:var(--panel);padding:7rem 3rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,180px);gap:3px;max-width:1050px;margin:3.5rem auto 0}
+.g-item{background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden;position:relative}
+.g-item::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;padding:.5rem;background:linear-gradient(to top,rgba(13,17,23,.8),transparent);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);opacity:0;transition:opacity .3s}
+.g-item:hover::after{opacity:1}
+.g-item:nth-child(1){grid-column:span 3;background:linear-gradient(135deg,var(--brick),var(--navy))}
+.g-item:nth-child(2){grid-column:span 2;background:linear-gradient(135deg,var(--dark),var(--panel))}
+.g-item:nth-child(3){grid-column:span 1;background:linear-gradient(135deg,var(--navy),var(--brick))}
+.g-item:nth-child(4){grid-column:span 1;background:var(--panel)}
+.g-item:nth-child(5){grid-column:span 2;background:linear-gradient(135deg,var(--panel),var(--navy))}
+.g-item:nth-child(6){grid-column:span 3;background:linear-gradient(135deg,var(--dark),var(--navy))}
+
+/* Reviews */
+.reviews-section{background:var(--dark);padding:7rem 3rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3.5rem;background:var(--border);max-width:1050px}
+.review-card{background:var(--dark);padding:2.5rem 2rem}
+.review-stars{color:var(--neon);font-size:.9rem;margin-bottom:1rem}
+.review-text{font-size:.9rem;font-style:italic;line-height:1.7;color:rgba(240,230,211,.75);margin-bottom:1.5rem}
+.review-author{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* CTA */
+.cta-section{background:var(--brick);padding:7rem 3rem;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'THE\ARHAWNHURST';white-space:pre;font-family:'Bebas Neue',sans-serif;font-size:10rem;color:rgba(13,17,23,.12);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);line-height:1;text-align:center;pointer-events:none}
+.cta-inner{position:relative;z-index:2}
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5.5rem);color:var(--cream);letter-spacing:.06em;line-height:.95}
+.cta-title span{color:var(--neon)}
+.cta-body{font-size:1rem;color:rgba(240,230,211,.7);margin:1rem 0 2.5rem}
+.cta-btn{background:var(--neon);color:var(--navy);font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:1.1rem 3rem;border:none;cursor:none;transition:all .3s;display:inline-block}
+.cta-btn:hover{box-shadow:0 0 30px rgba(245,197,24,.4)}
+.cta-info{display:flex;gap:4rem;justify-content:center;margin-top:3.5rem}
+.info-item{text-align:center}
+.info-label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,230,211,.45);margin-bottom:.4rem}
+.info-val{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--cream);letter-spacing:.05em}
+footer{background:var(--navy);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--cream)}
+.footer-logo span{color:var(--neon)}
+.footer-note{font-size:.72rem;color:var(--muted)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--dark);width:min(540px,95vw);max-height:90vh;overflow-y:auto;border:1px solid var(--border)}
+.modal-header{background:var(--navy);padding:1.8rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.modal-header h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--cream);letter-spacing:.08em}
+.modal-header h2 span{color:var(--neon)}
+.modal-close{background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:none}
+.modal-body{padding:2.5rem}
+.step-indicator{display:flex;gap:.4rem;margin-bottom:2rem}
+.step-dot{flex:1;height:2px;background:var(--border)}
+.step-dot.done{background:var(--neon)}
+.step-dot.active{background:rgba(245,197,24,.6)}
+.step-content{display:none}
+.step-content.active{display:block}
+.step-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1.2rem}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.choice-btn{background:var(--navy);border:1px solid var(--border);padding:1.1rem 1.2rem;text-align:left;cursor:none;transition:all .25s}
+.choice-btn:hover,.choice-btn.selected{border-color:var(--neon);background:rgba(245,197,24,.05)}
+.choice-btn .choice-name{font-size:.9rem;font-weight:600;color:var(--cream)}
+.choice-btn .choice-price{font-size:.75rem;color:var(--neon);margin-top:.2rem}
+.choice-btn .choice-sub{font-size:.7rem;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem}
+.cal-label{font-size:.65rem;text-align:center;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.cal-day{padding:.6rem .2rem;text-align:center;font-size:.8rem;cursor:none;border:1px solid transparent;transition:all .2s;color:rgba(240,230,211,.7)}
+.cal-day:not(.disabled):hover,.cal-day.selected{background:var(--neon);color:var(--navy);font-weight:700}
+.cal-day.disabled{color:var(--border)}
+.form-group{margin-bottom:1.1rem}
+.form-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;display:block}
+.form-input{width:100%;padding:.85rem 1rem;background:var(--navy);border:1px solid var(--border);font-size:.88rem;color:var(--cream);font-family:'Barlow',sans-serif;outline:none;transition:border-color .3s}
+.form-input:focus{border-color:var(--neon)}
+.step-nav{display:flex;gap:.8rem;margin-top:2rem}
+.btn-next{flex:1;background:var(--neon);color:var(--navy);padding:.95rem;border:none;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:none}
+.btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);padding:.95rem 1.2rem;font-size:.78rem;cursor:none}
+.success-msg{text-align:center;padding:2rem 0}
+.success-icon{font-size:3rem;margin-bottom:1rem}
+.success-msg h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--neon);margin-bottom:.75rem;letter-spacing:.08em}
+.success-msg p{font-size:.88rem;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <div class="nav-logo">The <span>Rhawnhurst</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Reserve a Spot</button>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="neon-sign">OPEN</div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">8002 Castor Ave · Rhawnhurst, Philadelphia</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Your</span></span>
+        <span class="line"><span><span class="gold">Neighborhood</span></span></span>
+        <span class="line"><span>Bar.</span></span>
+      </h1>
+      <div class="hero-btns">
+        <button class="btn-neon" onclick="openModal()">Reserve a Spot</button>
+        <button class="btn-ghost" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">See Menu</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-info-wrap">
+      <div class="hero-rating">
+        <div class="rating-num">4.2</div>
+        <div class="rating-info">
+          <div class="stars">★★★★☆</div>
+          <div class="count">Google Rating</div>
+          <div style="font-size:.7rem;color:var(--neon);margin-top:.3rem;letter-spacing:.1em;text-transform:uppercase">NE Philly's Local Spot</div>
+        </div>
+      </div>
+      <p class="hero-desc">Cold drinks, live sports, karaoke nights, pool tables, and the kind of place where everyone knows your name. The Rhawnhurst is Castor Ave's neighborhood hangout — open every night.</p>
+      <div class="hero-amenities">
+        <div class="amenity">Pool Tables</div>
+        <div class="amenity">Karaoke Nights</div>
+        <div class="amenity">Live Sports</div>
+        <div class="amenity">Happy Hour</div>
+        <div class="amenity">Darts & Games</div>
+        <div class="amenity">Full Bar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Happy Hour</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Karaoke Night</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Pool Tables</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Live Sports</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Full Bar</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Cold Drafts</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Game Nights</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Open Late</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Happy Hour</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Karaoke Night</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Pool Tables</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Live Sports</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Full Bar</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Cold Drafts</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Game Nights</span><span class="marquee-item marquee-dot">★</span>
+    <span class="marquee-item">Open Late</span><span class="marquee-item marquee-dot">★</span>
+  </div>
+</div>
+
+<!-- Menu -->
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <div class="section-tag">Drinks & Food</div>
+    <h2 class="section-title">What We're <span>Pouring</span></h2>
+  </div>
+  <div class="menu-layout">
+    <div class="menu-col">
+      <div class="menu-col-title">Draft & Bottled Beer</div>
+      <div class="menu-row"><div><div class="menu-name">Yuengling Lager</div><div class="menu-sub">Draft · PA's own</div></div><div class="menu-price">$4</div></div>
+      <div class="menu-row"><div><div class="menu-name">Bud Light</div><div class="menu-sub">Bottle</div></div><div class="menu-price">$3.50</div></div>
+      <div class="menu-row"><div><div class="menu-name">Miller Lite</div><div class="menu-sub">Bottle or Draft</div></div><div class="menu-price">$3.50</div></div>
+      <div class="menu-row"><div><div class="menu-name">Coors Light</div><div class="menu-sub">Bottle</div></div><div class="menu-price">$3.50</div></div>
+      <div class="menu-row"><div><div class="menu-name">Seasonal Craft</div><div class="menu-sub">Rotating draft</div></div><div class="menu-price">$6</div></div>
+      <div class="menu-col-title" style="margin-top:2rem">Cocktails & Shots</div>
+      <div class="menu-row"><div><div class="menu-name">House Whiskey Sour</div><div class="menu-sub">Bourbon, lemon, simple</div></div><div class="menu-price">$7</div></div>
+      <div class="menu-row"><div><div class="menu-name">Vodka Cranberry</div><div class="menu-sub">House vodka, cranberry, lime</div></div><div class="menu-price">$6</div></div>
+      <div class="menu-row"><div><div class="menu-name">Well Shots</div><div class="menu-sub">Pick your poison</div></div><div class="menu-price">$4</div></div>
+    </div>
+    <div class="menu-col">
+      <div class="menu-col-title">Bar Food</div>
+      <div class="menu-row"><div><div class="menu-name">Wings (10 pc)</div><div class="menu-sub">Buffalo, BBQ, or dry rub</div></div><div class="menu-price">$12</div></div>
+      <div class="menu-row"><div><div class="menu-name">Loaded Nachos</div><div class="menu-sub">Jalapeños, cheese, sour cream</div></div><div class="menu-price">$10</div></div>
+      <div class="menu-row"><div><div class="menu-name">Cheese Steak Sub</div><div class="menu-sub">Provolone, fried onions, peppers</div></div><div class="menu-price">$9</div></div>
+      <div class="menu-row"><div><div class="menu-name">Basket of Fries</div><div class="menu-sub">Old Bay or seasoned salt</div></div><div class="menu-price">$5</div></div>
+      <div class="menu-row"><div><div class="menu-name">Mozzarella Sticks</div><div class="menu-sub">6 pc, marinara dip</div></div><div class="menu-price">$8</div></div>
+      <div class="menu-col-title" style="margin-top:2rem">Happy Hour (3–7 PM, Mon–Fri)</div>
+      <div class="menu-row"><div><div class="menu-name">$1 Off All Drafts</div><div class="menu-sub">Every weekday 3–7pm</div></div><div class="menu-price">🍺</div></div>
+      <div class="menu-row"><div><div class="menu-name">$3 Well Drinks</div><div class="menu-sub">Well liquor all day happy hour</div></div><div class="menu-price">🥃</div></div>
+      <div class="menu-row"><div><div class="menu-name">$8 Wings Special</div><div class="menu-sub">10 pc Monday wings</div></div><div class="menu-price">🔥</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Events -->
+<section class="events-section" id="events">
+  <div class="section-tag">Weekly Lineup</div>
+  <h2 class="section-title">What's <span>On</span> This Week</h2>
+  <div class="events-grid">
+    <div class="event-card"><div class="event-day">MON</div><div class="event-name">Wing Night</div><div class="event-desc">$8 for 10 wings all night. Every flavor, every week. Monday's best reason to come out.</div><div class="event-time">All Night</div></div>
+    <div class="event-card"><div class="event-day">WED</div><div class="event-name">Trivia Night</div><div class="event-desc">Team up and compete for a $50 bar tab. Drink specials for all participants.</div><div class="event-time">8:00 PM Start</div></div>
+    <div class="event-card"><div class="event-day">FRI</div><div class="event-name">Karaoke</div><div class="event-desc">Grab the mic. Don't hold back. Fridays are for karaoke and cold drinks.</div><div class="event-time">9:00 PM – Close</div></div>
+    <div class="event-card"><div class="event-day">SAT</div><div class="event-name">Game Day</div><div class="event-desc">Every game. Every screen. Cold beers and a full crowd for Eagles, Phillies, and Sixers.</div><div class="event-time">Doors open Noon</div></div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery-section" id="gallery">
+  <div class="section-tag">The Vibe</div>
+  <h2 class="section-title">A <span>Real</span> Neighborhood Bar</h2>
+  <div class="gallery-grid">
+    <div class="g-item" data-label="The Bar">🍺</div>
+    <div class="g-item" data-label="Pool Tables">🎱</div>
+    <div class="g-item" data-label="Darts">🎯</div>
+    <div class="g-item" data-label="Game Night">📺</div>
+    <div class="g-item" data-label="Karaoke Night">🎤</div>
+    <div class="g-item" data-label="Happy Hour">🥃</div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews-section" id="reviews">
+  <div class="section-tag">4.2★ on Google</div>
+  <h2 class="section-title">The <span>Regulars</span> Say It Best</h2>
+  <div class="reviews-grid">
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Best dive bar in Northeast Philly. Always lively, drinks are affordable, and the regulars are the friendliest crowd you'll find anywhere."</div><div class="review-author">Tommy R. · Google</div></div>
+    <div class="review-card"><div class="review-stars">★★★★☆</div><div class="review-text">"Karaoke Fridays are insane. Great crowd, cheap drinks, good energy. One of those bars where you always end up staying way too late."</div><div class="review-author">Krystal M. · Google</div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"This is the place. Pool tables, trivia, game day watching — The Rhawnhurst has everything a neighborhood bar should have. Always packed for Eagles games."</div><div class="review-author">Steve K. · Yelp</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title">Pull Up to<br><span>Castor Ave's</span><br>Best Bar</h2>
+    <p class="cta-body">Walk in or reserve your spot for a big night out. Open Mon–Fri from 3 PM, Sat–Sun from Noon.</p>
+    <button class="cta-btn" onclick="openModal()">Reserve a Spot</button>
+    <div class="cta-info">
+      <div class="info-item"><div class="info-label">Address</div><div class="info-val">8002 Castor Ave</div></div>
+      <div class="info-item"><div class="info-label">Phone</div><div class="info-val">Call Us</div></div>
+      <div class="info-item"><div class="info-label">Weekdays</div><div class="info-val">3 PM – 2 AM</div></div>
+      <div class="info-item"><div class="info-label">Weekends</div><div class="info-val">Noon – 2 AM</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">The <span>Rhawnhurst</span></div>
+  <div class="footer-note">8002 Castor Ave, Philadelphia, PA · Demo by NEXO Agency</div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header"><h2>Reserve at <span>The Rhawnhurst</span></h2><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="step-indicator"><div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div></div>
+      <div class="step-content active" id="step1">
+        <div class="step-label">Step 1 — What's the Occasion?</div>
+        <div class="choice-grid">
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Game Day</div><div class="choice-price">Reserve a table</div><div class="choice-sub">For the big game</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Karaoke Night</div><div class="choice-price">Friday nights</div><div class="choice-sub">9 PM – close</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Group Night Out</div><div class="choice-price">6+ people</div><div class="choice-sub">Reserve a section</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">Just Hanging</div><div class="choice-price">Walk-in welcome</div><div class="choice-sub">Always open</div></button>
+        </div>
+        <div class="step-nav"><button class="btn-next" onclick="nextStep(1)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step2">
+        <div class="step-label">Step 2 — Party Size</div>
+        <div class="choice-grid">
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">2–4 People</div><div class="choice-price">Bar or table</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">5–9 People</div><div class="choice-price">Large table</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">10–15 People</div><div class="choice-price">Private section</div></button>
+          <button class="choice-btn" onclick="selectChoice(this)"><div class="choice-name">16+ People</div><div class="choice-price">Full buyout</div></button>
+        </div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(2)">← Back</button><button class="btn-next" onclick="nextStep(2)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step3">
+        <div class="step-label">Step 3 — Pick a Date</div>
+        <div class="cal-grid" id="cal"></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(3)">← Back</button><button class="btn-next" onclick="nextStep(3)">Continue →</button></div>
+      </div>
+      <div class="step-content" id="step4">
+        <div class="step-label">Step 4 — Your Info</div>
+        <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Full name"></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="(215) 000-0000"></div>
+        <div class="form-group"><label class="form-label">Any Notes?</label><input class="form-input" type="text" placeholder="Game you want on, birthday, etc."></div>
+        <div class="step-nav"><button class="btn-back" onclick="prevStep(4)">← Back</button><button class="btn-next" onclick="submitBooking()">Lock It In</button></div>
+      </div>
+      <div class="step-content" id="step5">
+        <div class="success-msg"><div class="success-icon">🍺</div><h3>You're On the List!</h3><p>See you at The Rhawnhurst — 8002 Castor Ave. We'll confirm by phone. Let's have a night.</p><div style="margin-top:1.5rem"><button class="btn-next" onclick="closeModal()">Let's Go!</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+gsap.registerPlugin(ScrollTrigger);
+gsap.to('.hero-title .line span',{duration:1.1,y:0,ease:'expo.out',stagger:.12,delay:.4});
+gsap.from('.hero-eyebrow',{duration:1,x:-20,opacity:0,ease:'expo.out',delay:.2});
+gsap.from('.hero-btns',{duration:1,y:20,opacity:0,ease:'expo.out',delay:.95});
+gsap.from('.hero-info-wrap',{duration:1.1,x:40,opacity:0,ease:'expo.out',delay:.6});
+gsap.utils.toArray('.menu-row').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 88%'},duration:.5,x:-15,opacity:0,ease:'expo.out',delay:i*.04})});
+gsap.utils.toArray('.event-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.12})});
+gsap.utils.toArray('.g-item').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.6,scale:.9,opacity:0,ease:'expo.out',delay:i*.08})});
+gsap.utils.toArray('.review-card').forEach((el,i)=>{gsap.from(el,{scrollTrigger:{trigger:el,start:'top 85%'},duration:.7,y:30,opacity:0,ease:'expo.out',delay:i*.1})});
+let currentStep=1;
+function openModal(){document.getElementById('modal').classList.add('open');buildCal()}
+function closeModal(){document.getElementById('modal').classList.remove('open');currentStep=1;showStep(1)}
+function buildCal(){const cal=document.getElementById('cal');const days=['Su','Mo','Tu','We','Th','Fr','Sa'];cal.innerHTML=days.map(d=>`<div class="cal-label">${d}</div>`).join('');for(let i=1;i<=30;i++){cal.innerHTML+=`<div class="cal-day" onclick="selectDay(this)">${i}</div>`}}
+function selectDay(el){document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function selectChoice(el){const parent=el.closest('.choice-grid');parent.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected')}
+function showStep(n){document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));document.getElementById('step'+n).classList.add('active');document.querySelectorAll('.step-dot').forEach((d,i)=>{d.classList.remove('active','done');if(i<n-1)d.classList.add('done');else if(i===n-1)d.classList.add('active')})}
+function nextStep(n){showStep(n+1);currentStep=n+1}
+function prevStep(n){showStep(n-1);currentStep=n-1}
+function submitBooking(){showStep(5)}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+</script>
+</body>
+</html>
