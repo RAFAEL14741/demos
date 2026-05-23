@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bell's Flowers NE — Bustleton Ave, Philadelphia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf8f5;
+      --sage: #1a3a2a;
+      --sage-light: #2a4a38;
+      --blush: #d4918f;
+      --blush-light: #e8b4b2;
+      --champagne: #c9a96e;
+      --dark: #111;
+      --text: #333;
+      --text-muted: #888;
+    }
+    html { scroll-behavior: auto; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+      background: var(--blush); transform-origin: left; transform: scaleX(0); z-index: 9999;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 70px;
+      background: rgba(26,58,42,0.97); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 1000;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif; font-weight: 600;
+      font-size: 1.2rem; letter-spacing: 0.2em; color: #fff;
+      text-transform: uppercase; text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.06em; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--blush); color: #fff; padding: 10px 22px;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+      border: none; cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s; display: inline-block;
+    }
+    .nav-cta:hover { background: var(--blush-light); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #fff; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: var(--sage);
+      z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: #fff; text-decoration: none; font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; letter-spacing: 0.12em; }
+    .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    /* HERO — GALLERY MOSAIC */
+    .hero {
+      min-height: 100vh; padding-top: 70px;
+      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+      position: relative;
+    }
+    .hero-tile { overflow: hidden; position: relative; min-height: 280px; }
+    .hero-tile img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transform: scale(1.05); }
+    .hero-tile-1 { grid-column: 1; grid-row: 1; }
+    .hero-tile-2 { grid-column: 2; grid-row: 1; }
+    .hero-tile-3 { grid-column: 2; grid-row: 2; }
+    .hero-text-tile {
+      grid-column: 1; grid-row: 2;
+      background: var(--sage); display: flex; flex-direction: column;
+      justify-content: center; padding: 60px 50px; position: relative;
+    }
+    .hero-est { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); margin-bottom: 16px; opacity: 0; }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 700;
+      font-size: clamp(2.2rem, 3.5vw, 3.5rem); color: #fff; line-height: 1.1;
+      margin-bottom: 18px; clip-path: inset(0 100% 0 0);
+    }
+    .hero-sub { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.7; margin-bottom: 28px; opacity: 0; }
+    .btn-blush {
+      background: var(--blush); color: #fff; border: none; padding: 13px 28px;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; display: inline-block; text-decoration: none;
+      transition: background 0.2s; width: fit-content; opacity: 0;
+    }
+    .btn-blush:hover { background: var(--blush-light); }
+
+    /* ARRANGEMENTS */
+    .arrangements { background: var(--cream); padding: 100px 0; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); margin-bottom: 12px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(2rem, 3.5vw, 3rem); color: var(--sage); margin-bottom: 60px; }
+    .arrangements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .arrangement-card { background: #fff; overflow: hidden; opacity: 0; transform: translateY(40px); box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .arrangement-card img { width: 100%; height: 260px; object-fit: cover; display: block; transition: transform 0.4s; }
+    .arrangement-card:hover img { transform: scale(1.04); }
+    .arrangement-info { padding: 24px; }
+    .arrangement-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; color: var(--sage); margin-bottom: 6px; }
+    .arrangement-price { color: var(--blush); font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
+    .arrangement-note { font-size: 0.8rem; color: var(--text-muted); }
+    .arrangement-cta { display: block; margin-top: 14px; text-align: center; padding: 10px; border: 1px solid var(--blush); color: var(--blush); font-size: 0.85rem; cursor: pointer; background: none; width: 100%; transition: background 0.2s, color 0.2s; }
+    .arrangement-cta:hover { background: var(--blush); color: #fff; }
+
+    /* ABOUT */
+    .about { background: var(--sage); padding: 100px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-text { }
+    .about-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); margin-bottom: 12px; }
+    .about-title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(2rem, 3vw, 2.8rem); color: #fff; margin-bottom: 20px; }
+    .about-p { color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 16px; }
+    .about-highlights { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .about-highlight { display: flex; align-items: center; gap: 12px; }
+    .about-highlight-dot { width: 8px; height: 8px; background: var(--blush); border-radius: 50%; flex-shrink: 0; }
+    .about-highlight span { color: rgba(255,255,255,0.85); font-size: 0.9rem; }
+    .about-photo img { width: 100%; height: 420px; object-fit: cover; }
+
+    /* OCCASIONS */
+    .occasions { background: var(--cream); padding: 100px 0; }
+    .occasions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+    .occasion-tile {
+      background: #fff; padding: 40px 30px; text-align: center;
+      border-bottom: 3px solid transparent; opacity: 0; transform: translateY(30px);
+      transition: border-color 0.2s;
+    }
+    .occasion-tile:hover { border-color: var(--blush); }
+    .occasion-icon { font-size: 2rem; margin-bottom: 14px; }
+    .occasion-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.1rem; color: var(--sage); }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--sage); padding: 100px 0; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+    .testimonial-card { background: var(--sage-light); padding: 36px; opacity: 0; transform: translateY(40px); }
+    .testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: rgba(255,255,255,0.9); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .testimonial-author { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blush); font-weight: 500; }
+
+    /* HOURS */
+    .hours-section { background: var(--cream); padding: 100px 0; }
+    .hours-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; }
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .hours-table td { padding: 14px 0; font-size: 0.9rem; }
+    .hours-table td:first-child { color: var(--text-muted); }
+    .hours-table td:last-child { font-weight: 600; color: var(--sage); text-align: right; }
+    .map-wrap { height: 320px; overflow: hidden; }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; }
+
+    /* CTA BANNER */
+    .cta-banner { background: var(--sage); padding: 80px 40px; text-align: center; }
+    .cta-banner h2 { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(2rem, 3.5vw, 3rem); color: #fff; margin-bottom: 16px; }
+    .cta-banner p { color: rgba(255,255,255,0.75); margin-bottom: 32px; }
+
+    /* FOOTER */
+    footer { background: #0d1f16; padding: 40px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.1rem; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; }
+    .footer-info { font-size: 0.8rem; color: rgba(255,255,255,0.5); text-align: right; line-height: 1.8; }
+    .footer-info a { color: var(--blush); text-decoration: none; }
+
+    /* BOOKING MODAL */
+    .booking-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .booking-overlay.open { display: flex; }
+    .booking-modal { background: var(--sage); border: 1px solid rgba(212,145,143,0.2); width: 100%; max-width: 580px; max-height: 90vh; overflow-y: auto; padding: 48px; position: relative; }
+    .booking-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.5rem; cursor: pointer; }
+    .booking-step { display: none; }
+    .booking-step.active { display: block; }
+    .step-label { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); margin-bottom: 8px; }
+    .step-title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 2rem; color: #fff; margin-bottom: 28px; }
+    .services-grid-b { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .svc-btn { background: var(--sage-light); border: 2px solid transparent; padding: 16px; cursor: pointer; text-align: left; color: #fff; transition: border-color 0.2s; }
+    .svc-btn:hover, .svc-btn.sel { border-color: var(--blush); }
+    .svc-btn .sn { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1rem; display: block; margin-bottom: 4px; }
+    .svc-btn .sp { color: var(--blush); font-size: 0.85rem; }
+    .svc-btn .sd { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
+    .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .cal-nav button { background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 14px; cursor: pointer; font-size: 0.8rem; }
+    .cal-nav span { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: #fff; letter-spacing: 0.1em; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-hdr { font-size: 0.65rem; text-align: center; color: rgba(255,255,255,0.4); padding: 6px 0; }
+    .cal-d { padding: 10px 4px; text-align: center; font-size: 0.8rem; cursor: pointer; background: var(--sage-light); color: #fff; }
+    .cal-d:hover:not(.dis):not(.emp) { background: var(--blush); }
+    .cal-d.sel { background: var(--blush); }
+    .cal-d.dis { opacity: 0.25; pointer-events: none; }
+    .cal-d.emp { background: transparent; cursor: default; }
+    .times-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+    .t-btn { background: var(--sage-light); border: 2px solid transparent; padding: 11px; text-align: center; cursor: pointer; color: #fff; font-size: 0.82rem; }
+    .t-btn:hover, .t-btn.sel { border-color: var(--blush); }
+    .b-input { width: 100%; background: var(--sage-light); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 13px 15px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; outline: none; margin-bottom: 12px; }
+    .b-input:focus { border-color: var(--blush); }
+    .b-summary { background: var(--sage-light); padding: 14px; margin-bottom: 18px; font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+    .b-summary strong { color: #fff; }
+    .btn-confirm { width: 100%; background: var(--blush); color: #fff; border: none; padding: 15px; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .step-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
+    .btn-back { background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 9px 18px; cursor: pointer; font-size: 0.82rem; }
+    .btn-next { background: var(--blush); color: #fff; border: none; padding: 9px 22px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+    .confirm-icon { text-align: center; font-size: 3.5rem; margin-bottom: 16px; }
+    .confirm-text { text-align: center; }
+    .confirm-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .confirm-text p { color: rgba(255,255,255,0.7); line-height: 1.7; }
+    .prog-dots { display: flex; gap: 7px; margin-bottom: 28px; }
+    .prog-dot { width: 24px; height: 3px; background: rgba(255,255,255,0.15); }
+    .prog-dot.on { background: var(--blush); }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; }
+      .hero-text-tile { grid-column: 1; grid-row: 4; padding: 48px 24px; }
+      .hero-tile-1 { grid-column: 1; grid-row: 1; min-height: 220px; }
+      .hero-tile-2 { grid-column: 1; grid-row: 2; min-height: 220px; }
+      .hero-tile-3 { grid-column: 1; grid-row: 3; min-height: 220px; }
+      .arrangements-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo { display: none; }
+      .occasions-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .hours-layout { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-info { text-align: center; }
+      .services-grid-b { grid-template-columns: 1fr; }
+      .booking-modal { padding: 28px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Bell's Flowers</a>
+  <ul class="nav-links">
+    <li><a href="#arrangements">Arrangements</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#occasions">Occasions</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openBooking();return false;">Order Now</button>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu">
+  <button class="mobile-close" onclick="this.parentElement.classList.remove('open')">✕</button>
+  <a href="#arrangements" onclick="this.closest('.mobile-menu').classList.remove('open')">Arrangements</a>
+  <a href="#about" onclick="this.closest('.mobile-menu').classList.remove('open')">Our Story</a>
+  <a href="#occasions" onclick="this.closest('.mobile-menu').classList.remove('open')">Occasions</a>
+  <a href="#hours" onclick="this.closest('.mobile-menu').classList.remove('open')">Hours</a>
+  <a href="#" onclick="openBooking();this.closest('.mobile-menu').classList.remove('open');return false;" style="color:var(--blush)">Order Now</a>
+</div>
+
+<!-- HERO MOSAIC -->
+<section class="hero">
+  <div class="hero-tile hero-tile-1">
+    <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc91?w=1400&q=80" alt="Flower shop">
+  </div>
+  <div class="hero-tile hero-tile-2">
+    <img src="https://images.unsplash.com/photo-1487530811015-780ce4fd7d22?w=1400&q=80" alt="Bouquet">
+  </div>
+  <div class="hero-tile hero-tile-3">
+    <img src="https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=1400&q=80" alt="Flower arrangement">
+  </div>
+  <div class="hero-text-tile">
+    <div class="hero-est" id="hero-est">Est. 2007 &bull; Bustleton Ave, Philadelphia</div>
+    <h1 class="hero-title" id="hero-title">Flowers for<br>Every Moment.</h1>
+    <p class="hero-sub" id="hero-sub">Fresh arrangements for birthdays, weddings, and every day worth celebrating. Same-day delivery available.</p>
+    <button class="btn-blush" id="hero-cta" onclick="openBooking();return false;">Order Today →</button>
+  </div>
+</section>
+
+<!-- ARRANGEMENTS -->
+<section class="arrangements" id="arrangements">
+  <div class="section-inner">
+    <div class="section-eyebrow">Featured</div>
+    <h2 class="section-title">Our Arrangements</h2>
+    <div class="arrangements-grid">
+      <div class="arrangement-card">
+        <img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=800&q=80" alt="Birthday bouquet">
+        <div class="arrangement-info">
+          <div class="arrangement-name">Birthday Bouquet</div>
+          <div class="arrangement-price">From $45</div>
+          <div class="arrangement-note">Same-day available</div>
+          <button class="arrangement-cta" onclick="openBooking();return false;">Order Now</button>
+        </div>
+      </div>
+      <div class="arrangement-card">
+        <img src="https://images.unsplash.com/photo-1453948209669-c4f658f08820?w=800&q=80" alt="Wedding arrangement">
+        <div class="arrangement-info">
+          <div class="arrangement-name">Wedding Arrangement</div>
+          <div class="arrangement-price">From $200</div>
+          <div class="arrangement-note">Book 3 days in advance</div>
+          <button class="arrangement-cta" onclick="openBooking();return false;">Order Now</button>
+        </div>
+      </div>
+      <div class="arrangement-card">
+        <img src="https://images.unsplash.com/photo-1471086569966-db3eebc25a59?w=800&q=80" alt="Custom bouquet">
+        <div class="arrangement-info">
+          <div class="arrangement-name">Custom Bouquet</div>
+          <div class="arrangement-price">From $65</div>
+          <div class="arrangement-note">Made to your vision</div>
+          <button class="arrangement-cta" onclick="openBooking();return false;">Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="about-eyebrow">Our Story</div>
+        <h2 class="about-title">18 Years on Bustleton Ave</h2>
+        <p class="about-p">Bell's Flowers has been a neighborhood fixture in Northeast Philadelphia since 2007. We source fresh flowers from local markets and create arrangements for every occasion — from a single stem to full wedding designs.</p>
+        <p class="about-p">We know our customers by name, and we take pride in every arrangement that leaves our shop.</p>
+        <div class="about-highlights">
+          <div class="about-highlight"><div class="about-highlight-dot"></div><span>Same-day delivery available</span></div>
+          <div class="about-highlight"><div class="about-highlight-dot"></div><span>Fresh flowers sourced locally</span></div>
+          <div class="about-highlight"><div class="about-highlight-dot"></div><span>Wedding &amp; event specialists</span></div>
+          <div class="about-highlight"><div class="about-highlight-dot"></div><span>Family-owned since 2007</span></div>
+        </div>
+      </div>
+      <div class="about-photo">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" alt="Flower shop">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OCCASIONS -->
+<section class="occasions" id="occasions">
+  <div class="section-inner">
+    <div class="section-eyebrow">Every Occasion</div>
+    <h2 class="section-title" style="color:var(--sage)">We Arrange For</h2>
+    <div class="occasions-grid">
+      <div class="occasion-tile"><div class="occasion-icon">🎂</div><div class="occasion-name">Birthdays</div></div>
+      <div class="occasion-tile"><div class="occasion-icon">💍</div><div class="occasion-name">Weddings</div></div>
+      <div class="occasion-tile"><div class="occasion-icon">💑</div><div class="occasion-name">Anniversaries</div></div>
+      <div class="occasion-tile"><div class="occasion-icon">🕊️</div><div class="occasion-name">Sympathy</div></div>
+      <div class="occasion-tile"><div class="occasion-icon">🏢</div><div class="occasion-name">Corporate</div></div>
+      <div class="occasion-tile"><div class="occasion-icon">💐</div><div class="occasion-name">Just Because</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="about-eyebrow" style="color:var(--blush)">Reviews</div>
+    <h2 class="about-title">What Customers Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"Bell's made my daughter's wedding flowers absolutely perfect. Beautiful and exactly what we had in mind. Our guests couldn't stop complimenting them."</p>
+        <div class="testimonial-author">— Jennifer C.</div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"Same-day delivery saved me for my mom's birthday. The flowers were so fresh and beautifully arranged. Great price too. Definitely coming back."</p>
+        <div class="testimonial-author">— Anthony M.</div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"Best florist in Northeast Philly. Always fresh, always friendly, and they really listen to what you want. Been a customer for years."</p>
+        <div class="testimonial-author">— Maria S.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours-section" id="hours">
+  <div class="section-inner">
+    <div class="section-eyebrow">Visit Us</div>
+    <h2 class="section-title">Hours &amp; Location</h2>
+    <div class="hours-layout">
+      <div>
+        <table class="hours-table">
+          <tr><td>Monday</td><td>9:00 AM – 6:00 PM</td></tr>
+          <tr><td>Tuesday</td><td>9:00 AM – 6:00 PM</td></tr>
+          <tr><td>Wednesday</td><td>9:00 AM – 6:00 PM</td></tr>
+          <tr><td>Thursday</td><td>9:00 AM – 6:00 PM</td></tr>
+          <tr><td>Friday</td><td>9:00 AM – 6:00 PM</td></tr>
+          <tr><td>Saturday</td><td>9:00 AM – 6:00 PM</td></tr>
+          <tr><td>Sunday</td><td>Closed</td></tr>
+        </table>
+        <p style="margin-top:24px;font-size:0.85rem;color:var(--text-muted)">8332 Bustleton Ave, Philadelphia, PA 19152<br><a href="tel:2157429128" style="color:var(--blush);text-decoration:none">(215) 742-9128</a><br><em style="font-size:0.75rem">Hours to be confirmed before visit</em></p>
+      </div>
+      <div class="map-wrap">
+        <iframe src="https://maps.google.com/maps?q=8332+Bustleton+Ave+Philadelphia+PA+19152&output=embed" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Same-Day Delivery Available</h2>
+  <p>Don't wait — order before noon for same-day delivery across Northeast Philadelphia.</p>
+  <button class="btn-blush" onclick="openBooking();return false;" style="opacity:1">Order Now →</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Bell's Flowers NE</div>
+  <div class="footer-info">
+    8332 Bustleton Ave, Philadelphia, PA 19152<br>
+    <a href="tel:2157429128">(215) 742-9128</a> &bull; Mon–Sat 9AM–6PM<br>
+    &copy; 2025 Bell's Flowers NE. All rights reserved.
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="booking-overlay" id="booking-overlay">
+  <div class="booking-modal">
+    <button class="booking-close" onclick="closeBooking()">✕</button>
+    <div class="prog-dots" id="prog-dots">
+      <div class="prog-dot on"></div><div class="prog-dot"></div>
+      <div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+    </div>
+
+    <div class="booking-step active" id="step-1">
+      <div class="step-label">Step 1 of 4</div>
+      <div class="step-title">Select Arrangement</div>
+      <div class="services-grid-b">
+        <button class="svc-btn" onclick="selSvc(this,'Birthday Bouquet — $45+','Same Day')"><span class="sn">Birthday Bouquet</span><span class="sp">$45+</span><span class="sd">Same Day</span></button>
+        <button class="svc-btn" onclick="selSvc(this,'Custom Bouquet — $65+','Same Day')"><span class="sn">Custom Bouquet</span><span class="sp">$65+</span><span class="sd">Same Day</span></button>
+        <button class="svc-btn" onclick="selSvc(this,'Wedding Arrangement — $200+','3 days advance')"><span class="sn">Wedding Arrangement</span><span class="sp">$200+</span><span class="sd">3 days advance</span></button>
+        <button class="svc-btn" onclick="selSvc(this,'Centerpiece Design — $85+','2 days advance')"><span class="sn">Centerpiece Design</span><span class="sp">$85+</span><span class="sd">2 days advance</span></button>
+        <button class="svc-btn" onclick="selSvc(this,'Funeral Arrangement — $150+','24 hrs advance')"><span class="sn">Funeral Arrangement</span><span class="sp">$150+</span><span class="sd">24 hrs advance</span></button>
+        <button class="svc-btn" onclick="selSvc(this,'Plant Gift — $35+','Same Day')"><span class="sn">Plant Gift</span><span class="sp">$35+</span><span class="sd">Same Day</span></button>
+      </div>
+      <div class="step-nav" style="justify-content:flex-end">
+        <button class="btn-next" id="next1" onclick="goS(2)" disabled style="opacity:0.4">Next →</button>
+      </div>
+    </div>
+
+    <div class="booking-step" id="step-2">
+      <div class="step-label">Step 2 of 4</div>
+      <div class="step-title">Pick a Date</div>
+      <div class="cal-nav">
+        <button onclick="pM()">← Prev</button>
+        <span id="cal-lbl"></span>
+        <button onclick="nM()">Next →</button>
+      </div>
+      <div class="cal-grid" id="cal"></div>
+      <div class="step-nav">
+        <button class="btn-back" onclick="goS(1)">← Back</button>
+        <button class="btn-next" id="next2" onclick="goS(3)" disabled style="opacity:0.4">Next →</button>
+      </div>
+    </div>
+
+    <div class="booking-step" id="step-3">
+      <div class="step-label">Step 3 of 4</div>
+      <div class="step-title">Choose a Time</div>
+      <div class="times-grid" id="tg"></div>
+      <div class="step-nav">
+        <button class="btn-back" onclick="goS(2)">← Back</button>
+        <button class="btn-next" id="next3" onclick="goS(4)" disabled style="opacity:0.4">Next →</button>
+      </div>
+    </div>
+
+    <div class="booking-step" id="step-4">
+      <div class="step-label">Step 4 of 4</div>
+      <div class="step-title">Your Details</div>
+      <div class="b-summary" id="bsumm"></div>
+      <input type="text" class="b-input" id="bname" placeholder="Your name" oninput="chkC()">
+      <input type="tel" class="b-input" id="bphone" placeholder="Phone number" oninput="chkC()">
+      <div class="step-nav">
+        <button class="btn-back" onclick="goS(3)">← Back</button>
+        <button class="btn-confirm" id="next4" onclick="goS(5)" disabled style="opacity:0.4">Place Order</button>
+      </div>
+    </div>
+
+    <div class="booking-step" id="step-5">
+      <div class="confirm-icon">🌸</div>
+      <div class="confirm-text">
+        <h3>Order Received!</h3>
+        <p>Thank you! We'll call to confirm your order and delivery details.<br><br><strong>(215) 742-9128</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const lenis = new Lenis();
+  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  gsap.to('#scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { scrub: 1, start: 'top top', end: 'bottom bottom' } });
+
+  // Mosaic tiles reveal
+  gsap.utils.toArray('.hero-tile img').forEach((img, i) => {
+    gsap.to(img, { opacity: 1, scale: 1, duration: 0.9, ease: 'expo.out', delay: 0.2 + i * 0.12 });
+  });
+
+  // Hero text
+  const htl = gsap.timeline({ delay: 0.5 });
+  htl
+    .to('#hero-est', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+    .to('#hero-title', { clipPath: 'inset(0 0% 0 0)', duration: 1.0, ease: 'power3.out' }, '-=0.2')
+    .to('#hero-sub', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5')
+    .to('#hero-cta', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4');
+
+  // Cards
+  gsap.utils.toArray('.arrangement-card').forEach((c, i) => {
+    gsap.to(c, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.1, scrollTrigger: { trigger: c, start: 'top 85%' } });
+  });
+  gsap.utils.toArray('.occasion-tile').forEach((c, i) => {
+    gsap.to(c, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: i * 0.08, scrollTrigger: { trigger: c, start: 'top 85%' } });
+  });
+  gsap.utils.toArray('.testimonial-card').forEach((c, i) => {
+    gsap.to(c, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.12, scrollTrigger: { trigger: c, start: 'top 85%' } });
+  });
+
+  // Desktop parallax
+  ScrollTrigger.matchMedia({ '(min-width: 769px)': function() {
+    gsap.utils.toArray('.hero-tile img').forEach((img, i) => {
+      gsap.to(img, { yPercent: 10 + i * 3, ease: 'none', scrollTrigger: { trigger: '.hero', scrub: 1 } });
+    });
+  }});
+
+  // ─── BOOKING ───
+  let bs='', bd=null, bt='', cy=new Date().getFullYear(), cm=new Date().getMonth();
+  const OD=[1,2,3,4,5,6];
+
+  function openBooking() { document.getElementById('booking-overlay').classList.add('open'); goS(1); }
+  function closeBooking() { document.getElementById('booking-overlay').classList.remove('open'); }
+  document.getElementById('booking-overlay').addEventListener('click', e => { if(e.target===e.currentTarget) closeBooking(); });
+
+  function selSvc(b, name, dur) {
+    document.querySelectorAll('.svc-btn').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel'); bs = name + ' · ' + dur;
+    const n=document.getElementById('next1'); n.disabled=false; n.style.opacity='1';
+  }
+  function goS(n) {
+    document.querySelectorAll('.booking-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('step-'+n).classList.add('active');
+    document.querySelectorAll('.prog-dot').forEach((d,i)=>d.classList.toggle('on',i<n));
+    if(n===2) rCal(); if(n===3) rTimes(); if(n===4) rSum();
+  }
+  function rCal() {
+    const M=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('cal-lbl').textContent=M[cm]+' '+cy;
+    const g=document.getElementById('cal'); g.innerHTML='';
+    ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{const h=document.createElement('div');h.className='cal-hdr';h.textContent=d;g.appendChild(h);});
+    const fi=new Date(cy,cm,1).getDay(), dn=new Date(cy,cm+1,0).getDate();
+    const today=new Date(); today.setHours(0,0,0,0);
+    for(let i=0;i<fi;i++){const e=document.createElement('div');e.className='cal-d emp';g.appendChild(e);}
+    for(let d=1;d<=dn;d++){
+      const el=document.createElement('div');el.className='cal-d';
+      const dt=new Date(cy,cm,d);
+      if(dt<today||!OD.includes(dt.getDay())){el.classList.add('dis');}
+      else{el.onclick=()=>selD(el,dt);if(bd&&bd.toDateString()===dt.toDateString())el.classList.add('sel');}
+      el.textContent=d;g.appendChild(el);
+    }
+  }
+  function pM(){cm--;if(cm<0){cm=11;cy--;}rCal();}
+  function nM(){cm++;if(cm>11){cm=0;cy++;}rCal();}
+  function selD(el,dt){
+    document.querySelectorAll('.cal-d').forEach(d=>d.classList.remove('sel'));
+    el.classList.add('sel');bd=dt;
+    const n=document.getElementById('next2');n.disabled=false;n.style.opacity='1';bt='';
+  }
+  function rTimes(){
+    const g=document.getElementById('tg');g.innerHTML='';
+    for(let h=9;h<18;h++){for(let m of[0,30]){
+      const lbl=(h>12?h-12:h)+':'+(m===0?'00':'30')+' '+(h>=12?'PM':'AM');
+      const b=document.createElement('button');b.className='t-btn';b.textContent=lbl;
+      b.onclick=()=>{document.querySelectorAll('.t-btn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');bt=lbl;const n=document.getElementById('next3');n.disabled=false;n.style.opacity='1';};
+      if(bt===lbl)b.classList.add('sel');g.appendChild(b);
+    }}
+  }
+  function rSum(){
+    const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const D=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    document.getElementById('bsumm').innerHTML='<strong>Arrangement:</strong> '+bs+'<br><strong>Date:</strong> '+(bd?D[bd.getDay()]+', '+M[bd.getMonth()]+' '+bd.getDate():'—')+'<br><strong>Time:</strong> '+(bt||'—')+'<br><strong>Location:</strong> 8332 Bustleton Ave, Philadelphia PA 19152';
+  }
+  function chkC(){
+    const n=document.getElementById('bname').value.trim();
+    const p=document.getElementById('bphone').value.trim();
+    const b=document.getElementById('next4');b.disabled=!(n&&p);b.style.opacity=(n&&p)?'1':'0.4';
+  }
+</script>
+</body>
+</html>

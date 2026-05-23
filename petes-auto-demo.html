@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pete's Auto Service Center — Castor Ave, Philadelphia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --charcoal: #0d0d0d;
+      --charcoal-light: #1a1a1a;
+      --orange: #e87722;
+      --orange-dark: #c9661a;
+      --white: #ffffff;
+      --gray: #888;
+      --text-muted: #aaa;
+    }
+    html { scroll-behavior: auto; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--charcoal); color: var(--white); overflow-x: hidden; }
+
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+      background: var(--orange); transform-origin: left; transform: scaleX(0); z-index: 9999;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 70px;
+      background: rgba(13,13,13,0.95); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: 1.1rem; letter-spacing: 0.15em; color: var(--white);
+      text-transform: uppercase; text-decoration: none;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--orange); color: var(--white); text-decoration: none;
+      padding: 10px 22px; font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Barlow Condensed', sans-serif;
+      cursor: pointer; border: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--orange-dark); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: var(--charcoal);
+      z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 70px; position: relative; overflow: hidden;
+    }
+    .hero-watermark {
+      position: absolute; font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 38vw; color: var(--orange);
+      opacity: 0; line-height: 1; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); pointer-events: none; z-index: 0;
+      letter-spacing: -0.05em;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 60px; position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid var(--orange); padding: 6px 14px; margin-bottom: 28px;
+      width: fit-content; opacity: 0;
+    }
+    .hero-badge span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+      font-size: clamp(3rem, 5.5vw, 5.5rem); line-height: 0.95; text-transform: uppercase;
+      letter-spacing: -0.01em; margin-bottom: 24px;
+      clip-path: inset(0 100% 0 0);
+    }
+    .hero-sub {
+      font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 420px;
+      margin-bottom: 40px; opacity: 0;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; }
+    .btn-primary { background: var(--orange); color: var(--white); border: none; padding: 14px 30px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--orange-dark); }
+    .btn-secondary { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 14px 30px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+    .btn-secondary:hover { border-color: var(--white); }
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--charcoal) 0%, transparent 40%); }
+
+    /* SERVICES */
+    .services { background: var(--charcoal-light); padding: 100px 0; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+    .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(2.2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 60px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .service-card {
+      background: var(--charcoal); padding: 36px 30px; position: relative;
+      border-top: 2px solid var(--orange); opacity: 0; transform: translateY(40px);
+      transition: background 0.2s;
+    }
+    .service-card:hover { background: #222; }
+    .service-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; }
+    .service-price { font-size: 1.6rem; font-weight: 700; color: var(--orange); font-family: 'Barlow Condensed', sans-serif; margin-bottom: 6px; }
+    .service-duration { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+    /* HERITAGE */
+    .heritage { background: var(--charcoal); padding: 100px 0; position: relative; overflow: hidden; }
+    .heritage-bg-number {
+      position: absolute; font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 30vw; color: var(--orange); opacity: 0.04;
+      right: -2vw; top: 50%; transform: translateY(-50%); line-height: 1; pointer-events: none;
+    }
+    .heritage-content { max-width: 600px; position: relative; z-index: 1; }
+    .heritage-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(2rem, 3.5vw, 3rem); text-transform: uppercase; margin-bottom: 20px; }
+    .heritage-text { color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
+    .stats-row { display: flex; gap: 40px; }
+    .stat { }
+    .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .stat-label { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* GALLERY */
+    .gallery { background: var(--charcoal-light); padding: 100px 0; overflow: hidden; }
+    .gallery-track { display: flex; gap: 4px; }
+    .gallery-track img { height: 420px; width: 560px; flex-shrink: 0; object-fit: cover; }
+
+    /* REVIEWS */
+    .reviews { background: var(--charcoal); padding: 100px 0; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+    .review-card {
+      background: var(--charcoal-light); padding: 36px; border-left: 2px solid var(--orange);
+      opacity: 0; transform: translateY(40px);
+    }
+    .review-text { color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .review-author { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); }
+    .review-stars { color: var(--orange); margin-bottom: 12px; font-size: 0.9rem; }
+
+    /* HOURS */
+    .hours { background: var(--charcoal-light); padding: 100px 0; }
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; }
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .hours-table td { padding: 14px 0; font-size: 0.9rem; }
+    .hours-table td:first-child { color: var(--text-muted); font-weight: 400; }
+    .hours-table td:last-child { font-weight: 600; color: var(--white); text-align: right; }
+    .today-highlight td { color: var(--orange) !important; }
+    .map-container { height: 320px; overflow: hidden; }
+    .map-container iframe { width: 100%; height: 100%; border: none; filter: grayscale(0.3); }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+      padding: 80px 40px; text-align: center;
+    }
+    .cta-banner h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 24px; }
+    .cta-banner p { color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 32px; }
+    .btn-white { background: var(--white); color: var(--orange); border: none; padding: 14px 34px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; }
+    .btn-white:hover { transform: scale(1.02); }
+
+    /* FOOTER */
+    footer {
+      background: #080808; padding: 40px; display: flex; justify-content: space-between;
+      align-items: center; border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    .footer-info { font-size: 0.8rem; color: var(--text-muted); text-align: right; line-height: 1.8; }
+    .footer-info a { color: var(--orange); text-decoration: none; }
+
+    /* BOOKING MODAL */
+    .booking-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000;
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .booking-overlay.open { display: flex; }
+    .booking-modal {
+      background: #111; border: 1px solid rgba(232,119,34,0.2); width: 100%;
+      max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 48px;
+      position: relative;
+    }
+    .booking-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+    .booking-step { display: none; }
+    .booking-step.active { display: block; }
+    .booking-step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+    .booking-step-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.8rem; text-transform: uppercase; margin-bottom: 28px; }
+    .services-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .service-pick-btn {
+      background: var(--charcoal-light); border: 2px solid transparent; padding: 16px;
+      cursor: pointer; text-align: left; color: var(--white); transition: border-color 0.2s;
+    }
+    .service-pick-btn:hover, .service-pick-btn.selected { border-color: var(--orange); }
+    .service-pick-btn .spn { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; display: block; }
+    .service-pick-btn .spp { color: var(--orange); font-weight: 600; font-size: 0.85rem; }
+    .service-pick-btn .spd { color: var(--text-muted); font-size: 0.75rem; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 16px; }
+    .cal-header { font-size: 0.7rem; text-align: center; color: var(--text-muted); padding: 6px 0; font-weight: 600; letter-spacing: 0.05em; }
+    .cal-day { padding: 10px 4px; text-align: center; font-size: 0.85rem; cursor: pointer; border-radius: 2px; background: var(--charcoal-light); transition: background 0.15s; }
+    .cal-day:hover:not(.disabled):not(.empty) { background: var(--orange); }
+    .cal-day.selected { background: var(--orange); }
+    .cal-day.disabled { opacity: 0.25; pointer-events: none; }
+    .cal-day.empty { background: transparent; cursor: default; }
+    .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .cal-nav button { background: none; border: 1px solid rgba(255,255,255,0.15); color: var(--white); padding: 6px 14px; cursor: pointer; font-size: 0.85rem; }
+    .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+    .time-btn { background: var(--charcoal-light); border: 2px solid transparent; padding: 12px; text-align: center; cursor: pointer; color: var(--white); font-size: 0.85rem; transition: border-color 0.15s; }
+    .time-btn:hover, .time-btn.selected { border-color: var(--orange); }
+    .booking-input { width: 100%; background: var(--charcoal-light); border: 1px solid rgba(255,255,255,0.1); color: var(--white); padding: 14px 16px; font-size: 0.95rem; font-family: 'DM Sans', sans-serif; outline: none; margin-bottom: 14px; }
+    .booking-input:focus { border-color: var(--orange); }
+    .booking-summary { background: var(--charcoal-light); padding: 16px; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .booking-summary strong { color: var(--white); }
+    .btn-book-confirm { width: 100%; background: var(--orange); color: var(--white); border: none; padding: 16px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+    .step-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
+    .btn-back { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 10px 20px; cursor: pointer; font-size: 0.85rem; }
+    .btn-next { background: var(--orange); color: var(--white); border: none; padding: 10px 24px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; font-size: 0.9rem; }
+    .confirmation-icon { font-size: 4rem; text-align: center; margin-bottom: 20px; }
+    .confirmation-text { text-align: center; }
+    .confirmation-text h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.8rem; text-transform: uppercase; margin-bottom: 12px; }
+    .confirmation-text p { color: var(--text-muted); line-height: 1.7; }
+    .progress-dots { display: flex; gap: 8px; margin-bottom: 32px; }
+    .progress-dot { width: 28px; height: 3px; background: rgba(255,255,255,0.15); }
+    .progress-dot.done { background: var(--orange); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 50vw; }
+      .hero-left { padding: 60px 24px; }
+      .hero-title { font-size: 2.8rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .hours-grid { grid-template-columns: 1fr; }
+      .gallery-track { overflow-x: auto; }
+      .gallery-track img { height: 260px; width: 80vw; }
+      .stats-row { flex-wrap: wrap; gap: 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-info { text-align: center; }
+      .services-picker { grid-template-columns: 1fr; }
+      .booking-modal { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Pete's <span>Auto</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#hours">Hours</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openBooking();return false;">Schedule Service</button>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu">
+  <button class="mobile-close" onclick="this.parentElement.classList.remove('open')">✕</button>
+  <a href="#services" onclick="this.closest('.mobile-menu').classList.remove('open')">Services</a>
+  <a href="#about" onclick="this.closest('.mobile-menu').classList.remove('open')">About</a>
+  <a href="#reviews" onclick="this.closest('.mobile-menu').classList.remove('open')">Reviews</a>
+  <a href="#hours" onclick="this.closest('.mobile-menu').classList.remove('open')">Hours</a>
+  <a href="#" onclick="openBooking();this.closest('.mobile-menu').classList.remove('open');return false;" style="color:var(--orange)">Schedule Service</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-watermark" id="watermark">37</div>
+  <div class="hero-left">
+    <div class="hero-badge" id="hero-badge">
+      <span>Serving Castor Ave Since 1989 &bull; 37 Years</span>
+    </div>
+    <h1 class="hero-title" id="hero-title">Your Neighborhood<br>Auto Experts.</h1>
+    <p class="hero-sub" id="hero-sub">Northeast Philly's trusted mechanic since 1989. PA Inspections, oil changes, brakes, hybrid service — honest work at fair prices, every time.</p>
+    <div class="hero-ctas" id="hero-ctas">
+      <button class="btn-primary" onclick="openBooking();return false;">Schedule Service</button>
+      <a href="#services" class="btn-secondary">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1400&q=80" alt="Mechanic at work" id="hero-img">
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-label">What We Fix</div>
+    <h2 class="section-title">Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-name">PA State Inspection</div>
+        <div class="service-price">$39.99</div>
+        <div class="service-duration">30–60 min &bull; Safety &amp; emissions certified</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Oil Change &amp; Filter</div>
+        <div class="service-price">$49.99</div>
+        <div class="service-duration">45 min &bull; Conventional or synthetic</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Flat Tire Repair</div>
+        <div class="service-price">$19.99</div>
+        <div class="service-duration">20 min &bull; Patch, plug, or bead re-seat</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Brake Service</div>
+        <div class="service-price">$149.99</div>
+        <div class="service-duration">90 min &bull; Pads, rotors, and calipers</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Wheel Alignment</div>
+        <div class="service-price">$79.99</div>
+        <div class="service-duration">60 min &bull; 4-wheel computerized</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Auto Diagnostics</div>
+        <div class="service-price">$89.99</div>
+        <div class="service-duration">60 min &bull; Full OBD scan &amp; report</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERITAGE -->
+<section class="heritage" id="about">
+  <div class="heritage-bg-number">37</div>
+  <div class="section-inner">
+    <div class="heritage-content">
+      <div class="section-label">Our Story</div>
+      <h2 class="heritage-title">Serving Castor Ave<br>Since 1989</h2>
+      <p class="heritage-text">Pete's Auto Service Center has been the go-to mechanic in the Castor Ave neighborhood for 37 years. We're hybrid-certified, PA State Inspection approved, and we've built our reputation one honest repair at a time. No upsells. No runaround. Just tell us what's wrong and we'll fix it right.</p>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num" id="count-years">37</div>
+          <div class="stat-label">Years in Business</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="count-reviews">149</div>
+          <div class="stat-label">Google Reviews</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4.7★</div>
+          <div class="stat-label">Avg Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="section-inner" style="margin-bottom:32px">
+    <div class="section-label">Shop Photos</div>
+    <h2 class="section-title">Our Work</h2>
+  </div>
+  <div class="gallery-track" id="gallery-track">
+    <img src="https://images.unsplash.com/photo-1537799943037-4c05e28b3a48?w=1400&q=80" alt="Auto repair">
+    <img src="https://images.unsplash.com/photo-1461595383873-14dd207cc86c?w=1400&q=80" alt="Car service">
+    <img src="https://images.unsplash.com/photo-1518987048-93e29699e79a?w=1400&q=80" alt="Mechanic tools">
+    <img src="https://images.unsplash.com/photo-1632823471406-4c5c7e4c6f24?w=1400&q=80" alt="Auto shop">
+    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=1400&q=80" alt="Garage work">
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="section-inner">
+    <div class="section-label">What Customers Say</div>
+    <h2 class="section-title">Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Fast, fair, and honest. Pete's is the only shop I trust with my car. They never try to upsell you on things you don't need."</p>
+        <div class="review-author">— Miguel R.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Been going here for 10+ years. They tell you the price upfront, fix it right, and never make you feel like you don't know what you're talking about."</p>
+        <div class="review-author">— Denise K.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Got my PA inspection done in under an hour. Solid shop, real neighborhood feel. I've been recommending Pete's to everyone for years."</p>
+        <div class="review-author">— Marcus T.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours" id="hours">
+  <div class="section-inner">
+    <div class="section-label">Find Us</div>
+    <h2 class="section-title">Hours &amp; Location</h2>
+    <div class="hours-grid">
+      <div>
+        <table class="hours-table" id="hours-table">
+          <tr><td>Monday</td><td>8:30 AM – 5:30 PM</td></tr>
+          <tr><td>Tuesday</td><td>8:30 AM – 5:30 PM</td></tr>
+          <tr><td>Wednesday</td><td>8:30 AM – 5:30 PM</td></tr>
+          <tr><td>Thursday</td><td>8:30 AM – 5:30 PM</td></tr>
+          <tr><td>Friday</td><td>8:30 AM – 5:30 PM</td></tr>
+          <tr><td>Saturday</td><td>8:30 AM – 4:00 PM</td></tr>
+          <tr><td>Sunday</td><td>Closed</td></tr>
+        </table>
+        <p style="margin-top:24px;font-size:0.85rem;color:var(--text-muted)">7832 Castor Ave, Philadelphia, PA 19152<br><a href="tel:2157289866" style="color:var(--orange);text-decoration:none">(215) 728-9866</a></p>
+      </div>
+      <div class="map-container">
+        <iframe src="https://maps.google.com/maps?q=7832+Castor+Ave+Philadelphia+PA+19152&output=embed" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ready When You Are.</h2>
+  <p>37 years of honest auto service on Castor Ave. Schedule your appointment online in 60 seconds.</p>
+  <button class="btn-white" onclick="openBooking();return false;">Book Online Now</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Pete's Auto Service Center</div>
+  <div class="footer-info">
+    7832 Castor Ave, Philadelphia, PA 19152<br>
+    <a href="tel:2157289866">(215) 728-9866</a> &bull; Mon–Fri 8:30–5:30 &bull; Sat 8:30–4:00<br>
+    &copy; 2025 Pete's Auto Service Center. All rights reserved.
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="booking-overlay" id="booking-overlay">
+  <div class="booking-modal">
+    <button class="booking-close" onclick="closeBooking()">✕</button>
+    <div class="progress-dots" id="progress-dots">
+      <div class="progress-dot done"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
+
+    <!-- Step 1: Service -->
+    <div class="booking-step active" id="step-1">
+      <div class="booking-step-label">Step 1 of 4</div>
+      <div class="booking-step-title">Select Service</div>
+      <div class="services-picker" id="service-picker">
+        <button class="service-pick-btn" onclick="selectService(this,'PA State Inspection','$39.99','30–60 min')">
+          <span class="spn">PA State Inspection</span>
+          <span class="spp">$39.99</span>
+          <span class="spd">30–60 min</span>
+        </button>
+        <button class="service-pick-btn" onclick="selectService(this,'Oil Change & Filter','$49.99','45 min')">
+          <span class="spn">Oil Change &amp; Filter</span>
+          <span class="spp">$49.99</span>
+          <span class="spd">45 min</span>
+        </button>
+        <button class="service-pick-btn" onclick="selectService(this,'Flat Tire Repair','$19.99','20 min')">
+          <span class="spn">Flat Tire Repair</span>
+          <span class="spp">$19.99</span>
+          <span class="spd">20 min</span>
+        </button>
+        <button class="service-pick-btn" onclick="selectService(this,'Brake Service','$149.99','90 min')">
+          <span class="spn">Brake Service</span>
+          <span class="spp">$149.99</span>
+          <span class="spd">90 min</span>
+        </button>
+        <button class="service-pick-btn" onclick="selectService(this,'Wheel Alignment','$79.99','60 min')">
+          <span class="spn">Wheel Alignment</span>
+          <span class="spp">$79.99</span>
+          <span class="spd">60 min</span>
+        </button>
+        <button class="service-pick-btn" onclick="selectService(this,'Auto Diagnostics','$89.99','60 min')">
+          <span class="spn">Auto Diagnostics</span>
+          <span class="spp">$89.99</span>
+          <span class="spd">60 min</span>
+        </button>
+      </div>
+      <div class="step-nav" style="justify-content:flex-end">
+        <button class="btn-next" onclick="goStep(2)" id="next-1" disabled style="opacity:0.4">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Date -->
+    <div class="booking-step" id="step-2">
+      <div class="booking-step-label">Step 2 of 4</div>
+      <div class="booking-step-title">Pick a Date</div>
+      <div class="cal-nav">
+        <button onclick="prevMonth()">← Prev</button>
+        <span id="cal-month-label" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.1em;text-transform:uppercase"></span>
+        <button onclick="nextMonth()">Next →</button>
+      </div>
+      <div class="calendar-grid" id="cal-grid"></div>
+      <div class="step-nav">
+        <button class="btn-back" onclick="goStep(1)">← Back</button>
+        <button class="btn-next" onclick="goStep(3)" id="next-2" disabled style="opacity:0.4">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Time -->
+    <div class="booking-step" id="step-3">
+      <div class="booking-step-label">Step 3 of 4</div>
+      <div class="booking-step-title">Choose a Time</div>
+      <div class="time-grid" id="time-grid"></div>
+      <div class="step-nav">
+        <button class="btn-back" onclick="goStep(2)">← Back</button>
+        <button class="btn-next" onclick="goStep(4)" id="next-3" disabled style="opacity:0.4">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Contact -->
+    <div class="booking-step" id="step-4">
+      <div class="booking-step-label">Step 4 of 4</div>
+      <div class="booking-step-title">Your Info</div>
+      <div class="booking-summary" id="booking-summary"></div>
+      <input type="text" class="booking-input" id="input-name" placeholder="Your name" oninput="checkContact()">
+      <input type="tel" class="booking-input" id="input-phone" placeholder="Phone number" oninput="checkContact()">
+      <div class="step-nav">
+        <button class="btn-back" onclick="goStep(3)">← Back</button>
+        <button class="btn-book-confirm" onclick="goStep(5)" id="next-4" disabled style="opacity:0.4">Confirm Appointment</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Confirmation -->
+    <div class="booking-step" id="step-5">
+      <div class="confirmation-icon">✅</div>
+      <div class="confirmation-text">
+        <h3>You're all set!</h3>
+        <p>We'll call to confirm your appointment at Pete's Auto Service Center.<br><br><strong>(215) 728-9866</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Lenis
+  const lenis = new Lenis();
+  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  // Scroll progress
+  gsap.to('#scroll-progress', {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { scrub: 1, start: 'top top', end: 'bottom bottom' }
+  });
+
+  // Hero watermark
+  gsap.to('#watermark', { opacity: 0.05, scale: 1, duration: 1.5, ease: 'expo.out', delay: 0.2 });
+
+  // Hero timeline
+  const heroTl = gsap.timeline({ delay: 0.3 });
+  heroTl
+    .to('#hero-badge', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+    .to('#hero-title', { clipPath: 'inset(0 0% 0 0)', duration: 1.2, ease: 'power3.out' }, '-=0.2')
+    .to('#hero-sub', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.6')
+    .to('#hero-ctas', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4');
+
+  // Section cards
+  gsap.utils.toArray('.service-card').forEach((card, i) => {
+    gsap.to(card, {
+      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.1,
+      scrollTrigger: { trigger: card, start: 'top 85%' }
+    });
+  });
+  gsap.utils.toArray('.review-card').forEach((card, i) => {
+    gsap.to(card, {
+      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.12,
+      scrollTrigger: { trigger: card, start: 'top 85%' }
+    });
+  });
+
+  // Desktop only
+  ScrollTrigger.matchMedia({
+    '(min-width: 769px)': function() {
+      gsap.to('#hero-img', {
+        yPercent: 15, ease: 'none',
+        scrollTrigger: { trigger: '.hero', scrub: 1 }
+      });
+    }
+  });
+
+  // Today highlight
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const todayName = days[new Date().getDay()];
+  document.querySelectorAll('#hours-table tr').forEach(row => {
+    if (row.cells[0] && row.cells[0].textContent === todayName) row.classList.add('today-highlight');
+  });
+
+  // ─── BOOKING SYSTEM ───
+  let bService = '', bDate = null, bTime = '', calYear = new Date().getFullYear(), calMonth = new Date().getMonth();
+  const OPEN_DAYS = [1,2,3,4,5,6]; // Mon–Sat
+
+  function openBooking() {
+    document.getElementById('booking-overlay').classList.add('open');
+    goStep(1);
+  }
+  function closeBooking() {
+    document.getElementById('booking-overlay').classList.remove('open');
+  }
+  document.getElementById('booking-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeBooking();
+  });
+
+  function selectService(btn, name, price, dur) {
+    document.querySelectorAll('.service-pick-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    bService = name + ' (' + price + ' · ' + dur + ')';
+    const n = document.getElementById('next-1');
+    n.disabled = false; n.style.opacity = '1';
+  }
+
+  function goStep(n) {
+    document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+    const dots = document.querySelectorAll('.progress-dot');
+    dots.forEach((d, i) => d.classList.toggle('done', i < n));
+    if (n === 2) renderCalendar();
+    if (n === 3) renderTimes();
+    if (n === 4) renderSummary();
+  }
+
+  function renderCalendar() {
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('cal-month-label').textContent = months[calMonth] + ' ' + calYear;
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+      const h = document.createElement('div'); h.className = 'cal-header'; h.textContent = d; grid.appendChild(h);
+    });
+    const first = new Date(calYear, calMonth, 1).getDay();
+    const days = new Date(calYear, calMonth + 1, 0).getDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+    for (let i = 0; i < first; i++) { const e = document.createElement('div'); e.className = 'cal-day empty'; grid.appendChild(e); }
+    for (let d = 1; d <= days; d++) {
+      const el = document.createElement('div'); el.className = 'cal-day';
+      const date = new Date(calYear, calMonth, d);
+      const isPast = date < today;
+      const isClosed = !OPEN_DAYS.includes(date.getDay());
+      if (isPast || isClosed) { el.classList.add('disabled'); }
+      else {
+        el.onclick = () => selectDate(el, date);
+        if (bDate && bDate.toDateString() === date.toDateString()) el.classList.add('selected');
+      }
+      el.textContent = d; grid.appendChild(el);
+    }
+  }
+  function prevMonth() { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
+  function nextMonth() { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); }
+  function selectDate(el, date) {
+    document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('selected'));
+    el.classList.add('selected'); bDate = date;
+    const n = document.getElementById('next-2'); n.disabled = false; n.style.opacity = '1';
+    bTime = '';
+  }
+
+  function renderTimes() {
+    const grid = document.getElementById('time-grid'); grid.innerHTML = '';
+    const isSat = bDate && bDate.getDay() === 6;
+    const closeH = isSat ? 16 : 17;
+    for (let h = 8; h < closeH; h++) {
+      for (let m of [0, 45]) {
+        if (h === closeH - 1 && m === 45) continue;
+        const label = (h > 12 ? h - 12 : h) + ':' + (m === 0 ? '00' : m) + ' ' + (h >= 12 ? 'PM' : 'AM');
+        const btn = document.createElement('button'); btn.className = 'time-btn'; btn.textContent = label;
+        btn.onclick = () => { document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); bTime = label; const n = document.getElementById('next-3'); n.disabled=false; n.style.opacity='1'; };
+        if (bTime === label) btn.classList.add('selected');
+        grid.appendChild(btn);
+      }
+    }
+  }
+
+  function renderSummary() {
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    document.getElementById('booking-summary').innerHTML =
+      '<strong>Service:</strong> ' + bService + '<br>' +
+      '<strong>Date:</strong> ' + (bDate ? days[bDate.getDay()] + ', ' + months[bDate.getMonth()] + ' ' + bDate.getDate() : '—') + '<br>' +
+      '<strong>Time:</strong> ' + (bTime || '—') + '<br>' +
+      '<strong>Location:</strong> 7832 Castor Ave, Philadelphia PA 19152';
+  }
+
+  function checkContact() {
+    const n = document.getElementById('input-name').value.trim();
+    const p = document.getElementById('input-phone').value.trim();
+    const btn = document.getElementById('next-4');
+    btn.disabled = !(n && p); btn.style.opacity = (n && p) ? '1' : '0.4';
+  }
+</script>
+</body>
+</html>

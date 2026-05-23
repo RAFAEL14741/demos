@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Nails Spa — Bustleton Ave, Northeast Philadelphia</title>
+<meta name="description" content="Color Nails Spa on Bustleton Ave in Northeast Philadelphia. Gel, acrylic, dip powder, Russian manicure, pedicures. Walk-ins welcome.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --black:#0a0a0a;
+    --black2:#111111;
+    --black3:#1a1a1a;
+    --rosegold:#c9956c;
+    --rosegold-light:#e0b090;
+    --rosegold-dim:rgba(201,149,108,0.12);
+    --rosegold-border:rgba(201,149,108,0.25);
+    --white:#f8f4f0;
+    --muted:rgba(248,244,240,0.5);
+    --border:rgba(255,255,255,0.06);
+  }
+  html{scroll-behavior:auto}
+  body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+  /* SCROLL PROGRESS */
+  #progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--rosegold);transform-origin:left;transform:scaleX(0);z-index:9999}
+
+  /* NAV */
+  nav{position:fixed;top:2px;left:0;width:100%;z-index:500;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(10,10,10,0.95),transparent);transition:all 0.3s}
+  nav.scrolled{background:rgba(10,10,10,0.97);padding:14px 60px;border-bottom:1px solid var(--border)}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:0.04em;color:var(--rosegold)}
+  .nav-links{display:flex;gap:36px;list-style:none}
+  .nav-links a{color:rgba(248,244,240,0.75);text-decoration:none;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s}
+  .nav-links a:hover{color:var(--rosegold)}
+  .nav-cta{background:var(--rosegold);color:var(--black);padding:10px 24px;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s}
+  .nav-cta:hover{opacity:0.85}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--white);transition:all 0.3s}
+  .nav-drawer{position:fixed;top:0;right:-100%;width:300px;height:100vh;background:var(--black2);border-left:1px solid var(--border);z-index:600;transition:right 0.35s cubic-bezier(0.4,0,0.2,1);padding:80px 40px 40px;display:flex;flex-direction:column;gap:28px}
+  .nav-drawer.open{right:0}
+  .drawer-link{color:rgba(248,244,240,0.8);text-decoration:none;font-size:16px;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s}
+  .drawer-link:hover{color:var(--rosegold)}
+  .drawer-close{position:absolute;top:24px;right:24px;background:transparent;border:none;color:var(--muted);font-size:24px;cursor:pointer}
+  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:590;display:none}
+  .drawer-overlay.open{display:block}
+
+  /* HERO — SPLIT SCREEN */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative}
+  .hero-text-panel{display:flex;flex-direction:column;justify-content:center;padding:120px 80px 80px;position:relative}
+  .hero-text-panel::after{content:'';position:absolute;right:0;top:10%;height:80%;width:1px;background:linear-gradient(to bottom,transparent,var(--rosegold-border),transparent)}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--rosegold-dim);border:1px solid var(--rosegold-border);border-radius:40px;padding:8px 20px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--rosegold);margin-bottom:32px;opacity:0;clip-path:inset(0 100% 0 0)}
+  .hero-h1{font-family:'Playfair Display',serif;font-size:clamp(52px,6vw,88px);font-weight:900;line-height:1.0;letter-spacing:-0.01em;margin-bottom:24px;overflow:hidden}
+  .hero-h1 .line{display:block;clip-path:inset(0 0 100% 0)}
+  .hero-h1 .line-gold{color:var(--rosegold)}
+  .hero-desc{font-size:16px;line-height:1.7;color:var(--muted);max-width:400px;margin-bottom:40px;opacity:0}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0}
+  .btn-primary{background:var(--rosegold);color:var(--black);padding:16px 36px;border-radius:4px;font-size:14px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.2s}
+  .btn-primary:hover{opacity:0.85}
+  .btn-ghost{background:transparent;border:1px solid var(--rosegold-border);color:var(--white);padding:16px 36px;border-radius:4px;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all 0.2s}
+  .btn-ghost:hover{border-color:var(--rosegold);color:var(--rosegold)}
+  .hero-scroll{position:absolute;bottom:40px;left:80px;display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);opacity:0}
+  .hero-scroll-line{width:40px;height:1px;background:var(--rosegold)}
+  .hero-photo-panel{position:relative;overflow:hidden}
+  .hero-photo-panel img{width:100%;height:100%;object-fit:cover;filter:brightness(0.75)}
+  .hero-photo-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 30%)}
+  .hero-stats{position:absolute;bottom:40px;right:40px;display:flex;flex-direction:column;gap:16px}
+  .hero-stat{background:rgba(10,10,10,0.9);border:1px solid var(--rosegold-border);border-radius:10px;padding:16px 20px;text-align:center;backdrop-filter:blur(10px)}
+  .hero-stat-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--rosegold);line-height:1}
+  .hero-stat-lbl{font-size:10px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px}
+
+  /* SECTION BASE */
+  section{padding:120px 0}
+  .container{max-width:1300px;margin:0 auto;padding:0 60px}
+  .section-eyebrow{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--rosegold);margin-bottom:14px}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.1;margin-bottom:20px}
+  .section-body{font-size:16px;color:var(--muted);line-height:1.7;max-width:560px}
+  .title-split{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:60px}
+
+  /* SERVICES */
+  .services-section{background:var(--black2)}
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--border)}
+  .service-card{background:var(--black2);padding:36px 30px;border:1px solid var(--border);position:relative;overflow:hidden;transition:background 0.3s;opacity:0;transform:translateY(40px)}
+  .service-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--rosegold);transition:height 0.4s ease}
+  .service-card:hover{background:var(--black3)}
+  .service-card:hover::before{height:100%}
+  .service-icon{font-size:28px;margin-bottom:20px;color:var(--rosegold)}
+  .service-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+  .service-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+  .service-price{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--rosegold)}
+  .service-price-note{font-size:12px;color:var(--muted);margin-top:4px}
+
+  /* GALLERY */
+  .gallery-section{overflow:hidden}
+  .gallery-strip{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px}
+  .gallery-strip::-webkit-scrollbar{display:none}
+  .gallery-item{flex:0 0 320px;height:440px;border-radius:8px;overflow:hidden;position:relative}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+  .gallery-item:hover img{transform:scale(1.05)}
+
+  /* ABOUT / SPLIT */
+  .about-section{background:var(--black2)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .about-image{position:relative;border-radius:8px;overflow:hidden;height:560px}
+  .about-image img{width:100%;height:100%;object-fit:cover}
+  .about-image-badge{position:absolute;bottom:24px;left:24px;background:rgba(10,10,10,0.95);border:1px solid var(--rosegold-border);border-radius:10px;padding:16px 20px}
+  .about-image-badge-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--rosegold)}
+  .about-image-badge-lbl{font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px}
+  .about-list{list-style:none;margin:24px 0;display:flex;flex-direction:column;gap:12px}
+  .about-list li{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted)}
+  .about-list li::before{content:'✦';color:var(--rosegold);font-size:10px;flex-shrink:0}
+
+  /* REVIEWS */
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+  .review-card{background:var(--black2);border:1px solid var(--border);border-radius:14px;padding:32px;opacity:0;transform:translateY(40px)}
+  .review-stars{color:var(--rosegold);font-size:16px;margin-bottom:16px;letter-spacing:2px}
+  .review-text{font-size:15px;line-height:1.7;color:rgba(248,244,240,0.8);font-style:italic;margin-bottom:20px}
+  .review-author{display:flex;align-items:center;gap:12px}
+  .review-avatar{width:40px;height:40px;border-radius:50%;background:var(--rosegold-dim);border:1px solid var(--rosegold-border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--rosegold)}
+  .review-name{font-weight:600;font-size:14px}
+  .review-meta{font-size:12px;color:var(--muted)}
+
+  /* HOURS + CONTACT */
+  .info-section{background:var(--black2)}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .hours-table{width:100%;border-collapse:collapse}
+  .hours-table tr{border-bottom:1px solid var(--border)}
+  .hours-table td{padding:14px 0;font-size:14px}
+  .hours-table td:last-child{text-align:right;color:var(--rosegold)}
+  .hours-table .closed{color:var(--muted);text-decoration:none}
+  .contact-item{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}
+  .contact-icon{width:44px;height:44px;border-radius:8px;background:var(--rosegold-dim);border:1px solid var(--rosegold-border);display:flex;align-items:center;justify-content:center;color:var(--rosegold);flex-shrink:0}
+  .contact-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+  .contact-value{font-size:15px;font-weight:500}
+
+  /* CTA BANNER */
+  .cta-section{background:var(--rosegold);padding:100px 0;text-align:center}
+  .cta-section .section-title{color:var(--black);margin-bottom:16px}
+  .cta-section .section-body{color:rgba(10,10,10,0.7);margin:0 auto 40px}
+  .btn-dark{background:var(--black);color:var(--white);padding:18px 48px;border-radius:4px;font-size:14px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.2s}
+  .btn-dark:hover{opacity:0.8}
+
+  /* FOOTER */
+  footer{background:var(--black);border-top:1px solid var(--border);padding:60px 0;text-align:center}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--rosegold);margin-bottom:12px}
+  .footer-tagline{color:var(--muted);font-size:13px;margin-bottom:24px}
+  .footer-links{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:24px;list-style:none}
+  .footer-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s}
+  .footer-links a:hover{color:var(--rosegold)}
+  .footer-copy{color:rgba(248,244,240,0.25);font-size:12px}
+
+  /* BOOKING MODAL */
+  #bookingModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center}
+  #bookingModal.open{display:flex}
+  .modal-box{background:var(--black2);border:1px solid var(--border);border-radius:16px;width:90%;max-width:540px;max-height:90vh;overflow-y:auto}
+  .modal-header{padding:24px 28px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--black2)}
+  .modal-header h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--rosegold)}
+  .modal-close{background:transparent;border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .modal-body{padding:28px}
+  .step-dots{display:flex;gap:8px;margin-bottom:24px}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);transition:background 0.3s}
+  .dot.active{background:var(--rosegold)}
+  .step-lbl{font-family:'Playfair Display',serif;font-size:16px;color:var(--rosegold);margin-bottom:16px;letter-spacing:0.03em}
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .svc-opt{background:var(--black3);border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all 0.2s}
+  .svc-opt:hover,.svc-opt.sel{border-color:var(--rosegold);background:var(--rosegold-dim)}
+  .svc-opt-name{font-size:13px;font-weight:600;margin-bottom:4px}
+  .svc-opt-meta{font-size:11px;color:var(--muted)}
+  .cal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .cal-nav{background:transparent;border:1px solid var(--border);color:var(--white);width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:16px}
+  .cal-month{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--rosegold)}
+  .cal-grid-m{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cal-dn{font-size:10px;color:var(--muted);text-align:center;padding:4px 0}
+  .time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .time-slot{background:var(--black3);border:2px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:13px;cursor:pointer;transition:all 0.2s}
+  .time-slot:hover,.time-slot.sel{border-color:var(--rosegold);background:var(--rosegold-dim);color:var(--rosegold)}
+  .form-group{margin-bottom:16px}
+  .form-group label{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+  .form-group input{width:100%;background:var(--black3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;outline:none}
+  .form-group input:focus{border-color:var(--rosegold)}
+  .bk-summary{background:var(--black3);border-radius:10px;padding:16px;margin-bottom:20px;font-size:13px}
+  .bk-row{display:flex;justify-content:space-between;padding:4px 0;color:var(--muted)}
+  .bk-row span:last-child{color:var(--white);font-weight:500}
+  .modal-btn{width:100%;background:var(--rosegold);color:var(--black);font-family:'Playfair Display',serif;font-size:18px;font-weight:700;padding:14px;border:none;border-radius:10px;cursor:pointer;transition:opacity 0.2s;margin-top:16px}
+  .modal-btn:hover{opacity:0.85}
+  .confirm-screen{text-align:center;padding:20px 0}
+  .confirm-icon{font-size:60px;margin-bottom:16px}
+  .confirm-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--rosegold);margin-bottom:8px}
+  .confirm-sub{color:var(--muted);font-size:14px;line-height:1.7}
+
+  /* RESPONSIVE */
+  @media(max-width:1024px){
+    .services-grid{grid-template-columns:repeat(2,1fr)}
+    .about-grid{grid-template-columns:1fr}
+    .info-grid{grid-template-columns:1fr}
+    nav{padding:16px 32px}
+    nav.scrolled{padding:12px 32px}
+  }
+  @media(max-width:768px){
+    .hero{grid-template-columns:1fr;min-height:auto}
+    .hero-text-panel{padding:120px 28px 60px;order:1}
+    .hero-text-panel::after{display:none}
+    .hero-photo-panel{height:320px;order:0}
+    .hero-stats{bottom:20px;right:20px;flex-direction:row;gap:10px}
+    .hero-stat{padding:10px 14px}
+    .hero-stat-val{font-size:20px}
+    .container{padding:0 24px}
+    section{padding:80px 0}
+    .reviews-grid{grid-template-columns:1fr}
+    nav{padding:16px 20px}
+    .nav-links,.nav-cta{display:none}
+    .hamburger{display:flex}
+    .gallery-item{flex:0 0 260px;height:360px}
+    .hero-scroll{left:28px;bottom:28px}
+    .title-split{flex-direction:column;align-items:flex-start}
+  }
+  @media(max-width:480px){
+    .services-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">Color Nails</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openBooking();return false;">Book Now</a>
+  <div class="hamburger" id="hamburger" onclick="openDrawer()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="nav-drawer" id="navDrawer">
+  <button class="drawer-close" onclick="closeDrawer()">×</button>
+  <a href="#services" class="drawer-link" onclick="closeDrawer()">Services</a>
+  <a href="#gallery" class="drawer-link" onclick="closeDrawer()">Gallery</a>
+  <a href="#about" class="drawer-link" onclick="closeDrawer()">About</a>
+  <a href="#hours" class="drawer-link" onclick="closeDrawer()">Hours</a>
+  <a href="#reviews" class="drawer-link" onclick="closeDrawer()">Reviews</a>
+  <a href="#" class="btn-primary" onclick="closeDrawer();openBooking();return false;">Book Appointment</a>
+</div>
+
+<!-- HERO: SPLIT SCREEN -->
+<section class="hero" id="home">
+  <div class="hero-text-panel">
+    <div class="hero-badge" id="heroBadge"><i class="fas fa-star" style="font-size:9px"></i> 5.0 · Google Reviews</div>
+    <h1 class="hero-h1" id="heroH1">
+      <span class="line">Nails That</span>
+      <span class="line line-gold">Speak For</span>
+      <span class="line">Themselves.</span>
+    </h1>
+    <p class="hero-desc" id="heroDesc">Premier nail spa on Bustleton Ave in Northeast Philadelphia. Gel, acrylic, dip powder, Russian manicure, and luxury pedicures — walk-ins always welcome.</p>
+    <div class="hero-actions" id="heroActions">
+      <a href="#" class="btn-primary" onclick="openBooking();return false;">Book Appointment</a>
+      <a href="#services" class="btn-ghost">View Services</a>
+    </div>
+    <div class="hero-scroll" id="heroScroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </div>
+  <div class="hero-photo-panel">
+    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1400&q=80" alt="Color Nails Spa" loading="eager">
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">5.0★</div>
+        <div class="hero-stat-lbl">Rating</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">7+</div>
+        <div class="hero-stat-lbl">Years Open</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="title-split">
+      <div>
+        <div class="section-eyebrow">What We Offer</div>
+        <h2 class="section-title">Signature Services</h2>
+      </div>
+      <a href="#" class="btn-primary" onclick="openBooking();return false;">Book Now</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-hand-sparkles"></i></div>
+        <div class="service-name">Gel Manicure</div>
+        <div class="service-desc">Long-lasting gel polish with UV cure. Perfect color payoff, chip-resistant finish.</div>
+        <div class="service-price">$45</div>
+        <div class="service-price-note">30–45 min</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-magic"></i></div>
+        <div class="service-name">Acrylic Full Set</div>
+        <div class="service-desc">Sculpted acrylic extensions with your choice of length, shape, and color.</div>
+        <div class="service-price">$55</div>
+        <div class="service-price-note">60–75 min</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-gem"></i></div>
+        <div class="service-name">Dip Powder Nails</div>
+        <div class="service-desc">No UV needed. Stronger than gel, lightweight, and gorgeous. 200+ colors.</div>
+        <div class="service-price">$50</div>
+        <div class="service-price-note">45–60 min</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-crown"></i></div>
+        <div class="service-name">Russian Manicure</div>
+        <div class="service-desc">E-file technique for ultra-clean cuticles and an immaculate, long-lasting result.</div>
+        <div class="service-price">$70</div>
+        <div class="service-price-note">60–90 min</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-spa"></i></div>
+        <div class="service-name">Classic Pedicure</div>
+        <div class="service-desc">Soak, trim, shape, massage, and polish. The essential refresh your feet deserve.</div>
+        <div class="service-price">$40</div>
+        <div class="service-price-note">45 min</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-leaf"></i></div>
+        <div class="service-name">Spa Pedicure</div>
+        <div class="service-desc">Upgraded experience with exfoliating scrub, extended massage, and hot towel wrap.</div>
+        <div class="service-price">$55</div>
+        <div class="service-price-note">60 min</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+        <div class="service-name">Gel Pedicure</div>
+        <div class="service-desc">Spa pedicure plus chip-resistant gel polish that stays perfect for weeks.</div>
+        <div class="service-price">$55</div>
+        <div class="service-price-note">60 min</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+        <div class="service-name">Nail Art</div>
+        <div class="service-desc">Custom designs, chrome powder, rhinestones, ombre, and hand-painted art.</div>
+        <div class="service-price">$5+</div>
+        <div class="service-price-note">Per nail · Unlimited designs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="container" style="margin-bottom:40px">
+    <div class="section-eyebrow">Our Work</div>
+    <h2 class="section-title">Recent Looks</h2>
+  </div>
+  <div class="gallery-strip" id="galleryStrip">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&q=80" alt="Nail art"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=700&q=80" alt="Gel manicure"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&q=80&fp-x=0.6" alt="Acrylic nails"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=700&q=80&fp-y=0.4" alt="Dip powder"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=700&q=80" alt="Nail spa"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&q=80&fp-x=0.3" alt="Pedicure"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image" id="aboutImg">
+        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=900&q=80" alt="Color Nails Spa interior">
+        <div class="about-image-badge">
+          <div class="about-image-badge-val">5.0★</div>
+          <div class="about-image-badge-lbl">Perfect Rating</div>
+        </div>
+      </div>
+      <div id="aboutText">
+        <div class="section-eyebrow">About Color Nails Spa</div>
+        <h2 class="section-title">Northeast Philly's Nail Destination</h2>
+        <p class="section-body" style="margin-bottom:20px">Serving the Bustleton and Rhawnhurst community, Color Nails Spa has earned a perfect 5-star reputation by delivering precision, care, and creativity with every appointment.</p>
+        <p class="section-body">Our skilled technicians specialize in the latest techniques — from Russian manicures to intricate nail art — in a clean, welcoming environment. We treat every client like a VIP.</p>
+        <ul class="about-list">
+          <li>Certified nail technicians with ongoing training</li>
+          <li>Hospital-grade sanitation after every client</li>
+          <li>Over 200 gel and dip powder color choices</li>
+          <li>Walk-ins welcome — no appointment needed</li>
+          <li>Open 7 days a week including Sundays</li>
+        </ul>
+        <a href="#" class="btn-primary" style="display:inline-block;margin-top:8px" onclick="openBooking();return false;">Book Your Appointment</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-eyebrow">What Clients Say</div>
+    <h2 class="section-title">5.0 Stars · Google Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I've been coming here for years — the Russian manicure is absolutely worth it. My nails look perfect for weeks and the technicians are so precise and careful."</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div><div class="review-name">Maria G.</div><div class="review-meta">Google Review · Bustleton</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Best nail salon in Northeast Philly, no competition. The prices are fair, they never rush you, and my dip powder set lasted over a month. Highly recommend!"</p>
+        <div class="review-author">
+          <div class="review-avatar">J</div>
+          <div><div class="review-name">Jessica T.</div><div class="review-meta">Google Review · Rhawnhurst</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Walked in on a Saturday afternoon, was seated within 10 minutes. The nail art they did for my daughter's prom was stunning — everyone was asking where she went!"</p>
+        <div class="review-author">
+          <div class="review-avatar">D</div>
+          <div><div class="review-name">Diane K.</div><div class="review-meta">Google Review · Mayfair</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS + CONTACT -->
+<section class="info-section" id="hours">
+  <div class="container">
+    <div class="title-split" style="margin-bottom:60px">
+      <div>
+        <div class="section-eyebrow">Visit Us</div>
+        <h2 class="section-title">Hours & Location</h2>
+      </div>
+    </div>
+    <div class="info-grid">
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:20px">Business Hours</div>
+        <table class="hours-table">
+          <tr><td>Monday</td><td>9:30 AM – 7:30 PM</td></tr>
+          <tr><td>Tuesday</td><td>9:30 AM – 7:30 PM</td></tr>
+          <tr><td>Wednesday</td><td>9:30 AM – 7:30 PM</td></tr>
+          <tr><td>Thursday</td><td>9:30 AM – 7:30 PM</td></tr>
+          <tr><td>Friday</td><td>9:30 AM – 7:30 PM</td></tr>
+          <tr><td>Saturday</td><td>9:30 AM – 7:30 PM</td></tr>
+          <tr><td>Sunday</td><td>10:00 AM – 5:00 PM</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:20px">Contact</div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div><div class="contact-label">Phone</div><div class="contact-value">(215) 333-6188</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div><div class="contact-label">Address</div><div class="contact-value">7935 Bustleton Ave<br>Philadelphia, PA 19152</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+          <div><div class="contact-label">Instagram</div><div class="contact-value">@colornails_bustleton</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-walking"></i></div>
+          <div><div class="contact-label">Walk-ins</div><div class="contact-value">Always Welcome</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="section-title">Ready for Perfect Nails?</h2>
+    <p class="section-body">Book your appointment online or walk in any day of the week. Color Nails Spa — Northeast Philly's top-rated nail destination.</p>
+    <a href="#" class="btn-dark" onclick="openBooking();return false;">Book an Appointment</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">Color Nails Spa</div>
+    <div class="footer-tagline">7935 Bustleton Ave, Philadelphia PA 19152 · (215) 333-6188</div>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#" onclick="openBooking();return false;">Book Now</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Color Nails Spa · Northeast Philadelphia</div>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div id="bookingModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Book Appointment</h2>
+      <button class="modal-close" onclick="closeBooking()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="step-dots">
+        <div class="dot active" id="dot0"></div>
+        <div class="dot" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+        <div class="dot" id="dot4"></div>
+      </div>
+      <div id="stepContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// LENIS
+const lenis=new Lenis();
+gsap.ticker.add((time)=>{lenis.raf(time*1000)});
+gsap.ticker.lagSmoothing(0);
+
+// SCROLL PROGRESS
+gsap.to('#progress',{scaleX:1,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:0}});
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// HERO ANIMATIONS
+const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+tl.to('#heroBadge',{opacity:1,clipPath:'inset(0 0% 0 0)',duration:0.7},0.3)
+  .to('.hero-h1 .line',{clipPath:'inset(0 0 0% 0)',duration:0.95,stagger:0.18},0.7)
+  .to('#heroDesc',{opacity:1,y:0,duration:0.7},1.5)
+  .to('#heroActions',{opacity:1,y:0,duration:0.6},1.7)
+  .to('#heroScroll',{opacity:1,duration:0.5},2.0);
+
+// SCROLLTRIGGER MATCHMEDIA
+ScrollTrigger.matchMedia({
+  '(min-width: 769px)':function(){
+    // Service cards
+    gsap.utils.toArray('.service-card').forEach((card,i)=>{
+      gsap.to(card,{opacity:1,y:0,duration:0.7,ease:'power3.out',
+        scrollTrigger:{trigger:card,start:'top 85%',toggleActions:'play none none none'}
+      });
+    });
+    // Review cards
+    gsap.utils.toArray('.review-card').forEach((card,i)=>{
+      gsap.to(card,{opacity:1,y:0,duration:0.7,ease:'power3.out',delay:i*0.12,
+        scrollTrigger:{trigger:card,start:'top 85%',toggleActions:'play none none none'}
+      });
+    });
+    // About section
+    gsap.from('#aboutImg',{x:-40,opacity:0,duration:0.9,ease:'power3.out',
+      scrollTrigger:{trigger:'#aboutImg',start:'top 80%',toggleActions:'play none none none'}
+    });
+    gsap.from('#aboutText',{x:40,opacity:0,duration:0.9,ease:'power3.out',
+      scrollTrigger:{trigger:'#aboutText',start:'top 80%',toggleActions:'play none none none'}
+    });
+    // Hover effects
+    const mm=window.matchMedia('(hover: hover) and (pointer: fine)');
+    if(mm.matches){
+      document.querySelectorAll('.service-card').forEach(card=>{
+        card.addEventListener('mouseenter',()=>gsap.to(card,{y:-6,duration:0.3,ease:'power2.out'}));
+        card.addEventListener('mouseleave',()=>gsap.to(card,{y:0,duration:0.3,ease:'power2.out'}));
+      });
+    }
+  },
+  '(max-width: 768px)':function(){
+    // Mobile: simple opacity reveals only
+    gsap.utils.toArray('.service-card').forEach(card=>{
+      gsap.to(card,{opacity:1,y:0,duration:0.6,ease:'power3.out',
+        scrollTrigger:{trigger:card,start:'top 90%',toggleActions:'play none none none'}
+      });
+    });
+    gsap.utils.toArray('.review-card').forEach(card=>{
+      gsap.to(card,{opacity:1,y:0,duration:0.6,ease:'power3.out',
+        scrollTrigger:{trigger:card,start:'top 90%',toggleActions:'play none none none'}
+      });
+    });
+  }
+});
+
+// HAMBURGER
+function openDrawer(){
+  document.getElementById('navDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('navDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+
+// BOOKING
+const SERVICES=[
+  {name:'Gel Manicure',price:'$45',dur:'30–45 min'},
+  {name:'Acrylic Full Set',price:'$55',dur:'60–75 min'},
+  {name:'Dip Powder Nails',price:'$50',dur:'45–60 min'},
+  {name:'Russian Manicure',price:'$70',dur:'60–90 min'},
+  {name:'Classic Pedicure',price:'$40',dur:'45 min'},
+  {name:'Spa Pedicure',price:'$55',dur:'60 min'},
+  {name:'Gel Pedicure',price:'$55',dur:'60 min'},
+  {name:'Nail Art',price:'$5+/nail',dur:'Varies'},
+];
+const OPEN_DAYS=[0,1,2,3,4,5,6]; // All days
+const OPEN_HOUR=9,CLOSE_HOUR=19;
+let step=0,selSvc=null,selDate=null,selTime=null,calYear,calMonth;
+
+function openBooking(){
+  step=0;selSvc=null;selDate=null;selTime=null;
+  const n=new Date();calYear=n.getFullYear();calMonth=n.getMonth();
+  document.getElementById('bookingModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderStep();
+}
+function closeBooking(){
+  document.getElementById('bookingModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function setDots(){for(let i=0;i<5;i++)document.getElementById('dot'+i).classList.toggle('active',i===step);}
+function renderStep(){
+  setDots();
+  const c=document.getElementById('stepContent');
+  if(step===0){
+    c.innerHTML='<div class="step-lbl">Step 1 — Select a Service</div><div class="svc-grid">'+
+      SERVICES.map((s,i)=>`<div class="svc-opt${selSvc===i?' sel':''}" onclick="selSvc=${i};renderStep()"><div class="svc-opt-name">${s.name}</div><div class="svc-opt-meta">${s.price} · ${s.dur}</div></div>`).join('')+
+      '</div><button class="modal-btn" onclick="if(selSvc!==null)step=1,renderStep()">Next →</button>';
+  }else if(step===1){
+    const dnames=['Su','Mo','Tu','We','Th','Fr','Sa'];
+    const first=new Date(calYear,calMonth,1).getDay();
+    const total=new Date(calYear,calMonth+1,0).getDate();
+    const now=new Date();
+    let cells='';
+    for(let i=0;i<first;i++)cells+=`<div></div>`;
+    for(let d=1;d<=total;d++){
+      const date=new Date(calYear,calMonth,d);
+      const past=date<new Date(now.getFullYear(),now.getMonth(),now.getDate());
+      const sel=selDate&&selDate.d===d&&selDate.m===calMonth&&selDate.y===calYear;
+      const avail=!past;
+      cells+=`<div onclick="${avail?`selDate={d:${d},m:${calMonth},y:${calYear}};renderStep()`:''}" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;cursor:${avail?'pointer':'default'};background:${sel?'var(--rosegold)':avail?'var(--black3)':'transparent'};color:${sel?'var(--black)':avail?'var(--white)':'rgba(255,255,255,0.2)'};">${d}</div>`;
+    }
+    const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    c.innerHTML=`<div class="step-lbl">Step 2 — Pick a Date</div>
+    <div class="cal-header"><button class="cal-nav" onclick="calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderStep()">‹</button><span class="cal-month">${months[calMonth]} ${calYear}</span><button class="cal-nav" onclick="calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderStep()">›</button></div>
+    <div class="cal-grid-m" style="margin-bottom:16px">${dnames.map(d=>`<div class="cal-dn">${d}</div>`).join('')}${cells}</div>
+    <button class="modal-btn" onclick="if(selDate)step=2,renderStep()">Next →</button>`;
+  }else if(step===2){
+    let slots='';
+    for(let h=OPEN_HOUR;h<CLOSE_HOUR;h+=1){
+      const hh=h>12?h-12:h===0?12:h,ampm=h>=12?'PM':'AM';
+      const label=`${hh}:00 ${ampm}`;
+      const sel=selTime===label;
+      slots+=`<div class="time-slot${sel?' sel':''}" onclick="selTime='${label}';renderStep()">${label}</div>`;
+    }
+    c.innerHTML=`<div class="step-lbl">Step 3 — Choose a Time</div><div class="time-grid">${slots}</div><button class="modal-btn" onclick="if(selTime)step=3,renderStep()">Next →</button>`;
+  }else if(step===3){
+    const svc=SERVICES[selSvc];
+    c.innerHTML=`<div class="step-lbl">Step 4 — Your Info</div>
+    <div class="bk-summary">
+      <div class="bk-row"><span>Service</span><span>${svc.name}</span></div>
+      <div class="bk-row"><span>Date</span><span>${selDate.m+1}/${selDate.d}/${selDate.y}</span></div>
+      <div class="bk-row"><span>Time</span><span>${selTime}</span></div>
+      <div class="bk-row"><span>Price</span><span>${svc.price}</span></div>
+    </div>
+    <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+    <div class="form-group"><label>Phone</label><input type="tel" placeholder="(215) 000-0000"></div>
+    <button class="modal-btn" onclick="step=4;renderStep()">Confirm Booking →</button>`;
+  }else if(step===4){
+    c.innerHTML=`<div class="confirm-screen"><div class="confirm-icon">✨</div><div class="confirm-title">You're Booked!</div><div class="confirm-sub">We'll call to confirm your appointment.<br><br><strong style="color:var(--rosegold)">${SERVICES[selSvc].name}</strong><br>${selDate.m+1}/${selDate.d}/${selDate.y} at ${selTime}<br><br>(215) 333-6188 · 7935 Bustleton Ave</div></div><button class="modal-btn" onclick="closeBooking()">Done</button>`;
+  }
+}
+</script>
+</body>
+</html>

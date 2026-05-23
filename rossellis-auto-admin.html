@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosselli's Automotive — Admin Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a1628;
+      --navy-light: #112040;
+      --navy-mid: #162848;
+      --crimson: #b91c1c;
+      --crimson-dark: #991b1b;
+      --white: #ffffff;
+      --off-white: #f5f5f0;
+      --warm-gray: #888888;
+      --text-muted: #6b7280;
+      --border: rgba(255,255,255,0.08);
+      --success: #16a34a;
+      --warning: #ca8a04;
+      --info: #1d4ed8;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* ─── PIN SCREEN ─── */
+    #pin-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 40px 24px;
+    }
+
+    .pin-logo {
+      font-family: 'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .pin-subtitle {
+      font-size: 0.78rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+    }
+
+    .pin-box {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--crimson);
+      padding: 48px 52px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .pin-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 24px;
+    }
+
+    .pin-dots {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .pin-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .pin-dot.filled {
+      background: var(--crimson);
+      border-color: var(--crimson);
+    }
+
+    .pin-pad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .pin-key {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      padding: 18px 8px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .pin-key:hover { background: var(--navy-mid); border-color: var(--crimson); }
+    .pin-key:active { background: var(--crimson); }
+
+    .pin-key.zero { grid-column: 2; }
+    .pin-key.del { grid-column: 3; font-size: 1rem; color: var(--warm-gray); }
+
+    .pin-error {
+      margin-top: 20px;
+      font-size: 0.82rem;
+      color: var(--crimson);
+      min-height: 20px;
+    }
+
+    /* ─── DASHBOARD ─── */
+    #dashboard {
+      display: none;
+    }
+
+    /* Header */
+    .dash-header {
+      background: var(--navy-light);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .dash-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dash-logo {
+      font-family: 'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .dash-divider {
+      width: 1px; height: 24px;
+      background: var(--border);
+    }
+
+    .dash-label {
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+      letter-spacing: 0.08em;
+    }
+
+    .dash-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-date {
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+    }
+
+    .btn-logout {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--warm-gray);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-logout:hover { border-color: var(--crimson); color: var(--white); }
+
+    /* Main layout */
+    .dash-main {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* Sidebar */
+    .dash-sidebar {
+      background: var(--navy-light);
+      border-right: 1px solid var(--border);
+      padding: 28px 0;
+    }
+
+    .sidebar-section {
+      padding: 0 16px;
+      margin-bottom: 32px;
+    }
+
+    .sidebar-section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      color: var(--warm-gray);
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background: rgba(185,28,28,0.12);
+      color: var(--white);
+    }
+
+    .sidebar-link.active {
+      border-left: 3px solid var(--crimson);
+      padding-left: 9px;
+    }
+
+    .sidebar-icon { font-size: 0.9rem; width: 18px; text-align: center; }
+
+    .btn-add-job {
+      margin: 0 16px;
+      background: var(--crimson);
+      color: var(--white);
+      border: none;
+      padding: 12px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      width: calc(100% - 32px);
+      text-align: center;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-add-job:hover { background: var(--crimson-dark); }
+
+    /* Content */
+    .dash-content {
+      padding: 32px;
+      overflow: auto;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .kpi-card {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--crimson);
+      padding: 24px 24px 20px;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 10px;
+    }
+
+    .kpi-value {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .kpi-sub {
+      font-size: 0.78rem;
+      color: var(--warm-gray);
+    }
+
+    /* Two-column layout */
+    .dash-row {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+    }
+
+    .panel-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .panel-badge {
+      background: rgba(185,28,28,0.2);
+      color: var(--crimson);
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      letter-spacing: 0.06em;
+    }
+
+    .panel-body { padding: 0; }
+
+    /* Appointments Table */
+    .appt-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .appt-table th {
+      padding: 12px 20px;
+      text-align: left;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+    }
+
+    .appt-table td {
+      padding: 16px 20px;
+      font-size: 0.87rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .appt-table tr:last-child td { border-bottom: none; }
+
+    .appt-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .customer-name {
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .status-badge {
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .status-badge.confirmed  { background: rgba(29,78,216,0.2); color: #60a5fa; }
+    .status-badge.completed  { background: rgba(22,163,74,0.2); color: #4ade80; }
+    .status-badge.in-progress { background: rgba(185,28,28,0.2); color: #fca5a5; }
+    .status-badge.pending    { background: rgba(202,138,4,0.2); color: #fbbf24; }
+
+    /* Calendar widget */
+    .mini-cal {
+      padding: 20px;
+    }
+
+    .mini-cal-header {
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+
+    .mini-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .mini-day-hdr {
+      text-align: center;
+      font-size: 0.65rem;
+      color: var(--warm-gray);
+      padding: 4px 2px;
+    }
+
+    .mini-day {
+      text-align: center;
+      padding: 6px 2px;
+      font-size: 0.8rem;
+      color: var(--white);
+      position: relative;
+    }
+
+    .mini-day.weekend { color: rgba(255,255,255,0.25); }
+    .mini-day.today {
+      background: var(--crimson);
+      border-radius: 2px;
+      font-weight: 700;
+    }
+    .mini-day.has-jobs::after {
+      content: '';
+      display: block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--crimson);
+      margin: 2px auto 0;
+    }
+    .mini-day.today.has-jobs::after { background: white; }
+
+    /* Services Panel */
+    .service-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-row:last-child { border-bottom: none; }
+
+    .service-row-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .service-row-price {
+      font-size: 0.88rem;
+      color: var(--crimson);
+      font-weight: 700;
+    }
+
+    .btn-edit {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--warm-gray);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .btn-edit:hover { border-color: var(--crimson); color: var(--white); }
+
+    /* Hours widget */
+    .hours-widget {
+      padding: 20px 24px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { color: var(--warm-gray); }
+    .hours-row .time { color: var(--white); font-weight: 500; }
+    .hours-row .time.closed { color: var(--crimson); }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--crimson);
+      padding: 16px 24px;
+      font-size: 0.88rem;
+      z-index: 9999;
+      transform: translateX(200%);
+      transition: transform 0.35s ease;
+      max-width: 320px;
+    }
+
+    #toast.show { transform: translateX(0); }
+
+    /* Booking Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 9000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--navy);
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-top: 4px solid var(--crimson);
+      position: relative;
+    }
+
+    .modal-header {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h3 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .modal-header p { font-size: 0.82rem; color: var(--warm-gray); }
+
+    .modal-close {
+      position: absolute;
+      top: 18px; right: 24px;
+      background: none;
+      border: none;
+      color: var(--warm-gray);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body { padding: 28px 32px; }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 12px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group select option { background: var(--navy); }
+    .form-group input:focus, .form-group select:focus { border-color: var(--crimson); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .modal-footer {
+      padding: 20px 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn-cancel {
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      border: none;
+      padding: 12px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem;
+      cursor: pointer;
+    }
+
+    .btn-save {
+      background: var(--crimson);
+      color: var(--white);
+      border: none;
+      padding: 12px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-save:hover { background: var(--crimson-dark); }
+
+    @media (max-width: 900px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .dash-row { grid-template-columns: 1fr; }
+      .dash-main { grid-template-columns: 1fr; }
+      .dash-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PIN SCREEN ═══ -->
+<div id="pin-screen">
+  <div class="pin-logo">Rosselli's Automotive</div>
+  <div class="pin-subtitle">Admin Portal</div>
+
+  <div class="pin-box">
+    <div class="pin-label">Enter Access PIN</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="dot0"></div>
+      <div class="pin-dot" id="dot1"></div>
+      <div class="pin-dot" id="dot2"></div>
+      <div class="pin-dot" id="dot3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinKey(1)">1</button>
+      <button class="pin-key" onclick="pinKey(2)">2</button>
+      <button class="pin-key" onclick="pinKey(3)">3</button>
+      <button class="pin-key" onclick="pinKey(4)">4</button>
+      <button class="pin-key" onclick="pinKey(5)">5</button>
+      <button class="pin-key" onclick="pinKey(6)">6</button>
+      <button class="pin-key" onclick="pinKey(7)">7</button>
+      <button class="pin-key" onclick="pinKey(8)">8</button>
+      <button class="pin-key" onclick="pinKey(9)">9</button>
+      <button class="pin-key zero" onclick="pinKey(0)">0</button>
+      <button class="pin-key del" onclick="pinDel()">DEL</button>
+    </div>
+    <div class="pin-error" id="pinError"></div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div id="dashboard">
+
+  <!-- Header -->
+  <header class="dash-header">
+    <div class="dash-header-left">
+      <span class="dash-logo">Rosselli's Automotive</span>
+      <div class="dash-divider"></div>
+      <span class="dash-label">Admin Portal</span>
+    </div>
+    <div class="dash-header-right">
+      <span class="header-date" id="headerDate"></span>
+      <button class="btn-logout" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <div class="dash-main">
+
+    <!-- Sidebar -->
+    <aside class="dash-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Overview</div>
+        <div class="sidebar-link active">
+          <span class="sidebar-icon">&#9776;</span> Today's Jobs
+        </div>
+        <div class="sidebar-link">
+          <span class="sidebar-icon">&#128197;</span> Schedule
+        </div>
+        <div class="sidebar-link">
+          <span class="sidebar-icon">&#9733;</span> Reviews
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Manage</div>
+        <div class="sidebar-link">
+          <span class="sidebar-icon">&#9881;</span> Services &amp; Pricing
+        </div>
+        <div class="sidebar-link">
+          <span class="sidebar-icon">&#9744;</span> Hours
+        </div>
+        <div class="sidebar-link">
+          <span class="sidebar-icon">&#9993;</span> Customer Messages
+        </div>
+      </div>
+      <button class="btn-add-job" onclick="openAddJob()">+ Add Service Call</button>
+    </aside>
+
+    <!-- Content -->
+    <main class="dash-content">
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Today's Jobs</div>
+          <div class="kpi-value">7</div>
+          <div class="kpi-sub">3 confirmed &bull; 2 pending</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">This Week</div>
+          <div class="kpi-value">9</div>
+          <div class="kpi-sub">Mon–Fri</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg Rating</div>
+          <div class="kpi-value">5.0<span style="font-size:1.2rem;color:var(--crimson);">&#9733;</span></div>
+          <div class="kpi-sub">All reviews</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Years in Business</div>
+          <div class="kpi-value">30<span style="font-size:1.2rem;">+</span></div>
+          <div class="kpi-sub">Family-owned since 1994</div>
+        </div>
+      </div>
+
+      <!-- Main Row: Appointments + Mini Calendar -->
+      <div class="dash-row">
+
+        <!-- Appointments Table -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Today's Appointments</span>
+            <span class="panel-badge" id="todayBadge">7 Jobs</span>
+          </div>
+          <div class="panel-body">
+            <table class="appt-table">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Service</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="apptBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div style="display:flex;flex-direction:column;gap:24px;">
+
+          <!-- Mini Calendar -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">This Week</span>
+            </div>
+            <div class="panel-body">
+              <div class="mini-cal">
+                <div class="mini-cal-header" id="miniCalMonth"></div>
+                <div class="mini-cal-grid" id="miniCalGrid"></div>
+              </div>
+              <div style="padding:0 20px 16px;">
+                <div style="display:flex;gap:16px;font-size:0.75rem;color:var(--warm-gray);">
+                  <span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--crimson);display:inline-block;"></span> Has jobs</span>
+                  <span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;background:var(--crimson);display:inline-block;"></span> Today</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hours -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Business Hours</span>
+              <button class="btn-edit" onclick="showToast('Hours editor coming soon.')">Edit</button>
+            </div>
+            <div class="panel-body">
+              <div class="hours-widget">
+                <div class="hours-row"><span class="day">Mon</span><span class="time">8:00 AM – 5:00 PM</span></div>
+                <div class="hours-row"><span class="day">Tue</span><span class="time">8:00 AM – 5:00 PM</span></div>
+                <div class="hours-row"><span class="day">Wed</span><span class="time">8:00 AM – 5:00 PM</span></div>
+                <div class="hours-row"><span class="day">Thu</span><span class="time">8:00 AM – 5:00 PM</span></div>
+                <div class="hours-row"><span class="day">Fri</span><span class="time">8:00 AM – 5:00 PM</span></div>
+                <div class="hours-row"><span class="day">Sat</span><span class="time closed">Closed</span></div>
+                <div class="hours-row"><span class="day">Sun</span><span class="time closed">Closed</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Services Panel -->
+      <div class="panel" style="margin-bottom:24px;">
+        <div class="panel-header">
+          <span class="panel-title">Services &amp; Pricing</span>
+          <button class="btn-edit" onclick="showToast('Service editor coming soon.')">+ Add Service</button>
+        </div>
+        <div class="panel-body" id="servicesPanel"></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Add Job Modal -->
+<div class="modal-overlay" id="addJobModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Add Service Call</h3>
+      <p>Rosselli's Automotive Admin</p>
+      <button class="modal-close" onclick="closeAddJob()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Customer Name</label>
+          <input type="text" id="newCustomer" placeholder="Full name">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="newPhone" placeholder="(215) 000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Vehicle</label>
+        <input type="text" id="newVehicle" placeholder="Year, Make, Model">
+      </div>
+      <div class="form-group">
+        <label>Service</label>
+        <select id="newService">
+          <option value="PA State Inspection">PA State Inspection — $39.99</option>
+          <option value="Oil Change">Oil Change — $49.99</option>
+          <option value="Brake Service">Brake Service — $149.99</option>
+          <option value="Wheel Alignment">Wheel Alignment — $79.99</option>
+          <option value="Tire Installation">Tire Installation — $79.99</option>
+          <option value="Auto Diagnostics">Auto Diagnostics — $89.99</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" id="newTime" value="09:00">
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select id="newStatus">
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeAddJob()">Cancel</button>
+      <button class="btn-save" onclick="saveJob()">Add Job</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+  // ─── PIN LOGIC ───
+  const CORRECT_PIN = '1234';
+  let pinInput = '';
+
+  function pinKey(n) {
+    if (pinInput.length >= 4) return;
+    pinInput += String(n);
+    updatePinDots();
+    if (pinInput.length === 4) {
+      setTimeout(checkPin, 200);
+    }
+  }
+
+  function pinDel() {
+    pinInput = pinInput.slice(0, -1);
+    updatePinDots();
+    document.getElementById('pinError').textContent = '';
+  }
+
+  function updatePinDots() {
+    for (let i = 0; i < 4; i++) {
+      document.getElementById(`dot${i}`).classList.toggle('filled', i < pinInput.length);
+    }
+  }
+
+  function checkPin() {
+    if (pinInput === CORRECT_PIN) {
+      document.getElementById('pin-screen').style.opacity = '0';
+      document.getElementById('pin-screen').style.transition = 'opacity 0.4s';
+      setTimeout(() => {
+        document.getElementById('pin-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        initDashboard();
+      }, 400);
+    } else {
+      document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
+      pinInput = '';
+      updatePinDots();
+      // Shake effect
+      const box = document.querySelector('.pin-box');
+      box.style.animation = 'shake 0.4s ease';
+      setTimeout(() => box.style.animation = '', 400);
+    }
+  }
+
+  function logout() {
+    pinInput = '';
+    updatePinDots();
+    document.getElementById('pinError').textContent = '';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('pin-screen').style.display = 'flex';
+    document.getElementById('pin-screen').style.opacity = '1';
+  }
+
+  // ─── DASHBOARD DATA ───
+  const APPOINTMENTS = [
+    { customer: 'Frank D.',    service: 'PA State Inspection', time: '9:00 AM',  status: 'Confirmed'   },
+    { customer: 'Rosa M.',     service: 'Oil Change',          time: '9:45 AM',  status: 'Completed'   },
+    { customer: 'Anthony B.',  service: 'Brake Service',       time: '10:30 AM', status: 'In Progress' },
+    { customer: 'Carlos R.',   service: 'Wheel Alignment',     time: '11:15 AM', status: 'Pending'     },
+    { customer: 'Michael T.',  service: 'PA State Inspection', time: '1:00 PM',  status: 'Confirmed'   },
+    { customer: 'Patricia S.', service: 'Tire Installation',   time: '2:00 PM',  status: 'Confirmed'   },
+    { customer: 'Joe B.',      service: 'Auto Diagnostics',    time: '3:00 PM',  status: 'Pending'     },
+  ];
+
+  const SERVICES = [
+    { name: 'PA State Inspection', price: '$39.99',  duration: '30–60 min' },
+    { name: 'Oil Change',          price: '$49.99',  duration: '45 min'    },
+    { name: 'Brake Service',       price: '$149.99', duration: '90 min'    },
+    { name: 'Wheel Alignment',     price: '$79.99',  duration: '60 min'    },
+    { name: 'Tire Installation',   price: '$79.99',  duration: '60 min'    },
+    { name: 'Auto Diagnostics',    price: '$89.99',  duration: '60 min'    },
+  ];
+
+  function initDashboard() {
+    setHeaderDate();
+    renderAppointments();
+    renderMiniCal();
+    renderServices();
+  }
+
+  function setHeaderDate() {
+    const now = new Date();
+    const opts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+    document.getElementById('headerDate').textContent = now.toLocaleDateString('en-US', opts);
+  }
+
+  function statusClass(s) {
+    return s.toLowerCase().replace(' ', '-');
+  }
+
+  function renderAppointments() {
+    const tbody = document.getElementById('apptBody');
+    tbody.innerHTML = APPOINTMENTS.map((a, i) => `
+      <tr>
+        <td><span class="customer-name">${a.customer}</span></td>
+        <td style="color:var(--text-light);font-size:0.85rem;">${a.service}</td>
+        <td style="color:var(--warm-gray);font-size:0.85rem;">${a.time}</td>
+        <td><span class="status-badge ${statusClass(a.status)}">${a.status}</span></td>
+        <td>
+          <button class="btn-edit" onclick="cycleStatus(${i})">Update</button>
+        </td>
+      </tr>
+    `).join('');
+    document.getElementById('todayBadge').textContent = `${APPOINTMENTS.length} Jobs`;
+  }
+
+  const STATUS_CYCLE = ['Pending', 'Confirmed', 'In Progress', 'Completed'];
+
+  function cycleStatus(idx) {
+    const current = APPOINTMENTS[idx].status;
+    const next = STATUS_CYCLE[(STATUS_CYCLE.indexOf(current) + 1) % STATUS_CYCLE.length];
+    APPOINTMENTS[idx].status = next;
+    renderAppointments();
+    showToast(`${APPOINTMENTS[idx].customer} → ${next}`);
+  }
+
+  function renderServices() {
+    const panel = document.getElementById('servicesPanel');
+    panel.innerHTML = SERVICES.map(s => `
+      <div class="service-row">
+        <div>
+          <div class="service-row-name">${s.name}</div>
+          <div style="font-size:0.75rem;color:var(--warm-gray);margin-top:2px;">${s.duration}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="service-row-price">${s.price}</span>
+          <button class="btn-edit" onclick="showToast('Price editor coming soon.')">Edit</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderMiniCal() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const today = now.getDate();
+    const dayOfWeek = now.getDay(); // 0=Sun
+
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('miniCalMonth').textContent = `${monthNames[month]} ${year}`;
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const dayHeaders = ['S','M','T','W','T','F','S'];
+    let html = dayHeaders.map(d => `<div class="mini-day-hdr">${d}</div>`).join('');
+
+    for (let i = 0; i < firstDay; i++) html += `<div class="mini-day"></div>`;
+
+    // Days with jobs (for demo: today and a few nearby)
+    const jobDays = new Set([today, today + 1, today - 1, today + 2].filter(d => d > 0 && d <= daysInMonth));
+    // Remove weekends from job days
+    jobDays.forEach(d => {
+      const dow = new Date(year, month, d).getDay();
+      if (dow === 0 || dow === 6) jobDays.delete(d);
+    });
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dow = new Date(year, month, d).getDay();
+      const isWeekend = dow === 0 || dow === 6;
+      const isToday = d === today;
+      const hasJobs = jobDays.has(d);
+
+      let cls = 'mini-day';
+      if (isWeekend) cls += ' weekend';
+      if (isToday) cls += ' today';
+      if (hasJobs && !isWeekend) cls += ' has-jobs';
+
+      html += `<div class="${cls}">${d}</div>`;
+    }
+
+    document.getElementById('miniCalGrid').innerHTML = html;
+  }
+
+  // ─── ADD JOB MODAL ───
+  function openAddJob() {
+    document.getElementById('addJobModal').classList.add('active');
+  }
+
+  function closeAddJob() {
+    document.getElementById('addJobModal').classList.remove('active');
+  }
+
+  document.getElementById('addJobModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAddJob();
+  });
+
+  function saveJob() {
+    const customer = document.getElementById('newCustomer').value.trim();
+    const service = document.getElementById('newService').value;
+    const rawTime = document.getElementById('newTime').value;
+    const status = document.getElementById('newStatus').value;
+
+    if (!customer) { showToast('Please enter a customer name.'); return; }
+
+    // Format time
+    const [h, m] = rawTime.split(':').map(Number);
+    const period = h >= 12 ? 'PM' : 'AM';
+    const hour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+    const timeStr = `${hour}:${String(m).padStart(2,'0')} ${period}`;
+
+    APPOINTMENTS.push({ customer, service, time: timeStr, status });
+    APPOINTMENTS.sort((a, b) => {
+      // Simple sort by time string
+      return a.time.localeCompare(b.time);
+    });
+
+    renderAppointments();
+    closeAddJob();
+    showToast(`Added: ${customer} — ${service}`);
+
+    // Reset form
+    document.getElementById('newCustomer').value = '';
+    document.getElementById('newPhone').value = '';
+    document.getElementById('newVehicle').value = '';
+  }
+
+  // ─── TOAST ───
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // CSS shake animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-8px); }
+      80%      { transform: translateX(4px); }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+
+</body>
+</html>
