@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OLIO — Modern Mediterranean Bistro</title>
+<meta name="description" content="Sun-drenched Mediterranean flavors, honest ingredients, and a table that feels like home. Est. 1997, Northeast Philadelphia.">
+<!-- Open Graph -->
+<meta property="og:title" content="OLIO — Modern Mediterranean Bistro">
+<meta property="og:description" content="Sun-drenched flavors, honest ingredients, and a table that feels like home — from the olive groves of Puglia to the shores of the Aegean.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85&fm=jpg&fit=crop">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rafael14741.github.io/demos/restaurant-bistro-template.html">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OLIO — Modern Mediterranean Bistro">
+<meta name="twitter:description" content="Sun-drenched flavors, honest ingredients, and a table that feels like home.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85&fm=jpg&fit=crop">
+<!-- Preload hero LCP image -->
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85&fm=jpg&fit=crop&crop=center">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -35,17 +51,6 @@ section { position:relative; }
 #reviews      { z-index:6; }
 #hours        { z-index:7; }
 #footer       { z-index:8; }
-
-/* ── HERO FLOATING DISH ── */
-.hero-floating-dish {
-  position:absolute; bottom:72px; right:44px;
-  width:180px; height:180px; pointer-events:none; z-index:3;
-  animation:dishFloat 7s ease-in-out infinite;
-}
-@keyframes dishFloat {
-  0%,100% { transform:translateY(0) rotate(0deg); }
-  50%     { transform:translateY(-14px) rotate(3.5deg); }
-}
 
 /* ── CUSTOM CURSOR ── */
 #cursor {
@@ -682,10 +687,10 @@ section { position:relative; }
     </div>
     <div class="about-right">
       <div class="about-img about-img-1 reveal-img">
-        <img src="https://images.unsplash.com/photo-1653611540493-b3a896319fbf?fm=jpg&q=80&w=600&auto=format&fit=crop" alt="Mediterranean food">
+        <img src="https://images.unsplash.com/photo-1653611540493-b3a896319fbf?fm=jpg&q=80&w=600&auto=format&fit=crop" alt="Mediterranean food" loading="lazy">
       </div>
       <div class="about-img about-img-2 reveal-img">
-        <img src="https://images.unsplash.com/photo-1523986371872-9d3ba2e2a389?fm=jpg&q=80&w=600&auto=format&fit=crop" alt="Restaurant ambiance">
+        <img src="https://images.unsplash.com/photo-1523986371872-9d3ba2e2a389?fm=jpg&q=80&w=600&auto=format&fit=crop" alt="Restaurant ambiance" loading="lazy">
       </div>
     </div>
   </div>
@@ -727,21 +732,21 @@ section { position:relative; }
     <h2 class="gallery-title section-title">A Feast for the Eyes</h2>
   </div>
   <div class="masonry" id="masonryGrid">
-    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1653611540493-b3a896319fbf?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Mediterranean dish" class="reveal-img-clip"></div>
-    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Pasta dish" class="reveal-img-clip"></div>
-    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1680405531955-8b4981bb1b0c?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Plated food" class="reveal-img-clip"></div>
-    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Food spread" class="reveal-img-clip"></div>
-    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1748540459503-19efc015143b?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Restaurant food" class="reveal-img-clip"></div>
-    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Healthy bowl" class="reveal-img-clip"></div>
-    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1672636401225-ec3d4025a4af?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Mediterranean platter" class="reveal-img-clip"></div>
-    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Overhead food" class="reveal-img-clip"></div>
-    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Elegant plate" class="reveal-img-clip"></div>
-    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Food bowl" class="reveal-img-clip"></div>
-    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1523986371872-9d3ba2e2a389?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Mezze" class="reveal-img-clip"></div>
-    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Restaurant dining" class="reveal-img-clip"></div>
+    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1653611540493-b3a896319fbf?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Mediterranean dish" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Pasta dish" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1680405531955-8b4981bb1b0c?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Plated food" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Food spread" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1748540459503-19efc015143b?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Restaurant food" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Healthy bowl" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1672636401225-ec3d4025a4af?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Mediterranean platter" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Overhead food" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item tall"><img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Elegant plate" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Food bowl" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item short"><img src="https://images.unsplash.com/photo-1523986371872-9d3ba2e2a389?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Mezze" class="reveal-img-clip" loading="lazy"></div>
+    <div class="masonry-item square"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Restaurant dining" class="reveal-img-clip" loading="lazy"></div>
   </div>
   <div class="gallery-panorama">
-    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?fm=jpg&q=80&w=1800&auto=format&fit=crop" alt="Restaurant panorama" class="reveal-img-clip">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?fm=jpg&q=80&w=1800&auto=format&fit=crop" alt="Restaurant panorama" class="reveal-img-clip" loading="lazy">
   </div>
 </section>
 
@@ -811,7 +816,7 @@ section { position:relative; }
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"The branzino brought me back to the Amalfi coast. Every single bite is crafted with intention. OLIO isn't just a restaurant — it's an experience that changes how you think about food."</p>
         <div class="review-author">
-          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo" loading="lazy">
           <div><p class="review-name">Daniel Marcos</p><p class="review-via">via Google</p></div>
         </div>
       </div>
@@ -819,7 +824,7 @@ section { position:relative; }
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"The lamb tagine was the best thing I've eaten in Philadelphia, full stop. The service is warm, attentive, and never rushed. We lingered for three hours and nobody batted an eye."</p>
         <div class="review-author">
-          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo" loading="lazy">
           <div><p class="review-name">Sofia Reinholt</p><p class="review-via">via Yelp</p></div>
         </div>
       </div>
@@ -827,7 +832,7 @@ section { position:relative; }
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"Our fifth anniversary dinner. Marco came out personally to greet us and suggested a wine we'd never heard of. It was perfect. This place has magic — we keep coming back."</p>
         <div class="review-author">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo" loading="lazy">
           <div><p class="review-name">James Kowalski</p><p class="review-via">via OpenTable</p></div>
         </div>
       </div>
@@ -835,7 +840,7 @@ section { position:relative; }
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"I ordered the truffle tagliatelle and literally said 'oh my god' out loud. The pasta is handmade, the ingredients are impeccable. This is what fine dining should feel like — soulful, not stuffy."</p>
         <div class="review-author">
-          <img src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo">
+          <img src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo" loading="lazy">
           <div><p class="review-name">Priya Nambiar</p><p class="review-via">via Google</p></div>
         </div>
       </div>
@@ -843,7 +848,7 @@ section { position:relative; }
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"Took my whole family here for a graduation dinner. The mezze board alone was worth the trip. The tiramisu is the best I've had outside of Rome. OLIO is Northeast Philly's best-kept secret."</p>
         <div class="review-author">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?fm=jpg&q=80&w=200&auto=format&fit=crop&crop=faces" alt="" class="review-photo" loading="lazy">
           <div><p class="review-name">Maria Chen</p><p class="review-via">via Yelp</p></div>
         </div>
       </div>
