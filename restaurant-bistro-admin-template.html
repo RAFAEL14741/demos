@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OLIO — Admin Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Brand */
+  --coral:       #d4503a;
+  --coral-dark:  #b8402e;
+  --coral-soft:  rgba(212,80,58,0.13);
+  --coral-glow:  rgba(212,80,58,0.32);
+  --sand:        #f4ede3;
+  --slate:       #1b2d3e;
+
+  /* Dark surfaces */
+  --bg:          #0f1e2b;
+  --surface:     #1b2d3e;
+  --surface-2:   #243649;
+  --surface-3:   #2e4459;
+
+  /* Text */
+  --text:        #f4ede3;
+  --text-2:      rgba(244,237,227,0.62);
+  --text-3:      rgba(244,237,227,0.34);
+
+  /* Borders */
+  --border:      rgba(244,237,227,0.07);
+  --border-md:   rgba(244,237,227,0.13);
+
+  /* Semantic */
+  --green:       #4caf7e;
+  --green-soft:  rgba(76,175,126,0.14);
+  --yellow:      #e6b84f;
+  --yellow-soft: rgba(230,184,79,0.14);
+  --red:         #e05555;
+  --red-soft:    rgba(224,85,85,0.14);
+
+  /* Type */
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+
+  /* Layout */
+  --sidebar-w: 236px;
+  --radius:    13px;
+  --radius-sm: 8px;
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html, body { height: 100%; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 3px; }
+
+/* ────────────────────────────────────────
+   LOGIN
+──────────────────────────────────────── */
+#login-screen {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+#login-screen.hidden {
+  opacity: 0; pointer-events: none; transform: scale(1.04);
+}
+
+.login-wrap { width: min(90vw, 340px); text-align: center; }
+
+.login-eyebrow {
+  font-size: .62rem; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--coral);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.login-eyebrow::before,
+.login-eyebrow::after {
+  content: ''; flex: 1; max-width: 28px; height: 1px; background: var(--coral);
+}
+
+.login-logo {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 8vw, 3.2rem);
+  color: var(--text); line-height: 1;
+  margin-bottom: 5px;
+  letter-spacing: .04em;
+}
+.login-logo span { color: var(--coral); }
+
+.login-sub {
+  font-size: .76rem; color: var(--text-3);
+  letter-spacing: .08em; margin-bottom: 42px;
+}
+
+/* PIN dots */
+.pin-dots {
+  display: flex; gap: 14px; justify-content: center; margin-bottom: 30px;
+}
+.pin-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--border-md); background: transparent;
+  transition: background 0.18s, border-color 0.18s, transform 0.14s;
+}
+.pin-dot.on { background: var(--coral); border-color: var(--coral); transform: scale(1.25); }
+
+/* PIN pad */
+.pin-pad {
+  display: grid; grid-template-columns: repeat(3, 72px);
+  gap: 10px; justify-content: center; margin-bottom: 14px;
+}
+.pin-key {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border);
+  font-family: var(--sans); font-size: 1.3rem; font-weight: 400;
+  color: var(--text); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.14s, border-color 0.14s, transform 0.1s;
+  user-select: none;
+}
+.pin-key:hover  { background: var(--surface-2); border-color: var(--border-md); }
+.pin-key:active { transform: scale(0.88); }
+.pin-key.go  { background: var(--coral); border-color: var(--coral); color: #fff; font-size: .95rem; font-weight: 600; }
+.pin-key.go:hover { background: var(--coral-dark); }
+.pin-key.clr { color: var(--text-3); font-size: 1rem; }
+
+.pin-error {
+  font-size: .76rem; color: var(--red); min-height: 20px;
+  text-align: center;
+}
+
+/* ────────────────────────────────────────
+   DASHBOARD SHELL
+──────────────────────────────────────── */
+#dashboard { display: none; min-height: 100vh; }
+
+.dash-layout { display: flex; min-height: 100vh; }
+
+/* ────────────────────────────────────────
+   SIDEBAR
+──────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed; top: 0; left: 0; bottom: 0;
+  display: flex; flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sb-header {
+  padding: 26px 18px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sb-logo {
+  font-family: var(--serif);
+  font-size: 1.55rem; letter-spacing: .05em;
+  color: var(--text); margin-bottom: 2px;
+}
+.sb-logo span { color: var(--coral); }
+.sb-sub {
+  font-size: .6rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.sb-nav { flex: 1; padding: 10px 8px; }
+
+.sb-section {
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 14px 12px 5px;
+}
+
+.sb-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: .84rem; font-weight: 500;
+  color: var(--text-2); cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  margin-bottom: 1px;
+  user-select: none; border: none; background: none;
+  font-family: var(--sans); text-align: left; width: 100%;
+}
+.sb-item:hover { background: var(--surface-2); color: var(--text); }
+.sb-item.active { background: var(--coral-soft); color: var(--coral); }
+
+.sb-icon {
+  width: 18px; flex-shrink: 0; text-align: center;
+  font-size: .95rem; line-height: 1;
+}
+
+.sb-badge {
+  margin-left: auto;
+  background: var(--coral); color: #fff;
+  border-radius: 20px; font-size: .62rem; font-weight: 700;
+  padding: 2px 7px; min-width: 18px; text-align: center;
+  display: none;
+}
+.sb-badge.show { display: inline-block; }
+
+.sb-footer {
+  padding: 12px 8px; border-top: 1px solid var(--border);
+}
+.sb-logout {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: .84rem; font-weight: 500; color: var(--text-3);
+  cursor: pointer; background: none; border: none;
+  font-family: var(--sans); width: 100%; text-align: left;
+  transition: background 0.18s, color 0.18s;
+}
+.sb-logout:hover { background: var(--red-soft); color: var(--red); }
+
+/* ────────────────────────────────────────
+   MAIN AREA
+──────────────────────────────────────── */
+#main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  display: flex; flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Topbar */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+  flex-shrink: 0;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-title {
+  font-family: var(--serif);
+  font-size: 1.25rem; letter-spacing: .02em;
+  color: var(--text);
+}
+.topbar-right {
+  display: flex; align-items: center; gap: 16px;
+  font-size: .78rem; color: var(--text-2);
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  animation: livePulse 2.2s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(76,175,126,0.45); }
+  55%     { box-shadow: 0 0 0 6px rgba(76,175,126,0); }
+}
+
+/* Content */
+.content {
+  flex: 1; padding: 28px 32px;
+}
+
+/* ────────────────────────────────────────
+   SECTIONS
+──────────────────────────────────────── */
+.section { display: none; }
+.section.active {
+  display: block;
+  animation: fadeUp 0.28s var(--ease);
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.sec-header { margin-bottom: 22px; }
+.sec-title {
+  font-family: var(--serif); font-size: 1.85rem;
+  color: var(--text); line-height: 1.1; margin-bottom: 3px;
+}
+.sec-desc { font-size: .82rem; color: var(--text-2); }
+
+/* ────────────────────────────────────────
+   CARDS
+──────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ────────────────────────────────────────
+   FILTER ROW
+──────────────────────────────────────── */
+.filter-row {
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 16px;
+}
+.filter-spacer { flex: 1; }
+
+.filter-btn {
+  padding: 6px 15px; border-radius: 20px;
+  font-size: .78rem; font-weight: 500;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text-2); cursor: pointer;
+  font-family: var(--sans);
+  transition: background 0.16s, border-color 0.16s, color 0.16s;
+}
+.filter-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-md); }
+.filter-btn.active { background: var(--coral-soft); border-color: var(--coral); color: var(--coral); }
+
+/* ────────────────────────────────────────
+   BUTTONS
+──────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: var(--radius-sm);
+  font-family: var(--sans); font-size: .82rem; font-weight: 600;
+  cursor: pointer; border: none;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.14s;
+  letter-spacing: .02em; line-height: 1;
+}
+.btn-coral  { background: var(--coral); color: #fff; }
+.btn-coral:hover  { background: var(--coral-dark); box-shadow: 0 4px 18px var(--coral-glow); transform: translateY(-1px); }
+.btn-ghost  { background: transparent; color: var(--text-2); border: 1px solid var(--border-md); }
+.btn-ghost:hover  { background: var(--surface-2); color: var(--text); }
+.btn-danger { background: var(--red-soft); color: var(--red); border: 1px solid transparent; }
+.btn-danger:hover { background: var(--red); color: #fff; }
+.btn-ok     { background: var(--green-soft); color: var(--green); border: 1px solid transparent; }
+.btn-ok:hover     { background: var(--green); color: #fff; }
+.btn-sm { padding: 5px 11px; font-size: .76rem; }
+
+/* ────────────────────────────────────────
+   TABLE
+──────────────────────────────────────── */
+.table-wrap { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; }
+
+thead th {
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--text-3); text-align: left;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border-md);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: .86rem; color: var(--text-2);
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background 0.14s; }
+tbody tr:hover td { background: var(--surface-2); color: var(--text); }
+
+/* Status badges */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: .67rem; font-weight: 700; letter-spacing: .04em;
+  white-space: nowrap;
+}
+.badge-confirmed { background: var(--green-soft);  color: var(--green); }
+.badge-pending   { background: var(--yellow-soft); color: var(--yellow); }
+.badge-cancelled { background: var(--red-soft);    color: var(--red); }
+.badge-completed { background: rgba(244,237,227,0.07); color: var(--text-3); }
+
+/* Action cluster */
+.action-cluster { display: flex; gap: 5px; flex-wrap: wrap; }
+
+/* ────────────────────────────────────────
+   FORMS
+──────────────────────────────────────── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { margin-bottom: 14px; }
+
+label.field-label {
+  display: block; font-size: .68rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 6px;
+}
+
+input[type="text"], input[type="number"],
+input[type="date"], input[type="time"],
+select, textarea {
+  width: 100%; padding: 9px 13px;
+  background: var(--surface-2); border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-family: var(--sans); font-size: .88rem;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  -webkit-appearance: none; appearance: none;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px var(--coral-soft);
+}
+/* dark select arrow */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f4ede360' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+}
+select option { background: var(--surface-2); color: var(--text); }
+textarea { resize: vertical; min-height: 78px; }
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+}
+
+/* ────────────────────────────────────────
+   MODAL
+──────────────────────────────────────── */
+#modal-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(9, 18, 27, 0.82);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.28s;
+}
+#modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border-md);
+  border-radius: 18px;
+  padding: 26px 30px;
+  width: min(93vw, 500px);
+  max-height: 88vh; overflow-y: auto;
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.28s var(--ease);
+}
+#modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal-hd {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 22px;
+}
+.modal-title {
+  font-family: var(--serif); font-size: 1.45rem; color: var(--text);
+}
+.modal-x {
+  background: none; border: none; color: var(--text-3);
+  font-size: 1.2rem; cursor: pointer; padding: 3px 7px;
+  border-radius: 6px; font-family: var(--sans); line-height: 1;
+  transition: background 0.14s, color 0.14s;
+}
+.modal-x:hover { background: var(--surface-2); color: var(--text); }
+
+.modal-ft {
+  display: flex; gap: 10px; justify-content: flex-end;
+  margin-top: 20px; padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ────────────────────────────────────────
+   TOAST
+──────────────────────────────────────── */
+#toast {
+  position: fixed; bottom: 22px; right: 22px; z-index: 9999;
+  background: var(--surface-2); border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm); padding: 11px 18px;
+  font-size: .82rem; color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,.45);
+  transform: translateY(70px); opacity: 0;
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+  pointer-events: none; max-width: 260px;
+}
+#toast.show   { transform: translateY(0); opacity: 1; }
+#toast.ok     { border-left: 3px solid var(--green); }
+#toast.err    { border-left: 3px solid var(--red); }
+
+/* ────────────────────────────────────────
+   PLACEHOLDER (coming-soon panels)
+──────────────────────────────────────── */
+.placeholder-panel {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 280px; gap: 12px;
+  background: var(--surface); border: 1px dashed var(--border-md);
+  border-radius: var(--radius);
+  color: var(--text-3);
+}
+.placeholder-icon { font-size: 2.2rem; opacity: .4; }
+.placeholder-label { font-size: .82rem; }
+
+/* ────────────────────────────────────────
+   RESPONSIVE
+──────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  #sidebar { transform: translateX(-236px); width: 236px; transition: transform 0.3s var(--ease); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .content { padding: 18px 16px; }
+  .topbar { padding: 0 16px; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="login-screen">
+  <div class="login-wrap">
+    <div class="login-eyebrow">Admin Portal</div>
+    <div class="login-logo">OL<span>I</span>O</div>
+    <div class="login-sub">Modern Mediterranean Bistro</div>
+
+    <div class="pin-dots">
+      <div class="pin-dot" id="pd0"></div>
+      <div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div>
+      <div class="pin-dot" id="pd3"></div>
+    </div>
+
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinKey('1')">1</button>
+      <button class="pin-key" onclick="pinKey('2')">2</button>
+      <button class="pin-key" onclick="pinKey('3')">3</button>
+      <button class="pin-key" onclick="pinKey('4')">4</button>
+      <button class="pin-key" onclick="pinKey('5')">5</button>
+      <button class="pin-key" onclick="pinKey('6')">6</button>
+      <button class="pin-key" onclick="pinKey('7')">7</button>
+      <button class="pin-key" onclick="pinKey('8')">8</button>
+      <button class="pin-key" onclick="pinKey('9')">9</button>
+      <button class="pin-key clr" onclick="pinClear()">⌫</button>
+      <button class="pin-key" onclick="pinKey('0')">0</button>
+      <button class="pin-key go" onclick="pinSubmit()">→</button>
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="dashboard">
+  <div class="dash-layout">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <div class="sb-header">
+        <div class="sb-logo">OL<span>I</span>O</div>
+        <div class="sb-sub">Admin Portal</div>
+      </div>
+
+      <nav class="sb-nav">
+        <div class="sb-section">Overview</div>
+        <button class="sb-item" data-sec="analytics" onclick="showSection('analytics', this)">
+          <span class="sb-icon">◈</span> Analytics
+        </button>
+
+        <div class="sb-section">Manage</div>
+        <button class="sb-item active" data-sec="reservations" onclick="showSection('reservations', this)">
+          <span class="sb-icon">◷</span> Reservations
+          <span class="sb-badge" id="pending-badge">0</span>
+        </button>
+        <button class="sb-item" data-sec="menu" onclick="showSection('menu', this)">
+          <span class="sb-icon">◑</span> Menu
+        </button>
+        <button class="sb-item" data-sec="reviews" onclick="showSection('reviews', this)">
+          <span class="sb-icon">◎</span> Reviews
+        </button>
+
+        <div class="sb-section">Settings</div>
+        <button class="sb-item" data-sec="hours" onclick="showSection('hours', this)">
+          <span class="sb-icon">◔</span> Hours
+        </button>
+      </nav>
+
+      <div class="sb-footer">
+        <button class="sb-logout" onclick="logout()">
+          <span class="sb-icon">↩</span> Log Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div id="main">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title" id="topbar-title">Reservations</div>
+        </div>
+        <div class="topbar-right">
+          <div class="live-dot"></div>
+          <span id="topbar-date"></span>
+          <span style="color:var(--text-3)">|</span>
+          <span>OLIO Bistro</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+
+        <!-- ── RESERVATIONS ── -->
+        <section class="section active" id="sec-reservations">
+          <div class="sec-header">
+            <div class="sec-title">Reservations</div>
+            <div class="sec-desc">Manage all bookings and walk-ins</div>
+          </div>
+
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="setResFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="setResFilter('pending', this)">Pending</button>
+            <button class="filter-btn" onclick="setResFilter('confirmed', this)">Confirmed</button>
+            <button class="filter-btn" onclick="setResFilter('cancelled', this)">Cancelled</button>
+            <div class="filter-spacer"></div>
+            <button class="btn btn-coral btn-sm" onclick="openResModal(null)">+ New Reservation</button>
+          </div>
+
+          <div class="card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Guest</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Party</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="res-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── ANALYTICS (placeholder) ── -->
+        <section class="section" id="sec-analytics">
+          <div class="sec-header">
+            <div class="sec-title">Analytics</div>
+            <div class="sec-desc">Restaurant overview and KPIs</div>
+          </div>
+          <div class="placeholder-panel">
+            <div class="placeholder-icon">◈</div>
+            <div class="placeholder-label">Analytics coming soon</div>
+          </div>
+        </section>
+
+        <!-- ── MENU (placeholder) ── -->
+        <section class="section" id="sec-menu">
+          <div class="sec-header">
+            <div class="sec-title">Menu</div>
+            <div class="sec-desc">Add, edit, and toggle dishes</div>
+          </div>
+          <div class="placeholder-panel">
+            <div class="placeholder-icon">◑</div>
+            <div class="placeholder-label">Menu manager coming soon</div>
+          </div>
+        </section>
+
+        <!-- ── REVIEWS (placeholder) ── -->
+        <section class="section" id="sec-reviews">
+          <div class="sec-header">
+            <div class="sec-title">Reviews</div>
+            <div class="sec-desc">Monitor and respond to guest feedback</div>
+          </div>
+          <div class="placeholder-panel">
+            <div class="placeholder-icon">◎</div>
+            <div class="placeholder-label">Reviews dashboard coming soon</div>
+          </div>
+        </section>
+
+        <!-- ── HOURS (placeholder) ── -->
+        <section class="section" id="sec-hours">
+          <div class="sec-header">
+            <div class="sec-title">Hours</div>
+            <div class="sec-desc">Edit your weekly schedule</div>
+          </div>
+          <div class="placeholder-panel">
+            <div class="placeholder-icon">◔</div>
+            <div class="placeholder-label">Hours editor coming soon</div>
+          </div>
+        </section>
+
+      </div><!-- /content -->
+    </div><!-- /main -->
+
+  </div><!-- /dash-layout -->
+</div><!-- /dashboard -->
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div id="modal-overlay" onclick="closeModalBg(event)">
+  <div class="modal" id="modal-box">
+    <div class="modal-hd">
+      <div class="modal-title" id="modal-title">Reservation</div>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ TOAST ═══════════════ -->
+<div id="toast"></div>
+
+<script>
+/* ─────────────────────────────────────────────
+   DEFAULT DATA
+───────────────────────────────────────────── */
+const DEFAULT_RESERVATIONS = [
+  { id:1,  name:'Maria Santos',   date:'2026-05-25', time:'19:00', party:4, phone:'(215) 555-0142', status:'confirmed', notes:'Anniversary dinner'         },
+  { id:2,  name:'James Kowalski', date:'2026-05-25', time:'19:30', party:6, phone:'(215) 555-0189', status:'pending',   notes:'Window table requested'     },
+  { id:3,  name:'Rosa Delgado',   date:'2026-05-26', time:'18:00', party:2, phone:'(267) 555-0214', status:'confirmed', notes:''                            },
+  { id:4,  name:'Frank Russo',    date:'2026-05-25', time:'20:00', party:8, phone:'(215) 555-0367', status:'pending',   notes:'Birthday party — large group'},
+  { id:5,  name:'Chen Family',    date:'2026-05-26', time:'13:00', party:5, phone:'(215) 555-0421', status:'confirmed', notes:''                            },
+  { id:6,  name:'Sofia Mendes',   date:'2026-05-27', time:'20:30', party:3, phone:'(267) 555-0098', status:'pending',   notes:'Gluten-free required'        },
+  { id:7,  name:'David Park',     date:'2026-05-24', time:'19:00', party:2, phone:'(215) 555-0552', status:'completed', notes:''                            },
+  { id:8,  name:'Linda Greco',    date:'2026-05-23', time:'18:30', party:4, phone:'(267) 555-0715', status:'completed', notes:''                            },
+  { id:9,  name:'Tom Wagner',     date:'2026-05-22', time:'20:00', party:2, phone:'(215) 555-0819', status:'cancelled', notes:'Cancelled — weather'         },
+  { id:10, name:'Ana Ferreira',   date:'2026-05-28', time:'19:00', party:6, phone:'(267) 555-0337', status:'confirmed', notes:'Special occasion'            },
+];
+
+/* ─────────────────────────────────────────────
+   STATE
+───────────────────────────────────────────── */
+let reservations = [];
+let resFilter    = 'all';
+let editingResId = null;
+
+function loadData() {
+  const stored = localStorage.getItem('olio_res');
+  reservations = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(DEFAULT_RESERVATIONS));
+}
+function saveData() {
+  localStorage.setItem('olio_res', JSON.stringify(reservations));
+}
+
+/* ─────────────────────────────────────────────
+   PIN LOGIN
+───────────────────────────────────────────── */
+const PIN = '1234';
+let pinVal = '';
+
+function pinKey(d) {
+  if (pinVal.length >= 4) return;
+  pinVal += d;
+  syncDots();
+  if (pinVal.length === 4) setTimeout(pinSubmit, 130);
+}
+
+function pinClear() {
+  pinVal = pinVal.slice(0, -1);
+  syncDots();
+  document.getElementById('pin-error').textContent = '';
+}
+
+function syncDots() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('pd' + i).classList.toggle('on', i < pinVal.length);
+  }
+}
+
+function pinSubmit() {
+  if (pinVal === PIN) {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('dashboard').style.display = 'block';
+    initDashboard();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
+    shakePad();
+    pinVal = '';
+    syncDots();
+  }
+}
+
+function shakePad() {
+  const pad = document.querySelector('.pin-pad');
+  pad.style.animation = 'none';
+  pad.offsetHeight; // reflow
+  pad.style.animation = 'shake 0.38s ease';
+}
+
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
+function initDashboard() {
+  loadData();
+  setTopbarDate();
+  renderReservations();
+  updatePendingBadge();
+}
+
+function setTopbarDate() {
+  const d = new Date();
+  document.getElementById('topbar-date').textContent =
+    d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+}
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────── */
+const SEC_TITLES = {
+  analytics:    'Analytics',
+  reservations: 'Reservations',
+  menu:         'Menu',
+  reviews:      'Reviews',
+  hours:        'Hours',
+};
+
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('topbar-title').textContent = SEC_TITLES[id] || id;
+}
+
+/* ─────────────────────────────────────────────
+   RESERVATIONS — RENDER
+───────────────────────────────────────────── */
+function renderReservations() {
+  let list = reservations;
+  if (resFilter !== 'all') list = list.filter(r => r.status === resFilter);
+
+  const tbody = document.getElementById('res-tbody');
+
+  if (!list.length) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center;padding:40px 14px;color:var(--text-3)">
+          No reservations found
+        </td>
+      </tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(r => `
+    <tr>
+      <td>
+        <strong style="color:var(--text);font-weight:600">${esc(r.name)}</strong>
+        ${r.notes ? `<br><span style="font-size:.74rem;color:var(--text-3)">${esc(r.notes)}</span>` : ''}
+      </td>
+      <td style="white-space:nowrap">${fmtDate(r.date)}</td>
+      <td style="white-space:nowrap">${fmtTime(r.time)}</td>
+      <td>${r.party}</td>
+      <td style="white-space:nowrap">${esc(r.phone)}</td>
+      <td><span class="badge badge-${r.status}">${r.status}</span></td>
+      <td>
+        <div class="action-cluster">
+          ${r.status === 'pending' ? `
+            <button class="btn btn-ok btn-sm" title="Confirm" onclick="setStatus(${r.id},'confirmed')">✓</button>
+            <button class="btn btn-danger btn-sm" title="Cancel" onclick="setStatus(${r.id},'cancelled')">✕</button>
+          ` : ''}
+          ${r.status === 'confirmed' ? `
+            <button class="btn btn-danger btn-sm" onclick="setStatus(${r.id},'cancelled')">Cancel</button>
+          ` : ''}
+          <button class="btn btn-ghost btn-sm" onclick="openResModal(${r.id})">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteRes(${r.id})">Del</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ─────────────────────────────────────────────
+   RESERVATIONS — ACTIONS
+───────────────────────────────────────────── */
+function setStatus(id, status) {
+  const r = reservations.find(x => x.id === id);
+  if (!r) return;
+  r.status = status;
+  saveData();
+  renderReservations();
+  updatePendingBadge();
+  toast('Reservation ' + status, 'ok');
+}
+
+function deleteRes(id) {
+  if (!confirm('Remove this reservation?')) return;
+  reservations = reservations.filter(r => r.id !== id);
+  saveData();
+  renderReservations();
+  updatePendingBadge();
+  toast('Reservation removed', 'ok');
+}
+
+function setResFilter(f, el) {
+  resFilter = f;
+  document.querySelectorAll('#sec-reservations .filter-btn')
+    .forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderReservations();
+}
+
+function updatePendingBadge() {
+  const n = reservations.filter(r => r.status === 'pending').length;
+  const badge = document.getElementById('pending-badge');
+  badge.textContent = n;
+  badge.classList.toggle('show', n > 0);
+}
+
+/* ─────────────────────────────────────────────
+   RESERVATION MODAL
+───────────────────────────────────────────── */
+function openResModal(id) {
+  editingResId = id;
+  const r = id !== null ? reservations.find(x => x.id === id) : null;
+  document.getElementById('modal-title').textContent = r ? 'Edit Reservation' : 'New Reservation';
+
+  const today = new Date().toISOString().split('T')[0];
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group">
+      <label class="field-label">Guest Name *</label>
+      <input type="text" id="f-name" value="${r ? esc(r.name) : ''}" placeholder="Full name">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="field-label">Date *</label>
+        <input type="date" id="f-date" value="${r ? r.date : today}">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Time *</label>
+        <input type="time" id="f-time" value="${r ? r.time : '19:00'}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="field-label">Party Size</label>
+        <input type="number" id="f-party" min="1" max="30" value="${r ? r.party : 2}">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Phone</label>
+        <input type="text" id="f-phone" value="${r ? esc(r.phone) : ''}" placeholder="(215) 555-0000">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Notes</label>
+      <textarea id="f-notes" placeholder="Special requests, dietary needs…">${r ? esc(r.notes) : ''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Status</label>
+      <select id="f-status">
+        <option value="pending"   ${(!r || r.status === 'pending')   ? 'selected' : ''}>Pending</option>
+        <option value="confirmed" ${r && r.status === 'confirmed'    ? 'selected' : ''}>Confirmed</option>
+        <option value="cancelled" ${r && r.status === 'cancelled'    ? 'selected' : ''}>Cancelled</option>
+        <option value="completed" ${r && r.status === 'completed'    ? 'selected' : ''}>Completed</option>
+      </select>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-coral" onclick="saveRes()">Save Reservation</button>
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('f-name').focus(), 60);
+}
+
+function saveRes() {
+  const name   = document.getElementById('f-name').value.trim();
+  const date   = document.getElementById('f-date').value;
+  const time   = document.getElementById('f-time').value;
+  const party  = parseInt(document.getElementById('f-party').value) || 2;
+  const phone  = document.getElementById('f-phone').value.trim();
+  const notes  = document.getElementById('f-notes').value.trim();
+  const status = document.getElementById('f-status').value;
+
+  if (!name || !date || !time) {
+    toast('Name, date, and time are required', 'err');
+    return;
+  }
+
+  if (editingResId !== null) {
+    const r = reservations.find(x => x.id === editingResId);
+    if (r) Object.assign(r, { name, date, time, party, phone, notes, status });
+  } else {
+    const id = reservations.length ? Math.max(...reservations.map(r => r.id)) + 1 : 1;
+    reservations.push({ id, name, date, time, party, phone, notes, status });
+  }
+
+  saveData();
+  closeModal();
+  renderReservations();
+  updatePendingBadge();
+  toast('Reservation saved', 'ok');
+}
+
+/* ─────────────────────────────────────────────
+   MODAL HELPERS
+───────────────────────────────────────────── */
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  editingResId = null;
+}
+function closeModalBg(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+/* ─────────────────────────────────────────────
+   LOGOUT
+───────────────────────────────────────────── */
+function logout() {
+  document.getElementById('dashboard').style.display = 'none';
+  const ls = document.getElementById('login-screen');
+  ls.classList.remove('hidden');
+  ls.style.transition = 'none';
+  ls.offsetHeight;
+  ls.style.transition = '';
+  pinVal = ''; syncDots();
+  document.getElementById('pin-error').textContent = '';
+}
+
+/* ─────────────────────────────────────────────
+   UTILS
+───────────────────────────────────────────── */
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  const [y,m,d] = iso.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  return dt.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'2-digit' });
+}
+
+function fmtTime(t) {
+  if (!t) return '';
+  const [h, m] = t.split(':').map(Number);
+  const ap = h >= 12 ? 'PM' : 'AM';
+  return `${h % 12 || 12}:${String(m).padStart(2,'0')} ${ap}`;
+}
+
+let toastTimer;
+function toast(msg, type = '') {
+  clearTimeout(toastTimer);
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show' + (type ? ' ' + type : '');
+  toastTimer = setTimeout(() => { el.className = ''; }, 2800);
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+(function injectKeyframes() {
+  const s = document.createElement('style');
+  s.textContent = `
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      18%     { transform: translateX(-9px); }
+      36%     { transform: translateX(9px); }
+      54%     { transform: translateX(-6px); }
+      72%     { transform: translateX(4px); }
+    }
+  `;
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
