@@ -493,6 +493,127 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 #toast.err    { border-left: 3px solid var(--red); }
 
 /* ────────────────────────────────────────
+   TOGGLE SWITCH
+──────────────────────────────────────── */
+.toggle-wrap { display:flex; align-items:center; gap:8px; }
+.toggle { position:relative; width:36px; height:20px; flex-shrink:0; }
+.toggle input { opacity:0; width:0; height:0; position:absolute; }
+.toggle-track {
+  position:absolute; inset:0; cursor:pointer;
+  background:var(--surface-3); border-radius:20px;
+  transition:background .2s;
+}
+.toggle-track::before {
+  content:''; position:absolute;
+  width:14px; height:14px; border-radius:50%;
+  background:#fff; left:3px; top:3px;
+  transition:transform .2s;
+}
+.toggle input:checked + .toggle-track { background:var(--coral); }
+.toggle input:checked + .toggle-track::before { transform:translateX(16px); }
+.toggle-label { font-size:.74rem; color:var(--text-2); }
+
+/* ────────────────────────────────────────
+   KPI GRID
+──────────────────────────────────────── */
+.kpi-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:16px;
+}
+.kpi-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px;
+  position:relative; overflow:hidden;
+}
+.kpi-card::after {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:3px; background:var(--coral);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .55s var(--ease);
+}
+.kpi-card.loaded::after { transform:scaleX(1); }
+.kpi-label-text {
+  font-size:.62rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--text-3); margin-bottom:10px; display:block;
+}
+.kpi-val {
+  font-family:var(--serif); font-size:2.4rem;
+  color:var(--text); line-height:1; margin-bottom:4px;
+}
+.kpi-sub { font-size:.76rem; color:var(--text-2); }
+
+/* ────────────────────────────────────────
+   MENU GRID
+──────────────────────────────────────── */
+.menu-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(228px,1fr));
+  gap:14px;
+}
+.menu-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:16px 18px;
+  display:flex; flex-direction:column; gap:6px;
+  transition:border-color .18s, transform .18s;
+}
+.menu-card:hover { border-color:var(--border-md); transform:translateY(-2px); }
+.menu-card.inactive { opacity:.42; }
+.menu-card-cat {
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--coral);
+}
+.menu-card-name { font-weight:600; font-size:.94rem; color:var(--text); }
+.menu-card-price { font-family:var(--serif); font-size:1.35rem; color:var(--text); }
+.menu-card-desc { font-size:.79rem; color:var(--text-2); line-height:1.55; flex:1; }
+.menu-card-foot {
+  display:flex; align-items:center; gap:8px;
+  padding-top:10px; border-top:1px solid var(--border); margin-top:4px;
+}
+
+/* ────────────────────────────────────────
+   REVIEW CARDS
+──────────────────────────────────────── */
+.review-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:18px 20px;
+  margin-bottom:12px; transition:border-color .18s;
+}
+.review-card.flagged   { border-color:var(--yellow); }
+.review-card.responded { border-color:rgba(76,175,126,.35); }
+.review-top {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  margin-bottom:8px; gap:12px;
+}
+.review-author { font-weight:600; font-size:.9rem; color:var(--text); }
+.review-date { font-size:.74rem; color:var(--text-3); margin-top:1px; }
+.review-stars { color:var(--yellow); letter-spacing:2px; font-size:.88rem; flex-shrink:0; }
+.review-text { font-size:.86rem; color:var(--text-2); line-height:1.65; margin-bottom:12px; }
+.review-response {
+  background:var(--surface-2); border-left:3px solid var(--coral);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:10px 14px; font-size:.82rem; color:var(--text-2);
+  font-style:italic; margin-bottom:12px;
+}
+.review-response strong { color:var(--coral); font-style:normal; }
+.review-actions { display:flex; gap:7px; flex-wrap:wrap; }
+
+/* ────────────────────────────────────────
+   HOURS EDITOR
+──────────────────────────────────────── */
+.hours-row {
+  display:grid;
+  grid-template-columns:110px 1fr 1fr auto;
+  gap:10px 14px; align-items:center;
+  padding:12px 0; border-bottom:1px solid var(--border);
+}
+.hours-row:last-of-type { border-bottom:none; }
+.hours-day-name { font-weight:600; font-size:.88rem; color:var(--text); }
+.hours-today { color:var(--coral) !important; }
+
+/* ────────────────────────────────────────
    PLACEHOLDER (coming-soon panels)
 ──────────────────────────────────────── */
 .placeholder-panel {
@@ -517,6 +638,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   .content { padding: 18px 16px; }
   .topbar { padding: 0 16px; }
   .form-row { grid-template-columns: 1fr; }
+  .hours-row { grid-template-columns: 80px 1fr 1fr; row-gap: 8px; }
+  .hours-row .toggle-wrap { grid-column: 1 / -1; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .menu-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -650,51 +775,53 @@ input[type="time"]::-webkit-calendar-picker-indicator {
           </div>
         </section>
 
-        <!-- ── ANALYTICS (placeholder) ── -->
+        <!-- ── ANALYTICS ── -->
         <section class="section" id="sec-analytics">
           <div class="sec-header">
             <div class="sec-title">Analytics</div>
-            <div class="sec-desc">Restaurant overview and KPIs</div>
+            <div class="sec-desc">Restaurant overview at a glance</div>
           </div>
-          <div class="placeholder-panel">
-            <div class="placeholder-icon">◈</div>
-            <div class="placeholder-label">Analytics coming soon</div>
-          </div>
+          <div class="kpi-grid" id="kpi-grid"></div>
         </section>
 
-        <!-- ── MENU (placeholder) ── -->
+        <!-- ── MENU ── -->
         <section class="section" id="sec-menu">
           <div class="sec-header">
             <div class="sec-title">Menu</div>
             <div class="sec-desc">Add, edit, and toggle dishes</div>
           </div>
-          <div class="placeholder-panel">
-            <div class="placeholder-icon">◑</div>
-            <div class="placeholder-label">Menu manager coming soon</div>
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="setMenuFilter('all',this)">All</button>
+            <button class="filter-btn" onclick="setMenuFilter('appetizer',this)">Appetizers</button>
+            <button class="filter-btn" onclick="setMenuFilter('main',this)">Mains</button>
+            <button class="filter-btn" onclick="setMenuFilter('dessert',this)">Desserts</button>
+            <button class="filter-btn" onclick="setMenuFilter('drink',this)">Drinks</button>
+            <div class="filter-spacer"></div>
+            <button class="btn btn-coral btn-sm" onclick="openDishModal(null)">+ Add Dish</button>
           </div>
+          <div class="menu-grid" id="menu-grid"></div>
         </section>
 
-        <!-- ── REVIEWS (placeholder) ── -->
+        <!-- ── REVIEWS ── -->
         <section class="section" id="sec-reviews">
           <div class="sec-header">
             <div class="sec-title">Reviews</div>
             <div class="sec-desc">Monitor and respond to guest feedback</div>
           </div>
-          <div class="placeholder-panel">
-            <div class="placeholder-icon">◎</div>
-            <div class="placeholder-label">Reviews dashboard coming soon</div>
-          </div>
+          <div id="reviews-list"></div>
         </section>
 
-        <!-- ── HOURS (placeholder) ── -->
+        <!-- ── HOURS ── -->
         <section class="section" id="sec-hours">
           <div class="sec-header">
             <div class="sec-title">Hours</div>
             <div class="sec-desc">Edit your weekly schedule</div>
           </div>
-          <div class="placeholder-panel">
-            <div class="placeholder-icon">◔</div>
-            <div class="placeholder-label">Hours editor coming soon</div>
+          <div class="card" style="max-width:600px">
+            <div id="hours-grid"></div>
+            <div style="margin-top:20px">
+              <button class="btn btn-coral" onclick="saveHours()">Save Hours</button>
+            </div>
           </div>
         </section>
 
@@ -735,19 +862,59 @@ const DEFAULT_RESERVATIONS = [
   { id:10, name:'Ana Ferreira',   date:'2026-05-28', time:'19:00', party:6, phone:'(267) 555-0337', status:'confirmed', notes:'Special occasion'            },
 ];
 
+const DEFAULT_MENU = [
+  { id:1, name:'Burrata & Heirloom Tomato', cat:'appetizer', price:14, desc:'Creamy burrata, heirloom tomatoes, basil oil, fleur de sel.', active:true },
+  { id:2, name:'Grilled Octopus',           cat:'appetizer', price:18, desc:'Sous vide octopus, charred lemon, smoked paprika aioli.',        active:true },
+  { id:3, name:'Hummus Trio',               cat:'appetizer', price:12, desc:'Classic, roasted red pepper & green herb — served with warm pita.', active:true },
+  { id:4, name:'Branzino al Forno',         cat:'main',      price:34, desc:'Whole roasted sea bass, herbs, capers, white wine sauce.',       active:true },
+  { id:5, name:'Lamb Chops',                cat:'main',      price:42, desc:'Grilled lamb chops, pomegranate glaze, tabbouleh.',              active:true },
+  { id:6, name:'Tagliolini al Limone',      cat:'main',      price:24, desc:'Handmade pasta, lemon cream, Parmigiano, crispy capers.',        active:true },
+  { id:7, name:'Tiramisu',                  cat:'dessert',   price:10, desc:'Classic tiramisu, house-made mascarpone, espresso.',             active:true },
+  { id:8, name:'Aperol Spritz',             cat:'drink',     price:12, desc:'Aperol, Prosecco, sparkling water, orange slice.',               active:true },
+];
+
+const DEFAULT_REVIEWS = [
+  { id:1, name:'Michael T.', stars:5, date:'2026-05-22', text:'Absolutely stunning meal. The branzino was perfectly cooked and service was warm. We will definitely be back!', flagged:false, responded:true,  response:'Thank you, Michael — the branzino is a labor of love. See you soon! — OLIO' },
+  { id:2, name:'Jessica L.', stars:4, date:'2026-05-20', text:'Really lovely food and atmosphere. The grilled octopus was a highlight. Slight wait at the start but all forgiven once the food arrived.', flagged:false, responded:false, response:'' },
+  { id:3, name:'Anonymous',  stars:2, date:'2026-05-19', text:'Food was good but service was slow and our reservation wasn\'t honored for 20 minutes. Could do better on the hospitality side.', flagged:true,  responded:false, response:'' },
+  { id:4, name:'Carlos M.',  stars:5, date:'2026-05-17', text:'Came for my wife\'s birthday — they made it so special. Candles, dessert, a handwritten note. Five stars without question.', flagged:false, responded:true,  response:'Carlos, it was our honor to celebrate with you. Warmth is everything at OLIO. Thank you! — Management' },
+  { id:5, name:'Priya K.',   stars:4, date:'2026-05-15', text:'The tagliolini al limone is one of the best pasta dishes I\'ve ever had. Light, zingy, perfectly balanced. Will order again.', flagged:false, responded:false, response:'' },
+  { id:6, name:'Sam R.',     stars:5, date:'2026-05-12', text:'Outstanding from start to finish. The wine pairing suggestions were spot on and the lamb chops were divine.', flagged:false, responded:false, response:'' },
+];
+
+const DEFAULT_HOURS = [
+  { day:'Monday',    open:'12:00', close:'21:30', closed:false },
+  { day:'Tuesday',   open:'12:00', close:'21:30', closed:false },
+  { day:'Wednesday', open:'12:00', close:'21:30', closed:false },
+  { day:'Thursday',  open:'12:00', close:'22:00', closed:false },
+  { day:'Friday',    open:'12:00', close:'23:00', closed:false },
+  { day:'Saturday',  open:'11:00', close:'23:00', closed:false },
+  { day:'Sunday',    open:'11:00', close:'21:00', closed:false },
+];
+
 /* ─────────────────────────────────────────────
    STATE
 ───────────────────────────────────────────── */
-let reservations = [];
-let resFilter    = 'all';
-let editingResId = null;
+let reservations  = [];
+let menuItems     = [];
+let reviews       = [];
+let hours         = [];
+let resFilter     = 'all';
+let menuFilter    = 'all';
+let editingResId  = null;
+let editingDishId = null;
 
 function loadData() {
-  const stored = localStorage.getItem('olio_res');
-  reservations = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(DEFAULT_RESERVATIONS));
+  reservations = JSON.parse(localStorage.getItem('olio_res')   || 'null') || JSON.parse(JSON.stringify(DEFAULT_RESERVATIONS));
+  menuItems    = JSON.parse(localStorage.getItem('olio_menu')  || 'null') || JSON.parse(JSON.stringify(DEFAULT_MENU));
+  reviews      = JSON.parse(localStorage.getItem('olio_rev')   || 'null') || JSON.parse(JSON.stringify(DEFAULT_REVIEWS));
+  hours        = JSON.parse(localStorage.getItem('olio_hours') || 'null') || JSON.parse(JSON.stringify(DEFAULT_HOURS));
 }
-function saveData() {
-  localStorage.setItem('olio_res', JSON.stringify(reservations));
+function saveData(key) {
+  if (!key || key === 'res')   localStorage.setItem('olio_res',   JSON.stringify(reservations));
+  if (!key || key === 'menu')  localStorage.setItem('olio_menu',  JSON.stringify(menuItems));
+  if (!key || key === 'rev')   localStorage.setItem('olio_rev',   JSON.stringify(reviews));
+  if (!key || key === 'hours') localStorage.setItem('olio_hours', JSON.stringify(hours));
 }
 
 /* ─────────────────────────────────────────────
@@ -803,6 +970,10 @@ function initDashboard() {
   setTopbarDate();
   renderReservations();
   updatePendingBadge();
+  renderMenu();
+  renderReviews();
+  renderHours();
+  renderAnalytics();
 }
 
 function setTopbarDate() {
@@ -1006,7 +1177,8 @@ function saveRes() {
 ───────────────────────────────────────────── */
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
-  editingResId = null;
+  editingResId  = null;
+  editingDishId = null;
 }
 function closeModalBg(e) {
   if (e.target === document.getElementById('modal-overlay')) closeModal();
@@ -1057,6 +1229,290 @@ function toast(msg, type = '') {
   el.textContent = msg;
   el.className = 'show' + (type ? ' ' + type : '');
   toastTimer = setTimeout(() => { el.className = ''; }, 2800);
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────
+   ANALYTICS
+───────────────────────────────────────────── */
+function renderAnalytics() {
+  const today   = new Date().toISOString().split('T')[0];
+  const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
+  const thisWeek = reservations.filter(r => r.date >= weekAgo && r.date <= today && r.status !== 'cancelled');
+  const avgParty = thisWeek.length
+    ? (thisWeek.reduce((s, r) => s + r.party, 0) / thisWeek.length).toFixed(1)
+    : '—';
+  const topDish    = menuItems.filter(m => m.active)[0];
+  const totalRev   = reviews.length;
+  const avgStars   = totalRev
+    ? (reviews.reduce((s, r) => s + r.stars, 0) / totalRev).toFixed(1)
+    : '—';
+
+  const kpis = [
+    { label:'Reservations This Week', val: thisWeek.length,           sub: reservations.filter(r => r.status === 'pending').length + ' pending approval' },
+    { label:'Avg Party Size',         val: avgParty,                   sub: 'guests per reservation' },
+    { label:'Top Dish',               val: topDish ? topDish.name.split(' ').slice(0, 2).join(' ') : '—', sub: topDish ? topDish.cat : '' },
+    { label:'Total Reviews',          val: totalRev,                   sub: avgStars + ' avg stars' },
+  ];
+
+  const grid = document.getElementById('kpi-grid');
+  grid.innerHTML = kpis.map(k => `
+    <div class="kpi-card">
+      <span class="kpi-label-text">${k.label}</span>
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>
+  `).join('');
+
+  setTimeout(() => {
+    document.querySelectorAll('#kpi-grid .kpi-card').forEach((c, i) => {
+      setTimeout(() => c.classList.add('loaded'), i * 100);
+    });
+  }, 80);
+}
+
+/* ─────────────────────────────────────────────
+   MENU
+───────────────────────────────────────────── */
+const CAT_LABEL = { appetizer:'Appetizer', main:'Main', dessert:'Dessert', drink:'Drink' };
+
+function renderMenu() {
+  const list = menuFilter === 'all' ? menuItems : menuItems.filter(m => m.cat === menuFilter);
+  const grid = document.getElementById('menu-grid');
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-3)">No dishes in this category</div>';
+    return;
+  }
+  grid.innerHTML = list.map(m => `
+    <div class="menu-card ${m.active ? '' : 'inactive'}">
+      <div class="menu-card-cat">${CAT_LABEL[m.cat] || m.cat}</div>
+      <div class="menu-card-name">${esc(m.name)}</div>
+      <div class="menu-card-price">$${m.price}</div>
+      <div class="menu-card-desc">${esc(m.desc)}</div>
+      <div class="menu-card-foot">
+        <label class="toggle-wrap" style="flex:1">
+          <label class="toggle">
+            <input type="checkbox" ${m.active ? 'checked' : ''} onchange="toggleDish(${m.id},this.checked)">
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">${m.active ? 'Active' : 'Hidden'}</span>
+        </label>
+        <button class="btn btn-ghost btn-sm" onclick="openDishModal(${m.id})">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteDish(${m.id})">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setMenuFilter(f, el) {
+  menuFilter = f;
+  document.querySelectorAll('#sec-menu .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderMenu();
+}
+
+function toggleDish(id, active) {
+  const d = menuItems.find(m => m.id === id);
+  if (!d) return;
+  d.active = active;
+  saveData('menu');
+  renderMenu();
+}
+
+function deleteDish(id) {
+  if (!confirm('Remove this dish?')) return;
+  menuItems = menuItems.filter(m => m.id !== id);
+  saveData('menu');
+  renderMenu();
+  toast('Dish removed', 'ok');
+}
+
+function openDishModal(id) {
+  editingDishId = id;
+  const d = id !== null ? menuItems.find(m => m.id === id) : null;
+  document.getElementById('modal-title').textContent = d ? 'Edit Dish' : 'Add Dish';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group">
+      <label class="field-label">Dish Name *</label>
+      <input type="text" id="fd-name" value="${d ? esc(d.name) : ''}" placeholder="e.g. Grilled Branzino">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="field-label">Price ($)</label>
+        <input type="number" id="fd-price" min="1" step="1" value="${d ? d.price : ''}">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Category</label>
+        <select id="fd-cat">
+          <option value="appetizer" ${d && d.cat === 'appetizer' ? 'selected' : ''}>Appetizer</option>
+          <option value="main"      ${d && d.cat === 'main'      ? 'selected' : ''}>Main</option>
+          <option value="dessert"   ${d && d.cat === 'dessert'   ? 'selected' : ''}>Dessert</option>
+          <option value="drink"     ${d && d.cat === 'drink'     ? 'selected' : ''}>Drink</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Description</label>
+      <textarea id="fd-desc" placeholder="Short description…">${d ? esc(d.desc) : ''}</textarea>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-coral" onclick="saveDish()">Save Dish</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('fd-name').focus(), 60);
+}
+
+function saveDish() {
+  const name  = document.getElementById('fd-name').value.trim();
+  const price = parseFloat(document.getElementById('fd-price').value);
+  const cat   = document.getElementById('fd-cat').value;
+  const desc  = document.getElementById('fd-desc').value.trim();
+  if (!name || isNaN(price)) { toast('Name and price are required', 'err'); return; }
+  if (editingDishId !== null) {
+    const d = menuItems.find(m => m.id === editingDishId);
+    if (d) Object.assign(d, { name, price, cat, desc });
+  } else {
+    const id = menuItems.length ? Math.max(...menuItems.map(m => m.id)) + 1 : 1;
+    menuItems.push({ id, name, price, cat, desc, active: true });
+  }
+  saveData('menu');
+  closeModal();
+  renderMenu();
+  toast('Dish saved', 'ok');
+}
+
+/* ─────────────────────────────────────────────
+   REVIEWS
+───────────────────────────────────────────── */
+function renderReviews() {
+  const el = document.getElementById('reviews-list');
+  if (!reviews.length) {
+    el.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text-3)">No reviews yet</div>';
+    return;
+  }
+  el.innerHTML = reviews.map(r => `
+    <div class="review-card ${r.flagged ? 'flagged' : ''} ${r.responded ? 'responded' : ''}">
+      <div class="review-top">
+        <div>
+          <div class="review-author">${esc(r.name)}</div>
+          <div class="review-date">${fmtDate(r.date)}</div>
+        </div>
+        <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+      </div>
+      <div class="review-text">${esc(r.text)}</div>
+      ${r.response ? `<div class="review-response"><strong>OLIO:</strong> ${esc(r.response)}</div>` : ''}
+      <div class="review-actions">
+        <button class="btn btn-ghost btn-sm" onclick="openResponseModal(${r.id})">${r.response ? 'Edit Response' : 'Respond'}</button>
+        <button class="btn btn-sm ${r.responded ? 'btn-ok' : 'btn-ghost'}" onclick="toggleResponded(${r.id})">
+          ${r.responded ? '✓ Responded' : 'Mark Responded'}
+        </button>
+        <button class="btn btn-sm ${r.flagged ? 'btn-danger' : 'btn-ghost'}" onclick="toggleFlag(${r.id})">
+          ${r.flagged ? '⚑ Flagged' : '⚐ Flag'}
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteReview(${r.id})">Remove</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFlag(id) {
+  const r = reviews.find(x => x.id === id);
+  if (!r) return;
+  r.flagged = !r.flagged;
+  saveData('rev');
+  renderReviews();
+}
+
+function toggleResponded(id) {
+  const r = reviews.find(x => x.id === id);
+  if (!r) return;
+  r.responded = !r.responded;
+  saveData('rev');
+  renderReviews();
+}
+
+function deleteReview(id) {
+  if (!confirm('Remove this review?')) return;
+  reviews = reviews.filter(r => r.id !== id);
+  saveData('rev');
+  renderReviews();
+  renderAnalytics();
+  toast('Review removed', 'ok');
+}
+
+function openResponseModal(id) {
+  const r = reviews.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('modal-title').textContent = 'Respond to Review';
+  document.getElementById('modal-body').innerHTML = `
+    <div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:14px;margin-bottom:18px">
+      <div class="review-stars" style="margin-bottom:6px">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+      <div style="font-size:.84rem;color:var(--text-2);font-style:italic">"${esc(r.text)}"</div>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Your Response</label>
+      <textarea id="fr-response" style="min-height:100px" placeholder="Write a thoughtful response…">${r.response ? esc(r.response) : ''}</textarea>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-coral" onclick="saveResponse(${id})">Post Response</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('fr-response').focus(), 60);
+}
+
+function saveResponse(id) {
+  const response = document.getElementById('fr-response').value.trim();
+  const r = reviews.find(x => x.id === id);
+  if (r) { r.response = response; r.responded = !!response; }
+  saveData('rev');
+  closeModal();
+  renderReviews();
+  toast('Response saved', 'ok');
+}
+
+/* ─────────────────────────────────────────────
+   HOURS
+───────────────────────────────────────────── */
+function renderHours() {
+  const todayIdx  = (new Date().getDay() + 6) % 7; // Mon=0
+  const dayNames  = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  const todayName = dayNames[todayIdx];
+
+  document.getElementById('hours-grid').innerHTML = hours.map(h => `
+    <div class="hours-row">
+      <div class="hours-day-name ${h.day === todayName ? 'hours-today' : ''}">${h.day.slice(0,3)}${h.day === todayName ? ' ·' : ''}</div>
+      <input type="time" id="ho-${h.day}" value="${h.open}"  ${h.closed ? 'disabled' : ''} style="width:100%">
+      <input type="time" id="hc-${h.day}" value="${h.close}" ${h.closed ? 'disabled' : ''} style="width:100%">
+      <label class="toggle-wrap">
+        <label class="toggle">
+          <input type="checkbox" id="hx-${h.day}" ${h.closed ? 'checked' : ''} onchange="toggleHoursClosed('${h.day}',this.checked)">
+          <span class="toggle-track"></span>
+        </label>
+        <span class="toggle-label">Closed</span>
+      </label>
+    </div>
+  `).join('');
+}
+
+function toggleHoursClosed(day, closed) {
+  document.getElementById('ho-' + day).disabled = closed;
+  document.getElementById('hc-' + day).disabled = closed;
+}
+
+function saveHours() {
+  hours.forEach(h => {
+    h.open   = document.getElementById('ho-' + h.day).value;
+    h.close  = document.getElementById('hc-' + h.day).value;
+    h.closed = document.getElementById('hx-' + h.day).checked;
+  });
+  saveData('hours');
+  toast('Hours saved!', 'ok');
 }
 
 /* ─────────────────────────────────────────────
