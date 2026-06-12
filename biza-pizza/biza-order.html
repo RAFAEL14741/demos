@@ -482,10 +482,86 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   animation:cfall 1.5s ease-in forwards;}
 @keyframes cfall{to{transform:translate(var(--dx,0),440px) rotate(var(--rot,180deg));opacity:0;}}
 
+/* ══════════ INNOVATION LAYER ══════════ */
+/* 1 ▸ LIVE PIZZA PREVIEW */
+#pizzaPrevWrap{margin-bottom:4px;}
+.pz-stage{height:212px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.pz-scale{transition:transform .55s cubic-bezier(.34,1.56,.64,1);will-change:transform;}
+.pz-scale svg{display:block;filter:drop-shadow(0 14px 24px rgba(0,0,0,.5));}
+.pz-meta{text-align:center;margin:4px 0 12px;}
+.pz-label{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-faint);}
+.pz-price{font-family:var(--serif);font-size:1.5rem;margin-top:2px;
+  background:linear-gradient(90deg,#ff6b6e,#ffc36a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+/* 2 ▸ SMART GREETING */
+.greet{font-family:var(--serif);font-size:1.55rem;line-height:1.2;margin:2px 2px 16px;
+  text-shadow:0 2px 18px rgba(200,40,42,.3);}
+
+/* 3 ▸ ORDER TRACKER + HEADER CHIP */
+#orderChip{display:none;align-items:center;gap:6px;border:1px solid rgba(37,211,102,.4);
+  background:rgba(37,211,102,.12);color:#5be584;border-radius:999px;padding:6px 11px;
+  font-size:.72rem;font-weight:700;white-space:nowrap;}
+#orderChip.show{display:inline-flex;}
+#orderChip .oc-dot{width:7px;height:7px;border-radius:50%;background:#25D366;
+  animation:dotpulse 1.8s ease-in-out infinite;flex-shrink:0;}
+.trk{margin:16px 0 2px;padding:16px 16px 10px;background:var(--card);border:1px solid var(--line);border-radius:14px;}
+.trk-step{display:flex;gap:12px;}
+.trk-rail{display:flex;flex-direction:column;align-items:center;}
+.trk-dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);
+  background:rgba(255,255,255,.04);color:#06281a;font-size:.8rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.trk-step.done .trk-dot{background:var(--green);border-color:var(--green);}
+.trk-step.next .trk-dot{border-color:rgba(37,211,102,.55);animation:trkpulse 1.6s ease-in-out infinite;}
+@keyframes trkpulse{50%{box-shadow:0 0 0 7px rgba(37,211,102,.12);}}
+.trk-line{width:2px;flex:1;min-height:16px;background:var(--line);margin:3px 0;}
+.trk-step.done .trk-line{background:rgba(37,211,102,.55);}
+.trk-txt{font-size:.85rem;font-weight:600;padding:4px 0 14px;color:var(--txt-faint);}
+.trk-step.done .trk-txt{color:var(--txt);}
+.trk-step.next .trk-txt{color:var(--txt-dim);}
+
+/* 4 ▸ SAVINGS NOTE */
+.savings{background:rgba(184,134,11,.12);border:1px solid rgba(184,134,11,.35);color:#e6c45c;
+  border-radius:11px;padding:11px 14px;font-size:.78rem;font-weight:600;line-height:1.5;
+  text-align:center;margin:0 0 16px;}
+#cfSavings{margin:14px 0 0;display:none;}
+#cfSavings.show{display:block;}
+
+/* 5 ▸ LOYALTY PIZZA WHEEL */
+.wheel{display:block;margin:0 auto 6px;}
+.wheel .slice{opacity:0;transform:scale(.3);transform-box:view-box;transform-origin:50% 50%;
+  transition:opacity .45s var(--ease),transform .45s var(--ease);}
+.wheel .slice.in{opacity:1;transform:scale(1);}
+.wheel-gift{margin-top:10px;font-size:.9rem;font-weight:700;color:#ffd76a;}
+
+/* 6 ▸ MICRO-DELIGHTS: shimmer skeleton + thermal receipt */
+.item-thumb,#itemImg,.upsell-card img{
+  background:linear-gradient(110deg,#241812 35%,#36251a 50%,#241812 65%);
+  background-size:200% 100%;animation:shimmer 1.3s linear infinite;}
+@keyframes shimmer{to{background-position:-200% 0;}}
+img.ld{animation:imgIn .45s var(--ease);background-image:none;}
+@keyframes imgIn{from{opacity:0;}}
+.cf-receipt-wrap{margin-top:14px;}
+.receipt{background:#faf5e9;color:#2b2014;border-radius:3px;padding:18px 16px 14px;
+  font-size:.8rem;line-height:1.55;box-shadow:0 10px 30px rgba(0,0,0,.45);
+  border-top:2px dashed #c9b894;border-bottom:2px dashed #c9b894;}
+.rc-head{font-weight:900;text-align:center;letter-spacing:.2em;font-size:.92rem;}
+.rc-sub{text-align:center;font-size:.66rem;color:#8a7a5e;margin-top:2px;}
+.rc-dash{border-top:1.5px dashed #c9b894;margin:10px 0;}
+.rc-line{display:flex;justify-content:space-between;gap:10px;}
+.rc-line .n{flex:1;}
+.rc-line .p,.rc-total .p{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:600;white-space:nowrap;}
+.rc-var{font-size:.7rem;color:#8a7a5e;margin:0 0 3px 14px;white-space:pre-line;line-height:1.4;}
+.rc-total{display:flex;justify-content:space-between;font-weight:900;font-size:.92rem;}
+.rc-meta{font-size:.66rem;color:#8a7a5e;text-align:center;margin-top:9px;}
+.rc-thanks{text-align:center;font-weight:900;letter-spacing:.24em;margin-top:10px;font-size:.8rem;}
+
 /* calm for users who prefer it */
 @media(prefers-reduced-motion:reduce){
   .mq-track,.qc-emoji,.cov-emoji,#cartBar:not(.empty)::after,.cf-eta,.status-pill.open .dot{animation:none!important;}
   .fade-in .item-row{animation-duration:.01s!important;}
+  .item-thumb,#itemImg,.upsell-card img,.trk-step.next .trk-dot,#orderChip .oc-dot,img.ld{animation:none!important;}
+  .pz-scale{transition:none!important;}
+  .wheel .slice{transition:none!important;opacity:1;transform:none;}
 }
 </style>
 </head>
@@ -500,6 +576,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
       <div class="hdr-sub" data-t="tagline"></div>
     </div>
     <div class="hdr-actions">
+      <button id="orderChip" aria-label="Order status"><span class="oc-dot"></span><span class="oc-txt"></span></button>
       <button id="langToggle" aria-label="Language">
         <span class="lang-flag">🇧🇷</span><span class="lang-code">PT</span>
       </button>
@@ -564,6 +641,18 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
   </div>
   <div class="sheet-body">
     <img id="itemImg" src="" alt="" width="560" height="180" loading="lazy">
+
+    <!-- pizza-only: LIVE PREVIEW — the pizza builds itself as you pick -->
+    <div id="pizzaPrevWrap" style="display:none">
+      <div class="pz-stage"><div class="pz-scale" id="pzScale">
+        <svg id="pzSvg" width="212" height="212" viewBox="0 0 220 220" aria-hidden="true"></svg>
+      </div></div>
+      <div class="pz-meta">
+        <div class="pz-label" data-t="pzLabel"></div>
+        <div class="pz-price" id="pzPrice"></div>
+      </div>
+    </div>
+
     <p id="itemDescTxt"></p>
 
     <!-- pizza-only: size -->
@@ -664,6 +753,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
     <p class="voice-hint" data-t="voiceHint"></p>
     <div class="closed-note" id="closedNote"></div>
     <div class="co-summary" id="coSummary"></div>
+    <p class="savings" data-t="savingsCo"></p>
     <div id="minWarnCo"></div>
   </div>
   <div class="sheet-foot">
@@ -716,7 +806,9 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
     <div class="cf-icon"><svg viewBox="0 0 56 56" width="68" height="68" style="display:block;margin:0 auto"><circle cx="28" cy="28" r="25" fill="none" stroke="#25D366" stroke-width="3" class="cf-circ"/><path d="M17 29l8 8 14-16" fill="none" stroke="#25D366" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="cf-check"/></svg></div>
     <h2 class="cf-title" data-t="cfTitle"></h2>
     <div class="cf-eta" data-t="cfEta"></div>
-    <div class="cf-msg" id="cfMsg"></div>
+    <div id="cfTracker"></div>
+    <div id="cfMsg"></div>
+    <div class="savings" id="cfSavings"></div>
     <p class="cf-note" data-t="cfNote"></p>
   </div>
   <div class="sheet-foot">
@@ -761,6 +853,95 @@ const PIZZA_FLAVORS = [
   'Frango c/ Cheddar','Bauru','Napolitana','Outro sabor'
 ];
 const BORDAS = ['Sem borda','Catupiry','Cheddar','Chocolate'];
+
+/* ── LIVE PIZZA PREVIEW: flavor → visual map ──
+   base = cheese/face color · tops = [shape, color] cycled over fixed spots */
+const FLAVOR_VIZ = {
+  'Mussarela':          { base:'#f2dfae', tops:[ ['dollop','#fbf0d2'] ] },
+  'Calabresa':          { base:'#eec07a', tops:[ ['circle','#a23b24'] ] },
+  'Frango c/ Catupiry': { base:'#f0d9a0', tops:[ ['shred','#d3922f'], ['dollop','#fdf4dc'] ] },
+  'Portuguesa':         { base:'#eec07a', tops:[ ['square','#d98a7a'], ['egg','#fdf8ee'], ['dot','#3c4a32'] ] },
+  'Quatro Queijos':     { base:'#f4e3b2', tops:[ ['dollop','#fff7e0'], ['dollop','#e8c46a'] ] },
+  'Bacon':              { base:'#eec07a', tops:[ ['strip','#9c4a2b'] ] },
+  'Marguerita':         { base:'#f2dfae', tops:[ ['circle','#cf3b2a'], ['leaf','#3e7d3a'] ] },
+  'Brasileira':         { base:'#eec07a', tops:[ ['dot','#e8b820'], ['dot','#4a7d3a'] ] },
+  'Toscana':            { base:'#eec07a', tops:[ ['circle','#a23b24'], ['ring','#e8d9c0'] ] },
+  'Lombo Canadense':    { base:'#f0d9a0', tops:[ ['square','#c97a5e'] ] },
+  'Presunto':           { base:'#f0d9a0', tops:[ ['square','#d98a7a'] ] },
+  'Frango c/ Cheddar':  { base:'#f0c878', tops:[ ['shred','#d3922f'], ['dollop','#e8962e'] ] },
+  'Bauru':              { base:'#eec07a', tops:[ ['square','#d98a7a'], ['circle','#cf3b2a'] ] },
+  'Napolitana':         { base:'#f2dfae', tops:[ ['circle','#cf3b2a'], ['dot','#fffbe8'] ] },
+  'Outro sabor':        { base:'#e8d2a0', tops:[ ['q','#8a7a5e'] ] },
+};
+const BORDA_VIZ = { 'Sem borda':null, 'Catupiry':'#f5ecd4', 'Cheddar':'#e8962e', 'Chocolate':'#5a3a22' };
+const PZ_SCALE = { 'Broto':.66, 'Grande':.84, 'Gigante':1 };
+/* fixed topping spots (dx,dy from center) — deterministic, all within the cheese face */
+const TOPPING_SPOTS = [
+  [0,-44],[26,-30],[-28,-26],[46,-8],[-46,-4],[12,-10],[-12,14],[34,22],[-34,30],[4,40],
+  [-8,-46],[48,16],[-48,18],[20,44],[-22,-44],[14,-32],[-16,34],[40,-26],[-40,-22],[28,4],[-28,-2],[0,22]
+];
+
+function flavorViz(name){ return FLAVOR_VIZ[name] || FLAVOR_VIZ['Outro sabor']; }
+
+function toppingSVG(kind, color, x, y, i){
+  const rot = (i*53)%360, s = .85 + ((i*7)%30)/100;
+  switch(kind){
+    case 'circle': return `<circle cx="${x}" cy="${y}" r="${(7*s).toFixed(1)}" fill="${color}" stroke="rgba(0,0,0,.22)" stroke-width="1"/>`;
+    case 'square': return `<rect x="${(x-6*s).toFixed(1)}" y="${(y-6*s).toFixed(1)}" width="${(12*s).toFixed(1)}" height="${(12*s).toFixed(1)}" rx="2" fill="${color}" opacity=".95" transform="rotate(${rot} ${x} ${y})"/>`;
+    case 'shred':  return `<rect x="${(x-7*s).toFixed(1)}" y="${y-2}" width="${(14*s).toFixed(1)}" height="3.6" rx="1.8" fill="${color}" transform="rotate(${rot} ${x} ${y})"/>`;
+    case 'strip':  return `<rect x="${(x-9*s).toFixed(1)}" y="${y-3}" width="${(18*s).toFixed(1)}" height="6" rx="2.4" fill="${color}" transform="rotate(${rot} ${x} ${y})"/>`;
+    case 'dollop': return `<circle cx="${x}" cy="${y}" r="${(6*s).toFixed(1)}" fill="${color}" opacity=".9"/>`;
+    case 'dot':    return `<circle cx="${x}" cy="${y}" r="${(3*s).toFixed(1)}" fill="${color}"/>`;
+    case 'leaf':   return `<ellipse cx="${x}" cy="${y}" rx="${(6*s).toFixed(1)}" ry="${(3.4*s).toFixed(1)}" fill="${color}" transform="rotate(${rot} ${x} ${y})"/>`;
+    case 'ring':   return `<circle cx="${x}" cy="${y}" r="${(6.5*s).toFixed(1)}" fill="none" stroke="${color}" stroke-width="2.2" opacity=".9"/>`;
+    case 'egg':    return `<circle cx="${x}" cy="${y}" r="${(6.5*s).toFixed(1)}" fill="${color}"/><circle cx="${x}" cy="${y}" r="${(3*s).toFixed(1)}" fill="#e8b820"/>`;
+    case 'q':      return `<text x="${x}" y="${y+5}" font-size="${(14*s).toFixed(1)}" font-weight="bold" fill="${color}" text-anchor="middle" font-family="Georgia,serif">?</text>`;
+  }
+  return '';
+}
+
+function halfToppingsSVG(viz, side){  // side: 'L' | 'R' | 'ALL'
+  let out = '';
+  TOPPING_SPOTS.forEach((sp,i) => {
+    if(side==='L' && sp[0] > -8) return;
+    if(side==='R' && sp[0] <  8) return;
+    const top = viz.tops[i % viz.tops.length];
+    out += toppingSVG(top[0], top[1], 110+sp[0], 110+sp[1], i);
+  });
+  return out;
+}
+
+function renderPizzaPreview(){
+  if(!modal.item || !modal.item.isPizza) return;
+  const f1 = flavorViz(modal.flavors[0] || PIZZA_FLAVORS[0]);
+  const f2 = modal.half ? flavorViz(modal.flavors[1] || PIZZA_FLAVORS[1]) : null;
+  const bordaColor = BORDA_VIZ[modal.borda];
+  const faceR = bordaColor ? 74 : 88;       // stuffed crust eats into the face
+  let s = `<defs>
+      <clipPath id="pzClipL"><rect x="0" y="0" width="110" height="220"/></clipPath>
+      <clipPath id="pzClipR"><rect x="110" y="0" width="110" height="220"/></clipPath>
+      <radialGradient id="pzVig" cx="50%" cy="42%" r="62%">
+        <stop offset="58%" stop-color="rgba(0,0,0,0)"/><stop offset="100%" stop-color="rgba(0,0,0,.22)"/>
+      </radialGradient>
+    </defs>
+    <circle cx="110" cy="110" r="102" fill="#c98e3f"/>
+    <circle cx="110" cy="110" r="99" fill="#e0aa5f"/>`;
+  if(bordaColor) s += `<circle cx="110" cy="110" r="82" fill="none" stroke="${bordaColor}" stroke-width="17"/>`;
+  s += `<circle cx="110" cy="110" r="${faceR+3}" fill="#b5402e"/>`;   // sauce peeking at the edge
+  if(f2){
+    s += `<circle cx="110" cy="110" r="${faceR}" fill="${f1.base}" clip-path="url(#pzClipL)"/>`
+       + `<circle cx="110" cy="110" r="${faceR}" fill="${f2.base}" clip-path="url(#pzClipR)"/>`
+       + `<g clip-path="url(#pzClipL)">${halfToppingsSVG(f1,'L')}</g>`
+       + `<g clip-path="url(#pzClipR)">${halfToppingsSVG(f2,'R')}</g>`
+       + `<line x1="110" y1="${110-faceR}" x2="110" y2="${110+faceR}" stroke="#e0aa5f" stroke-width="3" opacity=".85"/>`;
+  } else {
+    s += `<circle cx="110" cy="110" r="${faceR}" fill="${f1.base}"/>` + halfToppingsSVG(f1,'ALL');
+  }
+  s += `<circle cx="110" cy="110" r="${faceR}" fill="url(#pzVig)"/>`;
+  document.getElementById('pzSvg').innerHTML = s;
+  document.getElementById('pzScale').style.transform = `scale(${PZ_SCALE[modal.size] ?? .84})`;
+  document.getElementById('pzPrice').textContent = money(modal.price);
+}
 
 /* ── QUICK COMBOS — one-tap bundles (defaults: Mussarela + borda Catupiry, editable in cart) ── */
 const QUICK_COMBOS = [
@@ -938,6 +1119,21 @@ const STR = {
     cfEta:'📲 A Biza vai confirmar em até 5 minutos no WhatsApp',
     cfNote:'Seu pedido ficou salvo no 🧾 Histórico — na próxima é só tocar em "Pedir de novo".',
     cfDone:'Beleza! 👍',
+    greet:(h)=> h<12?'Bom dia':h<18?'Boa tarde':'Boa noite',
+    usualTitle:'O de sempre? 😉',
+    pzLabel:'Sua pizza',
+    savingsCo:'💰 Pedindo direto, você apoia a Biza — apps de entrega cobram até 30%',
+    savingsCf:(v)=>`💰 Esse pedido em um app custaria ~${v}. Pedindo direto, você apoia a Biza ❤️`,
+    trkReceived:'Pedido recebido',
+    trkConfirmed:'Biza confirmou no WhatsApp',
+    trkPreparing:'Preparando 🔥',
+    trkOut:'Saiu pra entrega 🛵',
+    trkReady:'Pronto pra retirar ✅',
+    orderChip:'Seu pedido',
+    trackerTitle:'Seu pedido 🍕',
+    wheelGift:'🎁 Pizza grátis? Fala com a Biza!',
+    rcTotal:'TOTAL',
+    rcThanks:'OBRIGADO! 🍕',
   },
   en:{
     tagline:'Brazilian pizza · 6339 Rising Sun Ave',
@@ -1002,6 +1198,21 @@ const STR = {
     cfEta:'📲 Biza will confirm within 5 minutes on WhatsApp',
     cfNote:'Your order is saved in 🧾 History — next time just tap "Order again".',
     cfDone:'Got it! 👍',
+    greet:(h)=> h<12?'Good morning':h<18?'Good afternoon':'Good evening',
+    usualTitle:'The usual? 😉',
+    pzLabel:'Your pizza',
+    savingsCo:'💰 Ordering direct supports Biza — delivery apps charge up to 30%',
+    savingsCf:(v)=>`💰 This order on a delivery app would cost ~${v}. Ordering direct supports Biza ❤️`,
+    trkReceived:'Order received',
+    trkConfirmed:'Biza confirmed on WhatsApp',
+    trkPreparing:'Preparing 🔥',
+    trkOut:'Out for delivery 🛵',
+    trkReady:'Ready for pickup ✅',
+    orderChip:'Your order',
+    trackerTitle:'Your order 🍕',
+    wheelGift:'🎁 Free pizza? Ask Biza!',
+    rcTotal:'TOTAL',
+    rcThanks:'THANK YOU! 🍕',
   }
 };
 
@@ -1133,7 +1344,7 @@ function itemCardHTML(item){
     : money(item.price);
   return `
   <div class="item-row tappable" data-id="${item.id}">
-    <img class="item-thumb" src="${item.img}" alt="${item.name}" width="74" height="74" loading="lazy">
+    <img class="item-thumb" src="${item.img}" alt="${item.name}" width="74" height="74" loading="lazy" onload="this.classList.add('ld')">
     <div class="item-main">
       <div class="item-name">${item.name}${(item.badge||item.fav)?`<span class="item-badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
       <div class="item-desc">${item.desc}</div>
@@ -1194,12 +1405,19 @@ function catLabel(c){ const tb = TABS.find(x=>x.key===c); return tb ? tb[lang].r
 function renderDestaques(el){
   let html = '<div class="fade-in">';
 
-  // 1) one-tap repeat of the last order
+  // 0) SMART HOME: time-aware greeting for returning customers (uses saved checkout name)
+  const custName = (localStorage.getItem('biza_name')||'').trim();
+  if(custName){
+    const first = custName.split(/\s+/)[0];
+    html += `<div class="greet">${STR[lang].greet(new Date().getHours())}, ${first}! 👋</div>`;
+  }
+
+  // 1) one-tap repeat of the last order — "O de sempre?" for known customers
   const hist = getHistory();
   if(hist.length){
     const o = hist[hist.length-1];
     html += `<div class="relast">
-      <div class="relast-title">↺ ${t('relastTitle')}</div>
+      <div class="relast-title">↺ ${custName ? t('usualTitle') : t('relastTitle')}</div>
       <div class="relast-sum">${o.summary}</div>
       <button class="relast-btn" data-reorder="${hist.length-1}">↺ ${t('relastBtn')} · ${money(o.total)}</button>
     </div>`;
@@ -1232,13 +1450,36 @@ function renderDestaques(el){
    ════════════════════════════════════════════════════════════ */
 function getHistory(){ try{ return JSON.parse(localStorage.getItem('biza_history')||'[]'); }catch(e){ return []; } }
 
+/* 8-slice loyalty pizza wheel — one slice per past order, capped at 8 */
+function wheelSVG(n){
+  const filled = Math.min(n, 8);
+  let slices = '';
+  for(let i=0;i<8;i++){
+    const a0=(i*45-90)*Math.PI/180, a1=((i+1)*45-90)*Math.PI/180;
+    const x0=(60+50*Math.cos(a0)).toFixed(1), y0=(60+50*Math.sin(a0)).toFixed(1);
+    const x1=(60+50*Math.cos(a1)).toFixed(1), y1=(60+50*Math.sin(a1)).toFixed(1);
+    const isF = i < filled;
+    slices += `<path${isF?` class="slice" data-i="${i}"`:''} d="M60 60 L${x0} ${y0} A50 50 0 0 1 ${x1} ${y1} Z"
+      fill="${isF?'#e8b04b':'rgba(255,255,255,.05)'}" stroke="${isF?'#c98e3f':'rgba(255,255,255,.13)'}" stroke-width="1.5"/>`;
+    if(isF){
+      const am=(i*45-67.5)*Math.PI/180;
+      slices += `<circle class="slice" data-i="${i}" cx="${(60+30*Math.cos(am)).toFixed(1)}" cy="${(60+30*Math.sin(am)).toFixed(1)}" r="4.5" fill="#a23b24"/>`;
+    }
+  }
+  return `<svg class="wheel" width="118" height="118" viewBox="0 0 120 120" aria-hidden="true">
+    <circle cx="60" cy="60" r="55" fill="#d9a35a"/>${slices}
+    <circle cx="60" cy="60" r="15" fill="#15100b" stroke="rgba(255,255,255,.15)"/>
+    <text x="60" y="65" text-anchor="middle" font-size="14" font-weight="700" fill="#ffd76a" font-family="Georgia,serif">${n}</text>
+  </svg>`;
+}
+
 function renderHistory(el){
   const hist = getHistory();
   const n = hist.length;
   let html = `<div class="loyalty-card fade-in">
-      <div class="loyalty-count">${n}</div>
+      ${wheelSVG(n)}
       <div class="loyalty-label">${STR[lang].loyaltyLabel(n)}</div>
-      ${n>=5?`<div class="loyalty-vip">${t('loyaltyVip')}</div>`:''}
+      ${n>=8?`<div class="wheel-gift">${t('wheelGift')}</div>`:n>=5?`<div class="loyalty-vip">${t('loyaltyVip')}</div>`:''}
     </div>`;
   if(!n){
     html += `<div class="empty-state"><span class="emoji">🧾</span><p>${t('noHistoryTitle')}</p><p style="font-size:.82rem;margin-top:6px">${t('noHistorySub')}</p></div>`;
@@ -1252,6 +1493,13 @@ function renderHistory(el){
       </div>`).join('');
   }
   el.innerHTML = html;
+  // satisfying slice-by-slice draw-in (double rAF so transitions actually fire)
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    el.querySelectorAll('.wheel .slice').forEach(s=>{
+      s.style.transitionDelay = ((+s.dataset.i)*70)+'ms';
+      s.classList.add('in');
+    });
+  }));
 }
 
 function recordOrder(total){
@@ -1264,14 +1512,89 @@ function recordOrder(total){
 }
 
 /* ════════════════════════════════════════════════════════════
+   ORDER JOURNEY TRACKER — persists to biza_orders
+   (biza-kitchen.html reads this exact key + schema:
+    { id, items, total, type, timestamp, status })
+   ════════════════════════════════════════════════════════════ */
+const ORDER_ACTIVE_MS = 90*60*1000;   // tracker chip lives for 90 min
+const TRK_IDX = { received:0, confirmed:1, preparing:2, ready:3, out:3, done:3 };
+
+function getOrders(){ try{ return JSON.parse(localStorage.getItem('biza_orders')||'[]'); }catch(e){ return []; } }
+function saveOrders(list){ localStorage.setItem('biza_orders', JSON.stringify(list.slice(-20))); }
+function activeOrder(){
+  const list = getOrders();
+  const o = list[list.length-1];
+  return (o && Date.now() - o.timestamp < ORDER_ACTIVE_MS) ? o : null;
+}
+
+function renderTracker(order){
+  const steps = [ t('trkReceived'), t('trkConfirmed'), t('trkPreparing'),
+                  order.type==='pickup' ? t('trkReady') : t('trkOut') ];
+  const done = TRK_IDX[order.status] ?? 0;
+  document.getElementById('cfTracker').innerHTML = '<div class="trk">' + steps.map((s,i)=>`
+    <div class="trk-step${i<=done?' done':''}${i===done+1?' next':''}">
+      <div class="trk-rail"><div class="trk-dot">${i<=done?'✓':''}</div>${i<steps.length-1?'<div class="trk-line"></div>':''}</div>
+      <div class="trk-txt">${s}</div>
+    </div>`).join('') + '</div>';
+}
+
+/* thermal-receipt order summary */
+function renderReceipt(order){
+  const el = document.getElementById('cfMsg');
+  el.className = 'cf-receipt-wrap';
+  const when = new Date(order.timestamp).toLocaleString(lang==='pt'?'pt-BR':'en-US',
+    { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+  let rows = '';
+  order.items.forEach(i => {
+    rows += `<div class="rc-line"><span class="n">${i.qty}× ${i.name}</span><span class="p">${money(i.price*i.qty)}</span></div>`;
+    const v = variantText(i);
+    if(v) rows += `<div class="rc-var">${v}</div>`;
+  });
+  el.innerHTML = `<div class="receipt">
+    <div class="rc-head">BIZA PIZZAS</div>
+    <div class="rc-sub">6339 Rising Sun Ave · Philadelphia</div>
+    <div class="rc-dash"></div>${rows}<div class="rc-dash"></div>
+    <div class="rc-total"><span>${t('rcTotal')}</span><span class="p">${money(order.total)}</span></div>
+    <div class="rc-meta">#${order.id} · ${order.type==='delivery'?t('delivery'):t('pickup')} · ${when}</div>
+    <div class="rc-thanks">${t('rcThanks')}</div>
+  </div>`;
+}
+
+/* savings line: what the same order would cost on a delivery app (~30% markup) */
+function renderSavingsCf(total){
+  const el = document.getElementById('cfSavings');
+  el.textContent = STR[lang].savingsCf(money(total*1.3));
+  el.classList.add('show');
+}
+
+function updateOrderChip(){
+  const chip = document.getElementById('orderChip');
+  const o = activeOrder();
+  chip.classList.toggle('show', !!o);
+  if(o) chip.querySelector('.oc-txt').textContent = t('orderChip');
+}
+
+/* reopen the tracker for an in-flight order (header chip tap) */
+function openTracker(order){
+  document.querySelector('#confirmSheet .cf-title').textContent = t('trackerTitle');
+  document.querySelector('#confirmSheet .cf-eta').style.display = order.status==='received' ? '' : 'none';
+  renderTracker(order);
+  renderReceipt(order);
+  renderSavingsCf(order.total);
+  openSheet('confirmSheet');
+}
+
+/* ════════════════════════════════════════════════════════════
    ITEM SHEET  (add / edit)
    ════════════════════════════════════════════════════════════ */
 function openItemSheet(item, existing){
   editingId = existing ? existing.id : null;
+  const defSize = existing?.size || PIZZA_SIZES[1].size;  // default Grande
   modal = {
     item,
-    size: existing?.size || PIZZA_SIZES[1].size,        // default Grande
-    price: existing?.price ?? item.price,
+    size: defSize,
+    // FIX: price must match the selected size (was defaulting to base/Broto price with Grande selected)
+    price: existing?.price ?? (item.isPizza ? (PIZZA_SIZES.find(s=>s.size===defSize)?.price ?? item.price) : item.price),
     half: existing?.flavors?.length === 2,
     flavors: existing?.flavors ? existing.flavors.slice() : [PIZZA_FLAVORS[0]],
     borda: existing?.borda || BORDAS[1],                // default Catupiry
@@ -1281,8 +1604,10 @@ function openItemSheet(item, existing){
 
   document.getElementById('itemTitle').textContent = item.isPizza
       ? (lang==='pt'?'Monte sua Pizza':'Build Your Pizza') : item.name;
-  document.getElementById('itemImg').src = item.img;
-  document.getElementById('itemImg').alt = item.name;
+  const sheetImg = document.getElementById('itemImg');
+  sheetImg.classList.remove('ld');
+  sheetImg.src = item.img;
+  sheetImg.alt = item.name;
   document.getElementById('itemDescTxt').textContent = item.desc;
 
   const notes = document.getElementById('itemNotes');
@@ -1294,12 +1619,16 @@ function openItemSheet(item, existing){
   document.getElementById('halfBlock').style.display  = isPizza ? 'block' : 'none';
   document.getElementById('bordaBlock').style.display = isPizza ? 'block' : 'none';
   document.getElementById('qtyBlock').style.display   = isPizza ? 'none'  : 'block';
+  // LIVE PREVIEW replaces the stock photo for pizzas — you SEE the pizza you're building
+  document.getElementById('itemImg').style.display      = isPizza ? 'none'  : 'block';
+  document.getElementById('pizzaPrevWrap').style.display = isPizza ? 'block' : 'none';
 
   if(isPizza){
     buildSizeGrid();
     buildBordaGrid();
     buildFlavorSelects();
     setHalf(modal.half);
+    renderPizzaPreview();
   } else {
     document.getElementById('qtyVal').textContent = modal.qty;
   }
@@ -1320,6 +1649,7 @@ function buildSizeGrid(){
     modal.size = b.dataset.size;
     modal.price = parseFloat(b.dataset.price);
     refreshAddBtn();
+    renderPizzaPreview();
   });
 }
 
@@ -1331,6 +1661,7 @@ function buildBordaGrid(){
     g.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected'));
     b.classList.add('selected');
     modal.borda = b.dataset.borda;
+    renderPizzaPreview();
   });
 }
 
@@ -1341,8 +1672,8 @@ function buildFlavorSelects(){
   f1.innerHTML = opts; f2.innerHTML = opts;
   f1.value = modal.flavors[0] || PIZZA_FLAVORS[0];
   f2.value = modal.flavors[1] || PIZZA_FLAVORS[1];
-  f1.onchange = () => { modal.flavors[0] = f1.value; maybeFocusOtherFlavor(f1.value); };
-  f2.onchange = () => { modal.flavors[1] = f2.value; maybeFocusOtherFlavor(f2.value); };
+  f1.onchange = () => { modal.flavors[0] = f1.value; renderPizzaPreview(); maybeFocusOtherFlavor(f1.value); };
+  f2.onchange = () => { modal.flavors[1] = f2.value; renderPizzaPreview(); maybeFocusOtherFlavor(f2.value); };
 }
 
 function setHalf(on){
@@ -1353,6 +1684,7 @@ function setHalf(on){
   document.getElementById('flavor1Label').textContent = on ? t('flavor1Half') : t('flavor1');
   if(!on){ modal.flavors = [document.getElementById('flavor1').value]; }
   else { modal.flavors = [document.getElementById('flavor1').value, document.getElementById('flavor2').value]; }
+  renderPizzaPreview();
 }
 
 /* FEATURE 17: "Outro sabor" → focus notes */
@@ -1409,6 +1741,7 @@ function commitItem(){
       cart.push(line);
     }
     showToast(STR[lang].added(modal.item.isPizza ? ('Pizza '+modal.size) : modal.item.name));
+    buzz(15);
   }
   saveCart(); updateCartBar();
   const wasEditing = editingId;
@@ -1428,7 +1761,7 @@ function maybeUpsell(){
   const drinks = MENU.filter(m => m.category==='drinks').slice(0,6);
   document.getElementById('upsellGrid').innerHTML = drinks.map(d => `
     <div class="upsell-card">
-      <img src="${d.img}" alt="${d.name}" width="100" height="70" loading="lazy">
+      <img src="${d.img}" alt="${d.name}" width="100" height="70" loading="lazy" onload="this.classList.add('ld')">
       <div class="u-name">${d.name}</div>
       <div class="u-price">${money(d.price)}</div>
       <button class="u-add" data-upsell="${d.id}">+ ${t('upsellAdd')}</button>
@@ -1515,6 +1848,9 @@ function minsUntilOpen(){
   return null;
 }
 
+/* ── HAPTIC TAP (Android Chrome etc. — silently skipped elsewhere) ── */
+function buzz(ms){ if('vibrate' in navigator){ try{ navigator.vibrate(ms); }catch(e){} } }
+
 /* ── ONE-TAP ADD (non-pizza: no modal, tap = added) ── */
 function quickAdd(item){
   const ex = cart.find(i => i.menuId===item.id && !i.notes && !i.isPizza);
@@ -1522,7 +1858,7 @@ function quickAdd(item){
   else {
     cart.push({ id:uid(), menuId:item.id, isPizza:false, name:item.name, notes:'', price:item.price, qty:1, img:item.img, category:item.category });
   }
-  saveCart(); updateCartBar(); bumpCartBar();
+  saveCart(); updateCartBar(); bumpCartBar(); buzz(15);
   showToast(STR[lang].added(item.name));
 }
 
@@ -1540,7 +1876,7 @@ function addQuickCombo(qcId){
       else { cart.push({ id:uid(), menuId:it.id, isPizza:false, name:it.name, notes:'', price:it.price, qty:c.qty, img:it.img, category:it.category }); }
     }
   });
-  saveCart(); updateCartBar(); bumpCartBar();
+  saveCart(); updateCartBar(); bumpCartBar(); buzz(15);
   showToast(t('qcAdded'));
 }
 
@@ -1727,8 +2063,21 @@ function sendWhatsApp(){
     if(!opened){
       openSheet('fallbackSheet');
     } else {
-      // CONFIRMATION: show exactly what was sent + reassurance, then start fresh
-      document.getElementById('cfMsg').textContent = text;
+      // CONFIRMATION: tracker + thermal receipt + savings, then start fresh
+      const type = localStorage.getItem('biza_type') || 'delivery';
+      const order = {
+        id: 'BZ-' + Date.now().toString(36).toUpperCase().slice(-6),
+        items: JSON.parse(JSON.stringify(cart)),
+        total, type, timestamp: Date.now(), status: 'received',
+      };
+      const list = getOrders(); list.push(order); saveOrders(list);
+      document.querySelector('#confirmSheet .cf-title').textContent = t('cfTitle');
+      document.querySelector('#confirmSheet .cf-eta').style.display = '';
+      renderTracker(order);
+      renderReceipt(order);
+      renderSavingsCf(total);
+      updateOrderChip();
+      buzz(15);
       cart = []; saveCart(); updateCartBar();
       renderContent();
       const ic = document.querySelector('#confirmSheet .cf-icon');
@@ -1793,6 +2142,7 @@ function setLang(l){
   renderTabs();
   renderContent();
   updateCartBar();
+  updateOrderChip();
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1856,7 +2206,7 @@ document.addEventListener('click', e => {
   if(up){
     const d = findItem(up.dataset.upsell);
     if(d){ cart.push({ id:uid(), menuId:d.id, isPizza:false, name:d.name, notes:'', price:d.price, qty:1, img:d.img, category:'drinks' });
-      saveCart(); updateCartBar(); showToast(STR[lang].added(d.name)); closeSheet(); }
+      saveCart(); updateCartBar(); buzz(15); showToast(STR[lang].added(d.name)); closeSheet(); }
     return;
   }
 });
@@ -1915,6 +2265,15 @@ document.getElementById('searchClear').addEventListener('click', () => {
 // language toggle
 document.getElementById('langToggle').addEventListener('click', () => setLang(lang==='pt'?'en':'pt'));
 
+// order chip → reopen tracker for the in-flight order
+document.getElementById('orderChip').addEventListener('click', () => {
+  const o = activeOrder();
+  if(o) openTracker(o);
+});
+
+// item sheet photo fades in from shimmer once loaded
+document.getElementById('itemImg').addEventListener('load', e => e.target.classList.add('ld'));
+
 // copy order (fallback)
 document.getElementById('copyOrderBtn').addEventListener('click', async () => {
   try{ await navigator.clipboard.writeText(lastOrderText); }
@@ -1937,9 +2296,10 @@ function init(){
   renderTabs();
   switchTab('destaques');
   updateCartBar();
-  // FEATURE 3/6: live update every minute
+  updateOrderChip();
+  // FEATURE 3/6: live update every minute (status + tracker chip expiry)
   if(openClock) clearInterval(openClock);
-  openClock = setInterval(renderStatus, 60000);
+  openClock = setInterval(()=>{ renderStatus(); updateOrderChip(); }, 60000);
 }
 init();
 
