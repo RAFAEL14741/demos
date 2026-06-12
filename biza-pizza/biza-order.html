@@ -337,6 +337,58 @@ h1,h2,h3{line-height:1.15;}
   opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:88%;text-align:center;}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
+/* ── DESTAQUES: QUICK COMBOS ── */
+.qc-strip{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 14px;-webkit-overflow-scrolling:touch;}
+.qc-card{flex-shrink:0;width:150px;background:linear-gradient(160deg,rgba(200,40,42,.22),rgba(184,134,11,.10));border:1px solid rgba(200,40,42,.4);border-radius:16px;padding:14px 12px;text-align:center;}
+.qc-emoji{font-size:2rem;line-height:1;}
+.qc-name{font-size:.9rem;font-weight:700;margin-top:8px;}
+.qc-desc{font-size:.7rem;color:var(--txt-dim);margin-top:4px;line-height:1.35;min-height:2.7em;}
+.qc-price{font-size:1rem;font-weight:700;color:#ff8c8e;margin:6px 0 8px;}
+.qc-add{width:100%;background:var(--red);color:#fff;border-radius:10px;padding:10px 6px;font-size:.8rem;font-weight:700;}
+
+/* ── REORDER LAST CARD ── */
+.relast{background:linear-gradient(135deg,rgba(37,211,102,.14),rgba(255,255,255,.04));border:1px solid rgba(37,211,102,.35);border-radius:16px;padding:16px;margin-bottom:16px;}
+.relast-title{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5be584;}
+.relast-sum{font-size:.84rem;color:var(--txt-dim);margin-top:6px;white-space:pre-line;line-height:1.45;}
+.relast-btn{margin-top:12px;width:100%;background:var(--green);color:#06281a;border-radius:11px;padding:13px;font-size:.95rem;font-weight:700;}
+
+/* ── FAV BADGE ── */
+.item-badge.fav{background:rgba(184,134,11,.2);color:#ffd76a;border-color:rgba(184,134,11,.5);}
+
+/* ── CART BAR: EMPTY STATE + BOUNCE ── */
+#cartBar.empty{background:rgba(255,255,255,.07);color:var(--txt-dim);box-shadow:none;border:1px solid var(--line);font-weight:600;justify-content:center;}
+#cartBar.bounce{animation:cbBounce .45s var(--ease);}
+@keyframes cbBounce{0%{transform:translateX(-50%) scale(1);}35%{transform:translateX(-50%) scale(1.07);}100%{transform:translateX(-50%) scale(1);}}
+
+/* ── FULL-SCREEN CLOSED OVERLAY ── */
+#closedOverlay{position:fixed;inset:0;z-index:950;background:rgba(10,6,3,.97);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 24px calc(30px + var(--safe-b));}
+#closedOverlay.show{display:flex;}
+.cov-emoji{font-size:4rem;}
+.cov-title{font-family:var(--serif);font-size:3.2rem;color:#ff8c8e;letter-spacing:.04em;margin-top:10px;}
+.cov-sub{font-size:1.05rem;color:var(--txt-dim);margin-top:10px;line-height:1.5;max-width:320px;}
+.cov-hours{font-size:.82rem;color:var(--txt-faint);margin-top:14px;line-height:1.6;}
+.cov-browse{margin-top:26px;width:100%;max-width:340px;background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:13px;padding:15px;font-weight:700;font-size:.95rem;}
+
+/* ── VOICE NOTE TOGGLE ── */
+.voice-row{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:6px;transition:border-color .2s;width:100%;text-align:left;}
+.voice-row.on{border-color:var(--green);background:rgba(37,211,102,.08);}
+.voice-row .v-ico{font-size:1.4rem;}
+.voice-row .v-txt{flex:1;font-size:.85rem;font-weight:600;line-height:1.35;}
+.voice-row .v-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
+.voice-row.on .v-check{background:var(--green);border-color:var(--green);color:#06281a;}
+.voice-hint{font-size:.74rem;color:var(--txt-faint);margin:0 2px 16px;line-height:1.45;}
+
+/* ── CONFIRM SHEET ── */
+.cf-icon{font-size:3.6rem;text-align:center;}
+.cf-title{font-family:var(--serif);font-size:1.7rem;text-align:center;margin-top:8px;}
+.cf-eta{background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#5be584;border-radius:12px;padding:13px 16px;font-size:.9rem;font-weight:600;text-align:center;margin:16px 0;line-height:1.45;}
+.cf-msg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:.78rem;color:var(--txt-dim);white-space:pre-wrap;line-height:1.55;max-height:220px;overflow-y:auto;}
+.cf-note{font-size:.76rem;color:var(--txt-faint);text-align:center;margin-top:14px;line-height:1.5;}
+
+/* ── CLOSED NOTE IN CHECKOUT ── */
+.closed-note{display:none;background:rgba(184,134,11,.14);border:1px solid rgba(184,134,11,.4);color:#e6c45c;border-radius:10px;padding:11px 14px;font-size:.8rem;font-weight:600;margin-bottom:14px;text-align:center;line-height:1.45;}
+.closed-note.show{display:block;}
+
 /* ── SKELETON FADE-IN ── */
 .fade-in{animation:fadeIn .4s var(--ease);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
@@ -364,6 +416,15 @@ h1,h2,h3{line-height:1.15;}
 <!-- BANNERS -->
 <div id="urgencyBanner" class="banner" style="display:none"></div>
 <div id="closedBanner" class="banner" style="display:none"></div>
+
+<!-- FULL-SCREEN CLOSED OVERLAY -->
+<div id="closedOverlay" role="dialog" aria-modal="true">
+  <div class="cov-emoji">🌙</div>
+  <div class="cov-title" data-t="covTitle"></div>
+  <div class="cov-sub" id="covSub"></div>
+  <div class="cov-hours" data-t="covHours"></div>
+  <button class="cov-browse" id="covBrowse" data-t="covBrowse"></button>
+</div>
 
 <!-- TABS -->
 <nav id="tabBar"></nav>
@@ -491,6 +552,13 @@ h1,h2,h3{line-height:1.15;}
       <label data-t="address"></label>
       <input id="coAddr" type="text" autocomplete="street-address">
     </div>
+    <button type="button" class="voice-row" id="voiceRow">
+      <span class="v-ico">🎤</span>
+      <span class="v-txt" data-t="voiceTxt"></span>
+      <span class="v-check" id="voiceCheck"></span>
+    </button>
+    <p class="voice-hint" data-t="voiceHint"></p>
+    <div class="closed-note" id="closedNote"></div>
     <div class="co-summary" id="coSummary"></div>
     <div id="minWarnCo"></div>
   </div>
@@ -537,6 +605,21 @@ h1,h2,h3{line-height:1.15;}
   </div>
 </section>
 
+<!-- CONFIRM SHEET (post-WhatsApp send) -->
+<section id="confirmSheet" class="sheet" role="dialog" aria-modal="true">
+  <div class="sheet-grab"></div>
+  <div class="sheet-body">
+    <div class="cf-icon">✅</div>
+    <h2 class="cf-title" data-t="cfTitle"></h2>
+    <div class="cf-eta" data-t="cfEta"></div>
+    <div class="cf-msg" id="cfMsg"></div>
+    <p class="cf-note" data-t="cfNote"></p>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn-primary" data-close data-t="cfDone"></button>
+  </div>
+</section>
+
 <!-- TOAST -->
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -576,6 +659,22 @@ const PIZZA_FLAVORS = [
 ];
 const BORDAS = ['Sem borda','Catupiry','Cheddar','Chocolate'];
 
+/* ── QUICK COMBOS — one-tap bundles (defaults: Mussarela + borda Catupiry, editable in cart) ── */
+const QUICK_COMBOS = [
+  { id:'qc1', emoji:'🙋', pt:'Só Eu', en:'Just Me',
+    descPt:'Pizza Broto + Coca Lata', descEn:'Small pizza + Coke can',
+    items:[ {pizza:{size:'Broto',price:33.39}}, {menuId:'drk1',qty:1} ] },
+  { id:'qc2', emoji:'❤️', pt:'Casal', en:'Date Night',
+    descPt:'Pizza Grande + 2 latas', descEn:'Large pizza + 2 cans',
+    items:[ {pizza:{size:'Grande',price:39.59}}, {menuId:'drk1',qty:1}, {menuId:'drk3',qty:1} ] },
+  { id:'qc3', emoji:'👨‍👩‍👧‍👦', pt:'Família', en:'Family Night',
+    descPt:'Pizza Gigante + 2 Guaraná 500ml', descEn:'Giant pizza + 2 Guaraná 500ml',
+    items:[ {pizza:{size:'Gigante',price:49.49}}, {menuId:'drk9',qty:2} ] },
+];
+function qcPrice(qc){
+  return qc.items.reduce((s,c)=> s + (c.pizza ? c.pizza.price : findItem(c.menuId).price * c.qty), 0);
+}
+
 /* ── IMAGE MAP ── */
 const I = {
   p1:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80',
@@ -603,7 +702,7 @@ const MENU = [
   { id:'pas3',  name:'Pastel de Queijo',              price:9.89, desc:'Queijo derretido na medida certa · Simples e delicioso.', category:'pasteis', sub:'salgado', img:I.pas },
   { id:'pas4',  name:'Pastel de Presunto e Queijo',   price:9.89, desc:'Clássico presunto com queijo fundido em massa crocante.', category:'pasteis', sub:'salgado', img:I.pas },
   { id:'pas5',  name:'Pastel de Calabresa',           price:9.89, desc:'Calabresa temperada com cebola · Sabor marcante.', category:'pasteis', sub:'salgado', img:I.pas },
-  { id:'pas6',  name:'Pastel de Frango c/ Catupiry',  price:9.89, desc:'Frango desfiado com requeijão catupiry cremoso.', category:'pasteis', sub:'salgado', img:I.pas },
+  { id:'pas6',  name:'Pastel de Frango c/ Catupiry',  price:9.89, desc:'Frango desfiado com requeijão catupiry cremoso.', category:'pasteis', sub:'salgado', img:I.pas, fav:true },
   { id:'pas7',  name:'Pastel de Carne c/ Queijo',     price:9.89, desc:'Carne moída com queijo derretido · Combinação perfeita.', category:'pasteis', sub:'salgado', img:I.pas },
   { id:'pas8',  name:'Pastel de Palmito',             price:9.89, desc:'Palmito refogado com temperinhos especiais da Biza.', category:'pasteis', sub:'salgado', img:I.pas },
   { id:'pas9',  name:'Pastel de Lombinho Defumado',   price:9.89, desc:'Lombinho defumado macio e saboroso em massa frita.', category:'pasteis', sub:'salgado', img:I.pas },
@@ -633,7 +732,7 @@ const MENU = [
   { id:'esf1',  name:'Esfihas (5-pack)', price:21.69, desc:'5 esfihas assadas artesanalmente · Recheio à escolha · Pra compartilhar.', category:'esfihas', img:I.esf },
   // PORÇÕES
   { id:'por1',  name:'Batata Frita',                    price:14.89, desc:'Batata frita sequinha e crocante · Temperada com ervas.', category:'porcoes', img:I.fri },
-  { id:'por2',  name:'Batata Frita c/ Cheddar e Bacon', price:21.09, desc:'Batata frita coberta com cheddar cremoso e bacon crocante.', category:'porcoes', img:I.fri },
+  { id:'por2',  name:'Batata Frita c/ Cheddar e Bacon', price:21.09, desc:'Batata frita coberta com cheddar cremoso e bacon crocante.', category:'porcoes', img:I.fri, fav:true },
   { id:'por3',  name:'Frango à Passarinho',             price:24.79, desc:'Pedaços de frango frito crocante · Suculento por dentro.', category:'porcoes', img:I.chk },
   { id:'por4',  name:'Anéis de Cebola',                 price:17.29, desc:'Anéis de cebola empanados e fritos · Crocantes e dourados.', category:'porcoes', img:I.oni },
   { id:'por5',  name:'Tábua Frita',                     price:43.29, desc:'Mix de frango, batata, anéis de cebola e molho especial.', category:'porcoes', img:I.tbd },
@@ -645,7 +744,7 @@ const MENU = [
   // DRINKS — LATA
   { id:'drk1',  name:'Coca-Cola Lata',          price:2.59, desc:'Coca-Cola clássica gelada · 350ml.', category:'drinks', img:I.drk },
   { id:'drk2',  name:'Sprite Lata',             price:2.59, desc:'Sprite refrescante · 350ml.', category:'drinks', img:I.drk },
-  { id:'drk3',  name:'Guaraná Antártica Lata',  price:2.59, desc:'O guaraná mais famoso do Brasil · 350ml.', category:'drinks', img:I.drk },
+  { id:'drk3',  name:'Guaraná Antártica Lata',  price:2.59, desc:'O guaraná mais famoso do Brasil · 350ml.', category:'drinks', img:I.drk, fav:true },
   { id:'drk4',  name:'Fanta Laranja Lata',      price:2.59, desc:'Fanta laranja bem gelada · 350ml.', category:'drinks', img:I.drk },
   { id:'drk5',  name:'Fanta Uva Lata',          price:2.59, desc:'Fanta uva refrescante · 350ml.', category:'drinks', img:I.drk },
   { id:'drk6',  name:'H2OH! Laranja Lata',      price:2.59, desc:'Levinho com gás · 350ml.', category:'drinks', img:I.drk },
@@ -662,6 +761,7 @@ const MENU = [
    i18n — interface only (food names stay Portuguese)
    ════════════════════════════════════════════════════════════ */
 const TABS = [
+  { key:'destaques', pt:'⭐ Destaques', en:'⭐ Picks' },
   { key:'pizzas',  pt:'🍕 Pizzas',   en:'🍕 Pizzas' },
   { key:'pasteis', pt:'🥟 Pastéis',  en:'🥟 Pastéis' },
   { key:'esfihas', pt:'🧆 Esfihas',  en:'🧆 Esfihas' },
@@ -715,6 +815,27 @@ const STR = {
     orderHeader:'*Pedido — Biza Pizzas* 🍕', metade:'Metade', borda:'Borda',
     obs:'Obs', waItems:'*Itens:*', waType:'*Tipo:*', waName:'*Nome:*',
     waPhone:'*Telefone:*', waAddr:'*Endereço:*', waTotal:'*Total:*',
+    destaquesFav:'Os favoritos da casa',
+    quickCombosTitle:'Combo rápido — um toque e pronto',
+    qcAdd:'+ Adicionar tudo',
+    qcAdded:'Combo adicionado ✓ Toque no carrinho para trocar o sabor',
+    favBadge:'⭐ Nosso favorito',
+    relastTitle:'Seu último pedido',
+    relastBtn:'Pedir de novo',
+    cartEmptyBar:'Toque num item para começar 🍕',
+    covTitle:'FECHADO',
+    covOpens:(t)=>`Abrimos às ${t} 🍕`,
+    covTuesday:'Hoje é terça — nosso dia de descanso 😴 Voltamos amanhã às 18:30',
+    covHours:'Qua–Seg · 18:30–23:30 (qui até 22:30) · Terça fechado',
+    covBrowse:'Ver o cardápio mesmo assim →',
+    voiceTxt:'Prefere falar? Mande um áudio com as observações',
+    voiceHint:'Depois de enviar o pedido, é só segurar o 🎤 no WhatsApp e gravar.',
+    voiceWaLine:'🎤 Vou mandar um áudio com as observações',
+    closedNoteCo:'⏰ Estamos fechados agora — a Biza confirma seu pedido quando abrir.',
+    cfTitle:'Pedido enviado!',
+    cfEta:'📲 A Biza vai confirmar em até 5 minutos no WhatsApp',
+    cfNote:'Seu pedido ficou salvo no 🧾 Histórico — na próxima é só tocar em "Pedir de novo".',
+    cfDone:'Beleza! 👍',
   },
   en:{
     tagline:'Brazilian pizza · 6339 Rising Sun Ave',
@@ -759,6 +880,27 @@ const STR = {
     orderHeader:'*Order — Biza Pizzas* 🍕', metade:'Half', borda:'Crust',
     obs:'Notes', waItems:'*Items:*', waType:'*Type:*', waName:'*Name:*',
     waPhone:'*Phone:*', waAddr:'*Address:*', waTotal:'*Total:*',
+    destaquesFav:'House favorites',
+    quickCombosTitle:'Quick combo — one tap, done',
+    qcAdd:'+ Add it all',
+    qcAdded:'Combo added ✓ Tap the cart to change flavors',
+    favBadge:'⭐ Our favorite',
+    relastTitle:'Your last order',
+    relastBtn:'Order again',
+    cartEmptyBar:'Tap an item to start 🍕',
+    covTitle:'CLOSED',
+    covOpens:(t)=>`We open at ${t} 🍕`,
+    covTuesday:'Today is Tuesday — our rest day 😴 Back tomorrow at 6:30 PM',
+    covHours:'Wed–Mon · 6:30–11:30 PM (Thu till 10:30) · Closed Tuesdays',
+    covBrowse:'Browse the menu anyway →',
+    voiceTxt:'Prefer talking? Send a voice note with your requests',
+    voiceHint:'After sending your order, just hold the 🎤 in WhatsApp and record.',
+    voiceWaLine:'🎤 I will send a voice note with my requests',
+    closedNoteCo:'⏰ We are closed right now — Biza will confirm your order when we open.',
+    cfTitle:'Order sent!',
+    cfEta:'📲 Biza will confirm within 5 minutes on WhatsApp',
+    cfNote:'Your order is saved in 🧾 History — next time just tap "Order again".',
+    cfDone:'Got it! 👍',
   }
 };
 
@@ -820,6 +962,7 @@ function renderStatus(){
     pill.className = 'status-pill open';
     txt.textContent = t('openNow') + ' ' + t('closesAt') + ' ' + s.closeStr;
     closed.style.display = 'none';
+    document.getElementById('closedOverlay').classList.remove('show');
     if(s.minsToClose <= 30){
       urg.style.display = 'flex';
       urg.classList.add('pulse');
@@ -836,6 +979,14 @@ function renderStatus(){
     closed.style.display = 'flex';
     const label = s.nextOpen ? t('closedBannerOpensAt')(s.nextOpen) : t('closedBannerToday');
     closed.innerHTML = `<span>${label}</span> <a href="${DOORDASH_URL}" target="_blank" rel="noopener">${t('orDoordash')}</a>`;
+    // GIANT full-screen FECHADO overlay — impossible to miss
+    if(!window._covDismissed){
+      const todayClosed = !HOURS[new Date().getDay()];
+      document.getElementById('covSub').textContent = todayClosed
+        ? t('covTuesday')
+        : (s.nextOpen ? STR[lang].covOpens(s.nextOpen) : t('closedBannerToday'));
+      document.getElementById('closedOverlay').classList.add('show');
+    }
   }
 }
 
@@ -866,8 +1017,8 @@ function switchTab(key){
    RENDER: CONTENT
    ════════════════════════════════════════════════════════════ */
 function itemCardHTML(item){
-  const badgeTxt = { especial:'Especial', doce:'Doce 🍫', maispedido: lang==='pt'?'Mais Pedido':'Top Seller' }[item.badge];
-  const badgeCls = item.badge==='doce'?'doce':item.badge==='especial'?'especial':'';
+  const badgeTxt = item.fav ? t('favBadge') : { especial:'Especial', doce:'Doce 🍫', maispedido: lang==='pt'?'Mais Pedido':'Top Seller' }[item.badge];
+  const badgeCls = item.fav ? 'fav' : item.badge==='doce'?'doce':item.badge==='especial'?'especial':'';
   const priceHTML = item.isPizza
     ? `<span class="from">${lang==='pt'?'a partir de':'from'}</span>${money(item.price)}`
     : money(item.price);
@@ -875,7 +1026,7 @@ function itemCardHTML(item){
   <div class="item-row tappable" data-id="${item.id}">
     <img class="item-thumb" src="${item.img}" alt="${item.name}" width="74" height="74" loading="lazy">
     <div class="item-main">
-      <div class="item-name">${item.name}${item.badge?`<span class="item-badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
+      <div class="item-name">${item.name}${(item.badge||item.fav)?`<span class="item-badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
       <div class="item-desc">${item.desc}</div>
       <div class="item-foot">
         <span class="item-price">${priceHTML}</span>
@@ -889,6 +1040,7 @@ function renderContent(){
   const el = document.getElementById('content');
 
   if(activeTab === 'history'){ renderHistory(el); return; }
+  if(activeTab === 'destaques' && !searchQ.trim()){ renderDestaques(el); return; }
 
   // SEARCH MODE — across all categories
   if(searchQ.trim()){
@@ -926,6 +1078,45 @@ function renderContent(){
 }
 
 function catLabel(c){ const tb = TABS.find(x=>x.key===c); return tb ? tb[lang].replace(/^[^\s]+\s/,'') : c; }
+
+/* ════════════════════════════════════════════════════════════
+   RENDER: DESTAQUES (default home — zero-decision screen)
+   ════════════════════════════════════════════════════════════ */
+function renderDestaques(el){
+  let html = '<div class="fade-in">';
+
+  // 1) one-tap repeat of the last order
+  const hist = getHistory();
+  if(hist.length){
+    const o = hist[hist.length-1];
+    html += `<div class="relast">
+      <div class="relast-title">↺ ${t('relastTitle')}</div>
+      <div class="relast-sum">${o.summary}</div>
+      <button class="relast-btn" data-reorder="${hist.length-1}">↺ ${t('relastBtn')} · ${money(o.total)}</button>
+    </div>`;
+  }
+
+  // 2) quick combos — whole bundle in one tap
+  html += `<div class="cat-header first">${t('quickCombosTitle')}</div><div class="qc-strip">`;
+  QUICK_COMBOS.forEach(qc => {
+    html += `<div class="qc-card">
+      <div class="qc-emoji">${qc.emoji}</div>
+      <div class="qc-name">${lang==='pt'?qc.pt:qc.en}</div>
+      <div class="qc-desc">${lang==='pt'?qc.descPt:qc.descEn}</div>
+      <div class="qc-price">${money(qcPrice(qc))}</div>
+      <button class="qc-add" data-qc="${qc.id}">${t('qcAdd')}</button>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // 3) house favorites
+  html += `<div class="cat-header">${t('destaquesFav')}</div>`;
+  const favs = MENU.filter(m => m.isPizza || m.fav || m.badge==='maispedido');
+  html += favs.map(itemCardHTML).join('');
+
+  html += '</div>';
+  el.innerHTML = html;
+}
 
 /* ════════════════════════════════════════════════════════════
    RENDER: HISTORY + LOYALTY
@@ -1144,11 +1335,52 @@ function cartCount(){ return cart.reduce((s,i)=>s+i.qty,0); }
 function cartTotal(){ return cart.reduce((s,i)=>s+i.price*i.qty,0); }
 
 function updateCartBar(){
+  // always visible: empty state invites, filled state reassures
   const bar = document.getElementById('cartBar');
   const n = cartCount();
-  document.getElementById('cbCount').textContent = n;
-  document.getElementById('cbTotal').textContent = money(cartTotal());
-  bar.classList.toggle('show', n>0);
+  bar.classList.add('show');
+  bar.classList.toggle('empty', n===0);
+  if(n===0){
+    bar.querySelector('.cb-left').innerHTML = `<span>${t('cartEmptyBar')}</span>`;
+    document.getElementById('cbTotal').textContent = '';
+  } else {
+    bar.querySelector('.cb-left').innerHTML = `<span class="cb-count" id="cbCount">${n}</span> <span>${t('cart')}</span>`;
+    document.getElementById('cbTotal').textContent = money(cartTotal());
+  }
+}
+
+function bumpCartBar(){
+  const bar = document.getElementById('cartBar');
+  bar.classList.remove('bounce'); void bar.offsetWidth; bar.classList.add('bounce');
+}
+
+/* ── ONE-TAP ADD (non-pizza: no modal, tap = added) ── */
+function quickAdd(item){
+  const ex = cart.find(i => i.menuId===item.id && !i.notes && !i.isPizza);
+  if(ex){ ex.qty += 1; }
+  else {
+    cart.push({ id:uid(), menuId:item.id, isPizza:false, name:item.name, notes:'', price:item.price, qty:1, img:item.img, category:item.category });
+  }
+  saveCart(); updateCartBar(); bumpCartBar();
+  showToast(STR[lang].added(item.name));
+}
+
+/* ── QUICK COMBO ADD (whole bundle, one tap) ── */
+function addQuickCombo(qcId){
+  const qc = QUICK_COMBOS.find(q=>q.id===qcId); if(!qc) return;
+  qc.items.forEach(c => {
+    if(c.pizza){
+      cart.push({ id:uid(), menuId:'pizza', isPizza:true, name:'Pizza '+c.pizza.size, size:c.pizza.size,
+        flavors:[PIZZA_FLAVORS[0]], borda:BORDAS[1], notes:'', price:c.pizza.price, qty:1, img:findItem('pizza').img, category:'pizzas' });
+    } else {
+      const it = findItem(c.menuId);
+      const ex = cart.find(i => i.menuId===c.menuId && !i.notes && !i.isPizza);
+      if(ex){ ex.qty += c.qty; }
+      else { cart.push({ id:uid(), menuId:it.id, isPizza:false, name:it.name, notes:'', price:it.price, qty:c.qty, img:it.img, category:it.category }); }
+    }
+  });
+  saveCart(); updateCartBar(); bumpCartBar();
+  showToast(t('qcAdded'));
 }
 
 function variantText(i){
@@ -1226,6 +1458,13 @@ function openCheckout(){
   document.getElementById('coAddr').value  = localStorage.getItem('biza_addr')  || '';
   document.getElementById('phoneErr').classList.remove('show');
   document.getElementById('coPhone').classList.remove('error');
+  voiceNote = false;
+  document.getElementById('voiceRow').classList.remove('on');
+  document.getElementById('voiceCheck').textContent = '';
+  const st = storeStatus();
+  const cn = document.getElementById('closedNote');
+  cn.textContent = t('closedNoteCo');
+  cn.classList.toggle('show', !st.open);
   renderCoSummary();
   refreshMinWarn();
   refreshSendBtn();
@@ -1282,6 +1521,7 @@ function buildOrderText(){
   if(name)  lines.push(`${t('waName')} ${name}`);
   if(phone) lines.push(`${t('waPhone')} ${phone}`);
   if(type==='delivery' && addr) lines.push(`${t('waAddr')} ${addr}`);
+  if(voiceNote) lines.push(t('voiceWaLine'));
   lines.push(`${t('waTotal')} ${money(cartTotal())}`);
   return lines.join('\n');
 }
@@ -1325,6 +1565,12 @@ function sendWhatsApp(){
     const opened = left || document.hidden || (win && !win.closed && win.closed!==undefined && document.hidden);
     if(!opened){
       openSheet('fallbackSheet');
+    } else {
+      // CONFIRMATION: show exactly what was sent + reassurance, then start fresh
+      document.getElementById('cfMsg').textContent = text;
+      cart = []; saveCart(); updateCartBar();
+      renderContent();
+      openSheet('confirmSheet');
     }
   }, 2000);
 }
@@ -1382,6 +1628,7 @@ function setLang(l){
   renderStatus();
   renderTabs();
   renderContent();
+  updateCartBar();
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1396,7 +1643,7 @@ document.addEventListener('click', e => {
 
   // item card / add
   const addBtn = e.target.closest('.item-add');
-  if(addBtn){ const it=findItem(addBtn.dataset.id); if(it) openItemSheet(it); return; }
+  if(addBtn){ const it=findItem(addBtn.dataset.id); if(it){ it.isPizza ? openItemSheet(it) : quickAdd(it); } return; }
   const row = e.target.closest('.item-row');
   if(row && document.getElementById('content').contains(row)){ const it=findItem(row.dataset.id); if(it) openItemSheet(it); return; }
 
@@ -1432,6 +1679,10 @@ document.addEventListener('click', e => {
   const inc = e.target.closest('[data-inc]'); if(inc){ changeQty(inc.dataset.inc, 1); return; }
   const dec = e.target.closest('[data-dec]'); if(dec){ changeQty(dec.dataset.dec, -1); return; }
 
+  // quick combo add
+  const qcBtn = e.target.closest('[data-qc]');
+  if(qcBtn){ addQuickCombo(qcBtn.dataset.qc); return; }
+
   // upsell add
   const up = e.target.closest('[data-upsell]');
   if(up){
@@ -1449,13 +1700,36 @@ document.getElementById('qtyMinus').addEventListener('click', ()=>{ if(modal.qty
 
 // cart bar / checkout
 function openCartSheet(){ renderCart(); openSheet('cartSheet'); }
-document.getElementById('cartBar').addEventListener('click', openCartSheet);
+document.getElementById('cartBar').addEventListener('click', ()=>{ if(cart.length) openCartSheet(); });
 document.getElementById('checkoutBtn').addEventListener('click', () => { if(cart.length) openCheckout(); });
 document.getElementById('sendWaBtn').addEventListener('click', sendWhatsApp);
 
-// checkout live
-document.getElementById('coPhone').addEventListener('input', () => {
-  if(phoneValid()){ document.getElementById('phoneErr').classList.remove('show'); document.getElementById('coPhone').classList.remove('error'); }
+// checkout live — phone auto-format (215) 555-1234 as they type
+document.getElementById('coPhone').addEventListener('input', e => {
+  const el = e.target;
+  let d = el.value.replace(/\D/g,'');
+  if(d.length===11 && d[0]==='1') d = d.slice(1);
+  d = d.slice(0,10);
+  let out = d;
+  if(d.length>6)      out = `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+  else if(d.length>3) out = `(${d.slice(0,3)}) ${d.slice(3)}`;
+  else if(d.length>0) out = `(${d}`;
+  el.value = out;
+  if(phoneValid()){ document.getElementById('phoneErr').classList.remove('show'); el.classList.remove('error'); }
+});
+
+// voice note toggle (checkout)
+let voiceNote = false;
+document.getElementById('voiceRow').addEventListener('click', () => {
+  voiceNote = !voiceNote;
+  document.getElementById('voiceRow').classList.toggle('on', voiceNote);
+  document.getElementById('voiceCheck').textContent = voiceNote ? '✓' : '';
+});
+
+// closed overlay dismiss → browse anyway
+document.getElementById('covBrowse').addEventListener('click', () => {
+  window._covDismissed = true;
+  document.getElementById('closedOverlay').classList.remove('show');
 });
 
 // search
@@ -1493,7 +1767,7 @@ function init(){
   applyI18n();
   renderStatus();
   renderTabs();
-  switchTab('pizzas');
+  switchTab('destaques');
   updateCartBar();
   // FEATURE 3/6: live update every minute
   if(openClock) clearInterval(openClock);
