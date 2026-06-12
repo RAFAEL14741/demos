@@ -10,24 +10,27 @@
   "dir": "ltr",
   "background_color": "#0e0a07",
   "theme_color": "#C8282A",
-  "categories": ["food", "shopping"],
+  "categories": [
+    "food",
+    "shopping"
+  ],
   "icons": [
     {
-      "src": "https://img.cdn4dd.com/p/fit=contain,width=200,height=200,format=auto,quality=95/media/restaurant/cover_square/e9466487-cae5-4354-85dc-85e14c85970f.03",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C8282A'/%3E%3Crect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%23e6c45c' stroke-width='3'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='58' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "https://img.cdn4dd.com/p/fit=contain,width=512,height=512,format=auto,quality=95/media/restaurant/cover_square/e9466487-cae5-4354-85dc-85e14c85970f.03",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C8282A'/%3E%3Crect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%23e6c45c' stroke-width='3'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='58' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "https://img.cdn4dd.com/p/fit=contain,width=512,height=512,format=auto,quality=95/media/restaurant/cover_square/e9466487-cae5-4354-85dc-85e14c85970f.03",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C8282A'/%3E%3Crect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%23e6c45c' stroke-width='3'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='58' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "maskable"
     }
   ]

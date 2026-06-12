@@ -13,22 +13,22 @@
 
 <!-- ── PWA ── -->
 <link rel="manifest" href="biza-manifest.json">
-<link rel="icon" href="https://img.cdn4dd.com/p/fit=contain,width=200,height=200,format=auto,quality=95/media/restaurant/cover_square/e9466487-cae5-4354-85dc-85e14c85970f.03">
-<link rel="apple-touch-icon" href="https://img.cdn4dd.com/p/fit=contain,width=200,height=200,format=auto,quality=95/media/restaurant/cover_square/e9466487-cae5-4354-85dc-85e14c85970f.03">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C8282A'/%3E%3Crect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%23e6c45c' stroke-width='3'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='58' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C8282A'/%3E%3Crect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%23e6c45c' stroke-width='3'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='58' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 
 <!-- ── OG / SOCIAL ── -->
 <meta property="og:type" content="restaurant.menu">
 <meta property="og:site_name" content="Biza Pizzas">
 <meta property="og:title" content="Biza Pizzas — Pizza brasileira em Northeast Philly">
 <meta property="og:description" content="Borda recheada, pastéis, esfihas e combos. 6339 Rising Sun Ave, Philadelphia. Peça agora pelo WhatsApp.">
-<meta property="og:image" content="https://doordash-static.s3.amazonaws.com/media/store/header/7239695b-1176-47ec-99d3-daa39576a3b3.jpg">
+<meta property="og:image" content="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80">
 <meta property="og:image:alt" content="Pizza brasileira de borda recheada da Biza Pizzas">
 <meta property="og:url" content="https://rafael14741.github.io/demos/biza-pizza/biza-order.html">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Biza Pizzas — Pizza brasileira em Northeast Philly">
 <meta name="twitter:description" content="Borda recheada, pastéis, esfihas e combos. Peça agora pelo WhatsApp.">
-<meta name="twitter:image" content="https://doordash-static.s3.amazonaws.com/media/store/header/7239695b-1176-47ec-99d3-daa39576a3b3.jpg">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80">
 
 <!-- ── FONTS (display=swap so text shows immediately) ── -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -494,7 +494,7 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
 <!-- ══════════ HEADER ══════════ -->
 <header id="appHeader">
   <div class="hdr-top">
-    <img class="hdr-logo" src="https://img.cdn4dd.com/p/fit=contain,width=200,height=200,format=auto,quality=95/media/restaurant/cover_square/e9466487-cae5-4354-85dc-85e14c85970f.03" alt="Biza Pizzas" width="42" height="42">
+    <img class="hdr-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C8282A'/%3E%3Crect x='4' y='4' width='92' height='92' rx='18' fill='none' stroke='%23e6c45c' stroke-width='3'/%3E%3Ctext x='50' y='71' font-family='Georgia,serif' font-size='58' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E" alt="Biza Pizzas" width="42" height="42">
     <div class="hdr-titles">
       <div class="hdr-name">Biza Pizzas</div>
       <div class="hdr-sub" data-t="tagline"></div>
@@ -735,7 +735,6 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
 
 const WA_NUMBER = '12677487163';
 const WA_DISPLAY = '(267) 748-7163';
-const DOORDASH_URL = 'https://www.doordash.com/store/biza-pizza-philadelphia-28040226/';
 const MIN_DELIVERY = 30;
 
 /* ── HOURS: index = day of week, 0=Sunday … 6=Saturday ── */
@@ -905,7 +904,6 @@ const STR = {
     urgency:(m)=>`⚠️ Fecha em ${m} ${m===1?'minuto':'minutos'} — peça agora!`,
     closedBannerOpensAt:(t)=>`Fechado · abre às ${t}`,
     closedBannerToday:'Fechado hoje',
-    orDoordash:'ou peça pelo DoorDash →',
     upsellTitle:'Quer uma bebida?', upsellSub:'Combina perfeito com seu pedido 🥤',
     upsellSkip:'Não, obrigado', upsellAdd:'Adicionar',
     loyaltyLabel:(n)=>`Você já fez ${n} ${n===1?'pedido':'pedidos'} 🎉`,
@@ -970,7 +968,6 @@ const STR = {
     urgency:(m)=>`⚠️ Closes in ${m} ${m===1?'minute':'minutes'} — order now!`,
     closedBannerOpensAt:(t)=>`Closed · opens at ${t}`,
     closedBannerToday:'Closed today',
-    orDoordash:'or order on DoorDash →',
     upsellTitle:'Want a drink?', upsellSub:'Pairs perfectly with your order 🥤',
     upsellSkip:'No, thanks', upsellAdd:'Add',
     loyaltyLabel:(n)=>`You've placed ${n} ${n===1?'order':'orders'} 🎉`,
@@ -1082,7 +1079,7 @@ function renderStatus(){
     urg.classList.remove('pulse');
     closed.style.display = 'flex';
     const label = s.nextOpen ? t('closedBannerOpensAt')(s.nextOpen) : t('closedBannerToday');
-    closed.innerHTML = `<span>${label}</span> <a href="${DOORDASH_URL}" target="_blank" rel="noopener">${t('orDoordash')}</a>`;
+    closed.innerHTML = `<span>${label}</span>`;
     // GIANT full-screen FECHADO overlay — impossible to miss
     if(!window._covDismissed){
       const todayClosed = !HOURS[new Date().getDay()];
