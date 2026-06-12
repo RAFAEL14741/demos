@@ -555,6 +555,22 @@ img.ld{animation:imgIn .45s var(--ease);background-image:none;}
 .rc-meta{font-size:.66rem;color:#8a7a5e;text-align:center;margin-top:9px;}
 .rc-thanks{text-align:center;font-weight:900;letter-spacing:.24em;margin-top:10px;font-size:.8rem;}
 
+/* 7 ▸ EXPRESS CHECKOUT (returning customers: 2 taps, zero typing) */
+#expressWrap{margin-bottom:12px;}
+.xp-sub{font-size:.74rem;color:var(--txt-dim);text-align:center;margin-top:8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.xp-edit{display:block;margin:7px auto 0;font-size:.76rem;font-weight:700;color:#ff8c8e;
+  border-bottom:1px solid rgba(255,140,142,.4);padding:2px 0;}
+
+/* 8 ▸ MAGIC LINK + ADD-TO-HOME-SCREEN cards (confirmation) */
+.cf-extra{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:14px;margin-top:14px;text-align:center;}
+.cf-extra .x-title{font-size:.88rem;font-weight:700;}
+.cf-extra .x-sub{font-size:.76rem;color:var(--txt-dim);margin-top:5px;line-height:1.45;}
+.cf-extra .x-btn{margin-top:10px;width:100%;background:rgba(200,40,42,.16);color:#ff8c8e;
+  border:1px solid rgba(200,40,42,.35);border-radius:10px;padding:11px;font-size:.84rem;font-weight:700;}
+.cf-extra .x-dismiss{margin-top:8px;font-size:.74rem;color:var(--txt-faint);font-weight:600;}
+
 /* calm for users who prefer it */
 @media(prefers-reduced-motion:reduce){
   .mq-track,.qc-emoji,.cov-emoji,#cartBar:not(.empty)::after,.cf-eta,.status-pill.open .dot{animation:none!important;}
@@ -713,6 +729,12 @@ img.ld{animation:imgIn .45s var(--ease);background-image:none;}
   <div class="sheet-foot">
     <div id="minWarn"></div>
     <div class="cart-sub"><span data-t="subtotal"></span><strong id="cartSubtotal">$0.00</strong></div>
+    <!-- EXPRESS: returning customers with a valid saved profile skip the form entirely -->
+    <div id="expressWrap" style="display:none">
+      <button class="btn-green" id="expressBtn"></button>
+      <div class="xp-sub" id="expressSub"></div>
+      <button class="xp-edit" id="expressEdit" data-t="xpEdit"></button>
+    </div>
     <button class="btn-primary" id="checkoutBtn" data-t="checkout"></button>
   </div>
 </section>
@@ -809,6 +831,8 @@ img.ld{animation:imgIn .45s var(--ease);background-image:none;}
     <div id="cfTracker"></div>
     <div id="cfMsg"></div>
     <div class="savings" id="cfSavings"></div>
+    <div id="cfMagic"></div>
+    <div id="cfA2hs"></div>
     <p class="cf-note" data-t="cfNote"></p>
   </div>
   <div class="sheet-foot">
@@ -1134,6 +1158,20 @@ const STR = {
     wheelGift:'🎁 Pizza grátis? Fala com a Biza!',
     rcTotal:'TOTAL',
     rcThanks:'OBRIGADO! 🍕',
+    xpDeliver:(n)=>`⚡ Pedido rápido — Entregar para ${n}`,
+    xpPickup:(n)=>`⚡ Pedido rápido — Retirada · ${n}`,
+    xpEdit:'alterar dados',
+    magicTitle:'📌 Seu atalho pessoal',
+    magicSub:'Este link guarda seu nome e endereço — salve nos favoritos ou abra em outro celular e peça sem digitar nada.',
+    magicCopy:'Copiar meu link',
+    magicCopied:'Link copiado! ✓',
+    magicLoaded:(n)=> n ? `Perfil carregado, ${n}! 👋` : 'Perfil carregado! 👋',
+    a2hsTitle:'📲 Adicione a Biza na sua tela inicial',
+    a2hsIos:'Toque em Compartilhar ⬆️ e depois em "Adicionar à Tela de Início"',
+    a2hsAndroid:'Toque no botão abaixo e confirme — vira um app de verdade',
+    a2hsGeneric:'No menu ⋮ do navegador, toque em "Adicionar à tela inicial"',
+    a2hsBtn:'Adicionar agora',
+    a2hsDismiss:'Agora não',
   },
   en:{
     tagline:'Brazilian pizza · 6339 Rising Sun Ave',
@@ -1213,6 +1251,20 @@ const STR = {
     wheelGift:'🎁 Free pizza? Ask Biza!',
     rcTotal:'TOTAL',
     rcThanks:'THANK YOU! 🍕',
+    xpDeliver:(n)=>`⚡ Express order — Deliver to ${n}`,
+    xpPickup:(n)=>`⚡ Express order — Pickup · ${n}`,
+    xpEdit:'change details',
+    magicTitle:'📌 Your personal shortcut',
+    magicSub:'This link carries your name and address — bookmark it or open it on any phone and order without typing.',
+    magicCopy:'Copy my link',
+    magicCopied:'Link copied! ✓',
+    magicLoaded:(n)=> n ? `Profile loaded, ${n}! 👋` : 'Profile loaded! 👋',
+    a2hsTitle:'📲 Add Biza to your home screen',
+    a2hsIos:'Tap Share ⬆️ then "Add to Home Screen"',
+    a2hsAndroid:'Tap the button below and confirm — it becomes a real app',
+    a2hsGeneric:'In the browser ⋮ menu, tap "Add to home screen"',
+    a2hsBtn:'Add now',
+    a2hsDismiss:'Not now',
   }
 };
 
@@ -1581,7 +1633,97 @@ function openTracker(order){
   renderTracker(order);
   renderReceipt(order);
   renderSavingsCf(order.total);
+  document.getElementById('cfMagic').innerHTML = '';
+  document.getElementById('cfA2hs').innerHTML = '';
   openSheet('confirmSheet');
+}
+
+/* ════════════════════════════════════════════════════════════
+   EXPRESS CHECKOUT — valid saved profile = 2 taps, zero typing
+   ════════════════════════════════════════════════════════════ */
+function updateExpress(){
+  const wrap = document.getElementById('expressWrap');
+  const p = savedProfile();
+  const show = !!p && cart.length > 0;
+  wrap.style.display = show ? 'block' : 'none';
+  // one primary action: express replaces the big checkout button;
+  // the "alterar dados" link below it is the path to the full form
+  document.getElementById('checkoutBtn').style.display = show ? 'none' : 'flex';
+  if(!show) return;
+  const first = p.name.split(/\s+/)[0];
+  document.getElementById('expressBtn').textContent =
+    p.type==='pickup' ? STR[lang].xpPickup(first) : STR[lang].xpDeliver(first);
+  document.getElementById('expressSub').textContent =
+    p.type==='pickup' ? `${t('pickup')} · ${p.phone}` : `${p.addr} · ${p.phone}`;
+  document.getElementById('expressBtn').disabled =
+    p.type==='delivery' && cartTotal() < MIN_DELIVERY;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MAGIC PROFILE LINK — profile travels in the URL hash, no backend.
+   NEVER auto-added to the WhatsApp message — it's the customer's to share.
+   ════════════════════════════════════════════════════════════ */
+function encodeProfile(){
+  const p = {
+    n: (localStorage.getItem('biza_name')  || '').trim(),
+    t: (localStorage.getItem('biza_phone') || '').trim(),
+    a: (localStorage.getItem('biza_addr')  || '').trim(),
+    y: localStorage.getItem('biza_type') || 'delivery',
+  };
+  // UTF-8-safe (names like "João") base64url
+  return btoa(unescape(encodeURIComponent(JSON.stringify(p))))
+    .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function magicLink(){ return location.href.split('#')[0] + '#p=' + encodeProfile(); }
+
+function renderMagicCard(){
+  const el = document.getElementById('cfMagic');
+  const phone = localStorage.getItem('biza_phone') || '';
+  if((phone.match(/\d/g)||[]).length < 10){ el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="cf-extra">
+    <div class="x-title">${t('magicTitle')}</div>
+    <div class="x-sub">${t('magicSub')}</div>
+    <button class="x-btn" id="magicCopyBtn">${t('magicCopy')}</button>
+  </div>`;
+  document.getElementById('magicCopyBtn').onclick = async () => {
+    const link = magicLink();
+    try{ await navigator.clipboard.writeText(link); }
+    catch(e){
+      const ta = document.createElement('textarea'); ta.value = link; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    showToast(t('magicCopied'));
+  };
+}
+
+/* ════════════════════════════════════════════════════════════
+   ADD-TO-HOME-SCREEN NUDGE — first order only, shown once ever
+   ════════════════════════════════════════════════════════════ */
+let deferredInstall = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstall = e; });
+
+function isStandalone(){
+  return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+}
+
+function renderA2hsCard(){
+  const el = document.getElementById('cfA2hs');
+  el.innerHTML = '';
+  if(getHistory().length !== 1) return;                 // first order only
+  if(localStorage.getItem('biza_a2hs_done')) return;    // once ever
+  if(isStandalone()) return;                            // already installed
+  localStorage.setItem('biza_a2hs_done', '1');
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const instr = ios ? t('a2hsIos') : (deferredInstall ? t('a2hsAndroid') : t('a2hsGeneric'));
+  el.innerHTML = `<div class="cf-extra">
+    <div class="x-title">${t('a2hsTitle')}</div>
+    <div class="x-sub">${instr}</div>
+    ${(!ios && deferredInstall) ? `<button class="x-btn" id="a2hsGo">${t('a2hsBtn')}</button>` : ''}
+    <button class="x-dismiss" id="a2hsNo">${t('a2hsDismiss')}</button>
+  </div>`;
+  const go = document.getElementById('a2hsGo');
+  if(go) go.onclick = () => { deferredInstall.prompt(); deferredInstall = null; el.innerHTML = ''; };
+  document.getElementById('a2hsNo').onclick = () => { el.innerHTML = ''; };
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1919,6 +2061,7 @@ function renderCart(){
   }
   document.getElementById('cartSubtotal').textContent = money(cartTotal());
   refreshMinWarn();
+  updateExpress();
 }
 
 function refreshMinWarn(){
@@ -2001,11 +2144,19 @@ function refreshSendBtn(){
    ════════════════════════════════════════════════════════════ */
 let lastOrderText = '';
 
-function buildOrderText(){
-  const type = localStorage.getItem('biza_type') || 'delivery';
-  const name = document.getElementById('coName').value.trim();
-  const phone = document.getElementById('coPhone').value.trim();
-  const addr = document.getElementById('coAddr').value.trim();
+/* saved profile, validated — null unless good enough for express checkout */
+function savedProfile(){
+  const name  = (localStorage.getItem('biza_name')  || '').trim();
+  const phone = (localStorage.getItem('biza_phone') || '').trim();
+  const addr  = (localStorage.getItem('biza_addr')  || '').trim();
+  const type  = localStorage.getItem('biza_type') || 'delivery';
+  if(!name || (phone.match(/\d/g)||[]).length < 10) return null;
+  if(type === 'delivery' && !addr) return null;
+  return { name, phone, addr, type };
+}
+
+function buildOrderText(p){
+  const { type, name, phone, addr } = p;
   let lines = [t('orderHeader'), '', t('waItems')];
   cart.forEach(i => {
     lines.push(`• ${i.qty}× ${i.name}` + (!i.isPizza && i.qty>1 ? '' : ''));
@@ -2039,8 +2190,18 @@ function sendWhatsApp(){
   localStorage.setItem('biza_phone', document.getElementById('coPhone').value.trim());
   localStorage.setItem('biza_addr', document.getElementById('coAddr').value.trim());
 
+  sendOrder({
+    name:  document.getElementById('coName').value.trim(),
+    phone: document.getElementById('coPhone').value.trim(),
+    addr:  document.getElementById('coAddr').value.trim(),
+    type:  localStorage.getItem('biza_type') || 'delivery',
+  });
+}
+
+/* shared send path — used by the checkout form AND express checkout */
+function sendOrder(p){
   const total = cartTotal();
-  const text = buildOrderText();
+  const text = buildOrderText(p);
   lastOrderText = text;
   const url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text);
 
@@ -2064,11 +2225,10 @@ function sendWhatsApp(){
       openSheet('fallbackSheet');
     } else {
       // CONFIRMATION: tracker + thermal receipt + savings, then start fresh
-      const type = localStorage.getItem('biza_type') || 'delivery';
       const order = {
         id: 'BZ-' + Date.now().toString(36).toUpperCase().slice(-6),
         items: JSON.parse(JSON.stringify(cart)),
-        total, type, timestamp: Date.now(), status: 'received',
+        total, type: p.type, timestamp: Date.now(), status: 'received',
       };
       const list = getOrders(); list.push(order); saveOrders(list);
       document.querySelector('#confirmSheet .cf-title').textContent = t('cfTitle');
@@ -2076,6 +2236,8 @@ function sendWhatsApp(){
       renderTracker(order);
       renderReceipt(order);
       renderSavingsCf(total);
+      renderMagicCard();
+      renderA2hsCard();
       updateOrderChip();
       buzz(15);
       cart = []; saveCart(); updateCartBar();
@@ -2143,6 +2305,7 @@ function setLang(l){
   renderContent();
   updateCartBar();
   updateOrderChip();
+  updateExpress();
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -2221,6 +2384,16 @@ function openCartSheet(){ renderCart(); openSheet('cartSheet'); }
 document.getElementById('cartBar').addEventListener('click', ()=>{ if(cart.length) openCartSheet(); });
 document.getElementById('checkoutBtn').addEventListener('click', () => { if(cart.length) openCheckout(); });
 document.getElementById('sendWaBtn').addEventListener('click', sendWhatsApp);
+
+// express checkout: saved profile → straight to WhatsApp, no form
+document.getElementById('expressBtn').addEventListener('click', () => {
+  const p = savedProfile();
+  if(!p || !cart.length){ updateExpress(); if(cart.length) openCheckout(); return; }  // silent fallback
+  voiceNote = false;
+  buzz(15);
+  sendOrder(p);
+});
+document.getElementById('expressEdit').addEventListener('click', () => { if(cart.length) openCheckout(); });
 
 // checkout live — phone auto-format (215) 555-1234 as they type
 document.getElementById('coPhone').addEventListener('input', e => {
@@ -2301,7 +2474,26 @@ function init(){
   if(openClock) clearInterval(openClock);
   openClock = setInterval(()=>{ renderStatus(); updateOrderChip(); }, 60000);
 }
+
+/* ── MAGIC LINK INTAKE: #p=<base64url JSON> → profile keys, then strip hash ── */
+(function(){
+  if(!location.hash || !location.hash.startsWith('#p=')) return;
+  try{
+    const raw = location.hash.slice(3).replace(/-/g,'+').replace(/_/g,'/');
+    const p = JSON.parse(decodeURIComponent(escape(atob(raw))));
+    if(p && typeof p === 'object'){
+      if(p.n) localStorage.setItem('biza_name',  String(p.n));
+      if(p.t) localStorage.setItem('biza_phone', String(p.t));
+      if(p.a) localStorage.setItem('biza_addr',  String(p.a));
+      if(p.y==='delivery' || p.y==='pickup') localStorage.setItem('biza_type', p.y);
+      window._magicName = String(p.n||'').trim().split(/\s+/)[0];
+    }
+  }catch(e){ /* malformed hash — ignore silently, never crash */ }
+  try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){}
+})();
+
 init();
+if(window._magicName !== undefined) showToast(STR[lang].magicLoaded(window._magicName));
 
 /* ── SERVICE WORKER (PWA add-to-home-screen) ── */
 if('serviceWorker' in navigator){
