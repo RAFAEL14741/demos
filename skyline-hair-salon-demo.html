@@ -3,551 +3,519 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sky Line Hair Salon — Northeast Philadelphia</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Sky Line Hair Salon — Bustleton Ave, Philadelphia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --black:#0a0a0a;
-  --gold:#c9a84c;
-  --gold-light:#e8c96a;
-  --cream:#f7f3ec;
-  --gray:#6b7280;
-  --white:#ffffff;
+  --mag:#C71585;--mag-dark:#A0127D;--mag-bright:#E91E8C;
+  --gold:#A16207;--gold-lt:#D97706;
+  --bg:#FAFAF9;--bg2:#FFF8F5;--white:#FFFFFF;
+  --ink:#0F0A0F;--muted:#7C4469;--border:#F0D4E6;
+  --offblack:#1A1020;
 }
-body{font-family:'Jost',sans-serif;background:#fff;color:var(--black);overflow-x:hidden}
-
-/* ===== NAV ===== */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:22px 7%;
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(10,10,10,0.96);
-  backdrop-filter:blur(8px);
-}
-.nav-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:24px;font-weight:700;
-  color:var(--gold);
-  text-decoration:none;
-  letter-spacing:0.06em;
-}
-.nav-logo span{color:#fff}
-.nav-links{display:flex;gap:36px;list-style:none}
-.nav-links a{
-  color:rgba(255,255,255,0.65);
-  text-decoration:none;
-  font-size:13px;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  font-weight:500;
-  transition:color 0.2s;
-}
-.nav-links a:hover{color:var(--gold)}
-.nav-cta{
-  background:transparent;
-  border:1px solid var(--gold);
-  color:var(--gold);
-  padding:10px 28px;
-  font-size:12px;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  font-weight:600;
-  text-decoration:none;
-  transition:all 0.2s;
-}
-.nav-cta:hover{background:var(--gold);color:var(--black)}
-
-/* ===== HERO — GALLERY MOSAIC ===== */
-.hero{
-  padding-top:88px;
-  min-height:100vh;
-  background:var(--black);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  overflow:hidden;
-}
-.hero-left{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:60px 7% 60px 8%;
-}
-.hero-eyebrow{
-  font-size:11px;
-  letter-spacing:0.2em;
-  text-transform:uppercase;
-  color:var(--gold);
-  font-weight:600;
-  margin-bottom:24px;
-  display:flex;align-items:center;gap:12px;
-}
-.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
-.hero-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(52px,6vw,82px);
-  font-weight:600;
-  color:#fff;
-  line-height:1.0;
-  margin-bottom:24px;
-}
-.hero-title em{
-  font-style:italic;
-  color:var(--gold);
-}
-.hero-desc{
-  font-size:16px;
-  color:rgba(255,255,255,0.6);
-  line-height:1.8;
-  max-width:420px;
-  margin-bottom:48px;
-  font-weight:300;
-}
-.hero-cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-.btn-gold{
-  background:var(--gold);
-  color:var(--black);
-  padding:16px 40px;
-  font-size:13px;
-  letter-spacing:0.12em;
-  text-transform:uppercase;
-  font-weight:600;
-  text-decoration:none;
-  display:inline-block;
-  transition:background 0.2s;
-}
-.btn-gold:hover{background:var(--gold-light)}
-.btn-ghost{
-  color:#fff;
-  font-size:13px;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  font-weight:500;
-  text-decoration:none;
-  display:flex;align-items:center;gap:8px;
-  transition:color 0.2s;
-}
-.btn-ghost:hover{color:var(--gold)}
-.hero-badge{
-  margin-top:56px;
-  display:flex;align-items:center;gap:20px;
-  padding:20px 24px;
-  border:1px solid rgba(201,168,76,0.2);
-  max-width:320px;
-}
-.badge-star{font-size:32px;color:var(--gold)}
-.badge-info{}
-.badge-rating{
-  font-family:'Cormorant Garamond',serif;
-  font-size:28px;font-weight:700;
-  color:#fff;line-height:1;
-}
-.badge-reviews{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px}
-
-.hero-right{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-template-rows:1fr 1fr;
-  gap:3px;
-}
-.mosaic-tile{overflow:hidden}
-.mosaic-tile img{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-  transition:transform 0.6s ease;
-}
-.mosaic-tile:hover img{transform:scale(1.05)}
-.mosaic-tile.large{grid-row:1/3;grid-column:1/2}
-
-/* ===== DIVIDER ===== */
-.gold-divider{
-  height:2px;
-  background:linear-gradient(to right, var(--black), var(--gold), var(--black));
-}
-
-/* ===== SERVICES ===== */
-.services{
-  padding:100px 8%;
-  background:var(--cream);
-}
-.section-eyebrow{
-  font-size:11px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--gold);
-  font-weight:600;margin-bottom:16px;
-}
-.section-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(40px,5vw,64px);
-  font-weight:600;color:var(--black);
-  line-height:1.0;margin-bottom:16px;
-}
-.section-sub{
-  font-size:16px;color:var(--gray);
-  max-width:520px;line-height:1.8;
-  margin-bottom:64px;font-weight:300;
-}
-.services-list{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:1px;
-  background:rgba(201,168,76,0.15);
-}
-.svc{
-  background:var(--cream);
-  padding:40px 32px;
-  transition:background 0.3s;
-  cursor:default;
-}
-.svc:hover{background:var(--black)}
-.svc:hover .svc-name,.svc:hover .svc-desc,.svc:hover .svc-price{color:#fff}
-.svc:hover .svc-dot{background:var(--gold)}
-.svc-dot{
-  width:8px;height:8px;
-  background:var(--black);
-  margin-bottom:20px;
-  transition:background 0.3s;
-}
-.svc-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;font-weight:600;
-  color:var(--black);margin-bottom:10px;
-  transition:color 0.3s;
-}
-.svc-price{
-  font-size:14px;color:var(--gold);
-  font-weight:600;margin-bottom:10px;
-  transition:color 0.3s;
-}
-.svc-desc{
-  font-size:14px;color:var(--gray);
-  line-height:1.6;transition:color 0.3s;
-}
-
-/* ===== TEAM / WHY ===== */
-.why{
-  padding:100px 8%;
-  background:var(--black);
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;align-items:center;
-}
-@media(max-width:768px){.why{grid-template-columns:1fr;gap:40px}}
-.why-img img{
-  width:100%;height:520px;
-  object-fit:cover;display:block;
-}
-.why-content .section-title{color:#fff}
-.why-content .section-sub{color:rgba(255,255,255,0.55)}
-.why-list{list-style:none}
-.why-item{
-  display:flex;gap:16px;
-  padding:20px 0;
-  border-bottom:1px solid rgba(255,255,255,0.07);
-}
-.why-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:36px;font-weight:600;
-  color:var(--gold);
-  line-height:1;min-width:40px;
-}
-.why-text h4{
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;font-weight:600;
-  color:#fff;margin-bottom:6px;
-}
-.why-text p{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.6}
-
-/* ===== REVIEWS ===== */
-.reviews{padding:100px 8%;background:#fff}
-.reviews-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:32px;margin-top:60px;
-}
-.rev-card{padding:40px 32px;border:1px solid rgba(201,168,76,0.2);position:relative}
-.rev-quote{
-  font-family:'Cormorant Garamond',serif;
-  font-size:64px;color:var(--gold);
-  line-height:0.6;margin-bottom:16px;
-}
-.rev-text{
-  font-size:15px;color:var(--gray);
-  line-height:1.8;font-style:italic;
-  margin-bottom:24px;
-}
-.rev-author{
-  font-family:'Cormorant Garamond',serif;
-  font-size:18px;font-weight:600;color:var(--black);
-}
-.rev-stars{color:var(--gold);font-size:14px;margin-top:4px}
-
-/* ===== HOURS ===== */
-.hours{padding:100px 8%;background:var(--cream)}
-.hours-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;margin-top:56px;
-}
-@media(max-width:768px){.hours-grid{grid-template-columns:1fr;gap:40px}}
-.hours-row{
-  display:flex;justify-content:space-between;
-  padding:14px 0;
-  border-bottom:1px solid rgba(10,10,10,0.1);
-  font-size:15px;color:var(--gray);
-}
-.hours-row .day{font-weight:500;color:var(--black)}
-.hours-today .day,.hours-today .time{color:var(--gold)!important;font-weight:600}
-.contact-box{background:var(--black);padding:48px 40px}
-.contact-box .section-eyebrow{color:var(--gold)}
-.contact-box .section-title{color:#fff;margin-bottom:32px}
-.cinfo-row{
-  display:flex;gap:16px;margin-bottom:24px;
-  align-items:flex-start;
-}
-.cinfo-icon{
-  color:var(--gold);font-size:20px;
-  margin-top:2px;
-}
-.cinfo-label{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
-.cinfo-val{font-size:16px;color:#fff;font-weight:500}
-.cinfo-val a{color:#fff;text-decoration:none}
-
-/* ===== MAP ===== */
-.map-section iframe{width:100%;height:360px;display:block;border:none}
-
-/* ===== FOOTER ===== */
-footer{
-  background:var(--black);padding:40px 8%;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
-  border-top:1px solid rgba(201,168,76,0.15);
-}
-.footer-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;color:var(--gold);
-  letter-spacing:0.06em;font-weight:600;
-}
-.footer-tag{font-size:12px;color:rgba(255,255,255,0.3);margin-top:4px}
-.footer-info{font-size:13px;color:rgba(255,255,255,0.35);text-align:right}
-
-@media(max-width:768px){
-  nav .nav-links{display:none}
-  .hero{grid-template-columns:1fr}
-  .hero-right{display:none}
-}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Manrope',sans-serif;overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:8px;height:8px;background:var(--mag);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--mag);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;background:rgba(250,250,249,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:padding .3s}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:.05em;color:var(--ink)}
+.nav-logo span{color:var(--mag)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--mag)}
+.nav-cta{background:var(--mag);color:#fff;padding:.55rem 1.3rem;border-radius:22px;font-size:.76rem;font-weight:700;letter-spacing:.08em;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--mag-dark)}
+/* HERO — editorial split-screen */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:55% 45%;overflow:hidden}
+.hero-left{position:relative;display:flex;flex-direction:column;justify-content:center;padding:0 5% 4rem 5%;margin-top:80px;background:var(--bg);z-index:2}
+.hero-right{position:relative;overflow:hidden}
+.hero-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 25%);z-index:1}
+.hero-right::after{content:'STYLE';position:absolute;bottom:3rem;right:2rem;font-family:'Syne',sans-serif;font-size:7rem;font-weight:800;color:rgba(199,21,133,.08);line-height:1;pointer-events:none;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:transparent;border:1px solid var(--border);border-radius:22px;padding:.4rem 1rem;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:1.6rem;opacity:0;transform:translateY(10px)}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(3rem,5.8vw,5.6rem);font-weight:800;line-height:.96;color:var(--ink);margin-bottom:1.4rem}
+.hero-title .line{display:block;overflow:hidden}
+.hero-title .line span{display:block;transform:translateY(110%)}
+.hero-title .accent{color:var(--mag)}
+.hero-sub{font-size:.97rem;line-height:1.78;color:var(--muted);max-width:360px;margin-bottom:2rem;opacity:0;transform:translateY(10px)}
+.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;opacity:0;transform:translateY(10px)}
+.btn-mag{display:inline-block;background:var(--mag);color:#fff;padding:.82rem 1.9rem;border-radius:24px;font-size:.86rem;font-weight:700;text-decoration:none;border:none;cursor:none;transition:background .2s,transform .2s}
+.btn-mag:hover{background:var(--mag-dark);transform:translateY(-2px)}
+.btn-outline{display:inline-block;border:1.5px solid rgba(15,10,15,.25);color:var(--ink);padding:.8rem 1.8rem;border-radius:24px;font-size:.86rem;font-weight:600;text-decoration:none;transition:all .2s}
+.btn-outline:hover{border-color:var(--mag);color:var(--mag)}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);opacity:0;transform:translateY(10px)}
+.hs-item .hs-val{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--mag);display:block}
+.hs-item .hs-label{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+/* MARQUEE */
+.marquee-strip{background:var(--offblack);overflow:hidden;padding:.65rem 0;white-space:nowrap}
+.marquee-inner{display:inline-flex;animation:marquee 26s linear infinite}
+.marquee-inner span{font-family:'Syne',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85);padding:0 2rem}
+.marquee-inner .dot{color:var(--mag);padding:0 .4rem}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* EDITORIAL SECTION NUMBERS */
+.section-num{font-family:'Syne',sans-serif;font-size:9rem;font-weight:800;color:rgba(199,21,133,.055);line-height:1;position:absolute;top:2rem;right:5%;pointer-events:none;z-index:0}
+section{padding:6rem 5%;position:relative;overflow:hidden}
+.section-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:.6rem;position:relative;z-index:1}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:800;color:var(--ink);line-height:1.06;margin-bottom:.5rem;position:relative;z-index:1}
+.section-title .acc{color:var(--mag)}
+/* SERVICES — horizontal scroll */
+.services-section{background:var(--white)}
+.svc-scroll-wrap{overflow-x:auto;margin-top:2.8rem;padding-bottom:1.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.svc-scroll-wrap::-webkit-scrollbar{height:4px}
+.svc-scroll-wrap::-webkit-scrollbar-track{background:transparent}
+.svc-scroll-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.svc-track{display:flex;gap:1.2rem;width:max-content;padding:0 .2rem}
+.svc-card{width:220px;flex-shrink:0;border-radius:14px;overflow:hidden;border:1.5px solid var(--border);background:var(--bg);transition:transform .3s,box-shadow .3s,border-color .3s;cursor:none}
+.svc-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(199,21,133,.1);border-color:var(--mag)}
+.svc-card-top{height:10px;background:var(--mag)}
+.svc-card.alt .svc-card-top{background:var(--offblack)}
+.svc-card.alt2 .svc-card-top{background:linear-gradient(90deg,var(--mag),var(--gold-lt))}
+.svc-card-body{padding:1.4rem}
+.svc-icon{font-size:1.5rem;margin-bottom:.7rem}
+.svc-card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:.4rem}
+.svc-card p{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem}
+.svc-price{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--mag)}
+.svc-scroll-hint{font-size:.74rem;color:var(--muted);margin-top:1rem;display:flex;align-items:center;gap:.4rem}
+.svc-scroll-hint::before{content:'';display:inline-block;width:20px;height:1px;background:var(--muted)}
+/* ABOUT — editorial split with offset */
+.about-section{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:5fr 4fr;gap:5rem;align-items:center;position:relative;z-index:1}
+.about-img-wrap{position:relative}
+.about-img{border-radius:4px;overflow:hidden;aspect-ratio:3/4}
+.about-img img{width:100%;height:100%;object-fit:cover;display:block}
+.about-badge{position:absolute;top:1.2rem;left:-1.5rem;background:var(--mag);color:#fff;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.5rem 1rem;border-radius:3px;white-space:nowrap}
+.about-text .lead{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;color:var(--ink);line-height:1.45;margin-bottom:1.2rem}
+.about-text p{font-size:.94rem;line-height:1.85;color:var(--muted);margin-bottom:.9rem}
+.about-tag-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.atag{background:var(--white);border:1px solid var(--border);border-radius:22px;padding:.35rem .9rem;font-size:.76rem;font-weight:700;color:var(--mag)}
+/* TESTIMONIAL — full bleed dark -->
+.testimonial-section{background:var(--offblack);padding:7rem 5%;text-align:center;position:relative;overflow:hidden}
+.testimonial-section::before{content:'"';position:absolute;top:-3rem;left:4%;font-family:'Syne',sans-serif;font-size:22rem;font-weight:800;color:rgba(199,21,133,.06);line-height:1;pointer-events:none}
+.testi-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(199,21,133,.6);margin-bottom:1.8rem}
+.testi-big{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;color:#fff;line-height:1.2;max-width:860px;margin:0 auto 2rem}
+.testi-big .highlight{color:var(--mag)}
+.testi-author{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+/* GALLERY — masonry-ish */
+.gallery-section{background:var(--bg)}
+.gallery-asymm{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:260px 220px 200px;gap:1rem;margin-top:2.8rem;position:relative;z-index:1}
+.g-item{overflow:hidden;border-radius:8px;position:relative}
+.g-item:nth-child(1){grid-column:1/6;grid-row:1}
+.g-item:nth-child(2){grid-column:6/9;grid-row:1}
+.g-item:nth-child(3){grid-column:9/13;grid-row:1}
+.g-item:nth-child(4){grid-column:1/4;grid-row:2}
+.g-item:nth-child(5){grid-column:4/9;grid-row:2}
+.g-item:nth-child(6){grid-column:9/13;grid-row:2}
+.g-item:nth-child(7){grid-column:1/5;grid-row:3}
+.g-item:nth-child(8){grid-column:5/13;grid-row:3}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .55s;display:block}
+.g-item:hover img{transform:scale(1.07)}
+.g-item::after{content:'';position:absolute;inset:0;background:rgba(199,21,133,0);transition:background .3s}
+.g-item:hover::after{background:rgba(199,21,133,.12)}
+/* REVIEWS ROW */
+.reviews-section{background:var(--white)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2.8rem;position:relative;z-index:1}
+.rv-card{border-radius:12px;padding:1.8rem;border:1.5px solid var(--border);background:var(--bg);transition:border-color .25s,box-shadow .25s}
+.rv-card:hover{border-color:var(--mag);box-shadow:0 8px 32px rgba(199,21,133,.08)}
+.rv-stars{color:var(--mag);font-size:.9rem;margin-bottom:.7rem}
+.rv-text{font-family:'Syne',sans-serif;font-size:.96rem;font-weight:600;line-height:1.65;color:var(--ink);margin-bottom:1rem}
+.rv-author{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+/* HOURS */
+.info-section{background:var(--bg2);padding:6rem 5%}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:1}
+.hours-table{margin-top:1.4rem;width:100%;border-collapse:collapse}
+.hours-table tr td{padding:.6rem 0;font-size:.9rem;border-bottom:1px solid var(--border)}
+.hours-table tr:last-child td{border-bottom:none}
+.hours-table tr td:first-child{font-weight:700;color:var(--ink)}
+.hours-table tr td:last-child{color:var(--muted);text-align:right}
+.contact-list{margin-top:1.4rem;display:flex;flex-direction:column;gap:1rem}
+.ci{display:flex;gap:.9rem;align-items:flex-start}
+.ci-icon{font-size:1.1rem;min-width:1.5rem}
+.ci-text a{color:var(--mag);text-decoration:none;font-weight:700;font-size:.9rem}
+.ci-text span{display:block;font-size:.84rem;color:var(--muted);line-height:1.5}
+/* CTA */
+.cta-section{background:var(--mag);padding:6rem 5%;text-align:center;position:relative;overflow:hidden}
+.cta-section::after{content:'BOOK';position:absolute;right:-2rem;bottom:-3rem;font-family:'Syne',sans-serif;font-size:14rem;font-weight:800;color:rgba(255,255,255,.06);line-height:1;pointer-events:none}
+.cta-section .section-eyebrow{color:rgba(255,255,255,.55)}
+.cta-big{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,4.5vw,4rem);font-weight:800;color:#fff;margin:.5rem 0 2rem;line-height:1.1;position:relative;z-index:1}
+.btn-white{display:inline-block;background:#fff;color:var(--mag-dark);padding:.9rem 2.4rem;border-radius:24px;font-size:.88rem;font-weight:800;text-decoration:none;transition:opacity .2s,transform .2s;border:none;cursor:none;position:relative;z-index:1}
+.btn-white:hover{opacity:.92;transform:translateY(-2px)}
+footer{background:var(--offblack);color:rgba(255,255,255,.4);text-align:center;padding:1.8rem 5%;font-size:.78rem;letter-spacing:.1em}
+footer a{color:var(--mag-bright);text-decoration:none}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(15,10,15,.7);backdrop-filter:blur(8px);z-index:500;opacity:0;pointer-events:none;transition:opacity .3s;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--white);border-radius:14px;width:100%;max-width:520px;padding:2.4rem;position:relative;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform .3s}
+.modal-bg.open .modal{transform:translateY(0)}
+.modal-close{position:absolute;top:1.1rem;right:1.1rem;background:none;border:none;font-size:1.4rem;cursor:none;color:var(--muted)}
+.modal-steps{display:flex;gap:.4rem;margin-bottom:2rem}
+.ms{flex:1;height:3px;border-radius:2px;background:var(--border);transition:background .3s}
+.ms.done{background:var(--offblack)}
+.ms.active{background:var(--mag)}
+.modal-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--ink);margin-bottom:.3rem}
+.modal-sub{font-size:.84rem;color:var(--muted);margin-bottom:1.6rem}
+.svc-option-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.svc-option{border:1.5px solid var(--border);border-radius:10px;padding:1rem;cursor:none;transition:all .2s;text-align:center}
+.svc-option:hover{border-color:var(--mag)}
+.svc-option.selected{border-color:var(--mag);background:rgba(199,21,133,.04)}
+.svc-option strong{display:block;font-size:.9rem;color:var(--ink)}
+.svc-option span{font-size:.78rem;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;margin-bottom:1rem}
+.cal-day-label{text-align:center;font-size:.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);padding:.3rem 0}
+.cal-day{text-align:center;padding:.55rem .2rem;border-radius:6px;font-size:.86rem;cursor:none;transition:all .2s;border:1.5px solid transparent}
+.cal-day.empty{pointer-events:none}
+.cal-day.disabled{color:#ddd;pointer-events:none}
+.cal-day:not(.empty):not(.disabled):hover{border-color:var(--mag);color:var(--mag)}
+.cal-day.selected{background:var(--mag);color:#fff;border-color:var(--mag)}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+.time-btn{border:1.5px solid var(--border);border-radius:8px;padding:.6rem;text-align:center;font-size:.85rem;cursor:none;transition:all .2s;font-family:'Manrope',sans-serif;font-weight:600}
+.time-btn:hover{border-color:var(--mag);color:var(--mag)}
+.time-btn.selected{background:var(--mag);color:#fff;border-color:var(--mag)}
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.form-group input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.68rem .9rem;font-size:.92rem;font-family:'Manrope',sans-serif;color:var(--ink);transition:border-color .2s;background:transparent}
+.form-group input:focus{outline:none;border-color:var(--mag)}
+.btn-submit{display:block;width:100%;background:var(--mag);color:#fff;border:none;padding:.88rem;border-radius:24px;font-size:.9rem;font-weight:800;letter-spacing:.08em;cursor:none;transition:background .2s,transform .2s;font-family:'Syne',sans-serif;margin-top:1rem}
+.btn-submit:hover{background:var(--mag-dark);transform:translateY(-1px)}
+.confirm-icon{font-size:3rem;text-align:center;margin-bottom:1rem}
+.confirm-details{background:var(--bg);border-radius:10px;padding:1.2rem;font-size:.88rem;line-height:1.9;color:var(--ink)}
+.confirm-details strong{color:var(--mag)}
 </style>
 </head>
 <body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
 <nav>
-  <a href="#" class="nav-logo"><span>SKY LINE</span> Hair Salon</a>
+  <a href="#" class="nav-logo">Sky<span>Line</span></a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
-    <li><a href="#why">Our Story</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#hours">Hours</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#info">Hours</a></li>
   </ul>
-  <a href="#" class="nav-cta" onclick="openBooking();return false;">Book Appointment</a>
+  <a href="#" class="nav-cta" id="navBookBtn">Book Now</a>
 </nav>
 
+<!-- HERO — editorial split -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">Bustleton Ave · Northeast Philadelphia</div>
-    <h1 class="hero-title">YOUR HAIR.<br><em>YOUR STYLE.</em><br>PERFECTED.</h1>
-    <p class="hero-desc">Skilled stylists. Premium cuts. A salon that takes the time to get it right — every single visit.</p>
-    <div class="hero-cta-row">
-      <a href="#" class="btn-gold" onclick="openBooking();return false;">Book Appointment</a>
-      <a href="tel:2153422952" class="btn-ghost">📞 (215) 342-2952</a>
+    <div class="hero-tag" id="heroTag">✦ Bustleton Ave's Boldest Salon ✦</div>
+    <h1 class="hero-title">
+      <span class="line"><span>Your Hair.</span></span>
+      <span class="line"><span>Your <span class="accent">Style.</span></span></span>
+      <span class="line"><span>Redefined.</span></span>
+    </h1>
+    <p class="hero-sub" id="heroSub">Sky Line Hair Salon brings precision cuts, expert color, and editorial-grade styling to Northeast Philadelphia.</p>
+    <div class="hero-actions" id="heroActions">
+      <a href="#" class="btn-mag" id="heroBookBtn">Book Your Style</a>
+      <a href="#services" class="btn-outline">See Services</a>
     </div>
-    <div class="hero-badge">
-      <div class="badge-star">★</div>
-      <div class="badge-info">
-        <div class="badge-rating">4.2 Stars</div>
-        <div class="badge-reviews">240+ Verified Customer Reviews</div>
-      </div>
+    <div class="hero-stats" id="heroStats">
+      <div class="hs-item"><span class="hs-val">4.8★</span><span class="hs-label">Google</span></div>
+      <div class="hs-item"><span class="hs-val">$20+</span><span class="hs-label">Men's cut</span></div>
+      <div class="hs-item"><span class="hs-val">NE Philly</span><span class="hs-label">Since 2012</span></div>
     </div>
   </div>
   <div class="hero-right">
-    <div class="mosaic-tile large">
-      <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt="Hair salon">
-    </div>
-    <div class="mosaic-tile">
-      <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=400&q=80" alt="Hair styling">
-    </div>
-    <div class="mosaic-tile">
-      <img src="https://images.unsplash.com/photo-1582095133179-bfd08e2fb6b8?w=400&q=80" alt="Hair color">
-    </div>
+    <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=1000&q=80" alt="Sky Line Hair Salon">
   </div>
 </section>
 
-<div class="gold-divider"></div>
-
-<section class="services" id="services">
-  <div class="section-eyebrow">Our Services</div>
-  <h2 class="section-title">WHAT WE<br>SPECIALIZE IN</h2>
-  <p class="section-sub">Whether you're coming in for a quick trim or a full transformation — we bring the same level of care to every chair.</p>
-  <div class="services-list">
-    <div class="svc">
-      <div class="svc-dot"></div>
-      <div class="svc-name">Men's Haircut</div>
-      <div class="svc-price">From $20 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="svc-desc">Fade, taper, classic or modern cut. Clipper work or scissor finish.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-dot"></div>
-      <div class="svc-name">Women's Cut & Style</div>
-      <div class="svc-price">From $35 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="svc-desc">Precision cuts, layers, blowout and style included.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-dot"></div>
-      <div class="svc-name">Hair Coloring</div>
-      <div class="svc-price">From $65 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="svc-desc">Single process color, highlights, balayage, or touch-up. Full consultation included.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-dot"></div>
-      <div class="svc-name">Beard Grooming & Shave</div>
-      <div class="svc-price">From $15 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="svc-desc">Shape-up, beard trim, hot towel finish. Add-on or standalone.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-dot"></div>
-      <div class="svc-name">Kids Haircut</div>
-      <div class="svc-price">From $15 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="svc-desc">Patient, experienced stylists for kids of all ages. Quick and comfortable.</div>
-    </div>
-    <div class="svc">
-      <div class="svc-dot"></div>
-      <div class="svc-name">Head Shave</div>
-      <div class="svc-price">From $25 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="svc-desc">Hot lather straight razor head shave. Scalp treatment optional.</div>
-    </div>
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Men's Cuts</span><span class="dot">◆</span><span>Women's Color</span><span class="dot">◆</span><span>Balayage</span><span class="dot">◆</span><span>Beard Trim</span><span class="dot">◆</span><span>Kids Cuts</span><span class="dot">◆</span><span>Head Shave</span><span class="dot">◆</span><span>Highlights</span><span class="dot">◆</span><span>Men's Cuts</span><span class="dot">◆</span><span>Women's Color</span><span class="dot">◆</span><span>Balayage</span><span class="dot">◆</span><span>Beard Trim</span><span class="dot">◆</span><span>Kids Cuts</span><span class="dot">◆</span><span>Head Shave</span><span class="dot">◆</span><span>Highlights</span><span class="dot">◆</span>
   </div>
-</section>
-
-<section class="why" id="why">
-  <div class="why-img">
-    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80" alt="Barber at work">
-  </div>
-  <div class="why-content">
-    <div class="section-eyebrow">Why Sky Line</div>
-    <h2 class="section-title" style="color:#fff">THE SALON<br>BUSTLETON<br>TRUSTS</h2>
-    <p class="section-sub">Walk-ins welcome. Appointments get priority. Either way, you'll leave looking sharp.</p>
-    <ul class="why-list">
-      <li class="why-item">
-        <div class="why-num">01</div>
-        <div class="why-text">
-          <h4>Skilled for Every Hair Type</h4>
-          <p>Straight, curly, textured — our stylists are trained on all hair types and current techniques.</p>
-        </div>
-      </li>
-      <li class="why-item">
-        <div class="why-num">02</div>
-        <div class="why-text">
-          <h4>Fair, Transparent Pricing</h4>
-          <p>No surprise charges. We tell you the price before we start.</p>
-        </div>
-      </li>
-      <li class="why-item">
-        <div class="why-num">03</div>
-        <div class="why-text">
-          <h4>7 Days a Week</h4>
-          <p>Open every day — including weekends and evenings for working clients.</p>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<section class="reviews" id="reviews">
-  <div class="section-eyebrow">What Clients Say</div>
-  <h2 class="section-title">240+ FIVE-STAR<br>REVIEWS</h2>
-  <div class="reviews-grid">
-    <div class="rev-card">
-      <div class="rev-quote">"</div>
-      <p class="rev-text">Great haircut, super friendly staff. Been going here for years and they always get it exactly right. Best salon on Bustleton.</p>
-      <div class="rev-author">Julio M.</div>
-      <div class="rev-stars">★★★★★ · Google Review</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-quote">"</div>
-      <p class="rev-text">Really cheap prices for the quality. The stylist listened to what I wanted and delivered perfectly. Walk-in wait was quick too.</p>
-      <div class="rev-author">Sandra K.</div>
-      <div class="rev-stars">★★★★★ · Google Review</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-quote">"</div>
-      <p class="rev-text">Brought my son here for his first real haircut. They were patient with him and he looks amazing. We'll be back every month!</p>
-      <div class="rev-author">Maria T.</div>
-      <div class="rev-stars">★★★★★ · Google Review</div>
-    </div>
-  </div>
-</section>
-
-<section class="hours" id="hours">
-  <div class="section-eyebrow">Hours & Location</div>
-  <h2 class="section-title">VISIT US<br>ON BUSTLETON</h2>
-  <div class="hours-grid">
-    <div>
-      <div id="hoursTable">
-        <div class="hours-row"><span class="day">Monday</span><span class="time">9:30 AM – 7:00 PM</span></div>
-        <div class="hours-row"><span class="day">Tuesday</span><span class="time">9:30 AM – 7:00 PM</span></div>
-        <div class="hours-row"><span class="day">Wednesday</span><span class="time">9:30 AM – 7:00 PM</span></div>
-        <div class="hours-row"><span class="day">Thursday</span><span class="time">9:30 AM – 7:00 PM</span></div>
-        <div class="hours-row"><span class="day">Friday</span><span class="time">9:30 AM – 7:00 PM</span></div>
-        <div class="hours-row"><span class="day">Saturday</span><span class="time">9:30 AM – 5:00 PM</span></div>
-        <div class="hours-row"><span class="day">Sunday</span><span class="time">9:30 AM – 4:00 PM</span></div>
-      </div>
-    </div>
-    <div class="contact-box">
-      <div class="section-eyebrow">Contact</div>
-      <h3 class="section-title" style="font-size:40px">GET IN<br>TOUCH</h3>
-      <div class="cinfo-row">
-        <div class="cinfo-icon">📞</div>
-        <div>
-          <div class="cinfo-label">Phone</div>
-          <div class="cinfo-val"><a href="tel:2153422952">(215) 342-2952</a></div>
-        </div>
-      </div>
-      <div class="cinfo-row">
-        <div class="cinfo-icon">📍</div>
-        <div>
-          <div class="cinfo-label">Address</div>
-          <div class="cinfo-val">8308 Bustleton Ave<br>Philadelphia, PA 19152</div>
-        </div>
-      </div>
-      <div style="margin-top:32px">
-        <a href="#" class="btn-gold" onclick="openBooking();return false;" style="display:inline-block">Book Appointment</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="map-section">
-  <iframe src="https://maps.google.com/maps?q=8308+Bustleton+Ave,+Philadelphia,+PA+19152&output=embed&z=15" allowfullscreen loading="lazy"></iframe>
 </div>
 
-<footer>
-  <div>
-    <div class="footer-logo">Sky Line Hair Salon</div>
-    <div class="footer-tag">8308 Bustleton Ave · NE Philadelphia · 7 Days a Week</div>
+<!-- SERVICES — horizontal scroll -->
+<section class="services-section" id="services">
+  <div class="section-num">01</div>
+  <p class="section-eyebrow">What We Do</p>
+  <h2 class="section-title" data-reveal>Every <span class="acc">service,</span><br>done right.</h2>
+  <div class="svc-scroll-wrap">
+    <div class="svc-track">
+      <div class="svc-card" data-reveal>
+        <div class="svc-card-top"></div>
+        <div class="svc-card-body">
+          <div class="svc-icon">✂️</div>
+          <h3>Men's Haircut</h3>
+          <p>Precision cut, wash, and style with full consultation</p>
+          <div class="svc-price">$20</div>
+        </div>
+      </div>
+      <div class="svc-card alt" data-reveal>
+        <div class="svc-card-top"></div>
+        <div class="svc-card-body">
+          <div class="svc-icon">💇‍♀️</div>
+          <h3>Women's Cut</h3>
+          <p>Cut and style tailored to your face shape and texture</p>
+          <div class="svc-price">$35</div>
+        </div>
+      </div>
+      <div class="svc-card alt2" data-reveal>
+        <div class="svc-card-top"></div>
+        <div class="svc-card-body">
+          <div class="svc-icon">🎨</div>
+          <h3>Color Service</h3>
+          <p>Full color, highlights, balayage — all expertly applied</p>
+          <div class="svc-price">$65+</div>
+        </div>
+      </div>
+      <div class="svc-card" data-reveal>
+        <div class="svc-card-top"></div>
+        <div class="svc-card-body">
+          <div class="svc-icon">🪒</div>
+          <h3>Beard Trim</h3>
+          <p>Shape, line up, and finish — clean and sharp every time</p>
+          <div class="svc-price">$15</div>
+        </div>
+      </div>
+      <div class="svc-card alt" data-reveal>
+        <div class="svc-card-top"></div>
+        <div class="svc-card-body">
+          <div class="svc-icon">👦</div>
+          <h3>Kids' Cut</h3>
+          <p>Patient and gentle — great results for every age</p>
+          <div class="svc-price">$15</div>
+        </div>
+      </div>
+      <div class="svc-card alt2" data-reveal>
+        <div class="svc-card-top"></div>
+        <div class="svc-card-body">
+          <div class="svc-icon">🌟</div>
+          <h3>Head Shave</h3>
+          <p>Smooth, clean razor shave with hot towel treatment</p>
+          <div class="svc-price">$25</div>
+        </div>
+      </div>
+      <div class="svc-card" data-reveal>
+        <div class="svc-card-top"></div>
+        <div class="svc-card-body">
+          <div class="svc-icon">✨</div>
+          <h3>Balayage</h3>
+          <p>Natural-looking, sun-kissed color for a modern look</p>
+          <div class="svc-price">$90+</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="footer-info">
-    <div>(215) 342-2952</div>
-    <div style="margin-top:4px">Walk-ins Welcome</div>
+  <p class="svc-scroll-hint">Scroll to see all services</p>
+</section>
+
+<!-- ABOUT — editorial -->
+<section class="about-section" id="about">
+  <div class="section-num">02</div>
+  <div class="about-grid">
+    <div class="about-img-wrap" data-reveal>
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=900&q=80" alt="Sky Line Salon interior">
+      </div>
+      <div class="about-badge">NE Philly's Finest</div>
+    </div>
+    <div class="about-text">
+      <p class="section-eyebrow">About Us</p>
+      <h2 class="section-title" data-reveal>Where <span class="acc">precision</span><br>meets personality.</h2>
+      <p class="lead">Sky Line has been shaping the look of Northeast Philadelphia since 2012 — one great cut at a time.</p>
+      <p>We believe every person deserves a stylist who listens. From your first consultation to your final look, we're focused on making you feel confident walking out that door.</p>
+      <p>Whether you want a classic clean cut, a bold new color, or something you've never tried before — we have the skill and the vision to make it happen.</p>
+      <div class="about-tag-row" data-reveal>
+        <span class="atag">Precision Cuts</span>
+        <span class="atag">Expert Color</span>
+        <span class="atag">All Hair Types</span>
+        <span class="atag">Walk-ins Welcome</span>
+      </div>
+    </div>
   </div>
-</footer>
+</section>
+
+<!-- TESTIMONIAL — full bleed dark -->
+<section class="testimonial-section">
+  <p class="testi-eyebrow" data-reveal>Client Love</p>
+  <p class="testi-big" data-reveal>"I've been coming to <span class="highlight">Sky Line</span> for 4 years and I wouldn't trust anyone else with my hair. The attention to detail is unmatched — they listen, they care, and they deliver every single time."</p>
+  <p class="testi-author" data-reveal>— Renee M., Bustleton Ave Regular</p>
+</section>
+
+<!-- GALLERY — asymmetric -->
+<section class="gallery-section" id="gallery">
+  <div class="section-num">03</div>
+  <p class="section-eyebrow">The Work</p>
+  <h2 class="section-title" data-reveal>Fresh <span class="acc">cuts</span> &amp; colors</h2>
+  <div class="gallery-asymm">
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=700&q=80" alt="Hair cut"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=80" alt="Color service"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&q=80" alt="Beard trim"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=500&q=80" alt="Men's cut"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=700&q=80" alt="Styling"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500&q=80" alt="Women's style"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80" alt="Color result"></div>
+    <div class="g-item"><img src="https://images.unsplash.com/photo-1595152772835-219674b2a163?w=900&q=80" alt="Salon vibe"></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-num">04</div>
+  <p class="section-eyebrow">Reviews</p>
+  <h2 class="section-title" data-reveal>Trusted by <span class="acc">hundreds</span></h2>
+  <div class="reviews-grid">
+    <div class="rv-card" data-reveal>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"Best haircut I've had in years. The barber really listened to what I wanted and nailed it perfectly. Beard trim was sharp too."</p>
+      <div class="rv-author">Malik J. · Google</div>
+    </div>
+    <div class="rv-card" data-reveal>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"Got a full color and cut here and the result was absolutely stunning. My highlights look so natural. Won't go anywhere else now."</p>
+      <div class="rv-author">Carmen V. · Google</div>
+    </div>
+    <div class="rv-card" data-reveal>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"Brought my 7-year-old for his first real haircut and they were so patient and kind. He left looking amazing. Highly recommend."</p>
+      <div class="rv-author">Sandra M. · Google</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="info-section" id="info">
+  <div class="section-num">05</div>
+  <div class="info-grid">
+    <div>
+      <p class="section-eyebrow">Hours</p>
+      <h2 class="section-title" data-reveal>We're open<br><span class="acc">6 days</span> a week</h2>
+      <table class="hours-table">
+        <tr><td>Monday – Friday</td><td>9:30 AM – 7:00 PM</td></tr>
+        <tr><td>Saturday</td><td>9:30 AM – 5:00 PM</td></tr>
+        <tr><td>Sunday</td><td>9:30 AM – 4:00 PM</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="section-eyebrow">Visit Us</p>
+      <h2 class="section-title" data-reveal>On <span class="acc">Bustleton Ave</span></h2>
+      <div class="contact-list">
+        <div class="ci">
+          <span class="ci-icon">📍</span>
+          <div class="ci-text"><span>8308 Bustleton Ave<br>Philadelphia, PA 19152</span></div>
+        </div>
+        <div class="ci">
+          <span class="ci-icon">📞</span>
+          <div class="ci-text"><a href="tel:2153422952">(215) 342-2952</a><span>Call to book or walk in</span></div>
+        </div>
+        <div class="ci">
+          <span class="ci-icon">🅿️</span>
+          <div class="ci-text"><span>Street parking available on Bustleton Ave</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <p class="section-eyebrow">Your Next Look Awaits</p>
+  <p class="cta-big">Book your appointment<br>today.</p>
+  <a href="#" class="btn-white" id="ctaBookBtn">Reserve My Spot</a>
+</section>
+
+<footer>&copy; 2025 Sky Line Hair Salon &nbsp;·&nbsp; 8308 Bustleton Ave, Philadelphia &nbsp;·&nbsp; <a href="tel:2153422952">(215) 342-2952</a></footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-steps">
+      <div class="ms active" id="ms1"></div><div class="ms" id="ms2"></div><div class="ms" id="ms3"></div><div class="ms" id="ms4"></div><div class="ms" id="ms5"></div>
+    </div>
+    <div id="step1">
+      <h3 class="modal-title">Choose a Service</h3>
+      <p class="modal-sub">Step 1 of 5 — What are you coming in for?</p>
+      <div class="svc-option-grid">
+        <div class="svc-option" data-svc="Men's Haircut ($20)"><strong>Men's Cut</strong><span>$20</span></div>
+        <div class="svc-option" data-svc="Women's Cut ($35)"><strong>Women's Cut</strong><span>$35</span></div>
+        <div class="svc-option" data-svc="Color Service ($65+)"><strong>Color</strong><span>from $65</span></div>
+        <div class="svc-option" data-svc="Beard Trim ($15)"><strong>Beard Trim</strong><span>$15</span></div>
+        <div class="svc-option" data-svc="Kids' Cut ($15)"><strong>Kids' Cut</strong><span>$15</span></div>
+        <div class="svc-option" data-svc="Head Shave ($25)"><strong>Head Shave</strong><span>$25</span></div>
+      </div>
+      <button class="btn-submit" id="step1Next">Continue →</button>
+    </div>
+    <div id="step2" style="display:none">
+      <h3 class="modal-title">Pick a Date</h3>
+      <p class="modal-sub" id="calMonthLabel">Step 2 of 5</p>
+      <div class="cal-grid" id="calGrid"></div>
+      <button class="btn-submit" id="step2Next">Continue →</button>
+    </div>
+    <div id="step3" style="display:none">
+      <h3 class="modal-title">Select a Time</h3>
+      <p class="modal-sub">Step 3 of 5</p>
+      <div class="time-grid">
+        <div class="time-btn" data-time="9:30 AM">9:30 AM</div>
+        <div class="time-btn" data-time="11:00 AM">11:00 AM</div>
+        <div class="time-btn" data-time="12:00 PM">12:00 PM</div>
+        <div class="time-btn" data-time="1:00 PM">1:00 PM</div>
+        <div class="time-btn" data-time="2:30 PM">2:30 PM</div>
+        <div class="time-btn" data-time="3:30 PM">3:30 PM</div>
+        <div class="time-btn" data-time="4:30 PM">4:30 PM</div>
+        <div class="time-btn" data-time="5:00 PM">5:00 PM</div>
+        <div class="time-btn" data-time="6:00 PM">6:00 PM</div>
+      </div>
+      <button class="btn-submit" id="step3Next">Continue →</button>
+    </div>
+    <div id="step4" style="display:none">
+      <h3 class="modal-title">Your Info</h3>
+      <p class="modal-sub">Step 4 of 5 — Almost done!</p>
+      <div class="form-group"><label>Full Name</label><input type="text" id="guestName" placeholder="Jane Smith"></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="guestPhone" placeholder="(215) 555-0100"></div>
+      <div class="form-group"><label>Notes (optional)</label><input type="text" id="guestNotes" placeholder="Reference photo, special request..."></div>
+      <button class="btn-submit" id="step4Next">Confirm Booking →</button>
+    </div>
+    <div id="step5" style="display:none;text-align:center">
+      <div class="confirm-icon">💇</div>
+      <h3 class="modal-title">You're booked!</h3>
+      <p class="modal-sub">We'll see you at Sky Line. Your look is ready to happen.</p>
+      <div class="confirm-details" id="confirmDetails"></div>
+      <button class="btn-submit" onclick="closeModal()">Done</button>
+    </div>
+  </div>
+</div>
 
 <script>
-const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const today=days[new Date().getDay()];
-document.querySelectorAll('.hours-row').forEach(row=>{
-  if(row.querySelector('.day')&&row.querySelector('.day').textContent===today){
-    row.classList.add('hours-today');
-  }
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cursor,{x:mx,y:my,duration:.1})});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+gsap.registerPlugin(ScrollTrigger);
+window.addEventListener('load',()=>{
+  const tl=gsap.timeline({delay:.2});
+  tl.to('#heroTag',{opacity:1,y:0,duration:.7,ease:'expo.out'})
+    .to('.hero-title .line span',{y:0,duration:1.1,ease:'expo.out',stagger:.12},'-=.4')
+    .to('#heroSub',{opacity:1,y:0,duration:.7},'-=.4')
+    .to('#heroActions',{opacity:1,y:0,duration:.6},'-=.3')
+    .to('#heroStats',{opacity:1,y:0,duration:.7},'-=.3');
+  document.querySelectorAll('[data-reveal]').forEach(el=>{
+    gsap.from(el,{scrollTrigger:{trigger:el,start:'top 84%'},opacity:0,y:28,duration:.9,ease:'expo.out'});
+  });
 });
-function openBooking(){
-  alert('Booking system — coming in your live site!');
-}
+let selSvc='',selDate='',selTime='',curStep=1;
+function openModal(){document.getElementById('modalBg').classList.add('open');curStep=1;showStep(1);}
+function closeModal(){document.getElementById('modalBg').classList.remove('open');}
+['navBookBtn','heroBookBtn','ctaBookBtn'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('click',e=>{e.preventDefault();openModal();})});
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('modalBg').addEventListener('click',e=>{if(e.target===document.getElementById('modalBg'))closeModal();});
+function showStep(n){for(let i=1;i<=5;i++){document.getElementById('step'+i).style.display=i===n?'block':'none';const ms=document.getElementById('ms'+i);ms.classList.toggle('done',i<n);ms.classList.toggle('active',i===n);}}
+document.querySelectorAll('.svc-option').forEach(opt=>{opt.addEventListener('click',()=>{document.querySelectorAll('.svc-option').forEach(o=>o.classList.remove('selected'));opt.classList.add('selected');selSvc=opt.dataset.svc;});});
+document.getElementById('step1Next').addEventListener('click',()=>{if(!selSvc){alert('Please choose a service.');return;}curStep=2;showStep(2);buildCal();});
+function buildCal(){const today=new Date(),y=today.getFullYear(),m=today.getMonth();const label=['January','February','March','April','May','June','July','August','September','October','November','December'];document.getElementById('calMonthLabel').textContent=label[m]+' '+y+' — Step 2 of 5';const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();const grid=document.getElementById('calGrid');grid.innerHTML='';['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{const el=document.createElement('div');el.className='cal-day-label';el.textContent=d;grid.appendChild(el);});for(let i=0;i<first;i++){const el=document.createElement('div');el.className='cal-day empty';grid.appendChild(el);}for(let d=1;d<=days;d++){const el=document.createElement('div');el.className='cal-day';el.textContent=d;const date=new Date(y,m,d);if(date<today){el.classList.add('disabled');}else{el.addEventListener('click',()=>{document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selDate=label[m]+' '+d+', '+y;});}grid.appendChild(el);}}
+document.getElementById('step2Next').addEventListener('click',()=>{if(!selDate){alert('Please pick a date.');return;}curStep=3;showStep(3);});
+document.querySelectorAll('.time-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');selTime=btn.dataset.time;});});
+document.getElementById('step3Next').addEventListener('click',()=>{if(!selTime){alert('Please select a time.');return;}curStep=4;showStep(4);});
+document.getElementById('step4Next').addEventListener('click',()=>{const name=document.getElementById('guestName').value.trim(),phone=document.getElementById('guestPhone').value.trim();if(!name||!phone){alert('Please fill in your name and phone.');return;}document.getElementById('confirmDetails').innerHTML=`<strong>Service:</strong> ${selSvc}<br><strong>Date:</strong> ${selDate}<br><strong>Time:</strong> ${selTime}<br><strong>Name:</strong> ${name}<br><strong>Phone:</strong> ${phone}`;curStep=5;showStep(5);});
 </script>
 </body>
 </html>

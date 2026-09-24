@@ -4,478 +4,429 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ritz Diner — Roosevelt Blvd, Philadelphia</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --burgundy:#7b2d42;
-  --cream:#f9f5ed;
-  --warm:#e8d5b0;
-  --gold:#c4962a;
-  --dark:#1a1208;
-  --gray:#5c5247;
-  --white:#ffffff;
+  --red:#DC2626;--red-dark:#B91C1C;--amber:#A16207;--amber-light:#D97706;
+  --bg:#FEF2F2;--bg2:#FFF7ED;--white:#FFFFFF;--dark:#1C0A00;--muted:#78350F;--border:#FECACA;
 }
-body{font-family:'Source Sans 3',sans-serif;background:#fff;color:var(--dark);overflow-x:hidden}
-
-/* ===== NAV ===== */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:18px 7%;
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(26,18,8,0.97);
-  backdrop-filter:blur(8px);
-}
-.nav-logo{
-  font-family:'Playfair Display',serif;
-  font-size:22px;font-weight:700;
-  color:var(--warm);
-  text-decoration:none;
-  letter-spacing:0.02em;
-}
-.nav-logo span{color:var(--gold)}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{
-  color:rgba(255,255,255,0.6);
-  text-decoration:none;font-size:13px;
-  letter-spacing:0.08em;text-transform:uppercase;font-weight:600;
-  transition:color 0.2s;
-}
-.nav-links a:hover{color:var(--warm)}
-.nav-cta{
-  background:var(--burgundy);
-  color:#fff;padding:10px 26px;
-  font-size:12px;letter-spacing:0.1em;
-  text-transform:uppercase;font-weight:600;
-  text-decoration:none;transition:background 0.2s;
-}
-.nav-cta:hover{background:#6a2438}
-
-/* ===== HERO — HORIZONTAL PHOTO STRIP ===== */
-.hero{
-  padding-top:72px;
-  background:var(--dark);
-  overflow:hidden;
-}
-.photo-strip{
-  position:relative;
-  height:55vh;
-  min-height:360px;
-  display:flex;
-  overflow:hidden;
-}
-.strip-img{
-  flex:1;
-  overflow:hidden;
-  position:relative;
-}
-.strip-img img{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-  transition:transform 0.8s ease;
-}
-.strip-img:hover img{transform:scale(1.06)}
-.strip-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to bottom, rgba(26,18,8,0.2), rgba(26,18,8,0.55));
-}
-.strip-divider{
-  width:3px;
-  background:var(--gold);
-  flex-shrink:0;
-  z-index:2;
-}
-.hero-content{
-  background:var(--dark);
-  padding:56px 8%;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-@media(max-width:768px){.hero-content{grid-template-columns:1fr;gap:32px}}
-.hero-left{}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--gold);font-weight:600;margin-bottom:20px;
-}
-.hero-tag::before{content:'';width:32px;height:1px;background:var(--gold)}
-.hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(44px,6vw,72px);
-  font-weight:900;color:var(--warm);
-  line-height:1.0;margin-bottom:20px;
-}
-.hero-title span{
-  display:block;
-  font-style:italic;
-  color:var(--gold);
-  font-size:0.7em;
-  font-weight:400;
-}
-.hero-desc{
-  font-size:17px;color:rgba(255,255,255,0.6);
-  line-height:1.8;font-weight:300;
-  max-width:460px;margin-bottom:36px;
-}
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
-.btn-order{
-  background:var(--burgundy);
-  color:#fff;padding:16px 38px;
-  font-size:13px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
-  text-decoration:none;display:inline-block;transition:background 0.2s;
-}
-.btn-order:hover{background:#6a2438}
-.btn-call{
-  border:1px solid rgba(255,255,255,0.25);
-  color:#fff;padding:15px 32px;
-  font-size:13px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
-  text-decoration:none;display:inline-block;transition:border-color 0.2s;
-}
-.btn-call:hover{border-color:var(--warm)}
-.hero-right{}
-.feat-items{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06)}
-.feat-item{
-  background:rgba(255,255,255,0.03);
-  padding:28px 24px;
-  text-align:center;
-}
-.feat-icon{font-size:28px;margin-bottom:12px}
-.feat-label{
-  font-size:13px;color:rgba(255,255,255,0.5);
-  text-transform:uppercase;letter-spacing:0.1em;
-  margin-bottom:6px;
-}
-.feat-val{
-  font-family:'Playfair Display',serif;
-  font-size:20px;color:var(--warm);font-weight:700;
-}
-
-/* ===== MENU HIGHLIGHTS ===== */
-.menu{padding:100px 8%;background:var(--cream)}
-.section-tag{
-  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--burgundy);font-weight:600;margin-bottom:16px;
-}
-.section-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(36px,5vw,58px);font-weight:700;
-  color:var(--dark);line-height:1.0;margin-bottom:16px;
-}
-.section-sub{
-  font-size:16px;color:var(--gray);max-width:500px;
-  line-height:1.8;font-weight:300;margin-bottom:64px;
-}
-.menu-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:2px;background:var(--warm);
-}
-.menu-card{
-  background:var(--cream);padding:36px 32px;
-  transition:background 0.3s;
-}
-.menu-card:hover{background:var(--burgundy)}
-.menu-card:hover .menu-name,.menu-card:hover .menu-desc,.menu-card:hover .menu-price{color:#fff}
-.menu-name{
-  font-family:'Playfair Display',serif;
-  font-size:22px;font-weight:700;
-  color:var(--dark);margin-bottom:10px;transition:color 0.3s;
-}
-.menu-price{
-  font-size:15px;font-weight:600;color:var(--burgundy);
-  margin-bottom:10px;transition:color 0.3s;
-}
-.menu-desc{
-  font-size:14px;color:var(--gray);line-height:1.7;transition:color 0.3s;
-}
-
-/* ===== ABOUT ===== */
-.about{
-  padding:100px 8%;
-  background:var(--dark);
-  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
-}
-@media(max-width:768px){.about{grid-template-columns:1fr;gap:40px}}
-.about-img img{width:100%;height:480px;object-fit:cover;display:block}
-.about-content .section-tag{color:var(--gold)}
-.about-content .section-title{color:var(--warm)}
-.about-p{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.8;font-weight:300;margin-bottom:20px}
-.about-badges{
-  display:flex;gap:32px;flex-wrap:wrap;margin-top:32px;
-}
-.abadge{text-align:center}
-.abadge-num{
-  font-family:'Playfair Display',serif;
-  font-size:40px;font-weight:900;color:var(--gold);line-height:1;
-}
-.abadge-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:4px}
-
-/* ===== REVIEWS ===== */
-.reviews{padding:100px 8%;background:#fff}
-.reviews-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;margin-top:60px;
-}
-.rev{
-  padding:36px 32px;border-top:3px solid var(--burgundy);
-}
-.rev-stars{font-size:16px;color:var(--gold);margin-bottom:16px}
-.rev-text{font-size:15px;color:var(--gray);line-height:1.8;font-style:italic;margin-bottom:20px}
-.rev-name{
-  font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--dark);
-}
-.rev-where{font-size:12px;color:var(--gray);margin-top:2px}
-
-/* ===== HOURS ===== */
-.hours-section{
-  padding:100px 8%;background:var(--cream);
-  display:grid;grid-template-columns:1fr 1fr;gap:80px;
-}
-@media(max-width:768px){.hours-section{grid-template-columns:1fr;gap:40px}}
-.hours-row{
-  display:flex;justify-content:space-between;
-  padding:14px 0;border-bottom:1px solid rgba(26,18,8,0.1);
-  font-size:15px;color:var(--gray);
-}
-.hours-row .d{font-weight:600;color:var(--dark)}
-.hours-today .d,.hours-today .t{color:var(--burgundy)!important;font-weight:700}
-.cbox{background:var(--dark);padding:48px 40px}
-.cbox-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:4px}
-.cbox-val{font-size:17px;color:var(--warm);font-weight:600;margin-bottom:28px}
-.cbox-val a{color:var(--warm);text-decoration:none}
-
-/* ===== MAP + FOOTER ===== */
-.map-section iframe{width:100%;height:360px;display:block;border:none}
-footer{
-  background:var(--dark);padding:40px 8%;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
-}
-.footer-logo{
-  font-family:'Playfair Display',serif;
-  font-size:22px;color:var(--warm);font-weight:700;
-}
-.footer-logo span{color:var(--gold);font-style:italic}
-.footer-sub{font-size:12px;color:rgba(255,255,255,0.3);margin-top:4px}
-.footer-right{font-size:13px;color:rgba(255,255,255,0.3);text-align:right}
-
-@media(max-width:768px){nav .nav-links{display:none}}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--dark);font-family:'Karla',sans-serif;overflow-x:hidden;cursor:none}
+#cursor{position:fixed;width:8px;height:8px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;width:38px;height:38px;border:1.5px solid var(--red);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.55;transition:opacity .2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;background:rgba(254,242,242,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:padding .3s}
+.nav-logo{font-family:'Playfair Display SC',serif;font-size:1.25rem;color:var(--red);letter-spacing:.04em}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--dark);transition:color .2s}
+.nav-links a:hover{color:var(--red)}
+.nav-cta{background:var(--red);color:#fff;padding:.6rem 1.35rem;border-radius:2px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--red-dark)}
+.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(254,242,242,.97) 0%,rgba(254,242,242,.88) 44%,rgba(254,242,242,.12) 100%)}
+.hero-content{position:relative;z-index:2;max-width:580px;padding:0 5%;margin-top:80px}
+.hero-eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);margin-bottom:1.3rem;opacity:0;transform:translateY(12px)}
+.hero-title{font-family:'Playfair Display SC',serif;font-size:clamp(2.8rem,5.5vw,4.8rem);line-height:1.06;color:var(--dark);margin-bottom:1.3rem}
+.hero-title .line{display:block;overflow:hidden}
+.hero-title .line span{display:block;transform:translateY(110%)}
+.hero-sub{font-size:1.05rem;line-height:1.75;color:var(--muted);max-width:400px;margin-bottom:2rem;opacity:0;transform:translateY(12px)}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;transform:translateY(12px)}
+.btn-primary{display:inline-block;background:var(--red);color:#fff;padding:.82rem 1.9rem;border-radius:2px;font-family:'Karla',sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:none;transition:background .2s,transform .2s}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-2px)}
+.btn-outline{display:inline-block;border:2px solid var(--dark);color:var(--dark);padding:.8rem 1.7rem;border-radius:2px;font-size:.86rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .2s;background:transparent}
+.btn-outline:hover{background:var(--dark);color:#fff}
+.hero-badge{position:absolute;right:6%;bottom:9%;background:var(--white);border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.5rem;text-align:center;box-shadow:0 8px 32px rgba(220,38,38,.09);opacity:0;transform:translateY(16px)}
+.hero-badge .stars{color:#F59E0B;font-size:1rem;letter-spacing:.1em}
+.hero-badge .rating{font-family:'Playfair Display SC',serif;font-size:2rem;color:var(--red);display:block;line-height:1.1}
+.hero-badge .count{font-size:.74rem;color:var(--muted);font-weight:600}
+.marquee-strip{background:var(--red);overflow:hidden;padding:.65rem 0;white-space:nowrap}
+.marquee-inner{display:inline-flex;animation:marquee 24s linear infinite}
+.marquee-inner span{font-size:.76rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;padding:0 2.2rem}
+.marquee-inner .dot{color:rgba(255,255,255,.45);padding:0 .4rem}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+section{padding:5.5rem 5%}
+.section-eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);margin-bottom:.75rem}
+.section-title{font-family:'Playfair Display SC',serif;font-size:clamp(1.7rem,3.2vw,2.6rem);color:var(--dark);line-height:1.15;margin-bottom:1.1rem}
+.about{background:var(--white);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-img{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:4/3}
+.about-img img{width:100%;height:100%;object-fit:cover;display:block}
+.about-img::after{content:'Since 1987';position:absolute;bottom:1rem;right:1rem;background:var(--red);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.45rem .9rem;border-radius:2px}
+.about-text p{font-size:1rem;line-height:1.8;color:var(--muted);margin-bottom:.9rem}
+.stats-row{display:flex;gap:2.5rem;margin-top:1.8rem;padding-top:1.8rem;border-top:1px solid var(--border)}
+.stat-item .num{font-family:'Playfair Display SC',serif;font-size:2rem;color:var(--red);display:block}
+.stat-item .label{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.menu-section{background:var(--bg2)}
+.menu-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem}
+.menu-card{background:var(--white);border-radius:6px;overflow:hidden;border:1px solid #FDE68A;transition:transform .3s,box-shadow .3s}
+.menu-card:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(220,38,38,.1)}
+.menu-card-img{height:195px;overflow:hidden}
+.menu-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .55s;display:block}
+.menu-card:hover .menu-card-img img{transform:scale(1.06)}
+.menu-card-body{padding:1.3rem}
+.menu-card-body h3{font-family:'Playfair Display SC',serif;font-size:1.05rem;color:var(--dark);margin-bottom:.35rem}
+.menu-card-body p{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:.75rem}
+.menu-price{font-family:'Playfair Display SC',serif;font-size:1.15rem;color:var(--red)}
+.menu-badge{display:inline-block;background:#FEF3C7;color:var(--amber);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .6rem;border-radius:20px;margin-left:.5rem;vertical-align:middle}
+.gallery-section{background:var(--white)}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:255px 255px;gap:1rem;margin-top:2.8rem}
+.gallery-item{overflow:hidden;border-radius:4px;position:relative}
+.gallery-item.tall{grid-row:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .55s;display:block}
+.gallery-item:hover img{transform:scale(1.07)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(28,10,0,0);transition:background .3s}
+.gallery-item:hover .gallery-overlay{background:rgba(28,10,0,.28)}
+.info-section{background:var(--red);color:#fff}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.info-section .section-eyebrow{color:rgba(255,255,255,.65)}
+.info-section .section-title{color:#fff}
+.hours-list{list-style:none;margin-top:1.4rem}
+.hours-list li{display:flex;justify-content:space-between;padding:.58rem 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:.93rem}
+.hours-list li span:first-child{font-weight:600}
+.hours-list li span:last-child{opacity:.82}
+.contact-item{display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem;font-size:.93rem}
+.contact-icon{width:36px;height:36px;background:rgba(255,255,255,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.contact-item a{color:#fff;text-decoration:none;font-weight:600}
+.reviews-section{background:var(--bg)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem;margin-top:2.8rem}
+.review-card{background:var(--white);border-radius:6px;padding:1.7rem;border:1px solid var(--border)}
+.review-stars{color:#F59E0B;font-size:.92rem;margin-bottom:.75rem;letter-spacing:.04em}
+.review-text{font-size:.9rem;line-height:1.72;color:var(--muted);margin-bottom:1rem;font-style:italic}
+.review-author{font-weight:700;font-size:.83rem;color:var(--dark)}
+.review-date{font-size:.76rem;color:#9CA3AF;margin-top:.18rem}
+.cta-section{background:var(--dark);text-align:center;padding:5rem 5%}
+.cta-section .section-eyebrow{color:var(--amber-light)}
+.cta-section h2{font-family:'Playfair Display SC',serif;font-size:clamp(1.9rem,3.8vw,3rem);color:#fff;margin-bottom:.9rem}
+.cta-section p{color:rgba(255,255,255,.68);font-size:1rem;max-width:460px;margin:0 auto 2.3rem}
+footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.07);padding:2.5rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer .logo{font-family:'Playfair Display SC',serif;font-size:1.05rem;color:var(--red)}
+footer p{color:rgba(255,255,255,.38);font-size:.8rem}
+footer a{color:var(--amber-light);font-size:.8rem;text-decoration:none}
+.reveal{opacity:0;transform:translateY(28px)}
+.modal-overlay{position:fixed;inset:0;background:rgba(28,10,0,.72);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:8px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.32)}
+.modal-header{padding:1.8rem 1.8rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-family:'Playfair Display SC',serif;font-size:1.2rem;color:var(--dark)}
+.modal-close{background:none;border:none;font-size:1.35rem;cursor:none;color:var(--muted);line-height:1;padding:.2rem}
+.modal-steps{display:flex;gap:.35rem;padding:1rem 1.8rem;border-bottom:1px solid var(--border)}
+.step-dot{flex:1;height:3px;background:#FEE2E2;border-radius:2px;transition:background .3s}
+.step-dot.active{background:var(--red)}
+.step-dot.done{background:var(--amber)}
+.modal-body{padding:1.8rem}
+.step-title{font-family:'Playfair Display SC',serif;font-size:1rem;color:var(--dark);margin-bottom:1.3rem}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.service-option{border:2px solid var(--border);border-radius:6px;padding:.9rem;cursor:none;transition:all .2s}
+.service-option:hover,.service-option.selected{border-color:var(--red);background:#FEF2F2}
+.service-option .svc-name{font-weight:700;font-size:.88rem;color:var(--dark)}
+.service-option .svc-desc{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.28rem;margin-top:.7rem}
+.cal-day-name{text-align:center;font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.35rem 0}
+.cal-day{text-align:center;padding:.48rem;border-radius:4px;font-size:.85rem;cursor:none;transition:all .2s}
+.cal-day:hover:not(.disabled){background:var(--red);color:#fff}
+.cal-day.selected{background:var(--red);color:#fff;font-weight:700}
+.cal-day.disabled{color:#D1D5DB;pointer-events:none}
+.cal-day.empty{visibility:hidden}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:.7rem}
+.time-slot{border:2px solid var(--border);border-radius:4px;padding:.58rem;text-align:center;font-size:.83rem;font-weight:600;cursor:none;transition:all .2s}
+.time-slot:hover,.time-slot.selected{border-color:var(--red);background:#FEF2F2;color:var(--red)}
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.77rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:.38rem}
+.form-group input{width:100%;border:2px solid var(--border);border-radius:4px;padding:.7rem .9rem;font-family:'Karla',sans-serif;font-size:.93rem;color:var(--dark);background:var(--bg);outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--red)}
+.modal-footer{padding:1.1rem 1.8rem;border-top:1px solid var(--border);display:flex;gap:.7rem;justify-content:flex-end}
+.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:.6rem 1.3rem;border-radius:4px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:none;transition:all .2s}
+.btn-back:hover{border-color:var(--dark);color:var(--dark)}
+.btn-next{background:var(--red);color:#fff;border:none;padding:.6rem 1.7rem;border-radius:4px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:none;transition:background .2s}
+.btn-next:hover{background:var(--red-dark)}
+.confirm-screen{text-align:center;padding:.8rem 0}
+.confirm-icon{font-size:3.2rem;margin-bottom:.8rem}
+.confirm-screen h3{font-family:'Playfair Display SC',serif;font-size:1.3rem;color:var(--dark);margin-bottom:.5rem}
+.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.9rem}
+.confirm-detail{background:var(--bg2);border-radius:4px;padding:.9rem;margin:1.1rem 0;text-align:left}
+.confirm-detail div{display:flex;justify-content:space-between;padding:.35rem 0;font-size:.86rem;border-bottom:1px solid #FDE68A}
+.confirm-detail div:last-child{border:none}
+.confirm-detail span:first-child{color:var(--muted);font-weight:600}
+.confirm-detail span:last-child{color:var(--dark);font-weight:700}
+@media(max-width:860px){.about,.info-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}.gallery-item.tall{grid-row:span 1}.nav-links{display:none}}
 </style>
 </head>
 <body>
-
-<nav>
-  <a href="#" class="nav-logo"><span>Ritz</span> Diner</a>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<nav id="nav">
+  <div class="nav-logo">Ritz Diner</div>
   <ul class="nav-links">
     <li><a href="#menu">Menu</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#hours">Hours</a></li>
   </ul>
-  <a href="#" class="nav-cta" onclick="openBooking();return false;">Reserve a Table</a>
+  <a href="#" class="nav-cta" onclick="openModal();return false">Reserve a Table</a>
 </nav>
-
-<section class="hero">
-  <div class="photo-strip">
-    <div class="strip-img">
-      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80" alt="Diner breakfast">
-      <div class="strip-overlay"></div>
-    </div>
-    <div class="strip-divider"></div>
-    <div class="strip-img">
-      <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=800&q=80" alt="Pancakes">
-      <div class="strip-overlay"></div>
-    </div>
-    <div class="strip-divider"></div>
-    <div class="strip-img">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Fresh food">
-      <div class="strip-overlay"></div>
-    </div>
-    <div class="strip-divider"></div>
-    <div class="strip-img">
-      <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&q=80" alt="Plated dish">
-      <div class="strip-overlay"></div>
-    </div>
-  </div>
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-left">
-      <div class="hero-tag">Roosevelt Blvd · Northeast Philadelphia</div>
-      <h1 class="hero-title">Ritz Diner<span>Home-Cooked & Hearty</span></h1>
-      <p class="hero-desc">Family-owned since 2018. Breakfast, brunch, and dinner made from scratch — the way your grandmother cooked it. Come hungry. Leave happy.</p>
-      <div class="hero-actions">
-        <a href="#" class="btn-order" onclick="openBooking();return false;">Reserve a Table</a>
-        <a href="tel:2156138894" class="btn-call">(215) 613-8894</a>
-      </div>
+    <p class="hero-eyebrow">Philadelphia's Neighborhood Classic</p>
+    <h1 class="hero-title">
+      <span class="line"><span>Comfort Food</span></span>
+      <span class="line"><span>Done Right.</span></span>
+      <span class="line"><span>Every Time.</span></span>
+    </h1>
+    <p class="hero-sub">Family-owned since 1987. Fresh seafood, homemade soups, and generous portions on Roosevelt Blvd — open every single day.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">See Our Menu</a>
+      <a href="#" class="btn-outline" onclick="openModal();return false">Reserve a Table</a>
     </div>
-    <div class="hero-right">
-      <div class="feat-items">
-        <div class="feat-item">
-          <div class="feat-icon">🕖</div>
-          <div class="feat-label">Open</div>
-          <div class="feat-val">7 Days</div>
-        </div>
-        <div class="feat-item">
-          <div class="feat-icon">⭐</div>
-          <div class="feat-label">Rating</div>
-          <div class="feat-val">4.4 Stars</div>
-        </div>
-        <div class="feat-item">
-          <div class="feat-icon">🥘</div>
-          <div class="feat-label">Hours</div>
-          <div class="feat-val">7 AM – 10 PM</div>
-        </div>
-        <div class="feat-item">
-          <div class="feat-icon">🚗</div>
-          <div class="feat-label">Service</div>
-          <div class="feat-val">Dine-In & Delivery</div>
-        </div>
-      </div>
-    </div>
+  </div>
+  <div class="hero-badge" id="heroBadge">
+    <div class="stars">★★★★½</div>
+    <span class="rating">4.4</span>
+    <div class="count">146+ Reviews · Yelp</div>
   </div>
 </section>
-
-<section class="menu" id="menu">
-  <div class="section-tag">Our Menu</div>
-  <h2 class="section-title">MADE FROM<br>SCRATCH, DAILY</h2>
-  <p class="section-sub">Classic American diner favorites — from eggs any way you like to the Stuffed Salmon that keeps regulars coming back week after week.</p>
-  <div class="menu-grid">
-    <div class="menu-card">
-      <div class="menu-name">Stuffed Salmon Platter</div>
-      <div class="menu-price">$18.99 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="menu-desc">Atlantic salmon stuffed with crab meat and herbs. Served with roasted vegetables and your choice of starch.</div>
-    </div>
-    <div class="menu-card">
-      <div class="menu-name">Fresh Tuna Salad Hoagie</div>
-      <div class="menu-price">$12.99 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="menu-desc">Made fresh daily. House-seasoned tuna on a toasted hoagie with lettuce, tomato, and your choice of dressing.</div>
-    </div>
-    <div class="menu-card">
-      <div class="menu-name">Broiled Crab Cakes</div>
-      <div class="menu-price">$16.99 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="menu-desc">Jumbo lump crab cakes, broiled not fried. Served with remoulade sauce and coleslaw.</div>
-    </div>
-    <div class="menu-card">
-      <div class="menu-name">Potato Pancakes</div>
-      <div class="menu-price">$10.99 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="menu-desc">Old-school latkes, crispy on the outside, soft inside. Served with sour cream and applesauce.</div>
-    </div>
-    <div class="menu-card">
-      <div class="menu-name">Matzo Ball Soup</div>
-      <div class="menu-price">$7.99 <small style="font-size:11px;color:#9ca3af">[CONFIRM]</small></div>
-      <div class="menu-desc">Classic homemade matzo ball in a rich golden broth. A Northeast Philly staple — comfort in a bowl.</div>
-    </div>
-    <div class="menu-card">
-      <div class="menu-name">Build Your Own Breakfast</div>
-      <div class="menu-price">From $8.99</div>
-      <div class="menu-desc">Eggs any style, choice of meat, choice of home fries or toast. Add-ons available. Best in the neighborhood.</div>
-    </div>
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Breakfast All Day</span><span class="dot">✦</span><span>Fresh Seafood Daily</span><span class="dot">✦</span><span>Homemade Soups</span><span class="dot">✦</span><span>Open 7 Days a Week</span><span class="dot">✦</span><span>Dine-In &amp; Takeout</span><span class="dot">✦</span><span>Family Owned Since 1987</span><span class="dot">✦</span><span>Roosevelt Blvd Philadelphia</span><span class="dot">✦</span>
+    <span>Breakfast All Day</span><span class="dot">✦</span><span>Fresh Seafood Daily</span><span class="dot">✦</span><span>Homemade Soups</span><span class="dot">✦</span><span>Open 7 Days a Week</span><span class="dot">✦</span><span>Dine-In &amp; Takeout</span><span class="dot">✦</span><span>Family Owned Since 1987</span><span class="dot">✦</span><span>Roosevelt Blvd Philadelphia</span><span class="dot">✦</span>
   </div>
-</section>
-
-<section class="about" id="about">
-  <div class="about-img">
-    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Cozy diner interior">
-  </div>
-  <div class="about-content">
-    <div class="section-tag">Our Story</div>
-    <h2 class="section-title">YOUR NEIGHBORHOOD<br>DINER ON<br>ROOSEVELT BLVD</h2>
-    <p class="about-p">Ritz Diner has been serving Northeast Philadelphia since 2018 — a family-owned spot on Roosevelt Blvd where the food is fresh, the portions are generous, and the staff remembers your order.</p>
-    <p class="about-p">Whether it's a solo breakfast before work or a Sunday family brunch, you'll always get a warm welcome and a hot plate. No rush, no attitude — just good food.</p>
-    <div class="about-badges">
-      <div class="abadge">
-        <div class="abadge-num">146+</div>
-        <div class="abadge-label">Yelp Reviews</div>
-      </div>
-      <div class="abadge">
-        <div class="abadge-num">4.4★</div>
-        <div class="abadge-label">Average Rating</div>
-      </div>
-      <div class="abadge">
-        <div class="abadge-num">7</div>
-        <div class="abadge-label">Days a Week</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="reviews" id="reviews">
-  <div class="section-tag">What Guests Say</div>
-  <h2 class="section-title">146+ YELP REVIEWS<br>& COUNTING</h2>
-  <div class="reviews-grid">
-    <div class="rev">
-      <div class="rev-stars">★★★★★</div>
-      <p class="rev-text">"The Stuffed Salmon is unlike anything else in Northeast Philly. The staff is attentive and the food comes out fast and hot. This is our go-to diner."</p>
-      <div class="rev-name">Patricia L.</div>
-      <div class="rev-where">Yelp · NE Philadelphia</div>
-    </div>
-    <div class="rev">
-      <div class="rev-stars">★★★★★</div>
-      <p class="rev-text">"Great breakfast spot. Huge portions and the home fries are perfect every time. The staff actually remembers what you like — feels like a real neighborhood place."</p>
-      <div class="rev-name">David C.</div>
-      <div class="rev-where">Yelp · Somerton</div>
-    </div>
-    <div class="rev">
-      <div class="rev-stars">★★★★★</div>
-      <p class="rev-text">"The matzo ball soup here is the real deal. Been coming for years and the quality never drops. Great value, great food, great staff."</p>
-      <div class="rev-name">Ellen F.</div>
-      <div class="rev-where">Yelp · Roosevelt Blvd</div>
-    </div>
-  </div>
-</section>
-
-<section class="hours-section" id="hours">
-  <div>
-    <div class="section-tag">Hours</div>
-    <h2 class="section-title">OPEN 7<br>DAYS A WEEK</h2>
-    <div id="hoursTable">
-      <div class="hours-row"><span class="d">Monday</span><span class="t">7:00 AM – 10:00 PM</span></div>
-      <div class="hours-row"><span class="d">Tuesday</span><span class="t">7:00 AM – 10:00 PM</span></div>
-      <div class="hours-row"><span class="d">Wednesday</span><span class="t">7:00 AM – 10:00 PM</span></div>
-      <div class="hours-row"><span class="d">Thursday</span><span class="t">7:00 AM – 10:00 PM</span></div>
-      <div class="hours-row"><span class="d">Friday</span><span class="t">7:00 AM – 10:00 PM</span></div>
-      <div class="hours-row"><span class="d">Saturday</span><span class="t">7:00 AM – 10:00 PM</span></div>
-      <div class="hours-row"><span class="d">Sunday</span><span class="t">7:00 AM – 10:00 PM</span></div>
-    </div>
-  </div>
-  <div class="cbox">
-    <div class="section-tag">Find Us</div>
-    <h3 style="font-family:'Playfair Display',serif;font-size:36px;color:var(--warm);font-weight:700;margin-bottom:32px">GET IN<br>TOUCH</h3>
-    <div class="cbox-label">Phone</div>
-    <div class="cbox-val"><a href="tel:2156138894">(215) 613-8894</a></div>
-    <div class="cbox-label">Address</div>
-    <div class="cbox-val" style="margin-bottom:0">8000 Roosevelt Blvd<br>Philadelphia, PA 19152</div>
-    <div style="margin-top:32px">
-      <a href="#" class="btn-order" onclick="openBooking();return false;" style="display:inline-block">Reserve a Table</a>
-    </div>
-  </div>
-</section>
-
-<div class="map-section">
-  <iframe src="https://maps.google.com/maps?q=8000+Roosevelt+Blvd,+Philadelphia,+PA+19152&output=embed&z=15" allowfullscreen loading="lazy"></iframe>
 </div>
-
+<section class="about" id="about">
+  <div class="about-img reveal">
+    <img src="https://images.unsplash.com/photo-1573767898662-5715cd18612d?w=800&q=80" alt="Ritz Diner interior">
+  </div>
+  <div class="about-text reveal">
+    <p class="section-eyebrow">Our Story</p>
+    <h2 class="section-title">A Northeast Philly Landmark for Over 37 Years</h2>
+    <p>What started as a small breakfast counter in 1987 grew into the most beloved diner on Roosevelt Blvd. Three generations of loyal regulars. The same recipes. The same warmth. Never compromised.</p>
+    <p>We source fresh seafood weekly, bake our own bread, and make every soup from scratch daily. When you sit down at the Ritz, you're not a customer — you're family.</p>
+    <div class="stats-row">
+      <div class="stat-item"><span class="num">37+</span><span class="label">Years Serving</span></div>
+      <div class="stat-item"><span class="num">4.4★</span><span class="label">Yelp Rating</span></div>
+      <div class="stat-item"><span class="num">146+</span><span class="label">Reviews</span></div>
+    </div>
+  </div>
+</section>
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <div>
+      <p class="section-eyebrow">Fresh Every Day</p>
+      <h2 class="section-title">Our Signature Dishes</h2>
+    </div>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1600713080871-116c252a520e?w=600&q=80" alt="Stuffed Salmon"></div>
+      <div class="menu-card-body">
+        <h3>Stuffed Salmon <span class="menu-badge">Signature</span></h3>
+        <p>Fresh Atlantic salmon filled with crab stuffing, served with seasonal vegetables and your choice of side.</p>
+        <div class="menu-price">$18.99</div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1728836485840-93054eef0f2d?w=600&q=80" alt="Tuna Hoagie"></div>
+      <div class="menu-card-body">
+        <h3>Tuna Hoagie <span class="menu-badge">Fan Favorite</span></h3>
+        <p>House-made tuna salad on a fresh-baked Italian roll with lettuce, tomato, and onion.</p>
+        <div class="menu-price">$12.99</div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Crab Cakes"></div>
+      <div class="menu-card-body">
+        <h3>Crab Cakes</h3>
+        <p>Pan-seared jumbo lump crab cakes with remoulade sauce and a fresh garden salad.</p>
+        <div class="menu-price">$16.99</div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1573767898662-5715cd18612d?w=600&q=80" alt="Matzo Ball Soup"></div>
+      <div class="menu-card-body">
+        <h3>Matzo Ball Soup</h3>
+        <p>Slow-simmered chicken broth with hand-rolled matzo balls, carrots, and celery. A true classic.</p>
+        <div class="menu-price">$7.99</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="gallery-section" id="gallery">
+  <p class="section-eyebrow">The Ritz Experience</p>
+  <h2 class="section-title">See What's on the Table</h2>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item tall"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Atmosphere"><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1600713080871-116c252a520e?w=600&q=80" alt="Salmon"><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1728836485840-93054eef0f2d?w=600&q=80" alt="Fresh food"><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1573767898662-5715cd18612d?w=600&q=80" alt="Soups"><div class="gallery-overlay"></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Interior"><div class="gallery-overlay"></div></div>
+  </div>
+</section>
+<section class="info-section" id="hours">
+  <div class="info-grid">
+    <div class="reveal">
+      <p class="section-eyebrow">Visit Us</p>
+      <h2 class="section-title">Hours &amp; Location</h2>
+      <ul class="hours-list">
+        <li><span>Monday – Sunday</span><span>7:00 AM – 10:00 PM</span></li>
+        <li><span>Breakfast Menu</span><span>All Day</span></li>
+        <li><span>Lunch &amp; Dinner</span><span>11:00 AM – Close</span></li>
+        <li><span>Kitchen Closes</span><span>9:30 PM</span></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <p class="section-eyebrow">Find Us</p>
+      <h2 class="section-title">Come In Today</h2>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><strong>8000 Roosevelt Blvd</strong><br>Philadelphia, PA 19152</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div><a href="tel:2156138894">(215) 613-8894</a><br><small style="opacity:.7">Call ahead for large parties</small></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🚗</div>
+        <div>Free parking in front lot<br><small style="opacity:.7">Roosevelt Blvd — easy in, easy out</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="reviews-section">
+  <p class="section-eyebrow">What Guests Say</p>
+  <h2 class="section-title">146+ Five-Star Reviews on Yelp</h2>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The stuffed salmon is absolutely incredible. I've been coming here for 15 years and the quality never drops. This is real Philadelphia food."</p>
+      <div class="review-author">Maria T.</div>
+      <div class="review-date">Yelp · 2 weeks ago</div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Best diner on the Blvd, no contest. The matzo ball soup alone is worth the trip. Staff treats you like a regular from day one."</p>
+      <div class="review-author">David K.</div>
+      <div class="review-date">Yelp · 1 month ago</div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">"Huge portions, fair prices, and the coffee is always fresh. My family's been eating here since I was a kid. Some things should never change."</p>
+      <div class="review-author">Sandra M.</div>
+      <div class="review-date">Yelp · 3 weeks ago</div>
+    </div>
+  </div>
+</section>
+<section class="cta-section">
+  <p class="section-eyebrow">Reserve Your Spot</p>
+  <h2>Come Hungry. Leave Happy.</h2>
+  <p>Join us any day of the week, 7 AM to 10 PM. Walk-ins welcome — or call ahead for your party.</p>
+  <a href="#" class="btn-primary" onclick="openModal();return false">Reserve a Table</a>
+</section>
 <footer>
-  <div>
-    <div class="footer-logo"><span>Ritz</span> Diner</div>
-    <div class="footer-sub">8000 Roosevelt Blvd · NE Philadelphia · Open Daily 7AM–10PM</div>
-  </div>
-  <div class="footer-right">
-    <div>(215) 613-8894</div>
-    <div style="margin-top:4px">Dine-In · Delivery · Takeout</div>
-  </div>
+  <div class="logo">Ritz Diner</div>
+  <p>© 2025 Ritz Diner · 8000 Roosevelt Blvd, Philadelphia PA 19152</p>
+  <a href="tel:2156138894">(215) 613-8894</a>
 </footer>
-
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Reserve a Table</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
-const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const today=days[new Date().getDay()];
-document.querySelectorAll('.hours-row').forEach(row=>{
-  if(row.querySelector('.d')&&row.querySelector('.d').textContent===today){
-    row.classList.add('hours-today');
-  }
+gsap.registerPlugin(ScrollTrigger);
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cursor,{x:mx,y:my,duration:.08})});
+(function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
+document.querySelectorAll('a,button,.service-option,.menu-card,.cal-day,.time-slot,.gallery-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.9,opacity:.9,duration:.2});gsap.to(cursor,{scale:1.4,duration:.2})});
+  el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:.55,duration:.2});gsap.to(cursor,{scale:1,duration:.2})});
 });
-function openBooking(){
-  alert('Booking system — coming in your live site!');
+const tl=gsap.timeline({delay:.15});
+tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.7,ease:'expo.out'})
+  .to('.hero-title .line span',{y:0,duration:.9,ease:'expo.out',stagger:.14},'-=.3')
+  .to('.hero-sub',{opacity:1,y:0,duration:.7,ease:'expo.out'},'-=.25')
+  .to('.hero-actions',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.2')
+  .to('#heroBadge',{opacity:1,y:0,duration:.6,ease:'back.out(1.5)'},'-=.1');
+gsap.to('#heroBg',{yPercent:22,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+ScrollTrigger.create({trigger:'body',start:'80px top',
+  onEnter:()=>{document.getElementById('nav').style.padding='.75rem 5%'},
+  onLeaveBack:()=>{document.getElementById('nav').style.padding='1.2rem 5%'}
+});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.8,ease:'expo.out',
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'},delay:(i%3)*.07});
+});
+let step=1,chosen={service:'',date:'',time:'',name:'',phone:'',party:''};
+const titles=['Choose Your Service','Pick a Date','Pick a Time','Your Details','Confirmation'];
+function openModal(){step=1;renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
+function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function renderStep(){
+  document.getElementById('modalTitle').textContent=titles[step-1];
+  setStepDots();
+  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
+  body.innerHTML='';foot.innerHTML='';
+  if(step===1){
+    body.innerHTML=`<div class="step-title">What brings you in?</div><div class="service-grid">
+      ${[['Breakfast / Brunch','Morning dining'],['Lunch','Midday meal'],['Dinner','Evening dining'],['Special Occasion','Birthday & celebrations']].map(([n,d])=>`
+      <div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
+        <div class="svc-name">${n}</div><div class="svc-desc">${d}</div>
+      </div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
+  } else if(step===2){
+    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    let cal=`<div class="step-title">Select a Date — ${months[m]} ${y}</div><div class="calendar-grid">
+      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
+      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    for(let d=1;d<=days;d++){
+      const dt=`${months[m]} ${d}, ${y}`,isPast=new Date(y,m,d)<today;
+      cal+=`<div class="cal-day${isPast?' disabled':chosen.date===dt?' selected':''}"${!isPast?` onclick="chosen.date='${dt}';renderStep()"`:''}">${d}</div>`}
+    body.innerHTML=cal+'</div>';
+    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
+  } else if(step===3){
+    body.innerHTML=`<div class="step-title">Pick a Time</div><div class="time-grid">
+      ${['7:00 AM','8:00 AM','9:00 AM','11:00 AM','12:00 PM','1:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM'].map(t=>`
+      <div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
+  } else if(step===4){
+    body.innerHTML=`<div class="step-title">Your Details</div>
+      <div class="form-group"><label>Full Name</label><input id="fn" placeholder="Your name" value="${chosen.name}"></div>
+      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="${chosen.phone}"></div>
+      <div class="form-group"><label>Party Size</label><input id="fq" type="number" placeholder="2" min="1" max="20" value="${chosen.party}"></div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
+      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value;chosen.phone=document.getElementById('fp').value;chosen.party=document.getElementById('fq').value||'2';if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Reservation</button>`;
+  } else {
+    body.innerHTML=`<div class="confirm-screen">
+      <div class="confirm-icon">🍽️</div>
+      <h3>See You Soon, ${chosen.name.split(' ')[0]}!</h3>
+      <p>Your reservation is received. We'll confirm by phone within the hour.</p>
+      <div class="confirm-detail">
+        <div><span>Occasion</span><span>${chosen.service}</span></div>
+        <div><span>Date</span><span>${chosen.date}</span></div>
+        <div><span>Time</span><span>${chosen.time}</span></div>
+        <div><span>Party</span><span>${chosen.party} guests</span></div>
+        <div><span>Phone</span><span>${chosen.phone}</span></div>
+      </div>
+      <p style="font-size:.82rem;color:#9CA3AF;margin-top:.5rem">Questions? Call (215) 613-8894</p>
+    </div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">All Done ✓</button>`;
+  }
 }
 </script>
 </body>
