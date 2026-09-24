@@ -307,7 +307,23 @@ html.drawer-open:not(.lenis){overflow:hidden}
   .proj figcaption{padding:.8rem .85rem}
   .hero-actions .btn{width:100%;justify-content:center}
 }
+
+/* ---- motion: initial states, applied only when animations will actually run ---- */
+.js-anim .logo-text,.js-anim .logo-text tspan{fill-opacity:0;stroke:var(--cream);stroke-width:1;stroke-dasharray:170;stroke-dashoffset:170}
+.js-anim .logo-text .dot{stroke:var(--amber)}
+.js-anim .hero-bg,.js-anim .hero .eyebrow,.js-anim .hero [data-accent],.js-anim .hero-sub,.js-anim .hero-actions .btn,.js-anim .badge,.js-anim .side-label,.js-anim .stat{opacity:0}
+.js-anim .hero .eyebrow .rule line{stroke-dasharray:34;stroke-dashoffset:34}
+.js-anim .hero [data-split]{visibility:hidden}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.w>span{display:inline-block}
+.badge{transition:transform .45s var(--ease-out)}
+@media(hover:hover) and (pointer:fine){
+  .badge:hover{transform:scale(1.04)}
+  .badge:hover .badge-ring{animation-play-state:paused}
+  .badge:hover .badge-core{box-shadow:0 0 0 8px rgba(207,140,74,.16),0 0 44px rgba(207,140,74,.5)}
+}
 </style>
+<script>(function(d){d.classList.toggle('js-anim',!matchMedia('(prefers-reduced-motion: reduce)').matches);d.classList.toggle('fine',matchMedia('(hover: hover) and (pointer: fine)').matches);setTimeout(function(){if(!window.FMA)d.classList.remove('js-anim')},4000)})(document.documentElement)</script>
 </head>
 <body>
 
@@ -714,6 +730,7 @@ const FMA = window.FMA = (() => {
   };
 })();
 const html = document.documentElement;
+try {
 const animate = FMA.libs && !FMA.reducedMotion;          // run non-essential animation at all?
 const rich = animate && FMA.finePointer;                  // parallax / scrub / cursor: desktop, fine pointer only
 html.classList.toggle('js-anim', animate);
@@ -750,21 +767,79 @@ document.addEventListener('fma:drawer', e => { if (FMA.lenis) e.detail.open ? FM
 (() => {
   if (!animate) return;
   const hdr = document.querySelector('.hdr');
-  const shrink = () => {
-    const h0 = parseFloat(getComputedStyle(hdr).getPropertyValue('--hdr')) || 76;
-    return gsap.fromTo(hdr,
-      { '--hdr-h': h0 + 'px', '--hdr-a': 1, '--hdr-blur': '0px' },
-      { '--hdr-h': (h0 - 12) + 'px', '--hdr-a': .72, '--hdr-blur': '14px', ease: 'none',
-        scrollTrigger: { start: 0, end: 160, scrub: .35, invalidateOnRefresh: true } });
-  };
-  let tween = shrink();
-  ScrollTrigger.addEventListener('refreshInit', () => { tween.scrollTrigger.kill(); tween.kill(); tween = shrink(); });
+  const h0 = () => parseFloat(getComputedStyle(hdr).getPropertyValue('--hdr')) || 76;   // 76 desktop / 64 mobile, re-read on refresh
+  gsap.fromTo(hdr,
+    { '--hdr-h': () => h0() + 'px', '--hdr-a': 1, '--hdr-blur': '0px' },
+    { '--hdr-h': () => (h0() - 12) + 'px', '--hdr-a': .72, '--hdr-blur': '14px', ease: 'none',
+      scrollTrigger: { start: 0, end: 160, scrub: .35, invalidateOnRefresh: true } });
 
   document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
     const sec = document.querySelector(a.getAttribute('href')); if (!sec) return;
     ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: self => a.classList.toggle('is-active', self.isActive) });
   });
 })();
+
+/* ============================================================
+   HERO — one-time entrance (logo draw → rule → words → accent → copy →
+   buttons), badge reward on hover (CSS), slow parallax on the photo
+   (desktop only) and stats that count up the first time they're seen.
+   ============================================================ */
+/* lib: 15-line word splitter — wraps each word in an overflow-hidden mask */
+function splitWords(el) {
+  const parts = el.textContent.split(/(\s+)/).filter(Boolean); el.textContent = '';
+  return parts.map(part => {
+    if (/^\s+$/.test(part)) { el.append(' '); return null; }
+    const mask = document.createElement('span'); mask.className = 'w';
+    const word = document.createElement('span'); word.textContent = part; mask.append(word); el.append(mask);
+    return word;
+  }).filter(Boolean);
+}
+(() => {
+  if (!animate) return;
+  const words = splitWords(document.querySelector('.hero [data-split]'));
+  gsap.set(words, { yPercent: 115, willChange: 'transform' });
+  gsap.set('.hero [data-split]', { visibility: 'visible' });
+
+  /* start once the webfonts are in (so words are masked at their real width), but never wait more than 1.2s */
+  const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, paused: true });
+  Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1200))]).then(() => tl.play(0));
+  FMA.heroTl = tl;
+  tl.to('.logo-text', { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut' }, 0)
+    .to('.logo-text, .logo-text tspan', { fillOpacity: 1, duration: .5 }, .65)
+    .to('.logo-text', { strokeOpacity: 0, duration: .4 }, .85)
+    .to('.hero-bg', { opacity: 1, duration: 1.4, ease: 'power2.out' }, .15)
+    .fromTo('.hero-bg .ph', { scale: 1.12 }, { scale: 1, duration: 2.8, ease: 'power2.out' }, .15)
+    .to('.hero .eyebrow', { opacity: 1, duration: .5 }, .35)
+    .to('.hero .eyebrow .rule line', { strokeDashoffset: 0, duration: .7, ease: 'power2.inOut' }, .35)
+    .to(words, { yPercent: 0, duration: 1.1, stagger: .085, clearProps: 'willChange' }, .55)
+    .fromTo('.hero [data-accent]', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1 }, 1.2)
+    .fromTo('.hero-sub', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .9 }, 1.5)
+    .fromTo('.hero-actions .btn', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .8, stagger: .1 }, 1.7)
+    .fromTo('.badge', { opacity: 0, scale: .82 }, { opacity: 1, scale: 1, duration: 1, clearProps: 'transform' }, 1.35)
+    .to('.side-label', { opacity: 1, duration: .8 }, 1.5)
+    .fromTo('.stat', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, stagger: .08 }, 1.7);
+
+  /* stats: count up once, timed to land as they fade in if the intro is still running */
+  const counters = gsap.utils.toArray('[data-count]');
+  counters.forEach(el => el.textContent = '0');
+  const countUp = () => counters.forEach((el, i) => {
+    const o = { v: 0 }, n = +el.dataset.count;
+    gsap.to(o, { v: n, duration: 1.5, delay: i * .1, ease: 'power3.out', onUpdate: () => { el.textContent = Math.round(o.v); } });
+  });
+  ScrollTrigger.create({ trigger: '.stats', start: 'top 92%', once: true,
+    onEnter: () => gsap.delayedCall(tl.progress() < 1 ? Math.max(0, 1.75 - tl.time()) + (tl.paused() ? 1.2 : 0) : 0, countUp) });
+
+  /* parallax: photo drifts ~16% slower than the page, fine-pointer devices only */
+  if (rich) gsap.to('.hero-bg .ph', { yPercent: 16, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true,
+      onToggle: self => gsap.set('.hero-bg .ph', { willChange: self.isActive ? 'transform' : 'auto' }) } });
+})();
+} catch (err) {
+  /* anything goes wrong → show the finished page, no half-hidden states */
+  console.error('[FMA motion]', err);
+  html.classList.remove('js-anim');
+  document.querySelectorAll('.hero [style], .hdr [style]').forEach(el => el.removeAttribute('style'));
+}
 </script>
 </body>
 </html>
