@@ -327,6 +327,9 @@ html.drawer-open:not(.lenis){overflow:hidden}
 .panels{position:relative}
 .js-anim [data-step]:not([data-shown]){opacity:0;transform:translateY(40px)}
 .js-anim [data-num]{--num-stroke:transparent}
+.js-anim .checks li:not([data-shown]){opacity:0}
+.js-anim [data-draw]{stroke-dasharray:1;stroke-dashoffset:1}
+.where-card{transform-style:preserve-3d}
 @media(prefers-reduced-motion:reduce){.ribbon-track,.badge-ring{animation:none}}
 .badge{transition:transform .45s var(--ease-out)}
 @media(hover:hover) and (pointer:fine){
@@ -848,6 +851,35 @@ const armReveals = (root) => {
     gsap.to(steps, { opacity: 1, y: 0, duration: 1, stagger: .12, ease: 'power3.out', onComplete: () => steps.forEach(el => { el.dataset.shown = '1'; gsap.set(el, { clearProps: 'all' }); }) });
     gsap.to(nums, { '--num-stroke': '#CF8C4A', duration: .55, stagger: .16, ease: 'power2.inOut', delay: .35 });
   } });
+})();
+
+/* ============================================================
+   03 — OUR STORY
+   Checkmarks draw themselves in (stroke-dashoffset) as they scroll into
+   view, staggered; the Where We Work card tilts toward the pointer
+   (max ~3.5°) on fine-pointer devices only.
+   ============================================================ */
+(() => {
+  if (!animate) return;
+  ScrollTrigger.batch('.checks li', { start: 'top 90%', once: true, onEnter: batch => batch.forEach((li, i) => {
+    const d = i * .13;
+    gsap.fromTo(li, { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: .7, delay: d, ease: 'power3.out', onComplete: () => { li.dataset.shown = '1'; gsap.set(li, { clearProps: 'all' }); } });
+    gsap.fromTo(li.querySelector('circle'), { opacity: 0 }, { opacity: 1, duration: .5, delay: d });
+    gsap.to(li.querySelector('[data-draw]'), { strokeDashoffset: 0, duration: .55, delay: d + .15, ease: 'power2.inOut' });
+  }) });
+
+  if (rich) document.querySelectorAll('[data-tilt]').forEach(card => {
+    gsap.set(card, { transformPerspective: 1100 });
+    const rx = gsap.quickTo(card, 'rotationX', { duration: .6, ease: 'power3' });
+    const ry = gsap.quickTo(card, 'rotationY', { duration: .6, ease: 'power3' });
+    const MAX = 3.5;
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+      rx(-py * MAX * 2); ry(px * MAX * 2);
+    });
+    card.addEventListener('pointerleave', () => { rx(0); ry(0); });
+  });
 })();
 
 /* ============================================================
