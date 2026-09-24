@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guara Barbershop — Frankford Ave, Philadelphia</title>
+<meta name="description" content="Guara Barbershop, 6525 Frankford Ave, Philadelphia. Walk-ins welcome. Skin fades, line-ups, beard work and kids cuts. 4.7 stars on Google.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#141414;--bg2:#0E0E0E;--black:#0A0A0A;--card:#1C1C1C;--card2:#232323;
+  --gold:#F2B134;--gold-dark:#C8861B;--gold-soft:rgba(242,177,52,.12);
+  --text:#F4EFE6;--muted:#A8A29E;--line:rgba(244,239,230,.1);
+}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:auto}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-weight:400;overflow-x:hidden;cursor:auto}
+@media(hover:hover) and (pointer:fine) and (min-width:861px){body{cursor:none}}
+::selection{background:var(--gold);color:#141414}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9996;opacity:.06;mix-blend-mode:overlay;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23n)"/></svg>')}
+#progressBar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--gold);z-index:10000}
+#cursor{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;opacity:0}
+#cursor-ring{position:fixed;top:0;left:0;width:38px;height:38px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;opacity:0}
+@media(max-width:860px){#cursor,#cursor-ring{display:none}body{cursor:auto}}
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 6%;background:linear-gradient(180deg,rgba(10,10,10,.85),rgba(10,10,10,0));border-bottom:1px solid transparent;transition:padding .3s,background .3s,border-color .3s}
+nav.scrolled{padding:.75rem 6%;background:rgba(20,20,20,.94);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;color:var(--text)}
+.nav-logo b{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.75rem;letter-spacing:.08em;text-transform:uppercase}
+.nav-logo b i{color:var(--gold);font-style:normal}
+.nav-logo small{font-size:.56rem;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-top:.28rem}
+.nav-links{display:flex;align-items:center;gap:2.4rem;list-style:none}
+.nav-links a{position:relative;font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .2s}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-7px;width:0;height:2px;background:var(--gold);transition:width .25s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-cta{background:var(--gold);color:#141414;padding:.62rem 1.25rem;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--gold-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.5rem .2rem}
+.hamburger span{width:26px;height:2px;background:var(--text);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);z-index:198;opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer-overlay.open{opacity:1;pointer-events:auto}
+.mobile-drawer{position:fixed;top:0;right:-320px;width:300px;max-width:88vw;height:100%;background:var(--card);border-left:1px solid var(--line);z-index:199;padding:6.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.35rem;transition:right .4s cubic-bezier(.16,1,.3,1)}
+.mobile-drawer.open{right:0}
+.mobile-drawer a{font-family:'Barlow Condensed',sans-serif;font-size:1.55rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--text)}
+.mobile-drawer a:hover{color:var(--gold)}
+.mobile-drawer .btn{margin-top:.6rem;justify-content:center;font-size:1.05rem}
+.drawer-foot{margin-top:auto;color:var(--muted);font-size:.85rem;line-height:1.7;border-top:1px solid var(--line);padding-top:1.2rem}
+.drawer-foot a{font-family:'Barlow',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:0;text-transform:none;color:var(--gold)}
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.12em;text-transform:uppercase;padding:.95rem 1.9rem;border-radius:2px;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:background .2s,color .2s,border-color .2s,transform .2s;white-space:nowrap}
+.btn-gold{background:var(--gold);color:#141414;border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold-dark);border-color:var(--gold-dark);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--text);border-color:rgba(244,239,230,.35)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-black{background:#141414;color:var(--text);border-color:#141414}
+.btn-black:hover{background:#000;border-color:#000;transform:translateY(-2px)}
+.btn-black-outline{background:transparent;color:#141414;border-color:rgba(20,20,20,.55)}
+.btn-black-outline:hover{border-color:#141414;background:rgba(20,20,20,.08)}
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:9rem 6% 5.5rem;overflow:hidden;background:var(--black)}
+.hero-bg{position:absolute;left:0;right:0;top:-20%;bottom:0;background-image:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600&q=80');background-size:cover;background-position:center 30%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.3) 32%,rgba(20,20,20,.9) 74%,#141414 100%)}
+.hero-overlay::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,.78) 0%,rgba(10,10,10,.35) 45%,transparent 75%)}
+.hero-inner{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:1fr auto;align-items:end;gap:3rem}
+.hero-eyebrow{display:flex;align-items:center;gap:1rem;font-size:.78rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(12px)}
+.hero-eyebrow::before{content:'';width:52px;height:2px;background:var(--gold);flex-shrink:0}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3.4rem,9vw,8.4rem);font-weight:900;line-height:.9;letter-spacing:-.015em;text-transform:uppercase;color:var(--text);margin:1.3rem 0 1.7rem}
+.hero-title .line{display:block;overflow:hidden;padding-bottom:.05em;margin-bottom:-.05em}
+.hero-title .line span{display:block;transform:translateY(110%)}
+.hero-title .line span em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:1.1rem;font-weight:300;line-height:1.7;color:var(--muted);max-width:540px;margin-bottom:2.2rem;opacity:0;transform:translateY(12px)}
+.hero-sub strong{color:var(--text);font-weight:500}
+.hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;opacity:0;transform:translateY(12px)}
+.hero-rating{display:flex;flex-direction:column;gap:.35rem;padding:.2rem 0 .2rem 1.4rem;border-left:2px solid var(--gold);opacity:0;transform:translateY(14px);min-width:190px}
+.hero-rating .stars{color:var(--gold);letter-spacing:.14em;font-size:1rem}
+.hero-rating .rating-num{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:800;line-height:1;color:var(--text)}
+.hero-rating .rating-num small{font-size:1.1rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-left:.3rem}
+.hero-rating .rating-label{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.scroll-cue{position:absolute;right:6%;top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.6rem;opacity:0}
+.scroll-cue span{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl}
+.scroll-cue .line{width:1px;height:56px;background:linear-gradient(var(--gold),transparent)}
+/* ---------- marquee ---------- */
+.marquee-strip{background:var(--gold);color:#141414;overflow:hidden;padding:.9rem 0;white-space:nowrap;position:relative;z-index:3}
+.marquee-inner{display:inline-flex;align-items:center;will-change:transform}
+.marquee-inner span{font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:0 1.6rem}
+.marquee-inner .sep{padding:0 .2rem;font-size:1.05rem;font-weight:400;letter-spacing:0}
+/* ---------- shared section bits ---------- */
+section{padding:7rem 6%;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:.85rem;font-size:.74rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.kicker b{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:.1em;border:1px solid var(--gold);padding:.18rem .48rem;border-radius:2px}
+.h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,4.8vw,4.2rem);font-weight:800;line-height:.95;letter-spacing:-.01em;text-transform:uppercase;color:var(--text)}
+.h2 em{font-style:normal;color:var(--gold)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;flex-wrap:wrap}
+.sec-head .lead{max-width:400px;color:var(--muted);font-weight:300;font-size:1.02rem;line-height:1.7;padding-bottom:.4rem}
+/* ---------- services ---------- */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3.4rem;perspective:1200px}
+.svc-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:2.2rem 1.9rem 1.8rem;overflow:hidden;transform-style:preserve-3d;will-change:transform;transition:border-color .3s,box-shadow .3s;display:flex;flex-direction:column}
+.svc-card:hover{border-color:rgba(242,177,52,.45);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.svc-cat{font-size:.68rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+.svc-price{position:absolute;top:1.35rem;right:1.35rem;background:var(--gold);color:#141414;font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:800;line-height:1;padding:.5rem .8rem .5rem 1.05rem;clip-path:polygon(14% 0,100% 0,100% 100%,14% 100%,0 50%)}
+.svc-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;line-height:1;color:var(--text);margin:1.7rem 0 .7rem}
+.svc-card h3 small{display:inline-block;white-space:nowrap;font-size:.6em;color:var(--muted)}
+.svc-card p{font-size:.93rem;font-weight:300;line-height:1.65;color:var(--muted);flex:1}
+.svc-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);text-decoration:none}
+.svc-link::after{content:'→';transition:transform .25s}
+.svc-link:hover::after{transform:translateX(5px)}
+.svc-card.featured{border-color:rgba(242,177,52,.55);background:linear-gradient(160deg,var(--card2),var(--card))}
+.svc-card.featured .svc-cat{visibility:hidden}
+.ribbon{position:absolute;top:26px;left:-62px;width:200px;text-align:center;transform:rotate(-45deg);background:var(--gold);color:#141414;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.34rem 0;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.svc-card.walkin{background:transparent;border:2px dashed rgba(242,177,52,.4);justify-content:center}
+.svc-card.walkin h3{margin-top:0;max-width:100%}
+.svc-card.walkin .btn{align-self:flex-start;margin-top:1.4rem}
+/* ---------- statement ---------- */
+.statement{min-height:72vh;display:flex;align-items:center;overflow:hidden;padding:8rem 6%;background:var(--black)}
+.statement-bg{position:absolute;left:0;right:0;top:-15%;bottom:-15%;background-image:url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1600&q=80');background-size:cover;background-position:center}
+.statement-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,.96) 0%,rgba(10,10,10,.85) 45%,rgba(10,10,10,.6) 100%)}
+.statement-inner{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:1.25fr 1fr;gap:4rem;align-items:center}
+.giant{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.8rem,7.2vw,6.8rem);line-height:.9;letter-spacing:-.02em;text-transform:uppercase;color:var(--text)}
+.giant em{font-style:normal;color:var(--gold)}
+.statement-copy p{font-size:1.08rem;font-weight:300;line-height:1.75;color:var(--muted);margin-bottom:1.6rem}
+.check-list{list-style:none;margin-bottom:2rem}
+.check-list li{display:flex;gap:.9rem;align-items:flex-start;padding:.7rem 0;border-top:1px solid var(--line);font-size:1rem;color:var(--text)}
+.check-list li:last-child{border-bottom:1px solid var(--line)}
+.check-list li::before{content:'';width:10px;height:10px;margin-top:.45rem;background:var(--gold);flex-shrink:0;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:5.5rem;align-items:center}
+.about-photo{position:relative;padding:0 18px 18px 0}
+.about-photo::after{content:'';position:absolute;top:18px;left:18px;right:0;bottom:0;border:2px solid var(--gold);border-radius:2px;z-index:0}
+.about-photo img{position:relative;z-index:1;display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.about-photo .tag{position:absolute;z-index:2;left:-.6rem;bottom:2.6rem;background:var(--gold);color:#141414;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.5rem 1rem}
+.about-text p{font-size:1.04rem;font-weight:300;line-height:1.8;color:var(--muted);margin-bottom:1.1rem}
+.about-text p strong{color:var(--text);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.4rem 0 0}
+.chip{border:1px solid rgba(242,177,52,.45);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.42rem .9rem;border-radius:2px}
+.stats{display:flex;gap:3rem;margin-top:2.2rem;padding-top:2rem;border-top:1px solid var(--line);flex-wrap:wrap}
+.stat .num{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:var(--gold);display:block;line-height:1}
+.stat .lbl{display:block;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.45rem}
+/* ---------- gallery ---------- */
+.gallery{background:var(--bg2)}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:270px 270px;gap:1rem;margin-top:3.2rem}
+.gallery-item{position:relative;overflow:hidden;border-radius:2px;background:var(--card)}
+.gallery-item.tall{grid-row:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1);filter:saturate(.9)}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-cap{position:absolute;left:0;right:0;bottom:0;padding:1.1rem 1.2rem;background:linear-gradient(180deg,transparent,rgba(10,10,10,.85));display:flex;justify-content:space-between;align-items:center;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.gallery-item:hover .gallery-cap{opacity:1;transform:translateY(0)}
+.gallery-cap span{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text)}
+.gallery-cap i{width:8px;height:8px;background:var(--gold);border-radius:50%}
+/* ---------- trust bar ---------- */
+.trust{background:var(--black);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.trust-inner{display:grid;grid-template-columns:repeat(4,1fr)}
+.trust-item{padding:3.2rem 2rem;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:.55rem}
+.trust-item:first-child{border-left:none}
+.tv{font-family:'Barlow Condensed',sans-serif;font-size:3.4rem;font-weight:900;line-height:1;color:var(--gold)}
+.tl{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+/* ---------- hours + location ---------- */
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.status{display:inline-flex;align-items:center;gap:.6rem;margin:1.4rem 0 .6rem;border:1px solid rgba(242,177,52,.45);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.5rem .95rem;border-radius:2px}
+.status::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--gold-soft)}
+.status.is-closed{color:var(--muted);border-color:var(--line)}
+.status.is-closed::before{background:var(--muted);box-shadow:none}
+.hours-list{list-style:none;margin-top:1rem}
+.hours-list li{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.05rem 0;border-bottom:1px solid var(--line);font-size:1.02rem;transition:padding .3s}
+.hours-list li span:first-child{font-weight:500;color:var(--text)}
+.hours-list li span:last-child{color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.04em}
+.hours-list li.closed span:last-child{color:var(--muted);font-weight:700;opacity:.7}
+.hours-list li.today{padding-left:1rem;border-left:3px solid var(--gold);margin-left:-1rem}
+.hours-list li.today span:first-child::after{content:'Today';margin-left:.7rem;font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);vertical-align:middle}
+.hours-list li.today span:last-child{color:var(--gold)}
+.fine{font-size:.82rem;color:var(--muted);margin-top:1.1rem;font-weight:300}
+.loc-card{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:2.2rem;margin-top:1.4rem}
+.loc-row{display:flex;gap:1.1rem;align-items:flex-start;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.loc-row:first-child{padding-top:0}
+.loc-row:last-of-type{border-bottom:none}
+.loc-ico{width:40px;height:40px;flex-shrink:0;border:1px solid rgba(242,177,52,.45);border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.loc-ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.loc-row strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:.02em;color:var(--text);line-height:1.15}
+.loc-row span{color:var(--muted);font-size:.95rem;font-weight:300}
+.loc-row a.tel{color:var(--text);text-decoration:none;font-weight:600;font-size:1.05rem}
+.loc-row a.tel:hover{color:var(--gold)}
+.loc-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.6rem}
+.loc-actions .btn{font-size:.95rem;padding:.8rem 1.4rem}
+/* ---------- reviews ---------- */
+.reviews{background:var(--bg2)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3.2rem}
+.rev{position:relative;background:var(--card);border:1px solid var(--line);border-radius:3px;padding:2.2rem 2rem 1.9rem;transition:transform .3s,border-color .3s}
+.rev:hover{transform:translateY(-6px);border-color:rgba(242,177,52,.4)}
+.rev-quote{position:absolute;bottom:.2rem;right:1.4rem;font-family:'Barlow Condensed',sans-serif;font-size:5rem;font-weight:900;line-height:1;color:var(--gold);opacity:.18}
+.rev-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem}
+.rev-stars{color:var(--gold);letter-spacing:.12em;font-size:.95rem}
+.rev-src{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.rev p{font-size:1rem;font-weight:300;line-height:1.72;color:var(--text);margin-bottom:1.4rem;position:relative;z-index:1}
+.rev-author{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+.rev-date{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+/* ---------- cta band ---------- */
+.cta{background:var(--gold);color:#141414;padding:6.5rem 6%;display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:3.5rem;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,rgba(20,20,20,.06) 0 2px,transparent 2px 28px);pointer-events:none}
+.cta > *{position:relative;z-index:1}
+.cta .kicker{color:#141414}
+.cta .kicker b{border-color:#141414}
+.cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.8rem,6.2vw,5.8rem);font-weight:900;line-height:.92;letter-spacing:-.02em;text-transform:uppercase;color:#141414}
+.cta p{font-size:1.08rem;font-weight:400;line-height:1.7;color:rgba(20,20,20,.78);margin-bottom:2rem}
+.cta-actions{display:flex;gap:.9rem;flex-wrap:wrap}
+/* ---------- footer ---------- */
+footer{background:var(--black);border-top:1px solid var(--line);padding:3rem 6% 2.6rem}
+.foot-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.2rem}
+.foot-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--text)}
+.foot-logo i{color:var(--gold);font-style:normal}
+footer p{color:var(--muted);font-size:.85rem;font-weight:300}
+footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line);font-size:.78rem;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(28px)}
+/* ---------- booking modal ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border:1px solid rgba(242,177,52,.22);border-radius:4px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;box-shadow:0 30px 90px rgba(0,0,0,.6);color:var(--text)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.7rem 1rem}
+.modal-header h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.modal-close{background:none;border:1px solid var(--line);color:var(--muted);width:34px;height:34px;border-radius:2px;font-size:1rem;cursor:pointer;transition:all .2s}
+.modal-close:hover{color:var(--gold);border-color:var(--gold)}
+.modal-steps{display:flex;gap:.4rem;padding:0 1.7rem 1rem}
+.step-dot{flex:1;height:3px;background:rgba(244,239,230,.12);border-radius:2px;transition:background .3s}
+.step-dot.active{background:var(--gold)}
+.step-dot.done{background:var(--gold-dark)}
+.modal-summary{display:flex;flex-wrap:wrap;gap:.45rem;padding:0 1.7rem 1rem}
+.modal-summary span{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(242,177,52,.4);padding:.28rem .6rem;border-radius:2px}
+.modal-body{padding:1.5rem 1.7rem;border-top:1px solid var(--line)}
+.step-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text);margin-bottom:1.1rem}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.service-option{display:flex;justify-content:space-between;align-items:center;gap:.6rem;background:#141414;border:1px solid var(--line);border-radius:3px;padding:.9rem 1rem;cursor:pointer;transition:all .2s}
+.service-option:hover{border-color:rgba(242,177,52,.5)}
+.service-option.selected{border-color:var(--gold);background:var(--gold-soft)}
+.service-option .svc-name{font-size:.9rem;font-weight:500;color:var(--text)}
+.service-option .svc-price{position:static;background:none;clip-path:none;padding:0;color:var(--gold);font-size:1.1rem}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem}
+.cal-head span{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.cal-nav{background:none;border:1px solid var(--line);color:var(--text);width:34px;height:34px;border-radius:3px;cursor:pointer;font-size:1.1rem;transition:all .2s}
+.cal-nav:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.cal-nav:disabled{opacity:.3;cursor:default}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem}
+.cal-day-name{text-align:center;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:.4rem 0}
+.cal-day{text-align:center;padding:.58rem 0;border-radius:3px;font-size:.9rem;cursor:pointer;background:#141414;border:1px solid transparent;transition:all .2s}
+.cal-day:hover:not(.disabled){border-color:var(--gold);color:var(--gold)}
+.cal-day.selected{background:var(--gold);color:#141414;font-weight:600}
+.cal-day.disabled{color:rgba(244,239,230,.22);background:transparent;pointer-events:none}
+.cal-day.empty{visibility:hidden}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+.time-slot{background:#141414;border:1px solid var(--line);border-radius:3px;padding:.72rem;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .2s}
+.time-slot:hover{border-color:var(--gold);color:var(--gold)}
+.time-slot.selected{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.form-group input{width:100%;background:#141414;border:1px solid var(--line);border-radius:3px;color:var(--text);padding:.82rem .95rem;font-family:'Barlow',sans-serif;font-size:.96rem;outline:none;transition:border-color .2s}
+.form-group input::placeholder{color:rgba(168,162,158,.55)}
+.form-group input:focus{border-color:var(--gold)}
+.form-group input.invalid{border-color:var(--gold-dark);box-shadow:0 0 0 3px var(--gold-soft)}
+.form-hint{font-size:.78rem;color:var(--gold);margin-top:.2rem;min-height:1em}
+.modal-footer{display:flex;justify-content:space-between;gap:.6rem;padding:1rem 1.7rem 1.5rem;border-top:1px solid var(--line)}
+.btn-back{background:none;border:1px solid var(--line);color:var(--muted);padding:.72rem 1.2rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-back:hover{color:var(--text);border-color:var(--text)}
+.btn-next{margin-left:auto;background:var(--gold);color:#141414;border:none;padding:.72rem 1.6rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,opacity .2s}
+.btn-next:hover{background:var(--gold-dark)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed}
+.confirm-screen{text-align:center;padding:.4rem 0}
+.confirm-icon{width:66px;height:66px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;color:var(--gold)}
+.confirm-icon svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.confirm-screen h3{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;letter-spacing:.02em;text-transform:uppercase;margin-bottom:.5rem}
+.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.92rem;font-weight:300}
+.confirm-detail{background:#141414;border:1px solid var(--line);border-radius:3px;padding:1rem 1.2rem;margin:1.3rem 0;text-align:left}
+.confirm-detail div{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;font-size:.9rem;border-bottom:1px solid var(--line)}
+.confirm-detail div:last-child{border:none}
+.confirm-detail span:first-child{color:var(--muted);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding-top:.2rem}
+.confirm-detail span:last-child{color:var(--text);font-weight:600;text-align:right}
+/* ---------- responsive ---------- */
+@media(hover:none){.svc-card,.rev{transform:none!important}.gallery-cap{opacity:1;transform:none}}
+@media(max-width:1024px){
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .reviews-grid{grid-template-columns:1fr 1fr}
+  .trust-inner{grid-template-columns:1fr 1fr}
+  .trust-item:nth-child(3){border-left:none}
+  .trust-item:nth-child(n+3){border-top:1px solid var(--line)}
+  .cta{grid-template-columns:1fr}
+  .hero-title{font-size:clamp(3.4rem,10vw,7rem)}
+}
+@media(max-width:860px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav-logo small{display:none}
+  section{padding:4.5rem 6%}
+  .hero{padding:7.5rem 6% 4rem}
+  .hero-inner{grid-template-columns:1fr;gap:2.2rem}
+  .hero-rating{border-left:none;border-top:1px solid var(--line);padding:1.3rem 0 0;flex-direction:row;align-items:center;gap:1.1rem;flex-wrap:wrap}
+  .hero-rating .rating-num{font-size:2.3rem}
+  .hero-eyebrow{font-size:.68rem;letter-spacing:.24em}
+  .hero-eyebrow::before{width:28px}
+  .eb-x{display:none}
+  .scroll-cue{display:none}
+  .hours-list li{font-size:.95rem;padding:.9rem 0}
+  .hours-list li span:last-child{font-size:1.02rem;white-space:nowrap}
+  .svc-grid{grid-template-columns:1fr}
+  .statement{padding:5.5rem 6%;min-height:0}
+  .statement-inner{grid-template-columns:1fr;gap:2.5rem}
+  .about,.hours-grid{grid-template-columns:1fr;gap:3rem}
+  .about-photo{padding:0 12px 12px 0}
+  .about-photo::after{top:12px;left:12px}
+  .about-photo .tag{left:0}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gallery-item{height:200px}
+  .gallery-item.tall{grid-row:span 1}
+  .trust-item{padding:2.2rem 1.4rem}
+  .tv{font-size:2.3rem;white-space:nowrap}
+  .reviews-grid{grid-template-columns:1fr}
+  .cta{padding:5rem 6%}
+  .loc-card{padding:1.6rem}
+}
+@media(max-width:480px){
+  .hero-actions .btn{width:100%}
+  .nav-cta{padding:.55rem .9rem;font-size:.85rem}
+  .service-grid{grid-template-columns:1fr}
+  .time-grid{grid-template-columns:1fr 1fr}
+  .stats{gap:2rem}
+  .tv{font-size:2.1rem}
+  .hours-list li.today span:first-child::after{display:block;margin:.2rem 0 0}
+  .modal-header,.modal-body,.modal-footer,.modal-steps,.modal-summary{padding-left:1.2rem;padding-right:1.2rem}
+}
+</style>
+</head>
+<body>
+<!-- PIPELINE DATA NOTES (internal) - not visible to customers
+VERIFIED (Google Maps lookup 2026-09-24): business name Guara Barbershop · address 6525 Frankford Ave, Philadelphia, PA 19135 · phone (267) 826-3593 (tel:2678263593) · Google rating 4.7 · 117 Google reviews · website: none listed (Maps shows "Add website").
+[CONFIRM BEFORE VISIT] HOURS are ASSUMED (industry default): Mon-Sat 9:00 AM - 7:00 PM, Sun Closed. CLOSED_DAYS=[0], the "6 days a week" stat, the open/closed status pill and the booking time slots (9 AM - 6 PM hourly) all depend on this assumption.
+[CONFIRM BEFORE VISIT] PRICES are Philly-market ESTIMATES, not the shop's board: Haircut $25 · Skin Fade $30 · Haircut + Beard $38 · Beard Trim / Shape-Up $15 · Kids Cut (12 & under) $18 · Line-Up $12 · Hot Towel Shave $25 · Eyebrows $8. "Most Booked" ribbon on Skin Fade is a design assumption.
+[CONFIRM BEFORE VISIT] YEARS IN BUSINESS / founding year: unknown, intentionally NOT shown anywhere on the page. Do not add an "Est." badge without the owner.
+[CONFIRM BEFORE VISIT] STAFF names and barber count: unknown, not shown. The "Preferred barber" booking field is free text.
+[CONFIRM BEFORE VISIT] PHOTOS are Unsplash stock placeholders; swap for the owner's real shop photos before launch.
+[CONFIRM BEFORE VISIT] REVIEWS are paraphrased from recurring Google review themes (family-friendly and patient with kids, fast walk-ins, clean fades and line-ups, consistency, neighborhood spot) with placeholder author initials and relative dates; they are not verbatim quotes.
+The booking modal is a front-end demo only (no backend). Never link a third-party booking tool on this page.
+-->
+<div class="grain"></div>
+<div id="progressBar"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<nav id="nav">
+  <a href="#home" class="nav-logo"><b>Guara<i>.</i></b><small>Barbershop · Frankford Ave</small></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">The Shop</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-cta" onclick="openModal();return false">Book a Cut</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#services" onclick="closeDrawer()">Services</a>
+  <a href="#about" onclick="closeDrawer()">About</a>
+  <a href="#gallery" onclick="closeDrawer()">The Shop</a>
+  <a href="#hours" onclick="closeDrawer()">Hours</a>
+  <a href="#reviews" onclick="closeDrawer()">Reviews</a>
+  <a href="#" class="btn btn-gold" onclick="closeDrawer();openModal();return false">Book a Cut</a>
+  <div class="drawer-foot">6525 Frankford Ave<br>Philadelphia, PA 19135<br><a href="tel:2678263593">(267) 826-3593</a></div>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Frankford Ave · Philadelphia<span class="eb-x"> · Walk-Ins Welcome</span></p>
+      <h1 class="hero-title">
+        <span class="line"><span>Walk In.</span></span>
+        <span class="line"><span>Sit Down.</span></span>
+        <span class="line"><span>Leave <em>Fresh.</em></span></span>
+      </h1>
+      <p class="hero-sub">Guara Barbershop is the neighborhood spot on Frankford Ave: <strong>clean skin fades, razor-sharp line-ups and patient kids cuts</strong>, six days a week. No appointment needed, but you can lock one in below.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-gold" onclick="openModal();return false">Book a Cut</a>
+        <a href="tel:2678263593" class="btn btn-outline">Call (267) 826-3593</a>
+      </div>
+    </div>
+    <div class="hero-rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-num">4.7<small>/ 5</small></span>
+      <span class="rating-label">117 Google Reviews</span>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marquee">
+    <span>Walk-Ins Welcome</span><span class="sep">✂</span><span>Skin Fades</span><span class="sep">✂</span><span>Kids Cuts</span><span class="sep">✂</span><span>Beard Trims</span><span class="sep">✂</span><span>Hot Towel Shaves</span><span class="sep">✂</span><span>4.7 Stars · 117 Google Reviews</span><span class="sep">✂</span><span>6525 Frankford Ave</span><span class="sep">✂</span>
+    <span>Walk-Ins Welcome</span><span class="sep">✂</span><span>Skin Fades</span><span class="sep">✂</span><span>Kids Cuts</span><span class="sep">✂</span><span>Beard Trims</span><span class="sep">✂</span><span>Hot Towel Shaves</span><span class="sep">✂</span><span>4.7 Stars · 117 Google Reviews</span><span class="sep">✂</span><span>6525 Frankford Ave</span><span class="sep">✂</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="sec-head reveal">
+    <div>
+      <p class="kicker"><b>01</b>Services</p>
+      <h2 class="h2">Every Cut.<br>One <em>Price List.</em></h2>
+    </div>
+    <p class="lead">The price on the board is the price at the register. Book ahead or just walk in, same chair, same quality.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card reveal">
+      <span class="svc-cat">Cut</span><span class="svc-price">$25</span>
+      <h3>Haircut</h3>
+      <p>Classic cut, tapered or scissor work, finished with a clean neckline and a fresh edge.</p>
+      <a href="#" class="svc-link" onclick="openModal(0);return false">Book this</a>
+    </div>
+    <div class="svc-card featured reveal">
+      <div class="ribbon">Most Booked</div>
+      <span class="svc-cat">Fade</span><span class="svc-price">$30</span>
+      <h3>Skin Fade</h3>
+      <p>Blended down to the skin at any level, low, mid or high, with a crisp line-up to finish.</p>
+      <a href="#" class="svc-link" onclick="openModal(1);return false">Book this</a>
+    </div>
+    <div class="svc-card reveal">
+      <span class="svc-cat">Combo</span><span class="svc-price">$38</span>
+      <h3>Haircut + Beard</h3>
+      <p>Full cut plus beard shaping and edge-up. The complete reset, done in one sitting.</p>
+      <a href="#" class="svc-link" onclick="openModal(2);return false">Book this</a>
+    </div>
+    <div class="svc-card reveal">
+      <span class="svc-cat">Beard</span><span class="svc-price">$15</span>
+      <h3>Beard Trim / Shape-Up</h3>
+      <p>Shaped, lined and evened out so the beard looks intentional, not overgrown.</p>
+      <a href="#" class="svc-link" onclick="openModal(3);return false">Book this</a>
+    </div>
+    <div class="svc-card reveal">
+      <span class="svc-cat">Kids</span><span class="svc-price">$18</span>
+      <h3>Kids Cut <small>(12 &amp; under)</small></h3>
+      <p>Patient, quick and painless. First haircuts and nervous kids are welcome here.</p>
+      <a href="#" class="svc-link" onclick="openModal(4);return false">Book this</a>
+    </div>
+    <div class="svc-card reveal">
+      <span class="svc-cat">Detail</span><span class="svc-price">$12</span>
+      <h3>Line-Up</h3>
+      <p>Edges, temples and neckline sharpened up between full cuts. In and out.</p>
+      <a href="#" class="svc-link" onclick="openModal(5);return false">Book this</a>
+    </div>
+    <div class="svc-card reveal">
+      <span class="svc-cat">Shave</span><span class="svc-price">$25</span>
+      <h3>Hot Towel Shave</h3>
+      <p>Straight-razor shave with hot towels, a close finish and a cool aftershave.</p>
+      <a href="#" class="svc-link" onclick="openModal(6);return false">Book this</a>
+    </div>
+    <div class="svc-card reveal">
+      <span class="svc-cat">Detail</span><span class="svc-price">$8</span>
+      <h3>Eyebrows</h3>
+      <p>Quick clean-up and shaping to finish the look. Add it to any cut.</p>
+      <a href="#" class="svc-link" onclick="openModal(7);return false">Book this</a>
+    </div>
+    <div class="svc-card walkin reveal">
+      <h3>Not Sure? <em style="font-style:normal;color:var(--gold)">Walk In.</em></h3>
+      <p>Tell us what you are going for and we will figure it out in the chair. Walk-ins welcome all day, six days a week.</p>
+      <a href="tel:2678263593" class="btn btn-outline">Call (267) 826-3593</a>
+    </div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="statement-bg" id="statementBg"></div>
+  <div class="statement-overlay"></div>
+  <div class="statement-inner">
+    <div class="reveal">
+      <p class="kicker"><b>02</b>Walk-Ins</p>
+      <h2 class="giant">No Appointment?<br><em>No Problem.</em></h2>
+    </div>
+    <div class="statement-copy reveal">
+      <p>Most of Frankford Ave just walks in. Grab a seat and you are usually in the chair within minutes. Prefer to lock in a time? Book below, same barbers, same cut, zero wait.</p>
+      <ul class="check-list">
+        <li>Walk-ins welcome every day we are open</li>
+        <li>Kids cuts with the patience they need</li>
+        <li>Fades, line-ups and beard work done right</li>
+      </ul>
+      <a href="#hours" class="btn btn-outline">See Hours</a>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-photo reveal">
+    <img src="https://images.unsplash.com/photo-1635273051427-2cf6b0f3ef7b?w=800&q=80" alt="Barber at work in the chair at Guara Barbershop" loading="lazy">
+    <span class="tag">6525 Frankford Ave</span>
+  </div>
+  <div class="about-text reveal">
+    <p class="kicker"><b>03</b>About</p>
+    <h2 class="h2">The Neighborhood<br>Spot on <em>Frankford.</em></h2>
+    <p style="margin-top:1.4rem">Guara Barbershop is a family barbershop the way Frankford Ave likes it: <strong>walk in, take a seat, leave looking sharp.</strong> Skin fades blended clean, line-ups you could set a ruler to, and kids cuts handled with real patience.</p>
+    <p>Regulars come back because the cut is the same every time. First-timers come in because a neighbor sent them. Either way, you are welcome here, no appointment needed.</p>
+    <div class="chips"><span class="chip">Walk-Ins Welcome</span><span class="chip">Family Friendly</span><span class="chip">Kids Cuts</span></div>
+    <div class="stats">
+      <div class="stat"><span class="num" data-target="4.7" data-decimals="1" data-suffix="★">0</span><span class="lbl">Google Rating</span></div>
+      <div class="stat"><span class="num" data-target="117">0</span><span class="lbl">Google Reviews</span></div>
+      <div class="stat"><span class="num" data-target="6">0</span><span class="lbl">Days a Week</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="sec-head reveal">
+    <div>
+      <p class="kicker"><b>04</b>The Shop</p>
+      <h2 class="h2">Fresh Off <em>the Chair.</em></h2>
+    </div>
+    <p class="lead">Fades, line-ups and the chairs they happen in. Follow the shop for the latest cuts.</p>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item tall"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&q=80" alt="Close-up of a haircut in progress" loading="lazy"><div class="gallery-cap"><span>Skin Fade</span><i></i></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1589985502143-057e63eef1c9?w=800&q=80" alt="Inside the barbershop" loading="lazy"><div class="gallery-cap"><span>The Shop</span><i></i></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1619233543640-af09c173763b?w=800&q=80" alt="Classic barber chairs" loading="lazy"><div class="gallery-cap"><span>The Chairs</span><i></i></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1633121050918-ab208f1508b7?w=800&q=80" alt="Fresh cut, finished" loading="lazy"><div class="gallery-cap"><span>Fresh Cut</span><i></i></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&q=80" alt="Barbershop interior" loading="lazy"><div class="gallery-cap"><span>Frankford Ave</span><i></i></div></div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-item reveal"><span class="tv" data-target="4.7" data-decimals="1" data-suffix="★">0</span><span class="tl">Google Rating</span></div>
+    <div class="trust-item reveal"><span class="tv" data-target="117">0</span><span class="tl">Google Reviews</span></div>
+    <div class="trust-item reveal"><span class="tv">Walk-Ins</span><span class="tl">Welcome · No Appointment Needed</span></div>
+    <div class="trust-item reveal"><span class="tv">Family</span><span class="tl">Friendly · Kids Cuts Welcome</span></div>
+  </div>
+</div>
+
+<section id="hours">
+  <div class="hours-grid">
+    <div class="reveal">
+      <p class="kicker"><b>05</b>Hours</p>
+      <h2 class="h2">When We Are<br><em>Cutting.</em></h2>
+      <div class="status" id="openStatus">Open six days a week</div>
+      <ul class="hours-list" id="hoursList">
+        <li data-days="1,2,3,4,5"><span>Monday – Friday</span><span>9:00 AM – 7:00 PM</span></li>
+        <li data-days="6"><span>Saturday</span><span>9:00 AM – 7:00 PM</span></li>
+        <li class="closed" data-days="0"><span>Sunday</span><span>Closed</span></li>
+      </ul>
+      <p class="fine">Hours can shift on holidays. Call ahead if you are making a special trip.</p>
+    </div>
+    <div class="reveal">
+      <p class="kicker"><b>06</b>Location</p>
+      <h2 class="h2">Find Us on<br><em>Frankford Ave.</em></h2>
+      <div class="loc-card">
+        <div class="loc-row">
+          <div class="loc-ico"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+          <div><strong>6525 Frankford Ave</strong><span>Philadelphia, PA 19135</span></div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div>
+          <div><a class="tel" href="tel:2678263593">(267) 826-3593</a><br><span>Call ahead or just walk in</span></div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+          <div><strong>Walk-Ins Welcome</strong><span>Booking ahead guarantees your time</span></div>
+        </div>
+        <div class="loc-actions">
+          <a class="btn btn-gold" href="https://www.google.com/maps/search/?api=1&amp;query=Guara+Barbershop+6525+Frankford+Ave+Philadelphia+PA+19135" target="_blank" rel="noopener">Get Directions</a>
+          <a class="btn btn-outline" href="#" onclick="openModal();return false">Book a Cut</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="sec-head reveal">
+    <div>
+      <p class="kicker"><b>07</b>Reviews</p>
+      <h2 class="h2">4.7 Stars.<br><em>117 Reviews.</em></h2>
+    </div>
+    <p class="lead">Straight from Google. The neighborhood keeps coming back, and keeps saying why.</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="rev reveal">
+      <span class="rev-quote">“</span>
+      <div class="rev-head"><span class="rev-stars">★★★★★</span><span class="rev-src">Google Review</span></div>
+      <p>Took my son in for his first real haircut and they were unbelievably patient with him. Now we both go, and I get the same clean cut every single time.</p>
+      <div class="rev-author">Luis M.</div>
+      <div class="rev-date">2 weeks ago</div>
+    </div>
+    <div class="rev reveal">
+      <span class="rev-quote">“</span>
+      <div class="rev-head"><span class="rev-stars">★★★★★</span><span class="rev-src">Google Review</span></div>
+      <p>Walked in on a Saturday afternoon without calling and was in the chair in about ten minutes. Fade came out clean and the price was right. This is my Frankford Ave spot now.</p>
+      <div class="rev-author">Danielle R.</div>
+      <div class="rev-date">1 month ago</div>
+    </div>
+    <div class="rev reveal">
+      <span class="rev-quote">“</span>
+      <div class="rev-head"><span class="rev-stars">★★★★★</span><span class="rev-src">Google Review</span></div>
+      <p>Skin fade blended perfectly and the line-up was razor sharp. Three visits in and the quality has not slipped once. Hard to find that kind of consistency.</p>
+      <div class="rev-author">Marcus T.</div>
+      <div class="rev-date">3 weeks ago</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="reveal">
+    <p class="kicker"><b>08</b>Book</p>
+    <h2>Ready for a<br>Fresh Cut?</h2>
+  </div>
+  <div class="reveal">
+    <p>Book online in under a minute, or just walk in. Either way we will get you in the chair and out the door looking sharp.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn btn-black" id="magneticCta" onclick="openModal();return false">Book a Cut</a>
+      <a href="tel:2678263593" class="btn btn-black-outline">Call (267) 826-3593</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-top">
+    <div class="foot-logo">Guara<i>.</i> Barbershop</div>
+    <p>© 2026 Guara Barbershop · 6525 Frankford Ave, Philadelphia, PA 19135</p>
+    <a href="tel:2678263593">(267) 826-3593</a>
+  </div>
+  <div class="foot-bottom">
+    <span>Mon – Sat 9:00 AM – 7:00 PM · Sun Closed</span>
+    <span>Walk-Ins Welcome · Family Friendly</span>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <h3 id="modalTitle">Pick a Service</h3>
+      <button class="modal-close" aria-label="Close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    </div>
+    <div class="modal-summary" id="modalSummary"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ===== Business constants (hours are an assumption, see the notes comment at the top of <body>) ===== */
+const CLOSED_DAYS=[0];
+const OPEN_HOUR=9,CLOSE_HOUR=19;
+const TIMES=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
+const SERVICES=[['Haircut','$25'],['Skin Fade','$30'],['Haircut + Beard','$38'],['Beard Trim / Shape-Up','$15'],['Kids Cut (12 & under)','$18'],['Line-Up','$12'],['Hot Towel Shave','$25'],['Eyebrows','$8']];
+
+/* ===== Smooth scroll (Lenis + ScrollTrigger sync) ===== */
+const lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(time=>{lenis.raf(time*1000)});
+gsap.ticker.lagSmoothing(0);
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');
+    if(id.length>1&&document.querySelector(id)){e.preventDefault();closeDrawer();lenis.scrollTo(id,{offset:-72})}
+  });
+});
+
+/* ===== Mobile drawer ===== */
+function toggleDrawer(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileDrawer').classList.toggle('open');
+  document.getElementById('drawerOverlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+
+/* ===== Scroll progress + sticky nav ===== */
+gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+ScrollTrigger.create({trigger:document.body,start:'60px top',
+  onEnter:()=>document.getElementById('nav').classList.add('scrolled'),
+  onLeaveBack:()=>document.getElementById('nav').classList.remove('scrolled')});
+
+/* ===== Hero entrance (every tween ends fully visible) ===== */
+const tl=gsap.timeline({delay:.2});
+tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.7,ease:'expo.out'})
+  .to('.hero-title .line span',{y:0,duration:.95,ease:'expo.out',stagger:.13},'-=.35')
+  .to('.hero-sub',{opacity:1,y:0,duration:.7,ease:'expo.out'},'-=.35')
+  .to('.hero-actions',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.3')
+  .to('.hero-rating',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.25')
+  .to('.scroll-cue',{opacity:1,duration:.6},'-=.2');
+gsap.to('#heroBg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.fromTo('#statementBg',{yPercent:-8},{yPercent:8,ease:'none',scrollTrigger:{trigger:'.statement',start:'top bottom',end:'bottom top',scrub:true}});
+
+/* ===== Marquee (GSAP loop, second span set makes it seamless) ===== */
+gsap.to('#marquee',{xPercent:-50,duration:30,repeat:-1,ease:'none'});
+
+/* ===== Reveal on scroll ===== */
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'expo.out',
+    scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%3)*.08});
+});
+
+/* ===== Count-up numbers ===== */
+document.querySelectorAll('[data-target]').forEach(el=>{
+  const target=parseFloat(el.getAttribute('data-target'));
+  const decimals=parseInt(el.getAttribute('data-decimals')||'0');
+  const suffix=el.getAttribute('data-suffix')||'';
+  const obj={val:0};
+  gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:'top 88%'},
+    onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
+});
+
+/* ===== Hover-only effects: custom cursor, 3D tilt, magnetic CTA ===== */
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,shown=false;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    if(!shown){shown=true;gsap.to([cursor,ring],{opacity:1,duration:.3});ring.style.opacity='.55'}
+    gsap.to(cursor,{x:mx,y:my,xPercent:-50,yPercent:-50,duration:.08});
+  });
+  (function tick(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;gsap.set(ring,{x:rx,y:ry,xPercent:-50,yPercent:-50});requestAnimationFrame(tick)})();
+  const hot='a,button,.service-option,.svc-card,.cal-day,.time-slot,.gallery-item,input';
+  document.addEventListener('mouseover',e=>{if(e.target.closest(hot)){gsap.to(ring,{scale:1.8,opacity:.95,duration:.2});gsap.to(cursor,{scale:.6,duration:.2})}});
+  document.addEventListener('mouseout',e=>{if(e.target.closest(hot)){gsap.to(ring,{scale:1,opacity:.55,duration:.2});gsap.to(cursor,{scale:1,duration:.2})}});
+  document.querySelectorAll('.svc-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+      gsap.to(card,{rotateY:x/26,rotateX:-y/26,duration:.4,ease:'power2.out',transformPerspective:800});
+    });
+    card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
+  });
+  const magBtn=document.getElementById('magneticCta');
+  magBtn.addEventListener('mousemove',e=>{
+    const r=magBtn.getBoundingClientRect();
+    gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
+  });
+  magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
+}
+
+/* ===== Today's hours + open/closed status (driven by CLOSED_DAYS) ===== */
+(function(){
+  const now=new Date(),day=now.getDay(),h=now.getHours();
+  document.querySelectorAll('#hoursList li').forEach(li=>{
+    const days=li.getAttribute('data-days').split(',').map(Number);
+    if(days.every(d=>CLOSED_DAYS.includes(d)))li.classList.add('closed');
+    if(days.includes(day))li.classList.add('today');
+  });
+  const s=document.getElementById('openStatus');
+  if(CLOSED_DAYS.includes(day)){s.textContent='Closed today · back tomorrow at 9:00 AM';s.classList.add('is-closed')}
+  else if(h>=OPEN_HOUR&&h<CLOSE_HOUR){s.textContent='Open now · until 7:00 PM'}
+  else if(h<OPEN_HOUR){s.textContent='Opens today at 9:00 AM'}
+  else{s.textContent='Closed for tonight · opens 9:00 AM';s.classList.add('is-closed')}
+})();
+
+/* ===== Booking modal (this IS the booking system) ===== */
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const titles=['Pick a Service','Pick a Day','Pick a Time','Your Details','Booked'];
+let step=1,calOffset=0,chosen={};
+function resetChosen(){chosen={service:'',price:'',date:'',dateKey:'',time:'',name:'',phone:'',barber:''}}
+resetChosen();
+function openModal(pre){
+  step=1;calOffset=0;resetChosen();
+  if(typeof pre==='number'&&SERVICES[pre]){chosen.service=SERVICES[pre][0];chosen.price=SERVICES[pre][1]}
+  renderStep();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';lenis.stop();
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';lenis.start()}
+function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDrawer()}});
+function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function goStep(n){step=n;renderStep()}
+function pickService(i){chosen.service=SERVICES[i][0];chosen.price=SERVICES[i][1];renderStep()}
+function pickDate(y,m,d){const dt=new Date(y,m,d);chosen.dateKey=y+'-'+m+'-'+d;chosen.date=DAYS[dt.getDay()]+', '+MONTHS[m]+' '+d+', '+y;renderStep()}
+function pickTime(i){chosen.time=TIMES[i];renderStep()}
+function shiftMonth(n){calOffset=Math.min(2,Math.max(0,calOffset+n));renderStep()}
+function submitDetails(){
+  const fn=document.getElementById('fn'),fp=document.getElementById('fp'),fv=document.getElementById('fv');
+  chosen.name=fn.value.trim();chosen.phone=fp.value.trim();chosen.barber=fv.value.trim();
+  fn.classList.toggle('invalid',!chosen.name);fp.classList.toggle('invalid',!chosen.phone);
+  document.getElementById('formHint').textContent=(chosen.name&&chosen.phone)?'':'Name and phone are required so we can hold your chair.';
+  if(chosen.name&&chosen.phone){step=5;renderStep()}
+}
+function renderSummary(){
+  const s=document.getElementById('modalSummary');
+  if(step===1||step===5){s.innerHTML='';s.style.display='none';return}
+  const parts=[];
+  if(chosen.service)parts.push(chosen.service+' · '+chosen.price);
+  if(chosen.date&&step>2)parts.push(chosen.date);
+  if(chosen.time&&step>3)parts.push(chosen.time);
+  s.innerHTML=parts.map(p=>'<span>'+p+'</span>').join('');
+  s.style.display=parts.length?'flex':'none';
+}
+function renderStep(){
+  document.getElementById('modalTitle').textContent=titles[step-1];
+  setStepDots();renderSummary();
+  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
+  body.innerHTML='';foot.innerHTML='';
+  if(step===1){
+    body.innerHTML=`<div class="step-title">What are we doing today?</div><div class="service-grid">
+      ${SERVICES.map(([n,p],i)=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="pickService(${i})">
+        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-next" ${chosen.service?'':'disabled'} onclick="if(chosen.service){goStep(2)}">Continue →</button>`;
+  } else if(step===2){
+    const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
+    const first=view.getDay(),days=new Date(y,m+1,0).getDate();
+    let cal=`<div class="step-title">Pick a day that works</div>
+      <div class="cal-head"><button class="cal-nav" ${calOffset===0?'disabled':''} onclick="shiftMonth(-1)" aria-label="Previous month">‹</button><span>${MONTHS_FULL[m]} ${y}</span><button class="cal-nav" ${calOffset>=2?'disabled':''} onclick="shiftMonth(1)" aria-label="Next month">›</button></div>
+      <div class="calendar-grid">${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
+    for(let d=1;d<=days;d++){
+      const date=new Date(y,m,d),closed=CLOSED_DAYS.includes(date.getDay()),past=date<today,key=y+'-'+m+'-'+d;
+      cal+=`<div class="cal-day${(past||closed)?' disabled':chosen.dateKey===key?' selected':''}"${(past||closed)?'':` onclick="pickDate(${y},${m},${d})"`}>${d}</div>`;
+    }
+    body.innerHTML=cal+`</div><p class="fine">Closed Sundays. Walk-ins are always welcome during open hours.</p>`;
+    foot.innerHTML=`<button class="btn-back" onclick="goStep(1)">← Back</button><button class="btn-next" ${chosen.date?'':'disabled'} onclick="if(chosen.date){goStep(3)}">Continue →</button>`;
+  } else if(step===3){
+    body.innerHTML=`<div class="step-title">Pick a time on ${chosen.date}</div><div class="time-grid">
+      ${TIMES.map((t,i)=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="pickTime(${i})">${t}</div>`).join('')}</div>
+      <p class="fine">Open 9:00 AM – 7:00 PM. Last chair at 6:00 PM.</p>`;
+    foot.innerHTML=`<button class="btn-back" onclick="goStep(2)">← Back</button><button class="btn-next" ${chosen.time?'':'disabled'} onclick="if(chosen.time){goStep(4)}">Continue →</button>`;
+  } else if(step===4){
+    body.innerHTML=`<div class="step-title">Who is the chair for?</div>
+      <div class="form-group"><label for="fn">Full Name</label><input id="fn" placeholder="Your name" autocomplete="name" value="${chosen.name}"></div>
+      <div class="form-group"><label for="fp">Phone Number</label><input id="fp" type="tel" placeholder="(267) 000-0000" autocomplete="tel" value="${chosen.phone}"></div>
+      <div class="form-group"><label for="fv">Preferred barber (optional)</label><input id="fv" placeholder="First available" value="${chosen.barber}"></div>
+      <div class="form-hint" id="formHint"></div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="goStep(3)">← Back</button><button class="btn-next" onclick="submitDetails()">Confirm Booking</button>`;
+    setTimeout(()=>{const f=document.getElementById('fn');if(f&&!f.value)f.focus()},50);
+  } else {
+    const first=chosen.name.split(' ')[0];
+    body.innerHTML=`<div class="confirm-screen">
+      <div class="confirm-icon"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+      <h3>You are all set, ${first}.</h3>
+      <p>Your chair is held, ${first}. We will reach you at ${chosen.phone} if anything changes, otherwise just come on in.</p>
+      <div class="confirm-detail">
+        <div><span>Service</span><span>${chosen.service} · ${chosen.price}</span></div>
+        <div><span>Date</span><span>${chosen.date}</span></div>
+        <div><span>Time</span><span>${chosen.time}</span></div>
+        <div><span>Barber</span><span>${chosen.barber||'First available'}</span></div>
+        <div><span>Phone</span><span>${chosen.phone}</span></div>
+      </div>
+      <p class="fine">Running late or need to move it? Call (267) 826-3593.</p>
+    </div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done ✓</button>`;
+  }
+}
+</script>
+</body>
+</html>

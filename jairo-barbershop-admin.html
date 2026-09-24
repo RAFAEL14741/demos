@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jairo Barbershop — Staff Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1D33;--navy2:#10284A;--navy3:#071527;
+  --blue:#2F80ED;--blue-dark:#1C64D1;
+  --steel:#8FA3BF;--white:#FFFFFF;--soft:#DCE4EF;
+  --line:rgba(143,163,191,.18);--line2:rgba(143,163,191,.34);
+  --disp:'Bebas Neue','Oswald','Arial Narrow',Impact,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--navy);color:var(--white);font-family:var(--body);min-height:100vh;line-height:1.5}
+button{font-family:inherit}
+/* ---------- login ---------- */
+#loginScreen{position:fixed;inset:0;z-index:999;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden}
+#loginScreen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 28% 22%,rgba(47,128,237,.18),transparent 55%)}
+#loginScreen::after{content:'';position:absolute;right:-1px;top:-1px;width:140px;height:140px;background:linear-gradient(225deg,var(--blue) 50%,transparent 50%);opacity:.9}
+.login-box{position:relative;z-index:1;text-align:center;padding:44px 44px 34px;background:var(--navy2);border:1px solid var(--line2);border-top:3px solid var(--blue);width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.login-box.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.login-logo{font-family:var(--disp);font-size:2.2rem;letter-spacing:.14em;line-height:1;display:flex;align-items:center;justify-content:center;gap:.6rem;color:#fff}
+.login-logo i{width:.5em;height:.5em;background:var(--blue);display:inline-block;transform:rotate(45deg)}
+.login-logo small{font-size:.58em;color:var(--steel);letter-spacing:.24em}
+.login-sub{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin:14px 0 30px}
+.pin-display{display:flex;justify-content:center;gap:16px;margin-bottom:30px;min-height:16px}
+.pin-display span{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line2);transition:all .15s}
+.pin-display span.on{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 4px rgba(47,128,237,.22)}
+.pin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,78px));gap:8px;justify-content:center}
+.pin-btn{height:64px;background:var(--navy);border:1px solid var(--line2);color:#fff;font-family:var(--disp);font-size:1.7rem;letter-spacing:.06em;cursor:pointer;border-radius:3px;transition:background .15s,border-color .15s}
+.pin-btn:hover{background:var(--blue);border-color:var(--blue)}
+.pin-btn:active{background:var(--blue-dark)}
+.pin-clear{margin-top:18px;font-size:.68rem;font-weight:600;color:var(--steel);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;background:none;border:none;padding:.4rem .6rem}
+.pin-clear:hover{color:#fff}
+.login-foot{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:.72rem;color:var(--steel);line-height:1.6}
+/* ---------- dashboard shell ---------- */
+#dashboard{display:none}
+.topbar{background:var(--navy3);border-bottom:1px solid var(--line);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;gap:10px 20px;flex-wrap:wrap;position:sticky;top:0;z-index:50}
+.topbar-logo{font-family:var(--disp);font-size:1.55rem;letter-spacing:.14em;line-height:1;display:flex;align-items:center;gap:.6rem;color:#fff;white-space:nowrap}
+.topbar-logo i{width:.5em;height:.5em;background:var(--blue);display:inline-block;transform:rotate(45deg)}
+.topbar-logo small{font-size:.58em;color:var(--steel);letter-spacing:.24em}
+.topbar-badge{font-family:var(--body);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(47,128,237,.55);padding:.3rem .5rem;border-radius:2px;margin-left:.5rem;line-height:1}
+.topbar-right{display:flex;align-items:center;gap:18px}
+.topbar-date{font-size:.82rem;color:var(--steel)}
+.logout-btn{font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);border:1px solid var(--line2);background:none;padding:.5rem .85rem;border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.logout-btn:hover{color:#fff;border-color:#fff}
+.dash{padding:28px 32px 36px;max-width:1440px;margin:0 auto}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+.kpi{background:var(--navy2);padding:22px 24px 20px;border-top:3px solid var(--blue);border-radius:0 0 3px 3px;min-width:0}
+.kpi-val{font-family:var(--disp);font-size:3rem;line-height:1;color:#fff;letter-spacing:.02em;white-space:nowrap}
+.kpi-val span{font-size:1.5rem;color:var(--blue);margin:0 .08em}
+.kpi-label{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);margin-top:9px}
+.kpi-sub{font-size:.76rem;color:var(--soft);opacity:.7;margin-top:3px}
+.grid2{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;margin-bottom:16px;align-items:start}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--navy2);padding:24px;border-radius:3px;border:1px solid rgba(143,163,191,.08);min-width:0}
+.card-title{font-family:var(--disp);font-size:1.35rem;letter-spacing:.1em;line-height:1;color:#fff;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.card-title small{font-family:var(--body);font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);display:block;margin-top:6px}
+.add-btn{background:var(--blue);color:#fff;border:none;padding:.66rem 1.1rem;font-family:var(--disp);font-size:1rem;letter-spacing:.12em;line-height:1;border-radius:2px;cursor:pointer;transition:background .2s;white-space:nowrap}
+.add-btn:hover{background:var(--blue-dark)}
+/* ---------- appointments table ---------- */
+table{width:100%;border-collapse:collapse}
+th{font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);text-align:left;padding:8px 12px 12px;border-bottom:1px solid var(--line2)}
+td{font-size:.92rem;padding:14px 12px;border-bottom:1px solid var(--line);color:#fff;vertical-align:middle}
+td.t-time{font-family:var(--disp);font-size:1.2rem;letter-spacing:.06em;white-space:nowrap;line-height:1}
+td.t-time small{display:block;font-family:var(--body);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-top:4px}
+td.t-client{font-weight:600}
+td.t-svc{color:var(--soft)}
+tr.new-row td{background:rgba(47,128,237,.1)}
+tr.new-row td:first-child{box-shadow:inset 3px 0 0 var(--blue)}
+.status{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .65rem;border-radius:2px;white-space:nowrap;line-height:1}
+.status.confirmed{background:rgba(47,128,237,.22);color:#fff;border:1px solid rgba(47,128,237,.6)}
+.status.pending{background:rgba(255,255,255,.04);color:var(--soft);border:1px dashed var(--line2)}
+.status.completed{background:transparent;color:var(--steel);border:1px solid transparent}
+.status.completed::before{content:'✓ '}
+.table-foot{margin-top:14px;font-size:.76rem;color:var(--steel);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#apptTable.closed-day tbody tr{display:none}
+.closed-note{display:none;padding:26px 16px;text-align:center;border:1px dashed var(--line2);border-radius:3px;color:var(--steel);font-size:.88rem;line-height:1.6}
+.closed-note b{display:block;font-family:var(--disp);font-size:1.4rem;letter-spacing:.1em;color:#fff;font-weight:400;margin-bottom:4px}
+#apptTable.closed-day+.closed-note{display:block}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,12px);background:var(--blue);color:#fff;padding:.8rem 1.2rem;border-radius:3px;font-size:.84rem;font-weight:600;box-shadow:0 14px 40px rgba(0,0,0,.45);z-index:600;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+/* ---------- mini calendar ---------- */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-head{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);text-align:center;padding:6px 0 8px}
+#calGrid .cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:500;color:var(--soft);border-radius:3px;position:relative;font-variant-numeric:tabular-nums}
+#calGrid .cal-day.past{color:rgba(220,228,239,.45)}
+#calGrid .cal-day.closed{color:rgba(143,163,191,.35)}
+#calGrid .cal-day.today{background:var(--blue);color:#fff;font-weight:700}
+#calGrid .cal-day.has-appt::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);position:absolute;bottom:5px;left:50%;transform:translateX(-50%)}
+#calGrid .cal-day.today.has-appt::after{background:#fff}
+#calGrid .cal-day.empty{visibility:hidden}
+.cal-legend{display:flex;gap:18px;margin-top:14px;font-size:.7rem;color:var(--steel);flex-wrap:wrap}
+.cal-legend span{display:flex;align-items:center;gap:6px}
+.cal-legend i{width:8px;height:8px;border-radius:50%;background:var(--blue);display:inline-block}
+.cal-legend i.sq{border-radius:2px;width:10px;height:10px}
+/* ---------- hours ---------- */
+.open-status{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--body);font-size:.64rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;border:1px solid var(--line2);padding:.4rem .7rem;border-radius:999px}
+.open-status i{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(47,128,237,.22)}
+.open-status.closed i{background:var(--steel);box-shadow:none}
+.hours-list{list-style:none;border-top:1px solid var(--line2)}
+.hours-list li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 10px;padding:10px 8px;border-bottom:1px solid var(--line);font-size:.88rem;position:relative}
+.hours-list li span:first-child{font-weight:600;color:#fff;white-space:nowrap}
+.hours-list li span:last-child{color:var(--steel);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hours-list li.closed span:last-child{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.hours-list li.today{background:linear-gradient(90deg,rgba(47,128,237,.18),transparent);padding-left:14px}
+.hours-list li.today::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue)}
+.hours-list li.today span:first-child::after{content:'Today';font-family:var(--disp);font-size:.8rem;letter-spacing:.18em;color:var(--blue);margin-left:.6rem;font-weight:400}
+/* ---------- services ---------- */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.svc-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.svc-row .svc-name{font-size:.92rem;font-weight:500;color:#fff;flex:1;min-width:0}
+.svc-row .svc-price{font-family:var(--disp);font-size:1.3rem;letter-spacing:.04em;color:var(--blue);line-height:1;min-width:3ch;text-align:right}
+.svc-edit{font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);background:none;border:1px solid var(--line2);padding:.38rem .6rem;border-radius:2px;cursor:pointer;transition:all .2s}
+.svc-edit:hover{color:#fff;border-color:#fff}
+.svc-note{margin-top:14px;font-size:.76rem;color:var(--steel)}
+/* ---------- footer ---------- */
+footer{background:var(--navy3);border-top:1px solid var(--line);padding:20px 32px;display:flex;justify-content:space-between;align-items:center;gap:8px 20px;flex-wrap:wrap;font-size:.76rem;color:var(--steel)}
+footer b{font-family:var(--disp);font-size:1.05rem;letter-spacing:.14em;color:#fff;font-weight:400}
+footer a{color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
+footer .foot-addr{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
+footer .foot-addr i{font-style:normal}
+/* ---------- booking modal (shared with the public demo) ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(3,10,20,.8);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--navy2);border:1px solid var(--line2);border-radius:4px;width:100%;max-width:540px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 30px 90px rgba(0,0,0,.55);color:#fff}
+.modal-header{padding:1.6rem 1.8rem .9rem;display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-family:var(--disp);font-size:1.75rem;letter-spacing:.08em;line-height:1;font-weight:400}
+.modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--steel);line-height:1;padding:.3rem}
+.modal-close:hover{color:#fff}
+.modal-steps{display:flex;gap:.35rem;padding:.6rem 1.8rem 1.1rem;border-bottom:1px solid var(--line)}
+.step-dot{flex:1;height:3px;background:rgba(143,163,191,.25);border-radius:2px;transition:background .3s}
+.step-dot.active{background:var(--blue)}
+.step-dot.done{background:#fff}
+.modal-body{padding:1.7rem 1.8rem}
+.step-title{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin-bottom:1.2rem}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.service-option{border:1px solid var(--line2);border-radius:3px;padding:.9rem 1rem;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center;gap:.6rem;background:var(--navy)}
+.service-option:hover{border-color:var(--blue)}
+.service-option.selected{border-color:var(--blue);background:rgba(47,128,237,.14);box-shadow:inset 0 0 0 1px var(--blue)}
+.service-option .svc-name{font-weight:500;font-size:.86rem;color:#fff}
+.service-option .svc-price{font-family:var(--disp);font-size:1.25rem;color:var(--blue);letter-spacing:.04em;line-height:1}
+.cal-nav{display:flex;justify-content:space-between;align-items:center}
+.cal-nav b{font-family:var(--disp);font-size:1.35rem;letter-spacing:.1em;font-weight:400}
+.cal-nav button{background:none;border:1px solid var(--line2);color:#fff;width:34px;height:34px;cursor:pointer;border-radius:3px;font-size:.9rem}
+.cal-nav button:disabled{opacity:.3;cursor:default}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;margin-top:.8rem}
+.cal-day-name{text-align:center;font-size:.64rem;font-weight:600;color:var(--steel);text-transform:uppercase;letter-spacing:.1em;padding:.4rem 0}
+.calendar-grid .cal-day{text-align:center;padding:.58rem 0;border-radius:3px;font-size:.86rem;cursor:pointer;transition:all .2s;font-variant-numeric:tabular-nums}
+.calendar-grid .cal-day:hover:not(.disabled){background:rgba(47,128,237,.28)}
+.calendar-grid .cal-day.today{box-shadow:inset 0 0 0 1px var(--blue)}
+.calendar-grid .cal-day.selected{background:var(--blue);color:#fff;font-weight:600}
+.calendar-grid .cal-day.disabled{color:rgba(143,163,191,.32);pointer-events:none}
+.calendar-grid .cal-day.empty{visibility:hidden}
+.cal-hint{font-size:.74rem;color:var(--steel);margin-top:.8rem}
+.time-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:.55rem}
+.time-slot{border:1px solid var(--line2);border-radius:3px;padding:.68rem;text-align:center;font-size:.86rem;font-weight:500;cursor:pointer;transition:all .2s;background:var(--navy);font-variant-numeric:tabular-nums}
+.time-slot:hover{border-color:var(--blue)}
+.time-slot.selected{border-color:var(--blue);background:rgba(47,128,237,.14);box-shadow:inset 0 0 0 1px var(--blue)}
+.time-slot.disabled{opacity:.3;pointer-events:none;text-decoration:line-through}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);margin-bottom:.4rem}
+.form-group input{width:100%;border:1px solid var(--line2);border-radius:3px;padding:.85rem 1rem;font-family:var(--body);font-size:16px;color:#fff;background:var(--navy);outline:none;transition:border-color .2s}
+.form-group input::placeholder{color:rgba(143,163,191,.6)}
+.form-group input:focus{border-color:var(--blue)}
+.modal-footer{padding:1rem 1.8rem 1.4rem;border-top:1px solid var(--line);display:flex;gap:.65rem;justify-content:flex-end;flex-wrap:wrap;position:sticky;bottom:0;background:var(--navy2);z-index:1}
+.btn-back{background:none;border:1px solid var(--line2);color:var(--steel);padding:.72rem 1.2rem;border-radius:3px;font-family:var(--disp);font-size:1.05rem;letter-spacing:.1em;line-height:1;cursor:pointer;white-space:nowrap;transition:all .2s}
+.btn-back:hover{border-color:#fff;color:#fff}
+.btn-next{background:var(--blue);color:#fff;border:none;padding:.72rem 1.6rem;border-radius:3px;font-family:var(--disp);font-size:1.05rem;letter-spacing:.1em;line-height:1;cursor:pointer;white-space:nowrap;transition:background .2s}
+.btn-next:hover{background:var(--blue-dark)}
+.confirm-screen{text-align:center;padding:.6rem 0}
+.confirm-icon{width:64px;height:64px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;font-size:1.7rem;color:#fff;font-weight:700}
+.confirm-screen h3{font-family:var(--disp);font-size:2.3rem;letter-spacing:.06em;line-height:1;margin-bottom:.6rem;font-weight:400}
+.confirm-screen p{color:var(--steel);line-height:1.7;font-size:.92rem}
+.confirm-detail{background:var(--navy);border:1px solid var(--line);border-radius:3px;padding:1rem 1.1rem;margin:1.2rem 0;text-align:left}
+.confirm-detail div{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;font-size:.86rem;border-bottom:1px solid var(--line)}
+.confirm-detail div:last-child{border:none}
+.confirm-detail span:first-child{color:var(--steel)}
+.confirm-detail span:last-child{color:#fff;font-weight:600;text-align:right;word-break:break-word}
+/* ---------- responsive ---------- */
+@media(max-width:900px){
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr;gap:0}
+  .dash{padding:20px 16px 28px}
+  .topbar{padding:12px 16px}
+  footer{padding:18px 16px}
+}
+@media(max-width:640px){
+  .topbar-right{width:100%;justify-content:space-between}
+  .topbar-date{font-size:.76rem}
+  .kpi{padding:18px 16px 16px}
+  .kpi-val{font-size:2.3rem}
+  .kpi-val span{font-size:1.2rem}
+  .card{padding:20px 16px}
+  table,tbody{display:block}
+  thead{display:none}
+  tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:13px 0 13px 10px;border-bottom:1px solid var(--line)}
+  tr.new-row{background:rgba(47,128,237,.1);box-shadow:inset 3px 0 0 var(--blue)}
+  tr.new-row td,tr.new-row td:first-child{background:none;box-shadow:none}
+  td{display:block;padding:0;border:none}
+  td.t-time{grid-column:1;grid-row:1;font-size:1.15rem}
+  td.t-time small{display:inline;margin-left:.5rem}
+  td.t-client{grid-column:1;grid-row:2}
+  td.t-svc{grid-column:1;grid-row:3;font-size:.84rem}
+  td.t-status{grid-column:2;grid-row:1/4;align-self:center}
+  .service-grid{grid-template-columns:1fr}
+  .login-box{padding:36px 22px 28px}
+  .pin-grid{grid-template-columns:repeat(3,minmax(0,72px))}
+}
+@media(max-width:480px){
+  .modal-header,.modal-body{padding-left:1.2rem;padding-right:1.2rem}
+  .modal-steps,.modal-footer{padding-left:1.2rem;padding-right:1.2rem}
+  .modal-footer>button{flex:1;padding-left:.9rem;padding-right:.9rem;white-space:nowrap;min-width:0}
+  .confirm-screen h3{font-size:2rem}
+}
+</style>
+</head>
+<body>
+<!-- PIPELINE DATA NOTES (internal)
+Staff admin portal demo for Jairo Barbershop - 4332 Frankford Ave, Philadelphia, PA 19124 - (267) 343-7129 - 4.6 stars / 135 Google reviews (verified via Google Maps lookup, 2026-09-24).
+Demo PIN is 1234 (front-end only, no real authentication). Every appointment, client name, KPI count and revenue figure on the dashboard is SAMPLE DATA for the sales walkthrough; client names are placeholders, no staff or barber names are used.
+[CONFIRM BEFORE VISIT] HOURS: Mon-Sat 9:00 AM - 7:00 PM, Sun Closed are ASSUMED typical barbershop hours (same assumption as the public demo), not verified. The hours panel, the open/closed pill, the mini-calendar closed days and the booking time slots (hourly 9 AM - 6 PM) all derive from CLOSED_DAYS / OPEN_HOURS in the script.
+[CONFIRM BEFORE VISIT] PRICES: the eight service prices (Haircut $25, Skin Fade $30, Haircut + Beard $38, Beard Trim / Shape-Up $15, Kids Cut $18, Line-Up $12, Hot Towel Shave $25, Eyebrows $8) are Philly-market estimates matching the public demo, not the shop's real menu. The "Est. Revenue This Week" KPI is computed from these estimates.
+Booking modal is the same front-end flow as the public demo, adapted for staff (Client Info step, "Add to Schedule"); it only updates this page - no backend, no third-party scheduler.
+-->
+
+<div id="loginScreen">
+  <div class="login-box" id="loginBox">
+    <div class="login-logo">Jairo<i></i><small>Barbershop</small></div>
+    <div class="login-sub">Staff Portal · Enter PIN</div>
+    <div class="pin-display" id="pinDisplay"><span></span><span></span><span></span><span></span></div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="enterPin('1')">1</button>
+      <button class="pin-btn" onclick="enterPin('2')">2</button>
+      <button class="pin-btn" onclick="enterPin('3')">3</button>
+      <button class="pin-btn" onclick="enterPin('4')">4</button>
+      <button class="pin-btn" onclick="enterPin('5')">5</button>
+      <button class="pin-btn" onclick="enterPin('6')">6</button>
+      <button class="pin-btn" onclick="enterPin('7')">7</button>
+      <button class="pin-btn" onclick="enterPin('8')">8</button>
+      <button class="pin-btn" onclick="enterPin('9')">9</button>
+      <button class="pin-btn" onclick="enterPin('0')" style="grid-column:2">0</button>
+    </div>
+    <button class="pin-clear" onclick="clearPin()">Clear ×</button>
+    <div class="login-foot">4332 Frankford Ave · Philadelphia, PA 19124<br>Authorized staff only</div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-logo">Jairo<i></i>Barbershop<span class="topbar-badge">Staff</span></div>
+    <div class="topbar-right">
+      <div class="topbar-date" id="topbarDate"></div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="dash">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-val" id="kpiToday">10</div><div class="kpi-label">Today's Appointments</div><div class="kpi-sub" id="kpiTodaySub">9:00 AM – 7:00 PM</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpiWeek">47</div><div class="kpi-label">This Week</div><div class="kpi-sub">Mon – Sat, all chairs</div></div>
+      <div class="kpi"><div class="kpi-val"><span>$</span><b id="kpiRev" style="font-weight:400">1,235</b></div><div class="kpi-label">Est. Revenue This Week</div><div class="kpi-sub">At menu prices, before tips</div></div>
+      <div class="kpi"><div class="kpi-val">4.6<span>★</span></div><div class="kpi-label">Google Rating</div><div class="kpi-sub">From 135 Google reviews</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="col">
+        <div class="card">
+          <div class="card-title"><div>Upcoming Appointments<small id="tableDate"></small></div><button class="add-btn" onclick="openBooking()">+ Add Booking</button></div>
+          <table id="apptTable">
+            <thead><tr><th>Time</th><th>Client</th><th>Service</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="t-time">9:00 AM</td><td class="t-client">Luis R.</td><td class="t-svc">Skin Fade</td><td class="t-status"><span class="status completed">Completed</span></td></tr>
+              <tr><td class="t-time">9:45 AM</td><td class="t-client">Thiago S.</td><td class="t-svc">Haircut + Beard</td><td class="t-status"><span class="status completed">Completed</span></td></tr>
+              <tr><td class="t-time">10:30 AM</td><td class="t-client">Sean M.</td><td class="t-svc">Haircut</td><td class="t-status"><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td class="t-time">11:15 AM</td><td class="t-client">Darnell J.</td><td class="t-svc">Skin Fade</td><td class="t-status"><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td class="t-time">12:00 PM</td><td class="t-client">Kevin N.</td><td class="t-svc">Line-Up</td><td class="t-status"><span class="status pending">Pending</span></td></tr>
+              <tr><td class="t-time">1:30 PM</td><td class="t-client">Piotr K.</td><td class="t-svc">Beard Trim / Shape-Up</td><td class="t-status"><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td class="t-time">2:15 PM</td><td class="t-client">Marcus B.</td><td class="t-svc">Kids Cut (12 &amp; under)</td><td class="t-status"><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td class="t-time">3:00 PM</td><td class="t-client">Javier O.</td><td class="t-svc">Hot Towel Shave</td><td class="t-status"><span class="status pending">Pending</span></td></tr>
+              <tr><td class="t-time">4:30 PM</td><td class="t-client">Brendan F.</td><td class="t-svc">Haircut</td><td class="t-status"><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td class="t-time">5:15 PM</td><td class="t-client">Minh T.</td><td class="t-svc">Skin Fade</td><td class="t-status"><span class="status confirmed">Confirmed</span></td></tr>
+            </tbody>
+          </table>
+          <div class="closed-note" id="closedNote"></div>
+          <div class="table-foot"><span>Walk-ins are worked in between booked chairs.</span><span>Pending = waiting on a text-back from the client.</span></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-title"><div>This Month<small id="calMonth"></small></div></div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-legend"><span><i class="sq"></i>Today</span><span><i></i>Has bookings</span><span>Sundays closed</span></div>
+        </div>
+        <div class="card" id="hoursPanel">
+          <div class="card-title"><div>Shop Hours</div><div class="open-status" id="openStatus"><i></i><span>Checking…</span></div></div>
+          <ul class="hours-list" id="hoursList">
+            <li data-days="1"><span>Monday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li data-days="2"><span>Tuesday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li data-days="3"><span>Wednesday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li data-days="4"><span>Thursday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li data-days="5"><span>Friday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li data-days="6"><span>Saturday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li data-days="0" class="closed"><span>Sunday</span><span>Closed</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="servicesPanel">
+      <div class="card-title"><div>Menu Board &amp; Prices<small>Starting prices · shown on the public site</small></div></div>
+      <div class="svc-grid" id="svcGrid"></div>
+      <p class="svc-note">Edit a price here and the same figure updates in the booking modal. Changes are for this session only in the demo.</p>
+    </div>
+  </div>
+
+  <footer>
+    <b>Jairo Barbershop · Staff Portal</b>
+    <span class="foot-addr"><span>4332 Frankford Ave, Philadelphia, PA 19124</span><i>·</i><a href="tel:2673437129">(267) 343-7129</a></span>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add Booking</h3>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script>
+/* Business constants (hours are assumed - see pipeline notes at top of body) */
+const CLOSED_DAYS=[0];
+const OPEN_HOURS={open:9,close:19};
+const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const SERVICES=[['Haircut','$25'],['Skin Fade','$30'],['Haircut + Beard','$38'],['Beard Trim / Shape-Up','$15'],['Kids Cut (12 & under)','$18'],['Line-Up','$12'],['Hot Towel Shave','$25'],['Eyebrows','$8']];
+const SLOTS=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtHour=t=>(t%12||12)+':00 '+(t<12?'AM':'PM');
+const slotHour=t=>{const h=parseInt(t,10)%12;return /PM/i.test(t)?h+12:h};
+
+/* ===== PIN login ===== */
+const STAFF_PIN='1234';
+let pin='';
+function renderPin(){document.querySelectorAll('#pinDisplay span').forEach((s,i)=>s.classList.toggle('on',i<pin.length))}
+function enterPin(d){
+  if(pin.length>=4)return;
+  pin+=d;renderPin();
+  if(pin.length===4){
+    setTimeout(()=>{
+      if(pin===STAFF_PIN){
+        document.getElementById('loginScreen').style.display='none';
+        document.getElementById('dashboard').style.display='block';
+        pin='';renderPin();
+        initDash();
+      }else{
+        pin='';renderPin();
+        const b=document.getElementById('loginBox');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');
+        alert('Incorrect PIN');
+      }
+    },200);
+  }
+}
+function clearPin(){pin='';renderPin()}
+function logout(){
+  closeModal();
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('dashboard').style.display='none';
+  clearPin();
+}
+
+/* ===== Dashboard ===== */
+const fmtDay=d=>d.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+/* The schedule header always shows the same count as the Today KPI */
+function syncScheduleHeader(now){
+  const n=parseInt(document.getElementById('kpiToday').textContent.replace(/\D/g,''))||0;
+  document.getElementById('tableDate').textContent=fmtDay(now)+' · '+(CLOSED_DAYS.includes(now.getDay())?'Closed today':n+' booked');
+}
+function initDash(){
+  const now=new Date(),closedToday=CLOSED_DAYS.includes(now.getDay());
+  document.getElementById('topbarDate').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const table=document.getElementById('apptTable');
+  if(closedToday){
+    /* nothing is booked on a closed day: no sample list, Today KPI reads 0 */
+    const next=new Date(now);do{next.setDate(next.getDate()+1)}while(CLOSED_DAYS.includes(next.getDay()));
+    table.classList.add('closed-day');
+    document.getElementById('closedNote').innerHTML='<b>Closed today</b>No chairs are booked on '+DAY_NAMES[now.getDay()]+'s. Next open day: '+esc(fmtDay(next))+'.';
+    document.getElementById('kpiToday').textContent='0';
+    document.getElementById('kpiTodaySub').textContent='Shop closed today';
+  }else{
+    table.classList.remove('closed-day');
+    document.getElementById('kpiTodaySub').textContent=fmtHour(OPEN_HOURS.open)+' – '+fmtHour(OPEN_HOURS.close);
+  }
+  syncScheduleHeader(now);
+  buildCal(now);
+  markHours(now);
+  buildServices();
+}
+function buildCal(now){
+  const cal=document.getElementById('calGrid');
+  cal.innerHTML='';
+  const y=now.getFullYear(),m=now.getMonth(),t=now.getDate();
+  document.getElementById('calMonth').textContent=MONTHS_FULL[m]+' '+y;
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{const h=document.createElement('div');h.className='cal-head';h.textContent=d;cal.appendChild(h)});
+  const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  /* sample booked days, relative to today so the demo always looks live */
+  const apptDays=new Set([-4,-3,-2,-1,0,1,2,3,5,6,7,9,10].map(o=>t+o).filter(d=>d>=1&&d<=days));
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day empty';cal.appendChild(e)}
+  for(let d=1;d<=days;d++){
+    const e=document.createElement('div');e.className='cal-day';e.textContent=d;e.dataset.day=d;
+    const wd=new Date(y,m,d).getDay();
+    if(CLOSED_DAYS.includes(wd))e.classList.add('closed');
+    else if(apptDays.has(d))e.classList.add('has-appt');
+    if(d<t)e.classList.add('past');
+    if(d===t)e.classList.add('today');
+    cal.appendChild(e);
+  }
+}
+function markHours(now){
+  const day=now.getDay(),h=now.getHours()+now.getMinutes()/60;
+  document.querySelectorAll('#hoursList li').forEach(li=>{
+    const days=li.getAttribute('data-days').split(',').map(Number);
+    li.classList.toggle('closed',days.every(d=>CLOSED_DAYS.includes(d)));
+    li.classList.toggle('today',days.includes(day));
+  });
+  const el=document.getElementById('openStatus');
+  let txt,closed=false;
+  if(!CLOSED_DAYS.includes(day)&&h>=OPEN_HOURS.open&&h<OPEN_HOURS.close){txt='Open · closes '+fmtHour(OPEN_HOURS.close)}
+  else if(!CLOSED_DAYS.includes(day)&&h<OPEN_HOURS.open){txt='Opens '+fmtHour(OPEN_HOURS.open);closed=true}
+  else{let n=0,d=day;do{n++;d=(d+1)%7}while(CLOSED_DAYS.includes(d));txt='Closed · opens '+(n===1?'tomorrow':DAY_NAMES[d].slice(0,3))+' '+fmtHour(OPEN_HOURS.open);closed=true}
+  el.classList.toggle('closed',closed);
+  el.querySelector('span').textContent=txt;
+}
+function buildServices(){
+  document.getElementById('svcGrid').innerHTML=SERVICES.map(([n,p],i)=>`<div class="svc-row"><span class="svc-name">${esc(n)}</span><span class="svc-price">${esc(p)}</span><button class="svc-edit" onclick="editPrice(${i})">Edit</button></div>`).join('');
+}
+function editPrice(i){
+  const cur=SERVICES[i][1];
+  const v=prompt('New starting price for '+SERVICES[i][0]+':',cur);
+  if(v===null)return;
+  const n=parseFloat(String(v).replace(/[^\d.]/g,''));
+  if(!isNaN(n)&&n>0){SERVICES[i][1]='$'+(Number.isInteger(n)?n:n.toFixed(2));buildServices()}
+}
+function bump(id,n){const el=document.getElementById(id);const v=parseInt(el.textContent.replace(/\D/g,''))||0;el.textContent=(v+n).toLocaleString('en-US')}
+
+/* ===== Booking modal (same flow as the public demo, adapted for staff) ===== */
+let step=1,calOffset=0,chosen={service:'',date:'',ymd:null,time:'',name:'',phone:'',barber:''};
+const titles=['Pick a Service','Pick a Day','Pick a Time','Client Info','Booking Saved'];
+function openBooking(){step=1;calOffset=0;chosen={service:'',date:'',ymd:null,time:'',name:'',phone:'',barber:''};renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
+function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function shiftCal(n){calOffset=Math.max(0,Math.min(2,calOffset+n));renderStep()}
+function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function renderStep(){
+  document.getElementById('modalTitle').textContent=titles[step-1];
+  setStepDots();
+  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
+  body.innerHTML='';foot.innerHTML='';
+  if(step===1){
+    body.innerHTML=`<div class="step-title">What is the client booking?</div><div class="service-grid">
+      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
+        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
+  } else if(step===2){
+    const now=new Date(),base=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=base.getFullYear(),m=base.getMonth();
+    const first=base.getDay(),days=new Date(y,m+1,0).getDate();
+    let cal=`<div class="step-title">Pick a day</div>
+      <div class="cal-nav"><button onclick="shiftCal(-1)"${calOffset===0?' disabled':''}>‹</button><b>${MONTHS_FULL[m]} ${y}</b><button onclick="shiftCal(1)"${calOffset===2?' disabled':''}>›</button></div>
+      <div class="calendar-grid">
+      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
+      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const todayHasSlots=!CLOSED_DAYS.includes(now.getDay())&&SLOTS.some(t=>slotHour(t)>now.getHours());
+    for(let d=1;d<=days;d++){
+      const dt=`${MONTHS[m]} ${d}, ${y}`,date=new Date(y,m,d),isToday=date.getTime()===today.getTime();
+      const off=date<today||CLOSED_DAYS.includes(date.getDay())||(isToday&&!todayHasSlots);
+      cal+=`<div class="cal-day${off?' disabled':chosen.date===dt?' selected':''}${isToday?' today':''}"${!off?` onclick="chosen.date='${dt}';chosen.ymd=[${y},${m},${d}];renderStep()"`:''}>${d}</div>`}
+    const hint=`Closed ${CLOSED_DAYS.map(d=>DAY_NAMES[d]+'s').join(' and ')}. `+(calOffset===0&&!todayHasSlots&&!CLOSED_DAYS.includes(now.getDay())?'No slots left today.':'Same-day slots go straight onto today\'s schedule.');
+    body.innerHTML=cal+`</div><p class="cal-hint">${hint}</p>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
+  } else if(step===3){
+    const now=new Date(),isToday=!!chosen.ymd&&chosen.ymd[0]===now.getFullYear()&&chosen.ymd[1]===now.getMonth()&&chosen.ymd[2]===now.getDate();
+    const gone=t=>isToday&&slotHour(t)<=now.getHours();
+    if(chosen.time&&gone(chosen.time))chosen.time='';
+    const left=SLOTS.filter(t=>!gone(t)).length;
+    body.innerHTML=`<div class="step-title">${esc(chosen.date)} · pick a time</div><div class="time-grid">
+      ${SLOTS.map(t=>gone(t)?`<div class="time-slot disabled" aria-disabled="true">${t}</div>`:`<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`).join('')}</div>`
+      +(isToday?`<p class="cal-hint">${left?`Earlier times today have passed. ${left} slot${left===1?'':'s'} left today.`:'No slots left today. Go back and pick another day.'}</p>`:'');
+    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
+  } else if(step===4){
+    body.innerHTML=`<div class="step-title">Who is the chair for?</div>
+      <div class="form-group"><label>Client Name</label><input id="fn" placeholder="First name + last initial" value="${esc(chosen.name)}"></div>
+      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(267) 000-0000" value="${esc(chosen.phone)}"></div>
+      <div class="form-group"><label>Barber (optional)</label><input id="fv" placeholder="Any barber" value="${esc(chosen.barber)}"></div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
+      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value.trim();chosen.phone=document.getElementById('fp').value.trim();chosen.barber=document.getElementById('fv').value.trim();if(chosen.name&&chosen.phone){addToSchedule();step=5;renderStep()}">Add to Schedule</button>`;
+  } else {
+    body.innerHTML=`<div class="confirm-screen">
+      <div class="confirm-icon">✓</div>
+      <h3>Appointment Added</h3>
+      <p>${esc(chosen.name)} ${chosen.placed==='today'?'is on today\'s schedule, slotted in time order.':`is on the calendar for ${esc(chosen.date)}. Today's list only shows today's chairs.`}</p>
+      <div class="confirm-detail">
+        <div><span>Service</span><span>${esc(chosen.service)}</span></div>
+        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
+        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
+        <div><span>Client</span><span>${esc(chosen.name)}</span></div>
+        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
+        <div><span>Barber</span><span>${esc(chosen.barber||'Any barber')}</span></div>
+      </div>
+      <p style="font-size:.8rem">Text the client to confirm, or call them at ${esc(chosen.phone)}.</p>
+    </div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="openBooking()">+ Add Another</button><button class="btn-next" onclick="closeModal()">Done ✓</button>`;
+  }
+}
+/* Put the new booking on the dashboard: same-day bookings join today's list in time order (and bump the Today KPI);
+   any other day only gets its mini-calendar dot plus a toast, so today's schedule never shows another day's chair. */
+const toMinutes=t=>{const [hm,ap]=t.split(' ');const [h,mi]=hm.split(':').map(Number);return (h%12+(ap==='PM'?12:0))*60+(mi||0)};
+let toastTimer=null;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3800)}
+function addToSchedule(){
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const [y,m,d]=chosen.ymd||[today.getFullYear(),today.getMonth(),today.getDate()];
+  const date=new Date(y,m,d),isToday=date.getTime()===today.getTime();
+  const mon=new Date(today);mon.setDate(today.getDate()-((today.getDay()+6)%7));
+  const nextMon=new Date(mon);nextMon.setDate(mon.getDate()+7);
+  const thisWeek=date>=mon&&date<nextMon;
+  const price=(SERVICES.find(s=>s[0]===chosen.service)||[,'$0'])[1];
+  if(isToday){
+    const tr=document.createElement('tr');tr.className='new-row';
+    tr.innerHTML=`<td class="t-time">${esc(chosen.time)}</td><td class="t-client">${esc(chosen.name)}</td><td class="t-svc">${esc(chosen.service)}</td><td class="t-status"><span class="status confirmed">Confirmed</span></td>`;
+    const tbody=document.querySelector('#apptTable tbody'),rows=[...tbody.querySelectorAll('tr')],mins=toMinutes(chosen.time);
+    const before=rows.find(r=>toMinutes(r.querySelector('.t-time').firstChild.textContent.trim())>mins);
+    if(before)tbody.insertBefore(tr,before);else tbody.appendChild(tr);
+    bump('kpiToday',1);syncScheduleHeader(now);
+    chosen.placed='today';
+  }else{
+    chosen.placed='calendar';
+    showToast(`${chosen.name} booked for ${chosen.date} · ${chosen.time}. Added to the calendar.`);
+  }
+  if(thisWeek){bump('kpiWeek',1);bump('kpiRev',parseInt(price.replace(/\D/g,''))||0)}
+  if(y===now.getFullYear()&&m===now.getMonth()){const c=document.querySelector(`#calGrid .cal-day[data-day="${d}"]`);if(c)c.classList.add('has-appt')}
+}
+</script>
+</body>
+</html>

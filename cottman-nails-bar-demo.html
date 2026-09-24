@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cottman Nails Bar &amp; Eyelash — Roosevelt Mall, Philadelphia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FBF6F1;--white:#FFFFFF;--blush:#F1CFD1;--blush-soft:#F7E3E4;
+  --rose:#B76E79;--rose-dark:#9E5A65;--plum:#3A2A33;--plum-deep:#2C1F27;
+  --muted:#8A7680;--line:#EAD9D5;
+  --serif:'Playfair Display',Georgia,serif;--sans:'Jost',sans-serif;
+}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:auto}
+body{background:var(--cream);color:var(--plum);font-family:var(--sans);font-weight:400;overflow-x:hidden;cursor:auto;line-height:1.6}
+#progressBar{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--rose);z-index:10000}
+#cursor{position:fixed;display:none;width:7px;height:7px;background:var(--rose);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cursor-ring{position:fixed;display:none;width:34px;height:34px;border:1px solid var(--rose);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45}
+/* custom cursor only on a real mouse at desktop widths; everywhere else the native cursor stays */
+@media (hover:hover) and (pointer:fine) and (min-width:861px){body,body *:not(input):not(textarea){cursor:none}#cursor,#cursor-ring{display:block}}
+html.no-gsap body,html.no-gsap body *{cursor:revert}
+html.no-gsap #cursor,html.no-gsap #cursor-ring{display:none}
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.35rem 6%;background:rgba(251,246,241,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:padding .35s,border-color .35s}
+nav.scrolled{padding:.8rem 6%;border-bottom-color:var(--line)}
+.nav-logo{font-family:var(--serif);font-size:1.3rem;font-weight:500;color:var(--plum);text-decoration:none;letter-spacing:.01em;line-height:1}
+.nav-logo em{font-style:italic;color:var(--rose)}
+.nav-logo small{display:block;font-family:var(--sans);font-size:.58rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:.35rem}
+.nav-links{display:flex;align-items:center;gap:2.4rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--plum);position:relative;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;left:0;right:0;bottom:-7px;height:1px;background:var(--rose);transform:scaleX(0);transform-origin:right;transition:transform .3s}
+.nav-links a:hover{color:var(--rose)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-cta{background:var(--rose);color:#fff;padding:.7rem 1.45rem;border-radius:999px;font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--rose-dark);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;background:none;border:1px solid var(--line);border-radius:50%;cursor:pointer;padding:0 9px;z-index:250}
+.hamburger span{display:block;width:100%;height:1.5px;background:var(--plum);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.drawer-overlay{position:fixed;inset:0;background:rgba(58,42,51,.45);backdrop-filter:blur(3px);z-index:198;opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer-overlay.open{opacity:1;pointer-events:auto}
+.mobile-drawer{position:fixed;top:0;right:-320px;width:300px;max-width:86vw;height:100%;background:var(--cream);border-left:6px solid var(--blush);z-index:199;padding:6.5rem 2.2rem 2.5rem;display:flex;flex-direction:column;gap:1.5rem;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:right .4s cubic-bezier(.16,1,.3,1)}
+.drawer-close{position:absolute;top:1.1rem;right:1.25rem;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--plum);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s}
+.drawer-close:hover{color:var(--rose);border-color:var(--rose)}
+@media(max-height:500px){.mobile-drawer{padding-top:4.5rem;gap:.9rem}}
+.mobile-drawer.open{right:0}
+.mobile-drawer a{font-family:var(--serif);font-size:1.7rem;font-weight:400;color:var(--plum);text-decoration:none;line-height:1.1}
+.mobile-drawer a:hover{color:var(--rose)}
+.mobile-drawer .drawer-foot{margin-top:auto;display:flex;flex-direction:column;gap:.8rem}
+.mobile-drawer .drawer-foot a{font-family:var(--sans);font-size:.9rem;color:var(--muted)}
+.mobile-drawer .drawer-foot a.btn-primary{color:#fff;text-align:center;font-size:.76rem;padding:.85rem 1rem;letter-spacing:.08em;white-space:nowrap}
+/* ---------- buttons ---------- */
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--rose);color:#fff;padding:.95rem 2rem;border-radius:999px;font-family:var(--sans);font-size:.85rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:background .25s,transform .25s,box-shadow .25s;box-shadow:0 10px 30px rgba(183,110,121,.25)}
+.btn-primary:hover{background:var(--rose-dark);transform:translateY(-2px);box-shadow:0 14px 36px rgba(183,110,121,.32)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5rem;color:var(--plum);padding:.95rem .4rem;font-size:.85rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--plum);transition:color .2s,border-color .2s}
+.btn-ghost:hover{color:var(--rose);border-color:var(--rose)}
+/* ---------- hero ---------- */
+.hero{position:relative;padding:9.5rem 6% 6rem;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30vh;left:50%;transform:translateX(-50%);width:120vw;height:90vh;background:radial-gradient(ellipse at center,rgba(241,207,209,.55) 0%,rgba(241,207,209,0) 65%);pointer-events:none}
+.hero-text{position:relative;z-index:2;max-width:920px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.9rem;font-size:.72rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--rose);margin-bottom:1.8rem;opacity:0;transform:translateY(10px)}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:34px;height:1px;background:var(--rose);opacity:.6}
+.hero-title{font-family:var(--serif);font-size:clamp(2.6rem,7vw,6.3rem);font-weight:500;line-height:1.02;letter-spacing:-.015em;color:var(--plum);margin-bottom:1.6rem}
+.hero-title .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.hero-title .line span{display:block;transform:translateY(100%);opacity:0}
+.hero-title em{font-style:italic;font-weight:400;color:var(--rose)}
+.hero-lede{font-size:1.08rem;font-weight:300;line-height:1.75;color:var(--muted);max-width:520px;margin:0 auto 2.4rem;opacity:0;transform:translateY(10px)}
+.hero-actions{display:flex;gap:1.4rem;justify-content:center;align-items:center;flex-wrap:wrap;opacity:0;transform:translateY(10px)}
+.hero-collage{position:relative;z-index:2;max-width:900px;margin:4.5rem auto 0;display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:1.4rem;align-items:center}
+.collage-item{position:relative;overflow:hidden;border-radius:20px;opacity:0;transform:translateY(40px) scale(.96);background:var(--blush-soft)}
+.collage-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.collage-item.center{aspect-ratio:3/4;border-radius:260px 260px 22px 22px}
+.collage-item.left{aspect-ratio:4/5;margin-top:6rem}
+.collage-item.right{aspect-ratio:4/5;margin-bottom:6rem}
+.hero-badge-wrap{position:absolute;left:0;right:0;bottom:-1.3rem;display:flex;justify-content:center;pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.7rem;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:.7rem 1.3rem;box-shadow:0 14px 40px rgba(58,42,51,.12);font-size:.82rem;font-weight:500;color:var(--plum);opacity:0;transform:translateY(12px);pointer-events:auto}
+.hero-badge .stars{color:var(--rose);letter-spacing:.08em;font-size:.85rem}
+.hero-badge .sep{width:1px;height:14px;background:var(--line)}
+.hero-badge span.muted{color:var(--muted);font-weight:400}
+/* ---------- marquee ---------- */
+.marquee-strip{background:var(--plum);overflow:hidden;padding:.95rem 0;white-space:nowrap;position:relative;z-index:3;margin-top:2rem;border-top:1px solid var(--rose);border-bottom:1px solid var(--rose)}
+.marquee-inner{display:inline-flex;will-change:transform}
+.marquee-inner span{font-family:var(--serif);font-style:italic;font-size:1.02rem;font-weight:400;letter-spacing:.02em;color:var(--blush);padding:0 1.6rem}
+.marquee-inner .dot{color:var(--rose);font-style:normal;font-size:.9rem;padding:0 .2rem}
+/* ---------- shared section bits ---------- */
+section{padding:7.5rem 6%;position:relative}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:.7rem;font-size:.7rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--rose);margin-bottom:1.1rem}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--rose);opacity:.7}
+.title{font-family:var(--serif);font-size:clamp(2.1rem,3.8vw,3.3rem);font-weight:500;line-height:1.1;letter-spacing:-.01em;color:var(--plum)}
+.title em{font-style:italic;font-weight:400;color:var(--rose)}
+.lead{font-size:1rem;font-weight:300;line-height:1.75;color:var(--muted);max-width:480px}
+.centered{text-align:center}
+.centered .eyebrow::before{display:none}
+.centered .eyebrow::after{content:'';width:26px;height:1px;background:var(--rose);opacity:.7}
+.centered .eyebrow{gap:.7rem}
+.centered .eyebrow::before{display:inline-block}
+.centered .lead{margin:1rem auto 0}
+/* ---------- menu ---------- */
+.menu-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem 3rem;margin-bottom:3.5rem}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.menu-col{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:2.8rem 2.6rem;display:flex;flex-direction:column}
+.menu-col h3{font-family:var(--serif);font-size:1.7rem;font-weight:500;color:var(--plum);display:flex;align-items:baseline;gap:1rem;margin-bottom:1.9rem}
+.menu-col h3::after{content:'';flex:1;height:1px;background:var(--blush)}
+.menu-list{list-style:none;display:flex;flex-direction:column;gap:1.45rem}
+.mi-line{display:flex;align-items:baseline;gap:.7rem}
+.mi-name{font-family:var(--serif);font-size:1.18rem;font-weight:500;color:var(--plum);white-space:nowrap}
+.mi-dots{flex:1;border-bottom:1.5px dotted rgba(138,118,128,.55);transform:translateY(-.3em)}
+.mi-price{font-size:1.05rem;font-weight:500;color:var(--rose);white-space:nowrap}
+.mi-desc{font-size:.88rem;font-weight:300;color:var(--muted);line-height:1.6;margin-top:.3rem;max-width:88%}
+.menu-note{margin-top:2rem;flex:1;display:flex;flex-direction:column;justify-content:center;background:var(--blush-soft);border-radius:20px;padding:1.8rem 1.7rem;position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform}
+.menu-note::after{content:'';position:absolute;right:-30px;bottom:-40px;width:150px;height:150px;border-radius:50%;background:var(--blush);opacity:.8}
+.menu-note .note-eyebrow{font-size:.66rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--rose)}
+.menu-note h4{font-family:var(--serif);font-size:1.45rem;font-weight:500;color:var(--plum);margin:.5rem 0 .5rem;position:relative;z-index:1}
+.menu-note p{font-size:.9rem;font-weight:300;color:var(--muted);line-height:1.65;position:relative;z-index:1;max-width:90%}
+.menu-foot{margin-top:2.2rem;font-size:.82rem;color:var(--muted);text-align:center;font-weight:300}
+/* ---------- wine band ---------- */
+.wine{background:var(--plum);color:#fff;overflow:hidden}
+.wine::before{content:'';position:absolute;left:-10%;top:-20%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(183,110,121,.28),rgba(183,110,121,0) 70%);pointer-events:none}
+.wine-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:5rem;align-items:center}
+.wine .eyebrow{color:var(--blush)}
+.wine .eyebrow::before{background:var(--blush)}
+.wine-title{font-family:var(--serif);font-size:clamp(2.6rem,5.4vw,4.9rem);font-weight:500;line-height:1.02;letter-spacing:-.015em;color:#fff;margin-bottom:1.6rem}
+.wine-title em{font-style:italic;font-weight:400;color:var(--blush)}
+.wine p{font-size:1.02rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.72);max-width:480px}
+.wine-chips{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:2.2rem}
+.wine-chip{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(241,207,209,.35);border-radius:999px;padding:.55rem 1.1rem;font-size:.78rem;letter-spacing:.06em;color:var(--blush)}
+.wine-chip svg{width:14px;height:14px;stroke:var(--rose);fill:none;stroke-width:1.6}
+.wine-photo{position:relative}
+.wine-photo::before{content:'';position:absolute;inset:-14px 14px 14px -14px;border:1px solid rgba(241,207,209,.35);border-radius:200px 200px 24px 24px;pointer-events:none}
+.wine-photo-inner{position:relative;overflow:hidden;border-radius:200px 200px 24px 24px;aspect-ratio:4/5}
+.wine-photo-inner img{width:100%;height:110%;object-fit:cover;display:block}
+.wine-quote{position:absolute;left:-1.5rem;bottom:2rem;background:var(--white);color:var(--plum);border-radius:16px;padding:1rem 1.2rem;max-width:230px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.wine-quote p{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--plum);line-height:1.45;max-width:none}
+.wine-quote small{display:block;margin-top:.4rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+/* ---------- lashes ---------- */
+.lash-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:5rem;align-items:center}
+.lash-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:var(--blush-soft)}
+.lash-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.lash-photo .tag{position:absolute;top:1.2rem;left:1.2rem;background:rgba(255,255,255,.92);color:var(--plum);border-radius:999px;padding:.45rem 1rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+.lash-text .lead{margin-top:1.1rem}
+.bullets{list-style:none;margin-top:2.2rem;display:flex;flex-direction:column;gap:1.3rem}
+.bullets li{display:flex;gap:1.1rem;align-items:flex-start}
+.bullets .bul-icon{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--blush-soft);display:flex;align-items:center;justify-content:center}
+.bullets .bul-icon svg{width:16px;height:16px;stroke:var(--rose);fill:none;stroke-width:1.8}
+.bullets strong{display:block;font-family:var(--serif);font-weight:500;font-size:1.12rem;color:var(--plum);margin-bottom:.2rem}
+.bullets p{font-size:.92rem;font-weight:300;color:var(--muted);line-height:1.65}
+.lash-price{display:inline-flex;align-items:baseline;gap:.6rem;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+.lash-price .p{font-family:var(--serif);font-size:2rem;color:var(--rose)}
+.lash-price span{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+/* ---------- gallery ---------- */
+.gallery{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3.2rem}
+.g-item{position:relative;overflow:hidden;border-radius:22px;aspect-ratio:4/5;background:var(--blush-soft)}
+.g-item:nth-child(2),.g-item:nth-child(4){margin-top:2.5rem}
+.g-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.g-cap{position:absolute;left:1rem;bottom:1rem;background:rgba(255,255,255,.92);color:var(--plum);border-radius:999px;padding:.45rem .95rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transform:none;opacity:1;transition:all .35s}
+/* hover-only motion lives behind (hover:hover) so nothing sticks after a tap on touch screens */
+@media(hover:hover){
+  .collage-item:hover img{transform:scale(1.05)}
+  .lash-photo:hover img{transform:scale(1.04)}
+  .g-item:hover img{transform:scale(1.07)}
+  .g-cap{transform:translateY(8px);opacity:0}
+  .g-item:hover .g-cap{transform:translateY(0);opacity:1}
+  .review-card:hover{box-shadow:0 24px 60px rgba(58,42,51,.1)}
+}
+/* ---------- trust bar ---------- */
+.trust{background:var(--blush);padding:4.5rem 6%}
+.trust-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.trust-item{padding:0 1rem;border-right:1px solid rgba(58,42,51,.12)}
+.trust-item:last-child{border-right:none}
+.trust-num{font-family:var(--serif);font-size:3rem;font-weight:500;color:var(--plum);display:flex;align-items:center;justify-content:center;line-height:1;min-height:3.6rem}
+.trust-chip{display:flex;align-items:center;justify-content:center;gap:.6rem;font-family:var(--serif);font-size:1.35rem;font-weight:500;color:var(--plum);line-height:1.15;min-height:3.6rem}
+.trust-chip svg{width:26px;height:26px;stroke:var(--rose);fill:none;stroke-width:1.5;flex-shrink:0}
+.trust-label{display:block;font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--rose-dark);margin-top:.7rem}
+/* ---------- hours + location ---------- */
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.hours-card{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:2.6rem 2.4rem}
+.hours-list{list-style:none;margin-top:1.6rem}
+.hours-list li{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px dotted rgba(138,118,128,.5);font-size:.98rem}
+.hours-list li:last-child{border-bottom:none}
+.hours-list li span:first-child{font-family:var(--serif);font-size:1.08rem;color:var(--plum);display:flex;align-items:center;gap:.7rem}
+.hours-list li span:last-child{color:var(--muted);font-weight:400}
+.hours-list li.closed span:last-child{color:var(--rose)}
+.hours-list li.today span:first-child::after{content:'Today';font-family:var(--sans);font-size:.6rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:var(--rose);border-radius:999px;padding:.22rem .6rem}
+.hours-list li.today span:last-child{color:var(--plum);font-weight:500}
+.hours-note{margin-top:1.3rem;font-size:.82rem;color:var(--muted);font-weight:300}
+.loc-item{display:flex;gap:1.1rem;align-items:flex-start;padding:1.4rem 0;border-bottom:1px solid var(--line)}
+.loc-item:last-of-type{border-bottom:none}
+.loc-icon{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--white);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.loc-icon svg{width:18px;height:18px;stroke:var(--rose);fill:none;stroke-width:1.7}
+.loc-item strong{display:block;font-family:var(--serif);font-weight:500;font-size:1.12rem;color:var(--plum);margin-bottom:.2rem}
+.loc-item p,.loc-item a.plain{font-size:.95rem;color:var(--muted);font-weight:300;text-decoration:none;line-height:1.6}
+.loc-item a.tel{font-family:var(--serif);font-size:1.3rem;color:var(--plum);text-decoration:none;display:inline-block;margin-top:.1rem;transition:color .2s}
+.loc-item a.tel:hover{color:var(--rose)}
+.directions{display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;font-size:.78rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);text-decoration:none;border-bottom:1px solid var(--rose);padding-bottom:.15rem;transition:color .2s,border-color .2s}
+.directions:hover{color:var(--rose-dark);border-color:var(--rose-dark)}
+/* ---------- reviews ---------- */
+.reviews{background:var(--white);border-top:1px solid var(--line)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:3.4rem;perspective:1200px}
+.review-card{background:var(--cream);border-radius:24px;padding:2.3rem 2.1rem;position:relative;transform-style:preserve-3d;will-change:transform;transition:box-shadow .3s}
+.review-card .q{font-family:var(--serif);font-size:4rem;line-height:.6;color:var(--blush);margin-bottom:1.2rem}
+.review-stars{color:var(--rose);letter-spacing:.14em;font-size:.85rem;margin-bottom:.9rem}
+.review-text{font-family:var(--serif);font-size:1.06rem;line-height:1.6;color:var(--plum);margin-bottom:1.5rem}
+.review-meta{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-top:1px solid var(--line);padding-top:1.1rem}
+.review-author{font-size:.88rem;font-weight:500;color:var(--plum)}
+.review-date{font-size:.75rem;color:var(--muted);margin-top:.1rem}
+.g-badge{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;display:flex;align-items:center;gap:.4rem}
+.g-badge b{font-family:Arial,sans-serif;font-size:.95rem;font-weight:700}
+.g-badge b span:nth-child(1){color:#4285F4}.g-badge b span:nth-child(2){color:#EA4335}.g-badge b span:nth-child(3){color:#FBBC05}.g-badge b span:nth-child(4){color:#4285F4}.g-badge b span:nth-child(5){color:#34A853}.g-badge b span:nth-child(6){color:#EA4335}
+/* ---------- cta band ---------- */
+.cta{background:var(--rose);text-align:center;padding:7rem 6%;overflow:hidden}
+.cta::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;height:900px;border-radius:50%;border:1px solid rgba(255,255,255,.14);pointer-events:none}
+.cta::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;border:1px solid rgba(255,255,255,.14);pointer-events:none}
+.cta-inner{position:relative;z-index:1}
+.cta .eyebrow{color:#fff;justify-content:center}
+.cta .eyebrow::before,.cta .eyebrow::after{background:#fff}
+.cta h2{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4.4rem);font-weight:500;line-height:1.05;color:#fff;margin-bottom:1.1rem}
+.cta h2 em{font-style:italic;font-weight:400;color:var(--blush)}
+.cta p{color:rgba(255,255,255,.85);font-size:1.02rem;font-weight:300;max-width:460px;margin:0 auto 2.4rem;line-height:1.7}
+.cta-actions{display:flex;gap:1.2rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.btn-white{display:inline-flex;align-items:center;background:#fff;color:var(--rose-dark);padding:1rem 2.2rem;border-radius:999px;font-family:var(--sans);font-size:.85rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;box-shadow:0 14px 40px rgba(0,0,0,.15)}
+.cta .btn-ghost{color:#fff;border-color:rgba(255,255,255,.7)}
+.cta .btn-ghost:hover{color:var(--blush);border-color:var(--blush)}
+/* ---------- footer ---------- */
+footer{background:var(--cream);padding:3rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.2rem;border-top:1px solid var(--line)}
+footer .f-logo{font-family:var(--serif);font-size:1.15rem;color:var(--plum)}
+footer .f-logo em{color:var(--rose);font-style:italic}
+footer p{color:var(--muted);font-size:.82rem;font-weight:300}
+footer a{color:var(--plum);font-size:.9rem;text-decoration:none;font-weight:500;border-bottom:1px solid var(--blush)}
+footer a:hover{color:var(--rose)}
+.reveal{opacity:0;transform:translateY(28px)}
+/* ---------- booking modal ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(58,42,51,.62);backdrop-filter:blur(10px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--cream);border-radius:26px;width:100%;max-width:540px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;box-shadow:0 30px 90px rgba(0,0,0,.3);border:1px solid var(--line)}
+.modal-header{padding:1.8rem 1.9rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-family:var(--serif);font-size:1.55rem;font-weight:500;color:var(--plum)}
+.modal-header h3 em{font-style:italic;color:var(--rose)}
+.modal-close{background:var(--white);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;font-size:1rem;cursor:pointer;color:var(--muted);line-height:1;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{color:var(--rose);border-color:var(--rose)}
+.modal-steps{display:flex;gap:.4rem;padding:.4rem 1.9rem 1.1rem;align-items:center}
+.step-dot{flex:1;height:3px;background:var(--line);border-radius:2px;transition:background .3s}
+.step-dot.active{background:var(--rose)}
+.step-dot.done{background:var(--blush)}
+.modal-body{padding:.6rem 1.9rem 1.6rem}
+.step-title{font-size:.72rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.service-option{background:var(--white);border:1.5px solid var(--line);border-radius:16px;padding:.95rem 1rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:.25rem}
+.service-option:hover{border-color:var(--rose)}
+.service-option.selected{border-color:var(--rose);background:var(--blush-soft)}
+.service-option .svc-name{font-family:var(--serif);font-size:1rem;font-weight:500;color:var(--plum);line-height:1.25}
+.service-option .svc-price{font-size:.9rem;font-weight:500;color:var(--rose)}
+.cal-month{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--serif);font-size:1.15rem;color:var(--plum);margin-bottom:.4rem}
+.cal-nav{display:flex;gap:.4rem}
+.cal-nav button{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--plum);font-size:1rem;line-height:1;cursor:pointer;transition:all .2s}
+.cal-nav button:hover:not(:disabled){border-color:var(--rose);color:var(--rose)}
+.cal-nav button:disabled{opacity:.35;cursor:default}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;margin-top:.5rem}
+.cal-day-name{text-align:center;font-size:.66rem;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding:.35rem 0}
+.cal-day{text-align:center;padding:0;width:100%;max-width:42px;margin:0 auto;border-radius:50%;font-size:.88rem;cursor:pointer;transition:all .2s;color:var(--plum);aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.cal-day.today:not(.selected){box-shadow:inset 0 0 0 1.5px var(--rose)}
+.cal-day:hover:not(.disabled){background:var(--blush)}
+.cal-day.selected{background:var(--rose);color:#fff;font-weight:500}
+.cal-day.disabled{color:#D6C7CB;pointer-events:none}
+.cal-day.empty{visibility:hidden}
+.cal-note{font-size:.76rem;color:var(--muted);margin-top:.8rem;font-weight:300}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.5rem}
+.time-slot{background:var(--white);border:1.5px solid var(--line);border-radius:999px;padding:.65rem;text-align:center;font-size:.86rem;font-weight:500;cursor:pointer;transition:all .2s;color:var(--plum)}
+.time-slot:hover{border-color:var(--rose)}
+.time-slot.selected{border-color:var(--rose);background:var(--rose);color:#fff}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.form-group input{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:.8rem 1rem;font-family:var(--sans);font-size:16px;color:var(--plum);background:var(--white);outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--rose)}
+.form-group input::placeholder{color:#BBA9AF}
+.modal-footer{position:sticky;bottom:0;background:var(--cream);box-shadow:0 -10px 18px -14px rgba(58,42,51,.3);padding:1rem 1.9rem 1.7rem;display:flex;gap:.7rem;justify-content:flex-end;flex-wrap:nowrap}
+.btn-back{background:none;border:1.5px solid var(--line);color:var(--muted);padding:.75rem 1.3rem;border-radius:999px;font-family:var(--sans);font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-back:hover{border-color:var(--plum);color:var(--plum)}
+.btn-next{background:var(--rose);color:#fff;border:none;padding:.75rem 1.7rem;border-radius:999px;font-family:var(--sans);font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap}
+.btn-next:hover{background:var(--rose-dark)}
+.confirm-screen{text-align:center;padding:.6rem 0 .2rem}
+.confirm-icon{width:64px;height:64px;border-radius:50%;background:var(--blush-soft);color:var(--rose);font-size:1.6rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.confirm-screen h3{font-family:var(--serif);font-size:1.7rem;font-weight:500;color:var(--plum);margin-bottom:.5rem}
+.confirm-screen h3 em{font-style:italic;color:var(--rose)}
+.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.92rem;font-weight:300}
+.confirm-detail{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:1rem 1.2rem;margin:1.3rem 0 1rem;text-align:left}
+.confirm-detail div{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;font-size:.88rem;border-bottom:1px dotted rgba(138,118,128,.45)}
+.confirm-detail div:last-child{border:none}
+.confirm-detail span:first-child{color:var(--muted);font-weight:400;letter-spacing:.06em;font-size:.76rem;text-transform:uppercase;padding-top:.15em}
+.confirm-detail span:last-child{color:var(--plum);font-weight:500;text-align:right}
+@media(hover:none){.review-card,.menu-note{transform:none!important}}
+@media(max-width:1024px){
+  .hero-collage{max-width:760px}
+  .wine-grid,.lash-grid{gap:3rem}
+  .reviews-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:860px){
+  section{padding:4.75rem 5%}
+  nav{padding:1rem 5%}
+  nav.scrolled{padding:.7rem 5%}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .nav-cta{padding:.6rem 1.05rem;font-size:.72rem}
+  .nav-logo{font-size:1.05rem;line-height:1.15;max-width:175px}
+  .nav-logo small{display:none}
+  .nav-logo .nb{white-space:nowrap}
+  .hero-eyebrow::before,.hero-eyebrow::after{display:none}
+  .hero{padding:7.5rem 5% 4rem}
+  .hero-eyebrow{letter-spacing:.16em;font-size:.62rem;white-space:nowrap}
+  .hero-actions{gap:.9rem}
+  .hero-collage{gap:.7rem;margin-top:3rem}
+  .collage-item{border-radius:14px}
+  .collage-item.center{border-radius:120px 120px 14px 14px}
+  .collage-item.left{margin-top:3rem}
+  .collage-item.right{margin-bottom:3rem}
+  .hero-badge{font-size:.74rem;padding:.6rem 1rem;gap:.5rem}
+  .marquee-strip{margin-top:1.5rem}
+  .menu-head{margin-bottom:2.4rem}
+  .menu-grid,.wine-grid,.lash-grid,.hours-grid,.reviews-grid{grid-template-columns:1fr}
+  .menu-col{padding:2.1rem 1.5rem;border-radius:20px}
+  .mi-name{white-space:normal}
+  .mi-desc{max-width:100%}
+  .wine-grid{gap:3.5rem}
+  .wine-photo{max-width:420px;width:100%;margin:0 auto}
+  .wine-quote{left:.6rem;bottom:1rem;max-width:200px}
+  .lash-grid{gap:2.6rem}
+  .lash-photo{max-width:480px;margin:0 auto;aspect-ratio:1/1;width:100%}
+  .gallery-grid{grid-template-columns:1fr 1fr;gap:.9rem}
+  .g-item:nth-child(2),.g-item:nth-child(4){margin-top:1.6rem}
+  .g-cap{opacity:1;transform:none;font-size:.62rem}
+  .trust{padding:3.5rem 5%}
+  .trust-inner{grid-template-columns:1fr 1fr;gap:2.4rem 1rem}
+  .trust-item{border-right:none;padding:0}
+  .trust-item:nth-child(odd){border-right:1px solid rgba(58,42,51,.12)}
+  .trust-num{font-size:2.5rem}
+  .trust-chip{font-size:1.25rem}
+  .hours-grid{gap:3rem}
+  .hours-card{padding:2rem 1.5rem}
+  .hours-list li{flex-wrap:wrap;row-gap:.25rem}
+  .hours-list li span:first-child{white-space:nowrap}
+  .hours-list li span:last-child{white-space:nowrap}
+  .review-card{padding:1.9rem 1.6rem}
+  .cta{padding:5rem 5%}
+  footer{flex-direction:column;text-align:center;align-items:center}
+  .modal{border-radius:20px}
+  .modal-header,.modal-steps,.modal-body,.modal-footer{padding-left:1.25rem;padding-right:1.25rem}
+  .modal-header h3{font-size:1.35rem}
+  .btn-back{padding:.7rem 1.1rem;font-size:.74rem}
+  .btn-next{padding:.7rem 1.3rem;font-size:.74rem}
+  .time-grid{gap:.45rem}
+  .time-slot{padding:.6rem .3rem;font-size:.8rem}
+}
+/* short laptop viewports (1366x625 etc.): the calendar step fits without scrolling */
+@media(max-height:700px){
+  .modal-header{padding-top:1.2rem;padding-bottom:.6rem}
+  .modal-body{padding-bottom:1rem}
+  .modal-footer{padding-top:.6rem;padding-bottom:1.2rem}
+  .cal-day{max-width:36px}
+  .calendar-grid{gap:.2rem}
+  .cal-note{margin-top:.5rem}
+}
+/* ---------- no-GSAP fallback (CDN blocked / offline): every entrance-hidden state resets to visible ---------- */
+html.no-gsap .hero-eyebrow,html.no-gsap .hero-lede,html.no-gsap .hero-actions,html.no-gsap .hero-title .line span,html.no-gsap .collage-item,html.no-gsap .hero-badge,html.no-gsap .reveal{opacity:1;transform:none}
+html.no-gsap #progressBar{display:none}
+html.no-gsap .marquee-inner{animation:marquee 30s linear infinite}
+@keyframes marquee{to{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+<!--
+PIPELINE DATA NOTES (internal) - Cottman Nails Bar & Eyelash demo
+VERIFIED (Google Maps lookup 2026-09-24): business name "Cottman Nails Bar & Eyelash"; address 2301 Cottman Ave Ste 70, Philadelphia, PA 19149 (inside Roosevelt Mall); phone (215) 935-0000 / tel:2159350000; rating 4.5; 202 Google reviews; no existing website (Maps shows "Add website").
+[CONFIRM BEFORE VISIT] Hours are ASSUMED mall hours, not verified: Mon-Sat 10:00 AM - 8:00 PM, Sun 11:00 AM - 6:00 PM. CLOSED_DAYS is empty (open 7 days) - confirm with the owner.
+[CONFIRM BEFORE VISIT] All prices are Philly-market ESTIMATES: Classic Manicure $22, Gel Manicure $35, Classic Pedicure $32, Gel Pedicure $45, Full Set (Acrylic) $55, Fill-In $35, Eyelash Extensions (full set) $80, Nail Art / Add-On from $5.
+[CONFIRM BEFORE VISIT] Years in business / founding year: unknown, intentionally NOT shown anywhere on the page.
+[CONFIRM BEFORE VISIT] Complimentary wine is described by reviewers; confirm current policy (and any age/ID rules) before promising it in marketing copy.
+[CONFIRM BEFORE VISIT] Booking slots are hourly 10 AM - 7 PM (11 AM - 5 PM Sundays) and are a demo only - the modal does not send anything anywhere yet.
+Review cards are paraphrased themes from public reviews (relaxed atmosphere, wine, 3-week gel, spa pedicure, natural lashes, welcoming staff, Roosevelt Mall convenience) with fictional first-name authors - never verbatim quotes, no staff names.
+Photos are Unsplash stock from the approved allowlist, not the salon's own work - swap for real photos after the sale.
+-->
+<div id="progressBar"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<nav id="nav">
+  <a href="#top" class="nav-logo">Cottman Nails Bar <span class="nb"><em>&amp;</em> Eyelash</span><small>Roosevelt Mall · Philadelphia</small></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#wine">Wine Bar</a></li>
+    <li><a href="#lashes">Lashes</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-cta" onclick="openModal();return false">Book Now</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <button class="drawer-close" aria-label="Close menu" onclick="closeDrawer()">✕</button>
+  <a href="#menu" onclick="closeDrawer()">Menu</a>
+  <a href="#wine" onclick="closeDrawer()">Wine Bar</a>
+  <a href="#lashes" onclick="closeDrawer()">Lashes</a>
+  <a href="#gallery" onclick="closeDrawer()">Gallery</a>
+  <a href="#hours" onclick="closeDrawer()">Hours</a>
+  <a href="#reviews" onclick="closeDrawer()">Reviews</a>
+  <div class="drawer-foot">
+    <a href="tel:2159350000">(215) 935-0000</a>
+    <a href="#" class="btn-primary" onclick="closeDrawer();openModal();return false">Book an Appointment</a>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Inside Roosevelt Mall · Philadelphia</p>
+    <h1 class="hero-title">
+      <span class="line"><span>Nails, lashes &amp;</span></span>
+      <span class="line"><span>a glass of <em>wine</em>.</span></span>
+    </h1>
+    <p class="hero-lede">A relaxed nail bar where the polish is flawless, the chairs are comfortable, and nobody is watching the clock. Sit back — your glass is on us.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="openModal();return false">Book an Appointment</a>
+      <a href="tel:2159350000" class="btn-ghost">Call (215) 935-0000</a>
+    </div>
+  </div>
+  <div class="hero-collage">
+    <figure class="collage-item left"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=800&q=80" alt="Fresh manicure with soft pink polish"></figure>
+    <figure class="collage-item center"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1600&q=80" alt="Close-up of a finished gel manicure"></figure>
+    <figure class="collage-item right"><img src="https://images.unsplash.com/photo-1604655855763-1fcc8ab96de3?w=800&q=80" alt="Hand-painted nail art detail"></figure>
+    <div class="hero-badge-wrap"><div class="hero-badge" id="heroBadge"><span class="stars">★★★★★</span><span>4.5 rating</span><span class="sep"></span><span class="muted">202 Google reviews</span></div></div>
+  </div>
+</header>
+
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marquee">
+    <span>Gel Manicures</span><span class="dot">✦</span><span>Spa Pedicures</span><span class="dot">✦</span><span>Eyelash Extensions</span><span class="dot">✦</span><span>Acrylic Full Sets</span><span class="dot">✦</span><span>Complimentary Wine</span><span class="dot">✦</span><span>4.5 Stars · 202 Reviews</span><span class="dot">✦</span><span>Inside Roosevelt Mall</span><span class="dot">✦</span>
+    <span>Gel Manicures</span><span class="dot">✦</span><span>Spa Pedicures</span><span class="dot">✦</span><span>Eyelash Extensions</span><span class="dot">✦</span><span>Acrylic Full Sets</span><span class="dot">✦</span><span>Complimentary Wine</span><span class="dot">✦</span><span>4.5 Stars · 202 Reviews</span><span class="dot">✦</span><span>Inside Roosevelt Mall</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="menu-head reveal">
+      <div>
+        <p class="eyebrow">Services &amp; Pricing</p>
+        <h2 class="title">The <em>menu</em></h2>
+      </div>
+      <p class="lead">Simple, honest pricing. Pick what you are in the mood for, or let your tech help you choose when you sit down.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-col reveal">
+        <h3>Nails</h3>
+        <ul class="menu-list">
+          <li><div class="mi-line"><span class="mi-name">Classic Manicure</span><span class="mi-dots"></span><span class="mi-price">$22</span></div><p class="mi-desc">Shaping, cuticle care and a classic polish finish.</p></li>
+          <li><div class="mi-line"><span class="mi-name">Gel Manicure</span><span class="mi-dots"></span><span class="mi-price">$35</span></div><p class="mi-desc">Chip-resistant gel color that stays glossy for weeks.</p></li>
+          <li><div class="mi-line"><span class="mi-name">Classic Pedicure</span><span class="mi-dots"></span><span class="mi-price">$32</span></div><p class="mi-desc">Soak, exfoliation, shaping and classic polish.</p></li>
+          <li><div class="mi-line"><span class="mi-name">Gel Pedicure</span><span class="mi-dots"></span><span class="mi-price">$45</span></div><p class="mi-desc">The full pedicure, finished in long-wear gel.</p></li>
+          <li><div class="mi-line"><span class="mi-name">Full Set (Acrylic)</span><span class="mi-dots"></span><span class="mi-price">$55</span></div><p class="mi-desc">Sculpted acrylic in the length and shape you want.</p></li>
+          <li><div class="mi-line"><span class="mi-name">Fill-In</span><span class="mi-dots"></span><span class="mi-price">$35</span></div><p class="mi-desc">Refresh the regrowth and keep your set looking new.</p></li>
+        </ul>
+      </div>
+      <div class="menu-col reveal">
+        <h3>Lashes &amp; Add-Ons</h3>
+        <ul class="menu-list">
+          <li><div class="mi-line"><span class="mi-name">Eyelash Extensions (full set)</span><span class="mi-dots"></span><span class="mi-price">$80</span></div><p class="mi-desc">Lightweight, lash-by-lash extensions with a natural, feathery finish.</p></li>
+          <li><div class="mi-line"><span class="mi-name">Nail Art / Add-On</span><span class="mi-dots"></span><span class="mi-price">from $5</span></div><p class="mi-desc">Accent nails, French tips and custom designs — ask your tech.</p></li>
+        </ul>
+        <div class="menu-note tilt">
+          <span class="note-eyebrow">Always included</span>
+          <h4>A glass of wine, on us</h4>
+          <p>Settle in with a complimentary glass while we work. Nails and lashes can be booked together, so one visit covers both.</p>
+        </div>
+      </div>
+    </div>
+    <p class="menu-foot reveal">Prices are starting points — your tech will confirm before anything begins. Walk in, call, or book online.</p>
+  </div>
+</section>
+
+<section class="wine" id="wine">
+  <div class="wrap wine-grid">
+    <div class="reveal">
+      <p class="eyebrow">The Wine Bar</p>
+      <h2 class="wine-title">Sit back. <em>Sip.</em><br>Take your time.</h2>
+      <p>This is the part our regulars talk about. Settle into your chair with a complimentary glass of wine while we work, and let a nail appointment feel like a night out — minus the rush. A treat, not a chore.</p>
+      <div class="wine-chips">
+        <span class="wine-chip"><svg viewBox="0 0 24 24"><path d="M8 3h8l1 7a5 5 0 0 1-10 0z"/><path d="M12 15v6M8 21h8"/></svg>Complimentary glass</span>
+        <span class="wine-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Never rushed</span>
+        <span class="wine-chip"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10z"/></svg>Welcoming staff</span>
+      </div>
+    </div>
+    <div class="wine-photo reveal">
+      <div class="wine-photo-inner"><img id="wineImg" src="https://images.unsplash.com/photo-1503431153011-67ab4e60e094?w=1600&q=80" alt="Spa pedicure setting with warm, calm lighting" loading="lazy"></div>
+      <div class="wine-quote"><p>“They hand you a glass and you just breathe.”</p><small>From a Google review</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="lashes">
+  <div class="wrap lash-grid">
+    <div class="lash-photo reveal">
+      <img src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?w=1600&q=80" alt="Finished gel nails held up to the light" loading="lazy">
+      <span class="tag">Nails + Lashes</span>
+    </div>
+    <div class="lash-text reveal">
+      <p class="eyebrow">Eyelash Extensions</p>
+      <h2 class="title">Lashes that look like <em>yours</em>, only better</h2>
+      <p class="lead">Wake up ready. Our lash sets are applied one by one for a natural, weightless look that holds up to real life.</p>
+      <ul class="bullets">
+        <li><div class="bul-icon"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div><div><strong>Natural by design</strong><p>Length and curl matched to your eye shape, so the result reads as effortless rather than dramatic.</p></div></li>
+        <li><div class="bul-icon"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div><div><strong>Gentle and unhurried</strong><p>Lie back in a quiet chair while your set is applied. Most guests find it the most relaxing hour of their week.</p></div></li>
+        <li><div class="bul-icon"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div><div><strong>Pair it with your nails</strong><p>Book lashes and a manicure in the same visit and leave completely done.</p></div></li>
+      </ul>
+      <div class="lash-price"><span class="p">$80</span><span>Full set</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="centered reveal">
+      <p class="eyebrow">Recent Work</p>
+      <h2 class="title">Fresh from <em>the chair</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=800&q=80" alt="Glossy gel manicure in a neutral shade" loading="lazy"><span class="g-cap">Gel Manicure</span></div>
+      <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?w=800&q=80" alt="Pedicure in progress at the spa chair" loading="lazy"><span class="g-cap">Spa Pedicure</span></div>
+      <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=800&q=80" alt="Manicure with delicate nail art accents" loading="lazy"><span class="g-cap">Nail Art</span></div>
+      <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1604655855763-1fcc8ab96de3?w=800&q=80" alt="Detailed hand-painted nail design" loading="lazy"><span class="g-cap">Full Set</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-item reveal"><span class="trust-num" data-target="4.5" data-decimals="1" data-suffix="★">0</span><span class="trust-label">Google Rating</span></div>
+    <div class="trust-item reveal"><span class="trust-num" data-target="202">0</span><span class="trust-label">Google Reviews</span></div>
+    <div class="trust-item reveal"><span class="trust-chip"><svg viewBox="0 0 24 24"><path d="M8 3h8l1 7a5 5 0 0 1-10 0z"/><path d="M12 15v6M8 21h8"/></svg>Complimentary Wine</span><span class="trust-label">With your service</span></div>
+    <div class="trust-item reveal"><span class="trust-chip"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>Nails + Lashes</span><span class="trust-label">One visit, all done</span></div>
+  </div>
+</div>
+
+<section id="hours">
+  <div class="wrap hours-grid">
+    <div class="hours-card reveal">
+      <p class="eyebrow">Hours</p>
+      <h2 class="title">Open <em>seven</em> days</h2>
+      <ul class="hours-list" id="hoursList">
+        <li data-days="1,2,3,4,5,6"><span>Monday – Saturday</span><span>10:00 AM – 8:00 PM</span></li>
+        <li data-days="0"><span>Sunday</span><span>11:00 AM – 6:00 PM</span></li>
+      </ul>
+      <p class="hours-note">Walk-ins are welcome when a chair is free — booking ahead guarantees your time.</p>
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Find Us</p>
+      <h2 class="title">Inside Roosevelt Mall, <em>Suite 70</em></h2>
+      <div class="loc-item">
+        <div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <div><strong>2301 Cottman Ave Ste 70</strong><p>Philadelphia, PA 19149 · inside Roosevelt Mall</p>
+          <a class="directions" href="https://www.google.com/maps/search/?api=1&query=2301+Cottman+Ave+Ste+70+Philadelphia+PA+19149" target="_blank" rel="noopener">Get Directions →</a></div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icon"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
+        <div><strong>Call or text ahead</strong><a class="tel" href="tel:2159350000">(215) 935-0000</a></div>
+      </div>
+      <div class="loc-item">
+        <div class="loc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2M3 12h18"/></svg></div>
+        <div><strong>Easy mall parking</strong><p>Park once, get your nails done, and finish your errands — all under one roof.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="centered reveal">
+      <p class="eyebrow">Kind Words</p>
+      <h2 class="title">4.5 stars across <em>202</em> Google reviews</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card tilt reveal">
+        <div class="q">“</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">The whole place is so relaxed — they offered me a glass of wine and I just melted into the chair. My gel manicure is still perfect three weeks later, not a single chip.</p>
+        <div class="review-meta"><div><div class="review-author">Danielle K.</div><div class="review-date">2 weeks ago</div></div><div class="g-badge"><b><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></b></div></div>
+      </div>
+      <div class="review-card tilt reveal">
+        <div class="q">“</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Honestly the spa pedicure was the best part of my week. The staff were warm from the second I walked in and nobody rushed me through a single step.</p>
+        <div class="review-meta"><div><div class="review-author">Marisol T.</div><div class="review-date">1 month ago</div></div><div class="g-badge"><b><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></b></div></div>
+      </div>
+      <div class="review-card tilt reveal">
+        <div class="q">“</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Got my lashes done here and they look completely natural — people think they are mine. So easy to pop in while I am already at Roosevelt Mall.</p>
+        <div class="review-meta"><div><div class="review-author">Ashley R.</div><div class="review-date">3 weeks ago</div></div><div class="g-badge"><b><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></b></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-inner reveal">
+    <p class="eyebrow">Book Online</p>
+    <h2>Your chair is <em>waiting</em>.</h2>
+    <p>Pick a service, a day and a time in under a minute. Prefer to talk to a person? Call and we will find you a spot.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-white" id="magneticCta" onclick="openModal();return false">Book an Appointment</a>
+      <a href="tel:2159350000" class="btn-ghost">(215) 935-0000</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Cottman Nails Bar <em>&amp;</em> Eyelash</div>
+  <p>© 2026 Cottman Nails Bar &amp; Eyelash · 2301 Cottman Ave Ste 70, Philadelphia, PA 19149</p>
+  <a href="tel:2159350000">(215) 935-0000</a>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" data-lenis-prevent>
+    <div class="modal-header">
+      <h3 id="modalTitle">Book an Appointment</h3>
+      <button class="modal-close" aria-label="Close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+/* ---- Library guard: if the CDN is blocked or offline, gsap / ScrollTrigger / Lenis are undefined. The page must still be
+   fully visible and usable, so <html> gets class "no-gsap" (CSS resets every entrance-hidden state) and all animation code
+   is skipped. The booking modal, drawer and hours logic below never touch gsap directly. ---- */
+const HAS_GSAP=!!(window.gsap&&window.ScrollTrigger);
+if(!HAS_GSAP)document.documentElement.classList.add('no-gsap');
+
+/* ---- Smooth scroll (Lenis), driven once per frame by the GSAP ticker (never a second rAF loop) ---- */
+let lenis=null;
+if(HAS_GSAP){
+  gsap.registerPlugin(ScrollTrigger);
+  if(typeof Lenis==='function'){
+    lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(time=>{lenis.raf(time*1000)});
+    gsap.ticker.lagSmoothing(0);
+  }
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href'),target=id.length>1?document.querySelector(id):null;
+    if(!target)return;
+    e.preventDefault();closeDrawer();
+    if(lenis)lenis.scrollTo(id,{offset:-80});
+    else window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});
+  });
+});
+
+/* ---- Custom cursor (real mouse at desktop widths only; CSS hides it everywhere else) ---- */
+if(HAS_GSAP&&matchMedia('(hover:hover) and (pointer:fine) and (min-width:861px)').matches){
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cursor,{x:mx,y:my,duration:.08})});
+  (function tick(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
+  document.querySelectorAll('a,button,.service-option,.cal-day,.time-slot,.g-item,.collage-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.8,opacity:.9,duration:.25});gsap.to(cursor,{scale:.6,duration:.25})});
+    el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:.45,duration:.25});gsap.to(cursor,{scale:1,duration:.25})});
+  });
+}
+
+/* ---- Mobile drawer (explicit close button inside the drawer + ESC key, see keydown listener below) ---- */
+function toggleDrawer(){
+  const open=document.getElementById('mobileDrawer').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open',open);
+  document.getElementById('hamburger').setAttribute('aria-expanded',open?'true':'false');
+  document.getElementById('drawerOverlay').classList.toggle('open',open);
+}
+function closeDrawer(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded','false');
+  document.getElementById('mobileDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+
+if(HAS_GSAP){
+  /* ---- Scroll progress ---- */
+  gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+
+  /* ---- Hero entrance: every hidden element ends fully visible ---- */
+  const tl=gsap.timeline({delay:.2});
+  tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.8,ease:'expo.out'})
+    .to('.hero-title .line span',{y:0,opacity:1,duration:1.05,ease:'expo.out',stagger:.14},'-=.45')
+    .to('.hero-lede',{opacity:1,y:0,duration:.7,ease:'expo.out'},'-=.55')
+    .to('.hero-actions',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.4')
+    .to('.collage-item',{opacity:1,y:0,scale:1,duration:1.1,ease:'expo.out',stagger:.12},'-=.5')
+    .to('#heroBadge',{opacity:1,y:0,duration:.6,ease:'back.out(1.6)'},'-=.4');
+  gsap.to('.collage-item.left',{y:-14,duration:3.2,repeat:-1,yoyo:true,ease:'sine.inOut',delay:2.2});
+  gsap.to('.collage-item.right',{y:14,duration:3.6,repeat:-1,yoyo:true,ease:'sine.inOut',delay:2.4});
+  gsap.to('#wineImg',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'.wine',start:'top bottom',end:'bottom top',scrub:true}});
+
+  /* ---- Nav condenses after scroll ---- */
+  ScrollTrigger.create({trigger:'body',start:'60px top',
+    onEnter:()=>document.getElementById('nav').classList.add('scrolled'),
+    onLeaveBack:()=>document.getElementById('nav').classList.remove('scrolled')
+  });
+
+  /* ---- Marquee: duplicated span set, seamless -50% loop ---- */
+  gsap.to('#marquee',{xPercent:-50,duration:30,repeat:-1,ease:'none'});
+
+  /* ---- Reveal on scroll ---- */
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'expo.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%3)*.08});
+  });
+
+  /* ---- Count-up numbers ---- */
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-target'));
+    const decimals=parseInt(el.getAttribute('data-decimals')||'0');
+    const suffix=el.getAttribute('data-suffix')||'';
+    const obj={val:0};
+    gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},
+      onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
+  });
+
+  /* ---- 3D tilt + magnetic CTA (desktop only) ---- */
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+    document.querySelectorAll('.tilt').forEach(card=>{
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+        gsap.to(card,{rotateY:x/28,rotateX:-y/28,duration:.45,ease:'power2.out',transformPerspective:900});
+      });
+      card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.6,ease:'power2.out'})});
+    });
+    const magBtn=document.getElementById('magneticCta');
+    magBtn.addEventListener('mousemove',e=>{
+      const r=magBtn.getBoundingClientRect();
+      gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.28,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
+    });
+    magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.5,ease:'elastic.out(1,.4)'})});
+  }
+}else{
+  /* ---- No-GSAP fallback: CSS shows the static end states; nav condense and count-up values are set natively ---- */
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60),{passive:true});
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    el.textContent=parseFloat(el.getAttribute('data-target')).toFixed(parseInt(el.getAttribute('data-decimals')||'0'))+(el.getAttribute('data-suffix')||'');
+  });
+}
+
+/* ---- Hours: CLOSED_DAYS drives both the list and the calendar ---- */
+const CLOSED_DAYS=[]; /* 0=Sun ... 6=Sat. Open 7 days (assumed mall hours). */
+(function(){
+  const day=new Date().getDay();
+  document.querySelectorAll('#hoursList li').forEach(li=>{
+    const days=li.getAttribute('data-days').split(',').map(Number);
+    if(days.some(d=>CLOSED_DAYS.includes(d)))li.classList.add('closed');
+    if(days.includes(day))li.classList.add('today');
+  });
+})();
+
+/* ===== Booking modal (this IS the booking system) ===== */
+const SERVICES=[['Classic Manicure','$22'],['Gel Manicure','$35'],['Classic Pedicure','$32'],['Gel Pedicure','$45'],['Full Set (Acrylic)','$55'],['Fill-In','$35'],['Eyelash Extensions (full set)','$80'],['Nail Art / Add-On','from $5']];
+const WEEKDAY_TIMES=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM'];
+const SUNDAY_TIMES=['11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const LONG_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hourOf=t=>{let h=parseInt(t,10);const pm=/PM/i.test(t);if(pm&&h!==12)h+=12;if(!pm&&h===12)h=0;return h};
+/* Slots for a given day: Sunday runs 11 AM - 5 PM (closes 6), Mon-Sat 10 AM - 7 PM (closes 8).
+   If the day is today, only hours still ahead of the clock are offered. */
+function slotsFor(y,m,d){
+  const date=new Date(y,m,d),now=new Date();
+  const base=date.getDay()===0?SUNDAY_TIMES:WEEKDAY_TIMES;
+  const isToday=date.getFullYear()===now.getFullYear()&&date.getMonth()===now.getMonth()&&date.getDate()===now.getDate();
+  return isToday?base.filter(t=>hourOf(t)>now.getHours()):base;
+}
+let step=1,calOffset=0,chosen={};
+function resetChosen(){chosen={service:'',date:'',ymd:null,dow:-1,time:'',name:'',phone:'',notes:''}}
+resetChosen();
+const titles=['Choose a <em>Service</em>','Pick a <em>Day</em>','Pick a <em>Time</em>','Your <em>Details</em>','<em>Booked</em>'];
+function openModal(){
+  step=1;calOffset=0;resetChosen();renderStep();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(lenis)lenis.stop(); /* page cannot scroll behind the modal; #modal has data-lenis-prevent so it scrolls itself */
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  if(lenis)lenis.start();
+}
+function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDrawer()}});
+function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function pickService(i){chosen.service=SERVICES[i][0];renderStep()}
+function pickDate(y,m,d){chosen.date=`${MONTHS[m]} ${d}, ${y}`;chosen.ymd=[y,m,d];chosen.dow=new Date(y,m,d).getDay();chosen.time='';renderStep()}
+function pickTime(t){chosen.time=t;renderStep()}
+function shiftMonth(n){calOffset=Math.max(0,Math.min(2,calOffset+n));renderStep()}
+function renderStep(){
+  document.getElementById('modalTitle').innerHTML=titles[step-1];
+  setStepDots();
+  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
+  body.innerHTML='';foot.innerHTML='';
+  if(step===1){
+    body.innerHTML=`<div class="step-title">What are you in the mood for?</div><div class="service-grid">
+      ${SERVICES.map(([n,p],i)=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="pickService(${i})">
+        <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue</button>`;
+  } else if(step===2){
+    const now=new Date(),view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
+    const first=view.getDay(),days=new Date(y,m+1,0).getDate();
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    let cal=`<div class="step-title">Which day works for you?</div>
+      <div class="cal-month"><span>${LONG_MONTHS[m]} ${y}</span><span class="cal-nav"><button type="button" aria-label="Previous month" onclick="shiftMonth(-1)"${calOffset===0?' disabled':''}>‹</button><button type="button" aria-label="Next month" onclick="shiftMonth(1)"${calOffset>=2?' disabled':''}>›</button></span></div>
+      <div class="calendar-grid">
+      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
+      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
+    for(let d=1;d<=days;d++){
+      const dt=`${MONTHS[m]} ${d}, ${y}`,date=new Date(y,m,d),dow=date.getDay(),isToday=date.getTime()===today.getTime();
+      const off=date<today||CLOSED_DAYS.includes(dow)||(isToday&&!slotsFor(y,m,d).length);
+      cal+=`<div class="cal-day${off?' disabled':chosen.date===dt?' selected':''}${isToday?' today':''}"${!off?` onclick="pickDate(${y},${m},${d})"`:''}>${d}</div>`}
+    const closedNote=CLOSED_DAYS.length?'Closed on '+CLOSED_DAYS.map(d=>['Sundays','Mondays','Tuesdays','Wednesdays','Thursdays','Fridays','Saturdays'][d]).join(' and ')+'.':'Open seven days a week. Sunday hours are 11:00 AM to 6:00 PM.';
+    body.innerHTML=cal+`</div><p class="cal-note">${closedNote}</p>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue</button>`;
+  } else if(step===3){
+    const times=chosen.ymd?slotsFor(...chosen.ymd):[];
+    if(!times.includes(chosen.time))chosen.time='';
+    const hoursNote=chosen.dow===0?'Sunday hours are 11:00 AM – 6:00 PM; last start 5:00 PM.':'Open 10:00 AM – 8:00 PM; last start 7:00 PM.';
+    body.innerHTML=`<div class="step-title">Pick a start time · ${esc(chosen.date)}</div>`+
+      (times.length?`<div class="time-grid">${times.map(t=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="pickTime('${t}')">${t}</div>`).join('')}</div>`
+                  :`<p class="cal-note">No more start times today — please pick another day.</p>`)+
+      `<p class="cal-note">${hoursNote}</p>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue</button>`;
+  } else if(step===4){
+    body.innerHTML=`<div class="step-title">Almost done — who is this for?</div>
+      <div class="form-group"><label for="fn">Full Name</label><input id="fn" placeholder="Your name" autocomplete="name" value="${esc(chosen.name)}"></div>
+      <div class="form-group"><label for="fp">Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" autocomplete="tel" value="${esc(chosen.phone)}"></div>
+      <div class="form-group"><label for="fv">Nail tech preference / notes (optional)</label><input id="fv" placeholder="e.g. gel removal, coming with a friend" value="${esc(chosen.notes)}"></div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">Back</button>
+      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value.trim();chosen.phone=document.getElementById('fp').value.trim();chosen.notes=document.getElementById('fv').value.trim();if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Booking</button>`;
+  } else {
+    body.innerHTML=`<div class="confirm-screen">
+      <div class="confirm-icon">✦</div>
+      <h3>See you soon, <em>${esc(chosen.name.split(' ')[0])}</em>.</h3>
+      <p>Your request is in. We will text or call to confirm, and your glass will be waiting when you arrive.</p>
+      <div class="confirm-detail">
+        <div><span>Service</span><span>${esc(chosen.service)}</span></div>
+        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
+        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
+        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
+        ${chosen.notes?`<div><span>Notes</span><span>${esc(chosen.notes)}</span></div>`:''}
+      </div>
+      <p style="font-size:.8rem">Need to change anything? Call (215) 935-0000.</p>
+    </div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done</button>`;
+  }
+}
+</script>
+</body>
+</html>
