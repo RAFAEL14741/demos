@@ -316,6 +316,8 @@ html.drawer-open:not(.lenis){overflow:hidden}
 .js-anim .hero [data-split]{visibility:hidden}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
 .w>span{display:inline-block}
+.js-anim .ribbon-track{animation:none}
+@media(prefers-reduced-motion:reduce){.ribbon-track,.badge-ring{animation:none}}
 .badge{transition:transform .45s var(--ease-out)}
 @media(hover:hover) and (pointer:fine){
   .badge:hover{transform:scale(1.04)}
@@ -759,6 +761,27 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   history.replaceState(null, '', id);
 }));
 document.addEventListener('fma:drawer', e => { if (FMA.lenis) e.detail.open ? FMA.lenis.stop() : FMA.lenis.start(); });
+
+/* ============================================================
+   MARQUEE — constant slow drift, but scroll velocity feeds its timeScale:
+   fast scrolling speeds it up (or reverses it), then it eases back to base.
+   ============================================================ */
+(() => {
+  if (!animate) return;
+  const track = document.querySelector('.ribbon-track');
+  const drift = gsap.to(track, { xPercent: -50, duration: 38, ease: 'none', repeat: -1 });
+  FMA.marquee = drift;
+  let target = 1, current = 1;
+  ScrollTrigger.create({ onUpdate: self => { target = gsap.utils.clamp(-4, 6, 1 + self.getVelocity() / 750); } });
+  gsap.ticker.add((t, dt) => {
+    const s = Math.min(1, dt / 1000);
+    target += (1 - target) * Math.min(1, s * 2.4);        // velocity impulse decays back to base
+    current += (target - current) * Math.min(1, s * 9);   // timeScale follows with a little inertia
+    if (Math.abs(current - drift.timeScale()) > .001) drift.timeScale(current);
+  });
+  ScrollTrigger.create({ trigger: '.ribbon', start: 'top bottom', end: 'bottom top',
+    onToggle: self => { drift.paused(!self.isActive); } });   // don't animate what isn't on screen
+})();
 
 /* ============================================================
    HEADER — scroll-linked shrink + blur (interpolated, never a class snap)
