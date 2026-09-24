@@ -135,7 +135,10 @@ html.drawer-open:not(.lenis){overflow:hidden}
 .sec--cream{background:var(--paper);color:var(--navy)}
 .sec--dark{background:var(--navy);color:var(--cream)}
 .sec--work{z-index:2;padding-top:8.5rem}
-.sec--process{z-index:3}
+.sec--process{z-index:3;background:transparent;border-radius:0}
+.sec--process::before{content:'';position:absolute;left:0;right:0;top:calc(var(--r-sec) + 2px);bottom:0;background:var(--navy)}
+.sec--process .curve{position:absolute;left:0;right:0;top:0;height:calc(var(--r-sec) + 4px);background:var(--navy);border-radius:var(--r-sec) var(--r-sec) 0 0}
+.sec--process .wrap{position:relative;z-index:1}
 .sec--story{z-index:4}
 .sec--contact{z-index:5}
 .sec-head{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:3rem 5rem;align-items:end;margin-bottom:3.5rem}
@@ -182,7 +185,7 @@ html.drawer-open:not(.lenis){overflow:hidden}
 .steps{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
 .step{padding:2.2rem 1.8rem 2.4rem;border:1px solid var(--line-l);border-radius:24px;background:var(--navy-2);display:flex;flex-direction:column;min-height:340px}
 .step-when{font-family:var(--ff-label);font-weight:800;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber)}
-.step-num{font-family:var(--ff-label);font-weight:900;font-size:5.6rem;line-height:.9;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px rgba(244,241,234,.2);margin:1.2rem 0 auto}
+.step-num{font-family:var(--ff-label);font-weight:900;font-size:5.6rem;line-height:.9;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px var(--num-stroke,rgba(244,241,234,.2));margin:1.2rem 0 auto}
 .step h3{font-size:1.25rem;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin:1.6rem 0 .7rem}
 .step p{font-size:.9rem;line-height:1.65;color:rgba(244,241,234,.66)}
 
@@ -322,6 +325,8 @@ html.drawer-open:not(.lenis){overflow:hidden}
 .js-anim.fine .story-photo[data-reveal]:not([data-revealed]){clip-path:inset(0% 0% 100% 0%)}
 .js-anim:not(.fine) [data-reveal]:not([data-revealed]){opacity:0}
 .panels{position:relative}
+.js-anim [data-step]:not([data-shown]){opacity:0;transform:translateY(40px)}
+.js-anim [data-num]{--num-stroke:transparent}
 @media(prefers-reduced-motion:reduce){.ribbon-track,.badge-ring{animation:none}}
 .badge{transition:transform .45s var(--ease-out)}
 @media(hover:hover) and (pointer:fine){
@@ -507,6 +512,7 @@ html.drawer-open:not(.lenis){overflow:hidden}
 
 <!-- ============================================================ 02 — HOW IT WORKS -->
 <section class="sec sec--dark sec--process" id="process">
+  <div class="curve" aria-hidden="true"></div>
   <div class="wrap">
     <div class="sec-head">
       <div class="ghost" data-ghost aria-hidden="true">No Surprises</div>
@@ -821,6 +827,27 @@ const armReveals = (root) => {
     };
     M ? M.animate(from, { opacity: [1, 0], y: [0, -12] }, { duration: .16, ease: 'easeIn' }).finished.then(swap) : swap();
   };
+})();
+
+/* ============================================================
+   02 — HOW IT WORKS
+   The rounded top edge scrubs from nearly flat to its full radius as the
+   dark card slides over the cream section; the four steps stagger in and
+   their outline numerals switch on amber one after another.
+   ============================================================ */
+(() => {
+  if (!animate) return;
+  const sec = document.querySelector('.sec--process'), curve = sec.querySelector('.curve');
+  const R = () => parseFloat(getComputedStyle(sec).getPropertyValue('--r-sec')) || 56;
+  if (rich) gsap.fromTo(curve, { borderTopLeftRadius: 6, borderTopRightRadius: 6 },
+    { borderTopLeftRadius: () => R(), borderTopRightRadius: () => R(), ease: 'none',
+      scrollTrigger: { trigger: sec, start: 'top bottom', end: 'top 55%', scrub: .5, invalidateOnRefresh: true } });
+
+  const steps = gsap.utils.toArray('[data-step]'), nums = gsap.utils.toArray('[data-num]');
+  ScrollTrigger.create({ trigger: '.steps', start: 'top 82%', once: true, onEnter: () => {
+    gsap.to(steps, { opacity: 1, y: 0, duration: 1, stagger: .12, ease: 'power3.out', onComplete: () => steps.forEach(el => { el.dataset.shown = '1'; gsap.set(el, { clearProps: 'all' }); }) });
+    gsap.to(nums, { '--num-stroke': '#CF8C4A', duration: .55, stagger: .16, ease: 'power2.inOut', delay: .35 });
+  } });
 })();
 
 /* ============================================================
