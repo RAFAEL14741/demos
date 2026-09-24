@@ -684,6 +684,7 @@ html.drawer-open:not(.lenis){overflow:hidden}
   let step = 0;
   const body = $('#wizBody'), bar = $('#wizBar'), next = $('#wizNext'), back = $('#wizBack'), stepLbl = $('#wizStep');
 
+  const setProgress = pct => window.FMA?.wizardProgress ? FMA.wizardProgress(bar, pct) : (bar.style.width = pct + '%');
   const sync = () => {
     $$('[data-field]', body).forEach(b => b.classList.toggle('is-on', state[b.dataset.field] === b.dataset.value));
     next.disabled = !STEPS[step].valid(state);
@@ -692,28 +693,31 @@ html.drawer-open:not(.lenis){overflow:hidden}
     const s = STEPS[step];
     body.innerHTML = `<h3 class="wiz-q">${s.q}</h3><p class="wiz-hint">${s.hint}</p>${s.html()}`;
     stepLbl.textContent = `Step ${step + 1}`;
-    bar.style.width = ((step + 1) / STEPS.length * 100) + '%';
+    setProgress((step + 1) / STEPS.length * 100);
     back.hidden = step === 0;
     next.lastChild.previousSibling.textContent = step === STEPS.length - 1 ? 'Request my walkthrough' : 'Continue';
     $$('input,textarea', body).forEach(i => { i.value = state[i.name] || ''; i.addEventListener('input', () => { state[i.name] = i.value; sync(); }); });
     sync();
+    document.dispatchEvent(new CustomEvent('fma:wizard-step', { detail: { step } }));
   };
+  const go = (dir, fn) => window.FMA?.wizardSwap ? FMA.wizardSwap(body, dir, fn) : fn();
   body.addEventListener('click', e => {
     const b = e.target.closest('[data-field]'); if (!b) return;
     state[b.dataset.field] = b.dataset.value; sync();
+    document.dispatchEvent(new CustomEvent('fma:tap', { detail: { el: b } }));
   });
-  back.addEventListener('click', () => { if (step > 0) { step--; render(); } });
+  back.addEventListener('click', () => { if (step > 0) go(-1, () => { step--; render(); }); });
   next.addEventListener('click', () => {
     if (next.disabled) return;
-    if (step < STEPS.length - 1) { step++; render(); return; }
-    finish();
+    if (step < STEPS.length - 1) go(1, () => { step++; render(); });
+    else go(1, finish);
   });
   $('#wiz').addEventListener('submit', e => e.preventDefault());
 
   const finish = () => {
     const rows = [['Project', state.project], ['Scope', state.scope], ['Timeline', state.timeline], ['Name', state.name], ['Phone', state.phone], ['Email', state.email], ['Zip', state.zip]].filter(r => r[1]);
     body.innerHTML = `<div class="done"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0B131E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3 class="wiz-q">Got it, ${(state.name || '').split(' ')[0]}. <em>We'll call you.</em></h3><p class="wiz-hint">Expect a call from FMA within one business day to set up your free walkthrough.</p><dl class="summary">${rows.map(r => `<div data-row><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('')}</dl></div>`;
-    stepLbl.textContent = 'Done'; bar.style.width = '100%';
+    stepLbl.textContent = 'Done'; setProgress(100);
     $('#wizNav').hidden = true;
     document.dispatchEvent(new CustomEvent('fma:wizard-done'));
   };
@@ -879,6 +883,40 @@ const armReveals = (root) => {
       rx(-py * MAX * 2); ry(px * MAX * 2);
     });
     card.addEventListener('pointerleave', () => { rx(0); ry(0); });
+  });
+})();
+
+/* ============================================================
+   CONTACT — project builder
+   Steps slide + fade (wait mode), the progress bar moves on a spring,
+   tap-cards give a press confirmation, and the success summary rows
+   stagger in top to bottom. All Motion: component-level UI transitions.
+   ============================================================ */
+(() => {
+  const M = window.Motion;
+  if (!animate || !M) return;
+  const enterEase = [.16, 1, .3, 1];
+  FMA.wizardSwap = (body, dir, fn) => {
+    const wiz = body.closest('.wiz'); wiz.style.minHeight = wiz.offsetHeight + 'px';
+    M.animate(body, { opacity: [1, 0], x: [0, -22 * dir] }, { duration: .16, ease: 'easeIn' }).finished.then(() => {
+      fn();
+      M.animate(body, { opacity: [0, 1], x: [22 * dir, 0] }, { duration: .3, ease: enterEase }).finished
+        .then(() => { body.style.opacity = ''; body.style.transform = ''; wiz.style.minHeight = ''; ScrollTrigger.refresh(); });
+    });
+  };
+  FMA.wizardProgress = (bar, pct) => M.animate(bar, { width: pct + '%' }, { type: 'spring', stiffness: 150, damping: 22, mass: 1 });
+  document.addEventListener('fma:tap', e => {
+    const el = e.detail.el;
+    M.animate(el, { scale: .95 }, { duration: .09, ease: 'easeOut' }).finished
+      .then(() => M.animate(el, { scale: 1 }, { type: 'spring', stiffness: 520, damping: 20 }));
+  });
+  document.addEventListener('fma:wizard-step', () => {
+    const taps = document.querySelectorAll('#wizBody .tap, #wizBody .field');
+    if (taps.length) M.animate(taps, { opacity: [0, 1], y: [10, 0] }, { delay: M.stagger(.045, { startDelay: .08 }), duration: .4, ease: enterEase });
+  });
+  document.addEventListener('fma:wizard-done', () => {
+    M.animate('.done .mark', { scale: [.4, 1], opacity: [0, 1] }, { type: 'spring', stiffness: 320, damping: 17, delay: .1 });
+    M.animate('.done [data-row]', { opacity: [0, 1], y: [12, 0] }, { delay: M.stagger(.07, { startDelay: .25 }), duration: .45, ease: enterEase });
   });
 })();
 
