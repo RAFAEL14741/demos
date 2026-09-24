@@ -74,7 +74,7 @@ html.lenis,html.lenis body{height:auto}
 html.drawer-open:not(.lenis){overflow:hidden}
 
 /* ============================================================ HEADER */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--hdr);background:var(--navy);border-bottom:1px solid var(--line-l)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--hdr-h,var(--hdr));background:rgba(11,19,30,var(--hdr-a,1));-webkit-backdrop-filter:blur(var(--hdr-blur,0px));backdrop-filter:blur(var(--hdr-blur,0px));border-bottom:1px solid var(--line-l)}
 .hdr .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:2rem}
 .logo{display:flex;align-items:center;font-family:var(--ff-label);font-weight:900;font-size:1.55rem;letter-spacing:-.03em;color:var(--cream)}
 .logo svg{height:26px;width:auto;overflow:visible}
@@ -742,6 +742,29 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   history.replaceState(null, '', id);
 }));
 document.addEventListener('fma:drawer', e => { if (FMA.lenis) e.detail.open ? FMA.lenis.stop() : FMA.lenis.start(); });
+
+/* ============================================================
+   HEADER — scroll-linked shrink + blur (interpolated, never a class snap)
+   and an active-section underline that scales in from the left edge.
+   ============================================================ */
+(() => {
+  if (!animate) return;
+  const hdr = document.querySelector('.hdr');
+  const shrink = () => {
+    const h0 = parseFloat(getComputedStyle(hdr).getPropertyValue('--hdr')) || 76;
+    return gsap.fromTo(hdr,
+      { '--hdr-h': h0 + 'px', '--hdr-a': 1, '--hdr-blur': '0px' },
+      { '--hdr-h': (h0 - 12) + 'px', '--hdr-a': .72, '--hdr-blur': '14px', ease: 'none',
+        scrollTrigger: { start: 0, end: 160, scrub: .35, invalidateOnRefresh: true } });
+  };
+  let tween = shrink();
+  ScrollTrigger.addEventListener('refreshInit', () => { tween.scrollTrigger.kill(); tween.kill(); tween = shrink(); });
+
+  document.querySelectorAll('.nav a[href^="#"]').forEach(a => {
+    const sec = document.querySelector(a.getAttribute('href')); if (!sec) return;
+    ScrollTrigger.create({ trigger: sec, start: 'top 50%', end: 'bottom 50%', onToggle: self => a.classList.toggle('is-active', self.isActive) });
+  });
+})();
 </script>
 </body>
 </html>
