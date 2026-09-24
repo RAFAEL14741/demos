@@ -148,7 +148,7 @@ html.drawer-open:not(.lenis){overflow:hidden}
 .tabs{position:relative;display:inline-flex;align-self:flex-start;padding:4px;border-radius:999px;background:rgba(11,19,30,.06);border:1px solid var(--line-d)}
 .tab{position:relative;z-index:1;white-space:nowrap;padding:.7rem 1.25rem;border-radius:999px;font-weight:600;font-size:.84rem;color:var(--gray);transition:color .25s}
 .tab[aria-selected="true"]{color:var(--cream)}
-.tab-ind{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:999px;background:var(--navy);z-index:0}
+.tab-ind{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:999px;background:var(--navy);z-index:0;will-change:transform,width}
 
 /* ---- split service card ---- */
 .panel[hidden]{display:none}
@@ -317,6 +317,11 @@ html.drawer-open:not(.lenis){overflow:hidden}
 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
 .w>span{display:inline-block}
 .js-anim .ribbon-track{animation:none}
+.js-anim.fine .svc-photo[data-reveal]:not([data-revealed]){clip-path:inset(0% 100% 0% 0%)}
+.js-anim.fine .proj[data-reveal]:not([data-revealed]){clip-path:inset(100% 0% 0% 0%)}
+.js-anim.fine .story-photo[data-reveal]:not([data-revealed]){clip-path:inset(0% 0% 100% 0%)}
+.js-anim:not(.fine) [data-reveal]:not([data-revealed]){opacity:0}
+.panels{position:relative}
 @media(prefers-reduced-motion:reduce){.ribbon-track,.badge-ring{animation:none}}
 .badge{transition:transform .45s var(--ease-out)}
 @media(hover:hover) and (pointer:fine){
@@ -627,10 +632,14 @@ html.drawer-open:not(.lenis){overflow:hidden}
 
   /* ---- tabs ---- */
   const tabs = $$('.tab'), ind = $('.tab-ind');
-  const placeInd = tab => { ind.style.left = tab.offsetLeft + 'px'; ind.style.width = tab.offsetWidth + 'px'; };
+  const placeInd = tab => { ind.style.transform = `translateX(${tab.offsetLeft - 4}px)`; ind.style.width = tab.offsetWidth + 'px'; };
   const selectTab = (tab) => {
-    tabs.forEach(t => { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; $('#' + t.getAttribute('aria-controls')).hidden = !on; });
-    placeInd(tab);
+    const prev = tabs.find(t => t.getAttribute('aria-selected') === 'true');
+    if (prev === tab) return;
+    tabs.forEach(t => { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+    const from = $('#' + prev.getAttribute('aria-controls')), to = $('#' + tab.getAttribute('aria-controls'));
+    if (window.FMA?.tabs) FMA.tabs(from, to, tab, ind);            // animated (motion layer)
+    else { from.hidden = true; to.hidden = false; placeInd(tab); }  // instant fallback
   };
   tabs.forEach((t, i) => {
     t.addEventListener('click', () => selectTab(t));
@@ -761,6 +770,58 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   history.replaceState(null, '', id);
 }));
 document.addEventListener('fma:drawer', e => { if (FMA.lenis) e.detail.open ? FMA.lenis.stop() : FMA.lenis.start(); });
+
+/* ============================================================
+   01 — KITCHEN & BATH
+   Photos unveil with a clip-path wipe (the highest-leverage move for a
+   photography-led business); grid cards stagger ~80ms; the giant outline
+   word drifts a few px against scroll; tab panels crossfade with a 12px
+   slide while the dark pill physically slides between tabs.
+   ============================================================ */
+const revealPhoto = (el, i = 0) => {
+  el.dataset.revealed = '1';
+  const img = el.querySelector('img');
+  if (!rich) {                                             // touch: same intent, a fraction of the cost
+    gsap.fromTo(el, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .8, delay: i * .08, ease: 'power3.out', clearProps: 'all' });
+    return;
+  }
+  const from = el.classList.contains('proj') ? 'inset(100% 0% 0% 0%)' : el.classList.contains('story-photo') ? 'inset(0% 0% 100% 0%)' : 'inset(0% 100% 0% 0%)';
+  const tl = gsap.timeline({ delay: i * .08, defaults: { ease: 'expo.out' },
+    onStart: () => { el.style.willChange = 'clip-path'; },
+    onComplete: () => { el.style.willChange = ''; el.style.clipPath = ''; } });
+  tl.fromTo(el, { clipPath: from }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.15 }, 0);
+  if (img) tl.fromTo(img, { scale: 1.14 }, { scale: 1, duration: 1.5, clearProps: 'transform' }, 0);
+};
+const armReveals = (root) => {
+  if (!animate) return;
+  const els = [...root.querySelectorAll('[data-reveal="photo"]:not([data-revealed])')].filter(el => !el.closest('[hidden]'));
+  if (els.length) ScrollTrigger.batch(els, { start: 'top 88%', once: true, onEnter: batch => batch.forEach((el, i) => revealPhoto(el, i)) });
+};
+(() => {
+  if (!animate) return;
+  armReveals(document);
+
+  if (rich) document.querySelectorAll('[data-ghost]').forEach(ghost => {
+    gsap.to(ghost, { x: -90, ease: 'none', scrollTrigger: { trigger: ghost.closest('.sec'), start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  /* tabs: exit (160ms) → enter (250ms), pill slides with a spring (Motion) */
+  const M = window.Motion;
+  FMA.tabs = (from, to, tab, ind) => {
+    const container = from.parentElement;
+    container.style.minHeight = from.offsetHeight + 'px';           // don't let the page jump while panels swap
+    if (M) M.animate(ind, { x: tab.offsetLeft - 4, width: tab.offsetWidth + 'px' }, { type: 'spring', stiffness: 420, damping: 34, mass: .9 });
+    else { ind.style.transform = `translateX(${tab.offsetLeft - 4}px)`; ind.style.width = tab.offsetWidth + 'px'; }
+    const swap = () => {
+      from.hidden = true; from.style.opacity = ''; from.style.transform = '';
+      to.hidden = false;
+      armReveals(to);
+      const done = () => { container.style.minHeight = ''; to.style.opacity = ''; to.style.transform = ''; ScrollTrigger.refresh(); };
+      M ? M.animate(to, { opacity: [0, 1], y: [12, 0] }, { duration: .25, ease: [.16, 1, .3, 1] }).finished.then(done) : done();
+    };
+    M ? M.animate(from, { opacity: [1, 0], y: [0, -12] }, { duration: .16, ease: 'easeIn' }).finished.then(swap) : swap();
+  };
+})();
 
 /* ============================================================
    MARQUEE — constant slow drift, but scroll velocity feeds its timeScale:
