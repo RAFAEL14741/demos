@@ -151,7 +151,7 @@ tbody tr.new td{animation:newRow 3s ease forwards}
 .form-group{margin-bottom:1rem}
 .form-group label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:.4rem}
 .form-group label small{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:500}
-.form-group input,.form-group select{width:100%;border:1px solid var(--sage-tint);border-radius:3px;padding:.75rem .95rem;font-family:var(--sans);font-size:.94rem;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+.form-group input,.form-group select{width:100%;border:1px solid var(--sage-tint);border-radius:3px;padding:.75rem .95rem;font-family:var(--sans);font-size:16px;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
 .form-group select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;background-size:14px;padding-right:2.4rem}
 .form-group input:focus,.form-group select:focus{border-color:var(--terra);box-shadow:0 0 0 3px var(--terra-pale)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
@@ -235,7 +235,7 @@ Client names in the schedule are fictional.
       <button class="pin-btn" onclick="enterPin('0')" style="grid-column:2">0</button>
     </div>
     <button class="pin-clear" onclick="clearPin()">Clear ×</button>
-    <div class="login-foot">1108 Cottman Ave · Staff access only</div>
+    <div class="login-foot">1108 Cottman Ave · <a href="tel:2157221100" style="color:inherit">(215) 722-1100</a> · Staff access only</div>
   </div>
 </div>
 
@@ -383,7 +383,12 @@ function buildCal(now){
   }
 }
 function renderServices(){
-  document.getElementById('svcList').innerHTML=SERVICES.map(([n,p])=>`<div class="svc-row"><span class="svc-name">${n}</span><span class="svc-price">${p}</span><button class="svc-edit" onclick="toast('Prices are edited right here in your live portal and update the public site instantly.')">Edit</button></div>`).join('');
+  document.getElementById('svcList').innerHTML=SERVICES.map(([n,p],i)=>`<div class="svc-row"><span class="svc-name">${esc(n)}</span><span class="svc-price">${esc(p)}</span><button class="svc-edit" onclick="editPrice(${i})">Edit</button></div>`).join('');
+}
+function editPrice(i){
+  const v=prompt(`New price for ${SERVICES[i][0]}`,SERVICES[i][1]);
+  if(v===null)return;const t=v.trim();if(!t){toast('Price not changed');return}
+  SERVICES[i][1]=/^\$|^from /i.test(t)?t:'$'+t;renderServices();toast(`Price updated: ${SERVICES[i][0]} is now ${SERVICES[i][1]}`);
 }
 /* Hours: CLOSED_DAYS drives both the hours panel and the booking calendar (0=Sun ... 6=Sat) */
 const CLOSED_DAYS=[];
@@ -410,7 +415,11 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 /* ===== Booking modal (same flow as the public site, adapted for staff) ===== */
 const SERVICES=[['Classic Manicure','$22'],['Gel Manicure','$35'],['Classic Pedicure','$32'],['Gel Pedicure','$45'],['Full Set (Acrylic)','$55'],['Fill-In','$35'],['Eyelash Extensions','$80'],['Nail Art / Add-On','from $5']];
 const SLOTS=['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'];
-const SUN_SLOTS=['10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM'];
+const SUN_SLOTS=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+/* Same-day guard: only offer start times later than the current time */
+function slotMinutes(t){const m=t.match(/(\d+):(\d+) (AM|PM)/);let h=+m[1]%12;if(m[3]==='PM')h+=12;return h*60+ +m[2]}
+function openSlots(date){const all=date.getDay()===0?SUN_SLOTS:SLOTS,n=new Date();
+  if(date.toDateString()!==n.toDateString())return all;const cur=n.getHours()*60+n.getMinutes();return all.filter(t=>slotMinutes(t)>cur)}
 let step=1,chosen={};
 function resetChosen(){chosen={service:'',date:'',d:0,wd:-1,time:'',name:'',phone:'',notes:'',status:'confirmed'}}
 resetChosen();
@@ -428,8 +437,8 @@ function renderStep(){
   body.innerHTML='';foot.innerHTML='';
   if(step===1){
     body.innerHTML=`<div class="step-title">What is the client booking?</div><div class="service-grid">
-      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
-        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
+      ${SERVICES.map(([n,p],i)=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service=SERVICES[${i}][0];renderStep()">
+        <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
   } else if(step===2){
     const now=new Date(),y=now.getFullYear(),m=now.getMonth();
@@ -441,12 +450,12 @@ function renderStep(){
       ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
     const todayMid=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     for(let d=1;d<=days;d++){
-      const dt=`${months[m]} ${d}, ${y}`,date=new Date(y,m,d),wd=date.getDay(),off=CLOSED_DAYS.includes(wd)||date<todayMid;
+      const dt=`${months[m]} ${d}, ${y}`,date=new Date(y,m,d),wd=date.getDay(),off=CLOSED_DAYS.includes(wd)||date<todayMid||openSlots(date).length===0;
       cal+=`<div class="cal-day${off?' disabled':chosen.date===dt?' selected':''}"${off?'':` onclick="chosen.date='${dt}';chosen.d=${d};chosen.wd=${wd};renderStep()"`}>${d}</div>`}
     body.innerHTML=cal+'</div><p class="cal-note">Open seven days a week. Sunday hours are 10:00 AM to 5:00 PM.</p>';
     foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
   } else if(step===3){
-    const slots=chosen.wd===0?SUN_SLOTS:SLOTS;
+    const n3=new Date(),slots=openSlots(new Date(n3.getFullYear(),n3.getMonth(),chosen.d));if(!slots.includes(chosen.time))chosen.time='';
     body.innerHTML=`<div class="step-title">Pick a start time for ${chosen.date}</div><div class="time-grid">
       ${slots.map(t=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
@@ -498,13 +507,16 @@ function addAppointment(){
   const tb=document.querySelector('#apptTable tbody');
   const diff=dayDiff();
   const tr=document.createElement('tr');tr.className='new';
-  tr.innerHTML=`<td>${chosen.time}${diff===0?'':`<small>${chosen.date.replace(/, \d{4}$/,'')}</small>`}</td><td class="client">${esc(shortName(chosen.name))}</td><td>${chosen.service}</td><td><span class="status ${chosen.status}">${chosen.status==='pending'?'Pending':'Confirmed'}</span></td>`;
-  tb.insertBefore(tr,tb.firstChild);
-  if(diff===0)kToday++;
+  tr.innerHTML=`<td>${chosen.time}</td><td class="client">${esc(shortName(chosen.name))}</td><td>${esc(chosen.service)}</td><td><span class="status ${chosen.status}">${chosen.status==='pending'?'Pending':'Confirmed'}</span></td>`;
+  if(diff===0){
+    const mins=slotMinutes(chosen.time);
+    const after=[...tb.rows].find(r=>{const c=r.cells[0].textContent.match(/\d+:\d+ (AM|PM)/);return c&&slotMinutes(c[0])>mins});
+    tb.insertBefore(tr,after||null);kToday++;
+  }
   if(diff>=0&&diff<7){kWeek++;kRev+=priceOf(chosen.service)}
   renderKpis();
   document.querySelectorAll('#calGrid .cal-day').forEach(el=>{if(parseInt(el.textContent,10)===chosen.d)el.classList.add('has-appt')});
-  pendingToast=`${shortName(chosen.name)} added: ${chosen.service}, ${chosen.date} at ${chosen.time}`;
+  pendingToast=diff===0?`${shortName(chosen.name)} added to today's schedule: ${chosen.service} at ${chosen.time}`:`${shortName(chosen.name)} booked for ${chosen.date} at ${chosen.time}. Added to the calendar.`;
 }
 </script>
 </body>

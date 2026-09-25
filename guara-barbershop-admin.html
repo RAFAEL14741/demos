@@ -56,8 +56,8 @@ button{font-family:inherit}
 .kpi-sub{font-size:.78rem;color:var(--muted);margin-top:.3rem;font-weight:300}
 @keyframes kpiFlash{0%{color:var(--gold);transform:translateY(-3px)}100%{color:var(--text);transform:none}}
 .kpi-val.flash{animation:kpiFlash 1.1s ease-out}
-.grid2{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem}
-.grid-b{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem;align-items:start}
+.grid-b{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
 .col{display:flex;flex-direction:column;gap:1rem}
 .grid2>*,.grid-b>*,.col>*{min-width:0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:1.4rem}
@@ -88,7 +88,10 @@ tr.new td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
 .status.confirmed{background:var(--gold-soft);color:var(--gold);border-color:rgba(242,177,52,.4)}
 .status.pending{background:transparent;color:var(--text);border-color:rgba(244,239,230,.35);border-style:dashed}
 .status.completed{background:rgba(244,239,230,.07);color:var(--muted)}
+tr.placeholder td{text-align:center;color:var(--muted);font-weight:300;padding:1.6rem .8rem;white-space:normal}
 .table-foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:.9rem;font-size:.78rem;color:var(--muted);font-weight:300}
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,12px);max-width:calc(100% - 2rem);background:var(--gold);color:#141414;border-radius:2px;padding:.8rem 1.3rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.06em;line-height:1.4;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.45);z-index:600;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 .legend{display:flex;gap:.9rem;flex-wrap:wrap}
 .legend span::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.4rem;vertical-align:middle;background:var(--gold)}
 .legend span.p::before{background:transparent;border:1px dashed rgba(244,239,230,.6)}
@@ -138,10 +141,12 @@ tr.new td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
 .seat-btn:hover{background:var(--gold);color:#141414}
 .queue-empty{padding:1.4rem 0;text-align:center;color:var(--muted);font-weight:300;font-size:.9rem}
 .dash-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem;padding-top:1.1rem;border-top:1px solid var(--line);font-size:.76rem;color:var(--muted);font-weight:300}
+.dash-foot a{color:inherit;text-decoration:none}
+.dash-foot a:hover{color:var(--gold)}
 /* ---------- booking modal (same as the customer demo, staff wording) ---------- */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
-.modal{background:var(--card);border:1px solid rgba(242,177,52,.22);border-radius:4px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;box-shadow:0 30px 90px rgba(0,0,0,.6);color:var(--text)}
+.modal{background:var(--card);border:1px solid rgba(242,177,52,.22);border-radius:4px;width:100%;max-width:540px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;box-shadow:0 30px 90px rgba(0,0,0,.6);color:var(--text)}
 .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.7rem 1rem}
 .modal-header h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
 .modal-close{background:none;border:1px solid var(--line);color:var(--muted);width:34px;height:34px;border-radius:2px;font-size:1rem;cursor:pointer;transition:all .2s}
@@ -170,23 +175,26 @@ tr.new td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
 .modal .cal-day{text-align:center;padding:.58rem 0;border-radius:3px;font-size:.9rem;cursor:pointer;background:#141414;border:1px solid transparent;transition:all .2s}
 .modal .cal-day:hover:not(.disabled){border-color:var(--gold);color:var(--gold)}
 .modal .cal-day.selected{background:var(--gold);color:#141414;font-weight:600}
+.modal .cal-day.today:not(.selected):not(.disabled){border-color:rgba(242,177,52,.45)}
 .modal .cal-day.disabled{color:rgba(244,239,230,.22);background:transparent;pointer-events:none}
 .modal .cal-day.empty{visibility:hidden}
 .time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
 .time-slot{background:#141414;border:1px solid var(--line);border-radius:3px;padding:.72rem;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .2s}
 .time-slot:hover{border-color:var(--gold);color:var(--gold)}
 .time-slot.selected{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
+.time-slot.disabled{opacity:.32;pointer-events:none;text-decoration:line-through;cursor:default}
 .form-group{margin-bottom:1rem}
 .form-group label{display:block;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
-.form-group input{width:100%;background:#141414;border:1px solid var(--line);border-radius:3px;color:var(--text);padding:.82rem .95rem;font-family:'Barlow',sans-serif;font-size:.96rem;outline:none;transition:border-color .2s}
+.form-group input{width:100%;background:#141414;border:1px solid var(--line);border-radius:3px;color:var(--text);padding:.82rem .95rem;font-family:'Barlow',sans-serif;font-size:16px;outline:none;transition:border-color .2s}
 .form-group input::placeholder{color:rgba(168,162,158,.55)}
 .form-group input:focus{border-color:var(--gold)}
 .form-group input.invalid{border-color:var(--gold-dark);box-shadow:0 0 0 3px var(--gold-soft)}
 .form-hint{font-size:.78rem;color:var(--gold);margin-top:.2rem;min-height:1em}
-.modal-footer{display:flex;justify-content:space-between;gap:.6rem;padding:1rem 1.7rem 1.5rem;border-top:1px solid var(--line)}
-.btn-back{background:none;border:1px solid var(--line);color:var(--muted);padding:.72rem 1.2rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.modal-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:.6rem;padding:1rem 1.7rem 1.5rem;border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--card);z-index:1}
+.modal-footer:empty{display:none}
+.btn-back{background:none;border:1px solid var(--line);color:var(--muted);padding:.72rem 1.2rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap}
 .btn-back:hover{color:var(--text);border-color:var(--text)}
-.btn-next{margin-left:auto;background:var(--gold);color:#141414;border:none;padding:.72rem 1.6rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,opacity .2s}
+.btn-next{margin-left:auto;background:var(--gold);color:#141414;border:none;padding:.72rem 1.6rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,opacity .2s;white-space:nowrap}
 .btn-next:hover{background:var(--gold-dark)}
 .btn-next:disabled{opacity:.4;cursor:not-allowed}
 .confirm-screen{text-align:center;padding:.4rem 0}
@@ -228,6 +236,8 @@ tr.new td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
   .service-grid{grid-template-columns:1fr}
   .time-grid{grid-template-columns:1fr 1fr}
   .modal-header,.modal-body,.modal-footer,.modal-steps,.modal-summary{padding-left:1.2rem;padding-right:1.2rem}
+  .btn-back{padding:.72rem .95rem}
+  .btn-next{padding:.72rem 1.15rem}
 }
 </style>
 </head>
@@ -342,12 +352,13 @@ Front-end demo only: no backend, nothing persists on reload. Never link a third-
     </div>
 
     <div class="dash-foot">
-      <span>Guara Barbershop · 6525 Frankford Ave, Philadelphia, PA 19135 · (267) 826-3593</span>
+      <span>Guara Barbershop · 6525 Frankford Ave, Philadelphia, PA 19135 · <a href="tel:2678263593">(267) 826-3593</a></span>
       <span>Staff portal · Mon – Sat 9:00 AM – 7:00 PM · Sun Closed</span>
     </div>
   </div>
 </div>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-header">
@@ -369,6 +380,8 @@ const CLOSED_DAYS=[0];
 const OPEN_HOUR=9,CLOSE_HOUR=19;
 const TIMES=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
 const SERVICES=[['Haircut','$25'],['Skin Fade','$30'],['Haircut + Beard','$38'],['Beard Trim / Shape-Up','$15'],['Kids Cut (12 & under)','$18'],['Line-Up','$12'],['Hot Towel Shave','$25'],['Eyebrows','$8']];
+const LAST_SLOT_HOUR=OPEN_HOUR+TIMES.length-1; /* 6:00 PM */
+const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const MONTHS_FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -419,9 +432,17 @@ function initDash(){
   document.getElementById('calMonth').textContent=MONTHS_FULL[now.getMonth()]+' '+now.getFullYear();
   buildCal(now);
   markHours(now);
-  if(!dashReady){renderServices();renderQueue();dashReady=true}
+  if(!dashReady){renderServices();renderQueue();applyClosedDay(now);dashReady=true}
   updateScheduleCount();
   syncTableScroll();
+}
+/* Sample rows describe an open day; on a closed day the schedule is empty and the Today KPI reads 0 */
+function applyClosedDay(now){
+  if(!CLOSED_DAYS.includes(now.getDay()))return;
+  let nd=(now.getDay()+1)%7;while(CLOSED_DAYS.includes(nd))nd=(nd+1)%7;
+  document.querySelector('#apptTable tbody').innerHTML=`<tr class="placeholder"><td colspan="4">Closed today. Next bookings ${DAYS_FULL[nd]} from 9:00 AM.</td></tr>`;
+  document.getElementById('kpiToday').textContent='0';
+  document.querySelector('#kpiToday + .kpi-label + .kpi-sub').textContent='Closed today';
 }
 const apptDays=new Set();
 function buildCal(now){
@@ -484,9 +505,14 @@ function syncTableScroll(){
 window.addEventListener('resize',syncTableScroll);
 document.addEventListener('DOMContentLoaded',()=>{const w=document.getElementById('tableWrap');if(w)w.addEventListener('scroll',syncTableScroll,{passive:true})});
 function updateScheduleCount(){
-  const n=document.querySelectorAll('#apptTable tbody tr').length;
-  document.getElementById('scheduleCount').textContent=n+(n===1?' client':' clients');
+  const n=document.querySelectorAll('#apptTable tbody tr:not(.placeholder)').length;
+  const closed=!!document.querySelector('#apptTable tbody tr.placeholder');
+  document.getElementById('scheduleCount').textContent=closed&&!n?'Closed today':n+(n===1?' client':' clients');
 }
+let toastTimer=0;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3800)}
+function timeToMinutes(t){const m=String(t).trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);if(!m)return Infinity;let h=parseInt(m[1],10)%12;if(/pm/i.test(m[3]))h+=12;return h*60+parseInt(m[2],10)}
+function rowMinutes(tr){const td=tr.querySelector('td.t');if(!td)return Infinity;const txt=[...td.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('');return timeToMinutes(txt)}
 function bumpKpi(id,by){
   const el=document.getElementById(id);
   const isMoney=el.textContent.trim().startsWith('$');
@@ -508,16 +534,22 @@ function addRowToTable({time,dateLabel,client,service,status}){
   document.querySelectorAll('#apptTable tr.new').forEach(r=>r.classList.remove('new'));
   const tr=document.createElement('tr');tr.className='new';
   tr.innerHTML=`<td class="t">${esc(time)}${dateLabel?`<small>${esc(dateLabel)}</small>`:''}</td><td class="c" data-svc="${esc(service)}">${esc(client)}</td><td class="s">${esc(service)}</td><td><span class="status ${status}">${status.charAt(0).toUpperCase()+status.slice(1)}</span></td>`;
-  tb.insertBefore(tr,tb.firstChild);
+  const ph=tb.querySelector('tr.placeholder');if(ph)ph.remove();
+  const mins=timeToMinutes(time);
+  const before=[...tb.querySelectorAll('tr')].find(r=>rowMinutes(r)>mins);
+  if(before)tb.insertBefore(tr,before);else tb.appendChild(tr);
   updateScheduleCount();
+  if(tr.scrollIntoView)tr.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
 function commitBooking(){
   const now=new Date();
   const [y,m,d]=chosen.dateKey.split('-').map(Number);
   const dt=new Date(y,m,d);
   const today=sameDay(dt,now);
-  addRowToTable({time:chosen.time,dateLabel:today?'':DAYS[dt.getDay()]+', '+MONTHS[m]+' '+d,client:chosen.name,service:chosen.service,status:'confirmed'});
-  if(today)bumpKpi('kpiToday',1);
+  chosen.isToday=today;
+  /* only same-day bookings belong on TODAY'S SCHEDULE; other days are marked on the calendar */
+  if(today){addRowToTable({time:chosen.time,dateLabel:'',client:chosen.name,service:chosen.service,status:'confirmed'});bumpKpi('kpiToday',1)}
+  else showToast('Added to '+DAYS[dt.getDay()]+', '+MONTHS[m]+' '+d+' · '+chosen.time+(y===now.getFullYear()&&m===now.getMonth()?' · marked on the calendar':''));
   if(inThisWeek(dt,now)){bumpKpi('kpiWeek',1);bumpKpi('kpiRev',Math.round(priceNum(chosen.price)))}
   if(y===now.getFullYear()&&m===now.getMonth()){apptDays.add(d);buildCal(now)}
 }
@@ -565,6 +597,8 @@ function goStep(n){step=n;renderStep()}
 function pickService(i){chosen.service=SERVICES[i][0];chosen.price=SERVICES[i][1];renderStep()}
 function pickDate(y,m,d){const dt=new Date(y,m,d);chosen.dateKey=y+'-'+m+'-'+d;chosen.date=DAYS[dt.getDay()]+', '+MONTHS[m]+' '+d+', '+y;renderStep()}
 function pickTime(i){chosen.time=TIMES[i];renderStep()}
+function isChosenToday(n){return chosen.dateKey===n.getFullYear()+'-'+n.getMonth()+'-'+n.getDate()}
+function slotGone(i,n){return OPEN_HOUR+i<=n.getHours()} /* a slot is gone once its hour has started */
 function shiftMonth(n){calOffset=Math.min(2,Math.max(0,calOffset+n));renderStep()}
 function submitDetails(){
   const fn=document.getElementById('fn'),fp=document.getElementById('fp'),fv=document.getElementById('fv');
@@ -595,21 +629,29 @@ function renderStep(){
     foot.innerHTML=`<button class="btn-next" ${chosen.service?'':'disabled'} onclick="if(chosen.service){goStep(2)}">Continue →</button>`;
   } else if(step===2){
     const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const todayHasSlots=!CLOSED_DAYS.includes(now.getDay())&&now.getHours()<LAST_SLOT_HOUR;
+    if(chosen.dateKey&&isChosenToday(now)&&!todayHasSlots){chosen.dateKey='';chosen.date='';chosen.time=''}
     const view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
     const first=view.getDay(),days=new Date(y,m+1,0).getDate();
     let cal=`<div class="step-title">Pick a day for the client</div>
       <div class="cal-head"><button class="cal-nav" ${calOffset===0?'disabled':''} onclick="shiftMonth(-1)" aria-label="Previous month">‹</button><span>${MONTHS_FULL[m]} ${y}</span><button class="cal-nav" ${calOffset>=2?'disabled':''} onclick="shiftMonth(1)" aria-label="Next month">›</button></div>
       <div class="calendar-grid">${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
     for(let d=1;d<=days;d++){
-      const date=new Date(y,m,d),closed=CLOSED_DAYS.includes(date.getDay()),past=date<today,key=y+'-'+m+'-'+d;
-      cal+=`<div class="cal-day${(past||closed)?' disabled':chosen.dateKey===key?' selected':''}"${(past||closed)?'':` onclick="pickDate(${y},${m},${d})"`}>${d}</div>`;
+      const date=new Date(y,m,d),closed=CLOSED_DAYS.includes(date.getDay()),isToday=date.getTime()===today.getTime(),key=y+'-'+m+'-'+d;
+      const off=date<today||closed||(isToday&&!todayHasSlots);
+      cal+=`<div class="cal-day${off?' disabled':chosen.dateKey===key?' selected':''}${isToday?' today':''}"${off?'':` onclick="pickDate(${y},${m},${d})"`}>${d}</div>`;
     }
-    body.innerHTML=cal+`</div><p class="fine">Closed Sundays. Same-day bookings go straight onto today's schedule.</p>`;
+    const soldOut=calOffset===0&&!CLOSED_DAYS.includes(now.getDay())&&!todayHasSlots;
+    body.innerHTML=cal+`</div><p class="fine">${soldOut?'No chairs left today. Pick another day, or seat the client from the walk-in queue.':'Closed Sundays. Same-day bookings go onto today\'s schedule; other days are marked on the calendar.'}</p>`;
     foot.innerHTML=`<button class="btn-back" onclick="goStep(1)">← Back</button><button class="btn-next" ${chosen.date?'':'disabled'} onclick="if(chosen.date){goStep(3)}">Continue →</button>`;
   } else if(step===3){
+    const n=new Date(),isToday=isChosenToday(n);
+    const gone=i=>isToday&&slotGone(i,n);
+    if(chosen.time&&gone(TIMES.indexOf(chosen.time)))chosen.time='';
+    const left=TIMES.filter((t,i)=>!gone(i)).length;
     body.innerHTML=`<div class="step-title">Pick a time on ${esc(chosen.date)}</div><div class="time-grid">
-      ${TIMES.map((t,i)=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="pickTime(${i})">${t}</div>`).join('')}</div>
-      <p class="fine">Open 9:00 AM – 7:00 PM. Last chair at 6:00 PM.</p>`;
+      ${TIMES.map((t,i)=>gone(i)?`<div class="time-slot disabled" aria-disabled="true">${t}</div>`:`<div class="time-slot${chosen.time===t?' selected':''}" onclick="pickTime(${i})">${t}</div>`).join('')}</div>
+      <p class="fine">${isToday?(left?`Earlier slots today are past. ${left} slot${left===1?'':'s'} left today; use the walk-in queue for someone in the chair now.`:'No slots left today. Go back and pick another day.'):'Open 9:00 AM – 7:00 PM. Last chair at 6:00 PM.'}</p>`;
     foot.innerHTML=`<button class="btn-back" onclick="goStep(2)">← Back</button><button class="btn-next" ${chosen.time?'':'disabled'} onclick="if(chosen.time){goStep(4)}">Continue →</button>`;
   } else if(step===4){
     body.innerHTML=`<div class="step-title">Who is the chair for?</div>
@@ -623,7 +665,7 @@ function renderStep(){
     body.innerHTML=`<div class="confirm-screen">
       <div class="confirm-icon"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
       <h3>Appointment Added</h3>
-      <p>${esc(chosen.name)} is on the schedule. The row is highlighted in the list and the counts above are updated.</p>
+      <p>${chosen.isToday?`${esc(chosen.name)} is on today's schedule. The row is highlighted in the list and the counts above are updated.`:`${esc(chosen.name)} is on the calendar for ${esc(chosen.date)}. Today's schedule is unchanged; the day is marked with a dot in This Month.`}</p>
       <div class="confirm-detail">
         <div><span>Client</span><span>${esc(chosen.name)}</span></div>
         <div><span>Service</span><span>${esc(chosen.service)} · ${esc(chosen.price)}</span></div>

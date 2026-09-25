@@ -16,11 +16,14 @@
   --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif;
 }
 html{-webkit-font-smoothing:antialiased}
-body{background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.6;overflow-x:hidden;cursor:none}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.6;overflow-x:hidden;cursor:auto}
 #progressBar{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--terra);z-index:10000}
-#cursor{position:fixed;width:6px;height:6px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-#cursor-ring{position:fixed;width:34px;height:34px;border:1px solid var(--sage);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.6}
-@media(max-width:860px),(hover:none){#cursor,#cursor-ring{display:none}body{cursor:auto}}
+#cursor{position:fixed;display:none;width:6px;height:6px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0}
+#cursor-ring{position:fixed;display:none;left:-100px;top:-100px;width:34px;height:34px;border:1px solid var(--sage);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0}
+/* custom cursor only for a real mouse at desktop widths; everywhere else (touch, narrow, no-motion) the native cursor stays */
+@media (hover:hover) and (pointer:fine) and (min-width:861px){body,body *:not(input):not(textarea){cursor:none}#cursor,#cursor-ring{display:block}}
+html.no-motion body,html.no-motion body *{cursor:revert}
+html.no-motion #cursor,html.no-motion #cursor-ring{display:none}
 /* ---------- nav ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 6%;background:rgba(246,241,234,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:padding .3s,border-color .3s}
 nav.scrolled{padding:.8rem 6%;border-bottom-color:var(--line)}
@@ -43,36 +46,38 @@ nav.scrolled{padding:.8rem 6%;border-bottom-color:var(--line)}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .drawer-overlay{position:fixed;inset:0;background:rgba(43,43,43,.45);z-index:198;opacity:0;pointer-events:none;transition:opacity .3s}
 .drawer-overlay.open{opacity:1;pointer-events:auto}
-.mobile-drawer{position:fixed;top:0;right:-320px;width:300px;height:100%;background:var(--sage-deep);z-index:199;padding:6.5rem 2.2rem 2.5rem;display:flex;flex-direction:column;gap:1.4rem;transition:right .4s cubic-bezier(.16,1,.3,1)}
+.mobile-drawer{position:fixed;top:0;right:-320px;width:300px;max-width:86vw;height:100%;background:var(--sage-deep);z-index:199;padding:6.5rem 2.2rem 2.5rem;display:flex;flex-direction:column;gap:1.4rem;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:right .4s cubic-bezier(.16,1,.3,1)}
 .mobile-drawer.open{right:0}
+.drawer-close{position:absolute;top:1.1rem;right:1.4rem;width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:none;border:1px solid rgba(246,241,234,.35);border-radius:3px;color:#F6F1EA;font-family:var(--sans);font-size:1.1rem;line-height:1;cursor:pointer;transition:border-color .2s,background .2s}
+.drawer-close:hover{border-color:#F6F1EA;background:rgba(246,241,234,.1)}
 .mobile-drawer a{font-family:var(--serif);font-size:1.75rem;font-weight:600;text-decoration:none;color:#F6F1EA;line-height:1}
 .mobile-drawer .drawer-meta{margin-top:auto;color:rgba(246,241,234,.62);font-size:.8rem;line-height:1.7}
 .mobile-drawer .drawer-meta a{display:block;font-family:var(--sans);font-size:.95rem;font-weight:600;color:#F6F1EA;margin-top:.3rem}
 .mobile-drawer a.btn-primary{font-family:var(--sans);font-size:.85rem;text-align:center;margin-top:.4rem}
 /* ---------- hero ---------- */
-.hero{display:grid;grid-template-columns:1.02fr 1fr;min-height:100vh;position:relative}
-.hero-media{position:relative;padding:7rem 0 3.5rem 6%;display:flex;flex-direction:column}
+.hero{display:grid;grid-template-columns:.95fr 1.05fr;min-height:100vh;position:relative;padding:0}
+.hero-media{position:relative;padding:6rem 0 3rem 6vw;display:flex;flex-direction:column}
 .hero-frame{position:relative;flex:1;min-height:560px}
 .hero-frame-line{position:absolute;top:1.5rem;left:-1.5rem;right:1.5rem;bottom:-1.5rem;border:2px solid var(--terra);border-radius:3px;z-index:0;opacity:0}
 .hero-photo{position:absolute;inset:0;border-radius:3px;overflow:hidden;z-index:1;clip-path:inset(0 0 100% 0);background:var(--sage-pale)}
 .hero-photo img{position:absolute;top:-8%;left:0;width:100%;height:116%;object-fit:cover;display:block}
 .hero-caption{display:flex;align-items:center;gap:.8rem;margin-top:2.6rem;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:0}
 .hero-caption::before{content:'';width:28px;height:1px;background:var(--terra)}
-.hero-copy{padding:8rem 6% 5rem 5.5rem;display:flex;flex-direction:column;justify-content:center}
-.hero-eyebrow{display:flex;align-items:center;gap:.7rem;font-size:.74rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sage);margin-bottom:1.6rem;opacity:0;transform:translateY(10px)}
-.hero-eyebrow::before{content:'';width:34px;height:1px;background:var(--sage)}
-.hero-title{font-family:var(--serif);font-weight:600;font-size:clamp(3.1rem,5.5vw,5.4rem);line-height:1.02;letter-spacing:-.015em;color:var(--ink);margin-bottom:1.5rem}
+.hero-copy{padding:6.5rem 6vw 4rem 4.5rem;display:flex;flex-direction:column;justify-content:center}
+.hero-eyebrow{display:flex;align-items:center;gap:.7rem;font-size:.74rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:1.6rem;opacity:0;transform:translateY(10px)}
+.hero-eyebrow::before{content:'';width:34px;height:1px;background:var(--sage-deep)}
+.hero-title{font-family:var(--serif);font-weight:600;font-size:clamp(2.9rem,4.6vw,4.6rem);line-height:1.02;letter-spacing:-.015em;color:var(--ink);margin-bottom:1.5rem}
 .hero-title .line{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
 .hero-title .line span{display:block;transform:translateY(110%)}
 .hero-title em{font-style:italic;color:var(--terra)}
 .hero-trust{display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem;opacity:0;transform:translateY(10px)}
-.stars{color:var(--terra);letter-spacing:.1em;font-size:.95rem;line-height:1}
+.stars{color:var(--terra-dark);letter-spacing:.1em;font-size:.95rem;line-height:1}
 .hero-trust .txt{font-size:.92rem;color:var(--muted)}
 .hero-trust strong{color:var(--ink);font-weight:600}
 .hero-sub{font-size:1.06rem;line-height:1.75;color:var(--muted);max-width:450px;margin-bottom:2.2rem;opacity:0;transform:translateY(10px)}
 .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;opacity:0;transform:translateY(10px)}
-.btn-primary{display:inline-block;background:var(--terra);color:#fff;padding:.95rem 1.9rem;border-radius:3px;font-family:var(--sans);font-size:.88rem;font-weight:600;letter-spacing:.04em;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .2s}
-.btn-primary:hover{background:var(--terra-dark);transform:translateY(-2px)}
+.btn-primary{display:inline-block;background:var(--terra-dark);color:#fff;padding:.95rem 1.9rem;border-radius:3px;font-family:var(--sans);font-size:.88rem;font-weight:600;letter-spacing:.04em;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn-primary:hover{background:#8F5236;transform:translateY(-2px)}
 .btn-outline{display:inline-block;border:1.5px solid var(--sage-deep);color:var(--sage-deep);padding:.9rem 1.7rem;border-radius:3px;font-size:.88rem;font-weight:600;letter-spacing:.04em;text-decoration:none;background:transparent;transition:all .2s}
 .btn-outline:hover{background:var(--sage-deep);color:#fff}
 .hero-chips{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:2.6rem;opacity:0;transform:translateY(10px)}
@@ -81,12 +86,12 @@ nav.scrolled{padding:.8rem 6%;border-bottom-color:var(--line)}
 /* ---------- marquee ---------- */
 .marquee-strip{background:var(--sage);overflow:hidden;padding:.9rem 0;white-space:nowrap;position:relative}
 .marquee-inner{display:inline-flex;align-items:center;will-change:transform}
-.marquee-inner span{font-family:var(--serif);font-size:1.08rem;font-weight:600;letter-spacing:.04em;color:#F6F1EA;padding:0 1.5rem}
+.marquee-inner span{font-family:var(--serif);font-size:1.2rem;font-weight:700;letter-spacing:.04em;color:#fff;padding:0 1.5rem}
 .marquee-inner .dot{font-family:var(--sans);font-size:.55rem;color:#D3DCC9;padding:0 .1rem}
 /* ---------- shared section bits ---------- */
 section{padding:7rem 6%;position:relative}
-.eyebrow{display:flex;align-items:center;gap:.7rem;font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sage);margin-bottom:1rem}
-.eyebrow::before{content:'';width:26px;height:1px;background:var(--sage)}
+.eyebrow{display:flex;align-items:center;gap:.7rem;font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:1rem}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--sage-deep)}
 .title{font-family:var(--serif);font-weight:600;font-size:clamp(2.3rem,3.9vw,3.5rem);line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
 .title em{font-style:italic;color:var(--terra)}
 .lede{color:var(--muted);font-size:1rem;line-height:1.75;max-width:460px}
@@ -96,12 +101,12 @@ section{padding:7rem 6%;position:relative}
 .svc-card{background:var(--card);border:1px solid var(--sage-tint);border-radius:4px;padding:1.7rem 1.5rem 1.5rem;position:relative;transition:border-color .3s,box-shadow .3s;transform-style:preserve-3d;will-change:transform;display:flex;flex-direction:column;min-height:236px}
 .svc-card:hover{border-color:var(--sage-deep);box-shadow:0 18px 40px rgba(69,82,59,.12)}
 .svc-idx{font-family:var(--serif);font-size:.95rem;font-weight:700;color:var(--sage-tint);letter-spacing:.06em;margin-bottom:1.3rem;display:flex;justify-content:space-between;align-items:center}
-.svc-tag{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--terra);padding:.22rem .55rem;border-radius:2px}
+.svc-tag{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--terra-dark);padding:.22rem .55rem;border-radius:2px;white-space:nowrap}
 .svc-card h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.15;color:var(--ink);margin-bottom:.5rem}
 .svc-card p{font-size:.86rem;line-height:1.6;color:var(--muted);flex:1}
-.svc-price{margin-top:1.2rem;padding-top:.9rem;border-top:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:.5rem}
-.svc-price b{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--terra);line-height:1}
-.svc-price small{font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.svc-card .svc-price{margin-top:1.2rem;padding-top:.9rem;border-top:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:.5rem}
+.svc-card .svc-price b{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--terra-dark);line-height:1}
+.svc-card .svc-price small{font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
 .services-note{margin-top:2rem;font-size:.84rem;color:var(--muted);display:flex;align-items:center;gap:.6rem}
 .services-note::before{content:'';width:18px;height:1px;background:var(--terra)}
 /* ---------- statement ---------- */
@@ -125,6 +130,7 @@ section{padding:7rem 6%;position:relative}
 .why-icon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .why-item h3{font-family:var(--serif);font-size:1.65rem;font-weight:600;line-height:1.15;margin-bottom:.6rem;color:var(--ink)}
 .why-item p{color:var(--muted);font-size:.93rem;line-height:1.7}
+@media(min-width:861px){.why-item h3{min-height:2.3em}}
 /* ---------- gallery ---------- */
 .gallery-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;padding-bottom:1.6rem}
 .g-tile{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:3px;background:var(--sage-pale)}
@@ -136,14 +142,14 @@ section{padding:7rem 6%;position:relative}
 .hours{background:var(--card)}
 .hours-grid{display:grid;grid-template-columns:1.1fr 1fr .9fr;gap:3.5rem;align-items:start}
 .hours-list{list-style:none;margin-top:1.6rem}
-.hours-list li{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid var(--line);font-size:.95rem;position:relative}
+.hours-list li{display:flex;justify-content:space-between;align-items:center;gap:.75rem;padding:.9rem 0;border-bottom:1px solid var(--line);font-size:.95rem;position:relative}
 .hours-list li span:first-child{font-weight:600;color:var(--ink)}
-.hours-list li span:last-child{color:var(--muted)}
-.hours-list li.closed span:last-child{color:var(--terra);font-weight:600}
+.hours-list li span:last-child{color:var(--muted);white-space:nowrap}
+.hours-list li.closed span:last-child{color:var(--terra-dark);font-weight:600}
 .hours-list li.today{padding-left:1rem}
 .hours-list li.today::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:1.5rem;border-radius:2px;background:var(--terra)}
 .hours-list li.today span:last-child{color:var(--sage-deep);font-weight:600}
-.hours-list li.today span:first-child::after{content:'Today';margin-left:.6rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
+.hours-list li.today span:first-child::after{content:'Today';margin-left:.6rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-dark)}
 .hours-note{margin-top:1.3rem;font-size:.85rem;color:var(--muted);line-height:1.65}
 .loc-block{margin-top:1.6rem}
 .loc-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.7rem}
@@ -151,7 +157,7 @@ section{padding:7rem 6%;position:relative}
 .loc-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .loc-item strong{display:block;color:var(--ink);font-weight:600;margin-bottom:.1rem}
 .loc-item span,.loc-item small{display:block;color:var(--muted);font-size:.9rem;line-height:1.6}
-.loc-item a.tel{font-family:var(--serif);color:var(--terra);font-weight:700;text-decoration:none;font-size:1.5rem;line-height:1.1}
+.loc-item a.tel{font-family:var(--serif);color:var(--terra-dark);font-weight:700;text-decoration:none;font-size:1.5rem;line-height:1.1}
 .directions{display:inline-flex;align-items:center;gap:.4rem;margin-top:.6rem;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-deep);text-decoration:none;border-bottom:1.5px solid var(--terra);padding-bottom:.15rem}
 .hours-photo{position:relative;aspect-ratio:4/5;border-radius:3px;overflow:hidden;background:var(--sage-pale)}
 .hours-photo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -162,19 +168,19 @@ section{padding:7rem 6%;position:relative}
 .rev-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(69,82,59,.1)}
 .rev-quote{position:absolute;top:.5rem;left:1.5rem;font-family:var(--serif);font-size:5.2rem;line-height:1;color:var(--terra)}
 .rev-head{display:flex;align-items:center;justify-content:space-between;margin:.8rem 0 .9rem}
-.rev-stars{color:var(--terra);font-size:.9rem;letter-spacing:.1em}
+.rev-stars{color:var(--terra-dark);font-size:.9rem;letter-spacing:.1em}
 .rev-src{font-size:.68rem;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .rev-text{font-family:var(--serif);font-size:1.25rem;line-height:1.45;color:var(--ink);margin-bottom:1.2rem;font-weight:600}
 .rev-author{font-weight:600;font-size:.86rem;color:var(--ink)}
 .rev-date{font-size:.76rem;color:var(--muted);margin-top:.1rem}
 /* ---------- cta ---------- */
-.cta{background:var(--terra);color:#fff;text-align:center;padding:6.5rem 6%;overflow:hidden}
+.cta{background:var(--terra-dark);color:#fff;text-align:center;padding:6.5rem 6%;overflow:hidden}
 .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.14),transparent 45%),radial-gradient(circle at 85% 85%,rgba(0,0,0,.1),transparent 50%)}
 .cta-inner{position:relative;z-index:1;max-width:760px;margin:0 auto}
 .cta .eyebrow{color:rgba(255,255,255,.8);justify-content:center}
 .cta .eyebrow::before{background:rgba(255,255,255,.8)}
-.cta h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.5rem,4.8vw,4.2rem);line-height:1.04;margin-bottom:1rem}
-.cta p{color:rgba(255,255,255,.88);font-size:1.02rem;max-width:500px;margin:0 auto 2.4rem;line-height:1.7}
+.cta h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.5rem,4.8vw,4.2rem);line-height:1.04;margin-bottom:1rem;text-wrap:balance}
+.cta p{color:#fff;font-size:1.02rem;max-width:500px;margin:0 auto 2.4rem;line-height:1.7}
 .cta-actions{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
 .btn-white{display:inline-block;background:#FFFDF9;color:var(--terra-dark);padding:1rem 2.1rem;border-radius:3px;font-size:.9rem;font-weight:700;letter-spacing:.04em;text-decoration:none;border:none;cursor:pointer}
 .btn-ghost{display:inline-block;border:1.5px solid rgba(255,255,255,.75);color:#fff;padding:.95rem 1.8rem;border-radius:3px;font-size:.9rem;font-weight:600;text-decoration:none;transition:background .2s}
@@ -188,7 +194,7 @@ footer a{color:#F6F1EA;text-decoration:none;font-weight:600;font-size:.86rem}
 /* ---------- booking modal ---------- */
 .modal-overlay{position:fixed;inset:0;background:rgba(43,43,43,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
-.modal{background:var(--card);border-radius:6px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 90px rgba(0,0,0,.35);border-top:4px solid var(--terra)}
+.modal{background:var(--card);border-radius:6px;width:100%;max-width:540px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;box-shadow:0 30px 90px rgba(0,0,0,.35);border-top:4px solid var(--terra)}
 .modal-header{padding:1.6rem 1.8rem .9rem;display:flex;align-items:center;justify-content:space-between}
 .modal-header h3{font-family:var(--serif);font-size:1.7rem;font-weight:600;color:var(--ink);line-height:1}
 .modal-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem;font-family:var(--sans)}
@@ -197,19 +203,19 @@ footer a{color:#F6F1EA;text-decoration:none;font-weight:600;font-size:.86rem}
 .step-dot.active{background:var(--terra)}
 .step-dot.done{background:var(--sage-tint)}
 .modal-body{padding:1.6rem 1.8rem}
-.step-title{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:1.1rem}
+.step-title{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:1.1rem}
 .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
 .service-option{border:1px solid var(--sage-tint);border-radius:4px;padding:.85rem .95rem;cursor:pointer;transition:all .2s;background:#fff}
 .service-option:hover{border-color:var(--sage-deep)}
 .service-option.selected{border-color:var(--terra);background:var(--terra-pale);box-shadow:inset 0 0 0 1px var(--terra)}
 .service-option .svc-name{font-weight:600;font-size:.88rem;color:var(--ink);line-height:1.3}
-.service-option .svc-price{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--terra);margin-top:.25rem}
+.service-option .svc-price{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--terra-dark);margin-top:.25rem}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.28rem}
 .cal-month{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:.7rem}
 .cal-day-name{text-align:center;font-size:.66rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:.3rem 0}
 .cal-day{text-align:center;padding:.5rem 0;border-radius:3px;font-size:.86rem;cursor:pointer;transition:all .2s;border:1px solid transparent}
 .cal-day:hover:not(.disabled){border-color:var(--sage-deep)}
-.cal-day.selected{background:var(--terra);color:#fff;font-weight:600}
+.cal-day.selected{background:var(--terra-dark);color:#fff;font-weight:600}
 .cal-day.disabled{color:#C8C1B6;pointer-events:none}
 .cal-day.empty{visibility:hidden}
 .cal-note{font-size:.76rem;color:var(--muted);margin-top:.8rem}
@@ -220,13 +226,13 @@ footer a{color:#F6F1EA;text-decoration:none;font-weight:600;font-size:.86rem}
 .form-group{margin-bottom:1rem}
 .form-group label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:.4rem}
 .form-group label small{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:500}
-.form-group input{width:100%;border:1px solid var(--sage-tint);border-radius:3px;padding:.75rem .95rem;font-family:var(--sans);font-size:.94rem;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+.form-group input{width:100%;border:1px solid var(--sage-tint);border-radius:3px;padding:.75rem .95rem;font-family:var(--sans);font-size:16px;color:var(--ink);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
 .form-group input:focus{border-color:var(--terra);box-shadow:0 0 0 3px var(--terra-pale)}
-.modal-footer{padding:1rem 1.8rem 1.3rem;border-top:1px solid var(--line);display:flex;gap:.65rem;justify-content:flex-end}
-.btn-back{background:none;border:1px solid var(--line);color:var(--muted);padding:.65rem 1.2rem;border-radius:3px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.modal-footer{position:sticky;bottom:0;background:var(--card);box-shadow:0 -10px 18px -14px rgba(43,43,43,.3);padding:1rem 1.8rem 1.3rem;border-top:1px solid var(--line);display:flex;gap:.65rem;justify-content:flex-end;flex-wrap:nowrap}
+.btn-back{background:none;border:1px solid var(--line);color:var(--muted);padding:.65rem 1.2rem;border-radius:3px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
 .btn-back:hover{border-color:var(--sage-deep);color:var(--sage-deep)}
-.btn-next{background:var(--terra);color:#fff;border:none;padding:.65rem 1.6rem;border-radius:3px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s}
-.btn-next:hover{background:var(--terra-dark)}
+.btn-next{background:var(--terra-dark);color:#fff;border:none;padding:.65rem 1.6rem;border-radius:3px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap}
+.btn-next:hover{background:#8F5236}
 .confirm-screen{text-align:center;padding:.6rem 0}
 .confirm-icon{width:64px;height:64px;border-radius:50%;background:var(--sage-pale);color:var(--sage-deep);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
 .confirm-icon svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -237,6 +243,13 @@ footer a{color:#F6F1EA;text-decoration:none;font-weight:600;font-size:.86rem}
 .confirm-detail div:last-child{border:none}
 .confirm-detail span:first-child{color:var(--muted);font-weight:500}
 .confirm-detail span:last-child{color:var(--ink);font-weight:600;text-align:right}
+/* ---------- no-motion fallback (GSAP/Lenis CDN blocked or offline): every entrance-hidden state is reset so the page reads fully ---------- */
+html.no-motion .hero-eyebrow,html.no-motion .hero-trust,html.no-motion .hero-sub,html.no-motion .hero-actions,html.no-motion .hero-chips,html.no-motion .hero-caption,html.no-motion .hero-frame-line,html.no-motion .reveal{opacity:1;transform:none}
+html.no-motion .hero-title .line span{transform:none}
+html.no-motion .hero-photo{clip-path:none}
+html.no-motion #progressBar{display:none}
+@keyframes marquee{to{transform:translateX(-50%)}}
+html.no-motion .marquee-inner{animation:marquee 28s linear infinite}
 /* ---------- responsive ---------- */
 @media(hover:none){.svc-card,.rev-card{transform:none!important}}
 @media(max-width:1100px){
@@ -250,8 +263,8 @@ footer a{color:#F6F1EA;text-decoration:none;font-weight:600;font-size:.86rem}
   .nav-links{display:none}
   .hamburger{display:flex}
   .hero{grid-template-columns:1fr;min-height:0}
-  .hero-copy{order:1;padding:7.5rem 6% 2.6rem}
-  .hero-media{order:2;padding:0 6% 3.5rem 7%}
+  .hero-copy{order:1;padding:6.5rem 6% 2.4rem}
+  .hero-media{order:2;padding:0 6% 2.5rem 7%}
   .hero-frame{min-height:0;aspect-ratio:4/3;flex:none}
   .hero-frame-line{top:1rem;left:-1rem;right:1rem;bottom:-1rem}
   .hero-caption{margin-top:2.2rem}
@@ -261,7 +274,7 @@ footer a{color:#F6F1EA;text-decoration:none;font-weight:600;font-size:.86rem}
   .svc-card{padding:1.25rem 1.05rem 1.1rem;min-height:0}
   .svc-card h3{font-size:1.25rem}
   .svc-card p{font-size:.8rem}
-  .svc-price b{font-size:1.35rem}
+  .svc-card .svc-price b{font-size:1.35rem}
   .statement{padding:6rem 6%}
   .big br{display:none}
   .stat-row{gap:1.6rem 1.7rem;margin-top:2.8rem}
@@ -278,6 +291,12 @@ footer a{color:#F6F1EA;text-decoration:none;font-weight:600;font-size:.86rem}
 }
 @media(max-width:560px){
   .nav-cta{display:none}
+  .services-grid{grid-template-columns:1fr}
+  .svc-card{min-height:0;padding:1.3rem 1.2rem 1.2rem}
+  .svc-card p{flex:none}
+  .svc-idx{margin-bottom:.9rem}
+  .cta h2{font-size:2.3rem}
+  .hours-list li{font-size:.9rem}
   .hero-title{font-size:clamp(2.6rem,12vw,3.4rem)}
   .btn-primary,.btn-outline{width:100%;text-align:center}
   .modal-header h3{font-size:1.45rem}
@@ -312,11 +331,12 @@ Photos are Unsplash stock placeholders - replace with the owner's own photos bef
   </ul>
   <div class="nav-right">
     <a href="#" class="nav-cta" onclick="openModal();return false">Book an Appointment</a>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 <div class="mobile-drawer" id="mobileDrawer">
+  <button class="drawer-close" aria-label="Close menu" onclick="closeDrawer()">✕</button>
   <a href="#services" onclick="closeDrawer()">Services</a>
   <a href="#about" onclick="closeDrawer()">Why Us</a>
   <a href="#gallery" onclick="closeDrawer()">Gallery</a>
@@ -375,7 +395,7 @@ Photos are Unsplash stock placeholders - replace with the owner's own photos bef
   </div>
   <p class="services-note reveal">Starting prices. Add-ons and nail art are quoted in the chair before we begin.</p>
 </section>
-<section class="statement" id="about">
+<section class="statement" id="story">
   <div class="statement-bg" id="statementBg"></div>
   <div class="statement-overlay"></div>
   <div class="statement-inner reveal">
@@ -389,7 +409,7 @@ Photos are Unsplash stock placeholders - replace with the owner's own photos bef
     </div>
   </div>
 </section>
-<section class="why">
+<section class="why" id="about">
   <div class="section-head reveal">
     <div>
       <p class="eyebrow">Why Regulars Stay</p>
@@ -410,7 +430,7 @@ Photos are Unsplash stock placeholders - replace with the owner's own photos bef
     </div>
     <div class="why-item reveal">
       <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-      <h3>Quick when it is busy, never rushed</h3>
+      <h3>Quick when busy, never rushed</h3>
       <p>Saturday afternoons fill up fast, but the work does not get sloppy. Fair Cottman Ave prices, careful hands, and a massage chair while you wait.</p>
     </div>
   </div>
@@ -458,7 +478,9 @@ Photos are Unsplash stock placeholders - replace with the owner's own photos bef
         </div>
         <div class="loc-item">
           <div class="loc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
-          <div><strong>Book Online</strong><small>Pick a service, day and time in under a minute. We confirm by phone or text.</small></div>
+          <div><strong>Book Online</strong><small>Pick a service, day and time in under a minute. We confirm by phone or text.</small>
+            <a class="directions" href="#" onclick="openModal();return false">Start Booking →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -511,7 +533,7 @@ Photos are Unsplash stock placeholders - replace with the owner's own photos bef
   <a href="tel:2157221100">(215) 722-1100</a>
 </footer>
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" data-lenis-prevent>
     <div class="modal-header">
       <h3 id="modalTitle">Choose a Service</h3>
       <button class="modal-close" aria-label="Close" onclick="closeModal()">✕</button>
@@ -527,106 +549,17 @@ Photos are Unsplash stock placeholders - replace with the owner's own photos bef
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
-gsap.registerPlugin(ScrollTrigger);
+/* ---- Library guard: if the CDN is blocked or offline, typeof gsap is 'undefined' (same for ScrollTrigger / Lenis).
+   The page must still be fully visible and usable: <html> gets class "no-motion" (CSS resets every entrance-hidden state,
+   hides the custom cursor and runs the marquee as a CSS animation) and every animation block below is skipped.
+   Booking, drawer and hours logic never touch gsap directly. ---- */
+const MOTION=!!(window.gsap&&window.ScrollTrigger&&window.Lenis); if(!MOTION) document.documentElement.classList.add('no-motion');
+let lenis=null;
 
-/* Smooth scroll */
-const lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
-function raf(time){lenis.raf(time);requestAnimationFrame(raf)}
-requestAnimationFrame(raf);
-lenis.on('scroll',ScrollTrigger.update);
-gsap.ticker.add(time=>{lenis.raf(time*1000)});
-gsap.ticker.lagSmoothing(0);
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const id=a.getAttribute('href');
-    if(id.length>1&&document.querySelector(id)){e.preventDefault();lenis.scrollTo(id,{offset:-72});closeDrawer()}
-  });
-});
-
-/* Custom cursor (desktop pointer only) */
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cursor,{x:mx,y:my,duration:.08})});
-  (function tick(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
-  document.querySelectorAll('a,button,.svc-card,.g-tile,.rev-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.8,opacity:1,duration:.2});gsap.to(cursor,{scale:1.5,duration:.2})});
-    el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:.6,duration:.2});gsap.to(cursor,{scale:1,duration:.2})});
-  });
-}
-
-/* Mobile drawer */
-function toggleDrawer(){
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('mobileDrawer').classList.toggle('open');
-  document.getElementById('drawerOverlay').classList.toggle('open');
-}
-function closeDrawer(){
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobileDrawer').classList.remove('open');
-  document.getElementById('drawerOverlay').classList.remove('open');
-}
-
-/* Scroll progress bar */
-gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
-
-/* Hero entrance: every tween on a hidden element ends fully visible */
-const tl=gsap.timeline({delay:.15});
-tl.to('#heroPhoto',{clipPath:'inset(0 0 0% 0)',duration:1.1,ease:'expo.inOut'})
-  .to('#heroFrame',{opacity:1,duration:.6,ease:'power2.out'},'-=.45')
-  .to('.hero-eyebrow',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.7')
-  .to('.hero-title .line span',{y:0,duration:.9,ease:'expo.out',stagger:.11},'-=.4')
-  .to('.hero-trust',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.35')
-  .to('.hero-sub',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.3')
-  .to('.hero-actions',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.3')
-  .to('.hero-chips',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.3')
-  .to('#heroCaption',{opacity:1,duration:.6},'-=.3');
-gsap.to('#heroPhoto img',{yPercent:6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-gsap.to('#statementBg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.statement',start:'top bottom',end:'bottom top',scrub:true}});
-
-/* Sticky nav shrink */
-ScrollTrigger.create({trigger:'body',start:'80px top',
-  onEnter:()=>{document.getElementById('nav').classList.add('scrolled')},
-  onLeaveBack:()=>{document.getElementById('nav').classList.remove('scrolled')}
-});
-
-/* GSAP marquee: span set is duplicated in the markup so -50% loops seamlessly */
-gsap.to('#marquee',{xPercent:-50,duration:28,repeat:-1,ease:'none'});
-
-/* Reveal on scroll */
-document.querySelectorAll('.reveal').forEach((el,i)=>{
-  gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.85,ease:'expo.out',
-    scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%4)*.06});
-});
-
-/* Count-up numbers */
-document.querySelectorAll('[data-target]').forEach(el=>{
-  const target=parseFloat(el.getAttribute('data-target'));
-  const decimals=parseInt(el.getAttribute('data-decimals')||'0');
-  const suffix=el.getAttribute('data-suffix')||'';
-  const obj={val:0};
-  gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
-    scrollTrigger:{trigger:el,start:'top 88%'},
-    onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
-});
-
-/* 3D tilt on service cards + magnetic CTA (desktop pointer only) */
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){
-  document.querySelectorAll('.svc-card').forEach(card=>{
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
-      const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
-      gsap.to(card,{rotateY:x/26,rotateX:-y/26,duration:.4,ease:'power2.out',transformPerspective:800});
-    });
-    card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
-  });
-  const magBtn=document.getElementById('magneticCta');
-  magBtn.addEventListener('mousemove',e=>{
-    const r=magBtn.getBoundingClientRect();
-    gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
-  });
-  magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
-}
+/* ===== Shared helpers ===== */
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hourOf=t=>{let h=parseInt(t,10);const pm=/PM/i.test(t);if(pm&&h!==12)h+=12;if(!pm&&h===12)h=0;return h};
+const sameDay=(a,b)=>a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
 
 /* Hours: CLOSED_DAYS drives both the hours list and the booking calendar (0=Sun ... 6=Sat) */
 const CLOSED_DAYS=[];
@@ -641,14 +574,47 @@ const CLOSED_DAYS=[];
 
 /* ===== Booking modal (this IS the booking system) ===== */
 const SERVICES=[['Classic Manicure','$22'],['Gel Manicure','$35'],['Classic Pedicure','$32'],['Gel Pedicure','$45'],['Full Set (Acrylic)','$55'],['Fill-In','$35'],['Eyelash Extensions','$80'],['Nail Art / Add-On','from $5']];
+/* Mon-Sat 9:30 AM - 7:30 PM: first start at open, last start one hour before close */
 const SLOTS=['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'];
-const SUN_SLOTS=['10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM'];
-let step=1,chosen={service:'',date:'',wd:-1,time:'',name:'',phone:'',notes:''};
+/* Sunday 10:00 AM - 5:00 PM: same rule */
+const SUN_SLOTS=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const LONG_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+/* Start times for a given day; today only offers hours still ahead of the clock. */
+function slotsFor(y,m,d){
+  const date=new Date(y,m,d),now=new Date();
+  const base=date.getDay()===0?SUN_SLOTS:SLOTS;
+  return sameDay(date,now)?base.filter(t=>hourOf(t)>now.getHours()):base;
+}
+let step=1,chosen={};
+function resetChosen(){chosen={service:'',date:'',ymd:null,wd:-1,time:'',name:'',phone:'',notes:''}}
+resetChosen();
 const titles=['Choose a Service','Pick a Day','Pick a Time','Your Details','You Are Booked'];
-function openModal(){step=1;renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden'}
-function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
+function openModal(){
+  step=1;resetChosen();renderStep();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  lenis&&lenis.stop(); /* page cannot scroll behind the modal; #modal has data-lenis-prevent so it scrolls itself */
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  lenis&&lenis.start();
+}
 function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
 function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function pickService(i){chosen.service=SERVICES[i][0];renderStep()}
+function pickDate(y,m,d){chosen.date=`${MONTHS[m]} ${d}, ${y}`;chosen.ymd=[y,m,d];chosen.wd=new Date(y,m,d).getDay();chosen.time='';renderStep()}
+function pickTime(i){const slots=chosen.ymd?slotsFor(...chosen.ymd):SLOTS;chosen.time=slots[i]||'';renderStep()}
+function submitDetails(){
+  chosen.name=document.getElementById('fn').value.trim();
+  chosen.phone=document.getElementById('fp').value.trim();
+  chosen.notes=document.getElementById('fv').value.trim();
+  if(!chosen.name||!chosen.phone)return;
+  /* same-day guard: if the chosen start time passed while the form was open, send them back to pick another */
+  if(chosen.ymd&&sameDay(new Date(...chosen.ymd),new Date())&&hourOf(chosen.time)<=new Date().getHours()){chosen.time='';step=3;renderStep();return}
+  step=5;renderStep();
+}
 function renderStep(){
   document.getElementById('modalTitle').textContent=titles[step-1];
   setStepDots();
@@ -656,52 +622,173 @@ function renderStep(){
   body.innerHTML='';foot.innerHTML='';
   if(step===1){
     body.innerHTML=`<div class="step-title">What are we doing today?</div><div class="service-grid">
-      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
-        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
+      ${SERVICES.map(([n,p],i)=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="pickService(${i})">
+        <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
   } else if(step===2){
     const now=new Date(),y=now.getFullYear(),m=now.getMonth();
     const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
-    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const full=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    let cal=`<div class="step-title">Which day works?</div><div class="cal-month">${full[m]} ${y}</div><div class="calendar-grid">
+    let cal=`<div class="step-title">Which day works?</div><div class="cal-month">${LONG_MONTHS[m]} ${y}</div><div class="calendar-grid">
       ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
       ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
-    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const today=new Date(y,m,now.getDate());
+    let todayFull=false;
     for(let d=1;d<=days;d++){
-      const dt=`${months[m]} ${d}, ${y}`,date=new Date(y,m,d),wd=date.getDay(),off=CLOSED_DAYS.includes(wd)||date<today;
-      cal+=`<div class="cal-day${off?' disabled':chosen.date===dt?' selected':''}"${off?'':` onclick="chosen.date='${dt}';chosen.wd=${wd};renderStep()"`}>${d}</div>`}
-    body.innerHTML=cal+'</div><p class="cal-note">Open seven days a week. Sunday hours are 10:00 AM to 5:00 PM.</p>';
+      const dt=`${MONTHS[m]} ${d}, ${y}`,date=new Date(y,m,d),wd=date.getDay();
+      const full=sameDay(date,now)&&slotsFor(y,m,d).length===0; if(full)todayFull=true;
+      const off=CLOSED_DAYS.includes(wd)||date<today||full;
+      cal+=`<div class="cal-day${off?' disabled':chosen.date===dt?' selected':''}"${off?'':` onclick="pickDate(${y},${m},${d})"`}>${d}</div>`}
+    body.innerHTML=cal+`</div><p class="cal-note">Open seven days a week. Sunday hours are 10:00 AM to 5:00 PM.${todayFull?' Today’s last start time has passed, so the earliest booking is tomorrow.':''}</p>`;
     foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
   } else if(step===3){
-    const slots=chosen.wd===0?SUN_SLOTS:SLOTS;
-    body.innerHTML=`<div class="step-title">Pick a start time for ${chosen.date}</div><div class="time-grid">
-      ${slots.map(t=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`).join('')}</div>`;
+    const slots=chosen.ymd?slotsFor(...chosen.ymd):SLOTS;
+    body.innerHTML=`<div class="step-title">Pick a start time for ${esc(chosen.date)}</div>`+(slots.length
+      ?`<div class="time-grid">${slots.map((t,i)=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="pickTime(${i})">${t}</div>`).join('')}</div>`
+      :`<p class="cal-note">No start times are left today. Go back and pick another day.</p>`);
     foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
   } else if(step===4){
     body.innerHTML=`<div class="step-title">How do we reach you?</div>
-      <div class="form-group"><label>Full Name</label><input id="fn" placeholder="Your name" autocomplete="name" value="${chosen.name}"></div>
-      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" autocomplete="tel" value="${chosen.phone}"></div>
-      <div class="form-group"><label>Nail tech preference / notes <small>(optional)</small></label><input id="fv" placeholder="e.g. same tech as last time, gel color ideas" value="${chosen.notes}"></div>`;
-    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
-      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value.trim();chosen.phone=document.getElementById('fp').value.trim();chosen.notes=document.getElementById('fv').value.trim();if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Booking</button>`;
+      <div class="form-group"><label>Full Name</label><input id="fn" placeholder="Your name" autocomplete="name" value="${esc(chosen.name)}"></div>
+      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" autocomplete="tel" value="${esc(chosen.phone)}"></div>
+      <div class="form-group"><label>Nail tech preference / notes <small>(optional)</small></label><input id="fv" placeholder="e.g. same tech as last time, gel color ideas" value="${esc(chosen.notes)}"></div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button><button class="btn-next" onclick="submitDetails()">Confirm Booking</button>`;
   } else {
     const first=chosen.name.split(' ')[0];
     body.innerHTML=`<div class="confirm-screen">
       <div class="confirm-icon"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-      <h3>See you soon, ${first}.</h3>
+      <h3>See you soon, ${esc(first)}.</h3>
       <p>Your request is in. We will call or text to confirm and hold your chair.</p>
       <div class="confirm-detail">
-        <div><span>Service</span><span>${chosen.service}</span></div>
-        <div><span>Date</span><span>${chosen.date}</span></div>
-        <div><span>Time</span><span>${chosen.time}</span></div>
-        <div><span>Tech / Notes</span><span>${chosen.notes||'No preference'}</span></div>
-        <div><span>Phone</span><span>${chosen.phone}</span></div>
+        <div><span>Service</span><span>${esc(chosen.service)}</span></div>
+        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
+        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
+        <div><span>Tech / Notes</span><span>${esc(chosen.notes)||'No preference'}</span></div>
+        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
       </div>
-      <p style="font-size:.8rem">Need to change something? Call <a href="tel:2157221100" style="color:var(--terra);font-weight:600;text-decoration:none">(215) 722-1100</a>.</p>
+      <p style="font-size:.8rem">Need to change something? Call <a href="tel:2157221100" style="color:var(--terra-dark);font-weight:600;text-decoration:none">(215) 722-1100</a>.</p>
     </div>`;
     foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done</button>`;
   }
+}
+
+/* ===== Mobile drawer (explicit close button inside the drawer + ESC key) ===== */
+function toggleDrawer(){
+  const open=document.getElementById('mobileDrawer').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open',open);
+  document.getElementById('hamburger').setAttribute('aria-expanded',open?'true':'false');
+  document.getElementById('drawerOverlay').classList.toggle('open',open);
+}
+function closeDrawer(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded','false');
+  document.getElementById('mobileDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDrawer()}});
+
+/* ===== Smooth scroll (Lenis), driven once per frame by the GSAP ticker (never a second rAF loop) ===== */
+if(MOTION){
+  gsap.registerPlugin(ScrollTrigger);
+  lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(time=>{lenis.raf(time*1000)});
+  gsap.ticker.lagSmoothing(0);
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href'),target=id.length>1?document.querySelector(id):null;
+    if(!target)return;
+    e.preventDefault();closeDrawer();
+    if(lenis)lenis.scrollTo(id,{offset:-72});
+    else window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});
+  });
+});
+
+/* ===== Custom cursor (real mouse at desktop widths only; CSS hides it everywhere else). Dot and ring stay
+   invisible / parked offscreen until the first mousemove so nothing sits in the page corner on load. ===== */
+if(MOTION&&matchMedia('(hover:hover) and (pointer:fine) and (min-width:861px)').matches){
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  let mx=-100,my=-100,rx=-100,ry=-100,seen=false;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    if(!seen){seen=true;rx=mx;ry=my;gsap.set(cursor,{x:mx,y:my,opacity:1});gsap.set(ring,{opacity:.6})}
+    gsap.to(cursor,{x:mx,y:my,duration:.08});
+  });
+  (function tick(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
+  document.querySelectorAll('a,button,.svc-card,.g-tile,.rev-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.8,opacity:1,duration:.2});gsap.to(cursor,{scale:1.5,duration:.2})});
+    el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:.6,duration:.2});gsap.to(cursor,{scale:1,duration:.2})});
+  });
+}
+
+if(MOTION){
+  /* Scroll progress bar */
+  gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+
+  /* Hero entrance: every tween on a hidden element ends fully visible */
+  const tl=gsap.timeline({delay:.15});
+  tl.to('#heroPhoto',{clipPath:'inset(0 0 0% 0)',duration:1.1,ease:'expo.inOut'})
+    .to('#heroFrame',{opacity:1,duration:.6,ease:'power2.out'},'-=.45')
+    .to('.hero-eyebrow',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.7')
+    .to('.hero-title .line span',{y:0,duration:.9,ease:'expo.out',stagger:.11},'-=.4')
+    .to('.hero-trust',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.35')
+    .to('.hero-sub',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.3')
+    .to('.hero-actions',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.3')
+    .to('.hero-chips',{opacity:1,y:0,duration:.55,ease:'expo.out'},'-=.3')
+    .to('#heroCaption',{opacity:1,duration:.6},'-=.3');
+  gsap.to('#heroPhoto img',{yPercent:6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('#statementBg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.statement',start:'top bottom',end:'bottom top',scrub:true}});
+
+  /* Sticky nav shrink */
+  ScrollTrigger.create({trigger:'body',start:'80px top',
+    onEnter:()=>{document.getElementById('nav').classList.add('scrolled')},
+    onLeaveBack:()=>{document.getElementById('nav').classList.remove('scrolled')}
+  });
+
+  /* GSAP marquee: span set is duplicated in the markup so -50% loops seamlessly */
+  gsap.to('#marquee',{xPercent:-50,duration:28,repeat:-1,ease:'none'});
+
+  /* Reveal on scroll */
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.85,ease:'expo.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%4)*.06});
+  });
+
+  /* Count-up numbers */
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-target'));
+    const decimals=parseInt(el.getAttribute('data-decimals')||'0');
+    const suffix=el.getAttribute('data-suffix')||'';
+    const obj={val:0};
+    gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},
+      onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
+  });
+} else {
+  /* No animation library: write the final numbers directly and keep the nav shrink working */
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-target')),decimals=parseInt(el.getAttribute('data-decimals')||'0');
+    el.textContent=target.toFixed(decimals)+(el.getAttribute('data-suffix')||'');
+  });
+  window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>80)},{passive:true});
+}
+
+/* 3D tilt on service cards + magnetic CTA (desktop pointer only) */
+if(MOTION&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+  document.querySelectorAll('.svc-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+      gsap.to(card,{rotateY:x/26,rotateX:-y/26,duration:.4,ease:'power2.out',transformPerspective:800});
+    });
+    card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
+  });
+  const magBtn=document.getElementById('magneticCta');
+  magBtn.addEventListener('mousemove',e=>{
+    const r=magBtn.getBoundingClientRect();
+    gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
+  });
+  magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
 }
 </script>
 </body>
