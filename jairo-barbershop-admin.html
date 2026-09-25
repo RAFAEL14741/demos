@@ -478,8 +478,8 @@ function renderStep(){
   body.innerHTML='';foot.innerHTML='';
   if(step===1){
     body.innerHTML=`<div class="step-title">What is the client booking?</div><div class="service-grid">
-      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
-        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
+      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${esc(n)}';renderStep()">
+        <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
   } else if(step===2){
     const now=new Date(),base=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=base.getFullYear(),m=base.getMonth();

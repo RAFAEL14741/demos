@@ -16,13 +16,19 @@
 }
 html{-webkit-font-smoothing:antialiased;scroll-behavior:auto}
 body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-weight:400;overflow-x:hidden;cursor:auto}
-@media(hover:hover) and (pointer:fine) and (min-width:861px){body{cursor:none}}
+@media(hover:hover) and (pointer:fine) and (min-width:861px){html:not(.no-motion) body,html:not(.no-motion) body *:not(input):not(textarea){cursor:none}html:not(.no-motion) #cursor,html:not(.no-motion) #cursor-ring{display:block}}
 ::selection{background:var(--gold);color:#141414}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:9996;opacity:.06;mix-blend-mode:overlay;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23n)"/></svg>')}
 #progressBar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--gold);z-index:10000}
-#cursor{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;opacity:0}
-#cursor-ring{position:fixed;top:0;left:0;width:38px;height:38px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;opacity:0}
-@media(max-width:860px){#cursor,#cursor-ring{display:none}body{cursor:auto}}
+#cursor{position:fixed;top:0;left:0;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;opacity:0;display:none}
+#cursor-ring{position:fixed;top:0;left:0;width:38px;height:38px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;opacity:0;display:none}
+@media(max-width:860px){#cursor,#cursor-ring{display:none!important}body,body *{cursor:auto}}
+/* ---------- no-motion fallback (GSAP / Lenis CDN unavailable): every entrance state resolves to visible ---------- */
+html.no-motion .reveal,html.no-motion .hero-eyebrow,html.no-motion .hero-sub,html.no-motion .hero-actions,html.no-motion .hero-rating,html.no-motion .scroll-cue{opacity:1;transform:none}
+html.no-motion .hero-title .line span{transform:none}
+html.no-motion #cursor,html.no-motion #cursor-ring,html.no-motion #progressBar{display:none}
+html.no-motion .marquee-inner{animation:marquee-fallback 30s linear infinite}
+@keyframes marquee-fallback{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* ---------- nav ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 6%;background:linear-gradient(180deg,rgba(10,10,10,.85),rgba(10,10,10,0));border-bottom:1px solid transparent;transition:padding .3s,background .3s,border-color .3s}
 nav.scrolled{padding:.75rem 6%;background:rgba(20,20,20,.94);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
@@ -43,10 +49,12 @@ nav.scrolled{padding:.75rem 6%;background:rgba(20,20,20,.94);backdrop-filter:blu
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);z-index:198;opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);z-index:398;opacity:0;pointer-events:none;transition:opacity .3s}
 .drawer-overlay.open{opacity:1;pointer-events:auto}
-.mobile-drawer{position:fixed;top:0;right:-320px;width:300px;max-width:88vw;height:100%;background:var(--card);border-left:1px solid var(--line);z-index:199;padding:6.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.35rem;transition:right .4s cubic-bezier(.16,1,.3,1)}
+.mobile-drawer{position:fixed;top:0;right:-320px;width:300px;max-width:88vw;height:100%;background:var(--card);border-left:1px solid var(--line);z-index:399;padding:6.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.35rem;transition:right .4s cubic-bezier(.16,1,.3,1)}
 .mobile-drawer.open{right:0}
+.drawer-close{position:absolute;top:1.25rem;right:1.6rem;width:42px;height:42px;border-radius:2px;background:none;border:1px solid var(--line);color:var(--text);font-size:1rem;cursor:pointer;transition:color .2s,border-color .2s}
+.drawer-close:hover{color:var(--gold);border-color:var(--gold)}
 .mobile-drawer a{font-family:'Barlow Condensed',sans-serif;font-size:1.55rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--text)}
 .mobile-drawer a:hover{color:var(--gold)}
 .mobile-drawer .btn{margin-top:.6rem;justify-content:center;font-size:1.05rem}
@@ -219,7 +227,7 @@ footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
 /* ---------- booking modal ---------- */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
-.modal{background:var(--card);border:1px solid rgba(242,177,52,.22);border-radius:4px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;box-shadow:0 30px 90px rgba(0,0,0,.6);color:var(--text)}
+.modal{background:var(--card);border:1px solid rgba(242,177,52,.22);border-radius:4px;width:100%;max-width:540px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;box-shadow:0 30px 90px rgba(0,0,0,.6);color:var(--text)}
 .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.7rem 1rem}
 .modal-header h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
 .modal-close{background:none;border:1px solid var(--line);color:var(--muted);width:34px;height:34px;border-radius:2px;font-size:1rem;cursor:pointer;transition:all .2s}
@@ -248,23 +256,26 @@ footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
 .cal-day{text-align:center;padding:.58rem 0;border-radius:3px;font-size:.9rem;cursor:pointer;background:#141414;border:1px solid transparent;transition:all .2s}
 .cal-day:hover:not(.disabled){border-color:var(--gold);color:var(--gold)}
 .cal-day.selected{background:var(--gold);color:#141414;font-weight:600}
+.cal-day.today:not(.selected):not(.disabled){border-color:rgba(242,177,52,.45)}
 .cal-day.disabled{color:rgba(244,239,230,.22);background:transparent;pointer-events:none}
 .cal-day.empty{visibility:hidden}
 .time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
 .time-slot{background:#141414;border:1px solid var(--line);border-radius:3px;padding:.72rem;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .2s}
 .time-slot:hover{border-color:var(--gold);color:var(--gold)}
 .time-slot.selected{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
+.time-slot.disabled{opacity:.32;pointer-events:none;text-decoration:line-through;cursor:default}
 .form-group{margin-bottom:1rem}
 .form-group label{display:block;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
-.form-group input{width:100%;background:#141414;border:1px solid var(--line);border-radius:3px;color:var(--text);padding:.82rem .95rem;font-family:'Barlow',sans-serif;font-size:.96rem;outline:none;transition:border-color .2s}
+.form-group input{width:100%;background:#141414;border:1px solid var(--line);border-radius:3px;color:var(--text);padding:.82rem .95rem;font-family:'Barlow',sans-serif;font-size:16px;outline:none;transition:border-color .2s}
 .form-group input::placeholder{color:rgba(168,162,158,.55)}
 .form-group input:focus{border-color:var(--gold)}
 .form-group input.invalid{border-color:var(--gold-dark);box-shadow:0 0 0 3px var(--gold-soft)}
 .form-hint{font-size:.78rem;color:var(--gold);margin-top:.2rem;min-height:1em}
-.modal-footer{display:flex;justify-content:space-between;gap:.6rem;padding:1rem 1.7rem 1.5rem;border-top:1px solid var(--line)}
-.btn-back{background:none;border:1px solid var(--line);color:var(--muted);padding:.72rem 1.2rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.modal-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:.6rem;padding:1rem 1.7rem 1.5rem;border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--card);z-index:1}
+.modal-footer:empty{display:none}
+.btn-back{background:none;border:1px solid var(--line);color:var(--muted);padding:.72rem 1.2rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap}
 .btn-back:hover{color:var(--text);border-color:var(--text)}
-.btn-next{margin-left:auto;background:var(--gold);color:#141414;border:none;padding:.72rem 1.6rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,opacity .2s}
+.btn-next{margin-left:auto;background:var(--gold);color:#141414;border:none;padding:.72rem 1.6rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,opacity .2s;white-space:nowrap}
 .btn-next:hover{background:var(--gold-dark)}
 .btn-next:disabled{opacity:.4;cursor:not-allowed}
 .confirm-screen{text-align:center;padding:.4rem 0}
@@ -278,7 +289,7 @@ footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
 .confirm-detail span:first-child{color:var(--muted);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding-top:.2rem}
 .confirm-detail span:last-child{color:var(--text);font-weight:600;text-align:right}
 /* ---------- responsive ---------- */
-@media(hover:none){.svc-card,.rev{transform:none!important}.gallery-cap{opacity:1;transform:none}}
+@media(hover:none){.svc-card,.rev{transform:none!important}.gallery-cap{opacity:1;transform:none}.btn:hover{transform:none}.gallery-item:hover img{transform:none}.svc-link:hover::after{transform:none}.svc-card:hover{box-shadow:none}}
 @media(max-width:1024px){
   .svc-grid{grid-template-columns:1fr 1fr}
   .reviews-grid{grid-template-columns:1fr 1fr}
@@ -301,7 +312,8 @@ footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
   .hero-eyebrow::before{width:28px}
   .eb-x{display:none}
   .scroll-cue{display:none}
-  .hours-list li{font-size:.95rem;padding:.9rem 0}
+  .hours-list li{font-size:.95rem;padding:.9rem 0;flex-wrap:wrap;row-gap:.15rem}
+  .hours-list li span:first-child{white-space:nowrap}
   .hours-list li span:last-child{font-size:1.02rem;white-space:nowrap}
   .svc-grid{grid-template-columns:1fr}
   .statement{padding:5.5rem 6%;min-height:0}
@@ -312,7 +324,7 @@ footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
   .about-photo .tag{left:0}
   .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
   .gallery-item{height:200px}
-  .gallery-item.tall{grid-row:span 1}
+  .gallery-item.tall{grid-row:span 1;grid-column:1/-1;height:260px}
   .trust-item{padding:2.2rem 1.4rem}
   .tv{font-size:2.3rem;white-space:nowrap}
   .reviews-grid{grid-template-columns:1fr}
@@ -320,7 +332,8 @@ footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
   .loc-card{padding:1.6rem}
 }
 @media(max-width:480px){
-  .hero-actions .btn{width:100%}
+  .hero-actions .btn,.cta-actions .btn,.loc-actions .btn{width:100%}
+  .cta-actions,.loc-actions{flex-direction:column}
   .nav-cta{padding:.55rem .9rem;font-size:.85rem}
   .service-grid{grid-template-columns:1fr}
   .time-grid{grid-template-columns:1fr 1fr}
@@ -328,6 +341,8 @@ footer a{color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem}
   .tv{font-size:2.1rem}
   .hours-list li.today span:first-child::after{display:block;margin:.2rem 0 0}
   .modal-header,.modal-body,.modal-footer,.modal-steps,.modal-summary{padding-left:1.2rem;padding-right:1.2rem}
+  .btn-back{padding:.72rem .95rem}
+  .btn-next{padding:.72rem 1.15rem}
 }
 </style>
 </head>
@@ -362,6 +377,7 @@ The booking modal is a front-end demo only (no backend). Never link a third-part
 </nav>
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 <div class="mobile-drawer" id="mobileDrawer">
+  <button class="drawer-close" aria-label="Close menu" onclick="closeDrawer()">✕</button>
   <a href="#services" onclick="closeDrawer()">Services</a>
   <a href="#about" onclick="closeDrawer()">About</a>
   <a href="#gallery" onclick="closeDrawer()">The Shop</a>
@@ -633,7 +649,7 @@ The booking modal is a front-end demo only (no backend). Never link a third-part
 </footer>
 
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-header">
       <h3 id="modalTitle">Pick a Service</h3>
       <button class="modal-close" aria-label="Close" onclick="closeModal()">✕</button>
@@ -651,25 +667,28 @@ The booking modal is a front-end demo only (no backend). Never link a third-part
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
-gsap.registerPlugin(ScrollTrigger);
+/* ===== Motion is optional: if the GSAP / Lenis CDN is blocked the page still renders and books ===== */
+const MOTION=!!(window.gsap&&window.ScrollTrigger&&window.Lenis);
+if(!MOTION) document.documentElement.classList.add('no-motion');
 
 /* ===== Business constants (hours are an assumption, see the notes comment at the top of <body>) ===== */
 const CLOSED_DAYS=[0];
 const OPEN_HOUR=9,CLOSE_HOUR=19;
 const TIMES=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
+const LAST_SLOT_HOUR=OPEN_HOUR+TIMES.length-1; /* 6:00 PM */
 const SERVICES=[['Haircut','$25'],['Skin Fade','$30'],['Haircut + Beard','$38'],['Beard Trim / Shape-Up','$15'],['Kids Cut (12 & under)','$18'],['Line-Up','$12'],['Hot Towel Shave','$25'],['Eyebrows','$8']];
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-/* ===== Smooth scroll (Lenis + ScrollTrigger sync) ===== */
-const lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
-lenis.on('scroll',ScrollTrigger.update);
-gsap.ticker.add(time=>{lenis.raf(time*1000)});
-gsap.ticker.lagSmoothing(0);
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const id=a.getAttribute('href');
-    if(id.length>1&&document.querySelector(id)){e.preventDefault();closeDrawer();lenis.scrollTo(id,{offset:-72})}
-  });
-});
+/* ===== Booking modal state (declared before any animation code so booking works without GSAP) ===== */
+const titles=['Pick a Service','Pick a Day','Pick a Time','Your Details','Booked'];
+let step=1,calOffset=0,chosen={};
+function resetChosen(){chosen={service:'',price:'',date:'',dateKey:'',time:'',name:'',phone:'',barber:''}}
+resetChosen();
+let lenis=null;
 
 /* ===== Mobile drawer ===== */
 function toggleDrawer(){
@@ -683,72 +702,6 @@ function closeDrawer(){
   document.getElementById('drawerOverlay').classList.remove('open');
 }
 
-/* ===== Scroll progress + sticky nav ===== */
-gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
-ScrollTrigger.create({trigger:document.body,start:'60px top',
-  onEnter:()=>document.getElementById('nav').classList.add('scrolled'),
-  onLeaveBack:()=>document.getElementById('nav').classList.remove('scrolled')});
-
-/* ===== Hero entrance (every tween ends fully visible) ===== */
-const tl=gsap.timeline({delay:.2});
-tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.7,ease:'expo.out'})
-  .to('.hero-title .line span',{y:0,duration:.95,ease:'expo.out',stagger:.13},'-=.35')
-  .to('.hero-sub',{opacity:1,y:0,duration:.7,ease:'expo.out'},'-=.35')
-  .to('.hero-actions',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.3')
-  .to('.hero-rating',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.25')
-  .to('.scroll-cue',{opacity:1,duration:.6},'-=.2');
-gsap.to('#heroBg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-gsap.fromTo('#statementBg',{yPercent:-8},{yPercent:8,ease:'none',scrollTrigger:{trigger:'.statement',start:'top bottom',end:'bottom top',scrub:true}});
-
-/* ===== Marquee (GSAP loop, second span set makes it seamless) ===== */
-gsap.to('#marquee',{xPercent:-50,duration:30,repeat:-1,ease:'none'});
-
-/* ===== Reveal on scroll ===== */
-document.querySelectorAll('.reveal').forEach((el,i)=>{
-  gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'expo.out',
-    scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%3)*.08});
-});
-
-/* ===== Count-up numbers ===== */
-document.querySelectorAll('[data-target]').forEach(el=>{
-  const target=parseFloat(el.getAttribute('data-target'));
-  const decimals=parseInt(el.getAttribute('data-decimals')||'0');
-  const suffix=el.getAttribute('data-suffix')||'';
-  const obj={val:0};
-  gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
-    scrollTrigger:{trigger:el,start:'top 88%'},
-    onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
-});
-
-/* ===== Hover-only effects: custom cursor, 3D tilt, magnetic CTA ===== */
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-  let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,shown=false;
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX;my=e.clientY;
-    if(!shown){shown=true;gsap.to([cursor,ring],{opacity:1,duration:.3});ring.style.opacity='.55'}
-    gsap.to(cursor,{x:mx,y:my,xPercent:-50,yPercent:-50,duration:.08});
-  });
-  (function tick(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;gsap.set(ring,{x:rx,y:ry,xPercent:-50,yPercent:-50});requestAnimationFrame(tick)})();
-  const hot='a,button,.service-option,.svc-card,.cal-day,.time-slot,.gallery-item,input';
-  document.addEventListener('mouseover',e=>{if(e.target.closest(hot)){gsap.to(ring,{scale:1.8,opacity:.95,duration:.2});gsap.to(cursor,{scale:.6,duration:.2})}});
-  document.addEventListener('mouseout',e=>{if(e.target.closest(hot)){gsap.to(ring,{scale:1,opacity:.55,duration:.2});gsap.to(cursor,{scale:1,duration:.2})}});
-  document.querySelectorAll('.svc-card').forEach(card=>{
-    card.addEventListener('mousemove',e=>{
-      const r=card.getBoundingClientRect();
-      const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
-      gsap.to(card,{rotateY:x/26,rotateX:-y/26,duration:.4,ease:'power2.out',transformPerspective:800});
-    });
-    card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
-  });
-  const magBtn=document.getElementById('magneticCta');
-  magBtn.addEventListener('mousemove',e=>{
-    const r=magBtn.getBoundingClientRect();
-    gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
-  });
-  magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
-}
-
 /* ===== Today's hours + open/closed status (driven by CLOSED_DAYS) ===== */
 (function(){
   const now=new Date(),day=now.getDay(),h=now.getHours();
@@ -757,31 +710,120 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches){
     if(days.every(d=>CLOSED_DAYS.includes(d)))li.classList.add('closed');
     if(days.includes(day))li.classList.add('today');
   });
+  /* next open day: "tomorrow" unless that day is closed (Sat night -> Monday) */
+  let nd=(day+1)%7,label='tomorrow';
+  while(CLOSED_DAYS.includes(nd)){nd=(nd+1)%7;label=DAYS_FULL[nd]}
   const s=document.getElementById('openStatus');
-  if(CLOSED_DAYS.includes(day)){s.textContent='Closed today · back tomorrow at 9:00 AM';s.classList.add('is-closed')}
+  if(CLOSED_DAYS.includes(day)){s.textContent='Closed today · back '+label+' at 9:00 AM';s.classList.add('is-closed')}
   else if(h>=OPEN_HOUR&&h<CLOSE_HOUR){s.textContent='Open now · until 7:00 PM'}
   else if(h<OPEN_HOUR){s.textContent='Opens today at 9:00 AM'}
-  else{s.textContent='Closed for tonight · opens 9:00 AM';s.classList.add('is-closed')}
+  else{s.textContent='Closed for tonight · opens '+(label==='tomorrow'?'':label+' ')+'9:00 AM';s.classList.add('is-closed')}
 })();
 
+if(MOTION){
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ===== Smooth scroll (Lenis + ScrollTrigger sync) ===== */
+  lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(time=>{lenis.raf(time*1000)});
+  gsap.ticker.lagSmoothing(0);
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const id=a.getAttribute('href');
+      if(id.length>1&&document.querySelector(id)){e.preventDefault();closeDrawer();lenis.scrollTo(id,{offset:-72})}
+    });
+  });
+
+  /* ===== Scroll progress + sticky nav ===== */
+  gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+  ScrollTrigger.create({trigger:document.body,start:'60px top',
+    onEnter:()=>document.getElementById('nav').classList.add('scrolled'),
+    onLeaveBack:()=>document.getElementById('nav').classList.remove('scrolled')});
+
+  /* ===== Hero entrance (every tween ends fully visible) ===== */
+  const tl=gsap.timeline({delay:.2});
+  tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.7,ease:'expo.out'})
+    .to('.hero-title .line span',{y:0,duration:.95,ease:'expo.out',stagger:.13},'-=.35')
+    .to('.hero-sub',{opacity:1,y:0,duration:.7,ease:'expo.out'},'-=.35')
+    .to('.hero-actions',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.3')
+    .to('.hero-rating',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.25')
+    .to('.scroll-cue',{opacity:1,duration:.6},'-=.2');
+  gsap.to('#heroBg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.fromTo('#statementBg',{yPercent:-8},{yPercent:8,ease:'none',scrollTrigger:{trigger:'.statement',start:'top bottom',end:'bottom top',scrub:true}});
+
+  /* ===== Marquee (GSAP loop, second span set makes it seamless) ===== */
+  gsap.to('#marquee',{xPercent:-50,duration:30,repeat:-1,ease:'none'});
+
+  /* ===== Reveal on scroll ===== */
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'expo.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%3)*.08});
+  });
+
+  /* ===== Count-up numbers ===== */
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-target'));
+    const decimals=parseInt(el.getAttribute('data-decimals')||'0');
+    const suffix=el.getAttribute('data-suffix')||'';
+    const obj={val:0};
+    gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},
+      onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
+  });
+
+  /* ===== Hover-only effects: custom cursor, 3D tilt, magnetic CTA ===== */
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+    let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,shown=false;
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX;my=e.clientY;
+      if(!shown){shown=true;gsap.to([cursor,ring],{opacity:1,duration:.3});ring.style.opacity='.55'}
+      gsap.to(cursor,{x:mx,y:my,xPercent:-50,yPercent:-50,duration:.08});
+    });
+    (function tick(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;gsap.set(ring,{x:rx,y:ry,xPercent:-50,yPercent:-50});requestAnimationFrame(tick)})();
+    const hot='a,button,.service-option,.svc-card,.cal-day,.time-slot,.gallery-item,input';
+    document.addEventListener('mouseover',e=>{if(e.target.closest(hot)){gsap.to(ring,{scale:1.8,opacity:.95,duration:.2});gsap.to(cursor,{scale:.6,duration:.2})}});
+    document.addEventListener('mouseout',e=>{if(e.target.closest(hot)){gsap.to(ring,{scale:1,opacity:.55,duration:.2});gsap.to(cursor,{scale:1,duration:.2})}});
+    document.querySelectorAll('.svc-card').forEach(card=>{
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+        gsap.to(card,{rotateY:x/26,rotateX:-y/26,duration:.4,ease:'power2.out',transformPerspective:800});
+      });
+      card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
+    });
+    const magBtn=document.getElementById('magneticCta');
+    magBtn.addEventListener('mousemove',e=>{
+      const r=magBtn.getBoundingClientRect();
+      gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
+    });
+    magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
+  }
+} else {
+  /* ===== No-motion fallback: final values, native anchor jumps, plain scroll listener for the nav ===== */
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-target')),decimals=parseInt(el.getAttribute('data-decimals')||'0');
+    el.textContent=target.toFixed(decimals)+(el.getAttribute('data-suffix')||'');
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>closeDrawer()));
+  const onScroll=()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60);
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+}
+
 /* ===== Booking modal (this IS the booking system) ===== */
-const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const MONTHS_FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const titles=['Pick a Service','Pick a Day','Pick a Time','Your Details','Booked'];
-let step=1,calOffset=0,chosen={};
-function resetChosen(){chosen={service:'',price:'',date:'',dateKey:'',time:'',name:'',phone:'',barber:''}}
-resetChosen();
 function openModal(pre){
   step=1;calOffset=0;resetChosen();
   if(typeof pre==='number'&&SERVICES[pre]){chosen.service=SERVICES[pre][0];chosen.price=SERVICES[pre][1]}
   renderStep();
   document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';lenis.stop();
+  document.body.style.overflow='hidden';lenis&&lenis.stop();
 }
-function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';lenis.start()}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';lenis&&lenis.start()}
 function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeDrawer()}});
+function isChosenToday(n){return chosen.dateKey===n.getFullYear()+'-'+n.getMonth()+'-'+n.getDate()}
+function slotGone(i,n){return OPEN_HOUR+i<=n.getHours()} /* a slot is gone once its hour has started */
 function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
 function goStep(n){step=n;renderStep()}
 function pickService(i){chosen.service=SERVICES[i][0];chosen.price=SERVICES[i][1];renderStep()}
@@ -802,7 +844,7 @@ function renderSummary(){
   if(chosen.service)parts.push(chosen.service+' · '+chosen.price);
   if(chosen.date&&step>2)parts.push(chosen.date);
   if(chosen.time&&step>3)parts.push(chosen.time);
-  s.innerHTML=parts.map(p=>'<span>'+p+'</span>').join('');
+  s.innerHTML=parts.map(p=>'<span>'+esc(p)+'</span>').join('');
   s.style.display=parts.length?'flex':'none';
 }
 function renderStep(){
@@ -813,46 +855,54 @@ function renderStep(){
   if(step===1){
     body.innerHTML=`<div class="step-title">What are we doing today?</div><div class="service-grid">
       ${SERVICES.map(([n,p],i)=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="pickService(${i})">
-        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
+        <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" ${chosen.service?'':'disabled'} onclick="if(chosen.service){goStep(2)}">Continue →</button>`;
   } else if(step===2){
     const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const todayHasSlots=!CLOSED_DAYS.includes(now.getDay())&&now.getHours()<LAST_SLOT_HOUR;
+    if(chosen.dateKey&&isChosenToday(now)&&!todayHasSlots){chosen.dateKey='';chosen.date='';chosen.time=''}
     const view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
     const first=view.getDay(),days=new Date(y,m+1,0).getDate();
     let cal=`<div class="step-title">Pick a day that works</div>
       <div class="cal-head"><button class="cal-nav" ${calOffset===0?'disabled':''} onclick="shiftMonth(-1)" aria-label="Previous month">‹</button><span>${MONTHS_FULL[m]} ${y}</span><button class="cal-nav" ${calOffset>=2?'disabled':''} onclick="shiftMonth(1)" aria-label="Next month">›</button></div>
       <div class="calendar-grid">${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
     for(let d=1;d<=days;d++){
-      const date=new Date(y,m,d),closed=CLOSED_DAYS.includes(date.getDay()),past=date<today,key=y+'-'+m+'-'+d;
-      cal+=`<div class="cal-day${(past||closed)?' disabled':chosen.dateKey===key?' selected':''}"${(past||closed)?'':` onclick="pickDate(${y},${m},${d})"`}>${d}</div>`;
+      const date=new Date(y,m,d),closed=CLOSED_DAYS.includes(date.getDay()),isToday=date.getTime()===today.getTime(),key=y+'-'+m+'-'+d;
+      const off=date<today||closed||(isToday&&!todayHasSlots);
+      cal+=`<div class="cal-day${off?' disabled':chosen.dateKey===key?' selected':''}${isToday?' today':''}"${off?'':` onclick="pickDate(${y},${m},${d})"`}>${d}</div>`;
     }
-    body.innerHTML=cal+`</div><p class="fine">Closed Sundays. Walk-ins are always welcome during open hours.</p>`;
+    const soldOut=calOffset===0&&!CLOSED_DAYS.includes(now.getDay())&&!todayHasSlots;
+    body.innerHTML=cal+`</div><p class="fine">${soldOut?'No more chairs today. Pick another day, or walk in before 7:00 PM.':'Closed Sundays. Walk-ins are always welcome during open hours.'}</p>`;
     foot.innerHTML=`<button class="btn-back" onclick="goStep(1)">← Back</button><button class="btn-next" ${chosen.date?'':'disabled'} onclick="if(chosen.date){goStep(3)}">Continue →</button>`;
   } else if(step===3){
-    body.innerHTML=`<div class="step-title">Pick a time on ${chosen.date}</div><div class="time-grid">
-      ${TIMES.map((t,i)=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="pickTime(${i})">${t}</div>`).join('')}</div>
-      <p class="fine">Open 9:00 AM – 7:00 PM. Last chair at 6:00 PM.</p>`;
+    const n=new Date(),isToday=isChosenToday(n);
+    const gone=i=>isToday&&slotGone(i,n);
+    if(chosen.time&&gone(TIMES.indexOf(chosen.time)))chosen.time='';
+    const left=TIMES.filter((t,i)=>!gone(i)).length;
+    body.innerHTML=`<div class="step-title">Pick a time on ${esc(chosen.date)}</div><div class="time-grid">
+      ${TIMES.map((t,i)=>gone(i)?`<div class="time-slot disabled" aria-disabled="true">${t}</div>`:`<div class="time-slot${chosen.time===t?' selected':''}" onclick="pickTime(${i})">${t}</div>`).join('')}</div>
+      <p class="fine">${isToday?(left?`Earlier times today are gone. ${left} chair${left===1?'':'s'} left today.`:'No more chairs today. Go back and pick another day, or walk in.'):'Open 9:00 AM – 7:00 PM. Last chair at 6:00 PM.'}</p>`;
     foot.innerHTML=`<button class="btn-back" onclick="goStep(2)">← Back</button><button class="btn-next" ${chosen.time?'':'disabled'} onclick="if(chosen.time){goStep(4)}">Continue →</button>`;
   } else if(step===4){
     body.innerHTML=`<div class="step-title">Who is the chair for?</div>
-      <div class="form-group"><label for="fn">Full Name</label><input id="fn" placeholder="Your name" autocomplete="name" value="${chosen.name}"></div>
-      <div class="form-group"><label for="fp">Phone Number</label><input id="fp" type="tel" placeholder="(267) 000-0000" autocomplete="tel" value="${chosen.phone}"></div>
-      <div class="form-group"><label for="fv">Preferred barber (optional)</label><input id="fv" placeholder="First available" value="${chosen.barber}"></div>
+      <div class="form-group"><label for="fn">Full Name</label><input id="fn" placeholder="Your name" autocomplete="name" value="${esc(chosen.name)}"></div>
+      <div class="form-group"><label for="fp">Phone Number</label><input id="fp" type="tel" placeholder="(267) 000-0000" autocomplete="tel" value="${esc(chosen.phone)}"></div>
+      <div class="form-group"><label for="fv">Preferred barber (optional)</label><input id="fv" placeholder="First available" value="${esc(chosen.barber)}"></div>
       <div class="form-hint" id="formHint"></div>`;
     foot.innerHTML=`<button class="btn-back" onclick="goStep(3)">← Back</button><button class="btn-next" onclick="submitDetails()">Confirm Booking</button>`;
     setTimeout(()=>{const f=document.getElementById('fn');if(f&&!f.value)f.focus()},50);
   } else {
-    const first=chosen.name.split(' ')[0];
+    const first=esc(chosen.name.split(' ')[0]);
     body.innerHTML=`<div class="confirm-screen">
       <div class="confirm-icon"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
       <h3>You are all set, ${first}.</h3>
-      <p>Your chair is held, ${first}. We will reach you at ${chosen.phone} if anything changes, otherwise just come on in.</p>
+      <p>Your chair is held, ${first}. We will reach you at ${esc(chosen.phone)} if anything changes, otherwise just come on in.</p>
       <div class="confirm-detail">
-        <div><span>Service</span><span>${chosen.service} · ${chosen.price}</span></div>
-        <div><span>Date</span><span>${chosen.date}</span></div>
-        <div><span>Time</span><span>${chosen.time}</span></div>
-        <div><span>Barber</span><span>${chosen.barber||'First available'}</span></div>
-        <div><span>Phone</span><span>${chosen.phone}</span></div>
+        <div><span>Service</span><span>${esc(chosen.service)} · ${esc(chosen.price)}</span></div>
+        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
+        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
+        <div><span>Barber</span><span>${esc(chosen.barber||'First available')}</span></div>
+        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
       </div>
       <p class="fine">Running late or need to move it? Call (267) 826-3593.</p>
     </div>`;
