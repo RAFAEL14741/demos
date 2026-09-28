@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Cut Hair Salon — Bustleton Ave, Philadelphia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --stone:#F5F1EC;--stone2:#EFE8DD;--white:#FFFFFF;
+  --teal:#1F5C56;--teal-dark:#164A45;--teal-tint:#E7F0EE;
+  --blush:#E8B4A0;--blush-dark:#D89A82;
+  --ink:#2A2622;--muted:#6B6259;--border:#E4DCCF;
+}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{background:var(--stone);color:var(--ink);font-family:'Albert Sans',sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:'Spectral',serif}
+html.no-motion .reveal,html.no-motion .hero-eyebrow,html.no-motion .hero-sub,html.no-motion .hero-actions,
+html.no-motion .hero-title .line span,html.no-motion #heroPhoto,html.no-motion .stat-num{opacity:1!important;transform:none!important;clip-path:none!important}
+#progressBar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--teal),var(--blush));z-index:10000}
+#cursor{position:fixed;width:8px;height:8px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);display:none}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--teal);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;display:none}
+body{cursor:auto}
+@media (hover:hover) and (pointer:fine) and (min-width:861px){
+  body,body *:not(input):not(textarea){cursor:none}
+  #cursor,#cursor-ring{display:block}
+}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;background:rgba(245,241,236,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:padding .3s}
+.nav-logo{font-family:'Spectral',serif;font-size:1.35rem;font-weight:600;letter-spacing:.01em;color:var(--ink)}
+.nav-logo span{color:var(--teal);font-style:italic}
+.nav-links{display:flex;align-items:center;gap:2.3rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--teal);transition:width .25s}
+.nav-links a:hover{color:var(--teal)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--teal);color:#fff;padding:.62rem 1.4rem;border-radius:26px;font-size:.8rem;font-weight:600;letter-spacing:.04em;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--teal-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem;z-index:250}
+.hamburger span{width:24px;height:2px;background:var(--ink);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer-overlay{position:fixed;inset:0;background:rgba(42,38,34,.45);backdrop-filter:blur(2px);z-index:198;opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer-overlay.open{opacity:1;pointer-events:auto}
+.mobile-drawer{position:fixed;top:0;right:-300px;width:280px;height:100%;background:var(--white);z-index:199;padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.6rem;transition:right .35s cubic-bezier(.16,1,.3,1);box-shadow:-10px 0 40px rgba(42,38,34,.15)}
+.mobile-drawer.open{right:0}
+.drawer-close{position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;font-size:1.3rem;color:var(--ink);cursor:pointer;line-height:1;padding:.3rem}
+.mobile-drawer a{font-family:'Spectral',serif;font-size:1.1rem;font-weight:600;text-decoration:none;color:var(--ink)}
+.mobile-drawer a.btn-primary{color:#fff;text-align:center;margin-top:1rem;font-family:'Albert Sans',sans-serif;font-weight:600;padding:.85rem;border-radius:26px}
+/* HERO — centered */
+.hero{position:relative;padding:9.5rem 5% 5rem;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.76rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:1.4rem;opacity:0;transform:translateY(10px)}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:24px;height:1px;background:var(--teal)}
+.hero-title{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:600;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:900px;margin-bottom:1.5rem}
+.hero-title .line{display:block;overflow:hidden}
+.hero-title .line span{display:block;transform:translateY(112%)}
+.hero-title em{font-style:italic;font-weight:500;color:var(--teal)}
+.hero-sub{font-size:1.08rem;line-height:1.75;color:var(--muted);max-width:520px;margin-bottom:2.2rem;opacity:0;transform:translateY(10px)}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;opacity:0;transform:translateY(10px);margin-bottom:3.5rem}
+.btn-primary{display:inline-block;background:var(--teal);color:#fff;padding:.95rem 2.1rem;border-radius:30px;font-size:.95rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px)}
+.btn-outline{display:inline-block;border:1.5px solid var(--ink);color:var(--ink);padding:.92rem 2rem;border-radius:30px;font-size:.95rem;font-weight:600;text-decoration:none;transition:all .2s;background:transparent}
+.btn-outline:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hero-photo{position:relative;width:100%;max-width:1100px;aspect-ratio:16/7;border-radius:22px;overflow:hidden;opacity:0;transform:translateY(24px)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,92,86,.08),rgba(31,92,86,.22))}
+.photo-ring{position:absolute;width:150px;height:150px;border:2px solid var(--teal);border-radius:50%;top:-50px;left:-50px;opacity:.5;pointer-events:none}
+.photo-ring.small{width:70px;height:70px;top:-24px;left:26px;border-color:var(--blush);opacity:.6}
+.photo-chip{position:absolute;bottom:1.2rem;right:1.2rem;background:var(--white);border-radius:14px;padding:.7rem 1.1rem;box-shadow:0 12px 32px rgba(42,38,34,.18);font-family:'Spectral',serif;font-weight:600;font-size:.95rem;color:var(--ink);display:flex;align-items:center;gap:.35rem}
+.photo-chip .star{color:var(--blush-dark)}
+/* MARQUEE */
+.marquee-strip{background:var(--teal);overflow:hidden;padding:.75rem 0;white-space:nowrap;position:relative;z-index:3}
+.marquee-inner{display:inline-flex;will-change:transform}
+.marquee-inner span{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;padding:0 2rem}
+.marquee-inner .dot{color:var(--blush);padding:0 .4rem}
+section{padding:6.5rem 5%;position:relative}
+.section-eyebrow{display:flex;align-items:center;gap:.6rem;font-size:.76rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:.9rem}
+.section-eyebrow::before{content:'';width:22px;height:1px;background:var(--teal)}
+.section-title{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.12;margin-bottom:1rem}
+.section-head{max-width:640px;margin:0 auto 3rem;text-align:center}
+.section-head p.tag{color:var(--muted);font-size:1rem;line-height:1.7;max-width:520px;margin:0 auto}
+/* SERVICE TABS */
+.tabs-section{background:var(--white)}
+.tab-card{max-width:760px;margin:0 auto;background:var(--stone);border-radius:20px;padding:2.6rem 2.4rem;border:1px solid var(--border)}
+.tab-buttons{display:flex;gap:.6rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
+.tab-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);padding:.7rem 1.7rem;border-radius:24px;font-size:.9rem;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:all .2s;font-family:'Albert Sans',sans-serif}
+.tab-btn:hover{border-color:var(--teal);color:var(--teal)}
+.tab-btn.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.price-row{display:flex;justify-content:space-between;align-items:baseline;padding:.95rem 0;border-bottom:1px solid var(--border);gap:1rem}
+.price-row:last-child{border-bottom:none}
+.price-row .pname{font-weight:500;color:var(--ink);font-size:1rem}
+.price-row .pprice{font-family:'Spectral',serif;font-weight:600;color:var(--teal);font-size:1.1rem;white-space:nowrap}
+.price-row.addon{margin-top:.4rem;padding-top:1.2rem;border-top:2px dashed var(--blush)}
+.price-row.addon .pname{color:var(--teal);font-weight:600}
+.price-row.addon .note{display:block;font-size:.78rem;color:var(--muted);font-weight:400;margin-top:.15rem}
+/* STATEMENT */
+.statement{min-height:58vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:6rem 5%}
+.statement-bg{position:absolute;inset:-8%;background-image:url('https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=1600&q=80');background-size:cover;background-position:center}
+.statement-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,74,69,.88),rgba(22,74,69,.94))}
+.statement-content{position:relative;z-index:2;color:#fff;max-width:800px}
+.statement-content .section-eyebrow{color:var(--blush);justify-content:center}
+.statement-content .section-eyebrow::before{background:var(--blush)}
+.big-headline{font-weight:600;font-size:clamp(2.1rem,4.6vw,3.6rem);line-height:1.18;letter-spacing:-.01em}
+.big-headline em{font-style:italic;color:var(--blush);font-weight:500}
+.statement-content p.lede{margin-top:1.6rem;font-size:1.05rem;color:rgba(255,255,255,.82);max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
+.chip-row{display:flex;gap:.9rem;justify-content:center;margin-top:2.2rem;flex-wrap:wrap}
+.wash-chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);color:#fff;padding:.6rem 1.3rem;border-radius:24px;font-size:.85rem;font-weight:500;letter-spacing:.03em}
+/* FAMILY BAND */
+.family-section{background:var(--teal-tint)}
+.family-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1000px;margin:0 auto}
+.family-item{text-align:center;padding:1rem}
+.family-icon{width:64px;height:64px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 1.1rem;box-shadow:0 8px 22px rgba(31,92,86,.1)}
+.family-item h3{font-size:1.25rem;font-weight:600;color:var(--ink);margin-bottom:.5rem}
+.family-item p{font-size:.92rem;color:var(--muted);line-height:1.65}
+/* GALLERY */
+.gallery-section{background:var(--white)}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:220px 220px;gap:1rem;margin-top:0;max-width:1100px;margin-left:auto;margin-right:auto}
+.gallery-item{overflow:hidden;border-radius:14px;position:relative}
+.gallery-item.tall{grid-row:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s;display:block}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(22,74,69,.78));display:flex;align-items:flex-end;padding:1.1rem;opacity:0;transition:opacity .3s}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{color:#fff;font-weight:600;font-size:.88rem;transform:translateY(8px);transition:transform .3s}
+.gallery-item:hover .gallery-overlay span{transform:translateY(0)}
+/* STAT STRIP */
+.stat-strip{background:var(--teal);padding:3.6rem 5%}
+.stat-strip-inner{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;text-align:center;max-width:900px;margin:0 auto}
+.stat-item .stat-num{font-family:'Spectral',serif;font-size:2.6rem;font-weight:600;color:#fff;display:block;line-height:1;opacity:0;transform:translateY(14px)}
+.stat-item .stat-label{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:.5rem}
+/* HOURS */
+.hours-section{background:var(--white)}
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1100px;margin:0 auto}
+.hours-list{list-style:none;margin-top:1.4rem}
+.hours-list li{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.95rem}
+.hours-list li.today{position:relative}
+.hours-list li.today::before{content:'TODAY';position:absolute;left:-.2rem;top:-1.1rem;font-size:.62rem;font-weight:700;letter-spacing:.14em;color:var(--teal)}
+.hours-list li span:first-child{font-weight:600;color:var(--ink)}
+.hours-list li.closed span:last-child{color:var(--blush-dark)}
+.hours-list li span:last-child{color:var(--muted)}
+.contact-item{display:flex;align-items:center;gap:.9rem;margin-bottom:1.3rem;font-size:.95rem}
+.contact-icon{width:40px;height:40px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#fff;flex-shrink:0}
+.contact-item strong{color:var(--ink)}
+.contact-item a{color:var(--teal);text-decoration:none;font-weight:600}
+.directions-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:.4rem;font-size:.83rem;font-weight:600;letter-spacing:.03em;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--blush);padding-bottom:.15rem}
+/* REVIEWS */
+.reviews-section{background:var(--stone2)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.3rem;margin-top:0;max-width:1100px;margin-left:auto;margin-right:auto}
+.review-card{background:var(--white);border-radius:16px;padding:2rem 1.8rem;border:1px solid var(--border);position:relative;transition:transform .3s,box-shadow .3s}
+.review-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(42,38,34,.1)}
+.review-quote{position:absolute;top:1rem;right:1.4rem;font-family:'Spectral',serif;font-size:3rem;color:var(--blush);opacity:.5;line-height:1}
+.review-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
+.g-badge{display:flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:600;color:var(--muted);letter-spacing:.04em}
+.g-badge .g{font-family:Arial,sans-serif;font-weight:700}
+.g-badge .g span:nth-child(1){color:#4285F4}.g-badge .g span:nth-child(2){color:#EA4335}.g-badge .g span:nth-child(3){color:#FBBC05}.g-badge .g span:nth-child(4){color:#4285F4}.g-badge .g span:nth-child(5){color:#34A853}.g-badge .g span:nth-child(6){color:#EA4335}
+.review-stars{color:var(--blush-dark);font-size:.9rem}
+.review-text{font-size:.93rem;line-height:1.75;color:var(--muted);margin-bottom:1rem;position:relative;z-index:1}
+.review-author{font-weight:600;font-size:.85rem;color:var(--ink)}
+.review-date{font-size:.76rem;color:#A69C8D;margin-top:.18rem}
+/* INSTAGRAM NOTE */
+.ig-note{text-align:center;padding:2.5rem 5% 0;font-size:.88rem;color:var(--muted);max-width:520px;margin:0 auto}
+/* CTA */
+.cta-section{background:var(--teal);text-align:center;padding:5.5rem 5%;position:relative;overflow:hidden}
+.cta-inner{position:relative;z-index:1}
+.cta-section h2{font-size:clamp(1.9rem,3.8vw,2.9rem);font-weight:600;letter-spacing:-.01em;color:#fff;margin-bottom:.8rem}
+.cta-section p{color:rgba(255,255,255,.82);font-size:1rem;max-width:440px;margin:0 auto 2.2rem}
+.cta-section .btn-white{display:inline-block;background:#fff;color:var(--teal);padding:.95rem 2.2rem;border-radius:30px;font-size:.95rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:transform .15s}
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.08);padding:2.8rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer .logo{font-family:'Spectral',serif;font-size:1.15rem;font-weight:600;color:#fff}
+footer .logo em{color:var(--blush);font-style:italic}
+footer p{color:rgba(255,255,255,.42);font-size:.8rem}
+footer a{color:var(--blush);font-size:.8rem;text-decoration:none;font-weight:600}
+.reveal{opacity:0;transform:translateY(28px)}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(42,38,34,.72);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:520px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.modal-header{padding:1.6rem 1.7rem .85rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-header h3{font-family:'Spectral',serif;font-size:1.3rem;font-weight:600;color:var(--ink)}
+.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem}
+.modal-steps{display:flex;gap:.32rem;padding:.9rem 1.7rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.step-dot{flex:1;height:3px;background:var(--border);border-radius:2px;transition:background .3s}
+.step-dot.active{background:var(--teal)}
+.step-dot.done{background:var(--blush-dark)}
+.modal-body{padding:1.7rem;overflow-y:auto;flex:1}
+.step-title{font-family:'Spectral',serif;font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:1.2rem}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.service-option{border:2px solid var(--border);border-radius:10px;padding:.85rem;cursor:pointer;transition:all .2s}
+.service-option:hover,.service-option.selected{border-color:var(--teal);background:var(--teal-tint)}
+.service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--ink)}
+.service-option .svc-price{font-family:'Spectral',serif;font-size:1.05rem;font-weight:600;color:var(--teal);margin-top:.25rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
+.cal-day-name{text-align:center;font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
+.cal-day{text-align:center;padding:.5rem;border-radius:8px;font-size:.86rem;cursor:pointer;transition:all .2s}
+.cal-day:hover:not(.disabled){background:var(--teal);color:#fff}
+.cal-day.selected{background:var(--teal);color:#fff;font-weight:700}
+.cal-day.disabled{color:#D8CFC0;pointer-events:none}
+.cal-day.empty{visibility:hidden}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.52rem;margin-top:.7rem}
+.time-slot{border:2px solid var(--border);border-radius:8px;padding:.58rem;text-align:center;font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s}
+.time-slot:hover,.time-slot.selected{border-color:var(--teal);background:var(--teal-tint);color:var(--teal-dark)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:.35rem}
+.form-group input,.form-group textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:.68rem .9rem;font-family:'Albert Sans',sans-serif;font-size:16px;color:var(--ink);background:var(--stone);outline:none;transition:border-color .2s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--teal)}
+.modal-footer{padding:1rem 1.7rem;border-top:1px solid var(--border);display:flex;gap:.6rem;justify-content:flex-end;flex-shrink:0;position:sticky;bottom:0;background:var(--white)}
+.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:.58rem 1.1rem;border-radius:24px;font-size:.86rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-back:hover{border-color:var(--ink);color:var(--ink)}
+.btn-next{background:var(--teal);color:#fff;border:none;padding:.58rem 1.4rem;border-radius:24px;font-size:.86rem;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap}
+.btn-next:hover{background:var(--teal-dark)}
+.confirm-screen{text-align:center;padding:.8rem 0}
+.confirm-icon{font-size:2.6rem;margin-bottom:.8rem}
+.confirm-screen h3{font-family:'Spectral',serif;font-size:1.4rem;font-weight:600;color:var(--ink);margin-bottom:.5rem}
+.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.9rem}
+.confirm-detail{background:var(--stone);border-radius:10px;padding:.9rem 1rem;margin:1rem 0;text-align:left}
+.confirm-detail div{display:flex;justify-content:space-between;padding:.32rem 0;font-size:.85rem;border-bottom:1px solid var(--border);gap:1rem}
+.confirm-detail div:last-child{border:none}
+.confirm-detail span:first-child{color:var(--muted);font-weight:600;flex-shrink:0}
+.confirm-detail span:last-child{color:var(--ink);font-weight:600;text-align:right}
+@media(hover:none){.review-card{transform:none!important}}
+@media(max-width:860px){
+  .hours-grid,.family-grid{grid-template-columns:1fr}
+  .family-grid{gap:2.6rem}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gallery-item{height:180px}
+  .gallery-item.tall{grid-row:span 1;height:180px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:4.5rem 6%}
+  .hero{padding:8rem 6% 4rem}
+  .tab-card{padding:2rem 1.4rem}
+  .stat-strip-inner{gap:2.4rem}
+}
+@media(max-width:480px){
+  .service-grid{grid-template-columns:1fr}
+  .time-grid{grid-template-columns:repeat(2,1fr)}
+  .tab-buttons{gap:.45rem}
+  .tab-btn{padding:.6rem 1.2rem;font-size:.84rem}
+}
+</style>
+</head>
+<body>
+<!-- PIPELINE DATA NOTES (internal) - remove before handing the site to the client.
+VERIFIED (direct Google Maps lookup, 2026-09-27): business name "Top Cut Hair Salon" - 9975 Bustleton Ave, Philadelphia, PA 19115 (inside The Shops At Red Lion) - phone (215) 677-3900 (tel:2156773900) - 4.3-star rating - 167 Google reviews - online presence is an Instagram page only (instagram.com), no real website (this is the sales angle: no online booking, no services menu or pricing, no branding they control, does not rank on Google like a real site would).
+[CONFIRM BEFORE VISIT] HOURS ARE ASSUMED, not verified: Tuesday-Saturday 9:00 AM-7:00 PM, Sunday 10:00 AM-4:00 PM, Monday Closed. Confirm with the owner, then update the #hoursList rows, the CLOSED_DAYS constant and the SLOTS / SUN_SLOTS arrays in the script together.
+[CONFIRM BEFORE VISIT] ALL PRICES ARE PHILADELPHIA-MARKET ESTIMATES, not the salon's real menu: Womens Haircut and Style $45, Blowout $35, Color Single Process from $65, Highlights from $90, Deep Conditioning Treatment $25, Mens Haircut $28, Kids Cut (12 and under) $20, Wash Plus Relaxing Massage $15. Update the service tabs AND the SERVICES array in the script together.
+[CONFIRM BEFORE VISIT] YEARS IN BUSINESS are unknown - no founding year or "since" claim appears anywhere on this page. Do not add one without the owner.
+-->
+<div id="progressBar"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<nav id="nav">
+  <div class="nav-logo">Top <span>Cut</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#wash">The Wash</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openModal();return false">Book Your Visit</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+</nav>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <button class="drawer-close" aria-label="Close menu" onclick="closeDrawer()">✕</button>
+  <a href="#services" onclick="closeDrawer()">Services</a>
+  <a href="#wash" onclick="closeDrawer()">The Wash</a>
+  <a href="#hours" onclick="closeDrawer()">Hours</a>
+  <a href="#reviews" onclick="closeDrawer()">Reviews</a>
+  <a href="#" class="btn-primary" onclick="closeDrawer();openModal();return false">Book Your Visit</a>
+</div>
+
+<section class="hero" id="home">
+  <p class="hero-eyebrow">Inside The Shops At Red Lion · Bustleton Ave</p>
+  <h1 class="hero-title">
+    <span class="line"><span>Every Visit Starts With</span></span>
+    <span class="line"><span><em>A Moment To Breathe.</em></span></span>
+  </h1>
+  <p class="hero-sub">A full-service salon for women, men and kids — where every single wash comes with a relaxing head-and-back massage, because getting your hair done should feel like a small pause in the day, not another errand.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn-primary" onclick="openModal();return false">Book Your Visit</a>
+    <a href="tel:2156773900" class="btn-outline">Call (215) 677-3900</a>
+  </div>
+  <div class="hero-photo" id="heroPhoto">
+    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=1600&q=80" alt="Top Cut Hair Salon interior at The Shops At Red Lion">
+    <div class="photo-ring"></div>
+    <div class="photo-ring small"></div>
+    <div class="photo-chip"><span class="star">★</span> 4.3 · 167 Reviews</div>
+  </div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marquee">
+    <span>Womens Cuts &amp; Color</span><span class="dot">✦</span><span>Mens Cuts</span><span class="dot">✦</span><span>Kids Cuts</span><span class="dot">✦</span><span>Walk-Ins Welcome</span><span class="dot">✦</span><span>Relaxing Wash With Every Visit</span><span class="dot">✦</span><span>9975 Bustleton Ave</span><span class="dot">✦</span>
+    <span>Womens Cuts &amp; Color</span><span class="dot">✦</span><span>Mens Cuts</span><span class="dot">✦</span><span>Kids Cuts</span><span class="dot">✦</span><span>Walk-Ins Welcome</span><span class="dot">✦</span><span>Relaxing Wash With Every Visit</span><span class="dot">✦</span><span>9975 Bustleton Ave</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<section class="tabs-section" id="services">
+  <div class="section-head reveal">
+    <p class="section-eyebrow" style="justify-content:center">The Menu</p>
+    <h2 class="section-title">Something For The Whole Family</h2>
+    <p class="tag">Browse by who is in the chair — every service ends the same relaxing way.</p>
+  </div>
+  <div class="tab-card reveal">
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="women" onclick="showTab('women')">Women</button>
+      <button class="tab-btn" data-tab="men" onclick="showTab('men')">Men</button>
+      <button class="tab-btn" data-tab="kids" onclick="showTab('kids')">Kids</button>
+    </div>
+    <div class="tab-panel active" data-tab-panel="women">
+      <div class="price-row"><span class="pname">Womens Haircut and Style</span><span class="pprice">$45</span></div>
+      <div class="price-row"><span class="pname">Blowout</span><span class="pprice">$35</span></div>
+      <div class="price-row"><span class="pname">Color, Single Process</span><span class="pprice">from $65</span></div>
+      <div class="price-row"><span class="pname">Highlights</span><span class="pprice">from $90</span></div>
+      <div class="price-row"><span class="pname">Deep Conditioning Treatment</span><span class="pprice">$25</span></div>
+      <div class="price-row addon"><span class="pname">Wash + Relaxing Massage<span class="note">Free with any color service</span></span><span class="pprice">$15</span></div>
+    </div>
+    <div class="tab-panel" data-tab-panel="men">
+      <div class="price-row"><span class="pname">Mens Haircut</span><span class="pprice">$28</span></div>
+      <div class="price-row"><span class="pname">Deep Conditioning Treatment</span><span class="pprice">$25</span></div>
+      <div class="price-row addon"><span class="pname">Wash + Relaxing Massage<span class="note">Free with any color service</span></span><span class="pprice">$15</span></div>
+    </div>
+    <div class="tab-panel" data-tab-panel="kids">
+      <div class="price-row"><span class="pname">Kids Cut (12 and under)</span><span class="pprice">$20</span></div>
+      <div class="price-row addon"><span class="pname">Wash + Relaxing Massage<span class="note">Free with any color service</span></span><span class="pprice">$15</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="statement" id="wash">
+  <div class="statement-bg"></div>
+  <div class="statement-overlay"></div>
+  <div class="statement-content reveal">
+    <p class="section-eyebrow">The Wash Experience</p>
+    <h2 class="big-headline">A Relaxing Head-And-Back Massage, <em>Every</em> Single Visit.</h2>
+    <p class="lede">It is not an upgrade you have to ask for. It is simply how we wash your hair here — part of the appointment, every time, for every guest in the chair.</p>
+    <div class="chip-row">
+      <span class="wash-chip">Scalp Massage</span>
+      <span class="wash-chip">Neck &amp; Shoulder Release</span>
+      <span class="wash-chip">Hot Towel Finish</span>
+    </div>
+  </div>
+</section>
+
+<section class="family-section" id="family">
+  <div class="section-head reveal">
+    <p class="section-eyebrow" style="justify-content:center">Family Friendly, Always</p>
+    <h2 class="section-title">Everyone Is Welcome In The Chair</h2>
+  </div>
+  <div class="family-grid reveal">
+    <div class="family-item">
+      <div class="family-icon">🚶</div>
+      <h3>Walk-Ins Welcome</h3>
+      <p>Did not plan ahead? No problem — swing by and we will fit you in, no appointment required.</p>
+    </div>
+    <div class="family-item">
+      <div class="family-icon">🧒</div>
+      <h3>Patient With Kids</h3>
+      <p>First haircuts, nervous ten-year-olds, wiggly toddlers — we take our time so kids leave smiling, not scared.</p>
+    </div>
+    <div class="family-item">
+      <div class="family-icon">🪑</div>
+      <h3>Every Chair Feels Like Home</h3>
+      <p>Regulars and first-timers get the same warm welcome — this is the kind of salon where everybody knows your name.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-section" id="gallery">
+  <div class="section-head reveal">
+    <p class="section-eyebrow" style="justify-content:center">Inside The Salon</p>
+    <h2 class="section-title">See The Space</h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item tall"><img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&q=80" alt="Stylist finishing a haircut" loading="lazy"><div class="gallery-overlay"><span>Precision Cuts</span></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&q=80" alt="Mens haircut in progress" loading="lazy"><div class="gallery-overlay"><span>Mens Cuts</span></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80" alt="Finished womens hairstyle" loading="lazy"><div class="gallery-overlay"><span>Styling</span></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&q=80" alt="Fresh hair color result" loading="lazy"><div class="gallery-overlay"><span>Color</span></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595152772835-219674b2a163?w=800&q=80" alt="Salon seating area" loading="lazy"><div class="gallery-overlay"><span>The Salon</span></div></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&q=80" alt="Beard and finishing trim" loading="lazy"><div class="gallery-overlay"><span>Finishing Touches</span></div></div>
+  </div>
+</section>
+
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="stat-item"><span class="stat-num" data-target="4.3" data-decimals="1" data-suffix="★">0</span><span class="stat-label">Google Rating</span></div>
+    <div class="stat-item"><span class="stat-num" data-target="167" data-suffix="+">0</span><span class="stat-label">Google Reviews</span></div>
+  </div>
+</div>
+
+<section class="hours-section" id="hours">
+  <div class="hours-grid">
+    <div class="reveal">
+      <p class="section-eyebrow">Hours</p>
+      <h2 class="section-title">When To Find Us</h2>
+      <ul class="hours-list" id="hoursList">
+        <li data-days="2,3,4,5,6"><span>Tuesday – Saturday</span><span>9:00 AM – 7:00 PM</span></li>
+        <li data-days="0"><span>Sunday</span><span>10:00 AM – 4:00 PM</span></li>
+        <li class="closed" data-days="1"><span>Monday</span><span>Closed</span></li>
+      </ul>
+    </div>
+    <div class="reveal">
+      <p class="section-eyebrow">Location</p>
+      <h2 class="section-title">Find Us On Bustleton Ave</h2>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><strong>9975 Bustleton Ave</strong><br>Philadelphia, PA 19115<br>Inside The Shops At Red Lion<br>
+          <a class="directions-btn" href="https://www.google.com/maps/search/?api=1&query=9975+Bustleton+Ave+Philadelphia+PA+19115" target="_blank" rel="noopener">Get Directions →</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div><a href="tel:2156773900">(215) 677-3900</a><br><small style="color:var(--muted)">Call ahead or just walk in</small></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💆</div>
+        <div><strong>Every Wash, A Massage</strong><br><small style="color:var(--muted)">Included with every visit</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews-section" id="reviews">
+  <div class="section-head reveal">
+    <p class="section-eyebrow" style="justify-content:center">What Guests Say</p>
+    <h2 class="section-title">4.3★ From 167 Google Reviews</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <span class="review-quote">"</span>
+      <div class="review-head">
+        <div class="review-stars">★★★★★</div>
+        <div class="g-badge"><span class="g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div>
+      </div>
+      <p class="review-text">My ten-year-old was nervous about getting his hair cut somewhere new, and the owner was so patient with him the whole time — talked him through everything and made him feel completely at ease. He actually asked to come back.</p>
+      <div class="review-author">Danielle P.</div>
+      <div class="review-date">2 weeks ago</div>
+    </div>
+    <div class="review-card reveal">
+      <span class="review-quote">"</span>
+      <div class="review-head">
+        <div class="review-stars">★★★★★</div>
+        <div class="g-badge"><span class="g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div>
+      </div>
+      <p class="review-text">Honestly the head and back massage during the wash was the best part of the whole appointment. I almost fell asleep in the chair. Left feeling more relaxed than I have after some actual spa visits.</p>
+      <div class="review-author">Marisol T.</div>
+      <div class="review-date">1 month ago</div>
+    </div>
+    <div class="review-card reveal">
+      <span class="review-quote">"</span>
+      <div class="review-head">
+        <div class="review-stars">★★★★★</div>
+        <div class="g-badge"><span class="g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div>
+      </div>
+      <p class="review-text">Walked in without an appointment on a Saturday expecting a long wait, and they still got me in and took great care of me. Friendly from the second I sat down. This is my new go-to spot.</p>
+      <div class="review-author">Kevin R.</div>
+      <div class="review-date">3 weeks ago</div>
+    </div>
+  </div>
+  <p class="ig-note">You can already find some of our work on Instagram — and now, book directly right here, with real hours, real pricing, and a confirmed appointment.</p>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Ready For A Moment To Breathe?</h2>
+    <p>Book online in a minute, or call and we will get you on the books. Walk-ins are always welcome too.</p>
+    <a href="#" class="btn-white" id="magneticCta" onclick="openModal();return false">Book Your Visit</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Top <em>Cut</em></div>
+  <p>© 2026 Top Cut Hair Salon · 9975 Bustleton Ave, Philadelphia PA 19115</p>
+  <a href="tel:2156773900">(215) 677-3900</a>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal" data-lenis-prevent>
+    <div class="modal-header">
+      <h3 id="modalTitle">Book Your Visit</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
+<script>
+const MOTION=!!(window.gsap&&window.ScrollTrigger&&window.Lenis);
+if(!MOTION) document.documentElement.classList.add('no-motion');
+
+let lenis=null;
+if(MOTION){
+  gsap.registerPlugin(ScrollTrigger);
+  lenis=new Lenis({duration:1.05,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+  function raf(time){lenis.raf(time);requestAnimationFrame(raf)}
+  requestAnimationFrame(raf);
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(time=>{lenis.raf(time*1000)});
+  gsap.ticker.lagSmoothing(0);
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');
+    if(id.length>1&&document.querySelector(id)){
+      e.preventDefault();
+      if(MOTION&&lenis){lenis.scrollTo(id,{offset:-70})}else{document.querySelector(id).scrollIntoView({behavior:'smooth'})}
+      closeDrawer();
+    }
+  });
+});
+
+/* Custom cursor (desktop only) */
+if(MOTION&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cursor,{x:mx,y:my,duration:.08})});
+  (function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
+  document.querySelectorAll('a,button,.service-option,.tab-btn,.cal-day,.time-slot,.gallery-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.9,opacity:.9,duration:.2});gsap.to(cursor,{scale:1.4,duration:.2})});
+    el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:.5,duration:.2});gsap.to(cursor,{scale:1,duration:.2})});
+  });
+}
+
+/* Mobile drawer */
+function toggleDrawer(){
+  const h=document.getElementById('hamburger');
+  h.classList.toggle('open');
+  document.getElementById('mobileDrawer').classList.toggle('open');
+  document.getElementById('drawerOverlay').classList.toggle('open');
+  h.setAttribute('aria-expanded',h.classList.contains('open')?'true':'false');
+}
+function closeDrawer(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded','false');
+}
+
+/* Service tabs (works with or without motion) */
+function showTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-tab')===name));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.getAttribute('data-tab-panel')===name));
+}
+
+if(MOTION){
+  /* Scroll progress bar */
+  gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+
+  /* Hero timeline */
+  const tl=gsap.timeline({delay:.15});
+  tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.7,ease:'expo.out'})
+    .to('.hero-title .line span',{y:0,duration:.85,ease:'expo.out',stagger:.15},'-=.3')
+    .to('.hero-sub',{opacity:1,y:0,duration:.65,ease:'expo.out'},'-=.3')
+    .to('.hero-actions',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.25')
+    .to('#heroPhoto',{opacity:1,y:0,duration:.8,ease:'expo.out'},'-=.2');
+
+  /* Sticky nav shrink */
+  ScrollTrigger.create({trigger:'body',start:'80px top',
+    onEnter:()=>{document.getElementById('nav').style.padding='.75rem 5%'},
+    onLeaveBack:()=>{document.getElementById('nav').style.padding='1.2rem 5%'}
+  });
+
+  /* GSAP marquee (seamless loop over duplicated span set) */
+  gsap.to('#marquee',{xPercent:-50,duration:26,repeat:-1,ease:'none'});
+
+  /* Reveal on scroll */
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.8,ease:'expo.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%3)*.07});
+  });
+
+  /* Count-up numbers */
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-target'));
+    const decimals=parseInt(el.getAttribute('data-decimals')||'0');
+    const suffix=el.getAttribute('data-suffix')||'';
+    gsap.set(el,{opacity:1,y:0});
+    const obj={val:0};
+    gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
+      scrollTrigger:{trigger:el,start:'top 88%'},
+      onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
+  });
+
+  /* 3D tilt on gallery + review cards (desktop only) */
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+    document.querySelectorAll('.review-card,.family-item').forEach(card=>{
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+        gsap.to(card,{rotateY:x/28,rotateX:-y/28,duration:.4,ease:'power2.out',transformPerspective:700});
+      });
+      card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
+    });
+    /* Magnetic CTA button */
+    const magBtn=document.getElementById('magneticCta');
+    magBtn.addEventListener('mousemove',e=>{
+      const r=magBtn.getBoundingClientRect();
+      gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
+    });
+    magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
+  }
+}
+
+/* Highlight today's hours */
+(function(){
+  const day=new Date().getDay();
+  document.querySelectorAll('#hoursList li').forEach(li=>{
+    const days=li.getAttribute('data-days').split(',').map(Number);
+    if(days.includes(day))li.classList.add('today');
+  });
+})();
+
+/* ESC closes drawer and modal */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeDrawer();
+    if(document.getElementById('modalOverlay').classList.contains('open')) closeModal();
+  }
+});
+
+/* ===== Booking modal ===== */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const CLOSED_DAYS=[1]; /* Monday closed */
+const SLOTS=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
+const SUN_SLOTS=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM'];
+const SERVICES=[['Womens Haircut and Style','$45'],['Mens Haircut','$28'],['Kids Cut (12 and under)','$20'],['Blowout','$35'],['Color, Single Process','from $65'],['Highlights','from $90'],['Deep Conditioning Treatment','$25'],['Wash Plus Relaxing Massage','$15']];
+let step=1,chosen={service:'',date:'',dow:null,isToday:false,time:'',name:'',phone:'',notes:''};
+const titles=['Select Service','Pick a Date','Pick a Time','Your Info','Confirmed'];
+function slotHour(t){
+  const m=t.match(/(\d+):00 (AM|PM)/); if(!m) return 0;
+  let h=parseInt(m[1]); if(m[2]==='PM'&&h!==12)h+=12; if(m[2]==='AM'&&h===12)h=0;
+  return h;
+}
+function openModal(){step=1;renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';if(MOTION&&lenis)lenis.stop()}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';if(MOTION&&lenis)lenis.start()}
+function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function renderStep(){
+  document.getElementById('modalTitle').textContent=titles[step-1];
+  setStepDots();
+  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
+  body.innerHTML='';foot.innerHTML='';
+  if(step===1){
+    body.innerHTML=`<div class="step-title">What Are You Coming In For?</div><div class="service-grid">
+      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
+        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
+  } else if(step===2){
+    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const today=new Date(y,m,now.getDate()),curHour=now.getHours();
+    let cal=`<div class="step-title">Choose A Date</div><div class="calendar-grid">
+      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
+      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
+    for(let d=1;d<=daysInMonth;d++){
+      const dt=`${months[m]} ${d}, ${y}`,date=new Date(y,m,d),dow=date.getDay();
+      const isPast=date<today, isClosed=CLOSED_DAYS.includes(dow), isToday=date.getTime()===today.getTime();
+      let noSlotsToday=false;
+      if(isToday){
+        const list=dow===0?SUN_SLOTS:SLOTS;
+        noSlotsToday=!list.some(t=>slotHour(t)>curHour);
+      }
+      const disabled=isPast||isClosed||(isToday&&noSlotsToday);
+      cal+=`<div class="cal-day${disabled?' disabled':chosen.date===dt?' selected':''}"${!disabled?` onclick="chosen.date='${dt}';chosen.dow=${dow};chosen.isToday=${isToday};chosen.time='';renderStep()"`:''}">${d}</div>`}
+    body.innerHTML=cal+'</div><p style="font-size:.76rem;color:#A69C8D;margin-top:.7rem">Closed Mondays</p>';
+    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
+  } else if(step===3){
+    let list=chosen.dow===0?SUN_SLOTS:SLOTS;
+    if(chosen.isToday){const h=new Date().getHours();list=list.filter(t=>slotHour(t)>h)}
+    body.innerHTML=`<div class="step-title">Choose A Time</div><div class="time-grid">
+      ${list.map(t=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
+  } else if(step===4){
+    body.innerHTML=`<div class="step-title">Your Information</div>
+      <div class="form-group"><label>Full Name</label><input id="fn" placeholder="Your name" value="${esc(chosen.name)}"></div>
+      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="${esc(chosen.phone)}"></div>
+      <div class="form-group"><label>Anything We Should Know? Kids appointment, first time, etc. (optional)</label><textarea id="fv" rows="3" placeholder="Optional">${esc(chosen.notes)}</textarea></div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
+      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value;chosen.phone=document.getElementById('fp').value;chosen.notes=document.getElementById('fv').value;if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Booking</button>`;
+  } else {
+    body.innerHTML=`<div class="confirm-screen">
+      <div class="confirm-icon">💆</div>
+      <h3>You Are Booked, ${esc(chosen.name.split(' ')[0])}!</h3>
+      <p>We will call or text to confirm your appointment. See you soon.</p>
+      <div class="confirm-detail">
+        <div><span>Service</span><span>${esc(chosen.service)}</span></div>
+        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
+        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
+        <div><span>Notes</span><span>${esc(chosen.notes)||'—'}</span></div>
+        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
+      </div>
+      <p style="font-size:.8rem;color:#A69C8D;margin-top:.5rem">Questions? (215) 677-3900</p>
+    </div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done ✓</button>`;
+  }
+}
+</script>
+</body>
+</html>
