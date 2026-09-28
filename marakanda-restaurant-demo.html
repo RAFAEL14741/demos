@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marakanda Restaurant — Fine Dining | Bustleton</title>
+  <meta name="description" content="Marakanda Restaurant — An elevated dining experience in Bustleton. Reserve your table today." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0f0f0f;
+      --bg-alt:      #141414;
+      --bg-card:     #1a1a1a;
+      --text:        #faf0e6;
+      --muted:       rgba(250,240,230,0.52);
+      --accent:      #c8902a;
+      --accent-rgb:  200, 144, 42;
+      --accent-pale: rgba(200,144,42,0.12);
+      --border:      rgba(250,240,230,0.08);
+      --ff-display:  'Cormorant Garamond', Georgia, serif;
+      --ff-body:     'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    @media (hover: hover) and (pointer: fine) { body { cursor: none; } }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ── SCROLL PROGRESS ── */
+    #prog {
+      position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+      background: var(--accent); transform-origin: left; transform: scaleX(0); z-index: 9999;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      position: fixed; left: 0; top: 0;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent); pointer-events: none; z-index: 10000;
+      margin-left: -5px; margin-top: -5px;
+      will-change: left, top;
+      transition: width .18s ease, height .18s ease, margin .18s ease, background .18s ease, border .18s ease;
+    }
+    #cursor.large {
+      width: 28px; height: 28px; margin-left: -14px; margin-top: -14px;
+      background: rgba(200,144,42,0.18); border: 1.5px solid var(--accent);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 32px 52px;
+      transition: background .4s, padding .3s, box-shadow .3s;
+    }
+    nav.scrolled {
+      background: rgba(12,12,12,.97); backdrop-filter: blur(16px);
+      padding: 18px 52px; box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500;
+      letter-spacing: .04em; color: var(--text);
+    }
+    .nav-logo em { color: var(--accent); font-style: italic; }
+    .nav-links {
+      display: flex; align-items: center; gap: 38px; list-style: none;
+    }
+    .nav-links a {
+      font-size: .74rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text); opacity: .5; transition: opacity .2s, color .2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.nav-active { opacity: 1; color: var(--accent); }
+    .nav-cta {
+      background: var(--accent) !important; color: #0f0f0f !important;
+      padding: 10px 26px; border-radius: 50px; opacity: 1 !important;
+      font-size: .74rem !important; font-weight: 600 !important;
+      letter-spacing: .08em !important;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #dea030 !important; opacity: 1 !important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px; z-index: 302;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px; background: var(--text);
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* side drawer */
+    .nav-drawer {
+      position: fixed; top: 0; right: 0; width: 300px; height: 100dvh;
+      background: #0d0d0d; z-index: 301;
+      transform: translateX(100%); transition: transform .45s cubic-bezier(.4,0,.2,1);
+      padding: 100px 44px 48px; display: flex; flex-direction: column; gap: 8px;
+      border-left: 1px solid var(--border);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+    .nav-drawer a {
+      font-family: var(--ff-display); font-size: 1.7rem; font-weight: 400;
+      color: rgba(250,240,230,.65); padding: 8px 0;
+      transition: color .2s; border-bottom: 1px solid var(--border);
+    }
+    .nav-drawer a:last-of-type { border-bottom: none; }
+    .nav-drawer a:hover { color: var(--accent); }
+    .drawer-cta {
+      margin-top: 28px !important; background: var(--accent);
+      color: #0f0f0f !important; text-align: center;
+      font-family: var(--ff-body) !important;
+      font-size: .8rem !important; font-weight: 600 !important;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 16px 28px !important; border-radius: 50px;
+      border-bottom: none !important; display: block;
+    }
+    .nav-scrim {
+      position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 299;
+      opacity: 0; pointer-events: none; transition: opacity .4s;
+    }
+    .nav-scrim.open { opacity: 1; pointer-events: all; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute; top: -15%; left: 0;
+      width: 100%; height: 130%; object-fit: cover; z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 1;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      font-size: .7rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 28px; opacity: 0; transform: translateY(16px);
+    }
+    .hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(5rem, 11vw, 9rem);
+      font-weight: 400; line-height: .92; letter-spacing: -.02em; color: var(--text);
+      margin-bottom: 28px;
+    }
+    .h-line { display: block; clip-path: inset(0 0 100% 0); opacity: 0; }
+    .hero-tagline {
+      font-family: var(--ff-display);
+      font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+      font-weight: 300; font-style: italic;
+      color: rgba(250,240,230,.7); letter-spacing: .04em;
+      margin-bottom: 48px; opacity: 0; transform: translateY(20px);
+    }
+    .hero-ctas {
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap; justify-content: center;
+      opacity: 0; transform: translateY(16px);
+    }
+    .btn-fill {
+      background: var(--accent); color: #0f0f0f;
+      padding: 16px 42px; border-radius: 50px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      border: 2px solid var(--accent); display: inline-block;
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      padding: 14px 42px; border-radius: 50px;
+      font-size: .8rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+      border: 2px solid rgba(250,240,230,.24); display: inline-block;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+
+    /* floating badges */
+    .fbadge {
+      position: absolute; z-index: 3;
+      background: rgba(12,12,12,.85); border: 1px solid rgba(250,240,230,.12);
+      backdrop-filter: blur(12px); border-radius: 50px;
+      padding: 10px 20px; font-size: .74rem; font-weight: 500;
+      color: var(--text); white-space: nowrap;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 28px rgba(0,0,0,.4);
+    }
+    .fbadge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .fbadge-a { top: 24%; left: 7%; }
+    .fbadge-b { bottom: 26%; right: 7%; }
+    .scroll-ind {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 9px;
+      font-size: .64rem; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(250,240,230,.36); z-index: 2; opacity: 0;
+    }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(var(--accent), transparent); }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap { background: var(--accent); padding: 16px 0; overflow: hidden; }
+    .marquee-track {
+      display: flex; align-items: center; gap: 56px;
+      width: max-content; white-space: nowrap;
+    }
+    .marquee-track span {
+      font-family: var(--ff-display); font-size: 1rem; font-weight: 500;
+      color: rgba(12,12,12,.8); letter-spacing: .07em; text-transform: uppercase;
+    }
+    .marquee-track .sep { color: rgba(12,12,12,.32); }
+
+    /* ── SHARED ── */
+    .section { padding: clamp(80px,10vw,140px) 0; }
+    .section-alt { background: var(--bg-alt); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
+    .section-eyebrow {
+      display: block; font-size: .68rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 400; line-height: 1.05;
+      letter-spacing: -.02em; color: var(--text); margin-bottom: 60px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-editorial {
+      font-family: var(--ff-display);
+      font-size: clamp(4rem, 8vw, 9rem);
+      font-weight: 400; font-style: italic; line-height: .95;
+      letter-spacing: -.03em; color: var(--text);
+    }
+    .about-editorial em { color: var(--accent); }
+    .about-body { font-size: .95rem; line-height: 1.9; color: var(--muted); margin: 32px 0 48px; }
+    .about-img-wrap {
+      border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
+    }
+    .about-img-wrap img { transition: transform .8s ease; }
+    .stats { display: flex; gap: 48px; flex-wrap: wrap; }
+    .stat-num {
+      font-family: var(--ff-display); font-size: 3.4rem; font-weight: 400;
+      line-height: 1; letter-spacing: -.02em; color: var(--text);
+    }
+    .stat-num sup { font-size: 1.4rem; color: var(--accent); vertical-align: super; }
+    .stat-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+    /* ── MENU ── */
+    .menu-tabs {
+      display: flex; gap: 0; margin-bottom: 48px;
+      border-bottom: 1px solid var(--border); position: relative;
+    }
+    .menu-tab {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--ff-display); font-size: 1.15rem; font-weight: 400;
+      color: var(--muted); padding: 14px 36px;
+      letter-spacing: .04em; transition: color .25s;
+    }
+    .menu-tab.active { color: var(--text); }
+    .tab-indicator {
+      position: absolute; bottom: -1px; height: 2px;
+      background: var(--accent); transition: none;
+    }
+    .menu-category { display: none; }
+    .menu-category.active { display: grid; }
+    .menu-grid { grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .menu-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; cursor: pointer;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .menu-card-img { height: 200px; overflow: hidden; }
+    .menu-card-img img { transition: transform .5s ease; }
+    .menu-card-body { padding: 22px 22px 26px; }
+    .menu-card-name { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 400; color: var(--text); margin-bottom: 7px; }
+    .menu-card-desc { font-size: .82rem; line-height: 1.7; color: var(--muted); margin-bottom: 14px; }
+    .menu-card-price { font-size: 1.05rem; font-weight: 600; color: var(--accent); }
+
+    /* Menu item modal */
+    .menu-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.8); z-index: 600;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .menu-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .menu-modal {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 24px; overflow: hidden; width: 100%; max-width: 560px;
+      position: relative; transform: scale(0.9);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .menu-modal-overlay.open .menu-modal { transform: scale(1); }
+    .menu-modal-img { height: 300px; overflow: hidden; position: relative; }
+    .menu-modal-img img { width: 100%; height: 100%; object-fit: cover; }
+    .menu-modal-close {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(0,0,0,.65); border: none; color: var(--text);
+      width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px); transition: background .2s;
+    }
+    .menu-modal-close:hover { background: rgba(0,0,0,.9); }
+    .menu-modal-body { padding: 32px 36px 36px; }
+    .menu-modal-name { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+    .menu-modal-price { font-size: 1.2rem; font-weight: 600; color: var(--accent); margin-bottom: 16px; }
+    .menu-modal-desc { font-size: .9rem; line-height: 1.8; color: var(--muted); }
+
+    /* ── GALLERY ── */
+    #gallery { padding: 0; }
+    .gallery-wrap { position: relative; }
+    .gallery-sticky {
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .gallery-header { padding: 60px 52px 24px; flex-shrink: 0; }
+    .gallery-track {
+      display: flex; gap: 18px; padding: 0 52px 48px;
+      align-items: flex-end; flex: 1; will-change: transform;
+    }
+    .gh-item {
+      flex-shrink: 0; border-radius: 16px; overflow: hidden;
+      height: 100%; width: 420px; position: relative;
+    }
+    .gh-item.gh-narrow { width: 280px; height: 82%; }
+    .gh-item.gh-wide   { width: 560px; }
+    .gh-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .gh-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,.55);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      opacity: 0; transition: opacity .3s;
+    }
+    .gh-overlay-icon {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 1.5px solid rgba(250,240,230,.7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--text);
+    }
+    .gh-overlay-caption { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(250,240,230,.8); }
+
+    /* ── RESERVATIONS ── */
+    .res-section { background: #0a0a0a; padding: clamp(80px,10vw,140px) 0; }
+    .res-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 100px; align-items: start; }
+    .res-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 400; line-height: .95;
+      letter-spacing: -.03em; color: var(--text); margin-bottom: 22px;
+    }
+    .res-headline em { color: var(--accent); font-style: italic; }
+    .res-sub { font-size: .9rem; line-height: 1.85; color: var(--muted); margin-bottom: 44px; }
+    .res-info { display: flex; flex-direction: column; gap: 18px; }
+    .res-info-row { display: flex; align-items: center; gap: 14px; font-size: .84rem; color: var(--muted); }
+    .res-info-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--accent-pale); border: 1px solid rgba(200,144,42,.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .res-form { display: flex; flex-direction: column; gap: 20px; }
+    .fgroup { display: flex; flex-direction: column; gap: 8px; }
+    .fgroup label {
+      font-size: .67rem; font-weight: 500; letter-spacing: .13em; text-transform: uppercase;
+      color: rgba(250,240,230,.38);
+    }
+    .fgroup input, .fgroup select, .fgroup textarea {
+      background: rgba(250,240,230,.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+      font-family: var(--ff-body); font-size: .93rem; color: var(--text);
+      outline: none; transition: border-color .25s; -webkit-appearance: none;
+    }
+    .fgroup select option { background: #1a1a1a; color: var(--text); }
+    .fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus { border-color: var(--accent); }
+    .fgroup textarea { resize: vertical; min-height: 90px; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.8); cursor: pointer; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Party stepper */
+    .stepper {
+      display: flex; align-items: stretch;
+      background: rgba(250,240,230,.04); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+    }
+    .stepper-btn {
+      background: none; border: none; cursor: pointer; color: var(--text);
+      font-size: 1.4rem; padding: 12px 20px; transition: background .2s; line-height: 1;
+    }
+    .stepper-btn:hover { background: var(--accent-pale); }
+    .stepper-val {
+      flex: 1; text-align: center; font-size: .95rem; font-weight: 600; color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+    }
+
+    /* Submit button states */
+    .btn-submit-res {
+      background: var(--accent); color: #0f0f0f;
+      padding: 16px; border: none; border-radius: 50px;
+      font-family: var(--ff-body); font-size: .85rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      cursor: pointer; transition: background .2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-submit-res:hover { background: #dea030; }
+    .btn-submit-res.loading { pointer-events: none; opacity: .85; }
+    .btn-submit-res.success { background: #2e7d46; pointer-events: none; }
+    .spinner {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid rgba(15,15,15,.3); border-top-color: #0f0f0f;
+      animation: spin .7s linear infinite; display: none; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .checkmark-svg { display: none; width: 20px; height: 20px; flex-shrink: 0; }
+    .checkmark-path {
+      stroke: #fff; stroke-width: 2.5; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 22; stroke-dashoffset: 22;
+      transition: stroke-dashoffset .4s ease .1s;
+    }
+    .checkmark-path.draw { stroke-dashoffset: 0; }
+    .res-confirm {
+      display: none; text-align: center; padding: 48px 0;
+    }
+    .res-confirm h3 { font-family: var(--ff-display); font-size: 2.2rem; color: var(--text); margin-bottom: 12px; }
+    .res-confirm p { font-size: .9rem; color: var(--muted); line-height: 1.8; }
+
+    /* ── REVIEWS ── */
+    .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .rev-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 36px 30px;
+      transform-style: preserve-3d;
+    }
+    .rev-stars { color: var(--accent); letter-spacing: 2px; font-size: .85rem; margin-bottom: 20px; }
+    .rev-quote {
+      font-family: var(--ff-display); font-size: 1.1rem; font-weight: 400; font-style: italic;
+      line-height: 1.65; color: var(--text); margin-bottom: 26px;
+    }
+    .rev-author { display: flex; align-items: center; gap: 12px; }
+    .rev-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--accent-pale); border: 1px solid rgba(200,144,42,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-display); font-size: 1rem; font-weight: 500;
+      color: var(--accent); flex-shrink: 0;
+    }
+    .rev-name { font-size: .83rem; font-weight: 600; color: var(--text); }
+    .rev-date { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── HOURS + LOCATION ── */
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+      font-size: .88rem; color: var(--muted);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row.today { color: var(--text); }
+    .hours-row.today .hours-day { color: var(--accent); font-weight: 600; }
+    .today-tag {
+      font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
+      background: var(--accent-pale); color: var(--accent);
+      border: 1px solid rgba(200,144,42,.3); border-radius: 50px;
+      padding: 2px 10px; margin-left: 8px;
+    }
+    .hours-closed { color: rgba(250,240,230,.22) !important; }
+    .location-name { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+    .location-address { font-size: .9rem; color: var(--muted); line-height: 1.85; margin-bottom: 6px; }
+    .location-phone { font-size: .9rem; color: var(--muted); margin-bottom: 36px; }
+    .location-phone a { color: var(--accent); transition: color .2s; }
+    .btn-directions {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: none; border: 1px solid var(--border);
+      border-radius: 50px; padding: 13px 30px;
+      font-family: var(--ff-body); font-size: .8rem; font-weight: 500;
+      letter-spacing: .07em; text-transform: uppercase; color: var(--text);
+      cursor: pointer; transition: border-color .2s, color .2s;
+    }
+    .btn-directions:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    .staff-portal-wrap {
+      background: #0d0d0d; padding: 52px 24px;
+      text-align: center; border-top: 1px solid var(--border);
+    }
+    footer { background: #070707; padding: 80px 0 40px; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 60px; margin-bottom: 60px;
+    }
+    .footer-logo { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500; color: var(--text); display: block; margin-bottom: 14px; }
+    .footer-logo em { color: var(--accent); font-style: italic; }
+    .footer-tagline { font-size: .83rem; line-height: 1.8; color: rgba(250,240,230,.36); margin-bottom: 18px; }
+    .footer-phone { font-size: .8rem; color: rgba(250,240,230,.32); }
+    .footer-phone a { transition: color .2s; }
+    .footer-phone a:hover { color: var(--accent); }
+    .fcol-title { font-size: .63rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(250,240,230,.26); margin-bottom: 20px; }
+    .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .fcol ul a { font-size: .87rem; color: rgba(250,240,230,.5); transition: color .2s; }
+    .fcol ul a:hover { color: var(--text); }
+    .footer-bottom {
+      padding-top: 28px; border-top: 1px solid rgba(250,240,230,.06);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .73rem; color: rgba(250,240,230,.2);
+    }
+
+    /* ── HOVER EFFECTS (desktop only) ── */
+    @media (hover: hover) and (pointer: fine) {
+      .btn-fill:hover {
+        background: #dea030; border-color: #dea030;
+        transform: translateY(-2px); box-shadow: 0 8px 28px rgba(var(--accent-rgb),.3);
+      }
+      .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+      .menu-card:hover { transform: translateY(-8px); box-shadow: 0 24px 50px rgba(0,0,0,.5); }
+      .menu-card:hover .menu-card-img img { transform: scale(1.07); }
+      .gh-item:hover img { transform: scale(1.05); }
+      .gh-item:hover .gh-overlay { opacity: 1; }
+      .about-img-wrap:hover img { transform: scale(1.04); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .about-grid { grid-template-columns: 1fr; gap: 52px; }
+      .menu-grid { grid-template-columns: repeat(2,1fr); }
+      .reviews-grid { grid-template-columns: repeat(2,1fr); }
+      .hours-grid { grid-template-columns: 1fr; gap: 52px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .res-grid { grid-template-columns: 1fr; gap: 52px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 22px 24px; }
+      nav.scrolled { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .wrap { padding: 0 24px; }
+      .hero-name { font-size: clamp(3.8rem, 12vw, 6rem); }
+      .fbadge { font-size: .67rem; padding: 8px 14px; }
+      .fbadge-a { top: 18%; left: 5%; }
+      .fbadge-b { bottom: 22%; right: 5%; }
+      .about-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .hours-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .frow { grid-template-columns: 1fr; }
+      #gallery { padding: 40px 0 0; }
+      .gallery-wrap { position: static; }
+      .gallery-sticky { position: static; height: auto; overflow: visible; display: block; }
+      .gallery-header { padding: 0 24px 24px; }
+      .gallery-track {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        padding: 0 16px 40px; flex: none; align-items: stretch;
+        transform: none !important; will-change: auto;
+      }
+      .gh-item, .gh-item.gh-narrow, .gh-item.gh-wide {
+        width: auto; height: 180px; flex-shrink: unset;
+      }
+      .gh-overlay { display: none; }
+    }
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; width: 100%; }
+      .btn-fill, .btn-outline { text-align: center; }
+      .fbadge { display: none; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-modal-body { padding: 24px 24px 28px; }
+      .menu-tab { padding: 12px 18px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="prog"></div>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo"><em>Marakanda</em> Restaurant</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#reservations" class="nav-cta">Reserve</a></li>
+  </ul>
+  <button class="hamburger" id="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-scrim" id="nav-scrim"></div>
+<div class="nav-drawer" id="nav-drawer">
+  <a href="#about" class="drawer-link">About</a>
+  <a href="#menu" class="drawer-link">Menu</a>
+  <a href="#gallery" class="drawer-link">Gallery</a>
+  <a href="#reviews" class="drawer-link">Reviews</a>
+  <a href="#hours" class="drawer-link">Hours</a>
+  <a href="#reservations" class="drawer-cta drawer-link">Reserve a Table</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <video autoplay muted loop playsinline class="hero-video" id="hero-video">
+    <source src="https://videos.pexels.com/video-files/3195394/3195394-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow" id="h-eyebrow">Uzbek Cuisine · Bustleton, Philadelphia</p>
+    <h1 class="hero-name" id="h-name">
+      <span class="h-line">Marakanda</span>
+      <span class="h-line">Restaurant</span>
+    </h1>
+    <p class="hero-tagline" id="h-tag">Where every meal becomes a memory.</p>
+    <div class="hero-ctas" id="h-ctas">
+      <a href="#menu" class="btn-fill mag-btn">View Menu</a>
+      <a href="#reservations" class="btn-outline mag-btn">Reserve a Table</a>
+    </div>
+  </div>
+
+  <div class="fbadge fbadge-a" id="badge-a">⭐ 4.6 &nbsp;·&nbsp; 320+ Google Reviews</div>
+  <div class="fbadge fbadge-b" id="badge-b"><span class="dot"></span>Open Daily Till Midnight</div>
+
+  <div class="scroll-ind" id="h-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>Marakanda Restaurant</span><span class="sep">·</span>
+    <span>Bustleton</span><span class="sep">·</span>
+    <span>Fine Dining · Curated Cuisine</span><span class="sep">·</span>
+    <span>Reserve Your Table Tonight</span><span class="sep">·</span>
+    <span>Marakanda Restaurant</span><span class="sep">·</span>
+    <span>Bustleton</span><span class="sep">·</span>
+    <span>Fine Dining · Curated Cuisine</span><span class="sep">·</span>
+    <span>Reserve Your Table Tonight</span><span class="sep">·</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="about-editorial" id="about-head">
+          A hidden gem <em>worth finding</em><br>on Grant Ave.
+        </p>
+        <p class="about-body" id="about-body">
+          Marakanda Restaurant brings authentic Uzbekistan cuisine to Bustleton — the kind of food that tastes like it came straight from a home kitchen in Tashkent. Hand-folded dumplings, kebabs grilled the traditional way, and a menu built around recipes passed down, not trends. First-time guests keep saying the same thing: they had no idea Uzbek food was this good, and they didn't know it existed just off Grant Ave.<br><br>
+          The hospitality is what people remember most — walk in once and the staff treats you like family from then on.
+        </p>
+        <div class="stats" id="stats">
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="4.6">4.6</span><sup>★</sup></div>
+            <div class="stat-label">Google Rating</div>
+          </div>
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="323">323</span><sup>+</sup></div>
+            <div class="stat-label">Google Reviews</div>
+          </div>
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="0">0</span><sup></sup></div>
+            <div class="stat-label" style="display:none"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="about-img-wrap" id="about-img">
+          <img
+            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=85"
+            alt="Marakanda Restaurant interior"
+            loading="lazy" decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU ── -->
+<section class="section section-alt" id="menu">
+  <div class="wrap">
+    <span class="section-eyebrow">Curated Selections</span>
+    <h2 class="section-title">Our Menu</h2>
+
+    <div class="menu-tabs" id="menu-tabs">
+      <button class="menu-tab active" data-cat="starters">Starters</button>
+      <button class="menu-tab" data-cat="mains">Mains</button>
+      <button class="menu-tab" data-cat="desserts">Desserts</button>
+      <div class="tab-indicator" id="tab-indicator"></div>
+    </div>
+
+    <!-- STARTERS -->
+    <div class="menu-category active menu-grid" id="cat-starters">
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Mantu (Steamed Dumplings)"
+        data-price="$9 [CONFIRM]"
+        data-desc="Hand-folded Uzbek dumplings filled with spiced ground beef and onion, steamed and finished with a dollop of garlic yogurt and a dusting of dried mint."
+        data-photo="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500&q=80" alt="Mantu dumplings" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Mantu (Steamed Dumplings)</div>
+          <p class="menu-card-desc">Beef &amp; onion, garlic yogurt, dried mint</p>
+          <div class="menu-card-price">$9 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Somsa"
+        data-price="$6 [CONFIRM]"
+        data-desc="Flaky baked pastry filled with seasoned lamb, onion, and cumin — baked in a tandoor-style oven until golden and crisp."
+        data-photo="https://images.unsplash.com/photo-1608032364895-84c5e379285e?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1608032364895-84c5e379285e?w=500&q=80" alt="Somsa pastry" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Somsa</div>
+          <p class="menu-card-desc">Baked lamb pastry, onion, cumin</p>
+          <div class="menu-card-price">$6 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Chuchvara Soup"
+        data-price="$10 [CONFIRM]"
+        data-desc="Tiny beef dumplings served in a clear, slow-simmered broth with fresh herbs — a comforting start to any meal."
+        data-photo="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Chuchvara soup" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Chuchvara Soup</div>
+          <p class="menu-card-desc">Beef dumplings, clear broth, fresh herbs</p>
+          <div class="menu-card-price">$10 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAINS -->
+    <div class="menu-category menu-grid" id="cat-mains">
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Tuy Kabob"
+        data-price="$18 [CONFIRM]"
+        data-desc="Marinated skewered beef, grilled over an open flame the traditional way — the centerpiece dish of any Uzbek celebration."
+        data-photo="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500&q=80" alt="Tuy Kabob" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Tuy Kabob</div>
+          <p class="menu-card-desc">Marinated grilled beef skewer, open flame</p>
+          <div class="menu-card-price">$18 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Lula Kebab"
+        data-price="$16 [CONFIRM]"
+        data-desc="Hand-formed ground beef kebab, seasoned with onion and spices, grilled over charcoal. Served with fresh flatbread and grilled tomato."
+        data-photo="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=500&q=80" alt="Lula Kebab" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Lula Kebab</div>
+          <p class="menu-card-desc">Ground beef kebab, charcoal grilled, flatbread</p>
+          <div class="menu-card-price">$16 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Grilled Lamb Chops"
+        data-price="$24 [CONFIRM]"
+        data-desc="Two hand-trimmed lamb chops, marinated and grilled to order. Served with a side of plov (Uzbek rice pilaf) and pickled vegetables."
+        data-photo="https://images.unsplash.com/photo-1559847844-5315695dadae?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=500&q=80" alt="Grilled Lamb Chops" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Grilled Lamb Chops</div>
+          <p class="menu-card-desc">Marinated, grilled to order, plov &amp; pickled veg</p>
+          <div class="menu-card-price">$24 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESSERTS / DRINKS -->
+    <div class="menu-category menu-grid" id="cat-desserts">
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Apricot Kompot"
+        data-price="$4 [CONFIRM]"
+        data-desc="A traditional Uzbek stewed-fruit drink made from apricots — lightly sweet, served chilled. A customer favorite."
+        data-photo="https://images.unsplash.com/photo-1488900128323-21503983a07e?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1488900128323-21503983a07e?w=500&q=80" alt="Apricot Kompot" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Apricot Kompot</div>
+          <p class="menu-card-desc">Traditional stewed-apricot drink, served chilled</p>
+          <div class="menu-card-price">$4 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Baklava"
+        data-price="$7 [CONFIRM]"
+        data-desc="Layers of flaky pastry, chopped walnuts, and honey syrup — a rich, sweet finish to the meal."
+        data-photo="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&q=80" alt="Baklava" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Baklava</div>
+          <p class="menu-card-desc">Flaky pastry, walnuts, honey syrup</p>
+          <div class="menu-card-price">$7 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Uzbek Chai"
+        data-price="$3 [CONFIRM]"
+        data-desc="Traditional green or black tea, served in a classic Uzbek piala bowl — the customary way to end a meal."
+        data-photo="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=80" alt="Uzbek Chai" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Uzbek Chai</div>
+          <p class="menu-card-desc">Green or black tea, served in a piala bowl</p>
+          <div class="menu-card-price">$3 <small>[CONFIRM]</small></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+  <div class="gallery-wrap" id="gallery-wrap">
+    <div class="gallery-sticky">
+      <div class="gallery-header">
+        <span class="section-eyebrow">Inside Our World</span>
+        <h2 class="section-title" style="margin-bottom:0">A Feast for the Eyes</h2>
+      </div>
+      <div class="gallery-track" id="gallery-track">
+
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=85" alt="Restaurant interior" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">The Dining Room</div></div>
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=85" alt="Bar setting" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">The Bar</div></div>
+        </div>
+
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&q=85" alt="Gourmet dish" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Signature Plate</div></div>
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=85" alt="Pasta dish" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">House Pasta</div></div>
+        </div>
+
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=85" alt="Grilled dish" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">From the Grill</div></div>
+        </div>
+
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=700&q=85" alt="Plated meal" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Chef's Composition</div></div>
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=85" alt="Fresh ingredients" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Garden Fresh</div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESERVATIONS ── -->
+<section class="res-section" id="reservations">
+  <div class="wrap">
+    <div class="res-grid">
+      <div>
+        <span class="section-eyebrow">Book Your Evening</span>
+        <h2 class="res-headline">Reserve<br><em>Your Table</em></h2>
+        <p class="res-sub">
+          We seat guests Tuesday through Sunday, 5pm–10pm. Parties of 7 or more, please call us directly. We hold reservations for 15 minutes.
+        </p>
+        <div class="res-info">
+          <div class="res-info-row"><div class="res-info-icon">📍</div><span>1683 Grant Ave · Bustleton, Philadelphia</span></div>
+          <div class="res-info-row"><div class="res-info-icon">📞</div><span>(831) 382-7777</span></div>
+          <div class="res-info-row"><div class="res-info-icon">🕐</div><span>Tue–Sun · 5:00 PM – 10:00 PM</span></div>
+          <div class="res-info-row"><div class="res-info-icon">🅿️</div><span>Valet parking available · $12</span></div>
+        </div>
+      </div>
+      <div>
+        <div id="res-form-wrap">
+          <div class="res-form" id="res-form-inner">
+            <div class="frow">
+              <div class="fgroup">
+                <label>First Name</label>
+                <input type="text" placeholder="James" />
+              </div>
+              <div class="fgroup">
+                <label>Last Name</label>
+                <input type="text" placeholder="Chen" />
+              </div>
+            </div>
+            <div class="fgroup">
+              <label>Email</label>
+              <input type="email" placeholder="james@example.com" />
+            </div>
+            <div class="fgroup">
+              <label>Party Size</label>
+              <div class="stepper">
+                <button class="stepper-btn" onclick="adjustParty(-1)" type="button">−</button>
+                <div class="stepper-val" id="party-count">2</div>
+                <button class="stepper-btn" onclick="adjustParty(1)" type="button">+</button>
+              </div>
+            </div>
+            <div class="frow">
+              <div class="fgroup">
+                <label>Date</label>
+                <input type="date" id="res-date" />
+              </div>
+              <div class="fgroup">
+                <label>Time</label>
+                <select>
+                  <option>5:00 PM</option>
+                  <option>5:30 PM</option>
+                  <option>6:00 PM</option>
+                  <option selected>6:30 PM</option>
+                  <option>7:00 PM</option>
+                  <option>7:30 PM</option>
+                  <option>8:00 PM</option>
+                  <option>8:30 PM</option>
+                  <option>9:00 PM</option>
+                  <option>9:30 PM</option>
+                </select>
+              </div>
+            </div>
+            <div class="fgroup">
+              <label>Special Requests</label>
+              <textarea placeholder="Dietary needs, celebrations, seating preferences…"></textarea>
+            </div>
+            <button class="btn-submit-res" id="res-submit-btn" onclick="submitReservation()" type="button">
+              <div class="spinner" id="res-spinner"></div>
+              <svg class="checkmark-svg" id="res-check" viewBox="0 0 24 24">
+                <polyline class="checkmark-path" id="check-path" points="4 12 9 17 20 7"/>
+              </svg>
+              <span id="res-btn-text">Confirm Reservation</span>
+            </button>
+          </div>
+          <div class="res-confirm" id="res-confirm">
+            <h3>You're on the list ✦</h3>
+            <p>A confirmation will be sent to your email shortly.<br>We look forward to welcoming you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section class="section section-alt" id="reviews">
+  <div class="wrap">
+    <span class="section-eyebrow">Guest Experiences</span>
+    <h2 class="section-title">What Our Guests Say</h2>
+    <div class="reviews-grid" id="rev-grid">
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"Came for a family dinner and it was one of the best dining experiences we've had in Philadelphia. The hospitality alone sets it apart — from the moment we walked in, they treated us like family."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">S</div>
+          <div>
+            <div class="rev-name">Google Reviewer</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"A hidden gem — I'd never had Uzbek cuisine before and the quality blew me away. Try the mantu and the tuy kabob. For drinks, the apricot kompot is amazing. Great place to start if you've never had Uzbek food."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">D</div>
+          <div>
+            <div class="rev-name">Google Reviewer</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"Authentic, rich in flavor, and beautifully prepared — every dish felt like it came straight from a home kitchen in Uzbekistan. You can taste the tradition in everything they serve."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">R</div>
+          <div>
+            <div class="rev-name">Google Reviewer</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOURS + LOCATION ── -->
+<section class="section" id="hours">
+  <div class="wrap">
+    <span class="section-eyebrow">Find Us</span>
+    <h2 class="section-title">Hours &amp; Location</h2>
+    <div class="hours-grid">
+      <div>
+        <div class="hours-table" id="hours-table">
+          <div class="hours-row" data-day="1"><span class="hours-day">Monday</span><span>10:00 AM – 12:00 AM</span></div>
+          <div class="hours-row" data-day="2"><span class="hours-day">Tuesday</span><span>10:00 AM – 12:00 AM</span></div>
+          <div class="hours-row" data-day="3"><span class="hours-day">Wednesday</span><span>10:00 AM – 12:00 AM</span></div>
+          <div class="hours-row" data-day="4"><span class="hours-day">Thursday</span><span>10:00 AM – 12:00 AM</span></div>
+          <div class="hours-row" data-day="5"><span class="hours-day">Friday</span><span>10:00 AM – 12:00 AM</span></div>
+          <div class="hours-row" data-day="6"><span class="hours-day">Saturday</span><span>10:00 AM – 12:00 AM</span></div>
+          <div class="hours-row" data-day="0"><span class="hours-day">Sunday</span><span>10:00 AM – 12:00 AM</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="location-name">Marakanda Restaurant</p>
+        <p class="location-address">1683 Grant Ave<br>Philadelphia, PA 19115</p>
+        <p class="location-phone">📞 <a href="tel:8313827777">(831) 382-7777</a></p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn-directions">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STAFF PORTAL ── -->
+<div class="staff-portal-wrap">
+  <a href="restaurant-video-admin-template.html"
+     style="display:inline-flex;align-items:center;gap:10px;background:var(--bg-card);color:var(--text);
+            font-family:var(--ff-body);font-size:.82rem;font-weight:500;letter-spacing:.07em;
+            text-transform:uppercase;padding:16px 38px;border-radius:50px;
+            border:1px solid var(--border);text-decoration:none;
+            transition:background .25s,border-color .25s,transform .25s;"
+     onmouseover="this.style.background='var(--accent)';this.style.color='#0f0f0f';this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'"
+     onmouseout="this.style.background='var(--bg-card)';this.style.color='var(--text)';this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Staff Admin Portal
+  </a>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#hero" class="footer-logo"><em>Marakanda</em> Restaurant</a>
+        <p class="footer-tagline">Fine dining in the heart of Bustleton. Every evening a celebration, every plate a story worth telling.</p>
+        <p class="footer-phone">📞 <a href="tel:8313827777">(831) 382-7777</a></p>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Navigate</div>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#reservations">Reserve a Table</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Visit</div>
+        <ul>
+          <li><a href="#hours">Hours</a></li>
+          <li><a href="https://maps.google.com" target="_blank" rel="noopener">1683 Grant Ave</a></li>
+          <li><a href="tel:8313827777">(831) 382-7777</a></li>
+          <li><a href="#reservations">Private Dining</a></li>
+          <li><a href="#reservations">Gift Cards</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Marakanda Restaurant. All rights reserved.</span>
+      <span>Bustleton · Philadelphia, PA</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── MENU ITEM MODAL ── -->
+<div class="menu-modal-overlay" id="menu-modal-overlay" onclick="closeMenuModal(event)">
+  <div class="menu-modal" id="menu-modal">
+    <div class="menu-modal-img">
+      <img id="modal-photo" src="" alt="" />
+      <button class="menu-modal-close" onclick="closeMenuModal(null,true)">✕</button>
+    </div>
+    <div class="menu-modal-body">
+      <div class="menu-modal-name" id="modal-name"></div>
+      <div class="menu-modal-price" id="modal-price"></div>
+      <p class="menu-modal-desc" id="modal-desc"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ── JAVASCRIPT ── -->
+<script>
+// ══ 1. GSAP SETUP — must come first ══
+gsap.registerPlugin(ScrollTrigger);
+
+// ══ 2. LENIS ══
+const lenis = new Lenis({ lerp: 0.1 });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((t) => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// ══ 3. PROGRESS BAR ══
+gsap.to('#prog', {
+  scaleX: 1, ease: 'none',
+  scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 }
+});
+
+// ══ 4. NAV SCROLL STATE ══
+ScrollTrigger.create({
+  start: 80,
+  onEnter:     () => document.getElementById('main-nav').classList.add('scrolled'),
+  onLeaveBack: () => document.getElementById('main-nav').classList.remove('scrolled'),
+});
+
+// ══ 5. HERO ENTRANCE ══
+gsap.set('#h-eyebrow', { opacity: 0, y: 16 });
+gsap.set('.h-line',    { clipPath: 'inset(0 0 100% 0)', opacity: 0 });
+gsap.set('#h-tag',     { opacity: 0, y: 22 });
+gsap.set('#h-ctas',    { opacity: 0, y: 16 });
+gsap.set('#h-scroll',  { opacity: 0 });
+gsap.set('#badge-a, #badge-b', { opacity: 0, y: 10 });
+
+const heroTl = gsap.timeline({ delay: 0.3 });
+heroTl
+  .to('#h-eyebrow', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+  .to('.h-line',    { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 0.95, stagger: 0.18, ease: 'power3.out' }, '-=0.2')
+  .to('#h-tag',     { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.35')
+  .to('#h-ctas',    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+  .to('#badge-a, #badge-b', { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power3.out' }, '-=0.3')
+  .to('#h-scroll',  { opacity: 1, duration: 0.4, ease: 'power2.out' }, '+=0.2');
+
+// ══ 6. FLOATING BADGES SINE WAVE ══
+gsap.to('#badge-a', { y: -12, duration: 2.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.8 });
+gsap.to('#badge-b', { y: -12, duration: 1.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2.2 });
+
+// ══ 7. MARQUEE ══
+const marqueeTween = gsap.to('#marquee', { x: '-50%', duration: 22, repeat: -1, ease: 'none' });
+ScrollTrigger.create({
+  onUpdate: self => {
+    const v = Math.abs(self.getVelocity()) / 1000;
+    gsap.to(marqueeTween, { timeScale: 1 + v * 2.5, duration: 0.4, overwrite: true });
+    gsap.delayedCall(0.5, () => gsap.to(marqueeTween, { timeScale: 1, duration: 1.2, ease: 'power2.out' }));
+  }
+});
+
+// ══ 8. ACTIVE NAV SECTION HIGHLIGHTING ══
+function updateNav(id) {
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
+  });
+}
+['about','menu','gallery','reservations','reviews','hours'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  ScrollTrigger.create({
+    trigger: el, start: 'top 55%', end: 'bottom 55%',
+    onEnter: () => updateNav(id), onEnterBack: () => updateNav(id),
+  });
+});
+
+// ══ 9. SCROLL ANIMATIONS (matchMedia) ══
+ScrollTrigger.matchMedia({
+
+  '(min-width: 769px)': function () {
+
+    // Video parallax — moves at 0.3x scroll speed
+    gsap.fromTo('#hero-video',
+      { y: 0 },
+      { y: '18%', ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+      }
+    );
+
+    // Hero content slight parallax
+    gsap.to('#h-name', {
+      y: -50, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+    // About
+    gsap.from('#about-head', {
+      x: -60, opacity: 0, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-head', start: 'top 80%', end: 'top 50%', scrub: 0.8 }
+    });
+    gsap.from('#about-body', {
+      opacity: 0, y: 28, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-body', start: 'top 76%' }
+    });
+    gsap.from('#stats > div', {
+      opacity: 0, y: 20, duration: 0.55, stagger: 0.15, ease: 'power3.out',
+      scrollTrigger: { trigger: '#stats', start: 'top 82%' }
+    });
+    gsap.from('#about-img', {
+      opacity: 0, scale: 0.97, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-img', start: 'top 78%' }
+    });
+
+    // Stats counter
+    document.querySelectorAll('.stat-val').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const isFloat = el.dataset.target.includes('.');
+      gsap.fromTo(el, { textContent: 0 }, {
+        textContent: target, duration: 2, ease: 'power2.out',
+        snap: { textContent: isFloat ? 0.1 : 1 },
+        scrollTrigger: { trigger: el, start: 'top 82%', once: true },
+        onUpdate: function () {
+          const v = parseFloat(this.targets()[0].textContent);
+          this.targets()[0].textContent = isFloat ? v.toFixed(1) : Math.round(v);
+        }
+      });
+    });
+
+    // Section eyebrows + titles
+    gsap.utils.toArray('.section-eyebrow').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, y: 14, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 84%' }
+      });
+    });
+    gsap.utils.toArray('.section-title').forEach(el => {
+      gsap.from(el, {
+        x: -50, opacity: 0, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 86%', end: 'top 56%', scrub: 0.8 }
+      });
+    });
+
+    // Menu cards
+    gsap.from('.menu-card', {
+      opacity: 0, y: 44, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#menu', start: 'top 72%' }
+    });
+
+    // Review cards
+    gsap.from('#rev-grid .rev-card', {
+      opacity: 0, y: 40, duration: 0.7, stagger: 0.14, ease: 'power3.out',
+      scrollTrigger: { trigger: '#rev-grid', start: 'top 78%' }
+    });
+
+    // Reservations
+    gsap.from('.res-headline', {
+      opacity: 0, y: 40, duration: 0.9, ease: 'power3.out',
+      scrollTrigger: { trigger: '#reservations', start: 'top 72%' }
+    });
+    gsap.from('.res-form', {
+      opacity: 0, y: 44, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '.res-form', start: 'top 78%' }
+    });
+
+    // Hours section
+    gsap.from('.hours-row', {
+      opacity: 0, x: -20, duration: 0.5, stagger: 0.07, ease: 'power3.out',
+      scrollTrigger: { trigger: '#hours', start: 'top 76%' }
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.mag-btn, .nav-cta').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        gsap.to(btn, {
+          x: (e.clientX - r.left - r.width  / 2) * 0.28,
+          y: (e.clientY - r.top  - r.height / 2) * 0.28,
+          duration: 0.3, ease: 'power2.out',
+        });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'elastic.out(1,.35)' });
+      });
+    });
+
+    // 3D card tilt on reviews
+    document.querySelectorAll('.rev-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        gsap.to(card, {
+          rotateY: x * 12, rotateX: -y * 12,
+          transformPerspective: 900, duration: 0.35, ease: 'power2.out',
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.65, ease: 'elastic.out(1,0.4)' });
+      });
+    });
+  },
+
+  '(max-width: 768px)': function () {
+    // Clip-path reveals on mobile
+    ['.menu-card', '.rev-card'].forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        gsap.from(el, {
+          clipPath: 'inset(0 0 100% 0)', opacity: 0,
+          duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 90%' }
+        });
+      });
+    });
+    gsap.from('#about-head', {
+      opacity: 0, y: 30, duration: 0.75, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about', start: 'top 84%' }
+    });
+  }
+});
+
+// ══ 10. GALLERY — CSS sticky + GSAP scrub (exact pattern from reference) ══
+window.addEventListener('load', () => {
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    const wrap  = document.getElementById('gallery-wrap');
+    const track = document.getElementById('gallery-track');
+    if (wrap && track) {
+      const dist = track.scrollWidth - window.innerWidth;
+      if (dist > 0) {
+        wrap.style.height = `calc(100vh + ${dist}px)`;
+        gsap.to(track, {
+          x: -dist, ease: 'none',
+          scrollTrigger: {
+            trigger: wrap, start: 'top top', end: 'bottom bottom',
+            scrub: 1, invalidateOnRefresh: true,
+          }
+        });
+      }
+    }
+  }
+  setTimeout(() => ScrollTrigger.refresh(), 100);
+});
+
+// ══ 11. HAMBURGER MOBILE MENU ══
+const burger   = document.getElementById('burger');
+const drawer   = document.getElementById('nav-drawer');
+const scrim    = document.getElementById('nav-scrim');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  scrim.classList.add('open');
+  burger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  scrim.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+burger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+scrim.addEventListener('click', closeDrawer);
+document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
+
+// ══ 12. SMOOTH ANCHOR SCROLLING ══
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80, duration: 1.4 }); }
+  });
+});
+
+// ══ 13. MENU TABS ══
+(function initMenuTabs() {
+  const tabs = document.querySelectorAll('.menu-tab');
+  const indicator = document.getElementById('tab-indicator');
+
+  function positionIndicator(tab) {
+    indicator.style.width  = tab.offsetWidth + 'px';
+    indicator.style.left   = tab.offsetLeft + 'px';
+  }
+
+  // Init position
+  const activeTab = document.querySelector('.menu-tab.active');
+  if (activeTab) positionIndicator(activeTab);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat;
+
+      // Update tabs
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      // Slide indicator
+      gsap.to(indicator, {
+        width: tab.offsetWidth, left: tab.offsetLeft,
+        duration: 0.35, ease: 'power3.out'
+      });
+
+      // Fade out current, fade in new
+      const current = document.querySelector('.menu-category.active');
+      if (current) {
+        gsap.to(current, {
+          opacity: 0, y: 10, duration: 0.2, ease: 'power2.in',
+          onComplete: () => {
+            current.classList.remove('active');
+            const next = document.getElementById('cat-' + cat);
+            if (next) {
+              next.classList.add('active');
+              gsap.fromTo(next,
+                { opacity: 0, y: 14 },
+                { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }
+              );
+            }
+          }
+        });
+      }
+    });
+  });
+})();
+
+// ══ 14. MENU ITEM MODAL ══
+function openMenuModal(card) {
+  const overlay = document.getElementById('menu-modal-overlay');
+  document.getElementById('modal-photo').src = card.dataset.photo;
+  document.getElementById('modal-photo').alt  = card.dataset.name;
+  document.getElementById('modal-name').textContent  = card.dataset.name;
+  document.getElementById('modal-price').textContent = card.dataset.price;
+  document.getElementById('modal-desc').textContent  = card.dataset.desc;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenuModal(e, force) {
+  if (force || (e && e.target === document.getElementById('menu-modal-overlay'))) {
+    document.getElementById('menu-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMenuModal(null, true);
+});
+
+// ══ 15. PARTY SIZE STEPPER ══
+let partySize = 2;
+function adjustParty(delta) {
+  partySize = Math.max(1, Math.min(20, partySize + delta));
+  document.getElementById('party-count').textContent = partySize;
+}
+
+// Set min date to today
+(function () {
+  const d = new Date();
+  const str = d.toISOString().split('T')[0];
+  const inp = document.getElementById('res-date');
+  if (inp) { inp.min = str; inp.value = str; }
+})();
+
+// ══ 16. RESERVATION FORM SUBMIT ══
+function submitReservation() {
+  const btn      = document.getElementById('res-submit-btn');
+  const btnText  = document.getElementById('res-btn-text');
+  const spinner  = document.getElementById('res-spinner');
+  const checkSvg = document.getElementById('res-check');
+  const checkPth = document.getElementById('check-path');
+
+  // Loading
+  btn.classList.add('loading');
+  btnText.style.display  = 'none';
+  spinner.style.display  = 'block';
+
+  setTimeout(() => {
+    // Success
+    spinner.style.display   = 'none';
+    checkSvg.style.display  = 'block';
+    btn.classList.remove('loading');
+    btn.classList.add('success');
+    checkPth.classList.add('draw');
+    btnText.style.display   = 'block';
+    btnText.textContent     = 'Reservation Confirmed';
+
+    setTimeout(() => {
+      // Show confirmation message
+      document.getElementById('res-form-inner').style.display = 'none';
+      const confirm = document.getElementById('res-confirm');
+      confirm.style.display = 'block';
+      gsap.fromTo(confirm, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' });
+
+      // Reset after 5s
+      setTimeout(() => {
+        confirm.style.display = 'none';
+        document.getElementById('res-form-inner').style.display = 'flex';
+        btn.classList.remove('success');
+        btnText.textContent     = 'Confirm Reservation';
+        btnText.style.display   = 'block';
+        spinner.style.display   = 'none';
+        checkSvg.style.display  = 'none';
+        checkPth.classList.remove('draw');
+        partySize = 2;
+        document.getElementById('party-count').textContent = '2';
+      }, 5000);
+    }, 900);
+  }, 1500);
+}
+
+// ══ 17. HOURS — HIGHLIGHT TODAY ══
+(function () {
+  const today = new Date().getDay();
+  document.querySelectorAll('.hours-row[data-day]').forEach(row => {
+    if (parseInt(row.dataset.day) === today) {
+      row.classList.add('today');
+      const daySpan = row.querySelector('.hours-day');
+      if (daySpan) {
+        const tag = document.createElement('span');
+        tag.className = 'today-tag';
+        tag.textContent = 'Today';
+        daySpan.appendChild(tag);
+      }
+    }
+  });
+})();
+
+// ══ 18. CUSTOM CURSOR (desktop only) ══
+gsap.matchMedia().add('(hover: hover) and (pointer: fine)', () => {
+  const cur = document.createElement('div');
+  cur.id = 'cursor';
+  document.body.appendChild(cur);
+
+  const xTo = gsap.quickTo(cur, 'left', { duration: 0.15, ease: 'power3.out' });
+  const yTo = gsap.quickTo(cur, 'top',  { duration: 0.15, ease: 'power3.out' });
+
+  document.addEventListener('mousemove', e => { xTo(e.clientX); yTo(e.clientY); });
+
+  const hoverEls = 'a, button, .menu-card, .gh-item, .rev-card, .menu-tab, .stepper-btn';
+  document.querySelectorAll(hoverEls).forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('large'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('large'));
+  });
+});
+
+// ══ 19. CLICK RIPPLE (desktop only) ══
+gsap.matchMedia().add('(hover: hover) and (pointer: fine)', () => {
+  document.addEventListener('click', e => {
+    const r = document.createElement('div');
+    r.style.cssText = `position:fixed;pointer-events:none;z-index:9990;
+      width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;
+      border:2px solid rgba(200,144,42,.5);
+      left:${e.clientX}px;top:${e.clientY}px;`;
+    document.body.appendChild(r);
+    gsap.to(r, { scale: 24, opacity: 0, duration: 0.8, ease: 'power2.out', onComplete: () => r.remove() });
+  });
+});
+</script>
+</body>
+</html>

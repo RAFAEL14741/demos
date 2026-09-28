@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grant Nail Salon — Precision. Beauty. Experience. | Northeast Philadelphia</title>
+  <meta name="description" content="Grant Nail Salon — Premium nail studio in Northeast Philadelphia. Gel manicures, acrylics, pedicures, and nail art. Book your appointment today." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" />
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #faf7f2;
+      --bg-alt:      #f5f0eb;
+      --text:        #1a1a1a;
+      --muted:       #777;
+      --accent:      #c8603a;
+      --accent-rgb:  200, 96, 58;
+      --accent-pale: rgba(200,96,58,0.09);
+      --white:       #ffffff;
+      --dark:        #1a1a1a;
+      --border:      rgba(26,26,26,0.09);
+      --ff-display:  'Cormorant Garamond', Georgia, serif;
+      --ff-body:     'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ── SCROLL PROGRESS ─────────────────────────── */
+    #prog {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--accent);
+      transform-origin: left; transform: scaleX(0);
+      z-index: 9999;
+    }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 52px;
+      transition: background .4s, padding .3s, box-shadow .3s;
+    }
+    nav.scrolled {
+      background: rgba(250,247,242,.96);
+      backdrop-filter: blur(14px);
+      padding: 16px 52px;
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.45rem; font-weight: 500;
+      letter-spacing: -.01em; color: var(--text);
+    }
+    .nav-logo em { color: var(--accent); font-style: normal; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: .78rem; font-weight: 500;
+      letter-spacing: .09em; text-transform: uppercase;
+      color: var(--text); opacity: .65;
+      transition: opacity .2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      background: var(--accent) !important; color: var(--white) !important;
+      padding: 10px 26px; border-radius: 50px;
+      opacity: 1 !important; font-size: .78rem !important;
+      transition: background .2s, box-shadow .2s !important;
+    }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px; z-index: 201;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--text);
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 130px 24px 96px;
+      background: var(--bg); overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: var(--ff-display);
+      font-size: clamp(7rem, 19vw, 19rem);
+      font-weight: 600; white-space: nowrap;
+      color: rgba(26,26,26,.03);
+      letter-spacing: -.03em; pointer-events: none;
+      user-select: none; z-index: 0; line-height: 1;
+      will-change: transform;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-size: .72rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 22px;
+    }
+
+    .hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(3.5rem, 7vw, 5.8rem);
+      font-weight: 400; line-height: .95;
+      letter-spacing: -.02em; color: var(--text);
+    }
+
+    /* hero photo */
+    .hero-photo-wrap {
+      position: relative;
+      margin: 44px 0 36px;
+    }
+    .hero-photo {
+      width: 400px; max-width: 86vw; height: 510px;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* floating badges */
+    .fbadge {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 9px 17px;
+      font-size: .75rem; font-weight: 500;
+      color: var(--text); white-space: nowrap;
+      display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      z-index: 3;
+    }
+    .fbadge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%; background: var(--accent); flex-shrink: 0;
+    }
+    .fbadge-a { top: 10%; right: -88px; }
+    .fbadge-b { bottom: 22%; right: -78px; }
+    .fbadge-c { top: 38%; left: -96px; }
+
+    .hero-tagline {
+      font-family: var(--ff-display);
+      font-size: clamp(1.25rem, 2.8vw, 1.75rem);
+      font-weight: 300; font-style: italic;
+      color: var(--muted); letter-spacing: .02em;
+      margin-bottom: 44px;
+    }
+
+    .hero-ctas {
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap; justify-content: center;
+    }
+
+    /* CTA buttons */
+    .btn-fill {
+      background: var(--accent); color: var(--white);
+      padding: 15px 38px; border-radius: 50px;
+      font-size: .82rem; font-weight: 500;
+      letter-spacing: .07em; text-transform: uppercase;
+      border: 2px solid var(--accent);
+      display: inline-block;
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      padding: 13px 38px; border-radius: 50px;
+      font-size: .82rem; font-weight: 500;
+      letter-spacing: .07em; text-transform: uppercase;
+      border: 2px solid rgba(26,26,26,.18);
+      display: inline-block;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+
+    /* scroll indicator */
+    .scroll-ind {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); z-index: 2;
+    }
+    .scroll-line { width: 1px; height: 38px; background: linear-gradient(var(--accent),transparent); }
+
+    /* ── MARQUEE ──────────────────────────────────── */
+    .marquee-wrap {
+      background: var(--accent); padding: 15px 0; overflow: hidden;
+    }
+    .marquee-track {
+      display: flex; align-items: center; gap: 52px;
+      width: max-content; white-space: nowrap;
+    }
+    .marquee-track span {
+      font-family: var(--ff-display); font-size: .95rem; font-weight: 500;
+      color: rgba(255,255,255,.9); letter-spacing: .07em; text-transform: uppercase;
+    }
+    .marquee-track .sep { color: rgba(255,255,255,.35); }
+
+    /* ── SHARED SECTION LAYOUT ────────────────────── */
+    .section { padding: clamp(80px,11vw,140px) 0; }
+    .section.alt { background: var(--bg-alt); }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
+
+    .section-eyebrow {
+      display: block; font-size: .7rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 400; line-height: 1.05;
+      letter-spacing: -.02em; color: var(--text);
+      margin-bottom: 60px;
+    }
+
+    /* ── ABOUT ────────────────────────────────────── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .pull-quote {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 400; font-style: italic;
+      line-height: 1.28; letter-spacing: -.01em; color: var(--text);
+    }
+    .pull-quote em { color: var(--accent); font-style: italic; }
+
+    .about-body {
+      font-size: .98rem; line-height: 1.85;
+      color: var(--muted); margin-bottom: 52px;
+    }
+    .stats { display: flex; gap: 44px; flex-wrap: wrap; }
+    .stat-num {
+      font-family: var(--ff-display);
+      font-size: 3.2rem; font-weight: 400;
+      line-height: 1; letter-spacing: -.02em; color: var(--text);
+    }
+    .stat-num sup { font-size: 1.6rem; color: var(--accent); vertical-align: super; }
+    .stat-label {
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-top: 5px;
+    }
+
+    /* ── SERVICES ─────────────────────────────────── */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 22px;
+    }
+    .svc-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 18px; padding: 36px 30px;
+      transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s;
+    }
+    .svc-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: var(--accent-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; margin-bottom: 22px;
+    }
+    .svc-name {
+      font-family: var(--ff-display);
+      font-size: 1.45rem; font-weight: 500; color: var(--text); margin-bottom: 6px;
+    }
+    .svc-price {
+      font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: 12px;
+    }
+    .svc-desc { font-size: .88rem; line-height: 1.72; color: var(--muted); }
+
+    /* ── GALLERY (CSS sticky + GSAP scrub — no pin, no Lenis conflict) ── */
+    #gallery { padding: 0; }
+    .gallery-wrap { position: relative; }
+    .gallery-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-header {
+      padding: 60px 52px 24px;
+      flex-shrink: 0;
+    }
+    .gallery-track {
+      display: flex;
+      gap: 18px;
+      padding: 0 52px 48px;
+      align-items: flex-end;
+      flex: 1;
+      will-change: transform;
+    }
+    .gh-item {
+      flex-shrink: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      height: 100%;
+      width: 400px;
+    }
+    .gh-item.gh-narrow { width: 270px; height: 82%; }
+    .gh-item.gh-wide   { width: 520px; }
+    .gh-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s ease;
+    }
+
+    /* ── REVIEWS ──────────────────────────────────── */
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 22px; margin-top: 60px;
+    }
+    .rev-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 18px; padding: 34px 30px;
+    }
+    .rev-stars { color: var(--accent); letter-spacing: 2px; font-size: .85rem; margin-bottom: 18px; }
+    .rev-quote {
+      font-family: var(--ff-display);
+      font-size: 1.1rem; font-weight: 400; font-style: italic;
+      line-height: 1.65; color: var(--text); margin-bottom: 22px;
+    }
+    .rev-author { display: flex; align-items: center; gap: 12px; }
+    .rev-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--accent-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-display); font-size: .95rem; font-weight: 600;
+      color: var(--accent); flex-shrink: 0;
+    }
+    .rev-name { font-size: .83rem; font-weight: 600; color: var(--text); }
+    .rev-date { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── BOOKING CTA ──────────────────────────────── */
+    .bk-cta {
+      padding: clamp(80px,14vw,160px) 24px;
+      text-align: center; position: relative; overflow: hidden;
+      background: var(--bg);
+    }
+    .bk-bg-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: var(--ff-display);
+      font-size: clamp(5rem, 16vw, 15rem);
+      font-weight: 600; white-space: nowrap;
+      color: rgba(26,26,26,.025);
+      letter-spacing: -.03em; pointer-events: none; user-select: none;
+    }
+    .bk-inner { position: relative; z-index: 2; }
+    .bk-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 400; line-height: .95;
+      letter-spacing: -.03em; color: var(--text); margin-bottom: 28px;
+    }
+    .bk-headline em { font-style: italic; color: var(--accent); }
+    .bk-sub {
+      font-size: .98rem; color: var(--muted); max-width: 440px;
+      margin: 0 auto 44px; line-height: 1.75;
+    }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer { background: var(--dark); color: rgba(255,255,255,.65); padding: 84px 0 40px; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 60px; margin-bottom: 60px;
+    }
+    .footer-logo {
+      font-family: var(--ff-display); font-size: 1.4rem; font-weight: 500;
+      color: var(--white); display: block; margin-bottom: 14px;
+    }
+    .footer-logo em { color: var(--accent); font-style: normal; }
+    .footer-tagline { font-size: .84rem; line-height: 1.75; opacity: .55; margin-bottom: 20px; }
+    .footer-phone { font-size: .8rem; opacity: .45; }
+    .footer-phone a { color: inherit; transition: color .2s; }
+    .footer-phone a:hover { color: var(--accent); }
+    .fcol-title {
+      font-size: .68rem; font-weight: 600; letter-spacing: .15em;
+      text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 18px;
+    }
+    .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .fcol ul a { font-size: .88rem; color: rgba(255,255,255,.6); transition: color .2s; }
+    .fcol ul a:hover { color: var(--white); }
+    .hours-row {
+      display: flex; justify-content: space-between;
+      font-size: .8rem; color: rgba(255,255,255,.55);
+      padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .off { color: rgba(255,255,255,.28); }
+    .footer-address { font-size: .74rem; margin-top: 14px; opacity: .4; line-height: 1.8; }
+    .footer-bottom {
+      padding-top: 28px; border-top: 1px solid rgba(255,255,255,.07);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .76rem; color: rgba(255,255,255,.28);
+    }
+
+    /* ── BOOKING MODAL ────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.45); z-index: 500;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border-radius: 24px; padding: 48px 40px;
+      width: 100%; max-width: 480px; position: relative;
+      transform: translateY(32px);
+      transition: transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 18px; right: 20px;
+      background: none; border: none; font-size: 1.6rem; line-height: 1;
+      color: var(--muted); cursor: pointer; padding: 6px;
+      transition: color .2s;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-title {
+      font-family: var(--ff-display); font-size: 2rem; font-weight: 500;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .modal-sub { font-size: .88rem; color: var(--muted); margin-bottom: 32px; }
+    .fgroup { margin-bottom: 18px; }
+    .fgroup label {
+      display: block; font-size: .72rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 7px;
+    }
+    .fgroup input, .fgroup select {
+      width: 100%; padding: 13px 15px;
+      border: 1px solid var(--border); border-radius: 11px;
+      font-family: var(--ff-body); font-size: .93rem;
+      color: var(--text); background: var(--bg);
+      outline: none; transition: border-color .2s;
+    }
+    .fgroup input:focus, .fgroup select:focus { border-color: var(--accent); }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .btn-submit {
+      width: 100%; background: var(--accent); color: var(--white);
+      padding: 15px; border: none; border-radius: 50px;
+      font-family: var(--ff-body); font-size: .86rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      cursor: pointer; margin-top: 8px; transition: background .2s;
+    }
+    .btn-submit:hover { background: #b05030; }
+    .confirm-msg { display: none; text-align: center; padding: 20px 0; }
+    .confirm-msg h3 { font-family: var(--ff-display); font-size: 1.8rem; margin-bottom: 8px; }
+    .confirm-msg p { font-size: .88rem; color: var(--muted); }
+
+    /* ── RIPPLE ───────────────────────────────────── */
+    .ripple {
+      position: fixed; pointer-events: none; z-index: 9990;
+      width: 10px; height: 10px; margin: -5px 0 0 -5px;
+      border-radius: 50%;
+      border: 2px solid rgba(200,96,58,.6);
+      transform: scale(0);
+    }
+
+    /* ── HOVER EFFECTS (desktop only) ────────────── */
+    @media (hover: hover) and (pointer: fine) {
+      .btn-fill:hover {
+        background: #b05030; border-color: #b05030;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(var(--accent-rgb),.28);
+      }
+      .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+      .nav-cta:hover     { background: #b05030 !important; }
+      .svc-card:hover    { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,.09); }
+      .gh-item:hover img { transform: scale(1.04); }
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 1100px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid { grid-template-columns: repeat(2,1fr); }
+      .reviews-grid  { grid-template-columns: repeat(2,1fr); }
+      .footer-grid   { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .wrap { padding: 0 24px; }
+
+      nav.nav-open {
+        background: rgba(250,247,242,.98) !important;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 1px 0 var(--border);
+      }
+      nav.nav-open .nav-links {
+        display: flex; flex-direction: column; align-items: flex-start;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(250,247,242,.98); backdrop-filter: blur(14px);
+        padding: 20px 24px 32px; gap: 20px;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 8px 24px rgba(0,0,0,.07);
+      }
+      nav.nav-open .nav-links a { font-size: 1rem; }
+      nav.nav-open .nav-links .nav-cta { margin-top: 4px; font-size: .85rem !important; }
+
+      /* Hero */
+      .hero-name   { font-size: clamp(2.8rem, 9vw, 4rem); }
+      .hero-photo  { width: min(280px, 78vw); height: 360px; }
+
+      /* Badges — pulled in so they don't clip off-screen */
+      .fbadge      { font-size: .68rem; padding: 7px 12px; }
+      .fbadge-a    { top: 5%;  right: -20px; }
+      .fbadge-b    { bottom: 18%; right: -16px; }
+      .fbadge-c    { top: 35%; left: -16px; }
+
+      /* About */
+      .about-grid  { grid-template-columns: 1fr; }
+
+      /* Services / Reviews */
+      .services-grid { grid-template-columns: 1fr; }
+      .reviews-grid  { grid-template-columns: 1fr; }
+
+      /* Gallery — 2-col grid on mobile */
+      #gallery { padding: 40px 0 0; }
+      .gallery-wrap { position: static; }
+      .gallery-sticky {
+        position: static;
+        height: auto;
+        overflow: visible;
+        display: block;
+      }
+      .gallery-header { padding: 0 24px 24px; }
+      .gallery-track {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 0 16px 40px;
+        flex: none;
+        align-items: stretch;
+        transform: none !important;
+        will-change: auto;
+      }
+      .gh-item,
+      .gh-item.gh-narrow,
+      .gh-item.gh-wide {
+        width: auto;
+        height: 200px;
+        flex-shrink: unset;
+      }
+
+      /* Booking CTA headline */
+      .bk-headline { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+
+      /* Footer */
+      footer        { text-align: center; }
+      .footer-grid  { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; width: 100%; }
+      .btn-fill, .btn-outline { text-align: center; }
+      .fbadge { display: none; }
+      .hero-photo { width: min(240px, 74vw); height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="prog"></div>
+
+<!-- ── NAV ─────────────────────────────────────── -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Grant <em>Nail Salon</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#" class="nav-cta" onclick="openBooking();return false">Book Now</a></li>
+  </ul>
+  <button class="hamburger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-bg-text" aria-hidden="true">NAIL STUDIO</div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow" id="h-eyebrow">Grant Ave · Northeast Philadelphia</p>
+
+    <h1 class="hero-name" id="h-name">Grant<br>Nail Salon</h1>
+
+    <div class="hero-photo-wrap">
+      <div class="hero-photo" id="h-photo">
+        <img
+          src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80"
+          alt="Grant Nail Salon — nail art"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+
+      <div class="fbadge fbadge-a">⭐ 3.9 &nbsp;·&nbsp; 130+ Reviews</div>
+      <div class="fbadge fbadge-b"><span class="dot"></span>6+ Yrs Experience</div>
+      <div class="fbadge fbadge-c">📍 NE Philadelphia</div>
+    </div>
+
+    <p class="hero-tagline" id="h-tag">Precision. Beauty. Experience.</p>
+
+    <div class="hero-ctas" id="h-ctas">
+      <a href="#" class="btn-fill" onclick="openBooking();return false">Book Appointment</a>
+      <a href="#services" class="btn-outline">See Services</a>
+    </div>
+  </div>
+
+  <div class="scroll-ind" id="h-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ──────────────────────────────────── -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>Grant Nail Salon</span><span class="sep">·</span>
+    <span>Northeast Philadelphia</span><span class="sep">·</span>
+    <span>Precision. Beauty. Experience.</span><span class="sep">·</span>
+    <span>Gel · Acrylics · Pedicures · Nail Art</span><span class="sep">·</span>
+    <span>Grant Nail Salon</span><span class="sep">·</span>
+    <span>Northeast Philadelphia</span><span class="sep">·</span>
+    <span>Precision. Beauty. Experience.</span><span class="sep">·</span>
+    <span>Gel · Acrylics · Pedicures · Nail Art</span><span class="sep">·</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ─────────────────────────────────────── -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+
+      <div>
+        <p class="pull-quote" id="pq">
+          "Where every detail is
+          <em>an act of care</em> —
+          because your hands tell
+          the world your story."
+        </p>
+      </div>
+
+      <div>
+        <p class="about-body" id="ab-body">
+          Grant Nail Salon is a Grant Ave staple — the kind of place
+          where clients book the same tech every visit and stay for years.
+          Great nails aren't an indulgence — they're a form of
+          self-expression, and every appointment is a chance to feel your
+          absolute best. Our technicians use professional-grade products
+          and stay ahead of every trend so you don't have to.
+          <br><br>
+          From classic French manicures to intricate gel art, we bring the
+          same attention to detail to every client. Walk in as a stranger,
+          leave as a regular.
+        </p>
+        <div class="stats" id="stats">
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="3">3</span><sup>+</sup></div>
+            <div class="stat-label">Years (Loyal Regulars)</div>
+          </div>
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="134">134</span><sup>+</sup></div>
+            <div class="stat-label">Google Reviews</div>
+          </div>
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="3.9">3.9</span><sup>★</sup></div>
+            <div class="stat-label">Google Rating</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ──────────────────────────────────── -->
+<section class="section alt" id="services">
+  <div class="wrap">
+    <span class="section-eyebrow">What We Offer</span>
+    <h2 class="section-title">Our Services</h2>
+    <div class="services-grid" id="svc-grid">
+
+      <div class="svc-card">
+        <div class="svc-icon">💅</div>
+        <div class="svc-name">Gel Manicure</div>
+        <div class="svc-price">From $30 <small>[CONFIRM]</small></div>
+        <p class="svc-desc">Long-lasting gel color with a flawless finish. Includes cuticle care, shaping, and a relaxing hand massage.</p>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">✨</div>
+        <div class="svc-name">Acrylic Full Set</div>
+        <div class="svc-price">From $45 <small>[CONFIRM]</small></div>
+        <p class="svc-desc">Classic or sculpted acrylics for length and durability. Square, coffin, almond, or stiletto — shaped exactly to your preference.</p>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">🌸</div>
+        <div class="svc-name">Classic Pedicure</div>
+        <div class="svc-price">From $30 <small>[CONFIRM]</small></div>
+        <p class="svc-desc">Full foot treatment: soak, exfoliate, callus removal, leg massage, and polish. Leave completely renewed.</p>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">🎨</div>
+        <div class="svc-name">Mani + Pedi Combo</div>
+        <div class="svc-price">$45 <small>[CONFIRM]</small></div>
+        <p class="svc-desc">Manicure and pedicure together, with a hand and leg massage included. Our most-booked service.</p>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">🔄</div>
+        <div class="svc-name">Acrylic Fill</div>
+        <div class="svc-price">From $28 <small>[CONFIRM]</small></div>
+        <p class="svc-desc">Maintain your existing set with a clean fill every 2–3 weeks. Includes reshaping, rebalancing, and a fresh color if you'd like.</p>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">💎</div>
+        <div class="svc-name">Dip Powder</div>
+        <div class="svc-price">From $40 <small>[CONFIRM]</small></div>
+        <p class="svc-desc">No UV light needed. Strength of acrylics, ease of a manicure. Odorless, lightweight, lasts 3–4 weeks chip-free.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ────────────────────────────────────── -->
+<section id="gallery">
+  <div class="gallery-wrap">
+    <div class="gallery-sticky">
+      <div class="gallery-header">
+        <span class="section-eyebrow">Our Work</span>
+        <h2 class="section-title">Portfolio</h2>
+      </div>
+      <div class="gallery-track">
+
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=900&q=80" alt="Nail art" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Manicure close-up" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1610992015762-45dca7fa3a85?w=700&q=80" alt="Nail polish wall" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?w=600&q=80" alt="Gel manicure" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1690749138086-7422f71dc159?w=900&q=80" alt="Nail studio interior" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=700&q=80" alt="Nail technician" loading="lazy" decoding="async" />
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80&fit=crop&crop=top" alt="Pedicure" loading="lazy" decoding="async" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ────────────────────────────────────── -->
+<section class="section alt" id="reviews">
+  <div class="wrap">
+    <span class="section-eyebrow">Client Experiences</span>
+    <h2 class="section-title">What People Say</h2>
+    <div class="reviews-grid" id="rev-grid">
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"I've been going here every other week for over 3 years. Grace shapes my nails perfectly every time and the massage at the end is the best part. So clean, so professional."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">M</div>
+          <div>
+            <div class="rev-name">Maria S.</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"Got a gel mani here and the color stayed perfect for two full weeks. Reasonably priced, and my tech took her time even though the shop was busy."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">J</div>
+          <div>
+            <div class="rev-name">Jennifer R.</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"Ying does my nails every time and I've never had a bad experience — professional, friendly, and the shop is spotless. Great prices for the quality."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">A</div>
+          <div>
+            <div class="rev-name">Amanda T.</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING CTA ─────────────────────────────────── -->
+<section class="bk-cta" id="booking">
+  <div class="bk-bg-text" aria-hidden="true">BOOK NOW</div>
+  <div class="bk-inner">
+    <h2 class="bk-headline" id="bk-head">
+      Ready to<br>Feel <em>Beautiful?</em>
+    </h2>
+    <p class="bk-sub">Book your appointment in 60 seconds. Same-week slots available.</p>
+    <a href="#" class="btn-fill" style="font-size:.86rem;padding:17px 50px" onclick="openBooking();return false">Book Appointment</a>
+  </div>
+</section>
+
+<!-- ── STAFF PORTAL BUTTON ────────────────────────── -->
+<div style="background:var(--bg-alt); padding:48px 24px; text-align:center; border-top:1px solid var(--border);">
+  <a href="editorial-product-admin-template.html"
+     style="display:inline-flex; align-items:center; gap:10px; background:var(--dark); color:var(--white);
+            font-family:var(--ff-body); font-size:.85rem; font-weight:500; letter-spacing:.06em;
+            text-transform:uppercase; padding:16px 36px; border-radius:50px;
+            border:1px solid rgba(255,255,255,0.1); text-decoration:none;
+            transition:background .25s, transform .25s;"
+     onmouseover="this.style.background='#c8603a'; this.style.transform='translateY(-2px)'"
+     onmouseout="this.style.background='#1a1a1a'; this.style.transform='translateY(0)'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Staff Admin Portal
+  </a>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+
+      <div>
+        <a href="#" class="footer-logo">Grant <em>Nail Salon</em></a>
+        <p class="footer-tagline">Northeast Philadelphia's destination for precision nail care. Walk in as a stranger, leave as a regular.</p>
+        <p class="footer-phone">📞 <a href="tel:2156718766">(215) 671-8766</a></p>
+      </div>
+
+      <div class="fcol">
+        <div class="fcol-title">Services</div>
+        <ul>
+          <li><a href="#services">Gel Manicure</a></li>
+          <li><a href="#services">Acrylic Full Set</a></li>
+          <li><a href="#services">Spa Pedicure</a></li>
+          <li><a href="#services">Nail Art</a></li>
+          <li><a href="#services">Dip Powder</a></li>
+        </ul>
+      </div>
+
+      <div class="fcol">
+        <div class="fcol-title">Navigate</div>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#" onclick="openBooking();return false">Book Now</a></li>
+        </ul>
+      </div>
+
+      <div class="fcol">
+        <div class="fcol-title">Hours</div>
+        <div class="hours-row"><span>Tue – Fri</span><span>9:30am – 7:30pm</span></div>
+        <div class="hours-row"><span>Saturday</span><span>9:30am – 7pm</span></div>
+        <div class="hours-row"><span>Sunday</span><span>9:30am – 6pm</span></div>
+        <div class="hours-row"><span>Monday</span><span class="off">Closed</span></div>
+        <p class="footer-address">📍 1619 Grant Ave Unit 17<br>Philadelphia, PA 19115</p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Grant Nail Salon. All rights reserved.</span>
+      <span>1619 Grant Ave, Philadelphia, PA · (215) 671-8766</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── BOOKING MODAL ───────────────────────────────── -->
+<div class="modal-overlay" id="m-overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeBooking()">×</button>
+    <h3 class="modal-title">Book Appointment</h3>
+    <p class="modal-sub">Grant Nail Salon · Northeast Philadelphia</p>
+
+    <div id="m-form">
+      <div class="frow">
+        <div class="fgroup">
+          <label>First Name</label>
+          <input type="text" placeholder="Maria" />
+        </div>
+        <div class="fgroup">
+          <label>Last Name</label>
+          <input type="text" placeholder="Santos" />
+        </div>
+      </div>
+      <div class="fgroup">
+        <label>Phone</label>
+        <input type="tel" placeholder="(215) 000-0000" />
+      </div>
+      <div class="fgroup">
+        <label>Service</label>
+        <select>
+          <option value="">Select a service…</option>
+          <option>Gel Manicure — $45</option>
+          <option>Acrylic Full Set — $65</option>
+          <option>Spa Pedicure — $40</option>
+          <option>Nail Art — $20+</option>
+          <option>Acrylic Fill — $40</option>
+          <option>Dip Powder — $50</option>
+        </select>
+      </div>
+      <div class="frow">
+        <div class="fgroup">
+          <label>Preferred Date</label>
+          <input type="date" />
+        </div>
+        <div class="fgroup">
+          <label>Preferred Time</label>
+          <select>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>12:00 PM</option>
+            <option>1:00 PM</option>
+            <option>2:00 PM</option>
+            <option>3:00 PM</option>
+            <option>4:00 PM</option>
+            <option>5:00 PM</option>
+            <option>6:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-submit" onclick="submitBooking()">Confirm Booking</button>
+    </div>
+
+    <div class="confirm-msg" id="m-confirm">
+      <h3>You're All Set! ✨</h3>
+      <p>We'll call you to confirm your appointment. See you soon!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── JAVASCRIPT ──────────────────────────────────── -->
+<script>
+// ── GSAP SETUP (must come before Lenis) ───────────
+gsap.registerPlugin(ScrollTrigger);
+
+// ── LENIS ─────────────────────────────────────────
+const lenis = new Lenis({ lerp: 0.1 });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((t) => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// ── PROGRESS BAR ──────────────────────────────────
+gsap.to('#prog', {
+  scaleX: 1, ease: 'none',
+  scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 }
+});
+
+// ── NAV SCROLL STATE ───────────────────────────────
+ScrollTrigger.create({
+  start: 80,
+  onEnter:     () => document.getElementById('main-nav').classList.add('scrolled'),
+  onLeaveBack: () => document.getElementById('main-nav').classList.remove('scrolled'),
+});
+
+// ── HERO — set initial states ──────────────────────
+gsap.set('#h-eyebrow',  { opacity: 0, y: 16 });
+gsap.set('#h-name',     { opacity: 0, clipPath: 'inset(0 0 100% 0)' });
+gsap.set('#h-photo',    { opacity: 0, scale: 0.93 });
+gsap.set('#h-tag',      { opacity: 0, y: 22 });
+gsap.set('#h-ctas',     { opacity: 0, y: 16 });
+gsap.set('#h-scroll',   { opacity: 0 });
+
+// ── HERO ENTRANCE TIMELINE ─────────────────────────
+const heroTl = gsap.timeline({ delay: 0.25 });
+
+heroTl
+  .to('#h-eyebrow', { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' })
+  .to('#h-name',    { opacity: 1, clipPath: 'inset(0 0 0% 0)', duration: 0.95, ease: 'power3.out' }, '-=0.2')
+  .to('#h-photo',   { opacity: 1, scale: 1, duration: 1.05, ease: 'expo.out' }, '-=0.55')
+  .to('#h-tag',     { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.45')
+  .to('#h-ctas',    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.35')
+  .to('#h-scroll',  { opacity: 1, duration: 0.45, ease: 'power2.out' }, '+=0.25');
+
+// ── FLOATING BADGES ────────────────────────────────
+gsap.to('.fbadge', {
+  y: -12, duration: 2, repeat: -1, yoyo: true,
+  ease: 'sine.inOut', stagger: 0.4, delay: 1.6,
+});
+
+// ── MARQUEE + VELOCITY SPEED-UP ───────────────────
+const marqueeTween = gsap.to('#marquee', { x: '-50%', duration: 28, repeat: -1, ease: 'none' });
+ScrollTrigger.create({
+  onUpdate: self => {
+    const v = Math.abs(self.getVelocity()) / 1000;
+    gsap.to(marqueeTween, { timeScale: 1 + v * 2.5, duration: 0.4, overwrite: true });
+    gsap.delayedCall(0.5, () => gsap.to(marqueeTween, { timeScale: 1, duration: 1.2, ease: 'power2.out' }));
+  }
+});
+
+// ── SCROLL ANIMATIONS ─────────────────────────────
+ScrollTrigger.matchMedia({
+
+  // ── DESKTOP ──────────────────────────────────────
+  '(min-width: 769px)': function () {
+
+    // Parallax on hero bg text only — photo stays fully visible
+    gsap.fromTo('.hero-bg-text',
+      { y: 0 },
+      { y: 180, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+      }
+    );
+
+    // About body + stats
+    gsap.from('#ab-body', {
+      opacity: 0, y: 28, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#ab-body', start: 'top 74%' }
+    });
+    gsap.from('#stats > div', {
+      opacity: 0, y: 20, duration: 0.55, stagger: 0.15, ease: 'power3.out',
+      scrollTrigger: { trigger: '#stats', start: 'top 80%' }
+    });
+
+    // ── STATS COUNTER ──────────────────────────────
+    document.querySelectorAll('.stat-val').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const isFloat = el.dataset.target.includes('.');
+      gsap.fromTo(el, { textContent: 0 }, {
+        textContent: target,
+        duration: 2, ease: 'power2.out',
+        snap: { textContent: isFloat ? 0.1 : 1 },
+        scrollTrigger: { trigger: el, start: 'top 82%', once: true },
+        onUpdate: function () {
+          const v = parseFloat(this.targets()[0].textContent);
+          this.targets()[0].textContent = isFloat ? v.toFixed(1) : Math.round(v);
+        }
+      });
+    });
+
+    // Section eyebrow labels (instant reveal)
+    gsap.utils.toArray('.section-eyebrow').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, y: 16, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 83%' }
+      });
+    });
+
+    // ── SECTION TITLE SCRUB ────────────────────────
+    gsap.utils.toArray('.section-title').forEach(title => {
+      gsap.from(title, {
+        x: -60, opacity: 0, ease: 'power3.out',
+        scrollTrigger: { trigger: title, start: 'top 85%', end: 'top 55%', scrub: 0.8 }
+      });
+    });
+
+    // Service cards
+    gsap.from('#svc-grid .svc-card', {
+      opacity: 0, y: 44, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#svc-grid', start: 'top 76%' }
+    });
+
+    // Gallery is set up in window 'load' (after images expand the track)
+
+    // Reviews
+    gsap.from('#rev-grid .rev-card', {
+      opacity: 0, y: 40, duration: 0.7, stagger: 0.14, ease: 'power3.out',
+      scrollTrigger: { trigger: '#rev-grid', start: 'top 78%' }
+    });
+
+    // ── BOOKING CTA PARALLAX ───────────────────────
+    gsap.to('.bk-cta', {
+      backgroundPositionY: '30%', ease: 'none',
+      scrollTrigger: { trigger: '.bk-cta', start: 'top bottom', end: 'bottom top', scrub: 1 }
+    });
+    gsap.from('.bk-cta *', {
+      opacity: 0, y: 50, duration: 1, stagger: 0.15, ease: 'power3.out',
+      scrollTrigger: { trigger: '.bk-cta', start: 'top 72%' }
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.btn-fill, .btn-outline, .nav-cta').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        gsap.to(btn, {
+          x: (e.clientX - r.left - r.width  / 2) * 0.26,
+          y: (e.clientY - r.top  - r.height / 2) * 0.26,
+          duration: 0.3, ease: 'power2.out',
+        });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'elastic.out(1,.35)' });
+      });
+    });
+  },
+
+  // ── MOBILE ────────────────────────────────────────
+  '(max-width: 768px)': function () {
+
+    // Clip-path reveals only on mobile
+    ['.svc-card', '.rev-card'].forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        gsap.from(el, {
+          clipPath: 'inset(0 0 100% 0)', opacity: 0,
+          duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' }
+        });
+      });
+    });
+
+    gsap.from('#pq', {
+      opacity: 0, y: 30, duration: 0.75, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about', start: 'top 82%' }
+    });
+  },
+});
+
+// ── HAMBURGER (mobile only) ───────────────────────
+const burger  = document.getElementById('burger');
+const mainNav = document.getElementById('main-nav');
+
+burger.addEventListener('click', () => {
+  const isOpen = mainNav.classList.toggle('nav-open');
+  burger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    mainNav.classList.remove('nav-open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+document.addEventListener('click', e => {
+  if (mainNav.classList.contains('nav-open') && !mainNav.contains(e.target)) {
+    mainNav.classList.remove('nav-open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// ── BOOKING MODAL ──────────────────────────────────
+function openBooking() {
+  document.getElementById('m-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking() {
+  document.getElementById('m-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('m-overlay').addEventListener('click', function (e) {
+  if (e.target === this) closeBooking();
+});
+function submitBooking() {
+  document.getElementById('m-form').style.display = 'none';
+  const c = document.getElementById('m-confirm');
+  c.style.display = 'block';
+  gsap.from(c, { opacity: 0, y: 20, duration: 0.5, ease: 'power3.out' });
+  setTimeout(closeBooking, 3400);
+  setTimeout(() => {
+    document.getElementById('m-form').style.display = 'block';
+    c.style.display = 'none';
+  }, 3900);
+}
+
+// ── SMOOTH ANCHOR LINKS ────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80, duration: 1.35 }); }
+  });
+});
+
+// ══════════════════════════════════════════════════
+// LOUNGE-LEVEL INTERACTIONS (desktop hover only)
+// ══════════════════════════════════════════════════
+const mm = gsap.matchMedia();
+
+// ── 1. HOVER STATE CLASS (for future CSS targeting) ─
+mm.add('(hover: hover) and (pointer: fine)', () => {
+  document.querySelectorAll('a, button, .svc-card, .fbadge, .nav-cta, .btn-fill, .btn-outline').forEach(el => {
+    el.addEventListener('mouseenter', () => el.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => el.classList.remove('hovering'));
+  });
+});
+
+// ── 2. HERO MOUSE PARALLAX ────────────────────────
+mm.add('(hover: hover) and (pointer: fine)', () => {
+  document.addEventListener('mousemove', e => {
+    const cx = window.innerWidth  / 2;
+    const cy = window.innerHeight / 2;
+    const dx = (e.clientX - cx) / cx;
+    const dy = (e.clientY - cy) / cy;
+    gsap.to('#h-photo',       { x: dx * 18,  y: dy * 10,  duration: 0.9, ease: 'power2.out' });
+    gsap.to('.fbadge-a',      { x: dx * 26,  y: dy * 14,  duration: 1.1, ease: 'power2.out' });
+    gsap.to('.fbadge-b',      { x: dx * -20, y: dy * 18,  duration: 1.3, ease: 'power2.out' });
+    gsap.to('.fbadge-c',      { x: dx * 22,  y: dy * -12, duration: 1.0, ease: 'power2.out' });
+    gsap.to('.hero-bg-text',  { x: dx * -35, y: dy * -20, duration: 1.4, ease: 'power2.out' });
+  });
+});
+
+// ── 3. SERVICE CARD 3D TILT ───────────────────────
+mm.add('(hover: hover) and (pointer: fine)', () => {
+  document.querySelectorAll('.svc-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      gsap.to(card, {
+        rotateY: x * 14, rotateX: -y * 14,
+        transformPerspective: 800,
+        transformStyle: 'preserve-3d',
+        duration: 0.4, ease: 'power2.out',
+      });
+    });
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+    });
+  });
+});
+
+// ── 4. CLICK RIPPLE ───────────────────────────────
+mm.add('(hover: hover) and (pointer: fine)', () => {
+  document.addEventListener('click', e => {
+    const r = document.createElement('div');
+    r.className = 'ripple';
+    r.style.left = e.clientX + 'px';
+    r.style.top  = e.clientY + 'px';
+    document.body.appendChild(r);
+    gsap.to(r, { scale: 22, opacity: 0, duration: 0.75, ease: 'power2.out', onComplete: () => r.remove() });
+  });
+});
+
+// ── 5. HERO NAME SCRAMBLE ─────────────────────────
+function scramble(el, duration = 1200) {
+  const CHARS    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const savedHTML = el.innerHTML;
+  const finalText = el.innerText.replace(/\n/g, ' ').trim();
+  let frame = 0;
+  const total = Math.floor(duration / 16);
+  const iv = setInterval(() => {
+    el.textContent = finalText.split('').map((ch, i) => {
+      if (i < Math.floor((frame / total) * finalText.length)) return ch;
+      return /[A-Za-z]/.test(ch) ? CHARS[Math.floor(Math.random() * 26)] : ch;
+    }).join('');
+    if (++frame > total) { el.innerHTML = savedHTML; clearInterval(iv); }
+  }, 16);
+}
+
+mm.add('(hover: hover) and (pointer: fine)', () => {
+  setTimeout(() => {
+    const nameEl = document.querySelector('#h-name');
+    if (nameEl) scramble(nameEl);
+  }, 600);
+});
+
+// ── 6. PULL-QUOTE WORD-BY-WORD REVEAL ────────────
+mm.add('(hover: hover) and (pointer: fine)', () => {
+  const pq = document.getElementById('pq');
+  if (!pq) return;
+
+  // Split preserving <em> and other inline elements
+  const nodes = Array.from(pq.childNodes);
+  pq.innerHTML = '';
+
+  nodes.forEach(node => {
+    if (node.nodeType === 3) { // plain text node
+      node.textContent.trim().split(/\s+/).filter(Boolean).forEach(word => {
+        const outer = document.createElement('span');
+        outer.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+        const inner = document.createElement('span');
+        inner.className = 'wi';
+        inner.style.cssText = 'display:inline-block;';
+        inner.textContent = word;
+        outer.appendChild(inner);
+        pq.appendChild(outer);
+        pq.appendChild(document.createTextNode(' '));
+      });
+    } else if (node.nodeType === 1) { // element (em, strong, etc.)
+      const outer = document.createElement('span');
+      outer.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+      const inner = document.createElement('span');
+      inner.className = 'wi';
+      inner.style.cssText = 'display:inline-block;';
+      inner.appendChild(node.cloneNode(true));
+      outer.appendChild(inner);
+      pq.appendChild(outer);
+      pq.appendChild(document.createTextNode(' '));
+    }
+  });
+
+  gsap.from('#pq .wi', {
+    y: '105%', duration: 0.75, stagger: 0.06, ease: 'power3.out',
+    scrollTrigger: { trigger: pq, start: 'top 75%' },
+  });
+});
+
+window.addEventListener('load', () => {
+  // ── GALLERY — CSS sticky + GSAP scrub (no pin: true = no Lenis conflict) ──
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    const wrap  = document.querySelector('.gallery-wrap');
+    const track = document.querySelector('.gallery-track');
+
+    if (wrap && track) {
+      const dist = track.scrollWidth - window.innerWidth;
+
+      if (dist > 0) {
+        // Give the outer wrap enough height so sticky scroll works:
+        // 100vh (for the sticky view itself) + horizontal scroll distance
+        wrap.style.height = `calc(100vh + ${dist}px)`;
+
+        gsap.to(track, {
+          x: -dist,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: wrap,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
+            invalidateOnRefresh: true,
+          }
+        });
+      }
+    }
+  }
+
+  setTimeout(() => ScrollTrigger.refresh(), 100);
+});
+</script>
+</body>
+</html>

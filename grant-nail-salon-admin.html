@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Grant Nail Salon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #faf7f2;
+      --bg-alt:      #f5f0eb;
+      --text:        #1a1a1a;
+      --muted:       #777;
+      --accent:      #c8603a;
+      --accent-rgb:  200, 96, 58;
+      --accent-pale: rgba(200,96,58,0.09);
+      --accent-dark: #b05030;
+      --white:       #ffffff;
+      --dark:        #1a1a1a;
+      --border:      rgba(26,26,26,0.09);
+      --border-md:   rgba(26,26,26,0.14);
+      --ff-display:  'Cormorant Garamond', Georgia, serif;
+      --ff-body:     'Inter', system-ui, sans-serif;
+      --radius:      18px;
+      --radius-sm:   12px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--ff-body); font-size: 15px;
+      line-height: 1.6; overflow-x: hidden;
+    }
+
+    /* ── LOGIN ────────────────────────────────────── */
+    #login-screen {
+      position: fixed; inset: 0; z-index: 900;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    #login-screen.hidden { opacity: 0; pointer-events: none; transform: scale(1.03); }
+
+    .login-eyebrow {
+      font-size: .68rem; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px; text-align: center;
+    }
+    .login-title {
+      font-family: var(--ff-display); font-size: clamp(2rem,5vw,3rem);
+      font-weight: 400; letter-spacing: -.02em; color: var(--text);
+      text-align: center; margin-bottom: 6px; line-height: 1.1;
+    }
+    .login-sub { font-size: .8rem; color: var(--muted); text-align: center; margin-bottom: 44px; }
+
+    .pin-display { display: flex; gap: 14px; margin-bottom: 32px; justify-content: center; }
+    .pin-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--border-md); background: transparent;
+      transition: background .18s, border-color .18s;
+    }
+    .pin-dot.filled { background: var(--accent); border-color: var(--accent); }
+
+    .pin-pad { display: grid; grid-template-columns: repeat(3,72px); gap: 12px; justify-content: center; margin-bottom: 20px; }
+    .pin-key {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--white); border: 1px solid var(--border);
+      font-family: var(--ff-body); font-size: 1.35rem; font-weight: 400;
+      color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, transform .12s, box-shadow .15s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05); user-select: none;
+    }
+    .pin-key:hover  { background: var(--bg-alt); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+    .pin-key:active { transform: scale(.93); }
+    .pin-key.accent-key { background: var(--accent); color: var(--white); border-color: var(--accent); font-size: 1rem; }
+    .pin-key.accent-key:hover { background: var(--accent-dark); }
+    .pin-key.clear-key { color: var(--muted); font-size: .9rem; }
+    .pin-error { font-size: .78rem; color: #c0392b; text-align: center; min-height: 20px; }
+
+    /* ── DASHBOARD ────────────────────────────────── */
+    #dashboard { min-height: 100vh; opacity: 0; pointer-events: none; transition: opacity .55s ease; }
+    #dashboard.visible { opacity: 1; pointer-events: all; }
+
+    /* ── HEADER ───────────────────────────────────── */
+    .dash-header {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 20px 40px; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 100;
+    }
+    .dash-logo { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 500; letter-spacing: -.01em; color: var(--text); }
+    .dash-logo em { color: var(--accent); font-style: normal; }
+    .dash-header-right { display: flex; align-items: center; gap: 20px; }
+    .dash-label { font-size: .7rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .dash-date  { font-size: .82rem; color: var(--text); font-weight: 500; }
+    .dash-badge {
+      background: var(--accent-pale); color: var(--accent);
+      font-size: .72rem; font-weight: 600; padding: 5px 14px; border-radius: 50px;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .logout-btn {
+      background: none; border: 1px solid var(--border-md); color: var(--muted);
+      font-family: var(--ff-body); font-size: .74rem; font-weight: 500;
+      padding: 7px 18px; border-radius: 50px; cursor: pointer;
+      letter-spacing: .06em; text-transform: uppercase; transition: border-color .2s, color .2s;
+    }
+    .logout-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── LAYOUT ───────────────────────────────────── */
+    .dash-body { max-width: 1320px; margin: 0 auto; padding: 36px 40px 60px; }
+    .dash-section-label { font-size: .67rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+
+    /* ── KPI ──────────────────────────────────────── */
+    .kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; margin-bottom: 36px; }
+    .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 26px; }
+    .kpi-label { font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .kpi-value { font-family: var(--ff-display); font-size: 2.6rem; font-weight: 400; line-height: 1; letter-spacing: -.02em; color: var(--text); }
+    .kpi-value sup { font-size: 1.2rem; color: var(--accent); vertical-align: super; }
+    .kpi-sub { font-size: .75rem; color: var(--muted); margin-top: 7px; }
+    .kpi-card.accent { background: var(--accent); border-color: var(--accent); }
+    .kpi-card.accent .kpi-label { color: rgba(255,255,255,.65); }
+    .kpi-card.accent .kpi-value { color: var(--white); }
+    .kpi-card.accent .kpi-sub   { color: rgba(255,255,255,.55); }
+    .kpi-card.accent .kpi-value sup { color: rgba(255,255,255,.8); }
+
+    .dash-cols { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+
+    /* ── PANEL ────────────────────────────────────── */
+    .panel { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
+    .panel-head { padding: 22px 28px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .panel-title { font-family: var(--ff-display); font-size: 1.25rem; font-weight: 500; color: var(--text); letter-spacing: -.01em; }
+    .panel-action { font-size: .72rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: var(--accent); cursor: pointer; background: none; border: none; font-family: var(--ff-body); }
+    .panel-action:hover { text-decoration: underline; }
+
+    /* ── TABLE CONTROLS ───────────────────────────── */
+    .table-controls {
+      display: flex; gap: 12px; padding: 16px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .search-input {
+      flex: 1; padding: 9px 14px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--ff-body);
+      font-size: .84rem; color: var(--text); background: var(--bg);
+      outline: none; transition: border-color .2s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .filter-select {
+      padding: 9px 14px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--ff-body);
+      font-size: .84rem; color: var(--text); background: var(--bg);
+      outline: none; cursor: pointer; transition: border-color .2s;
+    }
+    .filter-select:focus { border-color: var(--accent); }
+
+    /* ── BUTTONS ──────────────────────────────────── */
+    .btn-add {
+      background: var(--accent); color: var(--white);
+      padding: 11px 26px; border-radius: 50px; font-family: var(--ff-body);
+      font-size: .76rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      display: inline-flex; align-items: center; gap: 7px;
+    }
+    .btn-add:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(var(--accent-rgb),.3); }
+
+    /* ── TABLE ────────────────────────────────────── */
+    .appt-table { width: 100%; border-collapse: collapse; }
+    .appt-table th {
+      font-size: .65rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); padding: 0 20px 14px; text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .appt-table th:first-child { padding-left: 28px; }
+    .appt-table th:last-child  { padding-right: 28px; text-align: right; }
+    .appt-table td {
+      padding: 13px 20px; font-size: .875rem; color: var(--text);
+      border-bottom: 1px solid var(--border); vertical-align: middle;
+    }
+    .appt-table td:first-child { padding-left: 28px; }
+    .appt-table td:last-child  { padding-right: 28px; text-align: right; }
+    .appt-table tr:last-child td { border-bottom: none; }
+    .appt-table tbody tr { transition: background .15s, opacity .3s, transform .3s; }
+    .appt-table tbody tr:hover { background: var(--bg); }
+    .appt-table tbody tr.fading { opacity: 0; transform: translateX(20px); }
+
+    .appt-name    { font-weight: 500; }
+    .appt-notes   { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+    .appt-service { color: var(--muted); font-size: .82rem; }
+    .appt-time    { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+    .status-pill {
+      display: inline-block; padding: 4px 13px; border-radius: 50px;
+      font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      cursor: pointer; user-select: none; white-space: nowrap;
+      transition: opacity .15s;
+    }
+    .status-pill:hover { opacity: .78; }
+    .status-confirmed { background: rgba(39,174,96,.12); color: #27ae60; }
+    .status-pending   { background: rgba(243,156,18,.12); color: #e67e22; }
+    .status-completed { background: rgba(26,26,26,.07);  color: var(--muted); }
+
+    .delete-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: .9rem; line-height: 1;
+      padding: 4px 8px; border-radius: 8px;
+      transition: color .15s, background .15s;
+    }
+    .delete-btn:hover { color: #c0392b; background: rgba(192,57,43,.08); }
+
+    .empty-row td { text-align: center; padding: 40px 28px !important; color: var(--muted); font-size: .88rem; }
+
+    /* ── CALENDAR ─────────────────────────────────── */
+    .cal-nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px 14px; }
+    .cal-month { font-family: var(--ff-display); font-size: 1.1rem; font-weight: 500; color: var(--text); }
+    .cal-arrow {
+      background: none; border: none; cursor: pointer; color: var(--muted);
+      font-size: 1rem; padding: 4px 8px; border-radius: 8px;
+      transition: color .15s, background .15s;
+    }
+    .cal-arrow:hover { color: var(--accent); background: var(--accent-pale); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); padding: 0 16px 20px; gap: 2px; }
+    .cal-day-label {
+      text-align: center; font-size: .62rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted); padding: 4px 0 8px;
+    }
+    .cal-day {
+      text-align: center; font-size: .8rem; padding: 7px 4px;
+      border-radius: 8px; color: var(--text); position: relative;
+      transition: background .15s, color .15s;
+    }
+    .cal-day.clickable { cursor: pointer; }
+    .cal-day.clickable:hover { background: var(--bg-alt); }
+    .cal-day.today  { background: var(--accent); color: var(--white); font-weight: 600; }
+    .cal-day.selected:not(.today) { background: var(--accent-pale); color: var(--accent); font-weight: 600; outline: 2px solid var(--accent); outline-offset: -2px; }
+    .cal-day.other-month { color: var(--border-md); pointer-events: none; }
+    .cal-dot {
+      position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+      width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+    }
+    .cal-day.today .cal-dot { background: rgba(255,255,255,.7); }
+    .cal-day.selected:not(.today) .cal-dot { background: var(--accent); }
+
+    .cal-filter-label {
+      padding: 6px 24px 14px; font-size: .72rem; color: var(--accent);
+      font-weight: 500; cursor: pointer; display: none;
+    }
+    .cal-filter-label:hover { text-decoration: underline; }
+    .cal-filter-label.visible { display: block; }
+
+    /* ── SERVICES ─────────────────────────────────── */
+    .svc-row { display: flex; align-items: center; justify-content: space-between; padding: 15px 28px; border-bottom: 1px solid var(--border); }
+    .svc-row:last-child { border-bottom: none; }
+    .svc-row-name  { font-size: .88rem; font-weight: 500; color: var(--text); }
+    .svc-row-price { font-size: .82rem; color: var(--accent); font-weight: 600; margin-top: 2px; }
+    .svc-edit-wrap { display: flex; flex-direction: column; gap: 6px; flex: 1; margin-right: 14px; }
+    .edit-input {
+      padding: 7px 11px; border: 1px solid var(--border); border-radius: 8px;
+      font-family: var(--ff-body); font-size: .84rem; color: var(--text);
+      background: var(--bg); outline: none; transition: border-color .2s; width: 100%;
+    }
+    .edit-input:focus { border-color: var(--accent); }
+    .edit-btn {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-family: var(--ff-body); font-size: .68rem; font-weight: 500;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 50px; cursor: pointer; white-space: nowrap;
+      transition: border-color .15s, color .15s;
+    }
+    .edit-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .save-btn {
+      background: var(--accent); color: var(--white); border: none;
+      font-family: var(--ff-body); font-size: .68rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 50px; cursor: pointer; white-space: nowrap;
+      transition: background .15s;
+    }
+    .save-btn:hover { background: var(--accent-dark); }
+
+    /* ── HOURS ────────────────────────────────────── */
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 13px 28px; border-bottom: 1px solid var(--border); font-size: .84rem;
+      transition: opacity .2s;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row.is-closed  { opacity: .45; }
+    .hours-day  { font-weight: 500; color: var(--text); }
+    .hours-time { color: var(--muted); }
+    .hours-closed { color: rgba(26,26,26,.3); }
+    .hours-row.today-row .hours-day { color: var(--accent); }
+    .hours-row.today-row .hours-time { color: var(--accent); font-weight: 500; }
+
+    .toggle-wrap { display: flex; align-items: center; gap: 10px; }
+    .toggle-switch {
+      position: relative; width: 38px; height: 21px; border-radius: 11px;
+      background: var(--border-md); cursor: pointer; flex-shrink: 0;
+      transition: background .2s;
+    }
+    .toggle-switch.on { background: var(--accent); }
+    .toggle-switch::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 15px; height: 15px; border-radius: 50%; background: var(--white);
+      transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+    .toggle-switch.on::after { transform: translateX(17px); }
+
+    /* ── MODAL ────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(26,26,26,.4); z-index: 800;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border-radius: 24px; padding: 44px 40px;
+      width: 100%; max-width: 500px; position: relative;
+      transform: translateY(28px); transition: transform .4s cubic-bezier(.4,0,.2,1);
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 16px; right: 18px; background: none; border: none;
+      font-size: 1.5rem; color: var(--muted); cursor: pointer; padding: 6px;
+      line-height: 1; transition: color .2s;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-title { font-family: var(--ff-display); font-size: 1.9rem; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .modal-sub { font-size: .84rem; color: var(--muted); margin-bottom: 28px; }
+
+    .fgroup { margin-bottom: 16px; }
+    .fgroup label { display: block; font-size: .68rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .fgroup input, .fgroup select, .fgroup textarea {
+      width: 100%; padding: 12px 14px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--ff-body); font-size: .9rem;
+      color: var(--text); background: var(--bg); outline: none; transition: border-color .2s;
+    }
+    .fgroup textarea { resize: vertical; min-height: 72px; }
+    .fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus { border-color: var(--accent); }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .modal-error { font-size: .78rem; color: #c0392b; margin-bottom: 10px; min-height: 18px; }
+    .btn-submit {
+      width: 100%; background: var(--accent); color: var(--white); padding: 14px;
+      border: none; border-radius: 50px; font-family: var(--ff-body); font-size: .82rem;
+      font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      cursor: pointer; margin-top: 8px; transition: background .2s;
+    }
+    .btn-submit:hover { background: var(--accent-dark); }
+
+    /* ── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 1100px) {
+      .dash-cols { grid-template-columns: 1fr; }
+      .kpi-row   { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 700px) {
+      .dash-header { padding: 16px 20px; }
+      .dash-body   { padding: 24px 20px 40px; }
+      .kpi-row     { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .appt-table th, .appt-table td { padding: 12px 16px; }
+      .appt-table th:first-child, .appt-table td:first-child { padding-left: 16px; }
+      .dash-header-right .dash-label, .dash-header-right .dash-date { display: none; }
+      .table-controls { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ────────────────────────────────────── -->
+<div id="login-screen">
+  <p class="login-eyebrow">Staff Access · Grant Nail Salon</p>
+  <h1 class="login-title">Admin Portal</h1>
+  <p class="login-sub">Enter your 4-digit PIN to continue</p>
+  <div class="pin-display">
+    <div class="pin-dot" id="pd-0"></div>
+    <div class="pin-dot" id="pd-1"></div>
+    <div class="pin-dot" id="pd-2"></div>
+    <div class="pin-dot" id="pd-3"></div>
+  </div>
+  <div class="pin-pad">
+    <button class="pin-key" onclick="pinPress('1')">1</button>
+    <button class="pin-key" onclick="pinPress('2')">2</button>
+    <button class="pin-key" onclick="pinPress('3')">3</button>
+    <button class="pin-key" onclick="pinPress('4')">4</button>
+    <button class="pin-key" onclick="pinPress('5')">5</button>
+    <button class="pin-key" onclick="pinPress('6')">6</button>
+    <button class="pin-key" onclick="pinPress('7')">7</button>
+    <button class="pin-key" onclick="pinPress('8')">8</button>
+    <button class="pin-key" onclick="pinPress('9')">9</button>
+    <button class="pin-key clear-key" onclick="pinClear()">CLR</button>
+    <button class="pin-key" onclick="pinPress('0')">0</button>
+    <button class="pin-key accent-key" onclick="pinSubmit()">&#10003;</button>
+  </div>
+  <p class="pin-error" id="pin-error">&nbsp;</p>
+</div>
+
+<!-- ── DASHBOARD ────────────────────────────────── -->
+<div id="dashboard">
+
+  <header class="dash-header">
+    <a href="#" class="dash-logo">Grant <em>Nail Salon</em></a>
+    <div class="dash-header-right">
+      <span class="dash-badge">Admin Dashboard</span>
+      <div>
+        <div class="dash-label">Today</div>
+        <div class="dash-date" id="today-date">—</div>
+      </div>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <main class="dash-body">
+
+    <p class="dash-section-label">Overview</p>
+    <div class="kpi-row">
+      <div class="kpi-card accent">
+        <div class="kpi-label">Today's Bookings</div>
+        <div class="kpi-value" id="kpi-today">—</div>
+        <div class="kpi-sub" id="kpi-today-sub">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">This Week</div>
+        <div class="kpi-value" id="kpi-week">—</div>
+        <div class="kpi-sub" id="kpi-week-sub">total appointments</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Avg Rating</div>
+        <div class="kpi-value">3.9<sup>★</sup></div>
+        <div class="kpi-sub">Based on 134 reviews</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Reviews</div>
+        <div class="kpi-value">134<sup>+</sup></div>
+        <div class="kpi-sub">Google reviews</div>
+      </div>
+    </div>
+
+    <div class="dash-cols">
+
+      <!-- LEFT -->
+      <div>
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Appointments</span>
+            <button class="btn-add" onclick="openModal()">
+              <span style="font-size:1rem;line-height:1">+</span> Add Booking
+            </button>
+          </div>
+          <div class="table-controls">
+            <input class="search-input" id="appt-search" type="search" placeholder="Search by name or service…" oninput="onSearch(this.value)" />
+            <select class="filter-select" id="status-filter" onchange="onFilterStatus(this.value)">
+              <option value="">All Statuses</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <table class="appt-table">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="appt-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div>
+
+        <!-- Calendar -->
+        <div class="panel">
+          <div class="cal-nav">
+            <button class="cal-arrow" onclick="calPrev()">&#8592;</button>
+            <span class="cal-month" id="cal-month-label"></span>
+            <button class="cal-arrow" onclick="calNext()">&#8594;</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div class="cal-filter-label" id="cal-filter-label" onclick="clearCalFilter()">&#10005; Clear day filter</div>
+        </div>
+
+        <!-- Services -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Services</span>
+          </div>
+          <div id="svc-list"></div>
+        </div>
+
+        <!-- Hours -->
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Business Hours</span>
+          </div>
+          <div id="hours-list"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Add Booking Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#215;</button>
+    <h3 class="modal-title">Add Booking</h3>
+    <p class="modal-sub">New appointment · Grant Nail Salon</p>
+    <div class="frow">
+      <div class="fgroup">
+        <label>First Name *</label>
+        <input type="text" id="m-firstname" placeholder="Ashley" />
+      </div>
+      <div class="fgroup">
+        <label>Last Name</label>
+        <input type="text" id="m-lastname" placeholder="Martinez" />
+      </div>
+    </div>
+    <div class="fgroup">
+      <label>Phone</label>
+      <input type="tel" id="m-phone" placeholder="(215) 000-0000" />
+    </div>
+    <div class="fgroup">
+      <label>Service *</label>
+      <select id="m-service">
+        <option value="">Select a service…</option>
+      </select>
+    </div>
+    <div class="frow">
+      <div class="fgroup">
+        <label>Date *</label>
+        <input type="date" id="m-date" onchange="updateTimeSlots()" />
+      </div>
+      <div class="fgroup">
+        <label>Time *</label>
+        <select id="m-time">
+          <option value="">Select date first…</option>
+        </select>
+      </div>
+    </div>
+    <div class="fgroup">
+      <label>Notes (optional)</label>
+      <textarea id="m-notes" placeholder="Any special requests…"></textarea>
+    </div>
+    <p class="modal-error" id="modal-error"></p>
+    <button class="btn-submit" onclick="submitBooking()">Save Appointment</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// UTILITY FUNCTIONS (hoisted — safe to call before definition)
+// ═══════════════════════════════════════════════
+function fmtDate(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return y + '-' + m + '-' + day;
+}
+function offsetDate(base, n) {
+  const d = new Date(base);
+  d.setDate(d.getDate() + n);
+  return fmtDate(d);
+}
+function capitalise(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+const TODAY     = new Date();
+const todayStr  = fmtDate(TODAY);
+
+// Week boundaries (Sun–Sat)
+const _ws = new Date(TODAY); _ws.setDate(_ws.getDate() - _ws.getDay());
+const _we = new Date(TODAY); _we.setDate(_we.getDate() + (6 - _we.getDay()));
+const weekStartStr = fmtDate(_ws);
+const weekEndStr   = fmtDate(_we);
+
+let nextId = 9;
+
+let appointments = [
+  { id:1, name:'Ashley M.',   service:'Gel Manicure',     date:todayStr,              time:'10:00 AM', status:'confirmed', notes:''                    },
+  { id:2, name:'Maria S.',    service:'Acrylic Full Set', date:todayStr,              time:'11:00 AM', status:'completed', notes:''                    },
+  { id:3, name:'Jennifer R.', service:'Classic Pedicure',     date:todayStr,              time:'12:30 PM', status:'confirmed', notes:''                    },
+  { id:4, name:'Destiny W.',  service:'Mani + Pedi Combo',         date:todayStr,              time:'1:30 PM',  status:'pending',   notes:'Gel add-on requested' },
+  { id:5, name:'Carlos V.',   service:'Gel Manicure',     date:todayStr,              time:'2:00 PM',  status:'confirmed', notes:''                    },
+  { id:6, name:'Miguel O.',   service:'Dip Powder',       date:todayStr,              time:'3:15 PM',  status:'pending',   notes:''                    },
+  { id:7, name:'Jaylen T.',   service:'Acrylic Fill',     date:offsetDate(TODAY,1),   time:'4:30 PM',  status:'confirmed', notes:''                    },
+  { id:8, name:'Sara B.',     service:'Classic Pedicure',     date:offsetDate(TODAY,2),   time:'5:30 PM',  status:'confirmed', notes:''                    },
+];
+
+let services = [
+  { id:1, name:'Gel Manicure',      price:'From $30' },
+  { id:2, name:'Acrylic Full Set',  price:'From $45' },
+  { id:3, name:'Classic Pedicure',  price:'From $30' },
+  { id:4, name:'Mani + Pedi Combo', price:'$45'      },
+  { id:5, name:'Dip Powder',        price:'From $40' },
+  { id:6, name:'Acrylic Fill',      price:'From $28' },
+];
+
+// Keyed by JS getDay() value: 0=Sun, 1=Mon … 6=Sat
+const hoursData = {
+  0: { label:'Sunday',    open:true,  hours:'9:30 AM – 6:00 PM',  slots:['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM'] },
+  1: { label:'Monday',   open:false, hours:'Closed',              slots:[] },
+  2: { label:'Tuesday',  open:true,  hours:'9:30 AM – 7:30 PM', slots:['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'] },
+  3: { label:'Wednesday',open:true,  hours:'9:30 AM – 7:30 PM', slots:['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'] },
+  4: { label:'Thursday', open:true,  hours:'9:30 AM – 7:30 PM', slots:['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'] },
+  5: { label:'Friday',   open:true,  hours:'9:30 AM – 7:30 PM', slots:['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'] },
+  6: { label:'Saturday', open:true,  hours:'9:30 AM – 7:00 PM',  slots:['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'] },
+};
+
+let filterState = { search:'', status:'', calDay:null };
+let calYear  = TODAY.getFullYear();
+let calMonth = TODAY.getMonth();
+
+// ═══════════════════════════════════════════════
+// FILTER + RENDER TABLE
+// ═══════════════════════════════════════════════
+function getFiltered() {
+  return appointments.filter(a => {
+    const q = filterState.search.toLowerCase();
+    const matchSearch = !q || a.name.toLowerCase().includes(q) || a.service.toLowerCase().includes(q);
+    const matchStatus = !filterState.status || a.status === filterState.status;
+    const matchDay    = !filterState.calDay || a.date === filterState.calDay;
+    return matchSearch && matchStatus && matchDay;
+  });
+}
+
+function renderTable() {
+  const tbody    = document.getElementById('appt-tbody');
+  const filtered = getFiltered();
+  tbody.innerHTML = '';
+
+  if (filtered.length === 0) {
+    const tr = document.createElement('tr');
+    tr.className = 'empty-row';
+    tr.innerHTML = '<td colspan="5">No appointments match your filters</td>';
+    tbody.appendChild(tr);
+    return;
+  }
+
+  filtered.forEach(a => {
+    const tr = document.createElement('tr');
+    tr.id = 'row-' + a.id;
+    tr.innerHTML =
+      '<td>' +
+        '<div class="appt-name">' + a.name + '</div>' +
+        (a.notes ? '<div class="appt-notes">' + a.notes + '</div>' : '') +
+      '</td>' +
+      '<td><div class="appt-service">' + a.service + '</div></td>' +
+      '<td class="appt-time">' + a.time + '</td>' +
+      '<td>' +
+        '<span class="status-pill status-' + a.status + '" onclick="cycleStatus(' + a.id + ')">' +
+          capitalise(a.status) +
+        '</span>' +
+      '</td>' +
+      '<td><button class="delete-btn" onclick="deleteAppointment(' + a.id + ')" title="Remove">&#10005;</button></td>';
+    tbody.appendChild(tr);
+  });
+}
+
+// ═══════════════════════════════════════════════
+// STATUS CYCLE
+// ═══════════════════════════════════════════════
+const STATUS_ORDER = ['confirmed', 'pending', 'completed'];
+
+function cycleStatus(id) {
+  const a = appointments.find(x => x.id === id);
+  if (!a) return;
+  const idx = STATUS_ORDER.indexOf(a.status);
+  a.status = STATUS_ORDER[(idx + 1) % STATUS_ORDER.length];
+  renderTable();
+  updateKPIs();
+}
+
+// ═══════════════════════════════════════════════
+// DELETE APPOINTMENT
+// ═══════════════════════════════════════════════
+function deleteAppointment(id) {
+  const row = document.getElementById('row-' + id);
+  if (row) {
+    row.classList.add('fading');
+    setTimeout(function() {
+      appointments = appointments.filter(a => a.id !== id);
+      renderTable();
+      renderCalendar();
+      updateKPIs();
+    }, 320);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// KPI UPDATE
+// ═══════════════════════════════════════════════
+function updateKPIs() {
+  const todayAppts = appointments.filter(a => a.date === todayStr);
+  const weekAppts  = appointments.filter(a => a.date >= weekStartStr && a.date <= weekEndStr);
+  const confirmed  = todayAppts.filter(a => a.status === 'confirmed').length;
+  const pending    = todayAppts.filter(a => a.status === 'pending').length;
+
+  document.getElementById('kpi-today').textContent     = todayAppts.length;
+  document.getElementById('kpi-today-sub').textContent = confirmed + ' confirmed · ' + pending + ' pending';
+  document.getElementById('kpi-week').textContent      = weekAppts.length;
+}
+
+// ═══════════════════════════════════════════════
+// SEARCH + FILTER HANDLERS
+// ═══════════════════════════════════════════════
+function onSearch(val) {
+  filterState.search = val;
+  renderTable();
+}
+function onFilterStatus(val) {
+  filterState.status = val;
+  renderTable();
+}
+
+// ═══════════════════════════════════════════════
+// CALENDAR
+// ═══════════════════════════════════════════════
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function getBookedDaysForMonth(yr, mo) {
+  const days = new Set();
+  appointments.forEach(a => {
+    if (!a.date) return;
+    const parts = a.date.split('-');
+    if (parseInt(parts[0]) === yr && parseInt(parts[1]) - 1 === mo) {
+      days.add(parseInt(parts[2]));
+    }
+  });
+  return days;
+}
+
+function renderCalendar() {
+  document.getElementById('cal-month-label').textContent = MONTH_NAMES[calMonth] + ' ' + calYear;
+  const grid     = document.getElementById('cal-grid');
+  const bookedDays = getBookedDaysForMonth(calYear, calMonth);
+  grid.innerHTML = '';
+
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(function(l) {
+    const el = document.createElement('div');
+    el.className = 'cal-day-label';
+    el.textContent = l;
+    grid.appendChild(el);
+  });
+
+  const firstDow  = new Date(calYear, calMonth, 1).getDay();
+  const daysInMo  = new Date(calYear, calMonth + 1, 0).getDate();
+  const prevDays  = new Date(calYear, calMonth, 0).getDate();
+
+  for (let i = 0; i < firstDow; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day other-month';
+    el.textContent = prevDays - firstDow + 1 + i;
+    grid.appendChild(el);
+  }
+
+  for (let d = 1; d <= daysInMo; d++) {
+    const dateStr = calYear + '-' + String(calMonth + 1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = d;
+
+    if (dateStr === todayStr)           el.classList.add('today');
+    if (filterState.calDay === dateStr) el.classList.add('selected');
+
+    if (bookedDays.has(d)) {
+      const dot = document.createElement('div');
+      dot.className = 'cal-dot';
+      el.appendChild(dot);
+      el.classList.add('clickable');
+      el.addEventListener('click', (function(ds) {
+        return function() { toggleCalFilter(ds); };
+      })(dateStr));
+    }
+
+    grid.appendChild(el);
+  }
+
+  const total    = firstDow + daysInMo;
+  const trailing = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for (let i = 1; i <= trailing; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day other-month';
+    el.textContent = i;
+    grid.appendChild(el);
+  }
+
+  // Filter label
+  const lbl = document.getElementById('cal-filter-label');
+  if (filterState.calDay) {
+    lbl.classList.add('visible');
+    const parts = filterState.calDay.split('-');
+    lbl.textContent = '✕ Showing ' + MONTH_NAMES[parseInt(parts[1])-1] + ' ' + parseInt(parts[2]) + ' only — clear';
+  } else {
+    lbl.classList.remove('visible');
+  }
+}
+
+function toggleCalFilter(dateStr) {
+  filterState.calDay = filterState.calDay === dateStr ? null : dateStr;
+  renderCalendar();
+  renderTable();
+}
+function clearCalFilter() {
+  filterState.calDay = null;
+  renderCalendar();
+  renderTable();
+}
+function calPrev() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+function calNext() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+}
+
+// ═══════════════════════════════════════════════
+// SERVICES PANEL
+// ═══════════════════════════════════════════════
+function renderServices() {
+  const container = document.getElementById('svc-list');
+  container.innerHTML = '';
+  services.forEach(function(s) {
+    const row = document.createElement('div');
+    row.className = 'svc-row';
+    row.id = 'svc-' + s.id;
+    row.innerHTML =
+      '<div>' +
+        '<div class="svc-row-name">' + s.name + '</div>' +
+        '<div class="svc-row-price">' + s.price + '</div>' +
+      '</div>' +
+      '<button class="edit-btn" onclick="editService(' + s.id + ')">Edit</button>';
+    container.appendChild(row);
+  });
+  updateServiceDropdown();
+}
+
+function editService(id) {
+  const s   = services.find(x => x.id === id);
+  if (!s) return;
+  const row = document.getElementById('svc-' + id);
+  row.innerHTML =
+    '<div class="svc-edit-wrap">' +
+      '<input class="edit-input" id="si-name-' + id + '" value="' + s.name + '" placeholder="Service name" />' +
+      '<input class="edit-input" id="si-price-' + id + '" value="' + s.price + '" placeholder="Price" />' +
+    '</div>' +
+    '<button class="save-btn" onclick="saveService(' + id + ')">Save</button>';
+  document.getElementById('si-name-' + id).focus();
+}
+
+function saveService(id) {
+  const s = services.find(x => x.id === id);
+  if (!s) return;
+  const nameEl  = document.getElementById('si-name-'  + id);
+  const priceEl = document.getElementById('si-price-' + id);
+  if (nameEl.value.trim())  s.name  = nameEl.value.trim();
+  if (priceEl.value.trim()) s.price = priceEl.value.trim();
+  renderServices();
+}
+
+function updateServiceDropdown() {
+  const sel = document.getElementById('m-service');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Select a service…</option>';
+  services.forEach(function(s) {
+    const opt = document.createElement('option');
+    opt.value       = s.name;
+    opt.textContent = s.name + ' — ' + s.price;
+    sel.appendChild(opt);
+  });
+  if (services.find(s => s.name === cur)) sel.value = cur;
+}
+
+// ═══════════════════════════════════════════════
+// HOURS PANEL
+// ═══════════════════════════════════════════════
+function renderHours() {
+  const container = document.getElementById('hours-list');
+  const todayDow  = TODAY.getDay();
+  container.innerHTML = '';
+
+  [1, 2, 3, 4, 5, 6, 0].forEach(function(dow) {
+    const h   = hoursData[dow];
+    const row = document.createElement('div');
+    row.className = 'hours-row' + (dow === todayDow ? ' today-row' : '') + (!h.open ? ' is-closed' : '');
+    row.innerHTML =
+      '<span class="hours-day">' + h.label + '</span>' +
+      '<div class="toggle-wrap">' +
+        '<span class="' + (h.open ? 'hours-time' : 'hours-closed') + '">' + (h.open ? h.hours : 'Closed') + '</span>' +
+        '<div class="toggle-switch' + (h.open ? ' on' : '') + '" onclick="toggleDay(' + dow + ')" title="Toggle open/closed"></div>' +
+      '</div>';
+    container.appendChild(row);
+  });
+}
+
+function toggleDay(dow) {
+  hoursData[dow].open = !hoursData[dow].open;
+  renderHours();
+}
+
+// ═══════════════════════════════════════════════
+// BOOKING MODAL
+// ═══════════════════════════════════════════════
+function openModal() {
+  document.getElementById('m-date').min = todayStr;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function resetModal() {
+  ['m-firstname','m-lastname','m-phone','m-notes'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('m-service').value = '';
+  document.getElementById('m-date').value    = '';
+  document.getElementById('modal-error').textContent = '';
+  updateTimeSlots();
+}
+
+function updateTimeSlots() {
+  const dateStr  = document.getElementById('m-date').value;
+  const timeSel  = document.getElementById('m-time');
+  timeSel.innerHTML = '';
+
+  if (!dateStr) {
+    timeSel.innerHTML = '<option value="">Select date first…</option>';
+    return;
+  }
+
+  const parts = dateStr.split('-');
+  const dow   = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2])).getDay();
+  const h     = hoursData[dow];
+
+  if (!h.open) {
+    timeSel.innerHTML = '<option value="">Closed — pick another day</option>';
+    return;
+  }
+
+  h.slots.forEach(function(slot) {
+    const opt = document.createElement('option');
+    opt.value = slot; opt.textContent = slot;
+    timeSel.appendChild(opt);
+  });
+}
+
+function submitBooking() {
+  const firstName = document.getElementById('m-firstname').value.trim();
+  const lastName  = document.getElementById('m-lastname').value.trim();
+  const service   = document.getElementById('m-service').value;
+  const date      = document.getElementById('m-date').value;
+  const time      = document.getElementById('m-time').value;
+  const notes     = document.getElementById('m-notes').value.trim();
+  const errEl     = document.getElementById('modal-error');
+
+  if (!firstName) { errEl.textContent = 'First name is required.'; return; }
+  if (!service)   { errEl.textContent = 'Please select a service.'; return; }
+  if (!date)      { errEl.textContent = 'Please select a date.';    return; }
+  if (!time)      { errEl.textContent = 'Please select a time.';    return; }
+
+  const parts = date.split('-');
+  const dow   = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2])).getDay();
+  if (!hoursData[dow].open) {
+    errEl.textContent = 'That day is closed. Please choose another date.';
+    return;
+  }
+
+  errEl.textContent = '';
+  const name = firstName + (lastName ? ' ' + lastName.charAt(0) + '.' : '');
+  appointments.unshift({ id: nextId++, name, service, date, time, status:'pending', notes });
+  renderTable();
+  renderCalendar();
+  updateKPIs();
+  closeModal();
+  resetModal();
+}
+
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ═══════════════════════════════════════════════
+// PIN
+// ═══════════════════════════════════════════════
+const CORRECT_PIN = '1234';
+let pinBuffer = '';
+
+function pinPress(digit) {
+  if (pinBuffer.length >= 4) return;
+  pinBuffer += digit;
+  updateDots();
+  if (pinBuffer.length === 4) setTimeout(pinSubmit, 140);
+}
+function pinClear() {
+  pinBuffer = '';
+  updateDots();
+  document.getElementById('pin-error').textContent = ' ';
+}
+function updateDots() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('pd-' + i).classList.toggle('filled', i < pinBuffer.length);
+  }
+}
+function pinSubmit() {
+  if (pinBuffer === CORRECT_PIN) {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('dashboard').classList.add('visible');
+    initDashboard();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
+    const dots = document.querySelectorAll('.pin-dot');
+    dots.forEach(function(d) { d.style.background = '#c0392b'; d.style.borderColor = '#c0392b'; });
+    setTimeout(function() {
+      pinBuffer = '';
+      updateDots();
+      dots.forEach(function(d) { d.style.background = ''; d.style.borderColor = ''; });
+    }, 600);
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('login-screen').classList.contains('hidden')) return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  if (e.key === 'Backspace') { pinBuffer = pinBuffer.slice(0, -1); updateDots(); }
+  if (e.key === 'Enter') pinSubmit();
+});
+
+// ═══════════════════════════════════════════════
+// LOGOUT
+// ═══════════════════════════════════════════════
+function logout() {
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('login-screen').classList.remove('hidden');
+  pinBuffer = '';
+  updateDots();
+  document.getElementById('pin-error').textContent = ' ';
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+function initDashboard() {
+  // Set today's date in header
+  const opts = { weekday:'long', month:'long', day:'numeric', year:'numeric' };
+  document.getElementById('today-date').textContent = TODAY.toLocaleDateString('en-US', opts);
+
+  // Highlight today's hours row
+  const dayKeys = { 0:'sun', 1:'mon', 2:'tue', 3:'wed', 4:'thu', 5:'fri', 6:'sat' };
+  // (renderHours handles this via index)
+
+  renderTable();
+  renderCalendar();
+  renderServices();
+  renderHours();
+  updateKPIs();
+  updateServiceDropdown();
+}
+</script>
+</body>
+</html>

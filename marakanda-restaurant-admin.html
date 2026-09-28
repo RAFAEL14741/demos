@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marakanda Restaurant — Admin Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Brand */
+  --coral:       #d4503a;
+  --coral-dark:  #b8402e;
+  --coral-soft:  rgba(212,80,58,0.13);
+  --coral-glow:  rgba(212,80,58,0.32);
+  --sand:        #f4ede3;
+  --slate:       #1b2d3e;
+
+  /* Dark surfaces */
+  --bg:          #0f1e2b;
+  --surface:     #1b2d3e;
+  --surface-2:   #243649;
+  --surface-3:   #2e4459;
+
+  /* Text */
+  --text:        #f4ede3;
+  --text-2:      rgba(244,237,227,0.62);
+  --text-3:      rgba(244,237,227,0.34);
+
+  /* Borders */
+  --border:      rgba(244,237,227,0.07);
+  --border-md:   rgba(244,237,227,0.13);
+
+  /* Semantic */
+  --green:       #4caf7e;
+  --green-soft:  rgba(76,175,126,0.14);
+  --yellow:      #e6b84f;
+  --yellow-soft: rgba(230,184,79,0.14);
+  --red:         #e05555;
+  --red-soft:    rgba(224,85,85,0.14);
+
+  /* Type */
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+
+  /* Layout */
+  --sidebar-w: 236px;
+  --radius:    13px;
+  --radius-sm: 8px;
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html, body { height: 100%; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 3px; }
+
+/* ────────────────────────────────────────
+   LOGIN
+──────────────────────────────────────── */
+#login-screen {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+#login-screen.hidden {
+  opacity: 0; pointer-events: none; transform: scale(1.04);
+}
+
+.login-wrap { width: min(90vw, 340px); text-align: center; }
+
+.login-eyebrow {
+  font-size: .62rem; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--coral);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.login-eyebrow::before,
+.login-eyebrow::after {
+  content: ''; flex: 1; max-width: 28px; height: 1px; background: var(--coral);
+}
+
+.login-logo {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 8vw, 3.2rem);
+  color: var(--text); line-height: 1;
+  margin-bottom: 5px;
+  letter-spacing: .04em;
+}
+.login-logo span { color: var(--coral); }
+
+.login-sub {
+  font-size: .76rem; color: var(--text-3);
+  letter-spacing: .08em; margin-bottom: 42px;
+}
+
+/* PIN dots */
+.pin-dots {
+  display: flex; gap: 14px; justify-content: center; margin-bottom: 30px;
+}
+.pin-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--border-md); background: transparent;
+  transition: background 0.18s, border-color 0.18s, transform 0.14s;
+}
+.pin-dot.on { background: var(--coral); border-color: var(--coral); transform: scale(1.25); }
+
+/* PIN pad */
+.pin-pad {
+  display: grid; grid-template-columns: repeat(3, 72px);
+  gap: 10px; justify-content: center; margin-bottom: 14px;
+}
+.pin-key {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border);
+  font-family: var(--sans); font-size: 1.3rem; font-weight: 400;
+  color: var(--text); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.14s, border-color 0.14s, transform 0.1s;
+  user-select: none;
+}
+.pin-key:hover  { background: var(--surface-2); border-color: var(--border-md); }
+.pin-key:active { transform: scale(0.88); }
+.pin-key.go  { background: var(--coral); border-color: var(--coral); color: #fff; font-size: .95rem; font-weight: 600; }
+.pin-key.go:hover { background: var(--coral-dark); }
+.pin-key.clr { color: var(--text-3); font-size: 1rem; }
+
+.pin-error {
+  font-size: .76rem; color: var(--red); min-height: 20px;
+  text-align: center;
+}
+
+/* ────────────────────────────────────────
+   DASHBOARD SHELL
+──────────────────────────────────────── */
+#dashboard { display: none; min-height: 100vh; }
+
+.dash-layout { display: flex; min-height: 100vh; }
+
+/* ────────────────────────────────────────
+   SIDEBAR
+──────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed; top: 0; left: 0; bottom: 0;
+  display: flex; flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sb-header {
+  padding: 26px 18px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.sb-logo {
+  font-family: var(--serif);
+  font-size: 1.55rem; letter-spacing: .05em;
+  color: var(--text); margin-bottom: 2px;
+}
+.sb-logo span { color: var(--coral); }
+.sb-sub {
+  font-size: .6rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.sb-nav { flex: 1; padding: 10px 8px; }
+
+.sb-section {
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 14px 12px 5px;
+}
+
+.sb-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: .84rem; font-weight: 500;
+  color: var(--text-2); cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  margin-bottom: 1px;
+  user-select: none; border: none; background: none;
+  font-family: var(--sans); text-align: left; width: 100%;
+}
+.sb-item:hover { background: var(--surface-2); color: var(--text); }
+.sb-item.active { background: var(--coral-soft); color: var(--coral); }
+
+.sb-icon {
+  width: 18px; flex-shrink: 0; text-align: center;
+  font-size: .95rem; line-height: 1;
+}
+
+.sb-badge {
+  margin-left: auto;
+  background: var(--coral); color: #fff;
+  border-radius: 20px; font-size: .62rem; font-weight: 700;
+  padding: 2px 7px; min-width: 18px; text-align: center;
+  display: none;
+}
+.sb-badge.show { display: inline-block; }
+
+.sb-footer {
+  padding: 12px 8px; border-top: 1px solid var(--border);
+}
+.sb-logout {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: .84rem; font-weight: 500; color: var(--text-3);
+  cursor: pointer; background: none; border: none;
+  font-family: var(--sans); width: 100%; text-align: left;
+  transition: background 0.18s, color 0.18s;
+}
+.sb-logout:hover { background: var(--red-soft); color: var(--red); }
+
+/* ────────────────────────────────────────
+   MAIN AREA
+──────────────────────────────────────── */
+#main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  display: flex; flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Topbar */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+  flex-shrink: 0;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-title {
+  font-family: var(--serif);
+  font-size: 1.25rem; letter-spacing: .02em;
+  color: var(--text);
+}
+.topbar-right {
+  display: flex; align-items: center; gap: 16px;
+  font-size: .78rem; color: var(--text-2);
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  animation: livePulse 2.2s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(76,175,126,0.45); }
+  55%     { box-shadow: 0 0 0 6px rgba(76,175,126,0); }
+}
+
+/* Content */
+.content {
+  flex: 1; padding: 28px 32px;
+}
+
+/* ────────────────────────────────────────
+   SECTIONS
+──────────────────────────────────────── */
+.section { display: none; }
+.section.active {
+  display: block;
+  animation: fadeUp 0.28s var(--ease);
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.sec-header { margin-bottom: 22px; }
+.sec-title {
+  font-family: var(--serif); font-size: 1.85rem;
+  color: var(--text); line-height: 1.1; margin-bottom: 3px;
+}
+.sec-desc { font-size: .82rem; color: var(--text-2); }
+
+/* ────────────────────────────────────────
+   CARDS
+──────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ────────────────────────────────────────
+   FILTER ROW
+──────────────────────────────────────── */
+.filter-row {
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 16px;
+}
+.filter-spacer { flex: 1; }
+
+.filter-btn {
+  padding: 6px 15px; border-radius: 20px;
+  font-size: .78rem; font-weight: 500;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text-2); cursor: pointer;
+  font-family: var(--sans);
+  transition: background 0.16s, border-color 0.16s, color 0.16s;
+}
+.filter-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-md); }
+.filter-btn.active { background: var(--coral-soft); border-color: var(--coral); color: var(--coral); }
+
+/* ────────────────────────────────────────
+   BUTTONS
+──────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: var(--radius-sm);
+  font-family: var(--sans); font-size: .82rem; font-weight: 600;
+  cursor: pointer; border: none;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.14s;
+  letter-spacing: .02em; line-height: 1;
+}
+.btn-coral  { background: var(--coral); color: #fff; }
+.btn-coral:hover  { background: var(--coral-dark); box-shadow: 0 4px 18px var(--coral-glow); transform: translateY(-1px); }
+.btn-ghost  { background: transparent; color: var(--text-2); border: 1px solid var(--border-md); }
+.btn-ghost:hover  { background: var(--surface-2); color: var(--text); }
+.btn-danger { background: var(--red-soft); color: var(--red); border: 1px solid transparent; }
+.btn-danger:hover { background: var(--red); color: #fff; }
+.btn-ok     { background: var(--green-soft); color: var(--green); border: 1px solid transparent; }
+.btn-ok:hover     { background: var(--green); color: #fff; }
+.btn-sm { padding: 5px 11px; font-size: .76rem; }
+
+/* ────────────────────────────────────────
+   TABLE
+──────────────────────────────────────── */
+.table-wrap { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; }
+
+thead th {
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--text-3); text-align: left;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border-md);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: .86rem; color: var(--text-2);
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background 0.14s; }
+tbody tr:hover td { background: var(--surface-2); color: var(--text); }
+
+/* Status badges */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: .67rem; font-weight: 700; letter-spacing: .04em;
+  white-space: nowrap;
+}
+.badge-confirmed { background: var(--green-soft);  color: var(--green); }
+.badge-pending   { background: var(--yellow-soft); color: var(--yellow); }
+.badge-cancelled { background: var(--red-soft);    color: var(--red); }
+.badge-completed { background: rgba(244,237,227,0.07); color: var(--text-3); }
+
+/* Action cluster */
+.action-cluster { display: flex; gap: 5px; flex-wrap: wrap; }
+
+/* ────────────────────────────────────────
+   FORMS
+──────────────────────────────────────── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { margin-bottom: 14px; }
+
+label.field-label {
+  display: block; font-size: .68rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 6px;
+}
+
+input[type="text"], input[type="number"],
+input[type="date"], input[type="time"],
+select, textarea {
+  width: 100%; padding: 9px 13px;
+  background: var(--surface-2); border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-family: var(--sans); font-size: .88rem;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  -webkit-appearance: none; appearance: none;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px var(--coral-soft);
+}
+/* dark select arrow */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f4ede360' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+}
+select option { background: var(--surface-2); color: var(--text); }
+textarea { resize: vertical; min-height: 78px; }
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+}
+
+/* ────────────────────────────────────────
+   MODAL
+──────────────────────────────────────── */
+#modal-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(9, 18, 27, 0.82);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.28s;
+}
+#modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border-md);
+  border-radius: 18px;
+  padding: 26px 30px;
+  width: min(93vw, 500px);
+  max-height: 88vh; overflow-y: auto;
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.28s var(--ease);
+}
+#modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal-hd {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 22px;
+}
+.modal-title {
+  font-family: var(--serif); font-size: 1.45rem; color: var(--text);
+}
+.modal-x {
+  background: none; border: none; color: var(--text-3);
+  font-size: 1.2rem; cursor: pointer; padding: 3px 7px;
+  border-radius: 6px; font-family: var(--sans); line-height: 1;
+  transition: background 0.14s, color 0.14s;
+}
+.modal-x:hover { background: var(--surface-2); color: var(--text); }
+
+.modal-ft {
+  display: flex; gap: 10px; justify-content: flex-end;
+  margin-top: 20px; padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ────────────────────────────────────────
+   TOAST
+──────────────────────────────────────── */
+#toast {
+  position: fixed; bottom: 22px; right: 22px; z-index: 9999;
+  background: var(--surface-2); border: 1px solid var(--border-md);
+  border-radius: var(--radius-sm); padding: 11px 18px;
+  font-size: .82rem; color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,.45);
+  transform: translateY(70px); opacity: 0;
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+  pointer-events: none; max-width: 260px;
+}
+#toast.show   { transform: translateY(0); opacity: 1; }
+#toast.ok     { border-left: 3px solid var(--green); }
+#toast.err    { border-left: 3px solid var(--red); }
+
+/* ────────────────────────────────────────
+   TOGGLE SWITCH
+──────────────────────────────────────── */
+.toggle-wrap { display:flex; align-items:center; gap:8px; }
+.toggle { position:relative; width:36px; height:20px; flex-shrink:0; }
+.toggle input { opacity:0; width:0; height:0; position:absolute; }
+.toggle-track {
+  position:absolute; inset:0; cursor:pointer;
+  background:var(--surface-3); border-radius:20px;
+  transition:background .2s;
+}
+.toggle-track::before {
+  content:''; position:absolute;
+  width:14px; height:14px; border-radius:50%;
+  background:#fff; left:3px; top:3px;
+  transition:transform .2s;
+}
+.toggle input:checked + .toggle-track { background:var(--coral); }
+.toggle input:checked + .toggle-track::before { transform:translateX(16px); }
+.toggle-label { font-size:.74rem; color:var(--text-2); }
+
+/* ────────────────────────────────────────
+   KPI GRID
+──────────────────────────────────────── */
+.kpi-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:16px;
+}
+.kpi-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px;
+  position:relative; overflow:hidden;
+}
+.kpi-card::after {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:3px; background:var(--coral);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .55s var(--ease);
+}
+.kpi-card.loaded::after { transform:scaleX(1); }
+.kpi-label-text {
+  font-size:.62rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--text-3); margin-bottom:10px; display:block;
+}
+.kpi-val {
+  font-family:var(--serif); font-size:2.4rem;
+  color:var(--text); line-height:1; margin-bottom:4px;
+}
+.kpi-sub { font-size:.76rem; color:var(--text-2); }
+
+/* ────────────────────────────────────────
+   MENU GRID
+──────────────────────────────────────── */
+.menu-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(228px,1fr));
+  gap:14px;
+}
+.menu-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:16px 18px;
+  display:flex; flex-direction:column; gap:6px;
+  transition:border-color .18s, transform .18s;
+}
+.menu-card:hover { border-color:var(--border-md); transform:translateY(-2px); }
+.menu-card.inactive { opacity:.42; }
+.menu-card-cat {
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--coral);
+}
+.menu-card-name { font-weight:600; font-size:.94rem; color:var(--text); }
+.menu-card-price { font-family:var(--serif); font-size:1.35rem; color:var(--text); }
+.menu-card-desc { font-size:.79rem; color:var(--text-2); line-height:1.55; flex:1; }
+.menu-card-foot {
+  display:flex; align-items:center; gap:8px;
+  padding-top:10px; border-top:1px solid var(--border); margin-top:4px;
+}
+
+/* ────────────────────────────────────────
+   REVIEW CARDS
+──────────────────────────────────────── */
+.review-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:18px 20px;
+  margin-bottom:12px; transition:border-color .18s;
+}
+.review-card.flagged   { border-color:var(--yellow); }
+.review-card.responded { border-color:rgba(76,175,126,.35); }
+.review-top {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  margin-bottom:8px; gap:12px;
+}
+.review-author { font-weight:600; font-size:.9rem; color:var(--text); }
+.review-date { font-size:.74rem; color:var(--text-3); margin-top:1px; }
+.review-stars { color:var(--yellow); letter-spacing:2px; font-size:.88rem; flex-shrink:0; }
+.review-text { font-size:.86rem; color:var(--text-2); line-height:1.65; margin-bottom:12px; }
+.review-response {
+  background:var(--surface-2); border-left:3px solid var(--coral);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:10px 14px; font-size:.82rem; color:var(--text-2);
+  font-style:italic; margin-bottom:12px;
+}
+.review-response strong { color:var(--coral); font-style:normal; }
+.review-actions { display:flex; gap:7px; flex-wrap:wrap; }
+
+/* ────────────────────────────────────────
+   HOURS EDITOR
+──────────────────────────────────────── */
+.hours-row {
+  display:grid;
+  grid-template-columns:110px 1fr 1fr auto;
+  gap:10px 14px; align-items:center;
+  padding:12px 0; border-bottom:1px solid var(--border);
+}
+.hours-row:last-of-type { border-bottom:none; }
+.hours-day-name { font-weight:600; font-size:.88rem; color:var(--text); }
+.hours-today { color:var(--coral) !important; }
+
+/* ────────────────────────────────────────
+   PLACEHOLDER (coming-soon panels)
+──────────────────────────────────────── */
+.placeholder-panel {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 280px; gap: 12px;
+  background: var(--surface); border: 1px dashed var(--border-md);
+  border-radius: var(--radius);
+  color: var(--text-3);
+}
+.placeholder-icon { font-size: 2.2rem; opacity: .4; }
+.placeholder-label { font-size: .82rem; }
+
+/* ────────────────────────────────────────
+   RESPONSIVE
+──────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  #sidebar { transform: translateX(-236px); width: 236px; transition: transform 0.3s var(--ease); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .content { padding: 18px 16px; }
+  .topbar { padding: 0 16px; }
+  .form-row { grid-template-columns: 1fr; }
+  .hours-row { grid-template-columns: 80px 1fr 1fr; row-gap: 8px; }
+  .hours-row .toggle-wrap { grid-column: 1 / -1; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .menu-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="login-screen">
+  <div class="login-wrap">
+    <div class="login-eyebrow">Admin Portal</div>
+    <div class="login-logo">OL<span>I</span>O</div>
+    <div class="login-sub">Modern Mediterranean Bistro</div>
+
+    <div class="pin-dots">
+      <div class="pin-dot" id="pd0"></div>
+      <div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div>
+      <div class="pin-dot" id="pd3"></div>
+    </div>
+
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinKey('1')">1</button>
+      <button class="pin-key" onclick="pinKey('2')">2</button>
+      <button class="pin-key" onclick="pinKey('3')">3</button>
+      <button class="pin-key" onclick="pinKey('4')">4</button>
+      <button class="pin-key" onclick="pinKey('5')">5</button>
+      <button class="pin-key" onclick="pinKey('6')">6</button>
+      <button class="pin-key" onclick="pinKey('7')">7</button>
+      <button class="pin-key" onclick="pinKey('8')">8</button>
+      <button class="pin-key" onclick="pinKey('9')">9</button>
+      <button class="pin-key clr" onclick="pinClear()">⌫</button>
+      <button class="pin-key" onclick="pinKey('0')">0</button>
+      <button class="pin-key go" onclick="pinSubmit()">→</button>
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="dashboard">
+  <div class="dash-layout">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <div class="sb-header">
+        <div class="sb-logo">OL<span>I</span>O</div>
+        <div class="sb-sub">Admin Portal</div>
+      </div>
+
+      <nav class="sb-nav">
+        <div class="sb-section">Overview</div>
+        <button class="sb-item" data-sec="analytics" onclick="showSection('analytics', this)">
+          <span class="sb-icon">◈</span> Analytics
+        </button>
+
+        <div class="sb-section">Manage</div>
+        <button class="sb-item active" data-sec="reservations" onclick="showSection('reservations', this)">
+          <span class="sb-icon">◷</span> Reservations
+          <span class="sb-badge" id="pending-badge">0</span>
+        </button>
+        <button class="sb-item" data-sec="menu" onclick="showSection('menu', this)">
+          <span class="sb-icon">◑</span> Menu
+        </button>
+        <button class="sb-item" data-sec="reviews" onclick="showSection('reviews', this)">
+          <span class="sb-icon">◎</span> Reviews
+        </button>
+
+        <div class="sb-section">Settings</div>
+        <button class="sb-item" data-sec="hours" onclick="showSection('hours', this)">
+          <span class="sb-icon">◔</span> Hours
+        </button>
+      </nav>
+
+      <div class="sb-footer">
+        <button class="sb-logout" onclick="logout()">
+          <span class="sb-icon">↩</span> Log Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div id="main">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-title" id="topbar-title">Reservations</div>
+        </div>
+        <div class="topbar-right">
+          <div class="live-dot"></div>
+          <span id="topbar-date"></span>
+          <span style="color:var(--text-3)">|</span>
+          <span>Marakanda Restaurant</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+
+        <!-- ── RESERVATIONS ── -->
+        <section class="section active" id="sec-reservations">
+          <div class="sec-header">
+            <div class="sec-title">Reservations</div>
+            <div class="sec-desc">Manage all bookings and walk-ins</div>
+          </div>
+
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="setResFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="setResFilter('pending', this)">Pending</button>
+            <button class="filter-btn" onclick="setResFilter('confirmed', this)">Confirmed</button>
+            <button class="filter-btn" onclick="setResFilter('cancelled', this)">Cancelled</button>
+            <div class="filter-spacer"></div>
+            <button class="btn btn-coral btn-sm" onclick="openResModal(null)">+ New Reservation</button>
+          </div>
+
+          <div class="card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Guest</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Party</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="res-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── ANALYTICS ── -->
+        <section class="section" id="sec-analytics">
+          <div class="sec-header">
+            <div class="sec-title">Analytics</div>
+            <div class="sec-desc">Restaurant overview at a glance</div>
+          </div>
+          <div class="kpi-grid" id="kpi-grid"></div>
+        </section>
+
+        <!-- ── MENU ── -->
+        <section class="section" id="sec-menu">
+          <div class="sec-header">
+            <div class="sec-title">Menu</div>
+            <div class="sec-desc">Add, edit, and toggle dishes</div>
+          </div>
+          <div class="filter-row">
+            <button class="filter-btn active" onclick="setMenuFilter('all',this)">All</button>
+            <button class="filter-btn" onclick="setMenuFilter('appetizer',this)">Appetizers</button>
+            <button class="filter-btn" onclick="setMenuFilter('main',this)">Mains</button>
+            <button class="filter-btn" onclick="setMenuFilter('dessert',this)">Desserts</button>
+            <button class="filter-btn" onclick="setMenuFilter('drink',this)">Drinks</button>
+            <div class="filter-spacer"></div>
+            <button class="btn btn-coral btn-sm" onclick="openDishModal(null)">+ Add Dish</button>
+          </div>
+          <div class="menu-grid" id="menu-grid"></div>
+        </section>
+
+        <!-- ── REVIEWS ── -->
+        <section class="section" id="sec-reviews">
+          <div class="sec-header">
+            <div class="sec-title">Reviews</div>
+            <div class="sec-desc">Monitor and respond to guest feedback</div>
+          </div>
+          <div id="reviews-list"></div>
+        </section>
+
+        <!-- ── HOURS ── -->
+        <section class="section" id="sec-hours">
+          <div class="sec-header">
+            <div class="sec-title">Hours</div>
+            <div class="sec-desc">Edit your weekly schedule</div>
+          </div>
+          <div class="card" style="max-width:600px">
+            <div id="hours-grid"></div>
+            <div style="margin-top:20px">
+              <button class="btn btn-coral" onclick="saveHours()">Save Hours</button>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /content -->
+    </div><!-- /main -->
+
+  </div><!-- /dash-layout -->
+</div><!-- /dashboard -->
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div id="modal-overlay" onclick="closeModalBg(event)">
+  <div class="modal" id="modal-box">
+    <div class="modal-hd">
+      <div class="modal-title" id="modal-title">Reservation</div>
+      <button class="modal-x" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ TOAST ═══════════════ -->
+<div id="toast"></div>
+
+<script>
+/* ─────────────────────────────────────────────
+   DEFAULT DATA
+───────────────────────────────────────────── */
+const DEFAULT_RESERVATIONS = [
+  { id:1,  name:'Maria Santos',   date:'2026-05-25', time:'19:00', party:4, phone:'(215) 555-0142', status:'confirmed', notes:'Anniversary dinner'         },
+  { id:2,  name:'James Kowalski', date:'2026-05-25', time:'19:30', party:6, phone:'(215) 555-0189', status:'pending',   notes:'Window table requested'     },
+  { id:3,  name:'Rosa Delgado',   date:'2026-05-26', time:'18:00', party:2, phone:'(267) 555-0214', status:'confirmed', notes:''                            },
+  { id:4,  name:'Frank Russo',    date:'2026-05-25', time:'20:00', party:8, phone:'(215) 555-0367', status:'pending',   notes:'Birthday party — large group'},
+  { id:5,  name:'Chen Family',    date:'2026-05-26', time:'13:00', party:5, phone:'(215) 555-0421', status:'confirmed', notes:''                            },
+  { id:6,  name:'Sofia Mendes',   date:'2026-05-27', time:'20:30', party:3, phone:'(267) 555-0098', status:'pending',   notes:'Gluten-free required'        },
+  { id:7,  name:'David Park',     date:'2026-05-24', time:'19:00', party:2, phone:'(215) 555-0552', status:'completed', notes:''                            },
+  { id:8,  name:'Linda Greco',    date:'2026-05-23', time:'18:30', party:4, phone:'(267) 555-0715', status:'completed', notes:''                            },
+  { id:9,  name:'Tom Wagner',     date:'2026-05-22', time:'20:00', party:2, phone:'(215) 555-0819', status:'cancelled', notes:'Cancelled — weather'         },
+  { id:10, name:'Ana Ferreira',   date:'2026-05-28', time:'19:00', party:6, phone:'(267) 555-0337', status:'confirmed', notes:'Special occasion'            },
+];
+
+const DEFAULT_MENU = [
+  { id:1, name:'Mantu (Steamed Dumplings)', cat:'appetizer', price:9,  desc:'Beef & onion dumplings, garlic yogurt, dried mint.',              active:true },
+  { id:2, name:'Somsa',                     cat:'appetizer', price:6,  desc:'Baked lamb pastry, onion, cumin.',                                active:true },
+  { id:3, name:'Chuchvara Soup',            cat:'appetizer', price:10, desc:'Beef dumplings in clear broth with fresh herbs.',                 active:true },
+  { id:4, name:'Tuy Kabob',                 cat:'main',      price:18, desc:'Marinated grilled beef skewer, open flame.',                      active:true },
+  { id:5, name:'Lula Kebab',                cat:'main',      price:16, desc:'Ground beef kebab, charcoal grilled, flatbread.',                 active:true },
+  { id:6, name:'Grilled Lamb Chops',        cat:'main',      price:24, desc:'Marinated, grilled to order, plov & pickled veg.',                active:true },
+  { id:7, name:'Baklava',                   cat:'dessert',   price:7,  desc:'Flaky pastry, walnuts, honey syrup.',                             active:true },
+  { id:8, name:'Apricot Kompot',            cat:'drink',     price:4,  desc:'Traditional stewed-apricot drink, served chilled.',               active:true },
+];
+
+const DEFAULT_REVIEWS = [
+  { id:1, name:'Google Reviewer', stars:5, date:'2026-09-10', text:'Came for a family dinner and it was one of the best dining experiences we\'ve had in Philadelphia. Hospitality alone sets it apart.', flagged:false, responded:true,  response:'Thank you so much — we loved having your family with us. See you again soon! — Marakanda' },
+  { id:2, name:'Google Reviewer', stars:5, date:'2026-08-22', text:'A hidden gem — never had Uzbek cuisine before and the quality blew me away. Try the mantu and the tuy kabob. Apricot kompot is amazing.', flagged:false, responded:false, response:'' },
+  { id:3, name:'Anonymous',       stars:3, date:'2026-08-15', text:'Food was good but the portion size felt small for the price on the combo plate. Taste was solid, no complaints there.', flagged:true,  responded:false, response:'' },
+  { id:4, name:'Google Reviewer', stars:5, date:'2026-07-30', text:'Authentic, rich in flavor, beautifully prepared. Every dish felt like it came from a home kitchen in Uzbekistan.', flagged:false, responded:true,  response:'That means the world to us — thank you for the kind words! — Management' },
+  { id:5, name:'Google Reviewer', stars:5, date:'2026-07-11', text:'Can\'t find the words to describe how good this restaurant is. Strongly recommended.', flagged:false, responded:false, response:'' },
+  { id:6, name:'Google Reviewer', stars:4, date:'2026-06-28', text:'Great flavors and spices, everything tastes authentic and delicious. Warm, welcoming atmosphere.', flagged:false, responded:false, response:'' },
+];
+
+const DEFAULT_HOURS = [
+  { day:'Monday',    open:'10:00', close:'23:59', closed:false },
+  { day:'Tuesday',   open:'10:00', close:'23:59', closed:false },
+  { day:'Wednesday', open:'10:00', close:'23:59', closed:false },
+  { day:'Thursday',  open:'10:00', close:'23:59', closed:false },
+  { day:'Friday',    open:'10:00', close:'23:59', closed:false },
+  { day:'Saturday',  open:'10:00', close:'23:59', closed:false },
+  { day:'Sunday',    open:'10:00', close:'23:59', closed:false },
+];
+
+/* ─────────────────────────────────────────────
+   STATE
+───────────────────────────────────────────── */
+let reservations  = [];
+let menuItems     = [];
+let reviews       = [];
+let hours         = [];
+let resFilter     = 'all';
+let menuFilter    = 'all';
+let editingResId  = null;
+let editingDishId = null;
+
+function loadData() {
+  reservations = JSON.parse(localStorage.getItem('marakanda_res')   || 'null') || JSON.parse(JSON.stringify(DEFAULT_RESERVATIONS));
+  menuItems    = JSON.parse(localStorage.getItem('marakanda_menu')  || 'null') || JSON.parse(JSON.stringify(DEFAULT_MENU));
+  reviews      = JSON.parse(localStorage.getItem('marakanda_rev')   || 'null') || JSON.parse(JSON.stringify(DEFAULT_REVIEWS));
+  hours        = JSON.parse(localStorage.getItem('marakanda_hours') || 'null') || JSON.parse(JSON.stringify(DEFAULT_HOURS));
+}
+function saveData(key) {
+  if (!key || key === 'res')   localStorage.setItem('marakanda_res',   JSON.stringify(reservations));
+  if (!key || key === 'menu')  localStorage.setItem('marakanda_menu',  JSON.stringify(menuItems));
+  if (!key || key === 'rev')   localStorage.setItem('marakanda_rev',   JSON.stringify(reviews));
+  if (!key || key === 'hours') localStorage.setItem('marakanda_hours', JSON.stringify(hours));
+}
+
+/* ─────────────────────────────────────────────
+   PIN LOGIN
+───────────────────────────────────────────── */
+const PIN = '1234';
+let pinVal = '';
+
+function pinKey(d) {
+  if (pinVal.length >= 4) return;
+  pinVal += d;
+  syncDots();
+  if (pinVal.length === 4) setTimeout(pinSubmit, 130);
+}
+
+function pinClear() {
+  pinVal = pinVal.slice(0, -1);
+  syncDots();
+  document.getElementById('pin-error').textContent = '';
+}
+
+function syncDots() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('pd' + i).classList.toggle('on', i < pinVal.length);
+  }
+}
+
+function pinSubmit() {
+  if (pinVal === PIN) {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('dashboard').style.display = 'block';
+    initDashboard();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
+    shakePad();
+    pinVal = '';
+    syncDots();
+  }
+}
+
+function shakePad() {
+  const pad = document.querySelector('.pin-pad');
+  pad.style.animation = 'none';
+  pad.offsetHeight; // reflow
+  pad.style.animation = 'shake 0.38s ease';
+}
+
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
+function initDashboard() {
+  loadData();
+  setTopbarDate();
+  renderReservations();
+  updatePendingBadge();
+  renderMenu();
+  renderReviews();
+  renderHours();
+  renderAnalytics();
+}
+
+function setTopbarDate() {
+  const d = new Date();
+  document.getElementById('topbar-date').textContent =
+    d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+}
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────── */
+const SEC_TITLES = {
+  analytics:    'Analytics',
+  reservations: 'Reservations',
+  menu:         'Menu',
+  reviews:      'Reviews',
+  hours:        'Hours',
+};
+
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('topbar-title').textContent = SEC_TITLES[id] || id;
+}
+
+/* ─────────────────────────────────────────────
+   RESERVATIONS — RENDER
+───────────────────────────────────────────── */
+function renderReservations() {
+  let list = reservations;
+  if (resFilter !== 'all') list = list.filter(r => r.status === resFilter);
+
+  const tbody = document.getElementById('res-tbody');
+
+  if (!list.length) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center;padding:40px 14px;color:var(--text-3)">
+          No reservations found
+        </td>
+      </tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(r => `
+    <tr>
+      <td>
+        <strong style="color:var(--text);font-weight:600">${esc(r.name)}</strong>
+        ${r.notes ? `<br><span style="font-size:.74rem;color:var(--text-3)">${esc(r.notes)}</span>` : ''}
+      </td>
+      <td style="white-space:nowrap">${fmtDate(r.date)}</td>
+      <td style="white-space:nowrap">${fmtTime(r.time)}</td>
+      <td>${r.party}</td>
+      <td style="white-space:nowrap">${esc(r.phone)}</td>
+      <td><span class="badge badge-${r.status}">${r.status}</span></td>
+      <td>
+        <div class="action-cluster">
+          ${r.status === 'pending' ? `
+            <button class="btn btn-ok btn-sm" title="Confirm" onclick="setStatus(${r.id},'confirmed')">✓</button>
+            <button class="btn btn-danger btn-sm" title="Cancel" onclick="setStatus(${r.id},'cancelled')">✕</button>
+          ` : ''}
+          ${r.status === 'confirmed' ? `
+            <button class="btn btn-danger btn-sm" onclick="setStatus(${r.id},'cancelled')">Cancel</button>
+          ` : ''}
+          <button class="btn btn-ghost btn-sm" onclick="openResModal(${r.id})">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteRes(${r.id})">Del</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ─────────────────────────────────────────────
+   RESERVATIONS — ACTIONS
+───────────────────────────────────────────── */
+function setStatus(id, status) {
+  const r = reservations.find(x => x.id === id);
+  if (!r) return;
+  r.status = status;
+  saveData();
+  renderReservations();
+  updatePendingBadge();
+  toast('Reservation ' + status, 'ok');
+}
+
+function deleteRes(id) {
+  if (!confirm('Remove this reservation?')) return;
+  reservations = reservations.filter(r => r.id !== id);
+  saveData();
+  renderReservations();
+  updatePendingBadge();
+  toast('Reservation removed', 'ok');
+}
+
+function setResFilter(f, el) {
+  resFilter = f;
+  document.querySelectorAll('#sec-reservations .filter-btn')
+    .forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderReservations();
+}
+
+function updatePendingBadge() {
+  const n = reservations.filter(r => r.status === 'pending').length;
+  const badge = document.getElementById('pending-badge');
+  badge.textContent = n;
+  badge.classList.toggle('show', n > 0);
+}
+
+/* ─────────────────────────────────────────────
+   RESERVATION MODAL
+───────────────────────────────────────────── */
+function openResModal(id) {
+  editingResId = id;
+  const r = id !== null ? reservations.find(x => x.id === id) : null;
+  document.getElementById('modal-title').textContent = r ? 'Edit Reservation' : 'New Reservation';
+
+  const today = new Date().toISOString().split('T')[0];
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group">
+      <label class="field-label">Guest Name *</label>
+      <input type="text" id="f-name" value="${r ? esc(r.name) : ''}" placeholder="Full name">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="field-label">Date *</label>
+        <input type="date" id="f-date" value="${r ? r.date : today}">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Time *</label>
+        <input type="time" id="f-time" value="${r ? r.time : '19:00'}">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="field-label">Party Size</label>
+        <input type="number" id="f-party" min="1" max="30" value="${r ? r.party : 2}">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Phone</label>
+        <input type="text" id="f-phone" value="${r ? esc(r.phone) : ''}" placeholder="(215) 555-0000">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Notes</label>
+      <textarea id="f-notes" placeholder="Special requests, dietary needs…">${r ? esc(r.notes) : ''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Status</label>
+      <select id="f-status">
+        <option value="pending"   ${(!r || r.status === 'pending')   ? 'selected' : ''}>Pending</option>
+        <option value="confirmed" ${r && r.status === 'confirmed'    ? 'selected' : ''}>Confirmed</option>
+        <option value="cancelled" ${r && r.status === 'cancelled'    ? 'selected' : ''}>Cancelled</option>
+        <option value="completed" ${r && r.status === 'completed'    ? 'selected' : ''}>Completed</option>
+      </select>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-coral" onclick="saveRes()">Save Reservation</button>
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('f-name').focus(), 60);
+}
+
+function saveRes() {
+  const name   = document.getElementById('f-name').value.trim();
+  const date   = document.getElementById('f-date').value;
+  const time   = document.getElementById('f-time').value;
+  const party  = parseInt(document.getElementById('f-party').value) || 2;
+  const phone  = document.getElementById('f-phone').value.trim();
+  const notes  = document.getElementById('f-notes').value.trim();
+  const status = document.getElementById('f-status').value;
+
+  if (!name || !date || !time) {
+    toast('Name, date, and time are required', 'err');
+    return;
+  }
+
+  if (editingResId !== null) {
+    const r = reservations.find(x => x.id === editingResId);
+    if (r) Object.assign(r, { name, date, time, party, phone, notes, status });
+  } else {
+    const id = reservations.length ? Math.max(...reservations.map(r => r.id)) + 1 : 1;
+    reservations.push({ id, name, date, time, party, phone, notes, status });
+  }
+
+  saveData();
+  closeModal();
+  renderReservations();
+  updatePendingBadge();
+  toast('Reservation saved', 'ok');
+}
+
+/* ─────────────────────────────────────────────
+   MODAL HELPERS
+───────────────────────────────────────────── */
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  editingResId  = null;
+  editingDishId = null;
+}
+function closeModalBg(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+/* ─────────────────────────────────────────────
+   LOGOUT
+───────────────────────────────────────────── */
+function logout() {
+  document.getElementById('dashboard').style.display = 'none';
+  const ls = document.getElementById('login-screen');
+  ls.classList.remove('hidden');
+  ls.style.transition = 'none';
+  ls.offsetHeight;
+  ls.style.transition = '';
+  pinVal = ''; syncDots();
+  document.getElementById('pin-error').textContent = '';
+}
+
+/* ─────────────────────────────────────────────
+   UTILS
+───────────────────────────────────────────── */
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  const [y,m,d] = iso.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  return dt.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'2-digit' });
+}
+
+function fmtTime(t) {
+  if (!t) return '';
+  const [h, m] = t.split(':').map(Number);
+  const ap = h >= 12 ? 'PM' : 'AM';
+  return `${h % 12 || 12}:${String(m).padStart(2,'0')} ${ap}`;
+}
+
+let toastTimer;
+function toast(msg, type = '') {
+  clearTimeout(toastTimer);
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show' + (type ? ' ' + type : '');
+  toastTimer = setTimeout(() => { el.className = ''; }, 2800);
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────
+   ANALYTICS
+───────────────────────────────────────────── */
+function renderAnalytics() {
+  const today   = new Date().toISOString().split('T')[0];
+  const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
+  const thisWeek = reservations.filter(r => r.date >= weekAgo && r.date <= today && r.status !== 'cancelled');
+  const avgParty = thisWeek.length
+    ? (thisWeek.reduce((s, r) => s + r.party, 0) / thisWeek.length).toFixed(1)
+    : '—';
+  const topDish    = menuItems.filter(m => m.active)[0];
+  const totalRev   = reviews.length;
+  const avgStars   = totalRev
+    ? (reviews.reduce((s, r) => s + r.stars, 0) / totalRev).toFixed(1)
+    : '—';
+
+  const kpis = [
+    { label:'Reservations This Week', val: thisWeek.length,           sub: reservations.filter(r => r.status === 'pending').length + ' pending approval' },
+    { label:'Avg Party Size',         val: avgParty,                   sub: 'guests per reservation' },
+    { label:'Top Dish',               val: topDish ? topDish.name.split(' ').slice(0, 2).join(' ') : '—', sub: topDish ? topDish.cat : '' },
+    { label:'Total Reviews',          val: totalRev,                   sub: avgStars + ' avg stars' },
+  ];
+
+  const grid = document.getElementById('kpi-grid');
+  grid.innerHTML = kpis.map(k => `
+    <div class="kpi-card">
+      <span class="kpi-label-text">${k.label}</span>
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>
+  `).join('');
+
+  setTimeout(() => {
+    document.querySelectorAll('#kpi-grid .kpi-card').forEach((c, i) => {
+      setTimeout(() => c.classList.add('loaded'), i * 100);
+    });
+  }, 80);
+}
+
+/* ─────────────────────────────────────────────
+   MENU
+───────────────────────────────────────────── */
+const CAT_LABEL = { appetizer:'Appetizer', main:'Main', dessert:'Dessert', drink:'Drink' };
+
+function renderMenu() {
+  const list = menuFilter === 'all' ? menuItems : menuItems.filter(m => m.cat === menuFilter);
+  const grid = document.getElementById('menu-grid');
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-3)">No dishes in this category</div>';
+    return;
+  }
+  grid.innerHTML = list.map(m => `
+    <div class="menu-card ${m.active ? '' : 'inactive'}">
+      <div class="menu-card-cat">${CAT_LABEL[m.cat] || m.cat}</div>
+      <div class="menu-card-name">${esc(m.name)}</div>
+      <div class="menu-card-price">$${m.price}</div>
+      <div class="menu-card-desc">${esc(m.desc)}</div>
+      <div class="menu-card-foot">
+        <label class="toggle-wrap" style="flex:1">
+          <label class="toggle">
+            <input type="checkbox" ${m.active ? 'checked' : ''} onchange="toggleDish(${m.id},this.checked)">
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">${m.active ? 'Active' : 'Hidden'}</span>
+        </label>
+        <button class="btn btn-ghost btn-sm" onclick="openDishModal(${m.id})">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteDish(${m.id})">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setMenuFilter(f, el) {
+  menuFilter = f;
+  document.querySelectorAll('#sec-menu .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderMenu();
+}
+
+function toggleDish(id, active) {
+  const d = menuItems.find(m => m.id === id);
+  if (!d) return;
+  d.active = active;
+  saveData('menu');
+  renderMenu();
+}
+
+function deleteDish(id) {
+  if (!confirm('Remove this dish?')) return;
+  menuItems = menuItems.filter(m => m.id !== id);
+  saveData('menu');
+  renderMenu();
+  toast('Dish removed', 'ok');
+}
+
+function openDishModal(id) {
+  editingDishId = id;
+  const d = id !== null ? menuItems.find(m => m.id === id) : null;
+  document.getElementById('modal-title').textContent = d ? 'Edit Dish' : 'Add Dish';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="form-group">
+      <label class="field-label">Dish Name *</label>
+      <input type="text" id="fd-name" value="${d ? esc(d.name) : ''}" placeholder="e.g. Grilled Branzino">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="field-label">Price ($)</label>
+        <input type="number" id="fd-price" min="1" step="1" value="${d ? d.price : ''}">
+      </div>
+      <div class="form-group">
+        <label class="field-label">Category</label>
+        <select id="fd-cat">
+          <option value="appetizer" ${d && d.cat === 'appetizer' ? 'selected' : ''}>Appetizer</option>
+          <option value="main"      ${d && d.cat === 'main'      ? 'selected' : ''}>Main</option>
+          <option value="dessert"   ${d && d.cat === 'dessert'   ? 'selected' : ''}>Dessert</option>
+          <option value="drink"     ${d && d.cat === 'drink'     ? 'selected' : ''}>Drink</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Description</label>
+      <textarea id="fd-desc" placeholder="Short description…">${d ? esc(d.desc) : ''}</textarea>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-coral" onclick="saveDish()">Save Dish</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('fd-name').focus(), 60);
+}
+
+function saveDish() {
+  const name  = document.getElementById('fd-name').value.trim();
+  const price = parseFloat(document.getElementById('fd-price').value);
+  const cat   = document.getElementById('fd-cat').value;
+  const desc  = document.getElementById('fd-desc').value.trim();
+  if (!name || isNaN(price)) { toast('Name and price are required', 'err'); return; }
+  if (editingDishId !== null) {
+    const d = menuItems.find(m => m.id === editingDishId);
+    if (d) Object.assign(d, { name, price, cat, desc });
+  } else {
+    const id = menuItems.length ? Math.max(...menuItems.map(m => m.id)) + 1 : 1;
+    menuItems.push({ id, name, price, cat, desc, active: true });
+  }
+  saveData('menu');
+  closeModal();
+  renderMenu();
+  toast('Dish saved', 'ok');
+}
+
+/* ─────────────────────────────────────────────
+   REVIEWS
+───────────────────────────────────────────── */
+function renderReviews() {
+  const el = document.getElementById('reviews-list');
+  if (!reviews.length) {
+    el.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text-3)">No reviews yet</div>';
+    return;
+  }
+  el.innerHTML = reviews.map(r => `
+    <div class="review-card ${r.flagged ? 'flagged' : ''} ${r.responded ? 'responded' : ''}">
+      <div class="review-top">
+        <div>
+          <div class="review-author">${esc(r.name)}</div>
+          <div class="review-date">${fmtDate(r.date)}</div>
+        </div>
+        <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+      </div>
+      <div class="review-text">${esc(r.text)}</div>
+      ${r.response ? `<div class="review-response"><strong>Marakanda:</strong> ${esc(r.response)}</div>` : ''}
+      <div class="review-actions">
+        <button class="btn btn-ghost btn-sm" onclick="openResponseModal(${r.id})">${r.response ? 'Edit Response' : 'Respond'}</button>
+        <button class="btn btn-sm ${r.responded ? 'btn-ok' : 'btn-ghost'}" onclick="toggleResponded(${r.id})">
+          ${r.responded ? '✓ Responded' : 'Mark Responded'}
+        </button>
+        <button class="btn btn-sm ${r.flagged ? 'btn-danger' : 'btn-ghost'}" onclick="toggleFlag(${r.id})">
+          ${r.flagged ? '⚑ Flagged' : '⚐ Flag'}
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteReview(${r.id})">Remove</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFlag(id) {
+  const r = reviews.find(x => x.id === id);
+  if (!r) return;
+  r.flagged = !r.flagged;
+  saveData('rev');
+  renderReviews();
+}
+
+function toggleResponded(id) {
+  const r = reviews.find(x => x.id === id);
+  if (!r) return;
+  r.responded = !r.responded;
+  saveData('rev');
+  renderReviews();
+}
+
+function deleteReview(id) {
+  if (!confirm('Remove this review?')) return;
+  reviews = reviews.filter(r => r.id !== id);
+  saveData('rev');
+  renderReviews();
+  renderAnalytics();
+  toast('Review removed', 'ok');
+}
+
+function openResponseModal(id) {
+  const r = reviews.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById('modal-title').textContent = 'Respond to Review';
+  document.getElementById('modal-body').innerHTML = `
+    <div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:14px;margin-bottom:18px">
+      <div class="review-stars" style="margin-bottom:6px">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+      <div style="font-size:.84rem;color:var(--text-2);font-style:italic">"${esc(r.text)}"</div>
+    </div>
+    <div class="form-group">
+      <label class="field-label">Your Response</label>
+      <textarea id="fr-response" style="min-height:100px" placeholder="Write a thoughtful response…">${r.response ? esc(r.response) : ''}</textarea>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-coral" onclick="saveResponse(${id})">Post Response</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('fr-response').focus(), 60);
+}
+
+function saveResponse(id) {
+  const response = document.getElementById('fr-response').value.trim();
+  const r = reviews.find(x => x.id === id);
+  if (r) { r.response = response; r.responded = !!response; }
+  saveData('rev');
+  closeModal();
+  renderReviews();
+  toast('Response saved', 'ok');
+}
+
+/* ─────────────────────────────────────────────
+   HOURS
+───────────────────────────────────────────── */
+function renderHours() {
+  const todayIdx  = (new Date().getDay() + 6) % 7; // Mon=0
+  const dayNames  = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  const todayName = dayNames[todayIdx];
+
+  document.getElementById('hours-grid').innerHTML = hours.map(h => `
+    <div class="hours-row">
+      <div class="hours-day-name ${h.day === todayName ? 'hours-today' : ''}">${h.day.slice(0,3)}${h.day === todayName ? ' ·' : ''}</div>
+      <input type="time" id="ho-${h.day}" value="${h.open}"  ${h.closed ? 'disabled' : ''} style="width:100%">
+      <input type="time" id="hc-${h.day}" value="${h.close}" ${h.closed ? 'disabled' : ''} style="width:100%">
+      <label class="toggle-wrap">
+        <label class="toggle">
+          <input type="checkbox" id="hx-${h.day}" ${h.closed ? 'checked' : ''} onchange="toggleHoursClosed('${h.day}',this.checked)">
+          <span class="toggle-track"></span>
+        </label>
+        <span class="toggle-label">Closed</span>
+      </label>
+    </div>
+  `).join('');
+}
+
+function toggleHoursClosed(day, closed) {
+  document.getElementById('ho-' + day).disabled = closed;
+  document.getElementById('hc-' + day).disabled = closed;
+}
+
+function saveHours() {
+  hours.forEach(h => {
+    h.open   = document.getElementById('ho-' + h.day).value;
+    h.close  = document.getElementById('hc-' + h.day).value;
+    h.closed = document.getElementById('hx-' + h.day).checked;
+  });
+  saveData('hours');
+  toast('Hours saved!', 'ok');
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+(function injectKeyframes() {
+  const s = document.createElement('style');
+  s.textContent = `
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      18%     { transform: translateX(-9px); }
+      36%     { transform: translateX(9px); }
+      54%     { transform: translateX(-6px); }
+      72%     { transform: translateX(4px); }
+    }
+  `;
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
