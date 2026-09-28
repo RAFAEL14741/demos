@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L A Nails Salon — Staff Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --lilac:#F3EEF9;--lilac-deep:#EAE0F5;--white:#FFFFFF;
+  --plum:#5B3A6E;--plum-dark:#472D57;--plum-ink:#3A2547;
+  --gold:#C9A227;--gold-soft:#E2C976;
+  --ink:#2B2438;--muted:#7A6E88;--line:#E1D5EF;
+  --display:'Fraunces',Georgia,serif;--body:'Mulish',sans-serif;
+}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--lilac);color:var(--ink);font-family:var(--body);font-weight:400;line-height:1.6;overflow-x:hidden;min-height:100vh}
+
+/* ---------- login ---------- */
+#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(160deg,var(--plum-ink),var(--plum));display:flex;align-items:center;justify-content:center;padding:1rem}
+.login-box{text-align:center;padding:2.8rem 2rem;width:min(360px,100%);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:20px;backdrop-filter:blur(6px)}
+.login-logo{font-family:var(--display);font-size:1.7rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.login-logo span{color:var(--gold-soft);font-style:italic;font-weight:600}
+.login-sub{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:2.2rem}
+.pin-display{font-family:var(--display);font-size:2.6rem;font-weight:700;color:var(--gold-soft);letter-spacing:.35em;min-height:3.2rem;margin-bottom:1.8rem}
+.pin-grid{display:grid;grid-template-columns:repeat(3,64px);gap:.6rem;justify-content:center;margin-bottom:.9rem}
+.pin-btn{height:64px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;color:#fff;font-family:var(--display);font-size:1.4rem;font-weight:700;cursor:pointer;transition:background .15s,transform .1s}
+.pin-btn:hover{background:var(--gold);color:var(--plum-ink)}
+.pin-btn:active{transform:scale(.94)}
+.pin-clear{margin-top:.4rem;font-size:.72rem;color:rgba(255,255,255,.55);cursor:pointer;letter-spacing:.12em;text-transform:uppercase}
+.pin-clear:hover{color:var(--gold-soft)}
+
+/* ---------- dashboard ---------- */
+#dashboard{display:none}
+.topbar{background:var(--plum-ink);padding:1rem 1.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem}
+.topbar-logo{font-family:var(--display);font-size:1.25rem;font-weight:700;color:#fff;line-height:1.1}
+.topbar-logo span{color:var(--gold-soft);font-weight:600;font-style:italic}
+.topbar-right{display:flex;align-items:center;gap:1.2rem}
+.topbar-date{font-size:.82rem;color:rgba(255,255,255,.6)}
+.logout-btn{font-size:.72rem;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;background:none;font-weight:700;transition:color .2s}
+.logout-btn:hover{color:var(--gold-soft)}
+.dash{padding:1.8rem 1.8rem 2.4rem;max-width:1280px;margin:0 auto}
+
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.6rem}
+.kpi{background:var(--white);padding:1.35rem 1.3rem;border-radius:14px;border-top:3px solid var(--plum);box-shadow:0 10px 26px rgba(91,58,110,.08)}
+.kpi-val{font-family:var(--display);font-size:2.1rem;font-weight:700;color:var(--ink);line-height:1}
+.kpi-val small{font-size:1rem;font-weight:600;color:var(--muted);margin-left:.1rem}
+.kpi-label{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.45rem;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:1.1rem;align-items:start}
+.card{background:var(--white);padding:1.5rem 1.4rem;border-radius:14px;border:1px solid var(--line);margin-bottom:1.1rem}
+.card-title{font-family:var(--display);font-size:1.08rem;font-weight:700;color:var(--ink);margin-bottom:1.1rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap}
+.add-btn{background:var(--plum);color:#fff;border:none;padding:.55rem 1.15rem;border-radius:999px;font-family:var(--body);font-weight:700;font-size:.78rem;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
+.add-btn:hover{background:var(--plum-dark);transform:translateY(-1px)}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.6rem .5rem;text-align:left;border-bottom:2px solid var(--lilac);white-space:nowrap}
+td{font-size:.85rem;padding:.65rem .5rem;border-bottom:1px solid var(--lilac);color:var(--ink);white-space:nowrap}
+.status{font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.32rem .65rem;border-radius:999px;display:inline-block}
+.status.confirmed{background:#DCEFE3;color:#1E6B45}
+.status.pending{background:#FBF0D9;color:#8A6414}
+.status.completed{background:#EFE9F5;color:var(--muted)}
+
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.28rem}
+.cal-head{font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding:.3rem 0;font-weight:700}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:600;color:var(--ink);border-radius:8px;position:relative}
+.cal-day.today{background:var(--plum);color:#fff}
+.cal-day.has-appt::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);position:absolute;bottom:4px}
+.cal-day.today.has-appt::after{background:#fff}
+.cal-day.empty{visibility:hidden}
+
+.svc-row{display:flex;justify-content:space-between;align-items:center;padding:.62rem 0;border-bottom:1px solid var(--lilac);gap:.5rem}
+.svc-row:last-child{border-bottom:none}
+.svc-name{font-size:.85rem;font-weight:600;color:var(--ink)}
+.svc-price{font-size:.85rem;font-weight:700;color:var(--plum);font-family:var(--display)}
+.svc-edit{font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--plum);background:none;border:none;cursor:pointer;padding:.2rem .3rem;transition:color .2s}
+.svc-edit:hover{color:var(--plum-dark);text-decoration:underline}
+
+.hours-list{list-style:none}
+.hours-list li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--lilac);font-size:.83rem}
+.hours-list li:last-child{border-bottom:none}
+.hours-list li span:first-child{font-weight:700;color:var(--ink)}
+.hours-list li span:last-child{color:var(--muted)}
+.hours-list li.today span:first-child,.hours-list li.today span:last-child{color:var(--plum)}
+
+.dash-footer{background:var(--plum-ink);color:rgba(255,255,255,.75);padding:1.3rem 1.6rem;border-radius:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.7rem;font-size:.85rem}
+.dash-footer a{color:var(--gold-soft);font-weight:700;text-decoration:none}
+.dash-footer a:hover{text-decoration:underline}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);background:var(--plum-ink);color:#fff;padding:.85rem 1.4rem;border-radius:999px;font-size:.82rem;font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:700;box-shadow:0 14px 34px rgba(0,0,0,.28);max-width:88vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- modal (matches customer demo) ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(58,37,71,.72);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:18px;width:100%;max-width:520px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.32)}
+.modal-header{padding:1.6rem 1.7rem .8rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-header h3{font-family:var(--display);font-size:1.25rem;font-weight:700;color:var(--ink)}
+.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem}
+.modal-steps{display:flex;gap:.32rem;padding:0 1.7rem .9rem;flex-shrink:0}
+.step-dot{flex:1;height:4px;background:var(--line);border-radius:2px;transition:background .3s}
+.step-dot.active{background:var(--gold)}
+.step-dot.done{background:var(--plum)}
+.modal-body{padding:.2rem 1.7rem 1.5rem;overflow-y:auto;flex:1}
+.step-title{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.service-option{border:2px solid var(--line);border-radius:10px;padding:.85rem;cursor:pointer;transition:all .2s}
+.service-option:hover,.service-option.selected{border-color:var(--plum);background:var(--lilac)}
+.service-option .svc-name{font-weight:700;font-size:.86rem;color:var(--ink)}
+.service-option .svc-price{font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--plum);margin-top:.25rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.6rem}
+.cal-day-name{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.3rem 0}
+.calendar-grid .cal-day{text-align:center;padding:.5rem 0;border-radius:8px;font-size:.84rem;cursor:pointer;transition:all .2s;aspect-ratio:auto}
+.calendar-grid .cal-day:hover:not(.disabled){background:var(--plum);color:#fff}
+.calendar-grid .cal-day.selected{background:var(--plum);color:#fff;font-weight:700}
+.calendar-grid .cal-day.disabled{color:#CBBEDB;pointer-events:none}
+.calendar-grid .cal-day.empty{visibility:hidden}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:.6rem}
+.time-slot{border:2px solid var(--line);border-radius:8px;padding:.6rem;text-align:center;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
+.time-slot:hover,.time-slot.selected{border-color:var(--plum);background:var(--lilac);color:var(--plum)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.74rem;font-weight:700;letter-spacing:.06em;color:var(--ink);margin-bottom:.4rem}
+.form-group input{width:100%;border:2px solid var(--line);border-radius:8px;padding:.7rem .9rem;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--lilac);outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--plum)}
+.modal-footer{padding:1rem 1.7rem;border-top:1px solid var(--line);display:flex;gap:.6rem;justify-content:flex-end;flex-shrink:0;position:sticky;bottom:0;background:var(--white)}
+.btn-back{background:none;border:2px solid var(--line);color:var(--muted);padding:.6rem 1.1rem;border-radius:999px;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-back:hover{border-color:var(--plum);color:var(--plum)}
+.btn-next{background:var(--plum);color:#fff;border:none;padding:.6rem 1.4rem;border-radius:999px;font-size:.86rem;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap}
+.btn-next:hover{background:var(--plum-dark)}
+.confirm-screen{text-align:center;padding:.6rem 0}
+.confirm-icon{font-size:2.8rem;margin-bottom:.8rem}
+.confirm-screen h3{font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:.5rem}
+.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.9rem}
+.confirm-detail{background:var(--lilac);border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0;text-align:left}
+.confirm-detail div{display:flex;justify-content:space-between;gap:1rem;padding:.32rem 0;font-size:.85rem;border-bottom:1px solid var(--line)}
+.confirm-detail div:last-child{border:none}
+.confirm-detail span:first-child{color:var(--muted);font-weight:600}
+.confirm-detail span:last-child{color:var(--ink);font-weight:700;text-align:right}
+
+@media(max-width:900px){
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .dash{padding:1.2rem 1.1rem 2rem}
+  .topbar{padding:.9rem 1.1rem}
+}
+@media(max-width:420px){
+  table{min-width:0}
+  th,td{padding:.5rem .35rem;font-size:.76rem}
+  .service-grid{grid-template-columns:1fr}
+  .time-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<!-- PIPELINE DATA NOTES (internal)
+This staff admin dashboard reuses the palette, fonts, hours and pricing established in la-nails-salon-demo.html.
+[CONFIRM BEFORE VISIT] Hours are an assumption, not verified on Google: Mon-Sat 9:30 AM-7:00 PM, Sun 11:00 AM-5:00 PM. Salon is open all 7 days; confirm with owner before publishing.
+[CONFIRM BEFORE VISIT] Service names and prices are Philly-market estimates, not sourced from the business: Classic Pedicure $32, Gel Pedicure $45, Gel Manicure $35, Liquid Gel Full Set $55, Liquid Gel Fill-In $40, Dip Powder Full Set $50, Dip Powder Fill-In $38, Nail Art Add-On from $5.
+[CONFIRM BEFORE VISIT] Google Rating (4.5) and review count (119) shown in the KPI row are from the earlier verified Google Maps lookup — re-check before relying on them for a live dashboard.
+All client names, phone numbers and appointment rows in this admin view are fictitious sample data for demo purposes only — not real customers.
+This is an internal staff tool (PIN-gated); it is not linked from the public marketing site and contains no third-party booking platform references.
+-->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">L A Nails <span>Staff</span></div>
+    <div class="login-sub">Staff Access &middot; Enter PIN</div>
+    <div class="pin-display" id="pinDisplay">____</div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="enterPin('1')">1</button>
+      <button class="pin-btn" onclick="enterPin('2')">2</button>
+      <button class="pin-btn" onclick="enterPin('3')">3</button>
+      <button class="pin-btn" onclick="enterPin('4')">4</button>
+      <button class="pin-btn" onclick="enterPin('5')">5</button>
+      <button class="pin-btn" onclick="enterPin('6')">6</button>
+      <button class="pin-btn" onclick="enterPin('7')">7</button>
+      <button class="pin-btn" onclick="enterPin('8')">8</button>
+      <button class="pin-btn" onclick="enterPin('9')">9</button>
+      <button class="pin-btn" onclick="enterPin('0')" style="grid-column:2">0</button>
+    </div>
+    <div class="pin-clear" onclick="clearPin()">Clear &times;</div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-logo">L A Nails Salon <span>Admin</span></div>
+    <div class="topbar-right">
+      <div class="topbar-date" id="topbarDate"></div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+  <div class="dash">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-val" id="kpiTodayVal">8</div><div class="kpi-label">Today's Appointments</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpiWeekVal">41</div><div class="kpi-label">This Week</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpiRevenueVal">$1,845</div><div class="kpi-label">Est. Revenue This Week</div></div>
+      <div class="kpi"><div class="kpi-val">4.5<small>&#9733;</small></div><div class="kpi-label">Google Rating &middot; 119 Reviews</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Upcoming Appointments <button class="add-btn" onclick="openBooking()">+ Add Booking</button></div>
+        <div class="table-wrap">
+          <table id="apptTable">
+            <thead><tr><th>Time</th><th>Client</th><th>Service</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>9:30 AM</td><td>Gianna D.</td><td>Gel Manicure</td><td><span class="status completed">Completed</span></td></tr>
+              <tr><td>10:15 AM</td><td>Maria G.</td><td>Classic Pedicure</td><td><span class="status completed">Completed</span></td></tr>
+              <tr><td>11:00 AM</td><td>Colleen O.</td><td>Dip Powder Full Set</td><td><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td>12:30 PM</td><td>Rachel S.</td><td>Liquid Gel Fill-In</td><td><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td>1:45 PM</td><td>Anthony M.</td><td>Gel Pedicure</td><td><span class="status pending">Pending</span></td></tr>
+              <tr><td>3:00 PM</td><td>Jasmine W.</td><td>Liquid Gel Full Set</td><td><span class="status confirmed">Confirmed</span></td></tr>
+              <tr><td>4:30 PM</td><td>Mei C.</td><td>Nail Art Add-On</td><td><span class="status pending">Pending</span></td></tr>
+              <tr><td>6:00 PM</td><td>Linh T.</td><td>Dip Powder Fill-In</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">This Month</div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <div class="card" id="servicesPanel">
+          <div class="card-title">Services &amp; Pricing</div>
+          <div class="svc-row"><span class="svc-name">Classic Pedicure</span><span class="svc-price">$32</span><button class="svc-edit" onclick="editPrice(0)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Gel Pedicure</span><span class="svc-price">$45</span><button class="svc-edit" onclick="editPrice(1)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Gel Manicure</span><span class="svc-price">$35</span><button class="svc-edit" onclick="editPrice(2)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Liquid Gel Full Set</span><span class="svc-price">$55</span><button class="svc-edit" onclick="editPrice(3)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Liquid Gel Fill-In</span><span class="svc-price">$40</span><button class="svc-edit" onclick="editPrice(4)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Dip Powder Full Set</span><span class="svc-price">$50</span><button class="svc-edit" onclick="editPrice(5)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Dip Powder Fill-In</span><span class="svc-price">$38</span><button class="svc-edit" onclick="editPrice(6)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Nail Art Add-On</span><span class="svc-price">from $5</span><button class="svc-edit" onclick="editPrice(7)">Edit</button></div>
+        </div>
+        <div class="card" id="hoursPanel">
+          <div class="card-title">Weekly Hours</div>
+          <ul class="hours-list">
+            <li data-days="1"><span>Monday</span><span>9:30 AM – 7:00 PM</span></li>
+            <li data-days="2"><span>Tuesday</span><span>9:30 AM – 7:00 PM</span></li>
+            <li data-days="3"><span>Wednesday</span><span>9:30 AM – 7:00 PM</span></li>
+            <li data-days="4"><span>Thursday</span><span>9:30 AM – 7:00 PM</span></li>
+            <li data-days="5"><span>Friday</span><span>9:30 AM – 7:00 PM</span></li>
+            <li data-days="6"><span>Saturday</span><span>9:30 AM – 7:00 PM</span></li>
+            <li data-days="0"><span>Sunday</span><span>11:00 AM – 5:00 PM</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="dash-footer">
+      <div>L A Nails Salon &middot; 9831 Bustleton Ave, Philadelphia PA 19115</div>
+      <a href="tel:2156775227">(215) 677-5227</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add a Booking</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script>
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+/* ===== PIN login ===== */
+let pin='';
+function enterPin(d){
+  if(pin.length>=4)return;
+  pin+=d;
+  document.getElementById('pinDisplay').textContent=pin.replace(/./g,'●').padEnd(4,'_');
+  if(pin.length===4){
+    setTimeout(()=>{
+      if(pin==='1234'){document.getElementById('loginScreen').style.display='none';document.getElementById('dashboard').style.display='block';initDash();}
+      else{pin='';document.getElementById('pinDisplay').textContent='____';alert('Incorrect PIN');}
+    },200);
+  }
+}
+function clearPin(){pin='';document.getElementById('pinDisplay').textContent='____'}
+function logout(){document.getElementById('loginScreen').style.display='flex';document.getElementById('dashboard').style.display='none';clearPin();}
+
+/* ===== dashboard init ===== */
+function initDash(){
+  const now=new Date();
+  document.getElementById('topbarDate').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  buildCal(now);
+  highlightToday(now);
+}
+function highlightToday(now){
+  const day=now.getDay();
+  document.querySelectorAll('#hoursPanel li').forEach(li=>{
+    const days=(li.getAttribute('data-days')||'').split(',').map(Number);
+    if(days.includes(day))li.classList.add('today');
+  });
+}
+function buildCal(now){
+  const cal=document.getElementById('calGrid');
+  cal.innerHTML='';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{
+    const h=document.createElement('div');h.className='cal-head';h.textContent=d;cal.appendChild(h);
+  });
+  const y=now.getFullYear(),m=now.getMonth();
+  const first=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const apptDays=[2,5,9,12,15,18,21,24,27].filter(d=>d<=daysInMonth);
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day empty';cal.appendChild(e);}
+  for(let d=1;d<=daysInMonth;d++){
+    const e=document.createElement('div');e.className='cal-day';e.textContent=d;
+    if(d===now.getDate())e.classList.add('today');
+    if(apptDays.includes(d))e.classList.add('has-appt');
+    cal.appendChild(e);
+  }
+}
+function markCalDot(d){
+  document.querySelectorAll('#calGrid .cal-day').forEach(el=>{
+    if(!el.classList.contains('empty')&&parseInt(el.textContent.trim(),10)===d)el.classList.add('has-appt');
+  });
+}
+
+/* ===== toast ===== */
+function toast(msg){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);}
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+/* ===== services / price editing ===== */
+function editPrice(i){
+  const name=SERVICES[i][0],price=SERVICES[i][1];
+  const current=(price.match(/[\d.]+/)||[''])[0];
+  const input=prompt('New price for '+name+' (numbers only):',current);
+  if(input===null)return;
+  const n=parseFloat(input);
+  if(isNaN(n)||n<=0){alert('Please enter a valid price.');return;}
+  const formatted=/^from/i.test(price.trim())?('from $'+n):('$'+n);
+  SERVICES[i][1]=formatted;
+  const rows=document.querySelectorAll('#servicesPanel .svc-row');
+  if(rows[i])rows[i].querySelector('.svc-price').textContent=formatted;
+  toast(name+' updated to '+formatted);
+}
+
+/* ===== KPI + schedule helpers ===== */
+let kpiToday=8,kpiWeek=41,kpiRevenue=1845;
+function timeToMinutes(t){
+  const m=t.match(/(\d+):(\d+)\s*(AM|PM)/i);if(!m)return 0;
+  let h=parseInt(m[1],10);const min=parseInt(m[2],10);const ap=m[3].toUpperCase();
+  if(ap==='PM'&&h!==12)h+=12;if(ap==='AM'&&h===12)h=0;return h*60+min;
+}
+function formatClientName(full){
+  const parts=String(full).trim().split(/\s+/);
+  if(parts.length===1)return esc(parts[0]);
+  return esc(parts[0])+' '+esc((parts[parts.length-1][0]||'').toUpperCase())+'.';
+}
+function insertTodayRow(time,client,service){
+  const tbody=document.querySelector('#apptTable tbody');
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td>${esc(time)}</td><td>${client}</td><td>${esc(service)}</td><td><span class="status confirmed">Confirmed</span></td>`;
+  const newMin=timeToMinutes(time);
+  const rows=[...tbody.querySelectorAll('tr')];
+  let placed=false;
+  for(const r of rows){
+    const rowMin=timeToMinutes(r.querySelector('td').textContent.trim());
+    if(newMin<rowMin){tbody.insertBefore(tr,r);placed=true;break;}
+  }
+  if(!placed)tbody.appendChild(tr);
+}
+function addBooking(){
+  const svc=SERVICES.find(s=>s[0]===chosen.service)||['',''];
+  const amt=parseFloat((svc[1]||'').replace(/[^0-9.]/g,''))||0;
+  const now=new Date();
+  const dateObj=new Date(chosen._y,chosen._m,chosen._d);
+  const isToday=dateObj.toDateString()===now.toDateString();
+  const weekStart=new Date(now.getFullYear(),now.getMonth(),now.getDate()-now.getDay());
+  const weekEnd=new Date(weekStart.getFullYear(),weekStart.getMonth(),weekStart.getDate()+6,23,59,59,999);
+  const inWeek=dateObj>=weekStart&&dateObj<=weekEnd;
+  const clientDisplay=formatClientName(chosen.name);
+  if(isToday){
+    insertTodayRow(chosen.time,clientDisplay,chosen.service);
+    kpiToday++;document.getElementById('kpiTodayVal').textContent=kpiToday;
+  }else{
+    markCalDot(chosen._d);
+    toast('Added to '+chosen.date);
+  }
+  if(inWeek){
+    kpiWeek++;document.getElementById('kpiWeekVal').textContent=kpiWeek;
+    kpiRevenue+=amt;document.getElementById('kpiRevenueVal').textContent='$'+kpiRevenue.toLocaleString();
+  }
+}
+
+/* ===== booking modal (adapted from customer demo) ===== */
+const WEEKDAY_SLOTS=['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'];
+const SUNDAY_SLOTS=['11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','4:30 PM'];
+const SERVICES=[['Classic Pedicure','$32'],['Gel Pedicure','$45'],['Gel Manicure','$35'],['Liquid Gel Full Set','$55'],['Liquid Gel Fill-In','$40'],['Dip Powder Full Set','$50'],['Dip Powder Fill-In','$38'],['Nail Art Add-On','from $5']];
+let step=1,chosen={service:'',date:'',time:'',name:'',phone:'',_y:0,_m:0,_d:0};
+const titles=['Select Service','Pick a Date','Pick a Time','Client Info','Appointment Added'];
+
+function parseTimeOnDate(dateObj,timeStr){
+  const m=timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  let h=parseInt(m[1],10);const min=parseInt(m[2],10);const ap=m[3].toUpperCase();
+  if(ap==='PM'&&h!==12)h+=12;if(ap==='AM'&&h===12)h=0;
+  return new Date(dateObj.getFullYear(),dateObj.getMonth(),dateObj.getDate(),h,min,0,0);
+}
+function slotsForDate(dateObj){
+  const base=dateObj.getDay()===0?SUNDAY_SLOTS:WEEKDAY_SLOTS;
+  const now=new Date();
+  if(dateObj.getFullYear()===now.getFullYear()&&dateObj.getMonth()===now.getMonth()&&dateObj.getDate()===now.getDate()){
+    return base.filter(t=>parseTimeOnDate(dateObj,t)>now);
+  }
+  return base;
+}
+
+function openBooking(){
+  step=1;chosen={service:'',date:'',time:'',name:'',phone:'',_y:0,_m:0,_d:0};
+  renderStep();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'');}}
+function selectDate(y,m,d){
+  chosen._y=y;chosen._m=m;chosen._d=d;
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  chosen.date=`${months[m]} ${d}, ${y}`;chosen.time='';renderStep();
+}
+
+function renderStep(){
+  document.getElementById('modalTitle').textContent=titles[step-1];
+  setStepDots();
+  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
+  body.innerHTML='';foot.innerHTML='';
+  if(step===1){
+    body.innerHTML=`<div class="step-title">Which Service?</div><div class="service-grid">
+      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
+        <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
+  }else if(step===2){
+    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
+    let cal=`<div class="step-title">Choose a Date</div><div class="calendar-grid">
+      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
+      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
+    const today=new Date(y,m,now.getDate());
+    for(let d=1;d<=daysInMonth;d++){
+      const date=new Date(y,m,d);
+      const isPast=date<today;
+      const isToday=date.getTime()===today.getTime();
+      const noSlotsLeft=isToday&&slotsForDate(date).length===0;
+      const disabled=isPast||noSlotsLeft;
+      const isSelected=chosen._y===y&&chosen._m===m&&chosen._d===d;
+      cal+=`<div class="cal-day${disabled?' disabled':isSelected?' selected':''}"${!disabled?` onclick="selectDate(${y},${m},${d})"`:''}">${d}</div>`;
+    }
+    body.innerHTML=cal+'</div><p style="font-size:.75rem;color:var(--muted);margin-top:.7rem">Open every day — shorter hours on Sunday.</p>';
+    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
+  }else if(step===3){
+    const date=new Date(chosen._y,chosen._m,chosen._d);
+    const slots=slotsForDate(date);
+    body.innerHTML=`<div class="step-title">Pick a Time — ${esc(chosen.date)}</div><div class="time-grid">
+      ${slots.map(t=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`).join('')}</div>
+      ${slots.length===0?'<p style="font-size:.85rem;color:var(--muted);margin-top:.8rem">No times left on this date — please pick another day.</p>':''}`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
+  }else if(step===4){
+    body.innerHTML=`<div class="step-title">Client Information</div>
+      <div class="form-group"><label>Client Name</label><input id="fn" placeholder="Client name" value="${esc(chosen.name)}"></div>
+      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="${esc(chosen.phone)}"></div>`;
+    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
+      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value;chosen.phone=document.getElementById('fp').value;if(chosen.name&&chosen.phone){addBooking();step=5;renderStep()}">Add to Schedule</button>`;
+  }else{
+    body.innerHTML=`<div class="confirm-screen">
+      <div class="confirm-icon">💅</div>
+      <h3>Appointment Added</h3>
+      <p>${esc(chosen.name.split(' ')[0])}'s appointment has been added to the schedule.</p>
+      <div class="confirm-detail">
+        <div><span>Service</span><span>${esc(chosen.service)}</span></div>
+        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
+        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
+        <div><span>Client</span><span>${esc(chosen.name)}</span></div>
+        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
+      </div>
+    </div>`;
+    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done ✓</button>`;
+  }
+}
+</script>
+</body>
+</html>
