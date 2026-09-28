@@ -85,7 +85,7 @@ tr:last-child td{border-bottom:none}
 .hours-list li span:first-child{font-weight:600;color:var(--ink)}
 .hours-list li span:last-child{color:var(--muted)}
 .hours-list li.closed span:last-child{color:var(--blush-dark);font-weight:600}
-.hours-list li.today::before{content:'TODAY';position:absolute;left:0;top:-.72rem;font-size:.56rem;font-weight:700;letter-spacing:.1em;color:var(--teal)}
+.today-tag{display:inline-block;margin-left:.5rem;font-size:.58rem;font-weight:700;letter-spacing:.08em;color:var(--teal);background:var(--teal-tint);padding:.15rem .45rem;border-radius:8px;vertical-align:middle}
 /* staff footer */
 .staff-footer{background:var(--ink);padding:1.6rem 1.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;align-items:center}
 .staff-footer .addr{color:rgba(255,255,255,.55);font-size:.78rem}
@@ -350,7 +350,16 @@ function markTodayHours(now){
   const day=now.getDay();
   document.querySelectorAll('#hoursPanelList li').forEach(li=>{
     const days=(li.getAttribute('data-days')||'').split(',').filter(Boolean).map(Number);
-    if(days.includes(day))li.classList.add('today');
+    if(days.includes(day)){
+      li.classList.add('today');
+      const label=li.querySelector('span:first-child');
+      if(label&&!label.querySelector('.today-tag')){
+        const tag=document.createElement('span');
+        tag.className='today-tag';
+        tag.textContent='Today';
+        label.appendChild(tag);
+      }
+    }
   });
 }
 function addCalendarDot(dateObj){
