@@ -491,8 +491,28 @@ function initLanding(){
 
   // Hero: clip-path word reveal
   const h1=document.getElementById('hh1');
-  const words=h1.innerHTML.split(/(\s+)/);
-  h1.innerHTML=words.map(w=>w.trim()?`<span class="word"><span>${w}</span></span>`:w).join('');
+  (function wrapWords(node){
+    Array.from(node.childNodes).forEach(child=>{
+      if(child.nodeType===3){
+        const frag=document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(w=>{
+          if(w.trim()){
+            const outer=document.createElement('span');
+            outer.className='word';
+            const inner=document.createElement('span');
+            inner.textContent=w;
+            outer.appendChild(inner);
+            frag.appendChild(outer);
+          } else if(w){
+            frag.appendChild(document.createTextNode(w));
+          }
+        });
+        child.replaceWith(frag);
+      } else if(child.nodeType===1){
+        wrapWords(child);
+      }
+    });
+  })(h1);
 
   const tl=gsap.timeline({delay:.15});
   tl.to('.htag',{y:0,opacity:1,duration:.6,ease:'power3.out'},0)
