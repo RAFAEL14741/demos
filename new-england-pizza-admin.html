@@ -1,491 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>New England Pizza — Staff Admin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>New England Pizza — Staff Admin Portal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --cream:#FAF3E8;--white:#FFFFFF;--charcoal:#2B2622;
-  --brick:#B23A2E;--brick-dark:#8C2A20;
-  --green:#35563F;--green-dark:#20362A;
-  --gold:#D9A441;--muted:#6E6155;--border:#E5D9C4;
-}
-html{-webkit-font-smoothing:antialiased}
-body{background:var(--cream);color:var(--charcoal);font-family:'Work Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-h1,h2,h3{font-family:'Oswald',sans-serif}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:          #17130f;
+    --bg-alt:      #1c1712;
+    --bg-card:     #221c16;
+    --text:        #f5ece0;
+    --muted:       rgba(245,236,224,0.55);
+    --accent:      #c8712f;
+    --accent-rgb:  200, 113, 47;
+    --accent-pale: rgba(200,113,47,0.14);
+    --border:      rgba(245,236,224,0.08);
+    --ff-display:  'Fraunces', Georgia, serif;
+    --ff-body:     'DM Sans', system-ui, sans-serif;
+    --good: #3f7d4a;
+    --bad:  #b6472f;
+  }
+  body {
+    background: var(--bg); color: var(--text); font-family: var(--ff-body);
+    font-size: 15px; line-height: 1.6; min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display:block; width:100%; height:100%; object-fit:cover; }
+  svg { display:block; }
+  button { font-family: var(--ff-body); }
 
-/* ===== LOGIN ===== */
-#loginScreen{position:fixed;inset:0;z-index:999;background:var(--charcoal);display:flex;align-items:center;justify-content:center;padding:1rem}
-.login-box{text-align:center;padding:3rem 3.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;max-width:92vw}
-.login-logo{font-family:'Oswald',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:#fff;margin-bottom:.4rem}
-.login-logo span{color:var(--gold)}
-.login-sub{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:2.2rem}
-.pin-display{font-family:'Oswald',sans-serif;font-size:2.8rem;font-weight:700;color:var(--gold);letter-spacing:.35em;min-height:3.4rem;margin-bottom:1.7rem}
-.pin-grid{display:grid;grid-template-columns:repeat(3,68px);gap:8px;justify-content:center;margin-bottom:8px}
-.pin-btn{height:68px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:6px;color:#fff;font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:600;cursor:pointer;transition:background .15s}
-.pin-btn:hover{background:var(--brick)}
-.pin-clear{margin-top:.6rem;font-size:.72rem;color:rgba(255,255,255,.55);cursor:pointer;letter-spacing:.1em;text-transform:uppercase}
+  /* ── PIN LOCK ── */
+  #pin-screen {
+    position: fixed; inset: 0; background: var(--bg); z-index: 999;
+    display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px;
+  }
+  .pin-logo { font-family: var(--ff-display); font-size: 1.8rem; font-weight: 500; }
+  .pin-logo em { color: var(--accent); font-style: italic; }
+  .pin-sub { font-size: .8rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+  .pin-dots { display: flex; gap: 16px; margin: 8px 0; }
+  .pin-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border); transition: background .2s, border-color .2s; }
+  .pin-dot.filled { background: var(--accent); border-color: var(--accent); }
+  .pin-pad { display: grid; grid-template-columns: repeat(3, 64px); gap: 14px; }
+  .pin-key {
+    width: 64px; height: 64px; border-radius: 50%; background: var(--bg-card);
+    border: 1px solid var(--border); color: var(--text); font-size: 1.3rem; font-weight: 500;
+    cursor: pointer; transition: background .2s, border-color .2s;
+  }
+  .pin-key:hover { border-color: var(--accent); }
+  .pin-error { color: var(--bad); font-size: .78rem; height: 16px; }
 
-/* ===== DASHBOARD SHELL ===== */
-#dashboard{display:none}
-.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 1.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem}
-.topbar-logo{font-family:'Oswald',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--charcoal)}
-.topbar-logo span{color:var(--brick)}
-.topbar-logo small{display:block;font-family:'Work Sans',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.15rem}
-.topbar-right{display:flex;align-items:center;gap:1.3rem}
-.topbar-date{font-size:.82rem;color:var(--muted)}
-.logout-btn{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brick);cursor:pointer;border:2px solid var(--brick);background:none;padding:.45rem .95rem;border-radius:4px;transition:all .2s}
-.logout-btn:hover{background:var(--brick);color:#fff}
-.dash{padding:1.8rem}
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.8rem}
-.kpi{background:var(--white);padding:1.3rem 1.2rem;border-top:3px solid var(--brick);border-radius:4px}
-.kpi-val{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--charcoal);line-height:1}
-.kpi-val span{font-size:1.2rem;color:var(--gold)}
-.kpi-label{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
-.grid2{display:grid;grid-template-columns:2fr 1fr;gap:1rem;align-items:start}
-.side-col{display:flex;flex-direction:column;gap:1rem}
-.card{background:var(--white);padding:1.4rem;border-radius:4px}
-.card-title{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--charcoal);margin-bottom:1.1rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap}
-.add-btn{background:var(--brick);color:#fff;border:none;padding:.55rem 1.1rem;font-family:'Oswald',sans-serif;font-weight:600;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:background .2s}
-.add-btn:hover{background:var(--brick-dark)}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:520px}
-th{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.6rem .7rem;text-align:left;border-bottom:2px solid var(--cream);background:#fafafa;white-space:nowrap}
-td{font-size:.86rem;padding:.7rem;border-bottom:1px solid var(--cream);color:var(--charcoal)}
-.status{font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.28rem .6rem;border-radius:3px;white-space:nowrap;display:inline-block}
-.status.confirmed{background:#d9ede0;color:var(--green)}
-.status.pending{background:#fbeed4;color:#8a5f10}
-.status.completed{background:#e9e4dc;color:var(--muted)}
-.cal-grid,#calGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-#calGrid .cal-head{font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding:.35rem 0}
-#calGrid .cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:500;color:var(--charcoal);border-radius:3px;position:relative}
-#calGrid .cal-day.today{background:var(--brick);color:#fff;font-weight:700}
-#calGrid .cal-day.has-appt::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--brick);position:absolute;bottom:3px}
-#calGrid .cal-day.today.has-appt::after{background:#fff}
-#calGrid .cal-day.empty{opacity:.15}
-.svc-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--cream);gap:.6rem}
-.svc-row:last-child{border-bottom:none}
-.svc-name{font-size:.86rem;font-weight:500;color:var(--charcoal)}
-.svc-price{font-size:.86rem;font-weight:700;color:var(--brick);white-space:nowrap}
-.svc-edit{font-size:.66rem;color:var(--muted);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;background:none;border:1px solid var(--border);border-radius:3px;padding:.24rem .5rem;transition:all .2s;flex-shrink:0}
-.svc-edit:hover{border-color:var(--brick);color:var(--brick)}
-.hours-list{list-style:none}
-.hours-list li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--cream);font-size:.84rem}
-.hours-list li:last-child{border-bottom:none}
-.hours-list li.today span:first-child{color:var(--brick)}
-.hours-list li span:first-child{font-weight:600;color:var(--charcoal)}
-.hours-list li span:last-child{color:var(--muted)}
-.staff-footer{padding:1.6rem 1.8rem 2.2rem;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
-.staff-footer a{color:var(--brick);font-weight:600;text-decoration:none}
-#toast{position:fixed;left:50%;bottom:1.6rem;transform:translate(-50%,12px);background:var(--charcoal);color:#fff;padding:.7rem 1.3rem;border-radius:5px;font-size:.85rem;opacity:0;pointer-events:none;transition:all .3s;z-index:1200;max-width:88vw;text-align:center}
-#toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+  /* ── SHELL ── */
+  #admin-shell { display: none; min-height: 100vh; }
+  .sidebar {
+    width: 240px; background: #14110d; border-right: 1px solid var(--border);
+    padding: 32px 22px; position: fixed; top: 0; bottom: 0; left: 0; display: flex; flex-direction: column;
+  }
+  .sidebar-logo { font-family: var(--ff-display); font-size: 1.3rem; font-weight: 500; margin-bottom: 40px; }
+  .sidebar-logo em { color: var(--accent); font-style: italic; }
+  .side-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .side-link {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px;
+    color: var(--muted); font-size: .86rem; font-weight: 500; cursor: pointer; transition: background .2s, color .2s;
+  }
+  .side-link svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .side-link:hover { color: var(--text); background: rgba(245,236,224,.03); }
+  .side-link.active { color: var(--text); background: var(--accent-pale); }
+  .side-foot { font-size: .72rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 16px; }
+  .side-foot a { color: var(--accent); }
 
-/* ===== BOOKING / ORDER MODAL (from demo) ===== */
-.modal-overlay{position:fixed;inset:0;background:rgba(43,38,34,.75);backdrop-filter:blur(6px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.open{display:flex}
-.modal{background:var(--white);border-radius:8px;width:100%;max-width:520px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.32)}
-.modal-header{padding:1.5rem 1.6rem .8rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.modal-header h3{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--charcoal)}
-.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem}
-.modal-steps{display:flex;gap:.32rem;padding:0 1.6rem .9rem;flex-shrink:0}
-.step-dot{flex:1;height:3px;background:var(--border);border-radius:2px;transition:background .3s}
-.step-dot.active{background:var(--brick)}
-.step-dot.done{background:var(--green)}
-#modalBody{padding:0 1.6rem 1.4rem;overflow-y:auto;flex:1 1 auto}
-.step-title{font-family:'Oswald',sans-serif;font-size:1.02rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--charcoal);margin-bottom:1.1rem}
-.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
-.service-option{border:2px solid var(--border);border-radius:6px;padding:.85rem;cursor:pointer;transition:all .2s}
-.service-option:hover,.service-option.selected{border-color:var(--brick);background:#FBEAE7}
-.service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--charcoal)}
-.service-option .svc-price{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:var(--brick);margin-top:.25rem}
-.cal-month{display:flex;justify-content:space-between;align-items:center;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--charcoal)}
-.cal-nav{display:flex;gap:.4rem}
-.cal-nav button{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--white);color:var(--charcoal);font-size:1rem;line-height:1;cursor:pointer;transition:all .2s}
-.cal-nav button:hover{border-color:var(--brick);color:var(--brick)}
-.cal-nav button:disabled{opacity:.35;cursor:default}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
-.calendar-grid .cal-day-name{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
-.calendar-grid .cal-day{text-align:center;padding:.46rem;border-radius:4px;font-size:.84rem;cursor:pointer;transition:all .2s}
-.calendar-grid .cal-day:hover:not(.disabled){background:var(--brick);color:#fff}
-.calendar-grid .cal-day.selected{background:var(--brick);color:#fff;font-weight:700}
-.calendar-grid .cal-day.disabled{color:#D8CBB4;pointer-events:none}
-.calendar-grid .cal-day.empty{visibility:hidden}
-.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.7rem}
-.time-slot{border:2px solid var(--border);border-radius:5px;padding:.55rem;text-align:center;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Oswald',sans-serif;letter-spacing:.03em}
-.time-slot:hover,.time-slot.selected{border-color:var(--brick);background:#FBEAE7;color:var(--brick)}
-.form-group{margin-bottom:1rem}
-.form-group label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal);margin-bottom:.35rem}
-.form-group input{width:100%;border:2px solid var(--border);border-radius:5px;padding:.68rem .9rem;font-family:'Work Sans',sans-serif;font-size:16px;color:var(--charcoal);background:var(--cream);outline:none;transition:border-color .2s}
-.form-group input:focus{border-color:var(--brick)}
-.modal-footer{padding:.9rem 1.6rem;border-top:1px solid var(--border);display:flex;gap:.6rem;justify-content:flex-end;flex-shrink:0;flex-wrap:nowrap}
-.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:.56rem 1.1rem;border-radius:5px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
-.btn-back:hover{border-color:var(--charcoal);color:var(--charcoal)}
-.btn-next{background:var(--brick);color:#fff;border:none;padding:.56rem 1.4rem;border-radius:5px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
-.btn-next:hover{background:var(--brick-dark)}
-.confirm-screen{text-align:center;padding:.6rem 0}
-.confirm-icon{font-size:2.8rem;margin-bottom:.7rem}
-.confirm-screen h3{font-family:'Oswald',sans-serif;font-size:1.35rem;font-weight:700;text-transform:uppercase;color:var(--charcoal);margin-bottom:.5rem}
-.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.9rem}
-.confirm-detail{background:var(--cream);border-radius:5px;padding:.9rem;margin:1rem 0;text-align:left}
-.confirm-detail div{display:flex;justify-content:space-between;padding:.32rem 0;font-size:.85rem;border-bottom:1px solid var(--border);gap:1rem}
-.confirm-detail div:last-child{border:none}
-.confirm-detail span:first-child{color:var(--muted);font-weight:600;flex-shrink:0}
-.confirm-detail span:last-child{color:var(--charcoal);font-weight:700;text-align:right}
-@media(max-width:520px){
-  .modal-footer{padding:.8rem 1rem}
-  .btn-back,.btn-next{padding:.56rem .8rem;font-size:.76rem}
-}
+  .main { margin-left: 240px; padding: 40px 44px; max-width: 1200px; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 14px; }
+  .page-title { font-family: var(--ff-display); font-size: 2rem; font-weight: 500; }
+  .page-sub { color: var(--muted); font-size: .85rem; margin-top: 4px; }
+
+  .btn-accent {
+    background: var(--accent); color: #17130f; border: none; padding: 12px 24px; border-radius: 50px;
+    font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+    transition: background .2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-accent:hover { background: #e08a42; }
+  .btn-ghost-a {
+    background: none; border: 1px solid var(--border); color: var(--text); padding: 11px 22px; border-radius: 50px;
+    font-size: .78rem; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; cursor: pointer;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-ghost-a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* KPI cards */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 40px; }
+  .kpi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .kpi-label { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .kpi-value { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 500; }
+  .kpi-delta { font-size: .74rem; color: var(--good); margin-top: 8px; }
+  .kpi-delta.down { color: var(--bad); }
+
+  /* Table */
+  .panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; margin-bottom: 32px; }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+  .panel-title { font-family: var(--ff-display); font-size: 1.3rem; font-weight: 500; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  td { padding: 14px 12px; font-size: .86rem; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  .status-pill { padding: 4px 12px; border-radius: 50px; font-size: .68rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; display: inline-block; }
+  .status-ready { background: rgba(63,125,74,.18); color: #6fbb7c; }
+  .status-progress { background: var(--accent-pale); color: var(--accent); }
+  .status-new { background: rgba(200,113,47,.1); color: #e0a26a; }
+  .row-del { background: none; border: none; color: var(--muted); cursor: pointer; padding: 6px; }
+  .row-del:hover { color: var(--bad); }
+
+  /* Calendar */
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .cal-day { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; min-height: 84px; }
+  .cal-day-name { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .cal-day-hours { font-size: .74rem; color: var(--muted); line-height: 1.5; }
+  .cal-day.today { border-color: var(--accent); }
+
+  /* Menu & prices */
+  .price-row {
+    display: grid; grid-template-columns: 1fr 120px 90px; align-items: center; gap: 14px;
+    padding: 14px 4px; border-bottom: 1px solid var(--border);
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row-cat { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 22px 0 8px; }
+  .price-name { font-size: .88rem; font-weight: 500; }
+  .price-input-wrap { position: relative; }
+  .price-input-wrap span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: .85rem; }
+  .price-input {
+    width: 100%; background: rgba(245,236,224,.04); border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 12px 9px 22px; color: var(--text); font-family: var(--ff-body); font-size: .88rem; outline: none;
+  }
+  .price-input:focus { border-color: var(--accent); }
+  .price-save-tag { font-size: .68rem; color: var(--good); opacity: 0; transition: opacity .2s; text-align: right; }
+  .price-save-tag.show { opacity: 1; }
+
+  /* Modal (Add Order) — reuses booking modal pattern */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.8); z-index: 500;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+    width: 100%; max-width: 560px; max-height: 88vh; overflow-y: auto;
+    transform: scale(.92); transition: transform .3s cubic-bezier(.4,0,.2,1);
+  }
+  .modal-overlay.open .modal-box { transform: scale(1); }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 24px 28px; border-bottom: 1px solid var(--border); }
+  .modal-title { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 500; }
+  .icon-x { background: none; border: none; color: var(--text); cursor: pointer; padding: 6px; }
+  .icon-x svg { width: 18px; height: 18px; }
+  .modal-body { padding: 26px 28px; display: flex; flex-direction: column; gap: 18px; }
+  .fgroup { display: flex; flex-direction: column; gap: 8px; }
+  .fgroup label { font-size: .67rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .fgroup input, .fgroup select, .fgroup textarea {
+    background: rgba(245,236,224,.04); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px;
+    font-family: var(--ff-body); font-size: .9rem; color: var(--text); outline: none;
+  }
+  .fgroup select option { background: #221c16; }
+  .fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus { border-color: var(--accent); }
+  .frow2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .modal-foot { display: flex; justify-content: flex-end; gap: 12px; padding: 20px 28px; border-top: 1px solid var(--border); }
+
+  @media (max-width: 1000px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .cal-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 26px 20px; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .price-row { grid-template-columns: 1fr 90px 60px; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    .cal-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
-<!--
-PIPELINE DATA NOTES (internal)
-This staff admin portal reuses the public demo site's data. Nothing below is customer-facing.
-[CONFIRM BEFORE VISIT] Hours: assumed Monday-Sunday 11:00 AM-10:00 PM, open every day (CLOSED_DAYS = []), not confirmed with the shop.
-[CONFIRM BEFORE VISIT] Menu items and prices are Philly-market estimates, not confirmed with the shop: Cheese Pizza (Large) $16, Pepperoni Pizza (Large) $18, Chicken Wings 10pc $13, Buffalo Wings 10pc $14, Baked Ziti $12, Chicken Parmigiana $14, Cheesesteak $9, Chicken Cheesesteak $9.50, Italian Hoagie $9, Turkey Hoagie $9.
-[CONFIRM BEFORE VISIT] KPI starting values (today's order count, weekly count, weekly revenue estimate) are placeholder demo numbers seeded for this walkthrough, not a live feed from a POS system.
-Address/phone/rating on file: 6728 Bustleton Ave, Philadelphia, PA 19149 · (215) 332-0400 · 4.0 stars, 300 Google reviews.
--->
-<div id="loginScreen">
-  <div class="login-box">
-    <div class="login-logo">New England <span>Pizza</span></div>
-    <div class="login-sub">Staff Access — Enter PIN</div>
-    <div class="pin-display" id="pinDisplay">____</div>
-    <div class="pin-grid">
-      <button class="pin-btn" onclick="enterPin('1')">1</button>
-      <button class="pin-btn" onclick="enterPin('2')">2</button>
-      <button class="pin-btn" onclick="enterPin('3')">3</button>
-      <button class="pin-btn" onclick="enterPin('4')">4</button>
-      <button class="pin-btn" onclick="enterPin('5')">5</button>
-      <button class="pin-btn" onclick="enterPin('6')">6</button>
-      <button class="pin-btn" onclick="enterPin('7')">7</button>
-      <button class="pin-btn" onclick="enterPin('8')">8</button>
-      <button class="pin-btn" onclick="enterPin('9')">9</button>
-      <button class="pin-btn" onclick="enterPin('0')" style="grid-column:2">0</button>
-    </div>
-    <div class="pin-clear" onclick="clearPin()">Clear ×</div>
+
+<!-- ── PIN LOCK ── -->
+<div id="pin-screen">
+  <div class="pin-logo"><em>New England</em> Pizza</div>
+  <div class="pin-sub">Staff Admin Portal</div>
+  <div class="pin-dots" id="pin-dots">
+    <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+  </div>
+  <div class="pin-error" id="pin-error"></div>
+  <div class="pin-pad">
+    <button class="pin-key" onclick="pinPress('1')">1</button>
+    <button class="pin-key" onclick="pinPress('2')">2</button>
+    <button class="pin-key" onclick="pinPress('3')">3</button>
+    <button class="pin-key" onclick="pinPress('4')">4</button>
+    <button class="pin-key" onclick="pinPress('5')">5</button>
+    <button class="pin-key" onclick="pinPress('6')">6</button>
+    <button class="pin-key" onclick="pinPress('7')">7</button>
+    <button class="pin-key" onclick="pinPress('8')">8</button>
+    <button class="pin-key" onclick="pinPress('9')">9</button>
+    <button class="pin-key" onclick="pinClear()">Clear</button>
+    <button class="pin-key" onclick="pinPress('0')">0</button>
+    <button class="pin-key" onclick="pinBack()">⌫</button>
   </div>
 </div>
 
-<div id="dashboard">
-  <div class="topbar">
-    <div class="topbar-logo">New England <span>Pizza</span><small>Staff Admin — 6728 Bustleton Ave</small></div>
-    <div class="topbar-right">
-      <div class="topbar-date" id="topbarDate"></div>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+<!-- ── ADMIN SHELL ── -->
+<div id="admin-shell">
+  <div class="sidebar">
+    <div class="sidebar-logo"><em>New England</em> Pizza</div>
+    <div class="side-nav">
+      <div class="side-link active" data-page="dashboard" onclick="showPage('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        Dashboard
+      </div>
+      <div class="side-link" data-page="orders" onclick="showPage('orders')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l3 4v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 10h6M9 14h6"/></svg>
+        Orders
+      </div>
+      <div class="side-link" data-page="calendar" onclick="showPage('calendar')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+        Calendar &amp; Hours
+      </div>
+      <div class="side-link" data-page="menu" onclick="showPage('menu')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 3v6h6"/></svg>
+        Menu &amp; Prices
+      </div>
     </div>
+    <div class="side-foot">6728 Bustleton Ave<br>(215) 332-0400<br><a href="new-england-pizza-demo.html">← Back to site</a></div>
   </div>
-  <div class="dash">
-    <div class="kpi-row">
-      <div class="kpi"><div class="kpi-val" id="kpiToday">9</div><div class="kpi-label">Today's Orders</div></div>
-      <div class="kpi"><div class="kpi-val" id="kpiWeek">47</div><div class="kpi-label">This Week</div></div>
-      <div class="kpi"><div class="kpi-val" id="kpiRevenue">$1,760</div><div class="kpi-label">Est. Revenue This Week</div></div>
-      <div class="kpi"><div class="kpi-val">4.0<span> ★</span></div><div class="kpi-label">Google Rating · 300 Reviews</div></div>
-    </div>
-    <div class="grid2">
-      <div class="card">
-        <div class="card-title">Upcoming Orders <button class="add-btn" onclick="openBooking()">+ New Order</button></div>
-        <div class="table-wrap">
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-head">
+        <div>
+          <div class="page-title">Dashboard</div>
+          <div class="page-sub">Today's snapshot — New England Pizza</div>
+        </div>
+        <button class="btn-accent" onclick="openAddOrder()">+ Add Order</button>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Orders Today</div>
+          <div class="kpi-value" id="kpi-orders">7</div>
+          <div class="kpi-delta">+2 vs. yesterday</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Est. Revenue Today</div>
+          <div class="kpi-value" id="kpi-revenue">$146.50</div>
+          <div class="kpi-delta">Prices unconfirmed</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Google Rating</div>
+          <div class="kpi-value">4.0</div>
+          <div class="kpi-delta">300+ reviews</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Open Now</div>
+          <div class="kpi-value" id="kpi-open">—</div>
+          <div class="kpi-delta" id="kpi-open-sub">11:00 AM – 10:00 PM</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">Recent Orders</div>
+          <button class="btn-ghost-a" onclick="showPage('orders')">View All</button>
+        </div>
         <table>
-          <thead><tr><th>Time</th><th>Customer</th><th>Order</th><th>Status</th></tr></thead>
-          <tbody id="ordersBody">
-            <tr><td>11:15 AM</td><td>Anthony D.</td><td>Cheese Pizza (Large)</td><td><span class="status completed">Picked Up</span></td></tr>
-            <tr><td>12:30 PM</td><td>Maria S.</td><td>Buffalo Wings 10pc</td><td><span class="status completed">Picked Up</span></td></tr>
-            <tr><td>1:45 PM</td><td>Kevin O.</td><td>Baked Ziti</td><td><span class="status completed">Picked Up</span></td></tr>
-            <tr><td>3:00 PM</td><td>Tanya W.</td><td>Chicken Parmigiana</td><td><span class="status confirmed">Ready</span></td></tr>
-            <tr><td>4:15 PM</td><td>Nguyen T.</td><td>Italian Hoagie</td><td><span class="status confirmed">Ready</span></td></tr>
-            <tr><td>5:30 PM</td><td>Danielle R.</td><td>Pepperoni Pizza (Large)</td><td><span class="status pending">Preparing</span></td></tr>
-            <tr><td>6:45 PM</td><td>Marco P.</td><td>Cheesesteak</td><td><span class="status pending">Preparing</span></td></tr>
-            <tr><td>8:00 PM</td><td>Aisha K.</td><td>Chicken Wings 10pc</td><td><span class="status pending">Preparing</span></td></tr>
-            <tr><td>9:15 PM</td><td>Frank L.</td><td>Turkey Hoagie</td><td><span class="status pending">Preparing</span></td></tr>
-          </tbody>
+          <thead><tr><th>Customer</th><th>Items</th><th>Pickup</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="dash-orders-body"></tbody>
         </table>
-        </div>
-      </div>
-      <div class="side-col">
-        <div class="card">
-          <div class="card-title">This Month</div>
-          <div id="calGrid"></div>
-        </div>
-        <div class="card" id="servicesPanel">
-          <div class="card-title">Menu &amp; Prices</div>
-          <div id="svcRows"></div>
-        </div>
-        <div class="card" id="hoursPanel">
-          <div class="card-title">Hours</div>
-          <ul class="hours-list" id="hoursList">
-            <li data-days="1"><span>Monday</span><span>11:00 AM – 10:00 PM</span></li>
-            <li data-days="2"><span>Tuesday</span><span>11:00 AM – 10:00 PM</span></li>
-            <li data-days="3"><span>Wednesday</span><span>11:00 AM – 10:00 PM</span></li>
-            <li data-days="4"><span>Thursday</span><span>11:00 AM – 10:00 PM</span></li>
-            <li data-days="5"><span>Friday</span><span>11:00 AM – 10:00 PM</span></li>
-            <li data-days="6"><span>Saturday</span><span>11:00 AM – 10:00 PM</span></li>
-            <li data-days="0"><span>Sunday</span><span>11:00 AM – 10:00 PM</span></li>
-          </ul>
-        </div>
       </div>
     </div>
-    <div class="staff-footer">
-      <span>New England Pizza · 6728 Bustleton Ave, Philadelphia PA 19149</span>
-      <a href="tel:2153320400">(215) 332-0400</a>
+
+    <!-- ORDERS -->
+    <div class="page" id="page-orders">
+      <div class="page-head">
+        <div>
+          <div class="page-title">Orders</div>
+          <div class="page-sub">All pickup orders</div>
+        </div>
+        <button class="btn-accent" onclick="openAddOrder()">+ Add Order</button>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Customer</th><th>Phone</th><th>Items</th><th>Pickup</th><th>Total</th><th>Status</th><th></th></tr></thead>
+          <tbody id="orders-body"></tbody>
+        </table>
+      </div>
     </div>
+
+    <!-- CALENDAR -->
+    <div class="page" id="page-calendar">
+      <div class="page-head">
+        <div>
+          <div class="page-title">Calendar &amp; Hours</div>
+          <div class="page-sub">Open every day, 11:00 AM – 10:00 PM. Confirm before visiting. [CONFIRM BEFORE VISIT]</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">This Week</div></div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+    </div>
+
+    <!-- MENU & PRICES -->
+    <div class="page" id="page-menu">
+      <div class="page-head">
+        <div>
+          <div class="page-title">Menu &amp; Prices</div>
+          <div class="page-sub">Edit prices below — changes save locally to this browser session.</div>
+        </div>
+      </div>
+      <div class="panel" id="menu-panel"></div>
+    </div>
+
   </div>
 </div>
 
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal">
-    <div class="modal-header">
-      <h3 id="modalTitle">New Order</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+<!-- ── ADD ORDER MODAL ── -->
+<div class="modal-overlay" id="add-order-overlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">Add Order</div>
+      <button class="icon-x" onclick="closeAddOrder()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
-    <div class="modal-steps">
-      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    <div class="modal-body">
+      <div class="frow2">
+        <div class="fgroup"><label>Customer Name</label><input type="text" id="ao-name" placeholder="James Chen" /></div>
+        <div class="fgroup"><label>Phone</label><input type="tel" id="ao-phone" placeholder="(215) 555-0100" /></div>
+      </div>
+      <div class="fgroup">
+        <label>Item</label>
+        <select id="ao-item"></select>
+      </div>
+      <div class="frow2">
+        <div class="fgroup"><label>Quantity</label><input type="number" id="ao-qty" min="1" value="1" /></div>
+        <div class="fgroup"><label>Pickup Time</label><input type="time" id="ao-time" value="18:00" /></div>
+      </div>
+      <div class="fgroup"><label>Notes</label><textarea id="ao-notes" placeholder="Extra sauce, allergies, etc."></textarea></div>
     </div>
-    <div id="modalBody"></div>
-    <div class="modal-footer" id="modalFooter"></div>
+    <div class="modal-foot">
+      <button class="btn-ghost-a" onclick="closeAddOrder()">Cancel</button>
+      <button class="btn-accent" onclick="submitAddOrder()">Save Order</button>
+    </div>
   </div>
 </div>
-<div id="toast"></div>
 
 <script>
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-
-/* ===== PIN LOGIN ===== */
-let pin='';
-function enterPin(d){
-  if(pin.length>=4)return;
-  pin+=d;
-  document.getElementById('pinDisplay').textContent=pin.replace(/./g,'●').padEnd(4,'_');
-  if(pin.length===4){
-    setTimeout(()=>{
-      if(pin==='1234'){document.getElementById('loginScreen').style.display='none';document.getElementById('dashboard').style.display='block';initDash();}
-      else{pin='';document.getElementById('pinDisplay').textContent='____';alert('Incorrect PIN');}
-    },200);
+// ══ PIN LOCK ══
+const CORRECT_PIN = '1234';
+let pinInput = '';
+function renderPinDots() {
+  document.querySelectorAll('.pin-dot').forEach((d,i) => d.classList.toggle('filled', i < pinInput.length));
+}
+function pinPress(d) {
+  if (pinInput.length >= 4) return;
+  pinInput += d;
+  renderPinDots();
+  document.getElementById('pin-error').textContent = '';
+  if (pinInput.length === 4) {
+    setTimeout(() => {
+      if (pinInput === CORRECT_PIN) {
+        document.getElementById('pin-screen').style.display = 'none';
+        document.getElementById('admin-shell').style.display = 'flex';
+        initDashboard();
+      } else {
+        document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
+        pinInput = '';
+        renderPinDots();
+      }
+    }, 150);
   }
 }
-function clearPin(){pin='';document.getElementById('pinDisplay').textContent='____'}
-function logout(){document.getElementById('loginScreen').style.display='flex';document.getElementById('dashboard').style.display='none';clearPin();}
+function pinClear() { pinInput = ''; renderPinDots(); document.getElementById('pin-error').textContent = ''; }
+function pinBack() { pinInput = pinInput.slice(0,-1); renderPinDots(); }
 
-/* ===== DASHBOARD DATA ===== */
-let SERVICES=[
-  {n:'Cheese Pizza (Large)',p:16},
-  {n:'Pepperoni Pizza (Large)',p:18},
-  {n:'Chicken Wings 10pc',p:13},
-  {n:'Buffalo Wings 10pc',p:14},
-  {n:'Baked Ziti',p:12},
-  {n:'Chicken Parmigiana',p:14},
-  {n:'Cheesesteak',p:9},
-  {n:'Chicken Cheesesteak',p:9.5},
-  {n:'Italian Hoagie',p:9},
-  {n:'Turkey Hoagie',p:9}
+// ══ NAV ══
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.side-link').forEach(l => l.classList.toggle('active', l.dataset.page === name));
+}
+
+// ══ MENU DATA (editable prices) ══
+const MENU_DATA = [
+  { cat: 'Pizza', items: [
+    { id: 'cheese', name: 'Cheese Pizza (Large)', price: 16.00 },
+    { id: 'pepperoni', name: 'Pepperoni Pizza (Large)', price: 18.00 },
+  ]},
+  { cat: 'Wings', items: [
+    { id: 'wings10', name: 'Chicken Wings (10pc)', price: 13.00 },
+    { id: 'bwings10', name: 'Buffalo Wings (10pc)', price: 14.00 },
+  ]},
+  { cat: 'Hoagies & More', items: [
+    { id: 'ziti', name: 'Baked Ziti', price: 12.00 },
+    { id: 'chparm', name: 'Chicken Parmigiana', price: 14.00 },
+    { id: 'steak', name: 'Cheesesteak', price: 9.00 },
+    { id: 'chsteak', name: 'Chicken Cheesesteak', price: 9.50 },
+    { id: 'ithoagie', name: 'Italian Hoagie', price: 9.00 },
+    { id: 'tkhoagie', name: 'Turkey Hoagie', price: 9.00 },
+  ]},
 ];
-let todayCount=9,weekCount=47,weekRevenue=1760;
-let calYear=null,calMonth=null;
+function allMenuItems() { return MENU_DATA.flatMap(c => c.items); }
 
-function fmt(p){return '$'+(Number.isInteger(p)?p:p.toFixed(2))}
-function fmtMoney(n){n=Math.round(n*100)/100;return Number.isInteger(n)?('$'+n.toLocaleString('en-US')):('$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}))}
-
-function renderServices(){
-  const wrap=document.getElementById('svcRows');
-  wrap.innerHTML=SERVICES.map((s,i)=>`<div class="svc-row"><span class="svc-name">${esc(s.n)}</span><span class="svc-price">${esc(fmt(s.p))}</span><button class="svc-edit" onclick="editPrice(${i})">Edit</button></div>`).join('');
-}
-function editPrice(i){
-  const item=SERVICES[i];
-  const raw=prompt('New price for '+item.n+' (numbers only):',String(item.p));
-  if(raw===null)return;
-  const val=parseFloat(String(raw).replace(/[^0-9.]/g,''));
-  if(isNaN(val)||val<=0){alert('Please enter a valid price.');return;}
-  SERVICES[i].p=val;
-  renderServices();
-  showToast(item.n+' updated to '+fmt(val));
-}
-
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
-  clearTimeout(window.__toastTimer);
-  window.__toastTimer=setTimeout(()=>t.classList.remove('show'),2600);
-}
-
-function initDash(){
-  const now=new Date();
-  document.getElementById('topbarDate').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  buildCal(now);
-  renderServices();
-  const day=now.getDay();
-  document.querySelectorAll('#hoursList li').forEach(li=>{
-    if(parseInt(li.getAttribute('data-days'),10)===day) li.classList.add('today');
+function buildMenuPanel() {
+  const panel = document.getElementById('menu-panel');
+  panel.innerHTML = '';
+  MENU_DATA.forEach(cat => {
+    const catLabel = document.createElement('div');
+    catLabel.className = 'price-row-cat';
+    catLabel.textContent = cat.cat;
+    panel.appendChild(catLabel);
+    cat.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'price-row';
+      row.innerHTML = `
+        <div class="price-name">${item.name}</div>
+        <div class="price-input-wrap"><span>$</span><input class="price-input" type="number" step="0.01" value="${item.price.toFixed(2)}" onchange="updatePrice('${item.id}', this.value)" /></div>
+        <div class="price-save-tag" id="save-${item.id}">Saved</div>
+      `;
+      panel.appendChild(row);
+    });
   });
 }
-function buildCal(now){
-  const cal=document.getElementById('calGrid');
-  cal.innerHTML='';
-  calYear=now.getFullYear();calMonth=now.getMonth();
-  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{
-    const h=document.createElement('div');h.className='cal-head';h.textContent=d;cal.appendChild(h);
-  });
-  const first=new Date(calYear,calMonth,1).getDay();
-  const days=new Date(calYear,calMonth+1,0).getDate();
-  const orderDays=[3,5,8,10,12,15,17,19,22,24,27];
-  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day empty';e.textContent='';cal.appendChild(e);}
-  for(let d=1;d<=days;d++){
-    const e=document.createElement('div');e.className='cal-day';e.textContent=d;
-    if(d===now.getDate())e.classList.add('today');
-    if(orderDays.includes(d))e.classList.add('has-appt');
-    cal.appendChild(e);
-  }
+function updatePrice(id, val) {
+  const item = allMenuItems().find(i => i.id === id);
+  if (item) item.price = parseFloat(val) || 0;
+  const tag = document.getElementById('save-' + id);
+  tag.classList.add('show');
+  setTimeout(() => tag.classList.remove('show'), 1500);
+  populateItemSelect();
 }
-function markCalendarDot(date){
-  if(date.getFullYear()!==calYear||date.getMonth()!==calMonth)return;
-  const day=date.getDate();
-  document.querySelectorAll('#calGrid .cal-day').forEach(el=>{
-    if(!el.classList.contains('empty')&&parseInt(el.textContent,10)===day) el.classList.add('has-appt');
+
+// ══ CALENDAR ══
+function buildCalendar() {
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const today = new Date().getDay();
+  days.forEach((day, i) => {
+    const el = document.createElement('div');
+    el.className = 'cal-day' + (i === today ? ' today' : '');
+    el.innerHTML = `<div class="cal-day-name">${day}</div><div class="cal-day-hours">11:00 AM –<br>10:00 PM</div>`;
+    grid.appendChild(el);
   });
 }
-function timeToMinutes(t){
-  const m=String(t).match(/(\d+):(\d+)\s*(AM|PM)/i);
-  if(!m)return 0;
-  let h=parseInt(m[1],10),mm=parseInt(m[2],10);const ap=m[3].toUpperCase();
-  if(ap==='PM'&&h!==12)h+=12; if(ap==='AM'&&h===12)h=0;
-  return h*60+mm;
-}
-function addOrderRow(time,name,item){
-  const tbody=document.getElementById('ordersBody');
-  const tr=document.createElement('tr');
-  tr.innerHTML=`<td>${esc(time)}</td><td>${esc(name)}</td><td>${esc(item)}</td><td><span class="status pending">Preparing</span></td>`;
-  const newMin=timeToMinutes(time);
-  const rows=[...tbody.querySelectorAll('tr')];
-  let inserted=false;
-  for(const r of rows){
-    const rm=timeToMinutes(r.children[0].textContent);
-    if(newMin<rm){tbody.insertBefore(tr,r);inserted=true;break;}
-  }
-  if(!inserted)tbody.appendChild(tr);
-}
 
-/* ===== ORDER MODAL (adapted from the customer-facing demo) ===== */
-const CLOSED_DAYS=[];
-const SLOT_HOURS=[11,12,13,14,15,16,17,18,19,20,21];
-let step=1,calOffset=0,chosen={serviceIdx:null,date:'',time:'',name:'',phone:'',notes:'',finalized:false};
-const titles=['Select Item','Pickup Date','Pickup Time','Customer Info','Order Confirmed'];
-
-function slotLabel(h){const period=h<12?'AM':'PM';let hh=h%12;if(hh===0)hh=12;return hh+':00 '+period}
-
-function openBooking(){
-  step=1;calOffset=0;chosen={serviceIdx:null,date:'',time:'',name:'',phone:'',notes:'',finalized:false};
-  renderStep();
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
+// ══ ORDERS (seed data) ══
+let ORDERS = [
+  { name: 'Denise K.', phone: '(215) 555-0102', items: '1× Cheese Pizza (Large)', pickup: 'Today · 6:30 PM', total: 16.00, status: 'ready' },
+  { name: 'Marcus T.', phone: '(215) 555-0187', items: '2× Buffalo Wings (10pc)', pickup: 'Today · 7:00 PM', total: 28.00, status: 'progress' },
+  { name: 'Angela P.', phone: '(215) 555-0134', items: '1× Italian Hoagie', pickup: 'Today · 12:30 PM', total: 9.00, status: 'ready' },
+  { name: 'R. Sanchez', phone: '(215) 555-0199', items: '1× Pepperoni Pizza (Large), 1× Baked Ziti', pickup: 'Today · 6:00 PM', total: 30.00, status: 'new' },
+  { name: 'T. Nguyen', phone: '(215) 555-0155', items: '1× Chicken Parmigiana', pickup: 'Today · 8:00 PM', total: 14.00, status: 'new' },
+  { name: 'K. Brown', phone: '(215) 555-0121', items: '1× Cheesesteak, 1× Turkey Hoagie', pickup: 'Today · 1:00 PM', total: 18.00, status: 'ready' },
+  { name: 'J. Diaz', phone: '(215) 555-0143', items: '1× Chicken Cheesesteak', pickup: 'Today · 5:30 PM', total: 9.50, status: 'progress' },
+];
+function statusPill(status) {
+  const map = { ready: ['status-ready','Ready'], progress: ['status-progress','In Progress'], new: ['status-new','New'] };
+  const [cls, label] = map[status] || map.new;
+  return `<span class="status-pill ${cls}">${label}</span>`;
 }
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow='';
+function renderOrders() {
+  const bodyFull = document.getElementById('orders-body');
+  const bodyDash = document.getElementById('dash-orders-body');
+  bodyFull.innerHTML = '';
+  bodyDash.innerHTML = '';
+  ORDERS.forEach((o, idx) => {
+    const trFull = document.createElement('tr');
+    trFull.innerHTML = `
+      <td>${o.name}</td><td>${o.phone}</td><td>${o.items}</td><td>${o.pickup}</td>
+      <td>$${o.total.toFixed(2)}</td><td>${statusPill(o.status)}</td>
+      <td><button class="row-del" onclick="deleteOrder(${idx})" title="Remove"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z"/></svg></button></td>`;
+    bodyFull.appendChild(trFull);
+  });
+  ORDERS.slice(0,5).forEach(o => {
+    const trDash = document.createElement('tr');
+    trDash.innerHTML = `<td>${o.name}</td><td>${o.items}</td><td>${o.pickup}</td><td>$${o.total.toFixed(2)}</td><td>${statusPill(o.status)}</td>`;
+    bodyDash.appendChild(trDash);
+  });
+  document.getElementById('kpi-orders').textContent = ORDERS.length;
+  document.getElementById('kpi-revenue').textContent = '$' + ORDERS.reduce((s,o)=>s+o.total,0).toFixed(2);
 }
-function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
-function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
-function shiftMonth(n){calOffset=Math.max(0,Math.min(2,calOffset+n));renderStep()}
-function selectService(i){chosen.serviceIdx=i;renderStep();}
+function deleteOrder(idx) { ORDERS.splice(idx,1); renderOrders(); }
 
-function renderStep(){
-  document.getElementById('modalTitle').textContent=titles[step-1];
-  setStepDots();
-  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
-  body.innerHTML='';foot.innerHTML='';
-  if(step===1){
-    body.innerHTML=`<div class="step-title">What's The Order?</div><div class="service-grid">
-      ${SERVICES.map((s,i)=>`<div class="service-option${chosen.serviceIdx===i?' selected':''}" onclick="selectService(${i})">
-        <div class="svc-name">${esc(s.n)}</div><div class="svc-price">${esc(fmt(s.p))}</div></div>`).join('')}</div>`;
-    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.serviceIdx!=null){step=2;renderStep()}">Continue →</button>`;
-  } else if(step===2){
-    const now=new Date(),view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
-    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
-    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const longMonths=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    const todayHasSlots=SLOT_HOURS.some(h=>h>now.getHours());
-    let cal=`<div class="step-title">Choose A Pickup Date</div>
-      <div class="cal-month"><span>${longMonths[m]} ${y}</span><span class="cal-nav"><button type="button" aria-label="Previous month" onclick="shiftMonth(-1)"${calOffset===0?' disabled':''}>‹</button><button type="button" aria-label="Next month" onclick="shiftMonth(1)"${calOffset>=2?' disabled':''}>›</button></span></div>
-      <div class="calendar-grid">
-      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
-      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
-    for(let d=1;d<=daysInMonth;d++){
-      const dt=`${months[m]} ${d}, ${y}`,date=new Date(y,m,d);
-      const isPast=date<today;
-      const isToday=date.getTime()===today.getTime();
-      const isClosedDow=CLOSED_DAYS.includes(date.getDay());
-      const isDisabled=isPast||isClosedDow||(isToday&&!todayHasSlots);
-      cal+=`<div class="cal-day${isDisabled?' disabled':chosen.date===dt?' selected':''}"${!isDisabled?` onclick="chosen.date='${dt}';renderStep()"`:''}">${d}</div>`;
-    }
-    body.innerHTML=cal+'</div><p style="font-size:.75rem;color:#9a8f80;margin-top:.6rem">Open every day, 11:00 AM – 10:00 PM.</p>';
-    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
-  } else if(step===3){
-    const now=new Date();
-    const parsedDate=new Date(chosen.date);
-    const isToday=parsedDate.getFullYear()===now.getFullYear()&&parsedDate.getMonth()===now.getMonth()&&parsedDate.getDate()===now.getDate();
-    const slots=SLOT_HOURS.filter(h=>!isToday||h>now.getHours());
-    body.innerHTML=`<div class="step-title">Pickup Time</div><div class="time-grid">
-      ${slots.map(h=>{const t=slotLabel(h);return `<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`}).join('')}</div>`;
-    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
-  } else if(step===4){
-    body.innerHTML=`<div class="step-title">Customer Info</div>
-      <div class="form-group"><label>Customer Name</label><input id="fn" placeholder="Customer name" value="${esc(chosen.name)}"></div>
-      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="${esc(chosen.phone)}"></div>
-      <div class="form-group"><label>Notes (optional)</label><input id="fv" placeholder="e.g. extra napkins, ring bell" value="${esc(chosen.notes)}"></div>`;
-    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
-      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value;chosen.phone=document.getElementById('fp').value;chosen.notes=document.getElementById('fv').value;if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Order</button>`;
-  } else {
-    if(!chosen.finalized){finalizeOrder();chosen.finalized=true;}
-    const svc=SERVICES[chosen.serviceIdx];
-    body.innerHTML=`<div class="confirm-screen">
-      <div class="confirm-icon">🍕</div>
-      <h3>Order Added To Schedule</h3>
-      <p>Kitchen has been notified${chosen.name?', '+esc(chosen.name.split(' ')[0]):''}.</p>
-      <div class="confirm-detail">
-        <div><span>Order</span><span>${esc(svc.n)}</span></div>
-        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
-        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
-        <div><span>Notes</span><span>${esc(chosen.notes)||'—'}</span></div>
-        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
-      </div>
-      <p style="font-size:.8rem;color:#9a8f80;margin-top:.5rem">Call the shop at (215) 332-0400 with any changes.</p>
-    </div>`;
-    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done ✓</button>`;
-  }
+// ══ ADD ORDER MODAL ══
+function populateItemSelect() {
+  const sel = document.getElementById('ao-item');
+  sel.innerHTML = '';
+  allMenuItems().forEach(i => {
+    const opt = document.createElement('option');
+    opt.value = i.id;
+    opt.textContent = `${i.name} — $${i.price.toFixed(2)}`;
+    sel.appendChild(opt);
+  });
+}
+function openAddOrder() {
+  populateItemSelect();
+  document.getElementById('add-order-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeAddOrder() {
+  document.getElementById('add-order-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('add-order-overlay').addEventListener('click', e => {
+  if (e.target.id === 'add-order-overlay') closeAddOrder();
+});
+function submitAddOrder() {
+  const name = document.getElementById('ao-name').value || 'Walk-in Customer';
+  const phone = document.getElementById('ao-phone').value || '—';
+  const itemId = document.getElementById('ao-item').value;
+  const qty = parseInt(document.getElementById('ao-qty').value) || 1;
+  const time = document.getElementById('ao-time').value || '18:00';
+  const item = allMenuItems().find(i => i.id === itemId);
+  if (!item) return;
+  const [h,m] = time.split(':').map(Number);
+  const hour12 = ((h % 12) || 12);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  ORDERS.unshift({
+    name, phone,
+    items: `${qty}× ${item.name}`,
+    pickup: `Today · ${hour12}:${String(m).padStart(2,'0')} ${ampm}`,
+    total: item.price * qty,
+    status: 'new'
+  });
+  renderOrders();
+  closeAddOrder();
+  document.getElementById('ao-name').value = '';
+  document.getElementById('ao-phone').value = '';
+  document.getElementById('ao-notes').value = '';
+  document.getElementById('ao-qty').value = 1;
 }
 
-function finalizeOrder(){
-  const svc=SERVICES[chosen.serviceIdx];
-  const chosenDate=new Date(chosen.date);
-  const now=new Date();
-  const todayMidnight=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-  const isToday=chosenDate.getTime()===todayMidnight.getTime();
-  const wkStart=new Date(todayMidnight);wkStart.setDate(wkStart.getDate()-wkStart.getDay());
-  const wkEnd=new Date(wkStart);wkEnd.setDate(wkStart.getDate()+6);wkEnd.setHours(23,59,59,999);
-  const inWeek=chosenDate>=wkStart&&chosenDate<=wkEnd;
+// ══ OPEN NOW INDICATOR ══
+function updateOpenStatus() {
+  const now = new Date();
+  const hour = now.getHours();
+  const open = hour >= 11 && hour < 22;
+  document.getElementById('kpi-open').textContent = open ? 'Yes' : 'No';
+  document.getElementById('kpi-open').style.color = open ? '#6fbb7c' : '#e08a6a';
+}
 
-  if(isToday){
-    addOrderRow(chosen.time,chosen.name||'Walk-in',svc.n);
-    todayCount++;
-    document.getElementById('kpiToday').textContent=todayCount;
-  }
-  if(inWeek){
-    weekCount++;
-    weekRevenue+=svc.p;
-    document.getElementById('kpiWeek').textContent=weekCount;
-    document.getElementById('kpiRevenue').textContent=fmtMoney(weekRevenue);
-  }
-  if(!isToday){
-    markCalendarDot(chosenDate);
-    showToast('Added to '+chosen.date);
-  } else {
-    showToast('Order added for today at '+chosen.time);
-  }
+function initDashboard() {
+  buildMenuPanel();
+  populateItemSelect();
+  buildCalendar();
+  renderOrders();
+  updateOpenStatus();
 }
 </script>
 </body>

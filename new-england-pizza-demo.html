@@ -1,696 +1,1800 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>New England Pizza — Bustleton Ave, Philadelphia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --cream:#FAF3E8;--white:#FFFFFF;--charcoal:#2B2622;
-  --brick:#B23A2E;--brick-dark:#8C2A20;
-  --green:#35563F;--green-dark:#20362A;
-  --gold:#D9A441;--muted:#6E6155;--border:#E5D9C4;
-}
-html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-body{background:var(--cream);color:var(--charcoal);font-family:'Work Sans',sans-serif;overflow-x:hidden}
-h1,h2,h3{font-family:'Oswald',sans-serif}
-section,.hours-section,.menu-section,.gallery-section,.story-section,.reviews-section{scroll-margin-top:84px}
-#progressBar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--brick),var(--gold));z-index:10000}
-#cursor,#cursor-ring{display:none;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-#cursor{width:8px;height:8px;background:var(--brick);border-radius:50%}
-#cursor-ring{width:38px;height:38px;border:1.5px solid var(--brick);border-radius:50%;opacity:.55}
-body{cursor:auto}
-@media (hover:hover) and (pointer:fine) and (min-width:861px){
-  html.cursor-on body,html.cursor-on body *:not(input):not(textarea){cursor:none}
-  html.cursor-on #cursor,html.cursor-on #cursor-ring{display:block}
-}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.15rem 5%;background:rgba(250,243,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);transition:padding .3s}
-.brand{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--charcoal)}
-.brand span{color:var(--brick)}
-.nav-links{display:flex;align-items:center;gap:2.3rem;list-style:none}
-.nav-links a{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--charcoal);position:relative;transition:color .2s}
-.nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--brick);transition:width .25s}
-.nav-links a:hover{color:var(--brick)}
-.nav-links a:hover::after{width:100%}
-.nav-cta{background:var(--brick);color:#fff;padding:.62rem 1.4rem;border-radius:2px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s}
-.nav-cta:hover{background:var(--brick-dark)}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem;z-index:250}
-.hamburger span{width:24px;height:2px;background:var(--charcoal);transition:all .3s}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.drawer-overlay{position:fixed;inset:0;background:rgba(43,38,34,.55);z-index:198;opacity:0;pointer-events:none;transition:opacity .3s}
-.drawer-overlay.open{opacity:1;pointer-events:auto}
-.mobile-drawer{position:fixed;top:0;right:-300px;width:280px;height:100%;background:var(--white);z-index:199;padding:5.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.5rem;transition:right .35s cubic-bezier(.16,1,.3,1);box-shadow:-10px 0 40px rgba(0,0,0,.18)}
-.mobile-drawer.open{right:0}
-.drawer-close{position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;font-size:1.4rem;color:var(--charcoal);cursor:pointer;line-height:1}
-.mobile-drawer a{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--charcoal)}
-.mobile-drawer a.btn-solid{color:#fff;text-align:center;margin-top:.6rem}
-.hero{position:relative;display:flex;min-height:100vh}
-.hero-left{width:55%;background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:6.5rem 4.5rem 3rem 6%;position:relative;z-index:2}
-.eyebrow{display:flex;align-items:center;gap:.6rem;font-size:.76rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);margin-bottom:1.1rem;opacity:0;transform:translateY(10px)}
-.eyebrow::before{content:'';width:26px;height:2px;background:var(--brick)}
-.eyebrow-light{color:var(--gold)}
-.eyebrow-light::before{background:var(--gold)}
-.hero-h1{font-size:clamp(2.7rem,5.6vw,4.5rem);font-weight:700;line-height:.98;letter-spacing:-.01em;text-transform:uppercase;color:var(--charcoal);margin-bottom:1.3rem}
-.hero-h1 .hl-line{display:block;overflow:hidden}
-.hero-h1 .hl-line span{display:block;transform:translateY(112%)}
-.hero-h1 .hl-line span em{font-style:normal;color:var(--brick)}
-.hero-copy{font-size:1.02rem;line-height:1.75;color:var(--muted);max-width:440px;margin-bottom:2rem;opacity:0;transform:translateY(10px)}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;transform:translateY(10px)}
-.btn-solid{display:inline-block;background:var(--brick);color:#fff;padding:.85rem 1.9rem;border-radius:2px;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .2s}
-.btn-solid:hover{background:var(--brick-dark);transform:translateY(-2px)}
-.btn-line{display:inline-block;border:2px solid var(--charcoal);color:var(--charcoal);padding:.8rem 1.7rem;border-radius:2px;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .2s;background:transparent}
-.btn-line:hover{background:var(--charcoal);color:#fff}
-.hero-right{width:45%;position:relative;overflow:hidden;clip-path:polygon(9% 0,100% 0,100% 100%,0 100%)}
-.hero-right img{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;clip-path:inset(0 0 100% 0)}
-.hero-right::after{content:'';position:absolute;top:0;bottom:0;left:6%;width:5%;background:var(--brick);transform:skewX(-9deg);z-index:2}
-.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(43,38,34,.5),rgba(43,38,34,0) 45%);z-index:1}
-.family-badge{position:absolute;left:-2rem;bottom:1.4rem;z-index:5;filter:drop-shadow(0 8px 18px rgba(0,0,0,.25))}
-.marquee-strip{background:var(--brick);overflow:hidden;padding:.75rem 0;white-space:nowrap;position:relative;z-index:3}
-.marquee-strip #marquee{display:inline-flex;will-change:transform}
-.marquee-strip #marquee span{font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:0 1.8rem}
-.marquee-strip #marquee .sep{color:var(--gold);padding:0 .3rem}
-section{padding:6.5rem 5%;position:relative}
-.section-eyebrow{display:flex;align-items:center;gap:.6rem;font-size:.74rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);margin-bottom:.9rem}
-.section-eyebrow::before{content:'';width:22px;height:2px;background:var(--brick)}
-.section-h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700;letter-spacing:-.01em;text-transform:uppercase;color:var(--charcoal);line-height:1.06;margin-bottom:1.2rem}
-.menu-section{background:var(--cream)}
-.pill-row{display:flex;gap:.7rem;flex-wrap:wrap;margin:2rem 0 2.6rem}
-.pill{background:var(--white);border:2px solid var(--border);color:var(--charcoal);padding:.6rem 1.3rem;border-radius:40px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .2s}
-.pill:hover{border-color:var(--brick)}
-.pill.active{background:var(--brick);border-color:var(--brick);color:#fff}
-.menu-list{display:flex;flex-direction:column;max-width:840px}
-.menu-row{display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;padding:1.3rem 0;border-bottom:1px solid var(--border)}
-.menu-row h3{font-family:'Oswald',sans-serif;font-size:1.12rem;font-weight:600;letter-spacing:.01em;text-transform:uppercase;color:var(--charcoal);margin-bottom:.3rem}
-.menu-row p{font-size:.88rem;line-height:1.6;color:var(--muted);max-width:440px}
-.menu-row .price{font-family:'Oswald',sans-serif;font-size:1.25rem;font-weight:700;color:var(--brick);white-space:nowrap}
-.menu-footnote{margin-top:1.6rem;font-size:.82rem;color:var(--muted);font-style:italic}
-.statement-band{min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:5.5rem 5%;background:var(--green)}
-.statement-bg{position:absolute;inset:-8%;background-size:cover;background-position:center}
-.statement-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(32,54,42,.88),rgba(32,54,42,.94))}
-.statement-inner{position:relative;z-index:2;color:#fff;max-width:920px}
-.big-h2{font-size:clamp(2.6rem,7.5vw,6rem);font-weight:700;line-height:.98;letter-spacing:-.01em;text-transform:uppercase}
-.stat-row{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-top:2.2rem}
-.stat .num{font-family:'Oswald',sans-serif;font-size:2.8rem;font-weight:700;color:var(--gold);display:block;line-height:1}
-.stat .lbl{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:.35rem}
-.story-section{background:var(--white);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.story-frame{position:relative;aspect-ratio:4/3}
-.story-frame::before{content:'';position:absolute;top:-16px;left:-16px;width:100%;height:100%;background:var(--brick);border-radius:4px;z-index:0}
-.story-frame-inner{position:relative;z-index:1;border-radius:4px;overflow:hidden;width:100%;height:100%}
-.story-frame-inner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
-.story-frame:hover .story-frame-inner img{transform:scale(1.05)}
-.story-text p{font-size:1rem;line-height:1.8;color:var(--muted);margin-bottom:.9rem}
-.stat-row-alt{display:flex;gap:2.4rem;margin-top:1.8rem;padding-top:1.8rem;border-top:1px solid var(--border);flex-wrap:wrap}
-.stat-row-alt .num{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--brick);display:block;line-height:1}
-.stat-row-alt .lbl{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
-.gallery-section{background:var(--cream)}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:230px 230px;gap:1rem;margin-top:2.6rem}
-.gallery-tile{overflow:hidden;border-radius:6px;position:relative}
-.gallery-tile.tall{grid-row:span 2}
-.gallery-tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s;display:block}
-.gallery-tile:hover img{transform:scale(1.08)}
-.tile-label{position:absolute;left:0;right:0;bottom:0;padding:1rem;background:linear-gradient(180deg,transparent,rgba(43,38,34,.8));color:#fff;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.82rem}
-.trust-bar{background:var(--charcoal);padding:4rem 5%}
-.trust-bar-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
-.trust-item .tval{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--gold);display:block}
-.trust-item .tlbl{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:.35rem}
-.hours-section{background:var(--white)}
-.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.hours-list{list-style:none;margin-top:1.3rem}
-.hours-list li{display:flex;justify-content:space-between;padding:.62rem 0;border-bottom:1px solid var(--border);font-size:.94rem;position:relative}
-.hours-list li.today::before{content:'TODAY';position:absolute;left:-.1rem;top:-1.05rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;color:var(--brick)}
-.hours-list li span:first-child{font-weight:600;color:var(--charcoal)}
-.hours-list li span:last-child{color:var(--muted)}
-.contact-row{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:1.3rem;font-size:.94rem}
-.c-icon{width:38px;height:38px;background:var(--brick);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#fff;flex-shrink:0}
-.contact-row a{color:var(--brick);text-decoration:none;font-weight:600}
-.contact-row small{color:var(--muted)}
-.directions{display:inline-flex;align-items:center;gap:.4rem;margin-top:.3rem;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;border-bottom:2px solid var(--brick);padding-bottom:.15rem}
-.reviews-section{background:var(--cream)}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.3rem;margin-top:2.6rem}
-.review-card{background:var(--white);border-radius:8px;padding:1.9rem;border:1px solid var(--border);position:relative;transition:transform .3s,box-shadow .3s;will-change:transform}
-.review-card:hover{box-shadow:0 20px 40px rgba(43,38,34,.1)}
-.review-quote{position:absolute;top:1rem;right:1.3rem;font-family:Georgia,serif;font-size:3rem;color:var(--border);line-height:1}
-.review-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
-.g-badge{display:flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;color:var(--muted);letter-spacing:.04em}
-.review-stars{color:var(--gold);font-size:.88rem}
-.review-text{font-size:.9rem;line-height:1.7;color:var(--muted);margin-bottom:.9rem;position:relative;z-index:1}
-.review-author{font-weight:700;font-size:.83rem;color:var(--charcoal)}
-.review-date{font-size:.74rem;color:#9a8f80;margin-top:.18rem}
-.cta-section{background:var(--brick);text-align:center;padding:5.5rem 5%;position:relative;overflow:hidden}
-.cta-section h2{font-family:'Oswald',sans-serif;font-size:clamp(1.9rem,3.8vw,3rem);font-weight:700;letter-spacing:-.01em;text-transform:uppercase;color:#fff;margin-bottom:.8rem}
-.cta-section p{color:rgba(255,255,255,.85);font-size:1rem;max-width:440px;margin:0 auto 2.2rem}
-.btn-cream{display:inline-block;background:var(--cream);color:var(--brick);padding:.9rem 2.1rem;border-radius:2px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:transform .15s}
-footer{background:var(--charcoal);border-top:1px solid rgba(255,255,255,.08);padding:2.6rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-footer .flogo{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff}
-footer .flogo span{color:var(--brick)}
-footer p{color:rgba(255,255,255,.4);font-size:.8rem}
-footer a{color:var(--gold);font-size:.8rem;text-decoration:none;font-weight:600}
-.reveal{opacity:0;transform:translateY(28px)}
-html.no-motion .eyebrow,html.no-motion .hero-copy,html.no-motion .hero-ctas{opacity:1!important;transform:none!important}
-html.no-motion .hero-h1 .hl-line span{transform:none!important}
-html.no-motion .hero-right img{clip-path:inset(0 0 0% 0)!important}
-html.no-motion .reveal{opacity:1!important;transform:none!important}
-.modal-overlay{position:fixed;inset:0;background:rgba(43,38,34,.75);backdrop-filter:blur(6px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.open{display:flex}
-.modal{background:var(--white);border-radius:8px;width:100%;max-width:520px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.32)}
-.modal-header{padding:1.5rem 1.6rem .8rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.modal-header h3{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--charcoal)}
-.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem}
-.modal-steps{display:flex;gap:.32rem;padding:0 1.6rem .9rem;flex-shrink:0}
-.step-dot{flex:1;height:3px;background:var(--border);border-radius:2px;transition:background .3s}
-.step-dot.active{background:var(--brick)}
-.step-dot.done{background:var(--green)}
-#modalBody{padding:0 1.6rem 1.4rem;overflow-y:auto;flex:1 1 auto}
-.step-title{font-family:'Oswald',sans-serif;font-size:1.02rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--charcoal);margin-bottom:1.1rem}
-.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
-.service-option{border:2px solid var(--border);border-radius:6px;padding:.85rem;cursor:pointer;transition:all .2s}
-.service-option:hover,.service-option.selected{border-color:var(--brick);background:#FBEAE7}
-.service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--charcoal)}
-.service-option .svc-price{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:var(--brick);margin-top:.25rem}
-.cal-month{display:flex;justify-content:space-between;align-items:center;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--charcoal)}
-.cal-nav{display:flex;gap:.4rem}
-.cal-nav button{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--white);color:var(--charcoal);font-size:1rem;line-height:1;cursor:pointer;transition:all .2s}
-.cal-nav button:hover{border-color:var(--brick);color:var(--brick)}
-.cal-nav button:disabled{opacity:.35;cursor:default}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
-.cal-day-name{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
-.cal-day{text-align:center;padding:.46rem;border-radius:4px;font-size:.84rem;cursor:pointer;transition:all .2s}
-.cal-day:hover:not(.disabled){background:var(--brick);color:#fff}
-.cal-day.selected{background:var(--brick);color:#fff;font-weight:700}
-.cal-day.disabled{color:#D8CBB4;pointer-events:none}
-.cal-day.empty{visibility:hidden}
-.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.7rem}
-.time-slot{border:2px solid var(--border);border-radius:5px;padding:.55rem;text-align:center;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Oswald',sans-serif;letter-spacing:.03em}
-.time-slot:hover,.time-slot.selected{border-color:var(--brick);background:#FBEAE7;color:var(--brick)}
-.form-group{margin-bottom:1rem}
-.form-group label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal);margin-bottom:.35rem}
-.form-group input{width:100%;border:2px solid var(--border);border-radius:5px;padding:.68rem .9rem;font-family:'Work Sans',sans-serif;font-size:16px;color:var(--charcoal);background:var(--cream);outline:none;transition:border-color .2s}
-.form-group input:focus{border-color:var(--brick)}
-.modal-footer{padding:.9rem 1.6rem;border-top:1px solid var(--border);display:flex;gap:.6rem;justify-content:flex-end;flex-shrink:0;flex-wrap:nowrap}
-.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:.56rem 1.1rem;border-radius:5px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
-.btn-back:hover{border-color:var(--charcoal);color:var(--charcoal)}
-.btn-next{background:var(--brick);color:#fff;border:none;padding:.56rem 1.4rem;border-radius:5px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
-.btn-next:hover{background:var(--brick-dark)}
-.confirm-screen{text-align:center;padding:.6rem 0}
-.confirm-icon{font-size:2.8rem;margin-bottom:.7rem}
-.confirm-screen h3{font-family:'Oswald',sans-serif;font-size:1.35rem;font-weight:700;text-transform:uppercase;color:var(--charcoal);margin-bottom:.5rem}
-.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.9rem}
-.confirm-detail{background:var(--cream);border-radius:5px;padding:.9rem;margin:1rem 0;text-align:left}
-.confirm-detail div{display:flex;justify-content:space-between;padding:.32rem 0;font-size:.85rem;border-bottom:1px solid var(--border);gap:1rem}
-.confirm-detail div:last-child{border:none}
-.confirm-detail span:first-child{color:var(--muted);font-weight:600;flex-shrink:0}
-.confirm-detail span:last-child{color:var(--charcoal);font-weight:700;text-align:right}
-@media(hover:none){.review-card{transform:none!important}}
-@media(max-width:860px){
-  .hero{flex-direction:column;min-height:auto}
-  .hero-left{width:100%;padding:6.5rem 6% 3rem}
-  .hero-right{width:100%;height:46vh;clip-path:none}
-  .hero-right::after{display:none}
-  .family-badge{left:1.2rem;bottom:-1.6rem}
-  .family-badge svg{width:100px;height:100px}
-  .story-section,.hours-grid{grid-template-columns:1fr}
-  .story-frame::before{display:none}
-  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .gallery-tile.tall{grid-row:span 1;min-height:180px}
-  .trust-bar-inner{grid-template-columns:1fr 1fr;gap:2rem 1rem}
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  section{padding:4.5rem 6%}
-  .menu-row{flex-direction:column;gap:.4rem}
-  .modal-footer{padding:.8rem 1rem}
-  .btn-back,.btn-next{padding:.56rem .9rem;font-size:.78rem}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New England Pizza — Bustleton Ave | Philadelphia, PA</title>
+  <meta name="description" content="New England Pizza — 6728 Bustleton Ave, Philadelphia. Pizza, wings, hoagies &amp; more. 4.0 stars, 300+ Google reviews. Order for pickup today." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #17130f;
+      --bg-alt:      #1c1712;
+      --bg-card:     #221c16;
+      --text:        #f5ece0;
+      --muted:       rgba(245,236,224,0.55);
+      --accent:      #c8712f;
+      --accent-rgb:  200, 113, 47;
+      --accent-pale: rgba(200,113,47,0.14);
+      --border:      rgba(245,236,224,0.08);
+      --ff-display:  'Fraunces', Georgia, serif;
+      --ff-body:     'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a   { color: inherit; text-decoration: none; }
+    svg { display: block; }
+
+    /* ── SCROLL PROGRESS ── */
+    #prog {
+      position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+      background: var(--accent); transform-origin: left; transform: scaleX(0); z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 32px 52px;
+      transition: background .4s, padding .3s, box-shadow .3s;
+    }
+    nav.scrolled {
+      background: rgba(17,14,10,.97); backdrop-filter: blur(16px);
+      padding: 18px 52px; box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500;
+      letter-spacing: .04em; color: var(--text);
+    }
+    .nav-logo em { color: var(--accent); font-style: italic; }
+    .nav-links {
+      display: flex; align-items: center; gap: 38px; list-style: none;
+    }
+    .nav-links a {
+      font-size: .74rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text); opacity: .5; transition: opacity .2s, color .2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.nav-active { opacity: 1; color: var(--accent); }
+    .nav-cta {
+      background: var(--accent) !important; color: #17130f !important;
+      padding: 10px 26px; border-radius: 50px; opacity: 1 !important;
+      font-size: .74rem !important; font-weight: 600 !important;
+      letter-spacing: .08em !important;
+      transition: background .2s !important;
+      border: none; cursor: pointer; font-family: var(--ff-body);
+    }
+    .nav-cta:hover { background: #e08a42 !important; opacity: 1 !important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px; z-index: 302;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px; background: var(--text);
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* side drawer */
+    .nav-drawer {
+      position: fixed; top: 0; right: 0; width: 300px; height: 100dvh;
+      background: #14110d; z-index: 301;
+      transform: translateX(100%); transition: transform .45s cubic-bezier(.4,0,.2,1);
+      padding: 100px 44px 48px; display: flex; flex-direction: column; gap: 8px;
+      border-left: 1px solid var(--border);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+    .nav-drawer a {
+      font-family: var(--ff-display); font-size: 1.7rem; font-weight: 400;
+      color: rgba(245,236,224,.65); padding: 8px 0;
+      transition: color .2s; border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .nav-drawer a:last-of-type { border-bottom: none; }
+    .nav-drawer a:hover { color: var(--accent); }
+    .drawer-cta {
+      margin-top: 28px !important; background: var(--accent);
+      color: #17130f !important; text-align: center;
+      font-family: var(--ff-body) !important;
+      font-size: .8rem !important; font-weight: 600 !important;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 16px 28px !important; border-radius: 50px;
+      border-bottom: none !important; display: block;
+    }
+    .nav-scrim {
+      position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 299;
+      opacity: 0; pointer-events: none; transition: opacity .4s;
+    }
+    .nav-scrim.open { opacity: 1; pointer-events: all; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute; top: -15%; left: 0;
+      width: 100%; height: 130%; object-fit: cover; z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; background: rgba(10,8,6,.6); z-index: 1;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      font-size: .7rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 28px; opacity: 0; transform: translateY(16px);
+    }
+    .hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(4.4rem, 10vw, 8rem);
+      font-weight: 500; line-height: .95; letter-spacing: -.02em; color: var(--text);
+      margin-bottom: 28px;
+    }
+    .h-line { display: block; clip-path: inset(0 0 100% 0); opacity: 0; }
+    .hero-tagline {
+      font-family: var(--ff-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 300; font-style: italic;
+      color: rgba(245,236,224,.72); letter-spacing: .04em;
+      margin-bottom: 48px; opacity: 0; transform: translateY(20px);
+    }
+    .hero-ctas {
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap; justify-content: center;
+      opacity: 0; transform: translateY(16px);
+    }
+    .btn-fill {
+      background: var(--accent); color: #17130f;
+      padding: 16px 42px; border-radius: 50px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      border: 2px solid var(--accent); display: inline-block; cursor: pointer;
+      font-family: var(--ff-body);
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      padding: 14px 42px; border-radius: 50px;
+      font-size: .8rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+      border: 2px solid rgba(245,236,224,.24); display: inline-block; cursor: pointer;
+      font-family: var(--ff-body);
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+
+    /* floating badges */
+    .fbadge {
+      position: absolute; z-index: 3;
+      background: rgba(17,14,10,.85); border: 1px solid rgba(245,236,224,.12);
+      backdrop-filter: blur(12px); border-radius: 50px;
+      padding: 10px 20px; font-size: .74rem; font-weight: 500;
+      color: var(--text); white-space: nowrap;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 28px rgba(0,0,0,.4);
+    }
+    .fbadge svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; }
+    .fbadge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .fbadge-a { top: 24%; left: 7%; }
+    .fbadge-b { bottom: 26%; right: 7%; }
+    .scroll-ind {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 9px;
+      font-size: .64rem; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(245,236,224,.36); z-index: 2; opacity: 0;
+    }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(var(--accent), transparent); }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap { background: var(--accent); padding: 16px 0; overflow: hidden; }
+    .marquee-track {
+      display: flex; align-items: center; gap: 56px;
+      width: max-content; white-space: nowrap;
+    }
+    .marquee-track span {
+      font-family: var(--ff-display); font-size: 1rem; font-weight: 500;
+      color: rgba(17,14,10,.82); letter-spacing: .07em; text-transform: uppercase;
+    }
+    .marquee-track .sep { color: rgba(17,14,10,.35); }
+
+    /* ── SHARED ── */
+    .section { padding: clamp(80px,10vw,140px) 0; }
+    .section-alt { background: var(--bg-alt); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
+    .section-eyebrow {
+      display: block; font-size: .68rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.3rem, 5vw, 3.8rem); font-weight: 500; line-height: 1.05;
+      letter-spacing: -.02em; color: var(--text); margin-bottom: 60px;
+    }
+    .section-note {
+      font-size: .78rem; color: var(--muted); margin-top: -40px; margin-bottom: 44px;
+      max-width: 560px; line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-editorial {
+      font-family: var(--ff-display);
+      font-size: clamp(3.2rem, 7vw, 6.8rem);
+      font-weight: 500; font-style: italic; line-height: .98;
+      letter-spacing: -.03em; color: var(--text);
+    }
+    .about-editorial em { color: var(--accent); font-style: italic; }
+    .about-body { font-size: .95rem; line-height: 1.9; color: var(--muted); margin: 32px 0 48px; }
+    .about-img-wrap {
+      border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
+    }
+    .about-img-wrap img { transition: transform .8s ease; }
+    .stats { display: flex; gap: 40px; flex-wrap: wrap; }
+    .stat-num {
+      font-family: var(--ff-display); font-size: 3rem; font-weight: 500;
+      line-height: 1; letter-spacing: -.02em; color: var(--text);
+    }
+    .stat-num sup { font-size: 1.3rem; color: var(--accent); vertical-align: super; }
+    .stat-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+    /* ── MENU ── */
+    .menu-tabs {
+      display: flex; gap: 0; margin-bottom: 48px;
+      border-bottom: 1px solid var(--border); position: relative;
+    }
+    .menu-tab {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--ff-display); font-size: 1.1rem; font-weight: 400;
+      color: var(--muted); padding: 14px 32px;
+      letter-spacing: .04em; transition: color .25s;
+    }
+    .menu-tab.active { color: var(--text); }
+    .tab-indicator {
+      position: absolute; bottom: -1px; height: 2px;
+      background: var(--accent); transition: none;
+    }
+    .menu-category { display: none; }
+    .menu-category.active { display: grid; }
+    .menu-grid { grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .menu-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; cursor: pointer;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .menu-card-img { height: 190px; overflow: hidden; }
+    .menu-card-img img { transition: transform .5s ease; }
+    .menu-card-body { padding: 20px 20px 24px; }
+    .menu-card-name { font-family: var(--ff-display); font-size: 1.25rem; font-weight: 500; color: var(--text); margin-bottom: 7px; }
+    .menu-card-desc { font-size: .8rem; line-height: 1.7; color: var(--muted); margin-bottom: 14px; }
+    .menu-card-price { font-size: 1.02rem; font-weight: 600; color: var(--accent); }
+    .menu-card-price .conf { font-size: .62rem; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: .04em; margin-left: 6px; }
+
+    /* Menu item modal */
+    .menu-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.8); z-index: 600;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .menu-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .menu-modal {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 24px; overflow: hidden; width: 100%; max-width: 560px;
+      position: relative; transform: scale(0.9); max-height: 90vh; overflow-y: auto;
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .menu-modal-overlay.open .menu-modal { transform: scale(1); }
+    .menu-modal-img { height: 280px; overflow: hidden; position: relative; }
+    .menu-modal-img img { width: 100%; height: 100%; object-fit: cover; }
+    .icon-btn {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(0,0,0,.65); border: none; color: var(--text);
+      width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px); transition: background .2s;
+    }
+    .icon-btn:hover { background: rgba(0,0,0,.9); }
+    .icon-btn svg { width: 15px; height: 15px; }
+    .menu-modal-body { padding: 32px 36px 36px; }
+    .menu-modal-name { font-family: var(--ff-display); font-size: 2rem; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+    .menu-modal-price { font-size: 1.15rem; font-weight: 600; color: var(--accent); margin-bottom: 16px; }
+    .menu-modal-desc { font-size: .88rem; line-height: 1.8; color: var(--muted); }
+
+    /* ── GALLERY ── */
+    #gallery { padding: 0; }
+    .gallery-wrap { position: relative; }
+    .gallery-sticky {
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .gallery-header { padding: 60px 52px 24px; flex-shrink: 0; }
+    .gallery-track {
+      display: flex; gap: 18px; padding: 0 52px 48px;
+      align-items: flex-end; flex: 1; will-change: transform;
+    }
+    .gh-item {
+      flex-shrink: 0; border-radius: 16px; overflow: hidden;
+      height: 100%; width: 420px; position: relative;
+    }
+    .gh-item.gh-narrow { width: 280px; height: 82%; }
+    .gh-item.gh-wide   { width: 560px; }
+    .gh-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .gh-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,.55);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      opacity: 0; transition: opacity .3s;
+    }
+    .gh-overlay-icon {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 1.5px solid rgba(245,236,224,.7);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text);
+    }
+    .gh-overlay-icon svg { width: 18px; height: 18px; }
+    .gh-overlay-caption { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(245,236,224,.8); }
+
+    /* ── ORDER SECTION ── */
+    .res-section { background: #100d0a; padding: clamp(80px,10vw,140px) 0; }
+    .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+    .res-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(2.8rem, 5.5vw, 4.6rem); font-weight: 500; line-height: .98;
+      letter-spacing: -.03em; color: var(--text); margin-bottom: 22px;
+    }
+    .res-headline em { color: var(--accent); font-style: italic; }
+    .res-sub { font-size: .9rem; line-height: 1.85; color: var(--muted); margin-bottom: 44px; }
+    .res-info { display: flex; flex-direction: column; gap: 18px; margin-bottom: 44px; }
+    .res-info-row { display: flex; align-items: center; gap: 14px; font-size: .84rem; color: var(--muted); }
+    .res-info-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--accent-pale); border: 1px solid rgba(200,113,47,.25);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .res-info-icon svg { width: 16px; height: 16px; color: var(--accent); }
+    .res-visual {
+      border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
+    }
+
+    /* Order modal */
+    .order-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.82); z-index: 700;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .order-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .order-modal {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 24px; overflow: hidden; width: 100%; max-width: 620px;
+      max-height: 90vh; display: flex; flex-direction: column;
+      position: relative; transform: scale(0.92);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .order-modal-overlay.open .order-modal { transform: scale(1); }
+    .order-modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 26px 32px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .order-modal-title { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500; }
+    .order-steps {
+      display: flex; gap: 8px; padding: 18px 32px 0; flex-shrink: 0;
+    }
+    .order-step-dot {
+      flex: 1; height: 3px; border-radius: 3px; background: var(--border);
+      transition: background .3s;
+    }
+    .order-step-dot.active, .order-step-dot.done { background: var(--accent); }
+    .order-modal-body { padding: 28px 32px; overflow-y: auto; flex: 1; }
+    .order-step { display: none; flex-direction: column; gap: 18px; }
+    .order-step.active { display: flex; }
+    .order-step-title { font-family: var(--ff-display); font-size: 1.3rem; font-weight: 500; margin-bottom: 2px; }
+    .order-item-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      background: rgba(245,236,224,.03); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px 16px;
+    }
+    .order-item-name { font-size: .9rem; font-weight: 500; }
+    .order-item-price { font-size: .78rem; color: var(--muted); margin-top: 3px; }
+    .qty-stepper { display: flex; align-items: center; gap: 0; background: rgba(245,236,224,.04); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .qty-btn { background: none; border: none; color: var(--text); font-size: 1.1rem; padding: 6px 14px; cursor: pointer; transition: background .2s; }
+    .qty-btn:hover { background: var(--accent-pale); }
+    .qty-val { width: 26px; text-align: center; font-size: .88rem; font-weight: 600; }
+    .fgroup { display: flex; flex-direction: column; gap: 8px; }
+    .fgroup label {
+      font-size: .67rem; font-weight: 500; letter-spacing: .13em; text-transform: uppercase;
+      color: rgba(245,236,224,.4);
+    }
+    .fgroup input, .fgroup select, .fgroup textarea {
+      background: rgba(245,236,224,.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+      font-family: var(--ff-body); font-size: .93rem; color: var(--text);
+      outline: none; transition: border-color .25s; -webkit-appearance: none;
+    }
+    .fgroup select option { background: #221c16; color: var(--text); }
+    .fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus { border-color: var(--accent); }
+    .fgroup textarea { resize: vertical; min-height: 80px; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.8); cursor: pointer; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .review-line { display: flex; justify-content: space-between; font-size: .86rem; padding: 8px 0; border-bottom: 1px solid var(--border); color: var(--muted); }
+    .review-line strong { color: var(--text); font-weight: 500; }
+    .review-total { display: flex; justify-content: space-between; font-size: 1rem; font-weight: 600; padding-top: 14px; color: var(--text); }
+    .order-modal-foot {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 22px 32px; border-top: 1px solid var(--border); flex-shrink: 0;
+    }
+    .btn-ghost {
+      background: none; border: 1px solid var(--border); color: var(--text);
+      padding: 13px 26px; border-radius: 50px; font-family: var(--ff-body);
+      font-size: .78rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+      cursor: pointer; transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost:disabled { opacity: .35; cursor: not-allowed; }
+    .btn-submit-res {
+      background: var(--accent); color: #17130f;
+      padding: 13px 30px; border: none; border-radius: 50px;
+      font-family: var(--ff-body); font-size: .8rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      cursor: pointer; transition: background .2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-submit-res:hover { background: #e08a42; }
+    .btn-submit-res.loading { pointer-events: none; opacity: .85; }
+    .btn-submit-res.success { background: #3f7d4a; pointer-events: none; }
+    .spinner {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid rgba(23,19,15,.3); border-top-color: #17130f;
+      animation: spin .7s linear infinite; display: none; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .checkmark-svg { display: none; width: 20px; height: 20px; flex-shrink: 0; }
+    .checkmark-path {
+      stroke: #fff; stroke-width: 2.5; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 22; stroke-dashoffset: 22;
+      transition: stroke-dashoffset .4s ease .1s;
+    }
+    .checkmark-path.draw { stroke-dashoffset: 0; }
+    .order-confirm { display: none; text-align: center; padding: 30px 0; }
+    .order-confirm-icon {
+      width: 60px; height: 60px; border-radius: 50%; background: var(--accent-pale);
+      border: 1px solid rgba(200,113,47,.3); display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px;
+    }
+    .order-confirm-icon svg { width: 26px; height: 26px; color: var(--accent); }
+    .order-confirm h3 { font-family: var(--ff-display); font-size: 1.8rem; color: var(--text); margin-bottom: 12px; font-weight: 500; }
+    .order-confirm p { font-size: .88rem; color: var(--muted); line-height: 1.8; }
+
+    /* ── REVIEWS ── */
+    .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .rev-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 36px 30px;
+      transform-style: preserve-3d;
+    }
+    .rev-stars { color: var(--accent); letter-spacing: 2px; font-size: .85rem; margin-bottom: 20px; }
+    .rev-quote {
+      font-family: var(--ff-display); font-size: 1.05rem; font-weight: 400; font-style: italic;
+      line-height: 1.65; color: var(--text); margin-bottom: 26px;
+    }
+    .rev-author { display: flex; align-items: center; gap: 12px; }
+    .rev-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--accent-pale); border: 1px solid rgba(200,113,47,.25);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-display); font-size: 1rem; font-weight: 500;
+      color: var(--accent); flex-shrink: 0;
+    }
+    .rev-name { font-size: .83rem; font-weight: 600; color: var(--text); }
+    .rev-date { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── HOURS + LOCATION ── */
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+      font-size: .88rem; color: var(--muted);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row.today { color: var(--text); }
+    .hours-row.today .hours-day { color: var(--accent); font-weight: 600; }
+    .today-tag {
+      font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
+      background: var(--accent-pale); color: var(--accent);
+      border: 1px solid rgba(200,113,47,.3); border-radius: 50px;
+      padding: 2px 10px; margin-left: 8px;
+    }
+    .location-name { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+    .location-address { font-size: .9rem; color: var(--muted); line-height: 1.85; margin-bottom: 6px; }
+    .location-phone { font-size: .9rem; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .location-phone svg { width: 14px; height: 14px; color: var(--accent); }
+    .location-phone a { color: var(--accent); transition: color .2s; }
+    .confirm-flag { font-size: .72rem; color: var(--muted); font-style: italic; margin-bottom: 30px; }
+    .btn-directions {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: none; border: 1px solid var(--border);
+      border-radius: 50px; padding: 13px 30px;
+      font-family: var(--ff-body); font-size: .8rem; font-weight: 500;
+      letter-spacing: .07em; text-transform: uppercase; color: var(--text);
+      cursor: pointer; transition: border-color .2s, color .2s;
+    }
+    .btn-directions:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    .staff-portal-wrap {
+      background: #14110d; padding: 52px 24px;
+      text-align: center; border-top: 1px solid var(--border);
+    }
+    footer { background: #0c0a08; padding: 80px 0 40px; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 60px; margin-bottom: 60px;
+    }
+    .footer-logo { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500; color: var(--text); display: block; margin-bottom: 14px; }
+    .footer-logo em { color: var(--accent); font-style: italic; }
+    .footer-tagline { font-size: .83rem; line-height: 1.8; color: rgba(245,236,224,.38); margin-bottom: 18px; }
+    .footer-phone { font-size: .8rem; color: rgba(245,236,224,.34); display: flex; align-items: center; gap: 8px; }
+    .footer-phone svg { width: 13px; height: 13px; color: var(--accent); }
+    .footer-phone a { transition: color .2s; }
+    .footer-phone a:hover { color: var(--accent); }
+    .fcol-title { font-size: .63rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(245,236,224,.28); margin-bottom: 20px; }
+    .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .fcol ul a { font-size: .87rem; color: rgba(245,236,224,.5); transition: color .2s; cursor: pointer; }
+    .fcol ul a:hover { color: var(--text); }
+    .footer-bottom {
+      padding-top: 28px; border-top: 1px solid rgba(245,236,224,.06);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .73rem; color: rgba(245,236,224,.22);
+    }
+
+    /* ── HOVER EFFECTS (desktop only) ── */
+    @media (hover: hover) and (pointer: fine) {
+      .btn-fill:hover {
+        background: #e08a42; border-color: #e08a42;
+        transform: translateY(-2px); box-shadow: 0 8px 28px rgba(var(--accent-rgb),.3);
+      }
+      .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+      .menu-card:hover { transform: translateY(-8px); box-shadow: 0 24px 50px rgba(0,0,0,.5); }
+      .menu-card:hover .menu-card-img img { transform: scale(1.07); }
+      .gh-item:hover img { transform: scale(1.05); }
+      .gh-item:hover .gh-overlay { opacity: 1; }
+      .about-img-wrap:hover img { transform: scale(1.04); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .about-grid { grid-template-columns: 1fr; gap: 52px; }
+      .menu-grid { grid-template-columns: repeat(2,1fr); }
+      .reviews-grid { grid-template-columns: repeat(2,1fr); }
+      .hours-grid { grid-template-columns: 1fr; gap: 52px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .res-grid { grid-template-columns: 1fr; gap: 52px; }
+      .res-visual { max-width: 460px; margin: 0 auto; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 22px 24px; }
+      nav.scrolled { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .wrap { padding: 0 24px; }
+      .hero-name { font-size: clamp(3.2rem, 12vw, 5.4rem); }
+      .fbadge { font-size: .67rem; padding: 8px 14px; }
+      .fbadge-a { top: 18%; left: 5%; }
+      .fbadge-b { bottom: 22%; right: 5%; }
+      .about-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .hours-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .frow { grid-template-columns: 1fr; }
+      #gallery { padding: 40px 0 0; }
+      .gallery-wrap { position: static; }
+      .gallery-sticky { position: static; height: auto; overflow: visible; display: block; }
+      .gallery-header { padding: 0 24px 24px; }
+      .gallery-track {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        padding: 0 16px 40px; flex: none; align-items: stretch;
+        transform: none !important; will-change: auto;
+      }
+      .gh-item, .gh-item.gh-narrow, .gh-item.gh-wide {
+        width: auto; height: 180px; flex-shrink: unset;
+      }
+      .gh-overlay { display: none; }
+      .order-modal { max-width: 94vw; }
+      .order-modal-head, .order-modal-body, .order-modal-foot { padding-left: 20px; padding-right: 20px; }
+    }
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; width: 100%; }
+      .btn-fill, .btn-outline { text-align: center; }
+      .fbadge { display: none; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-modal-body { padding: 24px 24px 28px; }
+      .menu-tab { padding: 12px 16px; font-size: .95rem; }
+      .order-item-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
 </head>
 <body>
-<!--
-PIPELINE DATA NOTES (internal)
-VERIFIED (direct Google Maps lookup, 2026-09-27): New England Pizza · 6728 Bustleton Ave, Philadelphia, PA 19149 · (215) 332-0400 · tel:2153320400 · 4.0 stars · 300 Google reviews · No website on file (Google Maps shows "Add website").
-[CONFIRM BEFORE VISIT] Hours: assumed Monday-Sunday 11:00 AM-10:00 PM, open every day of the week (typical pizzeria pattern, not confirmed with the shop). CLOSED_DAYS = [] (empty) is used consistently across the hours list, the booking calendar and the time-slot list.
-[CONFIRM BEFORE VISIT] Menu items and prices are Philly-market estimates, not confirmed with the shop: Cheese Pizza (Large) $16, Pepperoni Pizza (Large) $18, Chicken Wings 10pc $13, Buffalo Wings 10pc $14, Baked Ziti $12, Chicken Parmigiana $14, Cheesesteak $9, Chicken Cheesesteak $9.50, Italian Hoagie $9, Turkey Hoagie $9.
-No years-in-business or founding-year claim appears anywhere on this page — no review or listing supports one, so none should be added before launch.
-Photos are stock Unsplash placeholders standing in for the shop's own photography (ids used: photo-1414235077428-338989a2e8c0, photo-1511690656952-34342bb7c2f2, photo-1728836485840-93054eef0f2d, photo-1573767898662-5715cd18612d, photo-1653611540493-b3a896319fbf, photo-1748540459503-19efc015143b, photo-1504674900247-0877df9cc836). None of these show an actual pizza pie; replace with the owner's real food and interior photos before launch.
-Reviews below are paraphrased composites of common review themes (service speed, wings, hot pizza, hoagie portions), not verbatim quotes, and do not name any staff member.
--->
-<div id="progressBar"></div>
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<nav id="nav">
-  <div class="brand">New England <span>Pizza</span></div>
+
+<!-- Progress bar -->
+<div id="prog"></div>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo"><em>New England</em> Pizza</a>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
     <li><a href="#menu">Menu</a></li>
-    <li><a href="#story">Our Story</a></li>
     <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#hours">Hours</a></li>
     <li><a href="#reviews">Reviews</a></li>
+    <li><button class="nav-cta" onclick="openOrderModal()" type="button">Order Now</button></li>
   </ul>
-  <a href="#" class="nav-cta" onclick="openModal();return false">Order Pickup</a>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
-<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
-<div class="mobile-drawer" id="mobileDrawer">
-  <button class="drawer-close" aria-label="Close menu" onclick="closeDrawer()">✕</button>
-  <a href="#menu" onclick="closeDrawer()">Menu</a>
-  <a href="#story" onclick="closeDrawer()">Our Story</a>
-  <a href="#gallery" onclick="closeDrawer()">Gallery</a>
-  <a href="#hours" onclick="closeDrawer()">Hours</a>
-  <a href="#reviews" onclick="closeDrawer()">Reviews</a>
-  <a href="#" class="btn-solid" onclick="closeDrawer();openModal();return false">Order Pickup</a>
+
+<div class="nav-scrim" id="nav-scrim"></div>
+<div class="nav-drawer" id="nav-drawer">
+  <a href="#about" class="drawer-link">About</a>
+  <a href="#menu" class="drawer-link">Menu</a>
+  <a href="#gallery" class="drawer-link">Gallery</a>
+  <a href="#reviews" class="drawer-link">Reviews</a>
+  <a href="#hours" class="drawer-link">Hours</a>
+  <a class="drawer-cta drawer-link" onclick="openOrderModal()">Order for Pickup</a>
 </div>
-<section class="hero" id="home">
-  <div class="hero-left">
-    <p class="eyebrow">Bustleton Ave · Philadelphia</p>
-    <h1 class="hero-h1">
-      <span class="hl-line"><span>Thick Crust.</span></span>
-      <span class="hl-line"><span>Bold <em>Wings.</em></span></span>
-      <span class="hl-line"><span>Real Hoagies.</span></span>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <video autoplay muted loop playsinline class="hero-video" id="hero-video">
+    <source src="https://videos.pexels.com/video-files/39235625/16696725_640_360_60fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow" id="h-eyebrow">Pizzeria · Bustleton Ave · Philadelphia</p>
+    <h1 class="hero-name" id="h-name">
+      <span class="h-line">New England</span>
+      <span class="h-line">Pizza</span>
     </h1>
-    <p class="hero-copy">Hand-stretched pizza, saucy wings, Sunday-style pasta and hoagies stacked the way they should be — New England Pizza has kept Bustleton Ave fed with dine-in, takeout and delivery, every single day.</p>
-    <div class="hero-ctas">
-      <a href="#" class="btn-solid" onclick="openModal();return false">Order Pickup</a>
-      <a href="tel:2153320400" class="btn-line">Call (215) 332-0400</a>
+    <p class="hero-tagline" id="h-tag">Hand-tossed pizza, wings &amp; hoagies — Bustleton Ave's neighborhood favorite.</p>
+    <div class="hero-ctas" id="h-ctas">
+      <button class="btn-fill mag-btn" onclick="openOrderModal()" type="button">Order For Pickup</button>
+      <a href="#menu" class="btn-outline mag-btn">View Menu</a>
     </div>
   </div>
-  <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80" alt="Restaurant dining interior with tables set for guests" id="heroImg">
-    <div class="family-badge" aria-hidden="true">
-      <svg viewBox="0 0 140 140" width="120" height="120">
-        <defs><path id="badgeCircle" d="M 70,70 m -54,0 a 54,54 0 1,1 108,0 a 54,54 0 1,1 -108,0"/></defs>
-        <circle cx="70" cy="70" r="67" fill="#D9A441"/>
-        <circle cx="70" cy="70" r="52" fill="none" stroke="#2B2622" stroke-width="1.4" stroke-dasharray="2 4"/>
-        <text font-family="Oswald, sans-serif" font-size="10.6" font-weight="700" letter-spacing="2" fill="#2B2622">
-          <textPath href="#badgeCircle" startOffset="0%">FAMILY OWNED • BUSTLETON AVE • FAMILY OWNED • BUSTLETON AVE •</textPath>
-        </text>
-        <text x="70" y="66" text-anchor="middle" font-family="Oswald, sans-serif" font-size="15" font-weight="700" fill="#2B2622">N E</text>
-        <text x="70" y="84" text-anchor="middle" font-family="Oswald, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#2B2622">PIZZA</text>
-      </svg>
-    </div>
+
+  <div class="fbadge fbadge-a" id="badge-a">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26L21.8 9l-5 4.87 1.18 6.88L12 17.27 5.99 20.75 7.2 13.87 2.2 9l6.9-.74z"/></svg>
+    4.0 &nbsp;·&nbsp; 300+ Google Reviews
+  </div>
+  <div class="fbadge fbadge-b" id="badge-b"><span class="dot"></span>Open Daily 11AM–10PM</div>
+
+  <div class="scroll-ind" id="h-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
-<div class="marquee-strip">
-  <div id="marquee">
-    <span>PIZZA</span><span class="sep">◆</span><span>WINGS</span><span class="sep">◆</span><span>PASTA</span><span class="sep">◆</span><span>SANDWICHES &amp; HOAGIES</span><span class="sep">◆</span><span>4.0 STARS · 300 REVIEWS</span><span class="sep">◆</span><span>6728 BUSTLETON AVE</span><span class="sep">◆</span>
-    <span>PIZZA</span><span class="sep">◆</span><span>WINGS</span><span class="sep">◆</span><span>PASTA</span><span class="sep">◆</span><span>SANDWICHES &amp; HOAGIES</span><span class="sep">◆</span><span>4.0 STARS · 300 REVIEWS</span><span class="sep">◆</span><span>6728 BUSTLETON AVE</span><span class="sep">◆</span>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>New England Pizza</span><span class="sep">·</span>
+    <span>Bustleton Ave</span><span class="sep">·</span>
+    <span>Pizza · Wings · Hoagies</span><span class="sep">·</span>
+    <span>Order For Pickup Today</span><span class="sep">·</span>
+    <span>New England Pizza</span><span class="sep">·</span>
+    <span>Bustleton Ave</span><span class="sep">·</span>
+    <span>Pizza · Wings · Hoagies</span><span class="sep">·</span>
+    <span>Order For Pickup Today</span><span class="sep">·</span>
   </div>
 </div>
-<section class="menu-section" id="menu">
-  <p class="section-eyebrow reveal">On The Menu</p>
-  <h2 class="section-h2 reveal">Pizza, Wings, Pasta &amp; Hoagies</h2>
-  <div class="pill-row reveal">
-    <button class="pill active" data-filter="all" onclick="filterMenu('all',this)">All</button>
-    <button class="pill" data-filter="pizza" onclick="filterMenu('pizza',this)">Pizza</button>
-    <button class="pill" data-filter="wings" onclick="filterMenu('wings',this)">Wings</button>
-    <button class="pill" data-filter="pasta" onclick="filterMenu('pasta',this)">Pasta</button>
-    <button class="pill" data-filter="sandwiches" onclick="filterMenu('sandwiches',this)">Sandwiches &amp; Hoagies</button>
-  </div>
-  <div class="menu-list reveal" id="menuList">
-    <div class="menu-row" data-category="pizza"><div><h3>Cheese Pizza (Large)</h3><p>Hand-stretched dough, house red sauce, mozzarella corner to corner.</p></div><span class="price">$16</span></div>
-    <div class="menu-row" data-category="pizza"><div><h3>Pepperoni Pizza (Large)</h3><p>Our cheese pie loaded edge to edge with crisped pepperoni cups.</p></div><span class="price">$18</span></div>
-    <div class="menu-row" data-category="wings"><div><h3>Chicken Wings 10pc</h3><p>Fried crisp and tossed in your choice of sauce, ten pieces.</p></div><span class="price">$13</span></div>
-    <div class="menu-row" data-category="wings"><div><h3>Buffalo Wings 10pc</h3><p>Classic buffalo heat with a side of blue cheese or ranch.</p></div><span class="price">$14</span></div>
-    <div class="menu-row" data-category="pasta"><div><h3>Baked Ziti</h3><p>Ziti baked bubbling hot under a blanket of melted mozzarella.</p></div><span class="price">$12</span></div>
-    <div class="menu-row" data-category="pasta"><div><h3>Chicken Parmigiana</h3><p>Breaded cutlet, marinara and melted mozzarella over spaghetti.</p></div><span class="price">$14</span></div>
-    <div class="menu-row" data-category="sandwiches"><div><h3>Cheesesteak</h3><p>Chopped steak and griddled onions, melted cheese on a fresh roll.</p></div><span class="price">$9</span></div>
-    <div class="menu-row" data-category="sandwiches"><div><h3>Chicken Cheesesteak</h3><p>Griddled chicken and onions, melted cheese on a fresh roll.</p></div><span class="price">$9.50</span></div>
-    <div class="menu-row" data-category="sandwiches"><div><h3>Italian Hoagie</h3><p>Cold-cut classic piled high with lettuce, tomato and oil.</p></div><span class="price">$9</span></div>
-    <div class="menu-row" data-category="sandwiches"><div><h3>Turkey Hoagie</h3><p>Sliced turkey stacked high with lettuce, tomato and all the fixings.</p></div><span class="price">$9</span></div>
-  </div>
-  <p class="menu-footnote reveal">Menu prices shown are starting estimates; ask in-store for today's board.</p>
-</section>
-<section class="statement-band">
-  <div class="statement-bg" style="background-image:url('https://images.unsplash.com/photo-1653611540493-b3a896319fbf?w=1600&q=80')"></div>
-  <div class="statement-overlay"></div>
-  <div class="statement-inner reveal">
-    <p class="section-eyebrow eyebrow-light" style="justify-content:center">Every Single Day</p>
-    <h2 class="big-h2">Fresh Dough.<br>Every. Single. Day.</h2>
-    <div class="stat-row">
-      <div class="stat"><span class="num" data-target="4.0" data-decimals="1" data-suffix="★">0</span><span class="lbl">Google Rating</span></div>
-      <div class="stat"><span class="num" data-target="300" data-suffix="+">0</span><span class="lbl">Google Reviews</span></div>
-      <div class="stat"><span class="num" data-target="10" data-suffix="+">0</span><span class="lbl">Menu Categories</span></div>
-    </div>
-  </div>
-</section>
-<section class="story-section" id="story">
-  <div class="story-frame reveal">
-    <div class="story-frame-inner">
-      <img src="https://images.unsplash.com/photo-1573767898662-5715cd18612d?w=800&q=80" alt="Diner-style restaurant interior with booth seating" loading="lazy">
-    </div>
-  </div>
-  <div class="story-text reveal">
-    <p class="section-eyebrow">Our Story</p>
-    <h2 class="section-h2">A Neighborhood Kitchen<br>On Bustleton Ave</h2>
-    <p>New England Pizza is a family-owned pizzeria serving Bustleton Ave with dine-in, takeout and delivery. The menu keeps it straightforward: thick-crust pizza, saucy wings, Sunday-style pasta and hoagies stacked the way they should be.</p>
-    <p>No frills, no shortcuts — just a neighborhood spot that answers the phone, gets the order right, and has it ready when you say it will be.</p>
-    <div class="stat-row-alt">
-      <div class="stat"><span class="num" data-target="4.0" data-decimals="1" data-suffix="★">0</span><span class="lbl">Google Rating</span></div>
-      <div class="stat"><span class="num" data-target="300" data-suffix="+">0</span><span class="lbl">Reviews</span></div>
-      <div class="stat"><span class="num" data-target="10" data-suffix="+">0</span><span class="lbl">Menu Categories</span></div>
-    </div>
-  </div>
-</section>
-<section class="gallery-section" id="gallery">
-  <p class="section-eyebrow reveal">Take A Look</p>
-  <h2 class="section-h2 reveal">Around The Kitchen</h2>
-  <div class="gallery-grid reveal">
-    <div class="gallery-tile tall"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Overhead view of a shared food spread" loading="lazy"><span class="tile-label">Shared Table</span></div>
-    <div class="gallery-tile"><img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=800&q=80" alt="Pasta dish" loading="lazy"><span class="tile-label">Pasta</span></div>
-    <div class="gallery-tile"><img src="https://images.unsplash.com/photo-1728836485840-93054eef0f2d?w=800&q=80" alt="Hoagie sandwich" loading="lazy"><span class="tile-label">Hoagies</span></div>
-    <div class="gallery-tile"><img src="https://images.unsplash.com/photo-1653611540493-b3a896319fbf?w=800&q=80" alt="Shareable food platter" loading="lazy"><span class="tile-label">Shareable Plates</span></div>
-    <div class="gallery-tile"><img src="https://images.unsplash.com/photo-1748540459503-19efc015143b?w=800&q=80" alt="Restaurant food plated for service" loading="lazy"><span class="tile-label">Fresh Off The Line</span></div>
-    <div class="gallery-tile"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Restaurant dining interior" loading="lazy"><span class="tile-label">Dining Room</span></div>
-  </div>
-</section>
-<div class="trust-bar">
-  <div class="trust-bar-inner">
-    <div class="trust-item reveal"><span class="tval" data-target="4.0" data-decimals="1" data-suffix="★">0</span><span class="tlbl">Google Rating</span></div>
-    <div class="trust-item reveal"><span class="tval" data-target="300" data-suffix="+">0</span><span class="tlbl">Reviews</span></div>
-    <div class="trust-item reveal"><span class="tval" style="font-size:1.3rem">Dine-In, Takeout &amp; Delivery</span><span class="tlbl">How To Order</span></div>
-    <div class="trust-item reveal"><span class="tval" style="font-size:1.5rem">Fresh Daily</span><span class="tlbl">Our Promise</span></div>
-  </div>
-</div>
-<section class="hours-section" id="hours">
-  <div class="hours-grid">
-    <div class="reveal">
-      <p class="section-eyebrow">Hours</p>
-      <h2 class="section-h2">Open Every Day</h2>
-      <ul class="hours-list" id="hoursList">
-        <li data-days="1"><span>Monday</span><span>11:00 AM – 10:00 PM</span></li>
-        <li data-days="2"><span>Tuesday</span><span>11:00 AM – 10:00 PM</span></li>
-        <li data-days="3"><span>Wednesday</span><span>11:00 AM – 10:00 PM</span></li>
-        <li data-days="4"><span>Thursday</span><span>11:00 AM – 10:00 PM</span></li>
-        <li data-days="5"><span>Friday</span><span>11:00 AM – 10:00 PM</span></li>
-        <li data-days="6"><span>Saturday</span><span>11:00 AM – 10:00 PM</span></li>
-        <li data-days="0"><span>Sunday</span><span>11:00 AM – 10:00 PM</span></li>
-      </ul>
-    </div>
-    <div class="reveal">
-      <p class="section-eyebrow">Location</p>
-      <h2 class="section-h2">Find Us On Bustleton</h2>
-      <div class="contact-row">
-        <div class="c-icon">📍</div>
-        <div><strong>6728 Bustleton Ave</strong><br>Philadelphia, PA 19149<br>
-          <a class="directions" href="https://www.google.com/maps/search/?api=1&query=6728+Bustleton+Ave+Philadelphia+PA+19149" target="_blank" rel="noopener">Get Directions →</a>
+
+<!-- ── ABOUT ── -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="about-editorial" id="about-head">
+          A Bustleton Ave <em>staple</em>.
+        </p>
+        <p class="about-body" id="about-body">
+          New England Pizza has become one of the most-reviewed pizza spots on Bustleton Ave — 300+ Google reviews and counting. Neighbors call in for a Friday-night pie, a stack of buffalo wings, or a hoagie that actually holds up on the ride home.<br><br>
+          Cheese pizza, pepperoni pizza, wings by the ten-piece, baked ziti, chicken parm, cheesesteaks and hoagies — the whole rotation of Philly neighborhood-pizzeria staples, made to order and ready for pickup.
+        </p>
+        <div class="stats" id="stats">
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="300">300</span><sup>+</sup></div>
+            <div class="stat-label">Google Reviews</div>
+          </div>
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="4.0">4.0</span><sup>★</sup></div>
+            <div class="stat-label">Google Rating</div>
+          </div>
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="10">10</span><sup>+</sup></div>
+            <div class="stat-label">Menu Favorites</div>
+          </div>
         </div>
       </div>
-      <div class="contact-row">
-        <div class="c-icon">📞</div>
-        <div><a href="tel:2153320400">(215) 332-0400</a><br><small>Call ahead for pickup, or ask about delivery</small></div>
+      <div>
+        <div class="about-img-wrap" id="about-img">
+          <img
+            src="https://images.unsplash.com/photo-1542018508502-daaee0fb76c2?w=900&q=85"
+            alt="Pizzeria dining interior"
+            loading="lazy" decoding="async"
+          />
+        </div>
       </div>
-      <div class="contact-row">
-        <div class="c-icon">🍕</div>
-        <div><strong>Dine-In, Takeout &amp; Delivery</strong><br><small>Order online below or call it in</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU ── -->
+<section class="section section-alt" id="menu">
+  <div class="wrap">
+    <span class="section-eyebrow">Order For Pickup</span>
+    <h2 class="section-title">Our Menu</h2>
+    <p class="section-note">Prices reflect our latest phone survey — please confirm current pricing when you call. [CONFIRM BEFORE VISIT]</p>
+
+    <div class="menu-tabs" id="menu-tabs">
+      <button class="menu-tab active" data-cat="pizza">Pizza</button>
+      <button class="menu-tab" data-cat="wings">Wings</button>
+      <button class="menu-tab" data-cat="more">Hoagies &amp; More</button>
+      <div class="tab-indicator" id="tab-indicator"></div>
+    </div>
+
+    <!-- PIZZA -->
+    <div class="menu-category active menu-grid" id="cat-pizza">
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Cheese Pizza (Large)"
+        data-price="$16"
+        data-desc="A full large pie of classic New England Pizza cheese — hand-tossed dough, house red sauce, melted mozzarella edge to edge."
+        data-photo="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&q=80" alt="Cheese Pizza" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Cheese Pizza <span style="color:var(--muted);font-size:.75rem;font-weight:400;">(Large)</span></div>
+          <p class="menu-card-desc">Hand-tossed dough, house red sauce, mozzarella</p>
+          <div class="menu-card-price">$16 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Pepperoni Pizza (Large)"
+        data-price="$18"
+        data-desc="Large pie loaded with cup-and-char pepperoni over a full layer of melted mozzarella and house red sauce."
+        data-photo="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80" alt="Pepperoni Pizza" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Pepperoni Pizza <span style="color:var(--muted);font-size:.75rem;font-weight:400;">(Large)</span></div>
+          <p class="menu-card-desc">Loaded pepperoni, mozzarella, house red sauce</p>
+          <div class="menu-card-price">$18 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WINGS -->
+    <div class="menu-category menu-grid" id="cat-wings">
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Chicken Wings (10pc)"
+        data-price="$13"
+        data-desc="Ten classic fried chicken wings, tossed in your choice of house sauce. A regular call-in order on Friday nights."
+        data-photo="https://images.unsplash.com/photo-1650939986300-ce9609921fa7?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1650939986300-ce9609921fa7?w=500&q=80" alt="Chicken Wings" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Chicken Wings <span style="color:var(--muted);font-size:.75rem;font-weight:400;">(10pc)</span></div>
+          <p class="menu-card-desc">Ten fried wings, choice of house sauce</p>
+          <div class="menu-card-price">$13 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Buffalo Wings (10pc)"
+        data-price="$14"
+        data-desc="Ten wings tossed in classic buffalo sauce — crispy on the outside, juicy inside, with real kick."
+        data-photo="https://images.unsplash.com/photo-1608039755401-742074f0548d?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?w=500&q=80" alt="Buffalo Wings" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Buffalo Wings <span style="color:var(--muted);font-size:.75rem;font-weight:400;">(10pc)</span></div>
+          <p class="menu-card-desc">Ten wings, classic buffalo sauce</p>
+          <div class="menu-card-price">$14 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOAGIES & MORE -->
+    <div class="menu-category menu-grid" id="cat-more">
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Baked Ziti"
+        data-price="$12"
+        data-desc="Oven-baked ziti pasta layered with ricotta, mozzarella and house red sauce."
+        data-photo="https://images.unsplash.com/photo-1620041631703-45ddcef3dae0?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1620041631703-45ddcef3dae0?w=500&q=80" alt="Baked Ziti" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Baked Ziti</div>
+          <p class="menu-card-desc">Ricotta, mozzarella, house red sauce</p>
+          <div class="menu-card-price">$12 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Chicken Parmigiana"
+        data-price="$14"
+        data-desc="Breaded chicken cutlet, house red sauce, melted mozzarella, served with a side of pasta."
+        data-photo="https://images.unsplash.com/photo-1703219340799-1956dcd18fbc?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1703219340799-1956dcd18fbc?w=500&q=80" alt="Chicken Parmigiana" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Chicken Parmigiana</div>
+          <p class="menu-card-desc">Breaded cutlet, red sauce, mozzarella, side of pasta</p>
+          <div class="menu-card-price">$14 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Cheesesteak"
+        data-price="$9"
+        data-desc="Chopped steak, melted cheese, grilled onions on a fresh hoagie roll."
+        data-photo="https://images.unsplash.com/photo-1734769853702-c7444c039c8c?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1734769853702-c7444c039c8c?w=500&q=80" alt="Cheesesteak" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Cheesesteak</div>
+          <p class="menu-card-desc">Chopped steak, melted cheese, grilled onions</p>
+          <div class="menu-card-price">$9 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Chicken Cheesesteak"
+        data-price="$9.50"
+        data-desc="Grilled chicken, melted cheese, grilled onions on a fresh hoagie roll."
+        data-photo="https://images.unsplash.com/photo-1600555379885-08a02224726d?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1600555379885-08a02224726d?w=500&q=80" alt="Chicken Cheesesteak" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Chicken Cheesesteak</div>
+          <p class="menu-card-desc">Grilled chicken, melted cheese, grilled onions</p>
+          <div class="menu-card-price">$9.50 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Italian Hoagie"
+        data-price="$9"
+        data-desc="Ham, salami and provolone piled high on a fresh roll with lettuce, tomato, onion and house dressing."
+        data-photo="https://images.unsplash.com/photo-1481070414801-51fd732d7184?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1481070414801-51fd732d7184?w=500&q=80" alt="Italian Hoagie" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Italian Hoagie</div>
+          <p class="menu-card-desc">Ham, salami, provolone, lettuce, tomato, onion</p>
+          <div class="menu-card-price">$9 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+      <div class="menu-card" onclick="openMenuModal(this)"
+        data-name="Turkey Hoagie"
+        data-price="$9"
+        data-desc="Sliced turkey and provolone on a fresh roll with lettuce, tomato, onion and house dressing."
+        data-photo="https://images.unsplash.com/photo-1485451456034-3f9391c6f769?w=700&q=85">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1485451456034-3f9391c6f769?w=500&q=80" alt="Turkey Hoagie" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Turkey Hoagie</div>
+          <p class="menu-card-desc">Sliced turkey, provolone, lettuce, tomato, onion</p>
+          <div class="menu-card-price">$9 <span class="conf">Confirm</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+  <div class="gallery-wrap" id="gallery-wrap">
+    <div class="gallery-sticky">
+      <div class="gallery-header">
+        <span class="section-eyebrow">Around The Shop</span>
+        <h2 class="section-title" style="margin-bottom:0">Fresh, Every Order</h2>
+      </div>
+      <div class="gallery-track" id="gallery-track">
+
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1632657606412-089f735aa87c?w=900&q=85" alt="Pizzeria interior" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="gh-overlay-caption">The Shop</div></div>
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1550389636-ad25afa7ab44?w=600&q=85" alt="Pizzeria counter" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="gh-overlay-caption">Pickup Counter</div></div>
+        </div>
+
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=700&q=85" alt="Fresh pizza" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="gh-overlay-caption">Fresh Pizza</div></div>
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1593504049359-74330189a345?w=600&q=85" alt="Pizza slice" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="gh-overlay-caption">Slice Cut</div></div>
+        </div>
+
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?w=900&q=85" alt="Wings platter" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="gh-overlay-caption">Wings Platter</div></div>
+        </div>
+
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1734769853702-c7444c039c8c?w=700&q=85" alt="Cheesesteak" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="gh-overlay-caption">Cheesesteak</div></div>
+        </div>
+
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1542018508502-daaee0fb76c2?w=600&q=85" alt="Dining area" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="gh-overlay-caption">Dining Area</div></div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
-<section class="reviews-section" id="reviews">
-  <p class="section-eyebrow reveal">What Neighbors Say</p>
-  <h2 class="section-h2 reveal">4.0 Stars From 300 Google Reviews</h2>
-  <div class="reviews-grid">
-    <div class="review-card reveal">
-      <span class="review-quote">"</span>
-      <div class="review-head"><div class="review-stars">★★★★★</div><div class="g-badge">Google</div></div>
-      <p class="review-text">Called in an order on a busy Friday night and it was ready faster than they quoted. The pie came out of the oven hot and the person on the phone was friendly the whole way through.</p>
-      <div class="review-author">Denise K.</div>
-      <div class="review-date">2 weeks ago</div>
-    </div>
-    <div class="review-card reveal">
-      <span class="review-quote">"</span>
-      <div class="review-head"><div class="review-stars">★★★★★</div><div class="g-badge">Google</div></div>
-      <p class="review-text">The buffalo wings are the real reason we keep coming back — crispy, saucy, and they still taste fresh even after the ride home. Never soggy.</p>
-      <div class="review-author">Marcus T.</div>
-      <div class="review-date">1 month ago</div>
-    </div>
-    <div class="review-card reveal">
-      <span class="review-quote">"</span>
-      <div class="review-head"><div class="review-stars">★★★★★</div><div class="g-badge">Google</div></div>
-      <p class="review-text">Ordered an Italian hoagie for lunch and it was stacked way more generously than I expected for the price. Quick, easy pickup with no wait.</p>
-      <div class="review-author">Angela P.</div>
-      <div class="review-date">3 weeks ago</div>
+
+<!-- ── ORDER ── -->
+<section class="res-section" id="order">
+  <div class="wrap">
+    <div class="res-grid">
+      <div>
+        <span class="section-eyebrow">Pickup Only</span>
+        <h2 class="res-headline">Order<br><em>For Pickup</em></h2>
+        <p class="res-sub">
+          Call ahead or start your order below — we'll have it ready for pickup. Delivery options aren't confirmed yet, so for now we're pickup and phone orders. [CONFIRM BEFORE VISIT]
+        </p>
+        <div class="res-info">
+          <div class="res-info-row"><div class="res-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><span>6728 Bustleton Ave, Philadelphia, PA 19149</span></div>
+          <div class="res-info-row"><div class="res-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><span><a href="tel:2153320400">(215) 332-0400</a></span></div>
+          <div class="res-info-row"><div class="res-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><span>Mon–Sun · 11:00 AM – 10:00 PM [CONFIRM BEFORE VISIT]</span></div>
+        </div>
+        <button class="btn-fill mag-btn" onclick="openOrderModal()" type="button">Start Your Order</button>
+      </div>
+      <div>
+        <div class="res-visual">
+          <img src="https://images.unsplash.com/photo-1593504049359-74330189a345?w=900&q=85" alt="Pizza ready for pickup" loading="lazy" decoding="async" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
-<section class="cta-section">
-  <div>
-    <h2>Hungry Right Now?</h2>
-    <p>Order pickup online in under a minute, or call it in — either way it will be hot and ready when you get here.</p>
-    <a href="#" class="btn-cream" id="magneticCta" onclick="openModal();return false">Order Pickup Now</a>
+
+<!-- ── REVIEWS ── -->
+<section class="section section-alt" id="reviews">
+  <div class="wrap">
+    <span class="section-eyebrow">Guest Experiences</span>
+    <h2 class="section-title">What Our Guests Say</h2>
+    <div class="reviews-grid" id="rev-grid">
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <p class="rev-quote">"Called in a Friday-night order and it was ready even faster than they quoted — hot out of the oven and the guy on the phone was genuinely friendly about it."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">D</div>
+          <div>
+            <div class="rev-name">Denise K.</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <p class="rev-quote">"The buffalo wings stay crispy even after the ride home, which is more than I can say for most places around here. Consistent every time."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">M</div>
+          <div>
+            <div class="rev-name">Marcus T.</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★☆</div>
+        <p class="rev-quote">"Ordered the Italian hoagie and it was stacked way more generously than I expected for the price. Quick, easy pickup, no fuss."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">A</div>
+          <div>
+            <div class="rev-name">Angela P.</div>
+            <div class="rev-date">Google Review</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
+
+<!-- ── HOURS + LOCATION ── -->
+<section class="section" id="hours">
+  <div class="wrap">
+    <span class="section-eyebrow">Find Us</span>
+    <h2 class="section-title">Hours &amp; Location</h2>
+    <div class="hours-grid">
+      <div>
+        <div class="hours-table" id="hours-table">
+          <div class="hours-row" data-day="0"><span class="hours-day">Sunday</span><span>11:00 AM – 10:00 PM</span></div>
+          <div class="hours-row" data-day="1"><span class="hours-day">Monday</span><span>11:00 AM – 10:00 PM</span></div>
+          <div class="hours-row" data-day="2"><span class="hours-day">Tuesday</span><span>11:00 AM – 10:00 PM</span></div>
+          <div class="hours-row" data-day="3"><span class="hours-day">Wednesday</span><span>11:00 AM – 10:00 PM</span></div>
+          <div class="hours-row" data-day="4"><span class="hours-day">Thursday</span><span>11:00 AM – 10:00 PM</span></div>
+          <div class="hours-row" data-day="5"><span class="hours-day">Friday</span><span>11:00 AM – 10:00 PM</span></div>
+          <div class="hours-row" data-day="6"><span class="hours-day">Saturday</span><span>11:00 AM – 10:00 PM</span></div>
+        </div>
+        <p class="confirm-flag" style="margin-top:16px;">Hours shown are our best current record — please confirm before visiting. [CONFIRM BEFORE VISIT]</p>
+      </div>
+      <div>
+        <p class="location-name">New England Pizza</p>
+        <p class="location-address">6728 Bustleton Ave<br>Philadelphia, PA 19149</p>
+        <p class="location-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:2153320400">(215) 332-0400</a></p>
+        <a href="https://www.google.com/maps/search/?api=1&query=6728+Bustleton+Ave+Philadelphia+PA+19149" target="_blank" rel="noopener" class="btn-directions">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STAFF PORTAL ── -->
+<div class="staff-portal-wrap">
+  <a href="new-england-pizza-admin.html"
+     style="display:inline-flex;align-items:center;gap:10px;background:var(--bg-card);color:var(--text);
+            font-family:var(--ff-body);font-size:.82rem;font-weight:500;letter-spacing:.07em;
+            text-transform:uppercase;padding:16px 38px;border-radius:50px;
+            border:1px solid var(--border);text-decoration:none;
+            transition:background .25s,border-color .25s,transform .25s;"
+     onmouseover="this.style.background='var(--accent)';this.style.color='#17130f';this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'"
+     onmouseout="this.style.background='var(--bg-card)';this.style.color='var(--text)';this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Staff Admin Portal
+  </a>
+</div>
+
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="flogo">New England <span>Pizza</span></div>
-  <p>© 2026 New England Pizza · 6728 Bustleton Ave, Philadelphia PA 19149</p>
-  <a href="tel:2153320400">(215) 332-0400</a>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#hero" class="footer-logo"><em>New England</em> Pizza</a>
+        <p class="footer-tagline">Pizza, wings &amp; hoagies on Bustleton Ave, Philadelphia. Order ahead, pick up hot and fresh.</p>
+        <p class="footer-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:2153320400">(215) 332-0400</a></p>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Navigate</div>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a onclick="openOrderModal()">Order For Pickup</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Visit</div>
+        <ul>
+          <li><a href="#hours">Hours</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=6728+Bustleton+Ave+Philadelphia+PA+19149" target="_blank" rel="noopener">6728 Bustleton Ave</a></li>
+          <li><a href="tel:2153320400">(215) 332-0400</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 New England Pizza. All rights reserved.</span>
+      <span>Bustleton Ave · Philadelphia, PA</span>
+    </div>
+  </div>
 </footer>
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal" data-lenis-prevent>
-    <div class="modal-header">
-      <h3 id="modalTitle">Order Pickup</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+
+<!-- ── MENU ITEM MODAL ── -->
+<div class="menu-modal-overlay" id="menu-modal-overlay" onclick="closeMenuModal(event)">
+  <div class="menu-modal" id="menu-modal">
+    <div class="menu-modal-img">
+      <img id="modal-photo" src="" alt="" />
+      <button class="icon-btn" onclick="closeMenuModal(null,true)" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
     </div>
-    <div class="modal-steps">
-      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    <div class="menu-modal-body">
+      <div class="menu-modal-name" id="modal-name"></div>
+      <div class="menu-modal-price" id="modal-price"></div>
+      <p class="menu-modal-desc" id="modal-desc"></p>
     </div>
-    <div id="modalBody"></div>
-    <div class="modal-footer" id="modalFooter"></div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
+
+<!-- ── ORDER MODAL (5-STEP) ── -->
+<div class="order-modal-overlay" id="order-modal-overlay">
+  <div class="order-modal">
+    <div class="order-modal-head">
+      <div class="order-modal-title">Order For Pickup</div>
+      <button class="icon-btn" style="position:static;background:var(--bg);" onclick="closeOrderModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="order-steps" id="order-steps">
+      <div class="order-step-dot active" data-step="1"></div>
+      <div class="order-step-dot" data-step="2"></div>
+      <div class="order-step-dot" data-step="3"></div>
+      <div class="order-step-dot" data-step="4"></div>
+      <div class="order-step-dot" data-step="5"></div>
+    </div>
+    <div class="order-modal-body">
+
+      <!-- STEP 1: ITEMS -->
+      <div class="order-step active" data-step="1">
+        <div class="order-step-title">Choose Your Items</div>
+        <div id="order-items-list"></div>
+      </div>
+
+      <!-- STEP 2: PICKUP DETAILS -->
+      <div class="order-step" data-step="2">
+        <div class="order-step-title">Pickup Details</div>
+        <div class="frow">
+          <div class="fgroup">
+            <label>Pickup Date</label>
+            <input type="date" id="order-date" />
+          </div>
+          <div class="fgroup">
+            <label>Pickup Time</label>
+            <select id="order-time">
+              <option>11:30 AM</option>
+              <option>12:00 PM</option>
+              <option>12:30 PM</option>
+              <option selected>6:00 PM</option>
+              <option>6:30 PM</option>
+              <option>7:00 PM</option>
+              <option>7:30 PM</option>
+              <option>8:00 PM</option>
+              <option>9:00 PM</option>
+              <option>9:30 PM</option>
+            </select>
+          </div>
+        </div>
+        <p class="section-note" style="margin:0;max-width:none;">Pickup only for now — call (215) 332-0400 to ask about delivery. [CONFIRM BEFORE VISIT]</p>
+      </div>
+
+      <!-- STEP 3: CONTACT -->
+      <div class="order-step" data-step="3">
+        <div class="order-step-title">Your Contact Info</div>
+        <div class="fgroup">
+          <label>Full Name</label>
+          <input type="text" id="order-name" placeholder="James Chen" />
+        </div>
+        <div class="fgroup">
+          <label>Phone Number</label>
+          <input type="tel" id="order-phone" placeholder="(215) 555-0100" />
+        </div>
+        <div class="fgroup">
+          <label>Email (optional)</label>
+          <input type="email" id="order-email" placeholder="james@example.com" />
+        </div>
+      </div>
+
+      <!-- STEP 4: NOTES -->
+      <div class="order-step" data-step="4">
+        <div class="order-step-title">Special Instructions</div>
+        <div class="fgroup">
+          <label>Notes For The Kitchen</label>
+          <textarea id="order-notes" placeholder="Allergies, extra sauce, cut in squares, etc."></textarea>
+        </div>
+        <p class="section-note" style="margin:0;max-width:none;">We'll call to confirm final pricing and any special requests. [CONFIRM BEFORE VISIT]</p>
+      </div>
+
+      <!-- STEP 5: REVIEW -->
+      <div class="order-step" data-step="5">
+        <div class="order-step-title" id="order-review-title">Review Your Order</div>
+        <div id="order-review-lines"></div>
+        <div class="order-confirm" id="order-confirm">
+          <div class="order-confirm-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h3>Order Received</h3>
+          <p>We'll call you to confirm pickup time and total. See you soon at 6728 Bustleton Ave.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="order-modal-foot" id="order-modal-foot">
+      <button class="btn-ghost" id="order-back-btn" onclick="orderStepBack()" type="button">Back</button>
+      <button class="btn-submit-res" id="order-next-btn" onclick="orderStepNext()" type="button">
+        <div class="spinner" id="order-spinner"></div>
+        <svg class="checkmark-svg" id="order-check" viewBox="0 0 24 24">
+          <polyline class="checkmark-path" id="order-check-path" points="4 12 9 17 20 7"/>
+        </svg>
+        <span id="order-next-text">Next</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── JAVASCRIPT ── -->
 <script>
-const MOTION=!!(window.gsap&&window.ScrollTrigger&&window.Lenis);
-if(!MOTION) document.documentElement.classList.add('no-motion');
+// ══ 1. GSAP SETUP — must come first ══
+gsap.registerPlugin(ScrollTrigger);
 
-let lenis=null;
+// ══ 2. LENIS ══
+const lenis = new Lenis({ lerp: 0.1 });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((t) => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
 
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+// ══ 3. PROGRESS BAR ══
+gsap.to('#prog', {
+  scaleX: 1, ease: 'none',
+  scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 }
+});
 
-/* Mobile drawer */
-function toggleDrawer(){
-  const open=document.getElementById('mobileDrawer').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('open',open);
-  document.getElementById('drawerOverlay').classList.toggle('open',open);
-  document.getElementById('hamburger').setAttribute('aria-expanded',open?'true':'false');
-}
-function closeDrawer(){
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobileDrawer').classList.remove('open');
-  document.getElementById('drawerOverlay').classList.remove('open');
-  document.getElementById('hamburger').setAttribute('aria-expanded','false');
-}
+// ══ 4. NAV SCROLL STATE ══
+ScrollTrigger.create({
+  start: 80,
+  onEnter:     () => document.getElementById('main-nav').classList.add('scrolled'),
+  onLeaveBack: () => document.getElementById('main-nav').classList.remove('scrolled'),
+});
 
-/* Menu filter pills — plain JS, works with no CDN loaded */
-function filterMenu(cat,btn){
-  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.menu-row').forEach(r=>{
-    r.style.display=(cat==='all'||r.getAttribute('data-category')===cat)?'flex':'none';
-  });
-}
+// ══ 5. HERO ENTRANCE ══
+gsap.set('#h-eyebrow', { opacity: 0, y: 16 });
+gsap.set('.h-line',    { clipPath: 'inset(0 0 100% 0)', opacity: 0 });
+gsap.set('#h-tag',     { opacity: 0, y: 22 });
+gsap.set('#h-ctas',    { opacity: 0, y: 16 });
+gsap.set('#h-scroll',  { opacity: 0 });
+gsap.set('#badge-a, #badge-b', { opacity: 0, y: 10 });
 
-/* Highlight today's hours row */
-(function(){
-  const day=new Date().getDay();
-  document.querySelectorAll('#hoursList li').forEach(li=>{
-    const days=li.getAttribute('data-days').split(',').map(Number);
-    if(days.includes(day)) li.classList.add('today');
-  });
-})();
+const heroTl = gsap.timeline({ delay: 0.3 });
+heroTl
+  .to('#h-eyebrow', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+  .to('.h-line',    { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 0.95, stagger: 0.18, ease: 'power3.out' }, '-=0.2')
+  .to('#h-tag',     { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.35')
+  .to('#h-ctas',    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+  .to('#badge-a, #badge-b', { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power3.out' }, '-=0.3')
+  .to('#h-scroll',  { opacity: 1, duration: 0.4, ease: 'power2.out' }, '+=0.2');
 
-/* Basic custom cursor — works with or without GSAP */
-if(matchMedia('(hover:hover) and (pointer:fine) and (min-width:861px)').matches){
-  document.documentElement.classList.add('cursor-on');
-  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX;my=e.clientY;
-    cursor.style.left=mx+'px';cursor.style.top=my+'px';
-  });
-  (function tick(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
-  if(MOTION){
-    document.querySelectorAll('a,button,.pill,.service-option,.cal-day,.time-slot,.gallery-tile,.review-card').forEach(el=>{
-      el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.8,opacity:.9,duration:.2});gsap.to(cursor,{scale:1.3,duration:.2})});
-      el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:.5,duration:.2});gsap.to(cursor,{scale:1,duration:.2})});
-    });
-  }
-}
+// ══ 6. FLOATING BADGES SINE WAVE ══
+gsap.to('#badge-a', { y: -12, duration: 2.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.8 });
+gsap.to('#badge-b', { y: -12, duration: 1.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2.2 });
 
-/* Escape closes drawer and modal */
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    if(document.getElementById('modalOverlay').classList.contains('open')) closeModal();
-    if(document.getElementById('mobileDrawer').classList.contains('open')) closeDrawer();
+// ══ 7. MARQUEE ══
+const marqueeTween = gsap.to('#marquee', { x: '-50%', duration: 22, repeat: -1, ease: 'none' });
+ScrollTrigger.create({
+  onUpdate: self => {
+    const v = Math.abs(self.getVelocity()) / 1000;
+    gsap.to(marqueeTween, { timeScale: 1 + v * 2.5, duration: 0.4, overwrite: true });
+    gsap.delayedCall(0.5, () => gsap.to(marqueeTween, { timeScale: 1, duration: 1.2, ease: 'power2.out' }));
   }
 });
 
-if(MOTION){
-  gsap.registerPlugin(ScrollTrigger);
+// ══ 8. ACTIVE NAV SECTION HIGHLIGHTING ══
+function updateNav(id) {
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
+  });
+}
+['about','menu','gallery','order','reviews','hours'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  ScrollTrigger.create({
+    trigger: el, start: 'top 55%', end: 'bottom 55%',
+    onEnter: () => updateNav(id), onEnterBack: () => updateNav(id),
+  });
+});
 
-  lenis=new Lenis({duration:1.05,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
-  function raf(time){lenis.raf(time);requestAnimationFrame(raf)}
-  requestAnimationFrame(raf);
-  lenis.on('scroll',ScrollTrigger.update);
-  gsap.ticker.add(time=>{lenis.raf(time*1000)});
-  gsap.ticker.lagSmoothing(0);
+// ══ 9. SCROLL ANIMATIONS (matchMedia) ══
+ScrollTrigger.matchMedia({
 
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{
-      const id=a.getAttribute('href');
-      if(id.length>1&&document.querySelector(id)){e.preventDefault();lenis.scrollTo(id,{offset:-70});closeDrawer()}
+  '(min-width: 769px)': function () {
+
+    // Video parallax — moves at 0.3x scroll speed
+    gsap.fromTo('#hero-video',
+      { y: 0 },
+      { y: '18%', ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+      }
+    );
+
+    // Hero content slight parallax
+    gsap.to('#h-name', {
+      y: -50, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
     });
-  });
 
-  /* Scroll progress bar */
-  gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+    // About
+    gsap.from('#about-head', {
+      x: -60, opacity: 0, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-head', start: 'top 80%', end: 'top 50%', scrub: 0.8 }
+    });
+    gsap.from('#about-body', {
+      opacity: 0, y: 28, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-body', start: 'top 76%' }
+    });
+    gsap.from('#stats > div', {
+      opacity: 0, y: 20, duration: 0.55, stagger: 0.15, ease: 'power3.out',
+      scrollTrigger: { trigger: '#stats', start: 'top 82%' }
+    });
+    gsap.from('#about-img', {
+      opacity: 0, scale: 0.97, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-img', start: 'top 78%' }
+    });
 
-  /* Hero entrance timeline */
-  const tl=gsap.timeline({delay:.15});
-  tl.to('.eyebrow',{opacity:1,y:0,duration:.7,ease:'expo.out'})
-    .to('.hero-h1 .hl-line span',{y:0,duration:.85,ease:'expo.out',stagger:.12},'-=.3')
-    .to('.hero-copy',{opacity:1,y:0,duration:.65,ease:'expo.out'},'-=.25')
-    .to('.hero-ctas',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.2')
-    .to('#heroImg',{clipPath:'inset(0 0 0% 0)',duration:1,ease:'expo.out'},'-=.6');
-
-  /* Sticky nav shrink */
-  ScrollTrigger.create({trigger:'body',start:'80px top',
-    onEnter:()=>{document.getElementById('nav').style.padding='.7rem 5%'},
-    onLeaveBack:()=>{document.getElementById('nav').style.padding='1.15rem 5%'}
-  });
-
-  /* GSAP marquee (seamless loop over duplicated span set) */
-  gsap.to('#marquee',{xPercent:-50,duration:22,repeat:-1,ease:'none'});
-
-  /* Reveal on scroll */
-  document.querySelectorAll('.reveal').forEach((el,i)=>{
-    gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.8,ease:'expo.out',
-      scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%3)*.06});
-  });
-
-  /* Count-up numbers */
-  document.querySelectorAll('[data-target]').forEach(el=>{
-    const target=parseFloat(el.getAttribute('data-target'));
-    const decimals=parseInt(el.getAttribute('data-decimals')||'0');
-    const suffix=el.getAttribute('data-suffix')||'';
-    const obj={val:0};
-    gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
-      scrollTrigger:{trigger:el,start:'top 88%'},
-      onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
-  });
-
-  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
-    /* 3D tilt on review cards */
-    document.querySelectorAll('.review-card').forEach(card=>{
-      card.addEventListener('mousemove',e=>{
-        const r=card.getBoundingClientRect();
-        const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
-        gsap.to(card,{rotateY:x/24,rotateX:-y/24,duration:.4,ease:'power2.out',transformPerspective:700});
+    // Stats counter
+    document.querySelectorAll('.stat-val').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const isFloat = el.dataset.target.includes('.');
+      gsap.fromTo(el, { textContent: 0 }, {
+        textContent: target, duration: 2, ease: 'power2.out',
+        snap: { textContent: isFloat ? 0.1 : 1 },
+        scrollTrigger: { trigger: el, start: 'top 82%', once: true },
+        onUpdate: function () {
+          const v = parseFloat(this.targets()[0].textContent);
+          this.targets()[0].textContent = isFloat ? v.toFixed(1) : Math.round(v);
+        }
       });
-      card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
     });
-    /* Magnetic CTA button */
-    const magBtn=document.getElementById('magneticCta');
-    magBtn.addEventListener('mousemove',e=>{
-      const r=magBtn.getBoundingClientRect();
-      gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
+
+    // Section eyebrows + titles
+    gsap.utils.toArray('.section-eyebrow').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, y: 14, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 84%' }
+      });
     });
-    magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
+    gsap.utils.toArray('.section-title').forEach(el => {
+      gsap.from(el, {
+        x: -50, opacity: 0, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 86%', end: 'top 56%', scrub: 0.8 }
+      });
+    });
+
+    // Menu cards
+    gsap.from('.menu-card', {
+      opacity: 0, y: 44, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#menu', start: 'top 72%' }
+    });
+
+    // Review cards
+    gsap.from('#rev-grid .rev-card', {
+      opacity: 0, y: 40, duration: 0.7, stagger: 0.14, ease: 'power3.out',
+      scrollTrigger: { trigger: '#rev-grid', start: 'top 78%' }
+    });
+
+    // Order section
+    gsap.from('.res-headline', {
+      opacity: 0, y: 40, duration: 0.9, ease: 'power3.out',
+      scrollTrigger: { trigger: '#order', start: 'top 72%' }
+    });
+    gsap.from('.res-visual', {
+      opacity: 0, y: 44, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '.res-visual', start: 'top 78%' }
+    });
+
+    // Hours section
+    gsap.from('.hours-row', {
+      opacity: 0, x: -20, duration: 0.5, stagger: 0.07, ease: 'power3.out',
+      scrollTrigger: { trigger: '#hours', start: 'top 76%' }
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.mag-btn, .nav-cta').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        gsap.to(btn, {
+          x: (e.clientX - r.left - r.width  / 2) * 0.28,
+          y: (e.clientY - r.top  - r.height / 2) * 0.28,
+          duration: 0.3, ease: 'power2.out',
+        });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'elastic.out(1,.35)' });
+      });
+    });
+
+    // 3D card tilt on reviews
+    document.querySelectorAll('.rev-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        gsap.to(card, {
+          rotateY: x * 12, rotateX: -y * 12,
+          transformPerspective: 900, duration: 0.35, ease: 'power2.out',
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.65, ease: 'elastic.out(1,0.4)' });
+      });
+    });
+  },
+
+  '(max-width: 768px)': function () {
+    // Clip-path reveals on mobile
+    ['.menu-card', '.rev-card'].forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        gsap.from(el, {
+          clipPath: 'inset(0 0 100% 0)', opacity: 0,
+          duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 90%' }
+        });
+      });
+    });
+    gsap.from('#about-head', {
+      opacity: 0, y: 30, duration: 0.75, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about', start: 'top 84%' }
+    });
   }
-}
+});
 
-/* ===== Booking modal: order pickup time ===== */
-const CLOSED_DAYS=[];
-const SLOT_HOURS=[11,12,13,14,15,16,17,18,19,20,21];
-const SERVICES=[['Cheese Pizza (Large)','$16'],['Pepperoni Pizza (Large)','$18'],['Chicken Wings 10pc','$13'],['Buffalo Wings 10pc','$14'],['Baked Ziti','$12'],['Chicken Parmigiana','$14'],['Cheesesteak','$9'],['Chicken Cheesesteak','$9.50'],['Italian Hoagie','$9'],['Turkey Hoagie','$9']];
-let step=1,calOffset=0,chosen={service:'',date:'',time:'',name:'',phone:'',notes:''};
-const titles=['Choose Your Order','Pick a Pickup Date','Pick a Pickup Time','Your Info','Confirmed'];
-
-function slotLabel(h){const period=h<12?'AM':'PM';let hh=h%12;if(hh===0)hh=12;return hh+':00 '+period}
-
-function openModal(){
-  step=1;calOffset=0;renderStep();
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  lenis&&lenis.stop();
-}
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow='';
-  lenis&&lenis.start();
-}
-function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
-function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
-function shiftMonth(n){calOffset=Math.max(0,Math.min(2,calOffset+n));renderStep()}
-
-function renderStep(){
-  document.getElementById('modalTitle').textContent=titles[step-1];
-  setStepDots();
-  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
-  body.innerHTML='';foot.innerHTML='';
-  if(step===1){
-    body.innerHTML=`<div class="step-title">What Would You Like To Order?</div><div class="service-grid">
-      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
-        <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
-    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
-  } else if(step===2){
-    const now=new Date(),view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
-    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
-    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const longMonths=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    const todayHasSlots=SLOT_HOURS.some(h=>h>now.getHours());
-    let cal=`<div class="step-title">Choose A Pickup Date</div>
-      <div class="cal-month"><span>${longMonths[m]} ${y}</span><span class="cal-nav"><button type="button" aria-label="Previous month" onclick="shiftMonth(-1)"${calOffset===0?' disabled':''}>‹</button><button type="button" aria-label="Next month" onclick="shiftMonth(1)"${calOffset>=2?' disabled':''}>›</button></span></div>
-      <div class="calendar-grid">
-      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
-      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
-    for(let d=1;d<=daysInMonth;d++){
-      const dt=`${months[m]} ${d}, ${y}`,date=new Date(y,m,d);
-      const isPast=date<today;
-      const isToday=date.getTime()===today.getTime();
-      const isClosedDow=CLOSED_DAYS.includes(date.getDay());
-      const isDisabled=isPast||isClosedDow||(isToday&&!todayHasSlots);
-      cal+=`<div class="cal-day${isDisabled?' disabled':chosen.date===dt?' selected':''}"${!isDisabled?` onclick="chosen.date='${dt}';renderStep()"`:''}">${d}</div>`;
+// ══ 10. GALLERY — CSS sticky + GSAP scrub (exact pattern from reference) ══
+window.addEventListener('load', () => {
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    const wrap  = document.getElementById('gallery-wrap');
+    const track = document.getElementById('gallery-track');
+    if (wrap && track) {
+      const dist = track.scrollWidth - window.innerWidth;
+      if (dist > 0) {
+        wrap.style.height = `calc(100vh + ${dist}px)`;
+        gsap.to(track, {
+          x: -dist, ease: 'none',
+          scrollTrigger: {
+            trigger: wrap, start: 'top top', end: 'bottom bottom',
+            scrub: 1, invalidateOnRefresh: true,
+          }
+        });
+      }
     }
-    body.innerHTML=cal+'</div><p style="font-size:.75rem;color:#9a8f80;margin-top:.6rem">Open every day, 11:00 AM – 10:00 PM.</p>';
-    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
-  } else if(step===3){
-    const now=new Date();
-    const parsedDate=new Date(chosen.date);
-    const isToday=parsedDate.getFullYear()===now.getFullYear()&&parsedDate.getMonth()===now.getMonth()&&parsedDate.getDate()===now.getDate();
-    const slots=SLOT_HOURS.filter(h=>!isToday||h>now.getHours());
-    body.innerHTML=`<div class="step-title">Pickup Time</div><div class="time-grid">
-      ${slots.map(h=>{const t=slotLabel(h);return `<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`}).join('')}</div>`;
-    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
-  } else if(step===4){
-    body.innerHTML=`<div class="step-title">Your Information</div>
-      <div class="form-group"><label>Full Name</label><input id="fn" placeholder="Your name" value="${esc(chosen.name)}"></div>
-      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="${esc(chosen.phone)}"></div>
-      <div class="form-group"><label>Pickup or delivery? Any notes (optional)</label><input id="fv" placeholder="e.g. pickup, extra napkins" value="${esc(chosen.notes)}"></div>`;
-    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
-      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value;chosen.phone=document.getElementById('fp').value;chosen.notes=document.getElementById('fv').value;if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Order</button>`;
-  } else {
-    body.innerHTML=`<div class="confirm-screen">
-      <div class="confirm-icon">🍕</div>
-      <h3>Order Received!</h3>
-      <p>We will have it ready at the time below. See you soon, ${esc(chosen.name.split(' ')[0])}.</p>
-      <div class="confirm-detail">
-        <div><span>Order</span><span>${esc(chosen.service)}</span></div>
-        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
-        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
-        <div><span>Notes</span><span>${esc(chosen.notes)||'—'}</span></div>
-        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
-      </div>
-      <p style="font-size:.8rem;color:#9a8f80;margin-top:.5rem">Questions? (215) 332-0400</p>
-    </div>`;
-    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done ✓</button>`;
+  }
+  setTimeout(() => ScrollTrigger.refresh(), 100);
+});
+
+// ══ 11. HAMBURGER MOBILE MENU ══
+const burger   = document.getElementById('burger');
+const drawer   = document.getElementById('nav-drawer');
+const scrim    = document.getElementById('nav-scrim');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  scrim.classList.add('open');
+  burger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  scrim.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+burger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+scrim.addEventListener('click', closeDrawer);
+document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
+
+// ══ 12. SMOOTH ANCHOR SCROLLING ══
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80, duration: 1.4 }); }
+  });
+});
+
+// ══ 13. MENU TABS ══
+(function initMenuTabs() {
+  const tabs = document.querySelectorAll('.menu-tab');
+  const indicator = document.getElementById('tab-indicator');
+
+  function positionIndicator(tab) {
+    indicator.style.width  = tab.offsetWidth + 'px';
+    indicator.style.left   = tab.offsetLeft + 'px';
+  }
+
+  const activeTab = document.querySelector('.menu-tab.active');
+  if (activeTab) positionIndicator(activeTab);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat;
+
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      gsap.to(indicator, {
+        width: tab.offsetWidth, left: tab.offsetLeft,
+        duration: 0.35, ease: 'power3.out'
+      });
+
+      const current = document.querySelector('.menu-category.active');
+      if (current) {
+        gsap.to(current, {
+          opacity: 0, y: 10, duration: 0.2, ease: 'power2.in',
+          onComplete: () => {
+            current.classList.remove('active');
+            const next = document.getElementById('cat-' + cat);
+            if (next) {
+              next.classList.add('active');
+              gsap.fromTo(next,
+                { opacity: 0, y: 14 },
+                { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }
+              );
+            }
+          }
+        });
+      }
+    });
+  });
+})();
+
+// ══ 14. MENU ITEM MODAL ══
+function openMenuModal(card) {
+  const overlay = document.getElementById('menu-modal-overlay');
+  document.getElementById('modal-photo').src = card.dataset.photo;
+  document.getElementById('modal-photo').alt  = card.dataset.name;
+  document.getElementById('modal-name').textContent  = card.dataset.name;
+  document.getElementById('modal-price').textContent = card.dataset.price;
+  document.getElementById('modal-desc').textContent  = card.dataset.desc;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenuModal(e, force) {
+  if (force || (e && e.target === document.getElementById('menu-modal-overlay'))) {
+    document.getElementById('menu-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
   }
 }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeMenuModal(null, true); closeOrderModal(); }
+});
+
+// Set min date to today (menu-adjacent date input, unused now but kept safe)
+(function () {
+  const d = new Date();
+  const str = d.toISOString().split('T')[0];
+  const inp = document.getElementById('order-date');
+  if (inp) { inp.min = str; inp.value = str; }
+})();
+
+// ══ 15. HOURS — HIGHLIGHT TODAY ══
+(function () {
+  const today = new Date().getDay();
+  document.querySelectorAll('.hours-row[data-day]').forEach(row => {
+    if (parseInt(row.dataset.day) === today) {
+      row.classList.add('today');
+      const daySpan = row.querySelector('.hours-day');
+      if (daySpan) {
+        const tag = document.createElement('span');
+        tag.className = 'today-tag';
+        tag.textContent = 'Today';
+        daySpan.appendChild(tag);
+      }
+    }
+  });
+})();
+
+// ══ 16. ORDER MODAL — 5-STEP WIZARD ══
+const MENU_ITEMS = [
+  { id: 'cheese',    name: 'Cheese Pizza (Large)',      price: 16.00 },
+  { id: 'pepperoni', name: 'Pepperoni Pizza (Large)',   price: 18.00 },
+  { id: 'wings10',   name: 'Chicken Wings (10pc)',      price: 13.00 },
+  { id: 'bwings10',  name: 'Buffalo Wings (10pc)',      price: 14.00 },
+  { id: 'ziti',      name: 'Baked Ziti',                price: 12.00 },
+  { id: 'chparm',    name: 'Chicken Parmigiana',        price: 14.00 },
+  { id: 'steak',     name: 'Cheesesteak',               price: 9.00  },
+  { id: 'chsteak',   name: 'Chicken Cheesesteak',       price: 9.50  },
+  { id: 'ithoagie',  name: 'Italian Hoagie',             price: 9.00  },
+  { id: 'tkhoagie',  name: 'Turkey Hoagie',              price: 9.00  },
+];
+const orderCart = {};
+let orderStep = 1;
+const ORDER_TOTAL_STEPS = 5;
+
+function buildOrderItemsList() {
+  const list = document.getElementById('order-items-list');
+  list.innerHTML = '';
+  MENU_ITEMS.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'order-item-row';
+    row.innerHTML = `
+      <div>
+        <div class="order-item-name">${item.name}</div>
+        <div class="order-item-price">$${item.price.toFixed(2)} · price to confirm</div>
+      </div>
+      <div class="qty-stepper">
+        <button class="qty-btn" type="button" onclick="adjustCartQty('${item.id}',-1)">−</button>
+        <div class="qty-val" id="qty-${item.id}">0</div>
+        <button class="qty-btn" type="button" onclick="adjustCartQty('${item.id}',1)">+</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+function adjustCartQty(id, delta) {
+  const current = orderCart[id] || 0;
+  const next = Math.max(0, Math.min(20, current + delta));
+  orderCart[id] = next;
+  document.getElementById('qty-' + id).textContent = next;
+}
+function cartHasItems() {
+  return Object.values(orderCart).some(q => q > 0);
+}
+function cartSubtotal() {
+  return MENU_ITEMS.reduce((sum, item) => sum + (orderCart[item.id] || 0) * item.price, 0);
+}
+function buildReview() {
+  const wrap = document.getElementById('order-review-lines');
+  wrap.innerHTML = '';
+  MENU_ITEMS.forEach(item => {
+    const qty = orderCart[item.id] || 0;
+    if (!qty) return;
+    const line = document.createElement('div');
+    line.className = 'review-line';
+    line.innerHTML = `<span>${qty} × ${item.name}</span><strong>$${(qty * item.price).toFixed(2)}</strong>`;
+    wrap.appendChild(line);
+  });
+  const dateVal = document.getElementById('order-date').value;
+  const timeVal = document.getElementById('order-time').value;
+  const nameVal = document.getElementById('order-name').value || '—';
+  const phoneVal = document.getElementById('order-phone').value || '—';
+
+  const meta = document.createElement('div');
+  meta.style.marginTop = '14px';
+  meta.innerHTML = `
+    <div class="review-line"><span>Pickup</span><strong>${dateVal || 'Today'} · ${timeVal}</strong></div>
+    <div class="review-line"><span>Name</span><strong>${nameVal}</strong></div>
+    <div class="review-line"><span>Phone</span><strong>${phoneVal}</strong></div>
+  `;
+  wrap.appendChild(meta);
+
+  const total = document.createElement('div');
+  total.className = 'review-total';
+  total.innerHTML = `<span>Estimated Total</span><span>$${cartSubtotal().toFixed(2)} <span style="font-size:.6em;color:var(--muted);">(confirm)</span></span>`;
+  wrap.appendChild(total);
+}
+
+function updateOrderStepUI() {
+  document.querySelectorAll('.order-step').forEach(s => {
+    s.classList.toggle('active', parseInt(s.dataset.step) === orderStep);
+  });
+  document.querySelectorAll('.order-step-dot').forEach(d => {
+    const n = parseInt(d.dataset.step);
+    d.classList.toggle('done', n < orderStep);
+    d.classList.toggle('active', n === orderStep);
+  });
+  document.getElementById('order-back-btn').disabled = orderStep === 1;
+  const nextText = document.getElementById('order-next-text');
+  if (orderStep === ORDER_TOTAL_STEPS) {
+    nextText.textContent = 'Submit Order';
+  } else {
+    nextText.textContent = 'Next';
+  }
+  if (orderStep === ORDER_TOTAL_STEPS) buildReview();
+}
+
+function orderStepNext() {
+  if (orderStep === 1 && !cartHasItems()) {
+    alert('Please choose at least one item.');
+    return;
+  }
+  if (orderStep < ORDER_TOTAL_STEPS) {
+    orderStep++;
+    updateOrderStepUI();
+    return;
+  }
+  // Final submit
+  submitOrder();
+}
+function orderStepBack() {
+  if (orderStep > 1) {
+    orderStep--;
+    updateOrderStepUI();
+  }
+}
+
+function submitOrder() {
+  const btn      = document.getElementById('order-next-btn');
+  const btnText  = document.getElementById('order-next-text');
+  const spinner  = document.getElementById('order-spinner');
+  const checkSvg = document.getElementById('order-check');
+  const checkPth = document.getElementById('order-check-path');
+  const foot     = document.getElementById('order-modal-foot');
+  const reviewLines = document.getElementById('order-review-lines');
+  const confirmBox  = document.getElementById('order-confirm');
+
+  btn.classList.add('loading');
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+  document.getElementById('order-back-btn').style.display = 'none';
+
+  setTimeout(() => {
+    spinner.style.display = 'none';
+    checkSvg.style.display = 'block';
+    btn.classList.remove('loading');
+    btn.classList.add('success');
+    checkPth.classList.add('draw');
+    btnText.style.display = 'block';
+    btnText.textContent = 'Order Confirmed';
+
+    setTimeout(() => {
+      reviewLines.style.display = 'none';
+      confirmBox.style.display = 'block';
+      gsap.fromTo(confirmBox, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' });
+      foot.style.display = 'none';
+
+      setTimeout(() => { closeOrderModal(); resetOrderModal(); }, 3200);
+    }, 800);
+  }, 1400);
+}
+
+function resetOrderModal() {
+  orderStep = 1;
+  Object.keys(orderCart).forEach(k => orderCart[k] = 0);
+  buildOrderItemsList();
+  updateOrderStepUI();
+  document.getElementById('order-name').value = '';
+  document.getElementById('order-phone').value = '';
+  document.getElementById('order-email').value = '';
+  document.getElementById('order-notes').value = '';
+  document.getElementById('order-review-lines').style.display = '';
+  document.getElementById('order-confirm').style.display = 'none';
+  document.getElementById('order-modal-foot').style.display = 'flex';
+  document.getElementById('order-back-btn').style.display = 'inline-block';
+  const btn = document.getElementById('order-next-btn');
+  btn.classList.remove('success');
+  document.getElementById('order-check').style.display = 'none';
+  document.getElementById('order-check-path').classList.remove('draw');
+  document.getElementById('order-next-text').style.display = 'block';
+}
+
+function openOrderModal() {
+  buildOrderItemsList();
+  document.getElementById('order-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeOrderModal() {
+  document.getElementById('order-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('order-modal-overlay').addEventListener('click', e => {
+  if (e.target.id === 'order-modal-overlay') closeOrderModal();
+});
+
+buildOrderItemsList();
 </script>
 </body>
 </html>

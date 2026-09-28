@@ -1,743 +1,1458 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Top Cut Hair Salon — Bustleton Ave, Philadelphia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --stone:#F5F1EC;--stone2:#EFE8DD;--white:#FFFFFF;
-  --teal:#1F5C56;--teal-dark:#164A45;--teal-tint:#E7F0EE;
-  --blush:#E8B4A0;--blush-dark:#D89A82;
-  --ink:#2A2622;--muted:#6B6259;--border:#E4DCCF;
-}
-html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-body{background:var(--stone);color:var(--ink);font-family:'Albert Sans',sans-serif;overflow-x:hidden}
-h1,h2,h3{font-family:'Spectral',serif}
-html.no-motion .reveal,html.no-motion .hero-eyebrow,html.no-motion .hero-sub,html.no-motion .hero-actions,
-html.no-motion .hero-title .line span,html.no-motion #heroPhoto,html.no-motion .stat-num{opacity:1!important;transform:none!important;clip-path:none!important}
-#progressBar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--teal),var(--blush));z-index:10000}
-#cursor{position:fixed;width:8px;height:8px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);display:none}
-#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--teal);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;display:none}
-body{cursor:auto}
-@media (hover:hover) and (pointer:fine) and (min-width:861px){
-  body,body *:not(input):not(textarea){cursor:none}
-  #cursor,#cursor-ring{display:block}
-}
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5%;background:rgba(245,241,236,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:padding .3s}
-.nav-logo{font-family:'Spectral',serif;font-size:1.35rem;font-weight:600;letter-spacing:.01em;color:var(--ink)}
-.nav-logo span{color:var(--teal);font-style:italic}
-.nav-links{display:flex;align-items:center;gap:2.3rem;list-style:none}
-.nav-links a{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--muted);transition:color .2s;position:relative}
-.nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--teal);transition:width .25s}
-.nav-links a:hover{color:var(--teal)}
-.nav-links a:hover::after{width:100%}
-.nav-cta{background:var(--teal);color:#fff;padding:.62rem 1.4rem;border-radius:26px;font-size:.8rem;font-weight:600;letter-spacing:.04em;text-decoration:none;transition:background .2s}
-.nav-cta:hover{background:var(--teal-dark)}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem;z-index:250}
-.hamburger span{width:24px;height:2px;background:var(--ink);transition:all .3s}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.drawer-overlay{position:fixed;inset:0;background:rgba(42,38,34,.45);backdrop-filter:blur(2px);z-index:198;opacity:0;pointer-events:none;transition:opacity .3s}
-.drawer-overlay.open{opacity:1;pointer-events:auto}
-.mobile-drawer{position:fixed;top:0;right:-300px;width:280px;height:100%;background:var(--white);z-index:199;padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.6rem;transition:right .35s cubic-bezier(.16,1,.3,1);box-shadow:-10px 0 40px rgba(42,38,34,.15)}
-.mobile-drawer.open{right:0}
-.drawer-close{position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;font-size:1.3rem;color:var(--ink);cursor:pointer;line-height:1;padding:.3rem}
-.mobile-drawer a{font-family:'Spectral',serif;font-size:1.1rem;font-weight:600;text-decoration:none;color:var(--ink)}
-.mobile-drawer a.btn-primary{color:#fff;text-align:center;margin-top:1rem;font-family:'Albert Sans',sans-serif;font-weight:600;padding:.85rem;border-radius:26px}
-/* HERO — centered */
-.hero{position:relative;padding:9.5rem 5% 5rem;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.76rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:1.4rem;opacity:0;transform:translateY(10px)}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:24px;height:1px;background:var(--teal)}
-.hero-title{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:600;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:900px;margin-bottom:1.5rem}
-.hero-title .line{display:block;overflow:hidden}
-.hero-title .line span{display:block;transform:translateY(112%)}
-.hero-title em{font-style:italic;font-weight:500;color:var(--teal)}
-.hero-sub{font-size:1.08rem;line-height:1.75;color:var(--muted);max-width:520px;margin-bottom:2.2rem;opacity:0;transform:translateY(10px)}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;opacity:0;transform:translateY(10px);margin-bottom:3.5rem}
-.btn-primary{display:inline-block;background:var(--teal);color:#fff;padding:.95rem 2.1rem;border-radius:30px;font-size:.95rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .2s}
-.btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px)}
-.btn-outline{display:inline-block;border:1.5px solid var(--ink);color:var(--ink);padding:.92rem 2rem;border-radius:30px;font-size:.95rem;font-weight:600;text-decoration:none;transition:all .2s;background:transparent}
-.btn-outline:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-.hero-photo{position:relative;width:100%;max-width:1100px;aspect-ratio:16/7;border-radius:22px;overflow:hidden;opacity:0;transform:translateY(24px)}
-.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.hero-photo::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,92,86,.08),rgba(31,92,86,.22))}
-.photo-ring{position:absolute;width:150px;height:150px;border:2px solid var(--teal);border-radius:50%;top:-50px;left:-50px;opacity:.5;pointer-events:none}
-.photo-ring.small{width:70px;height:70px;top:-24px;left:26px;border-color:var(--blush);opacity:.6}
-.photo-chip{position:absolute;bottom:1.2rem;right:1.2rem;background:var(--white);border-radius:14px;padding:.7rem 1.1rem;box-shadow:0 12px 32px rgba(42,38,34,.18);font-family:'Spectral',serif;font-weight:600;font-size:.95rem;color:var(--ink);display:flex;align-items:center;gap:.35rem}
-.photo-chip .star{color:var(--blush-dark)}
-/* MARQUEE */
-.marquee-strip{background:var(--teal);overflow:hidden;padding:.75rem 0;white-space:nowrap;position:relative;z-index:3}
-.marquee-inner{display:inline-flex;will-change:transform}
-.marquee-inner span{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;padding:0 2rem}
-.marquee-inner .dot{color:var(--blush);padding:0 .4rem}
-section{padding:6.5rem 5%;position:relative}
-.section-eyebrow{display:flex;align-items:center;gap:.6rem;font-size:.76rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:.9rem}
-.section-eyebrow::before{content:'';width:22px;height:1px;background:var(--teal)}
-.section-title{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.12;margin-bottom:1rem}
-.section-head{max-width:640px;margin:0 auto 3rem;text-align:center}
-.section-head p.tag{color:var(--muted);font-size:1rem;line-height:1.7;max-width:520px;margin:0 auto}
-/* SERVICE TABS */
-.tabs-section{background:var(--white)}
-.tab-card{max-width:760px;margin:0 auto;background:var(--stone);border-radius:20px;padding:2.6rem 2.4rem;border:1px solid var(--border)}
-.tab-buttons{display:flex;gap:.6rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
-.tab-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);padding:.7rem 1.7rem;border-radius:24px;font-size:.9rem;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:all .2s;font-family:'Albert Sans',sans-serif}
-.tab-btn:hover{border-color:var(--teal);color:var(--teal)}
-.tab-btn.active{background:var(--teal);border-color:var(--teal);color:#fff}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.price-row{display:flex;justify-content:space-between;align-items:baseline;padding:.95rem 0;border-bottom:1px solid var(--border);gap:1rem}
-.price-row:last-child{border-bottom:none}
-.price-row .pname{font-weight:500;color:var(--ink);font-size:1rem}
-.price-row .pprice{font-family:'Spectral',serif;font-weight:600;color:var(--teal);font-size:1.1rem;white-space:nowrap}
-.price-row.addon{margin-top:.4rem;padding-top:1.2rem;border-top:2px dashed var(--blush)}
-.price-row.addon .pname{color:var(--teal);font-weight:600}
-.price-row.addon .note{display:block;font-size:.78rem;color:var(--muted);font-weight:400;margin-top:.15rem}
-/* STATEMENT */
-.statement{min-height:58vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:6rem 5%}
-.statement-bg{position:absolute;inset:-8%;background-image:url('https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=1600&q=80');background-size:cover;background-position:center}
-.statement-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,74,69,.88),rgba(22,74,69,.94))}
-.statement-content{position:relative;z-index:2;color:#fff;max-width:800px}
-.statement-content .section-eyebrow{color:var(--blush);justify-content:center}
-.statement-content .section-eyebrow::before{background:var(--blush)}
-.big-headline{font-weight:600;font-size:clamp(2.1rem,4.6vw,3.6rem);line-height:1.18;letter-spacing:-.01em}
-.big-headline em{font-style:italic;color:var(--blush);font-weight:500}
-.statement-content p.lede{margin-top:1.6rem;font-size:1.05rem;color:rgba(255,255,255,.82);max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
-.chip-row{display:flex;gap:.9rem;justify-content:center;margin-top:2.2rem;flex-wrap:wrap}
-.wash-chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);color:#fff;padding:.6rem 1.3rem;border-radius:24px;font-size:.85rem;font-weight:500;letter-spacing:.03em}
-/* FAMILY BAND */
-.family-section{background:var(--teal-tint)}
-.family-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1000px;margin:0 auto}
-.family-item{text-align:center;padding:1rem}
-.family-icon{width:64px;height:64px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 1.1rem;box-shadow:0 8px 22px rgba(31,92,86,.1)}
-.family-item h3{font-size:1.25rem;font-weight:600;color:var(--ink);margin-bottom:.5rem}
-.family-item p{font-size:.92rem;color:var(--muted);line-height:1.65}
-/* GALLERY */
-.gallery-section{background:var(--white)}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:220px 220px;gap:1rem;margin-top:0;max-width:1100px;margin-left:auto;margin-right:auto}
-.gallery-item{overflow:hidden;border-radius:14px;position:relative}
-.gallery-item.tall{grid-row:span 2}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s;display:block}
-.gallery-item:hover img{transform:scale(1.08)}
-.gallery-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(22,74,69,.78));display:flex;align-items:flex-end;padding:1.1rem;opacity:0;transition:opacity .3s}
-.gallery-item:hover .gallery-overlay{opacity:1}
-.gallery-overlay span{color:#fff;font-weight:600;font-size:.88rem;transform:translateY(8px);transition:transform .3s}
-.gallery-item:hover .gallery-overlay span{transform:translateY(0)}
-/* STAT STRIP */
-.stat-strip{background:var(--teal);padding:3.6rem 5%}
-.stat-strip-inner{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;text-align:center;max-width:900px;margin:0 auto}
-.stat-item .stat-num{font-family:'Spectral',serif;font-size:2.6rem;font-weight:600;color:#fff;display:block;line-height:1;opacity:0;transform:translateY(14px)}
-.stat-item .stat-label{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:.5rem}
-/* HOURS */
-.hours-section{background:var(--white)}
-.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1100px;margin:0 auto}
-.hours-list{list-style:none;margin-top:1.4rem}
-.hours-list li{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.95rem}
-.hours-list li.today{position:relative}
-.hours-list li.today::before{content:'TODAY';position:absolute;left:-.2rem;top:-1.1rem;font-size:.62rem;font-weight:700;letter-spacing:.14em;color:var(--teal)}
-.hours-list li span:first-child{font-weight:600;color:var(--ink)}
-.hours-list li.closed span:last-child{color:var(--blush-dark)}
-.hours-list li span:last-child{color:var(--muted)}
-.contact-item{display:flex;align-items:center;gap:.9rem;margin-bottom:1.3rem;font-size:.95rem}
-.contact-icon{width:40px;height:40px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#fff;flex-shrink:0}
-.contact-item strong{color:var(--ink)}
-.contact-item a{color:var(--teal);text-decoration:none;font-weight:600}
-.directions-btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:.4rem;font-size:.83rem;font-weight:600;letter-spacing:.03em;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--blush);padding-bottom:.15rem}
-/* REVIEWS */
-.reviews-section{background:var(--stone2)}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.3rem;margin-top:0;max-width:1100px;margin-left:auto;margin-right:auto}
-.review-card{background:var(--white);border-radius:16px;padding:2rem 1.8rem;border:1px solid var(--border);position:relative;transition:transform .3s,box-shadow .3s}
-.review-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(42,38,34,.1)}
-.review-quote{position:absolute;top:1rem;right:1.4rem;font-family:'Spectral',serif;font-size:3rem;color:var(--blush);opacity:.5;line-height:1}
-.review-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
-.g-badge{display:flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:600;color:var(--muted);letter-spacing:.04em}
-.g-badge .g{font-family:Arial,sans-serif;font-weight:700}
-.g-badge .g span:nth-child(1){color:#4285F4}.g-badge .g span:nth-child(2){color:#EA4335}.g-badge .g span:nth-child(3){color:#FBBC05}.g-badge .g span:nth-child(4){color:#4285F4}.g-badge .g span:nth-child(5){color:#34A853}.g-badge .g span:nth-child(6){color:#EA4335}
-.review-stars{color:var(--blush-dark);font-size:.9rem}
-.review-text{font-size:.93rem;line-height:1.75;color:var(--muted);margin-bottom:1rem;position:relative;z-index:1}
-.review-author{font-weight:600;font-size:.85rem;color:var(--ink)}
-.review-date{font-size:.76rem;color:#A69C8D;margin-top:.18rem}
-/* INSTAGRAM NOTE */
-.ig-note{text-align:center;padding:2.5rem 5% 0;font-size:.88rem;color:var(--muted);max-width:520px;margin:0 auto}
-/* CTA */
-.cta-section{background:var(--teal);text-align:center;padding:5.5rem 5%;position:relative;overflow:hidden}
-.cta-inner{position:relative;z-index:1}
-.cta-section h2{font-size:clamp(1.9rem,3.8vw,2.9rem);font-weight:600;letter-spacing:-.01em;color:#fff;margin-bottom:.8rem}
-.cta-section p{color:rgba(255,255,255,.82);font-size:1rem;max-width:440px;margin:0 auto 2.2rem}
-.cta-section .btn-white{display:inline-block;background:#fff;color:var(--teal);padding:.95rem 2.2rem;border-radius:30px;font-size:.95rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:transform .15s}
-footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.08);padding:2.8rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-footer .logo{font-family:'Spectral',serif;font-size:1.15rem;font-weight:600;color:#fff}
-footer .logo em{color:var(--blush);font-style:italic}
-footer p{color:rgba(255,255,255,.42);font-size:.8rem}
-footer a{color:var(--blush);font-size:.8rem;text-decoration:none;font-weight:600}
-.reveal{opacity:0;transform:translateY(28px)}
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(42,38,34,.72);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.open{display:flex}
-.modal{background:var(--white);border-radius:16px;width:100%;max-width:520px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.3)}
-.modal-header{padding:1.6rem 1.7rem .85rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.modal-header h3{font-family:'Spectral',serif;font-size:1.3rem;font-weight:600;color:var(--ink)}
-.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem}
-.modal-steps{display:flex;gap:.32rem;padding:.9rem 1.7rem;border-bottom:1px solid var(--border);flex-shrink:0}
-.step-dot{flex:1;height:3px;background:var(--border);border-radius:2px;transition:background .3s}
-.step-dot.active{background:var(--teal)}
-.step-dot.done{background:var(--blush-dark)}
-.modal-body{padding:1.7rem;overflow-y:auto;flex:1}
-.step-title{font-family:'Spectral',serif;font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:1.2rem}
-.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
-.service-option{border:2px solid var(--border);border-radius:10px;padding:.85rem;cursor:pointer;transition:all .2s}
-.service-option:hover,.service-option.selected{border-color:var(--teal);background:var(--teal-tint)}
-.service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--ink)}
-.service-option .svc-price{font-family:'Spectral',serif;font-size:1.05rem;font-weight:600;color:var(--teal);margin-top:.25rem}
-.cal-nav-header{display:flex;align-items:center;justify-content:space-between;margin-top:.7rem}
-.cal-nav-btn{background:none;border:2px solid var(--border);color:var(--ink);width:2rem;height:2rem;border-radius:50%;font-size:1rem;font-weight:700;line-height:1;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-family:'Albert Sans',sans-serif}
-.cal-nav-btn:disabled{opacity:.32;cursor:default}
-@media(hover:hover){.cal-nav-btn:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}}
-.cal-month-label{font-family:'Spectral',serif;font-weight:600;color:var(--ink);font-size:.92rem}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
-.cal-day-name{text-align:center;font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
-.cal-day{text-align:center;padding:.5rem;border-radius:8px;font-size:.86rem;cursor:pointer;transition:all .2s}
-.cal-day:hover:not(.disabled){background:var(--teal);color:#fff}
-.cal-day.selected{background:var(--teal);color:#fff;font-weight:700}
-.cal-day.disabled{color:#D8CFC0;pointer-events:none}
-.cal-day.empty{visibility:hidden}
-.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.52rem;margin-top:.7rem}
-.time-slot{border:2px solid var(--border);border-radius:8px;padding:.58rem;text-align:center;font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s}
-.time-slot:hover,.time-slot.selected{border-color:var(--teal);background:var(--teal-tint);color:var(--teal-dark)}
-.form-group{margin-bottom:1rem}
-.form-group label{display:block;font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:.35rem}
-.form-group input,.form-group textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:.68rem .9rem;font-family:'Albert Sans',sans-serif;font-size:16px;color:var(--ink);background:var(--stone);outline:none;transition:border-color .2s;resize:vertical}
-.form-group input:focus,.form-group textarea:focus{border-color:var(--teal)}
-.modal-footer{padding:1rem 1.7rem;border-top:1px solid var(--border);display:flex;gap:.6rem;justify-content:flex-end;flex-shrink:0;position:sticky;bottom:0;background:var(--white)}
-.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:.58rem 1.1rem;border-radius:24px;font-size:.86rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
-.btn-back:hover{border-color:var(--ink);color:var(--ink)}
-.btn-next{background:var(--teal);color:#fff;border:none;padding:.58rem 1.4rem;border-radius:24px;font-size:.86rem;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap}
-.btn-next:hover{background:var(--teal-dark)}
-.confirm-screen{text-align:center;padding:.8rem 0}
-.confirm-icon{font-size:2.6rem;margin-bottom:.8rem}
-.confirm-screen h3{font-family:'Spectral',serif;font-size:1.4rem;font-weight:600;color:var(--ink);margin-bottom:.5rem}
-.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.9rem}
-.confirm-detail{background:var(--stone);border-radius:10px;padding:.9rem 1rem;margin:1rem 0;text-align:left}
-.confirm-detail div{display:flex;justify-content:space-between;padding:.32rem 0;font-size:.85rem;border-bottom:1px solid var(--border);gap:1rem}
-.confirm-detail div:last-child{border:none}
-.confirm-detail span:first-child{color:var(--muted);font-weight:600;flex-shrink:0}
-.confirm-detail span:last-child{color:var(--ink);font-weight:600;text-align:right}
-@media(hover:none){
-  .review-card{transform:none!important}
-  .tab-btn:hover:not(.active){border-color:var(--border)!important;color:var(--muted)!important}
-  .service-option:hover:not(.selected){border-color:var(--border)!important;background:transparent!important}
-  .gallery-item:hover img{transform:none!important}
-  .gallery-item:hover .gallery-overlay{opacity:0!important}
-  .gallery-item:hover .gallery-overlay span{transform:translateY(8px)!important}
-  .cal-day:hover:not(.disabled):not(.selected){background:transparent!important;color:var(--ink)!important}
-  .time-slot:hover:not(.selected){border-color:var(--border)!important;background:transparent!important;color:var(--ink)!important}
-  .btn-primary:hover{transform:none!important}
-  .cal-nav-btn:hover{border-color:var(--border)!important;color:var(--ink)!important}
-}
-@media(max-width:860px){
-  .hours-grid,.family-grid{grid-template-columns:1fr}
-  .family-grid{gap:2.6rem}
-  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
-  .gallery-item{height:180px}
-  .gallery-item.tall{grid-row:span 1;height:180px}
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  section{padding:4.5rem 6%}
-  .hero{padding:8rem 6% 4rem}
-  .tab-card{padding:2rem 1.4rem}
-  .stat-strip-inner{gap:2.4rem}
-}
-@media(max-width:480px){
-  .service-grid{grid-template-columns:1fr}
-  .time-grid{grid-template-columns:repeat(2,1fr)}
-  .tab-buttons{gap:.45rem}
-  .tab-btn{padding:.6rem 1.2rem;font-size:.84rem}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Cut Hair Salon — Family Hair Care | Bustleton Ave, Philadelphia</title>
+  <meta name="description" content="Top Cut Hair Salon inside The Shops At Red Lion, 9975 Bustleton Ave, Philadelphia. Women's, men's & kids' cuts, color, and every wash includes a relaxing head-and-back massage. Walk-ins welcome." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #f8f3ec;
+      --bg-alt:      #efe4d6;
+      --bg-card:     #ffffff;
+      --text:        #2a2220;
+      --muted:       rgba(42,34,32,0.6);
+      --accent:      #6d2447;
+      --accent-rgb:  109, 36, 71;
+      --accent-pale: rgba(109,36,71,0.08);
+      --border:      rgba(42,34,32,0.1);
+      --ff-display:  'Fraunces', Georgia, serif;
+      --ff-body:     'Manrope', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* ── SCROLL PROGRESS ── */
+    #prog {
+      position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+      background: var(--accent); transform-origin: left; transform: scaleX(0); z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 32px 52px;
+      transition: background .4s, padding .3s, box-shadow .3s;
+    }
+    nav.scrolled {
+      background: rgba(248,243,236,.95); backdrop-filter: blur(16px);
+      padding: 18px 52px; box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500;
+      letter-spacing: .04em; color: var(--text);
+    }
+    .nav-logo em { color: var(--accent); font-style: italic; }
+    .nav-links { display: flex; align-items: center; gap: 38px; list-style: none; }
+    .nav-links a {
+      font-size: .74rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text); opacity: .55; transition: opacity .2s, color .2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.nav-active { opacity: 1; color: var(--accent); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      padding: 10px 26px; border-radius: 50px; opacity: 1 !important;
+      font-size: .74rem !important; font-weight: 700 !important;
+      letter-spacing: .08em !important; border: none; cursor: pointer;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #8a3061 !important; opacity: 1 !important; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px; z-index: 302;
+    }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-drawer {
+      position: fixed; top: 0; right: 0; width: 300px; height: 100dvh;
+      background: #fffdfb; z-index: 301;
+      transform: translateX(100%); transition: transform .45s cubic-bezier(.4,0,.2,1);
+      padding: 100px 44px 48px; display: flex; flex-direction: column; gap: 8px;
+      border-left: 1px solid var(--border);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+    .nav-drawer a {
+      font-family: var(--ff-display); font-size: 1.7rem; font-weight: 400;
+      color: rgba(42,34,32,.75); padding: 8px 0;
+      transition: color .2s; border-bottom: 1px solid var(--border);
+    }
+    .nav-drawer a:last-of-type { border-bottom: none; }
+    .nav-drawer a:hover { color: var(--accent); }
+    .drawer-cta {
+      margin-top: 28px !important; background: var(--accent);
+      color: #fff !important; text-align: center;
+      font-family: var(--ff-body) !important;
+      font-size: .8rem !important; font-weight: 700 !important;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 16px 28px !important; border-radius: 50px;
+      border-bottom: none !important; display: block;
+    }
+    .nav-scrim {
+      position: fixed; inset: 0; background: rgba(20,14,12,.5); z-index: 299;
+      opacity: 0; pointer-events: none; transition: opacity .4s;
+    }
+    .nav-scrim.open { opacity: 1; pointer-events: all; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-video { position: absolute; top: -15%; left: 0; width: 100%; height: 130%; object-fit: cover; z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30,16,22,.55), rgba(30,16,22,.72)); z-index: 1; }
+    .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; }
+    .hero-eyebrow {
+      font-size: .7rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: #e8b8cf; margin-bottom: 28px; opacity: 0; transform: translateY(16px);
+    }
+    .hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 500; line-height: .95; letter-spacing: -.02em; color: #fff;
+      margin-bottom: 28px;
+    }
+    .h-line { display: block; clip-path: inset(0 0 100% 0); opacity: 0; }
+    .hero-tagline {
+      font-family: var(--ff-display);
+      font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+      font-weight: 300; font-style: italic;
+      color: rgba(255,255,255,.85); letter-spacing: .04em;
+      margin-bottom: 48px; opacity: 0; transform: translateY(20px);
+    }
+    .hero-ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; opacity: 0; transform: translateY(16px); }
+    .btn-fill {
+      background: var(--accent); color: #fff;
+      padding: 16px 42px; border-radius: 50px;
+      font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border: 2px solid var(--accent); display: inline-block; cursor: pointer;
+      transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .btn-outline {
+      background: transparent; color: #fff;
+      padding: 14px 42px; border-radius: 50px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      border: 2px solid rgba(255,255,255,.4); display: inline-block; cursor: pointer;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+
+    .fbadge {
+      position: absolute; z-index: 3;
+      background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28);
+      backdrop-filter: blur(12px); border-radius: 50px;
+      padding: 10px 20px; font-size: .74rem; font-weight: 600;
+      color: #fff; white-space: nowrap;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 28px rgba(0,0,0,.25);
+    }
+    .fbadge .dot { width: 7px; height: 7px; border-radius: 50%; background: #e8b8cf; flex-shrink: 0; }
+    .fbadge-a { top: 24%; left: 7%; }
+    .fbadge-b { bottom: 26%; right: 7%; }
+    .scroll-ind {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 9px;
+      font-size: .64rem; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255,255,255,.5); z-index: 2; opacity: 0;
+    }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(#e8b8cf, transparent); }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap { background: var(--accent); padding: 16px 0; overflow: hidden; }
+    .marquee-track { display: flex; align-items: center; gap: 56px; width: max-content; white-space: nowrap; }
+    .marquee-track span { font-family: var(--ff-display); font-size: 1rem; font-weight: 500; color: rgba(255,255,255,.92); letter-spacing: .07em; text-transform: uppercase; }
+    .marquee-track .sep { color: rgba(255,255,255,.4); }
+
+    /* ── SHARED ── */
+    .section { padding: clamp(80px,10vw,140px) 0; }
+    .section-alt { background: var(--bg-alt); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
+    .section-eyebrow { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 500; line-height: 1.05;
+      letter-spacing: -.02em; color: var(--text); margin-bottom: 60px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-editorial {
+      font-family: var(--ff-display);
+      font-size: clamp(3.2rem, 6.5vw, 6.5rem);
+      font-weight: 500; font-style: italic; line-height: .98;
+      letter-spacing: -.02em; color: var(--text);
+    }
+    .about-editorial em { color: var(--accent); font-style: italic; }
+    .about-body { font-size: .95rem; line-height: 1.9; color: var(--muted); margin: 32px 0 48px; }
+    .about-img-wrap { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; }
+    .about-img-wrap img { transition: transform .8s ease; }
+    .stats { display: flex; gap: 48px; flex-wrap: wrap; }
+    .stat-num { font-family: var(--ff-display); font-size: 3.2rem; font-weight: 500; line-height: 1; letter-spacing: -.02em; color: var(--text); }
+    .stat-num sup { font-size: 1.3rem; color: var(--accent); vertical-align: super; }
+    .stat-label { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+    .about-note { font-size: .78rem; color: var(--muted); margin-top: 28px; font-style: italic; }
+
+    /* ── SERVICES TABS ── */
+    .menu-tabs { display: flex; gap: 0; margin-bottom: 48px; border-bottom: 1px solid var(--border); position: relative; }
+    .menu-tab {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--ff-display); font-size: 1.15rem; font-weight: 500;
+      color: var(--muted); padding: 14px 36px;
+      letter-spacing: .02em; transition: color .25s;
+    }
+    .menu-tab.active { color: var(--text); }
+    .tab-indicator { position: absolute; bottom: -1px; height: 2px; background: var(--accent); transition: none; }
+    .menu-category { display: none; }
+    .menu-category.active { display: grid; }
+    .menu-grid { grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .menu-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; cursor: pointer;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .menu-card-img { height: 190px; overflow: hidden; }
+    .menu-card-img img { transition: transform .5s ease; }
+    .menu-card-body { padding: 22px 22px 26px; }
+    .menu-card-name { font-family: var(--ff-display); font-size: 1.3rem; font-weight: 500; color: var(--text); margin-bottom: 7px; }
+    .menu-card-desc { font-size: .82rem; line-height: 1.7; color: var(--muted); margin-bottom: 14px; }
+    .menu-card-price { font-size: 1.05rem; font-weight: 700; color: var(--accent); }
+    .price-tag-confirm { font-size: .62rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; display: block; margin-top: 2px; }
+
+    /* ── GALLERY ── */
+    #gallery { padding: 0; }
+    .gallery-wrap { position: relative; }
+    .gallery-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+    .gallery-header { padding: 60px 52px 24px; flex-shrink: 0; }
+    .gallery-track { display: flex; gap: 18px; padding: 0 52px 48px; align-items: flex-end; flex: 1; will-change: transform; }
+    .gh-item { flex-shrink: 0; border-radius: 16px; overflow: hidden; height: 100%; width: 420px; position: relative; }
+    .gh-item.gh-narrow { width: 280px; height: 82%; }
+    .gh-item.gh-wide { width: 560px; }
+    .gh-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .gh-overlay {
+      position: absolute; inset: 0; background: rgba(30,16,22,.55);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      opacity: 0; transition: opacity .3s;
+    }
+    .gh-overlay-icon { width: 50px; height: 50px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.7); display: flex; align-items: center; justify-content: center; color: #fff; }
+    .gh-overlay-caption { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.9); }
+
+    /* ── BOOK CTA SECTION ── */
+    .res-section { background: #241017; padding: clamp(80px,10vw,140px) 0; color: #fff; }
+    .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+    .res-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(2.6rem, 5.5vw, 4.6rem); font-weight: 500; line-height: 1;
+      letter-spacing: -.03em; color: #fff; margin-bottom: 22px;
+    }
+    .res-headline em { color: #e8b8cf; font-style: italic; }
+    .res-sub { font-size: .9rem; line-height: 1.85; color: rgba(255,255,255,.65); margin-bottom: 44px; }
+    .res-info { display: flex; flex-direction: column; gap: 18px; }
+    .res-info-row { display: flex; align-items: center; gap: 14px; font-size: .84rem; color: rgba(255,255,255,.75); }
+    .res-info-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(232,184,207,.15); border: 1px solid rgba(232,184,207,.3);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #e8b8cf;
+    }
+    .book-cta-card {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
+      border-radius: 24px; padding: 48px 40px; text-align: center;
+    }
+    .book-cta-card h3 { font-family: var(--ff-display); font-size: 1.9rem; font-weight: 500; margin-bottom: 12px; }
+    .book-cta-card p { font-size: .88rem; color: rgba(255,255,255,.65); margin-bottom: 30px; line-height: 1.7; }
+
+    /* ── REVIEWS ── */
+    .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .rev-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 36px 30px; transform-style: preserve-3d; }
+    .rev-stars { color: var(--accent); letter-spacing: 2px; font-size: .85rem; margin-bottom: 20px; }
+    .rev-quote { font-family: var(--ff-display); font-size: 1.08rem; font-weight: 400; font-style: italic; line-height: 1.65; color: var(--text); margin-bottom: 26px; }
+    .rev-author { display: flex; align-items: center; gap: 12px; }
+    .rev-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--accent-pale); border: 1px solid rgba(109,36,71,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-display); font-size: 1rem; font-weight: 600;
+      color: var(--accent); flex-shrink: 0;
+    }
+    .rev-name { font-size: .83rem; font-weight: 700; color: var(--text); }
+    .rev-date { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── HOURS + LOCATION ── */
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: .88rem; color: var(--muted); }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row.today { color: var(--text); }
+    .hours-row.today .hours-day { color: var(--accent); font-weight: 700; }
+    .today-tag { font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; background: var(--accent-pale); color: var(--accent); border: 1px solid rgba(109,36,71,.3); border-radius: 50px; padding: 2px 10px; margin-left: 8px; }
+    .hours-closed { color: rgba(42,34,32,.35) !important; }
+    .location-name { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+    .location-address { font-size: .9rem; color: var(--muted); line-height: 1.85; margin-bottom: 6px; }
+    .location-phone { font-size: .9rem; color: var(--muted); margin-bottom: 36px; }
+    .location-phone a { color: var(--accent); transition: color .2s; }
+    .location-note { font-size: .78rem; color: var(--muted); font-style: italic; margin-bottom: 24px; }
+    .btn-directions {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: none; border: 1px solid var(--border);
+      border-radius: 50px; padding: 13px 30px;
+      font-family: var(--ff-body); font-size: .8rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase; color: var(--text);
+      cursor: pointer; transition: border-color .2s, color .2s;
+    }
+    .btn-directions:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    .staff-portal-wrap { background: var(--bg-alt); padding: 52px 24px; text-align: center; border-top: 1px solid var(--border); }
+    footer { background: #241017; color: #fff; padding: 80px 0 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+    .footer-logo { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 500; color: #fff; display: block; margin-bottom: 14px; }
+    .footer-logo em { color: #e8b8cf; font-style: italic; }
+    .footer-tagline { font-size: .83rem; line-height: 1.8; color: rgba(255,255,255,.5); margin-bottom: 18px; }
+    .footer-phone { font-size: .8rem; color: rgba(255,255,255,.45); }
+    .footer-phone a { transition: color .2s; }
+    .footer-phone a:hover { color: #e8b8cf; }
+    .fcol-title { font-size: .63rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 20px; }
+    .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .fcol ul a { font-size: .87rem; color: rgba(255,255,255,.65); transition: color .2s; }
+    .fcol ul a:hover { color: #fff; }
+    .footer-bottom { padding-top: 28px; border-top: 1px solid rgba(255,255,255,.1); display: flex; justify-content: space-between; align-items: center; font-size: .73rem; color: rgba(255,255,255,.35); }
+
+    /* ── BOOKING MODAL (5-step) ── */
+    .booking-modal-overlay {
+      position: fixed; inset: 0; background: rgba(20,12,14,.72); z-index: 700;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .booking-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .booking-modal {
+      background: var(--bg-card); border-radius: 24px; overflow: hidden;
+      width: 100%; max-width: 640px; max-height: 88vh; overflow-y: auto;
+      position: relative; transform: scale(0.94);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .booking-modal-overlay.open .booking-modal { transform: scale(1); }
+    .booking-modal-head { padding: 30px 36px 0; display: flex; align-items: center; justify-content: space-between; }
+    .booking-modal-head h3 { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 500; }
+    .booking-modal-close {
+      background: var(--accent-pale); border: none; color: var(--accent);
+      width: 34px; height: 34px; border-radius: 50%; font-size: 1.1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .booking-modal-close:hover { background: rgba(109,36,71,.16); }
+    .booking-steps { display: flex; gap: 6px; padding: 20px 36px 0; }
+    .booking-step-dot { height: 4px; flex: 1; border-radius: 2px; background: var(--border); transition: background .3s; }
+    .booking-step-dot.done, .booking-step-dot.active { background: var(--accent); }
+    .booking-modal-body { padding: 28px 36px 36px; }
+    .b-step { display: none; }
+    .b-step.active { display: block; }
+    .b-step-title { font-family: var(--ff-display); font-size: 1.2rem; font-weight: 500; margin-bottom: 20px; }
+    .b-service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .b-service-card {
+      border: 1.5px solid var(--border); border-radius: 14px; padding: 16px 18px;
+      cursor: pointer; transition: border-color .2s, background .2s;
+    }
+    .b-service-card:hover { border-color: rgba(109,36,71,.4); }
+    .b-service-card.selected { border-color: var(--accent); background: var(--accent-pale); }
+    .b-service-card .bsc-name { font-weight: 700; font-size: .88rem; margin-bottom: 4px; }
+    .b-service-card .bsc-price { font-size: .8rem; color: var(--accent); font-weight: 600; }
+    .b-cat-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+    .b-cat-tab {
+      background: var(--bg-alt); border: none; padding: 8px 18px; border-radius: 50px;
+      font-size: .76rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer; transition: background .2s, color .2s;
+    }
+    .b-cat-tab.active { background: var(--accent); color: #fff; }
+    .b-cat-group { display: none; }
+    .b-cat-group.active { display: grid; }
+    .b-summary-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: .88rem; }
+    .b-summary-row:last-child { border-bottom: none; }
+    .b-summary-label { color: var(--muted); }
+    .booking-nav { display: flex; gap: 12px; margin-top: 28px; }
+    .btn-b-back {
+      background: none; border: 1px solid var(--border); color: var(--text);
+      padding: 14px 28px; border-radius: 50px; font-size: .8rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+      transition: border-color .2s;
+    }
+    .btn-b-back:hover { border-color: var(--accent); }
+    .btn-b-next {
+      flex: 1; background: var(--accent); color: #fff; border: none;
+      padding: 14px 28px; border-radius: 50px; font-size: .8rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+      transition: background .2s; display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-b-next:hover { background: #8a3061; }
+    .btn-b-next.success { background: #2e7d46; pointer-events: none; }
+    .b-time-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    .b-time-slot {
+      border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 6px;
+      text-align: center; font-size: .8rem; font-weight: 600; cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .b-time-slot.selected { border-color: var(--accent); background: var(--accent-pale); color: var(--accent); }
+    .b-final-confirm { text-align: center; padding: 20px 0; }
+    .b-final-confirm h3 { font-family: var(--ff-display); font-size: 1.8rem; margin-bottom: 10px; }
+    .b-final-confirm p { font-size: .88rem; color: var(--muted); line-height: 1.8; }
+    .b-check-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(46,125,70,.12); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .fgroup { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .fgroup label { font-size: .67rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .fgroup input, .fgroup select, .fgroup textarea {
+      background: var(--bg-alt); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+      font-family: var(--ff-body); font-size: .93rem; color: var(--text);
+      outline: none; transition: border-color .25s; -webkit-appearance: none; width: 100%;
+    }
+    .fgroup input:focus, .fgroup select:focus { border-color: var(--accent); }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; animation: spin .7s linear infinite; display: none; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── HOVER EFFECTS (desktop only) ── */
+    @media (hover: hover) and (pointer: fine) {
+      .btn-fill:hover { background: #8a3061; border-color: #8a3061; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(var(--accent-rgb),.3); }
+      .btn-outline:hover { border-color: #fff; color: #fff; transform: translateY(-2px); background: rgba(255,255,255,.08); }
+      .menu-card:hover { transform: translateY(-8px); box-shadow: 0 24px 50px rgba(42,34,32,.14); }
+      .menu-card:hover .menu-card-img img { transform: scale(1.07); }
+      .gh-item:hover img { transform: scale(1.05); }
+      .gh-item:hover .gh-overlay { opacity: 1; }
+      .about-img-wrap:hover img { transform: scale(1.04); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .about-grid { grid-template-columns: 1fr; gap: 52px; }
+      .menu-grid { grid-template-columns: repeat(2,1fr); }
+      .reviews-grid { grid-template-columns: repeat(2,1fr); }
+      .hours-grid { grid-template-columns: 1fr; gap: 52px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .res-grid { grid-template-columns: 1fr; gap: 52px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 22px 24px; }
+      nav.scrolled { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .wrap { padding: 0 24px; }
+      .hero-name { font-size: clamp(3.2rem, 12vw, 5.4rem); }
+      .fbadge { font-size: .67rem; padding: 8px 14px; }
+      .fbadge-a { top: 18%; left: 5%; }
+      .fbadge-b { bottom: 22%; right: 5%; }
+      .about-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .hours-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .frow { grid-template-columns: 1fr; }
+      #gallery { padding: 40px 0 0; }
+      .gallery-wrap { position: static; }
+      .gallery-sticky { position: static; height: auto; overflow: visible; display: block; }
+      .gallery-header { padding: 0 24px 24px; }
+      .gallery-track { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 40px; flex: none; align-items: stretch; transform: none !important; will-change: auto; }
+      .gh-item, .gh-item.gh-narrow, .gh-item.gh-wide { width: auto; height: 180px; flex-shrink: unset; }
+      .gh-overlay { display: none; }
+      .b-service-grid { grid-template-columns: 1fr; }
+      .b-time-grid { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; width: 100%; }
+      .btn-fill, .btn-outline { text-align: center; }
+      .fbadge { display: none; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-tab { padding: 12px 18px; font-size: 1rem; }
+      .b-time-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
 </head>
 <body>
-<!-- PIPELINE DATA NOTES (internal) - remove before handing the site to the client.
-VERIFIED (direct Google Maps lookup, 2026-09-27): business name "Top Cut Hair Salon" - 9975 Bustleton Ave, Philadelphia, PA 19115 (inside The Shops At Red Lion) - phone (215) 677-3900 (tel:2156773900) - 4.3-star rating - 167 Google reviews - online presence is an Instagram page only (instagram.com), no real website (this is the sales angle: no online booking, no services menu or pricing, no branding they control, does not rank on Google like a real site would).
-[CONFIRM BEFORE VISIT] HOURS ARE ASSUMED, not verified: Tuesday-Saturday 9:00 AM-7:00 PM, Sunday 10:00 AM-4:00 PM, Monday Closed. Confirm with the owner, then update the #hoursList rows, the CLOSED_DAYS constant and the SLOTS / SUN_SLOTS arrays in the script together.
-[CONFIRM BEFORE VISIT] ALL PRICES ARE PHILADELPHIA-MARKET ESTIMATES, not the salon's real menu: Womens Haircut and Style $45, Blowout $35, Color Single Process from $65, Highlights from $90, Deep Conditioning Treatment $25, Mens Haircut $28, Kids Cut (12 and under) $20, Wash + Relaxing Massage $15. Update the service tabs AND the SERVICES array in the script together.
-[CONFIRM BEFORE VISIT] YEARS IN BUSINESS are unknown - no founding year or "since" claim appears anywhere on this page. Do not add one without the owner.
--->
-<div id="progressBar"></div>
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<nav id="nav">
-  <div class="nav-logo">Top <span>Cut</span></div>
+
+<div id="prog"></div>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo"><em>Top</em> Cut</a>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#wash">The Wash</a></li>
-    <li><a href="#hours">Hours</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#" class="nav-cta" onclick="openBooking();return false;">Book Now</a></li>
   </ul>
-  <a href="#" class="nav-cta" onclick="openModal();return false">Book Your Visit</a>
-  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
-<div class="mobile-drawer" id="mobileDrawer">
-  <button class="drawer-close" aria-label="Close menu" onclick="closeDrawer()">✕</button>
-  <a href="#services" onclick="closeDrawer()">Services</a>
-  <a href="#wash" onclick="closeDrawer()">The Wash</a>
-  <a href="#hours" onclick="closeDrawer()">Hours</a>
-  <a href="#reviews" onclick="closeDrawer()">Reviews</a>
-  <a href="#" class="btn-primary" onclick="closeDrawer();openModal();return false">Book Your Visit</a>
+
+<div class="nav-scrim" id="nav-scrim"></div>
+<div class="nav-drawer" id="nav-drawer">
+  <a href="#about" class="drawer-link">About</a>
+  <a href="#services" class="drawer-link">Services</a>
+  <a href="#gallery" class="drawer-link">Gallery</a>
+  <a href="#reviews" class="drawer-link">Reviews</a>
+  <a href="#hours" class="drawer-link">Hours</a>
+  <a href="#" class="drawer-cta drawer-link" onclick="openBooking();return false;">Book an Appointment</a>
 </div>
 
-<section class="hero" id="home">
-  <p class="hero-eyebrow">Inside The Shops At Red Lion · Bustleton Ave</p>
-  <h1 class="hero-title">
-    <span class="line"><span>Every Visit Starts With</span></span>
-    <span class="line"><span><em>A Moment To Breathe.</em></span></span>
-  </h1>
-  <p class="hero-sub">A full-service salon for women, men and kids — where every single wash comes with a relaxing head-and-back massage, because getting your hair done should feel like a small pause in the day, not another errand.</p>
-  <div class="hero-actions">
-    <a href="#" class="btn-primary" onclick="openModal();return false">Book Your Visit</a>
-    <a href="tel:2156773900" class="btn-outline">Call (215) 677-3900</a>
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <video autoplay muted loop playsinline class="hero-video" id="hero-video">
+    <source src="https://videos.pexels.com/video-files/29575894/12730563_640_360_60fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow" id="h-eyebrow">Family Hair Salon · The Shops At Red Lion</p>
+    <h1 class="hero-name" id="h-name">
+      <span class="h-line">Top Cut</span>
+      <span class="h-line">Hair Salon</span>
+    </h1>
+    <p class="hero-tagline" id="h-tag">Every wash includes a relaxing head-and-back massage.</p>
+    <div class="hero-ctas" id="h-ctas">
+      <a href="#services" class="btn-fill mag-btn">View Services</a>
+      <a href="#" class="btn-outline mag-btn" onclick="openBooking();return false;">Book Appointment</a>
+    </div>
   </div>
-  <div class="hero-photo" id="heroPhoto">
-    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=1600&q=80" alt="Top Cut Hair Salon interior at The Shops At Red Lion">
-    <div class="photo-ring"></div>
-    <div class="photo-ring small"></div>
-    <div class="photo-chip"><span class="star">★</span> 4.3 · 167 Reviews</div>
+
+  <div class="fbadge fbadge-a" id="badge-a">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="#e8b8cf"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+    4.3 &nbsp;·&nbsp; 167 Google Reviews
+  </div>
+  <div class="fbadge fbadge-b" id="badge-b"><span class="dot"></span>Walk-Ins Welcome</div>
+
+  <div class="scroll-ind" id="h-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<div class="marquee-strip">
-  <div class="marquee-inner" id="marquee">
-    <span>Womens Cuts &amp; Color</span><span class="dot">✦</span><span>Mens Cuts</span><span class="dot">✦</span><span>Kids Cuts</span><span class="dot">✦</span><span>Walk-Ins Welcome</span><span class="dot">✦</span><span>Relaxing Wash With Every Visit</span><span class="dot">✦</span><span>9975 Bustleton Ave</span><span class="dot">✦</span>
-    <span>Womens Cuts &amp; Color</span><span class="dot">✦</span><span>Mens Cuts</span><span class="dot">✦</span><span>Kids Cuts</span><span class="dot">✦</span><span>Walk-Ins Welcome</span><span class="dot">✦</span><span>Relaxing Wash With Every Visit</span><span class="dot">✦</span><span>9975 Bustleton Ave</span><span class="dot">✦</span>
-  </div>
-</div>
-
-<section class="tabs-section" id="services">
-  <div class="section-head reveal">
-    <p class="section-eyebrow" style="justify-content:center">The Menu</p>
-    <h2 class="section-title">Something For The Whole Family</h2>
-    <p class="tag">Browse by who is in the chair — every service ends the same relaxing way.</p>
-  </div>
-  <div class="tab-card reveal">
-    <div class="tab-buttons">
-      <button class="tab-btn active" data-tab="women" onclick="showTab('women')">Women</button>
-      <button class="tab-btn" data-tab="men" onclick="showTab('men')">Men</button>
-      <button class="tab-btn" data-tab="kids" onclick="showTab('kids')">Kids</button>
-    </div>
-    <div class="tab-panel active" data-tab-panel="women">
-      <div class="price-row"><span class="pname">Womens Haircut and Style</span><span class="pprice">$45</span></div>
-      <div class="price-row"><span class="pname">Blowout</span><span class="pprice">$35</span></div>
-      <div class="price-row"><span class="pname">Color, Single Process</span><span class="pprice">from $65</span></div>
-      <div class="price-row"><span class="pname">Highlights</span><span class="pprice">from $90</span></div>
-      <div class="price-row"><span class="pname">Deep Conditioning Treatment</span><span class="pprice">$25</span></div>
-      <div class="price-row addon"><span class="pname">Wash + Relaxing Massage<span class="note">Free with any color service</span></span><span class="pprice">$15</span></div>
-    </div>
-    <div class="tab-panel" data-tab-panel="men">
-      <div class="price-row"><span class="pname">Mens Haircut</span><span class="pprice">$28</span></div>
-      <div class="price-row"><span class="pname">Deep Conditioning Treatment</span><span class="pprice">$25</span></div>
-      <div class="price-row addon"><span class="pname">Wash + Relaxing Massage<span class="note">Free with any color service</span></span><span class="pprice">$15</span></div>
-    </div>
-    <div class="tab-panel" data-tab-panel="kids">
-      <div class="price-row"><span class="pname">Kids Cut (12 and under)</span><span class="pprice">$20</span></div>
-      <div class="price-row addon"><span class="pname">Wash + Relaxing Massage<span class="note">Free with any color service</span></span><span class="pprice">$15</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="statement" id="wash">
-  <div class="statement-bg"></div>
-  <div class="statement-overlay"></div>
-  <div class="statement-content reveal">
-    <p class="section-eyebrow">The Wash Experience</p>
-    <h2 class="big-headline">A Relaxing Head-And-Back Massage, <em>Every</em> Single Visit.</h2>
-    <p class="lede">It is not an upgrade you have to ask for. It is simply how we wash your hair here — part of the appointment, every time, for every guest in the chair.</p>
-    <div class="chip-row">
-      <span class="wash-chip">Scalp Massage</span>
-      <span class="wash-chip">Neck &amp; Shoulder Release</span>
-      <span class="wash-chip">Hot Towel Finish</span>
-    </div>
-  </div>
-</section>
-
-<section class="family-section" id="family">
-  <div class="section-head reveal">
-    <p class="section-eyebrow" style="justify-content:center">Family Friendly, Always</p>
-    <h2 class="section-title">Everyone Is Welcome In The Chair</h2>
-  </div>
-  <div class="family-grid reveal">
-    <div class="family-item">
-      <div class="family-icon">🚶</div>
-      <h3>Walk-Ins Welcome</h3>
-      <p>Did not plan ahead? No problem — swing by and we will fit you in, no appointment required.</p>
-    </div>
-    <div class="family-item">
-      <div class="family-icon">🧒</div>
-      <h3>Patient With Kids</h3>
-      <p>First haircuts, nervous ten-year-olds, wiggly toddlers — we take our time so kids leave smiling, not scared.</p>
-    </div>
-    <div class="family-item">
-      <div class="family-icon">🪑</div>
-      <h3>Every Chair Feels Like Home</h3>
-      <p>Regulars and first-timers get the same warm welcome — this is the kind of salon where everybody knows your name.</p>
-    </div>
-  </div>
-</section>
-
-<section class="gallery-section" id="gallery">
-  <div class="section-head reveal">
-    <p class="section-eyebrow" style="justify-content:center">Inside The Salon</p>
-    <h2 class="section-title">See The Space</h2>
-  </div>
-  <div class="gallery-grid reveal">
-    <div class="gallery-item tall"><img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&q=80" alt="Stylist finishing a haircut" loading="lazy"><div class="gallery-overlay"><span>Precision Cuts</span></div></div>
-    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&q=80" alt="Mens haircut in progress" loading="lazy"><div class="gallery-overlay"><span>Mens Cuts</span></div></div>
-    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80" alt="Finished womens hairstyle" loading="lazy"><div class="gallery-overlay"><span>Styling</span></div></div>
-    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&q=80" alt="Fresh hair color result" loading="lazy"><div class="gallery-overlay"><span>Color</span></div></div>
-    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595152772835-219674b2a163?w=800&q=80" alt="Salon seating area" loading="lazy"><div class="gallery-overlay"><span>The Salon</span></div></div>
-    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&q=80" alt="Beard and finishing trim" loading="lazy"><div class="gallery-overlay"><span>Finishing Touches</span></div></div>
-  </div>
-</section>
-
-<div class="stat-strip">
-  <div class="stat-strip-inner">
-    <div class="stat-item"><span class="stat-num" data-target="4.3" data-decimals="1" data-suffix="★">0</span><span class="stat-label">Google Rating</span></div>
-    <div class="stat-item"><span class="stat-num" data-target="167" data-suffix="+">0</span><span class="stat-label">Google Reviews</span></div>
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>Top Cut Hair Salon</span><span class="sep">·</span>
+    <span>Bustleton Ave, Philadelphia</span><span class="sep">·</span>
+    <span>Massage With Every Wash</span><span class="sep">·</span>
+    <span>Walk-Ins Welcome</span><span class="sep">·</span>
+    <span>Top Cut Hair Salon</span><span class="sep">·</span>
+    <span>Bustleton Ave, Philadelphia</span><span class="sep">·</span>
+    <span>Massage With Every Wash</span><span class="sep">·</span>
+    <span>Walk-Ins Welcome</span><span class="sep">·</span>
   </div>
 </div>
 
-<section class="hours-section" id="hours">
-  <div class="hours-grid">
-    <div class="reveal">
-      <p class="section-eyebrow">Hours</p>
-      <h2 class="section-title">When To Find Us</h2>
-      <ul class="hours-list" id="hoursList">
-        <li data-days="2,3,4,5,6"><span>Tuesday – Saturday</span><span>9:00 AM – 7:00 PM</span></li>
-        <li data-days="0"><span>Sunday</span><span>10:00 AM – 4:00 PM</span></li>
-        <li class="closed" data-days="1"><span>Monday</span><span>Closed</span></li>
-      </ul>
-    </div>
-    <div class="reveal">
-      <p class="section-eyebrow">Location</p>
-      <h2 class="section-title">Find Us On Bustleton Ave</h2>
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <div><strong>9975 Bustleton Ave</strong><br>Philadelphia, PA 19115<br>Inside The Shops At Red Lion<br>
-          <a class="directions-btn" href="https://www.google.com/maps/search/?api=1&query=9975+Bustleton+Ave+Philadelphia+PA+19115" target="_blank" rel="noopener">Get Directions →</a>
+<!-- ── ABOUT ── -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="about-editorial" id="about-head">
+          More than a <em>haircut</em>.<br>A whole family's spot.
+        </p>
+        <p class="about-body" id="about-body">
+          Tucked inside The Shops At Red Lion on Bustleton Ave, Top Cut Hair Salon has built a loyal following one appointment at a time. Every single wash here comes with a relaxing head-and-back massage — it's not an upsell, it's just how we do things. Bring the kids, walk in without an appointment, and expect the same warm welcome every visit.<br><br>
+          From a first haircut for a nervous ten-year-old to a quick trim on a busy Saturday, Top Cut keeps it simple: friendly service, real skill, and a chair that never feels rushed.
+        </p>
+        <div class="stats" id="stats">
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="167">167</span><sup>+</sup></div>
+            <div class="stat-label">Google Reviews</div>
+          </div>
+          <div>
+            <div class="stat-num"><span class="stat-val" data-target="4.3">4.3</span><sup>★</sup></div>
+            <div class="stat-label">Google Rating</div>
+          </div>
+          <div>
+            <div class="stat-num">1</div>
+            <div class="stat-label">Massage · Every Wash</div>
+          </div>
+        </div>
+        <p class="about-note">Find us on Instagram (an Instagram page, not a website) — linked directly from our Google Maps listing.</p>
+      </div>
+      <div>
+        <div class="about-img-wrap" id="about-img">
+          <img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=900&q=85" alt="Salon styling chair" loading="lazy" decoding="async" />
         </div>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <div><a href="tel:2156773900">(215) 677-3900</a><br><small style="color:var(--muted)">Call ahead or just walk in</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES (Women/Men/Kids tabs) ── -->
+<section class="section section-alt" id="services">
+  <div class="wrap">
+    <span class="section-eyebrow">Services &amp; Pricing</span>
+    <h2 class="section-title">Something For Everyone</h2>
+
+    <div class="menu-tabs" id="menu-tabs">
+      <button class="menu-tab active" data-cat="women">Women</button>
+      <button class="menu-tab" data-cat="men">Men</button>
+      <button class="menu-tab" data-cat="kids">Kids</button>
+      <div class="tab-indicator" id="tab-indicator"></div>
+    </div>
+
+    <!-- WOMEN -->
+    <div class="menu-category active menu-grid" id="cat-women">
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&q=80" alt="Women's haircut and style" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Haircut &amp; Style</div>
+          <p class="menu-card-desc">Cut, blowdry, and finish for any length</p>
+          <div class="menu-card-price">$45<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">💆</div>
-        <div><strong>Every Wash, A Massage</strong><br><small style="color:var(--muted)">Included with every visit</small></div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500&q=80" alt="Blowout" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Blowout</div>
+          <p class="menu-card-desc">Wash, blowdry, and smooth finish</p>
+          <div class="menu-card-price">$35<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1554519934-e32b1629d9ee?w=500&q=80" alt="Hair color" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Color (Single Process)</div>
+          <p class="menu-card-desc">All-over single-process color application</p>
+          <div class="menu-card-price">From $65<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?w=500&q=80" alt="Highlights" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Highlights</div>
+          <p class="menu-card-desc">Partial or full foil highlighting</p>
+          <div class="menu-card-price">From $90<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=500&q=80" alt="Deep conditioning treatment" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Deep Conditioning Treatment</div>
+          <p class="menu-card-desc">Intensive moisture and repair treatment</p>
+          <div class="menu-card-price">$25<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=500&q=80" alt="Wash and massage" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Wash + Relaxing Massage</div>
+          <p class="menu-card-desc">Free add-on with any color service</p>
+          <div class="menu-card-price">$15<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEN -->
+    <div class="menu-category menu-grid" id="cat-men">
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&q=80" alt="Men's haircut" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Men's Haircut</div>
+          <p class="menu-card-desc">Classic or modern cut, includes wash</p>
+          <div class="menu-card-price">$28<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=500&q=80" alt="Wash and massage" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Wash + Relaxing Massage</div>
+          <p class="menu-card-desc">Included as an add-on with color services</p>
+          <div class="menu-card-price">$15<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=500&q=80" alt="Deep conditioning" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Deep Conditioning Treatment</div>
+          <p class="menu-card-desc">Moisture and scalp treatment</p>
+          <div class="menu-card-price">$25<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KIDS -->
+    <div class="menu-category menu-grid" id="cat-kids">
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500&q=80" alt="Kids haircut" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Kids Cut (12 &amp; Under)</div>
+          <p class="menu-card-desc">Patient, friendly cuts for younger kids — first-timers welcome</p>
+          <div class="menu-card-price">$20<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=500&q=80" alt="Wash and massage" loading="lazy" /></div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Wash + Relaxing Massage</div>
+          <p class="menu-card-desc">A calming, fun part of every kid's visit</p>
+          <div class="menu-card-price">$15<span class="price-tag-confirm">Confirm before visit</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+  <div class="gallery-wrap" id="gallery-wrap">
+    <div class="gallery-sticky">
+      <div class="gallery-header">
+        <span class="section-eyebrow">Inside The Salon</span>
+        <h2 class="section-title" style="margin-bottom:0">A Look Around</h2>
+      </div>
+      <div class="gallery-track" id="gallery-track">
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=900&q=85" alt="Salon interior" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">The Salon Floor</div></div>
+        </div>
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&q=85" alt="Styling station" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Styling Station</div></div>
+        </div>
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=700&q=85" alt="Blowout in progress" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Fresh Blowout</div></div>
+        </div>
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?w=600&q=85" alt="Highlights being applied" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Color Work</div></div>
+        </div>
+        <div class="gh-item gh-wide">
+          <img src="https://images.unsplash.com/photo-1554519934-e32b1629d9ee?w=900&q=85" alt="Finished color" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Finished Color</div></div>
+        </div>
+        <div class="gh-item">
+          <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=700&q=85" alt="Relaxing wash and massage" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Wash + Massage</div></div>
+        </div>
+        <div class="gh-item gh-narrow">
+          <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=600&q=85" alt="Kids haircut" loading="lazy" decoding="async" />
+          <div class="gh-overlay"><div class="gh-overlay-icon">⊕</div><div class="gh-overlay-caption">Family Friendly</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="reviews-section" id="reviews">
-  <div class="section-head reveal">
-    <p class="section-eyebrow" style="justify-content:center">What Guests Say</p>
-    <h2 class="section-title">4.3★ From 167 Google Reviews</h2>
-  </div>
-  <div class="reviews-grid">
-    <div class="review-card reveal">
-      <span class="review-quote">"</span>
-      <div class="review-head">
-        <div class="review-stars">★★★★★</div>
-        <div class="g-badge"><span class="g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div>
+<!-- ── BOOK CTA SECTION ── -->
+<section class="res-section" id="reservations">
+  <div class="wrap">
+    <div class="res-grid">
+      <div>
+        <span class="section-eyebrow" style="color:#e8b8cf;">Book Your Visit</span>
+        <h2 class="res-headline">Walk-ins welcome.<br><em>Appointments too.</em></h2>
+        <p class="res-sub">Prefer to plan ahead? Book online in a minute — pick your service, pick a time, and you're set. No account needed.</p>
+        <div class="res-info">
+          <div class="res-info-row"><div class="res-info-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><span>9975 Bustleton Ave, Philadelphia, PA 19115 · inside The Shops At Red Lion</span></div>
+          <div class="res-info-row"><div class="res-info-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><span><a href="tel:2156773900">(215) 677-3900</a></span></div>
+          <div class="res-info-row"><div class="res-info-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span>Tue–Sat 9am–7pm · Sun 10am–4pm · Mon Closed <em style="font-style:italic;">[confirm before visit]</em></span></div>
+        </div>
       </div>
-      <p class="review-text">My ten-year-old was nervous about getting his hair cut somewhere new, and the owner was so patient with him the whole time — talked him through everything and made him feel completely at ease. He actually asked to come back.</p>
-      <div class="review-author">Danielle P.</div>
-      <div class="review-date">2 weeks ago</div>
-    </div>
-    <div class="review-card reveal">
-      <span class="review-quote">"</span>
-      <div class="review-head">
-        <div class="review-stars">★★★★★</div>
-        <div class="g-badge"><span class="g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div>
+      <div>
+        <div class="book-cta-card">
+          <h3>Ready when you are</h3>
+          <p>Tell us the service and time that works — we'll take it from there.</p>
+          <button class="btn-fill" style="width:100%;" onclick="openBooking()">Book an Appointment</button>
+        </div>
       </div>
-      <p class="review-text">Honestly the head and back massage during the wash was the best part of the whole appointment. I almost fell asleep in the chair. Left feeling more relaxed than I have after some actual spa visits.</p>
-      <div class="review-author">Marisol T.</div>
-      <div class="review-date">1 month ago</div>
     </div>
-    <div class="review-card reveal">
-      <span class="review-quote">"</span>
-      <div class="review-head">
-        <div class="review-stars">★★★★★</div>
-        <div class="g-badge"><span class="g"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></span></div>
-      </div>
-      <p class="review-text">Walked in without an appointment on a Saturday expecting a long wait, and they still got me in and took great care of me. Friendly from the second I sat down. This is my new go-to spot.</p>
-      <div class="review-author">Kevin R.</div>
-      <div class="review-date">3 weeks ago</div>
-    </div>
-  </div>
-  <p class="ig-note">You can already find some of our work on Instagram — and now, book directly right here, with real hours, real pricing, and a confirmed appointment.</p>
-</section>
-
-<section class="cta-section">
-  <div class="cta-inner">
-    <h2>Ready For A Moment To Breathe?</h2>
-    <p>Book online in a minute, or call and we will get you on the books. Walk-ins are always welcome too.</p>
-    <a href="#" class="btn-white" id="magneticCta" onclick="openModal();return false">Book Your Visit</a>
   </div>
 </section>
 
+<!-- ── REVIEWS ── -->
+<section class="section section-alt" id="reviews">
+  <div class="wrap">
+    <span class="section-eyebrow">Customer Experiences</span>
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="reviews-grid" id="rev-grid">
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"My son was so nervous for his first real haircut, but the owner was patient with him the whole time and made it feel easy. He actually asked when we could come back."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">D</div>
+          <div><div class="rev-name">Danielle P.</div><div class="rev-date">Google Review</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"The head-and-back massage during the wash was honestly the best part of my whole appointment. I almost fell asleep in the chair."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">M</div>
+          <div><div class="rev-name">Marisol T.</div><div class="rev-date">Google Review</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-quote">"Walked in on a Saturday expecting a long wait and still got seen pretty quick. Everyone was friendly the whole time — will be back."</p>
+        <div class="rev-author">
+          <div class="rev-avatar">K</div>
+          <div><div class="rev-name">Kevin R.</div><div class="rev-date">Google Review</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOURS + LOCATION ── -->
+<section class="section" id="hours">
+  <div class="wrap">
+    <span class="section-eyebrow">Find Us</span>
+    <h2 class="section-title">Hours &amp; Location</h2>
+    <div class="hours-grid">
+      <div>
+        <div class="hours-table" id="hours-table">
+          <div class="hours-row" data-day="2"><span class="hours-day">Tuesday</span><span>9:00 AM – 7:00 PM</span></div>
+          <div class="hours-row" data-day="3"><span class="hours-day">Wednesday</span><span>9:00 AM – 7:00 PM</span></div>
+          <div class="hours-row" data-day="4"><span class="hours-day">Thursday</span><span>9:00 AM – 7:00 PM</span></div>
+          <div class="hours-row" data-day="5"><span class="hours-day">Friday</span><span>9:00 AM – 7:00 PM</span></div>
+          <div class="hours-row" data-day="6"><span class="hours-day">Saturday</span><span>9:00 AM – 7:00 PM</span></div>
+          <div class="hours-row" data-day="0"><span class="hours-day">Sunday</span><span>10:00 AM – 4:00 PM</span></div>
+          <div class="hours-row" data-day="1"><span class="hours-day">Monday</span><span class="hours-closed">Closed</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="location-name">Top Cut Hair Salon</p>
+        <p class="location-address">9975 Bustleton Ave<br>Inside The Shops At Red Lion<br>Philadelphia, PA 19115</p>
+        <p class="location-note">Hours listed above — please confirm before visiting.</p>
+        <p class="location-phone"><a href="tel:2156773900">(215) 677-3900</a></p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn-directions">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STAFF PORTAL ── -->
+<div class="staff-portal-wrap">
+  <a href="top-cut-hair-salon-admin.html"
+     style="display:inline-flex;align-items:center;gap:10px;background:var(--bg-card);color:var(--text);
+            font-family:var(--ff-body);font-size:.82rem;font-weight:600;letter-spacing:.07em;
+            text-transform:uppercase;padding:16px 38px;border-radius:50px;
+            border:1px solid var(--border);text-decoration:none;
+            transition:background .25s,border-color .25s,transform .25s;"
+     onmouseover="this.style.background='var(--accent)';this.style.color='#fff';this.style.borderColor='var(--accent)';this.style.transform='translateY(-2px)'"
+     onmouseout="this.style.background='var(--bg-card)';this.style.color='var(--text)';this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Staff Admin Portal
+  </a>
+</div>
+
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="logo">Top <em>Cut</em></div>
-  <p>© 2026 Top Cut Hair Salon · 9975 Bustleton Ave, Philadelphia PA 19115</p>
-  <a href="tel:2156773900">(215) 677-3900</a>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#hero" class="footer-logo"><em>Top</em> Cut</a>
+        <p class="footer-tagline">A family hair salon inside The Shops At Red Lion — every wash includes a relaxing head-and-back massage.</p>
+        <p class="footer-phone"><a href="tel:2156773900">(215) 677-3900</a></p>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Navigate</div>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#" onclick="openBooking();return false;">Book an Appointment</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <div class="fcol-title">Visit</div>
+        <ul>
+          <li><a href="#hours">Hours</a></li>
+          <li><a href="https://maps.google.com" target="_blank" rel="noopener">9975 Bustleton Ave</a></li>
+          <li><a href="tel:2156773900">(215) 677-3900</a></li>
+          <li><a href="#" onclick="return false;" style="opacity:.6;cursor:default;">Instagram page (not a website)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Top Cut Hair Salon. All rights reserved.</span>
+      <span>Bustleton Ave · Philadelphia, PA</span>
+    </div>
+  </div>
 </footer>
 
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal" data-lenis-prevent>
-    <div class="modal-header">
-      <h3 id="modalTitle">Book Your Visit</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+<!-- ── BOOKING MODAL (5-step) ── -->
+<div class="booking-modal-overlay" id="booking-modal-overlay" onclick="closeBookingOnScrim(event)">
+  <div class="booking-modal" id="booking-modal">
+    <div class="booking-modal-head">
+      <h3>Book an Appointment</h3>
+      <button class="booking-modal-close" onclick="closeBooking()">✕</button>
     </div>
-    <div class="modal-steps">
-      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    <div class="booking-steps">
+      <div class="booking-step-dot active" data-step="1"></div>
+      <div class="booking-step-dot" data-step="2"></div>
+      <div class="booking-step-dot" data-step="3"></div>
+      <div class="booking-step-dot" data-step="4"></div>
+      <div class="booking-step-dot" data-step="5"></div>
     </div>
-    <div class="modal-body" id="modalBody"></div>
-    <div class="modal-footer" id="modalFooter"></div>
+    <div class="booking-modal-body">
+
+      <!-- STEP 1: SERVICE -->
+      <div class="b-step active" data-step="1">
+        <div class="b-step-title">Step 1 — Choose a Service</div>
+        <div class="b-cat-tabs">
+          <button class="b-cat-tab active" data-bcat="women" onclick="switchBCat('women')">Women</button>
+          <button class="b-cat-tab" data-bcat="men" onclick="switchBCat('men')">Men</button>
+          <button class="b-cat-tab" data-bcat="kids" onclick="switchBCat('kids')">Kids</button>
+        </div>
+        <div class="b-service-grid b-cat-group active" data-bcat="women">
+          <div class="b-service-card" onclick="selectService(this,'Women’s Haircut & Style','$45')"><div class="bsc-name">Haircut &amp; Style</div><div class="bsc-price">$45</div></div>
+          <div class="b-service-card" onclick="selectService(this,'Blowout','$35')"><div class="bsc-name">Blowout</div><div class="bsc-price">$35</div></div>
+          <div class="b-service-card" onclick="selectService(this,'Color (Single Process)','From $65')"><div class="bsc-name">Color (Single Process)</div><div class="bsc-price">From $65</div></div>
+          <div class="b-service-card" onclick="selectService(this,'Highlights','From $90')"><div class="bsc-name">Highlights</div><div class="bsc-price">From $90</div></div>
+          <div class="b-service-card" onclick="selectService(this,'Deep Conditioning Treatment','$25')"><div class="bsc-name">Deep Conditioning</div><div class="bsc-price">$25</div></div>
+        </div>
+        <div class="b-service-grid b-cat-group" data-bcat="men">
+          <div class="b-service-card" onclick="selectService(this,'Men’s Haircut','$28')"><div class="bsc-name">Men's Haircut</div><div class="bsc-price">$28</div></div>
+          <div class="b-service-card" onclick="selectService(this,'Deep Conditioning Treatment','$25')"><div class="bsc-name">Deep Conditioning</div><div class="bsc-price">$25</div></div>
+        </div>
+        <div class="b-service-grid b-cat-group" data-bcat="kids">
+          <div class="b-service-card" onclick="selectService(this,'Kids Cut (12 & Under)','$20')"><div class="bsc-name">Kids Cut (12 &amp; Under)</div><div class="bsc-price">$20</div></div>
+        </div>
+        <div class="booking-nav">
+          <button class="btn-b-next" id="b-next-1" onclick="goStep(2)" disabled>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: DATE -->
+      <div class="b-step" data-step="2">
+        <div class="b-step-title">Step 2 — Choose a Date</div>
+        <div class="fgroup">
+          <label>Date</label>
+          <input type="date" id="b-date" />
+        </div>
+        <p style="font-size:.78rem;color:var(--muted);margin-top:-6px;">Closed Mondays. Sunday hours are 10am–4pm.</p>
+        <div class="booking-nav">
+          <button class="btn-b-back" onclick="goStep(1)">Back</button>
+          <button class="btn-b-next" id="b-next-2" onclick="goStep(3)" disabled>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: TIME -->
+      <div class="b-step" data-step="3">
+        <div class="b-step-title">Step 3 — Choose a Time</div>
+        <div class="b-time-grid" id="b-time-grid">
+          <div class="b-time-slot" onclick="selectTime(this)">9:00 AM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">10:00 AM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">11:00 AM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">12:00 PM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">1:00 PM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">2:00 PM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">3:00 PM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">4:00 PM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">5:00 PM</div>
+          <div class="b-time-slot" onclick="selectTime(this)">6:00 PM</div>
+        </div>
+        <div class="booking-nav">
+          <button class="btn-b-back" onclick="goStep(2)">Back</button>
+          <button class="btn-b-next" id="b-next-3" onclick="goStep(4)" disabled>Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: YOUR INFO -->
+      <div class="b-step" data-step="4">
+        <div class="b-step-title">Step 4 — Your Information</div>
+        <div class="frow">
+          <div class="fgroup"><label>First Name</label><input type="text" id="b-fname" placeholder="Jane" /></div>
+          <div class="fgroup"><label>Last Name</label><input type="text" id="b-lname" placeholder="Doe" /></div>
+        </div>
+        <div class="fgroup"><label>Phone</label><input type="tel" id="b-phone" placeholder="(215) 555-0100" /></div>
+        <div class="fgroup"><label>Email (optional)</label><input type="email" id="b-email" placeholder="jane@example.com" /></div>
+        <div class="booking-nav">
+          <button class="btn-b-back" onclick="goStep(3)">Back</button>
+          <button class="btn-b-next" onclick="goStep(5)">Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: CONFIRM -->
+      <div class="b-step" data-step="5">
+        <div id="b-confirm-view">
+          <div class="b-step-title">Step 5 — Confirm Your Appointment</div>
+          <div class="b-summary-row"><span class="b-summary-label">Service</span><span id="b-sum-service">—</span></div>
+          <div class="b-summary-row"><span class="b-summary-label">Price</span><span id="b-sum-price">—</span></div>
+          <div class="b-summary-row"><span class="b-summary-label">Date</span><span id="b-sum-date">—</span></div>
+          <div class="b-summary-row"><span class="b-summary-label">Time</span><span id="b-sum-time">—</span></div>
+          <div class="b-summary-row"><span class="b-summary-label">Name</span><span id="b-sum-name">—</span></div>
+          <div class="b-summary-row"><span class="b-summary-label">Phone</span><span id="b-sum-phone">—</span></div>
+          <div class="booking-nav">
+            <button class="btn-b-back" onclick="goStep(4)">Back</button>
+            <button class="btn-b-next" id="b-submit-btn" onclick="submitBooking()">
+              <div class="spinner" id="b-spinner"></div>
+              <span id="b-submit-text">Confirm Appointment</span>
+            </button>
+          </div>
+        </div>
+        <div class="b-final-confirm" id="b-final-confirm" style="display:none;">
+          <div class="b-check-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2e7d46" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 7"/></svg>
+          </div>
+          <h3>You're all set</h3>
+          <p>We've got your appointment down. See you soon at Top Cut Hair Salon.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" onerror="document.documentElement.classList.add('no-motion')"></script>
+<!-- ── JAVASCRIPT ── -->
 <script>
-const MOTION=!!(window.gsap&&window.ScrollTrigger&&window.Lenis);
-if(!MOTION) document.documentElement.classList.add('no-motion');
+// ══ 1. GSAP SETUP — must come first ══
+gsap.registerPlugin(ScrollTrigger);
 
-let lenis=null;
-if(MOTION){
-  gsap.registerPlugin(ScrollTrigger);
-  lenis=new Lenis({duration:1.05,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
-  function raf(time){lenis.raf(time);requestAnimationFrame(raf)}
-  requestAnimationFrame(raf);
-  lenis.on('scroll',ScrollTrigger.update);
-  gsap.ticker.add(time=>{lenis.raf(time*1000)});
-  gsap.ticker.lagSmoothing(0);
+// ══ 2. LENIS ══
+const lenis = new Lenis({ lerp: 0.1 });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((t) => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// ══ 3. PROGRESS BAR ══
+gsap.to('#prog', {
+  scaleX: 1, ease: 'none',
+  scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1 }
+});
+
+// ══ 4. NAV SCROLL STATE ══
+ScrollTrigger.create({
+  start: 80,
+  onEnter:     () => document.getElementById('main-nav').classList.add('scrolled'),
+  onLeaveBack: () => document.getElementById('main-nav').classList.remove('scrolled'),
+});
+
+// ══ 5. HERO ENTRANCE ══
+gsap.set('#h-eyebrow', { opacity: 0, y: 16 });
+gsap.set('.h-line',    { clipPath: 'inset(0 0 100% 0)', opacity: 0 });
+gsap.set('#h-tag',     { opacity: 0, y: 22 });
+gsap.set('#h-ctas',    { opacity: 0, y: 16 });
+gsap.set('#h-scroll',  { opacity: 0 });
+gsap.set('#badge-a, #badge-b', { opacity: 0, y: 10 });
+
+const heroTl = gsap.timeline({ delay: 0.3 });
+heroTl
+  .to('#h-eyebrow', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+  .to('.h-line',    { clipPath: 'inset(0 0 0% 0)', opacity: 1, duration: 0.95, stagger: 0.18, ease: 'power3.out' }, '-=0.2')
+  .to('#h-tag',     { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.35')
+  .to('#h-ctas',    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+  .to('#badge-a, #badge-b', { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power3.out' }, '-=0.3')
+  .to('#h-scroll',  { opacity: 1, duration: 0.4, ease: 'power2.out' }, '+=0.2');
+
+// ══ 6. FLOATING BADGES SINE WAVE ══
+gsap.to('#badge-a', { y: -12, duration: 2.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.8 });
+gsap.to('#badge-b', { y: -12, duration: 1.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2.2 });
+
+// ══ 7. MARQUEE ══
+const marqueeTween = gsap.to('#marquee', { x: '-50%', duration: 22, repeat: -1, ease: 'none' });
+ScrollTrigger.create({
+  onUpdate: self => {
+    const v = Math.abs(self.getVelocity()) / 1000;
+    gsap.to(marqueeTween, { timeScale: 1 + v * 2.5, duration: 0.4, overwrite: true });
+    gsap.delayedCall(0.5, () => gsap.to(marqueeTween, { timeScale: 1, duration: 1.2, ease: 'power2.out' }));
+  }
+});
+
+// ══ 8. ACTIVE NAV SECTION HIGHLIGHTING ══
+function updateNav(id) {
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
+  });
 }
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const id=a.getAttribute('href');
-    if(id.length>1&&document.querySelector(id)){
-      e.preventDefault();
-      if(MOTION&&lenis){lenis.scrollTo(id,{offset:-70})}else{document.querySelector(id).scrollIntoView({behavior:'smooth'})}
-      closeDrawer();
-    }
+['about','services','gallery','reservations','reviews','hours'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  ScrollTrigger.create({
+    trigger: el, start: 'top 55%', end: 'bottom 55%',
+    onEnter: () => updateNav(id), onEnterBack: () => updateNav(id),
   });
 });
 
-/* Custom cursor (desktop only) */
-if(MOTION&&matchMedia('(hover:hover) and (pointer:fine)').matches){
-  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cursor,{x:mx,y:my,duration:.08})});
-  (function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
-  document.querySelectorAll('a,button,.service-option,.tab-btn,.cal-day,.time-slot,.gallery-item').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{gsap.to(ring,{scale:1.9,opacity:.9,duration:.2});gsap.to(cursor,{scale:1.4,duration:.2})});
-    el.addEventListener('mouseleave',()=>{gsap.to(ring,{scale:1,opacity:.5,duration:.2});gsap.to(cursor,{scale:1,duration:.2})});
-  });
-}
+// ══ 9. SCROLL ANIMATIONS (matchMedia) ══
+ScrollTrigger.matchMedia({
 
-/* Mobile drawer */
-function toggleDrawer(){
-  const h=document.getElementById('hamburger');
-  h.classList.toggle('open');
-  document.getElementById('mobileDrawer').classList.toggle('open');
-  document.getElementById('drawerOverlay').classList.toggle('open');
-  h.setAttribute('aria-expanded',h.classList.contains('open')?'true':'false');
-}
-function closeDrawer(){
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobileDrawer').classList.remove('open');
-  document.getElementById('drawerOverlay').classList.remove('open');
-  document.getElementById('hamburger').setAttribute('aria-expanded','false');
-}
+  '(min-width: 769px)': function () {
 
-/* Service tabs (works with or without motion) */
-function showTab(name){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('data-tab')===name));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.getAttribute('data-tab-panel')===name));
-}
+    gsap.fromTo('#hero-video',
+      { y: 0 },
+      { y: '18%', ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+      }
+    );
 
-if(MOTION){
-  /* Scroll progress bar */
-  gsap.to('#progressBar',{width:'100%',ease:'none',scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+    gsap.to('#h-name', {
+      y: -50, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
 
-  /* Hero timeline */
-  const tl=gsap.timeline({delay:.15});
-  tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.7,ease:'expo.out'})
-    .to('.hero-title .line span',{y:0,duration:.85,ease:'expo.out',stagger:.15},'-=.3')
-    .to('.hero-sub',{opacity:1,y:0,duration:.65,ease:'expo.out'},'-=.3')
-    .to('.hero-actions',{opacity:1,y:0,duration:.6,ease:'expo.out'},'-=.25')
-    .to('#heroPhoto',{opacity:1,y:0,duration:.8,ease:'expo.out'},'-=.2');
+    gsap.from('#about-head', {
+      x: -60, opacity: 0, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-head', start: 'top 80%', end: 'top 50%', scrub: 0.8 }
+    });
+    gsap.from('#about-body', {
+      opacity: 0, y: 28, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-body', start: 'top 76%' }
+    });
+    gsap.from('#stats > div', {
+      opacity: 0, y: 20, duration: 0.55, stagger: 0.15, ease: 'power3.out',
+      scrollTrigger: { trigger: '#stats', start: 'top 82%' }
+    });
+    gsap.from('#about-img', {
+      opacity: 0, scale: 0.97, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about-img', start: 'top 78%' }
+    });
 
-  /* Sticky nav shrink */
-  ScrollTrigger.create({trigger:'body',start:'80px top',
-    onEnter:()=>{document.getElementById('nav').style.padding='.75rem 5%'},
-    onLeaveBack:()=>{document.getElementById('nav').style.padding='1.2rem 5%'}
-  });
-
-  /* GSAP marquee (seamless loop over duplicated span set) */
-  gsap.to('#marquee',{xPercent:-50,duration:26,repeat:-1,ease:'none'});
-
-  /* Reveal on scroll */
-  document.querySelectorAll('.reveal').forEach((el,i)=>{
-    gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.8,ease:'expo.out',
-      scrollTrigger:{trigger:el,start:'top 88%'},delay:(i%3)*.07});
-  });
-
-  /* Count-up numbers */
-  document.querySelectorAll('[data-target]').forEach(el=>{
-    const target=parseFloat(el.getAttribute('data-target'));
-    const decimals=parseInt(el.getAttribute('data-decimals')||'0');
-    const suffix=el.getAttribute('data-suffix')||'';
-    gsap.set(el,{opacity:1,y:0});
-    const obj={val:0};
-    gsap.to(obj,{val:target,duration:1.6,ease:'power2.out',
-      scrollTrigger:{trigger:el,start:'top 88%'},
-      onUpdate:()=>{el.textContent=obj.val.toFixed(decimals)+suffix}});
-  });
-
-  /* 3D tilt on gallery + review cards (desktop only) */
-  if(matchMedia('(hover:hover) and (pointer:fine)').matches){
-    document.querySelectorAll('.review-card,.family-item').forEach(card=>{
-      card.addEventListener('mousemove',e=>{
-        const r=card.getBoundingClientRect();
-        const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
-        gsap.to(card,{rotateY:x/28,rotateX:-y/28,duration:.4,ease:'power2.out',transformPerspective:700});
+    document.querySelectorAll('.stat-val').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const isFloat = el.dataset.target.includes('.');
+      gsap.fromTo(el, { textContent: 0 }, {
+        textContent: target, duration: 2, ease: 'power2.out',
+        snap: { textContent: isFloat ? 0.1 : 1 },
+        scrollTrigger: { trigger: el, start: 'top 82%', once: true },
+        onUpdate: function () {
+          const v = parseFloat(this.targets()[0].textContent);
+          this.targets()[0].textContent = isFloat ? v.toFixed(1) : Math.round(v);
+        }
       });
-      card.addEventListener('mouseleave',()=>{gsap.to(card,{rotateY:0,rotateX:0,duration:.5,ease:'power2.out'})});
     });
-    /* Magnetic CTA button */
-    const magBtn=document.getElementById('magneticCta');
-    magBtn.addEventListener('mousemove',e=>{
-      const r=magBtn.getBoundingClientRect();
-      gsap.to(magBtn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3});
-    });
-    magBtn.addEventListener('mouseleave',()=>{gsap.to(magBtn,{x:0,y:0,duration:.4,ease:'elastic.out(1,.4)'})});
-  }
-}
 
-/* Highlight today's hours */
-(function(){
-  const day=new Date().getDay();
-  document.querySelectorAll('#hoursList li').forEach(li=>{
-    const days=li.getAttribute('data-days').split(',').map(Number);
-    if(days.includes(day))li.classList.add('today');
+    gsap.utils.toArray('.section-eyebrow').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, y: 14, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 84%' }
+      });
+    });
+    gsap.utils.toArray('.section-title').forEach(el => {
+      gsap.from(el, {
+        x: -50, opacity: 0, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 86%', end: 'top 56%', scrub: 0.8 }
+      });
+    });
+
+    gsap.from('.menu-card', {
+      opacity: 0, y: 44, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#services', start: 'top 72%' }
+    });
+
+    gsap.from('#rev-grid .rev-card', {
+      opacity: 0, y: 40, duration: 0.7, stagger: 0.14, ease: 'power3.out',
+      scrollTrigger: { trigger: '#rev-grid', start: 'top 78%' }
+    });
+
+    gsap.from('.res-headline', {
+      opacity: 0, y: 40, duration: 0.9, ease: 'power3.out',
+      scrollTrigger: { trigger: '#reservations', start: 'top 72%' }
+    });
+    gsap.from('.book-cta-card', {
+      opacity: 0, y: 44, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '.book-cta-card', start: 'top 78%' }
+    });
+
+    gsap.from('.hours-row', {
+      opacity: 0, x: -20, duration: 0.5, stagger: 0.07, ease: 'power3.out',
+      scrollTrigger: { trigger: '#hours', start: 'top 76%' }
+    });
+
+    document.querySelectorAll('.mag-btn, .nav-cta').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        gsap.to(btn, {
+          x: (e.clientX - r.left - r.width  / 2) * 0.28,
+          y: (e.clientY - r.top  - r.height / 2) * 0.28,
+          duration: 0.3, ease: 'power2.out',
+        });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'elastic.out(1,.35)' });
+      });
+    });
+
+    document.querySelectorAll('.rev-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        gsap.to(card, {
+          rotateY: x * 12, rotateX: -y * 12,
+          transformPerspective: 900, duration: 0.35, ease: 'power2.out',
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.65, ease: 'elastic.out(1,0.4)' });
+      });
+    });
+  },
+
+  '(max-width: 768px)': function () {
+    ['.menu-card', '.rev-card'].forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        gsap.from(el, {
+          clipPath: 'inset(0 0 100% 0)', opacity: 0,
+          duration: 0.65, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 90%' }
+        });
+      });
+    });
+    gsap.from('#about-head', {
+      opacity: 0, y: 30, duration: 0.75, ease: 'power3.out',
+      scrollTrigger: { trigger: '#about', start: 'top 84%' }
+    });
+  }
+});
+
+// ══ 10. GALLERY — CSS sticky + GSAP scrub (exact pattern from reference) ══
+window.addEventListener('load', () => {
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    const wrap  = document.getElementById('gallery-wrap');
+    const track = document.getElementById('gallery-track');
+    if (wrap && track) {
+      const dist = track.scrollWidth - window.innerWidth;
+      if (dist > 0) {
+        wrap.style.height = `calc(100vh + ${dist}px)`;
+        gsap.to(track, {
+          x: -dist, ease: 'none',
+          scrollTrigger: {
+            trigger: wrap, start: 'top top', end: 'bottom bottom',
+            scrub: 1, invalidateOnRefresh: true,
+          }
+        });
+      }
+    }
+  }
+  setTimeout(() => ScrollTrigger.refresh(), 100);
+});
+
+// ══ 11. HAMBURGER MOBILE MENU ══
+const burger   = document.getElementById('burger');
+const drawer   = document.getElementById('nav-drawer');
+const scrim    = document.getElementById('nav-scrim');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  scrim.classList.add('open');
+  burger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  scrim.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+burger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+scrim.addEventListener('click', closeDrawer);
+document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
+
+// ══ 12. SMOOTH ANCHOR SCROLLING ══
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#' || href.length < 2) return;
+    const target = document.querySelector(href);
+    if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80, duration: 1.4 }); }
+  });
+});
+
+// ══ 13. SERVICES TABS (Women/Men/Kids) ══
+(function initMenuTabs() {
+  const tabs = document.querySelectorAll('.menu-tab');
+  const indicator = document.getElementById('tab-indicator');
+
+  function positionIndicator(tab) {
+    indicator.style.width  = tab.offsetWidth + 'px';
+    indicator.style.left   = tab.offsetLeft + 'px';
+  }
+
+  const activeTab = document.querySelector('.menu-tab.active');
+  if (activeTab) positionIndicator(activeTab);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat;
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      gsap.to(indicator, {
+        width: tab.offsetWidth, left: tab.offsetLeft,
+        duration: 0.35, ease: 'power3.out'
+      });
+
+      const current = document.querySelector('.menu-category.active');
+      if (current) {
+        gsap.to(current, {
+          opacity: 0, y: 10, duration: 0.2, ease: 'power2.in',
+          onComplete: () => {
+            current.classList.remove('active');
+            const next = document.getElementById('cat-' + cat);
+            if (next) {
+              next.classList.add('active');
+              gsap.fromTo(next,
+                { opacity: 0, y: 14 },
+                { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }
+              );
+            }
+          }
+        });
+      }
+    });
   });
 })();
 
-/* ESC closes drawer and modal */
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    closeDrawer();
-    if(document.getElementById('modalOverlay').classList.contains('open')) closeModal();
-  }
-});
-
-/* ===== Booking modal ===== */
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-const CLOSED_DAYS=[1]; /* Monday closed */
-const SLOTS=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
-const SUN_SLOTS=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM'];
-const SERVICES=[['Womens Haircut and Style','$45'],['Mens Haircut','$28'],['Kids Cut (12 and under)','$20'],['Blowout','$35'],['Color, Single Process','from $65'],['Highlights','from $90'],['Deep Conditioning Treatment','$25'],['Wash + Relaxing Massage','$15']];
-let step=1,chosen={service:'',date:'',dow:null,isToday:false,time:'',name:'',phone:'',notes:''},calY=null,calM=null;
-const titles=['Select Service','Pick a Date','Pick a Time','Your Info','Confirmed'];
-function slotHour(t){
-  const m=t.match(/(\d+):00 (AM|PM)/); if(!m) return 0;
-  let h=parseInt(m[1]); if(m[2]==='PM'&&h!==12)h+=12; if(m[2]==='AM'&&h===12)h=0;
-  return h;
-}
-function openModal(){step=1;const n=new Date();calY=n.getFullYear();calM=n.getMonth();renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';if(MOTION&&lenis)lenis.stop()}
-function navMonth(delta){
-  const now=new Date();
-  let ny=calY,nm=calM+delta;
-  if(nm<0){nm=11;ny--} else if(nm>11){nm=0;ny++}
-  if(ny<now.getFullYear()||(ny===now.getFullYear()&&nm<now.getMonth()))return;
-  calY=ny;calM=nm;renderStep();
-}
-function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';if(MOTION&&lenis)lenis.start()}
-function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
-function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
-function renderStep(){
-  document.getElementById('modalTitle').textContent=titles[step-1];
-  setStepDots();
-  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
-  body.innerHTML='';foot.innerHTML='';
-  if(step===1){
-    body.innerHTML=`<div class="step-title">What Are You Coming In For?</div><div class="service-grid">
-      ${SERVICES.map(([n,p])=>`<div class="service-option${chosen.service===n?' selected':''}" onclick="chosen.service='${n}';renderStep()">
-        <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
-    foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
-  } else if(step===2){
-    const now=new Date(),y=calY,m=calM;
-    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
-    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate()),curHour=now.getHours();
-    const atMinMonth=(y===now.getFullYear()&&m===now.getMonth());
-    let cal=`<div class="step-title">Choose A Date</div>
-      <div class="cal-nav-header">
-        <button type="button" class="cal-nav-btn" onclick="navMonth(-1)"${atMinMonth?' disabled':''} aria-label="Previous month">‹</button>
-        <span class="cal-month-label">${months[m]} ${y}</span>
-        <button type="button" class="cal-nav-btn" onclick="navMonth(1)" aria-label="Next month">›</button>
-      </div>
-      <div class="calendar-grid">
-      ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
-      ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
-    for(let d=1;d<=daysInMonth;d++){
-      const dt=`${months[m]} ${d}, ${y}`,date=new Date(y,m,d),dow=date.getDay();
-      const isPast=date<today, isClosed=CLOSED_DAYS.includes(dow), isToday=date.getTime()===today.getTime();
-      let noSlotsToday=false;
-      if(isToday){
-        const list=dow===0?SUN_SLOTS:SLOTS;
-        noSlotsToday=!list.some(t=>slotHour(t)>curHour);
+// ══ 14. HOURS — HIGHLIGHT TODAY ══
+(function () {
+  const today = new Date().getDay();
+  document.querySelectorAll('.hours-row[data-day]').forEach(row => {
+    if (parseInt(row.dataset.day) === today) {
+      row.classList.add('today');
+      const daySpan = row.querySelector('.hours-day');
+      if (daySpan) {
+        const tag = document.createElement('span');
+        tag.className = 'today-tag';
+        tag.textContent = 'Today';
+        daySpan.appendChild(tag);
       }
-      const disabled=isPast||isClosed||(isToday&&noSlotsToday);
-      cal+=`<div class="cal-day${disabled?' disabled':chosen.date===dt?' selected':''}"${!disabled?` onclick="chosen.date='${dt}';chosen.dow=${dow};chosen.isToday=${isToday};chosen.time='';renderStep()"`:''}">${d}</div>`}
-    body.innerHTML=cal+'</div><p style="font-size:.76rem;color:#A69C8D;margin-top:.7rem">Closed Mondays</p>';
-    foot.innerHTML=`<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.date){step=3;renderStep()}">Continue →</button>`;
-  } else if(step===3){
-    let list=chosen.dow===0?SUN_SLOTS:SLOTS;
-    if(chosen.isToday){const h=new Date().getHours();list=list.filter(t=>slotHour(t)>h)}
-    body.innerHTML=`<div class="step-title">Choose A Time</div><div class="time-grid">
-      ${list.map(t=>`<div class="time-slot${chosen.time===t?' selected':''}" onclick="chosen.time='${t}';renderStep()">${t}</div>`).join('')}</div>`;
-    foot.innerHTML=`<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>`;
-  } else if(step===4){
-    body.innerHTML=`<div class="step-title">Your Information</div>
-      <div class="form-group"><label>Full Name</label><input id="fn" placeholder="Your name" value="${esc(chosen.name)}"></div>
-      <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="${esc(chosen.phone)}"></div>
-      <div class="form-group"><label>Anything We Should Know? Kids appointment, first time, etc. (optional)</label><textarea id="fv" rows="3" placeholder="Optional">${esc(chosen.notes)}</textarea></div>`;
-    foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
-      <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value;chosen.phone=document.getElementById('fp').value;chosen.notes=document.getElementById('fv').value;if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Booking</button>`;
-  } else {
-    body.innerHTML=`<div class="confirm-screen">
-      <div class="confirm-icon">💆</div>
-      <h3>You Are Booked, ${esc(chosen.name.split(' ')[0])}!</h3>
-      <p>We will call or text to confirm your appointment. See you soon.</p>
-      <div class="confirm-detail">
-        <div><span>Service</span><span>${esc(chosen.service)}</span></div>
-        <div><span>Date</span><span>${esc(chosen.date)}</span></div>
-        <div><span>Time</span><span>${esc(chosen.time)}</span></div>
-        <div><span>Notes</span><span>${esc(chosen.notes)||'—'}</span></div>
-        <div><span>Phone</span><span>${esc(chosen.phone)}</span></div>
-      </div>
-      <p style="font-size:.8rem;color:#A69C8D;margin-top:.5rem">Questions? (215) 677-3900</p>
-    </div>`;
-    foot.innerHTML=`<button class="btn-next" onclick="closeModal()">Done ✓</button>`;
+    }
+  });
+})();
+
+// ══ 15. BOOKING MODAL — 5-STEP FLOW ══
+let bSelectedService = null, bSelectedPrice = null, bSelectedTime = null;
+
+function openBooking() {
+  document.getElementById('booking-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  goStep(1);
+}
+function closeBooking() {
+  document.getElementById('booking-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeBookingOnScrim(e) {
+  if (e.target === document.getElementById('booking-modal-overlay')) closeBooking();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBooking(); });
+
+function switchBCat(cat) {
+  document.querySelectorAll('.b-cat-tab').forEach(t => t.classList.toggle('active', t.dataset.bcat === cat));
+  document.querySelectorAll('.b-cat-group').forEach(g => g.classList.toggle('active', g.dataset.bcat === cat));
+}
+
+function selectService(card, name, price) {
+  document.querySelectorAll('.b-service-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  bSelectedService = name;
+  bSelectedPrice = price;
+  document.getElementById('b-next-1').disabled = false;
+}
+
+function selectTime(slot) {
+  document.querySelectorAll('.b-time-slot').forEach(s => s.classList.remove('selected'));
+  slot.classList.add('selected');
+  bSelectedTime = slot.textContent;
+  document.getElementById('b-next-3').disabled = false;
+}
+
+function goStep(n) {
+  document.querySelectorAll('.b-step').forEach(s => s.classList.toggle('active', parseInt(s.dataset.step) === n));
+  document.querySelectorAll('.booking-step-dot').forEach(d => {
+    const step = parseInt(d.dataset.step);
+    d.classList.toggle('active', step === n);
+    d.classList.toggle('done', step < n);
+  });
+  if (n === 5) {
+    document.getElementById('b-sum-service').textContent = bSelectedService || '—';
+    document.getElementById('b-sum-price').textContent = bSelectedPrice || '—';
+    document.getElementById('b-sum-date').textContent = document.getElementById('b-date').value || '—';
+    document.getElementById('b-sum-time').textContent = bSelectedTime || '—';
+    const fname = document.getElementById('b-fname').value;
+    const lname = document.getElementById('b-lname').value;
+    document.getElementById('b-sum-name').textContent = (fname || lname) ? (fname + ' ' + lname).trim() : '—';
+    document.getElementById('b-sum-phone').textContent = document.getElementById('b-phone').value || '—';
   }
 }
+
+document.getElementById('b-date').addEventListener('change', function () {
+  document.getElementById('b-next-2').disabled = !this.value;
+});
+(function () {
+  const d = new Date();
+  const inp = document.getElementById('b-date');
+  if (inp) inp.min = d.toISOString().split('T')[0];
+})();
+
+function submitBooking() {
+  const btn = document.getElementById('b-submit-btn');
+  const spinner = document.getElementById('b-spinner');
+  const text = document.getElementById('b-submit-text');
+  spinner.style.display = 'block';
+  text.textContent = 'Booking…';
+  btn.style.pointerEvents = 'none';
+
+  setTimeout(() => {
+    document.getElementById('b-confirm-view').style.display = 'none';
+    const finalView = document.getElementById('b-final-confirm');
+    finalView.style.display = 'block';
+    gsap.fromTo(finalView, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+
+    setTimeout(() => {
+      closeBooking();
+      setTimeout(() => {
+        document.getElementById('b-confirm-view').style.display = 'block';
+        document.getElementById('b-final-confirm').style.display = 'none';
+        spinner.style.display = 'none';
+        text.textContent = 'Confirm Appointment';
+        btn.style.pointerEvents = '';
+        bSelectedService = null; bSelectedPrice = null; bSelectedTime = null;
+        document.querySelectorAll('.b-service-card, .b-time-slot').forEach(el => el.classList.remove('selected'));
+        document.getElementById('b-next-1').disabled = true;
+        document.getElementById('b-next-3').disabled = true;
+        document.getElementById('b-fname').value = '';
+        document.getElementById('b-lname').value = '';
+        document.getElementById('b-phone').value = '';
+        document.getElementById('b-email').value = '';
+      }, 400);
+    }, 2200);
+  }, 1200);
+}
+
+// ══ 16. CLICK RIPPLE (desktop only, decorative) ══
+gsap.matchMedia().add('(hover: hover) and (pointer: fine)', () => {
+  document.addEventListener('click', e => {
+    const r = document.createElement('div');
+    r.style.cssText = `position:fixed;pointer-events:none;z-index:9990;
+      width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;
+      border:2px solid rgba(109,36,71,.4);
+      left:${e.clientX}px;top:${e.clientY}px;`;
+    document.body.appendChild(r);
+    gsap.to(r, { scale: 24, opacity: 0, duration: 0.8, ease: 'power2.out', onComplete: () => r.remove() });
+  });
+});
 </script>
 </body>
 </html>
