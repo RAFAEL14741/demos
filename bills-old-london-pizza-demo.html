@@ -1,135 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bill's Old London Pizza — Neighborhood Pizzeria | Fox Chase, Philadelphia</title>
-<meta name="description" content="Bill's Old London Pizza — old-school Fox Chase pizzeria on Loney Street, Philadelphia. Pizza, stromboli, cheesesteaks & Italian-American classics. Reserve or order pickup online.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bill's Old London Pizza — Old-School Pizzeria | Fox Chase, Philadelphia</title>
+<meta name="description" content="Bill's Old London Pizza — cash-only, old-school Fox Chase pizzeria on Loney Street, Philadelphia. Tomato pie, Sicilian pizza, stromboli & Italian-American classics since the old days.">
+<meta property="og:title" content="Bill's Old London Pizza — Fox Chase, Philadelphia">
+<meta property="og:description" content="Old-school neighborhood pizzeria. Cash only. 185+ Google reviews. Tomato pie, Sicilian slices, stromboli, cheesesteaks.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1700760934249-93efbb574d23?w=1200&q=85&fm=jpg&fit=crop">
+<meta property="og:type" content="website">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1700760934249-93efbb574d23?w=1800&q=85&fm=jpg&fit=crop">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <style>
-:root{--red:#a3282a;--red-d:#7d1e20;--cream:#f8efe2;--charcoal:#221d1a;--green:#2f4a34;--muted:#8a7c6f;--line:#e6d9c6;}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--charcoal);line-height:1.6;overflow-x:hidden;}
-h1,h2,h3{font-family:'Playfair Display',serif;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --red:#a3282a; --red-d:#7d1e20; --gold:#e0b98f;
+  --cream:#f8efe2; --charcoal:#191512; --green:#2f4a34;
+  --muted:#8a7c6f; --line:#e6d9c6;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Barlow',system-ui,sans-serif;
+}
+html{scroll-behavior:auto;}
+body{font-family:var(--sans);background:var(--cream);color:var(--charcoal);line-height:1.6;overflow-x:hidden;}
+h1,h2,h3{font-family:var(--serif);}
 a{text-decoration:none;color:inherit;}
-.container{max-width:1180px;margin:0 auto;padding:0 32px;}
 img{max-width:100%;display:block;}
-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,239,226,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1180px;margin:0 auto;}
-.logo{font-family:'Playfair Display',serif;font-weight:800;font-size:24px;color:var(--red-d);}
+.container{max-width:1180px;margin:0 auto;padding:0 32px;}
+button{font-family:var(--sans);cursor:pointer;}
+
+/* SCROLL PROGRESS */
+#scroll-progress{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--red);z-index:9999;transform-origin:left;transform:scaleX(0);}
+
+/* NAV */
+header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(248,239,226,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1180px;margin:0 auto;}
+.logo{font-family:var(--serif);font-weight:800;font-size:22px;color:var(--red-d);}
 .logo span{color:var(--green);}
-.nav-links{display:flex;gap:30px;list-style:none;font-size:14px;text-transform:uppercase;letter-spacing:.5px;}
+.nav-links{display:flex;gap:30px;list-style:none;font-size:14px;text-transform:uppercase;letter-spacing:.5px;font-weight:500;}
+.nav-links a{transition:color .2s;}
 .nav-links a:hover{color:var(--red);}
-.book-btn{background:var(--red);color:#fff;padding:11px 26px;border-radius:4px;font-size:13px;letter-spacing:.5px;text-transform:uppercase;border:none;cursor:pointer;}
-.book-btn:hover{background:var(--red-d);}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
-.hamburger span{width:26px;height:2px;background:var(--charcoal);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.book-btn{background:var(--red);color:#fff;padding:11px 26px;border-radius:4px;font-size:13px;letter-spacing:.5px;text-transform:uppercase;border:none;font-weight:600;transition:background .2s,transform .2s;}
+.book-btn:hover{background:var(--red-d);transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;z-index:1100;}
+.hamburger span{width:26px;height:2px;background:var(--charcoal);transition:transform .3s,opacity .3s;}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-/* DUAL PANEL SPLIT HERO */
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:0;}
-.panel{position:relative;display:flex;align-items:flex-end;overflow:hidden;min-height:50vh;}
-.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.panel::after{content:'';position:absolute;inset:0;}
-.panel-a::after{background:linear-gradient(0deg,rgba(122,30,32,.88),rgba(122,30,32,.25));}
-.panel-b::after{background:linear-gradient(0deg,rgba(47,74,52,.88),rgba(47,74,52,.25));}
-.panel-content{position:relative;z-index:2;color:#fff;padding:50px;}
-.panel-tag{font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;opacity:.85;}
-.panel h2{font-size:clamp(32px,4vw,46px);margin-bottom:14px;}
-.panel p{font-size:15px;opacity:.9;max-width:340px;margin-bottom:20px;}
-.panel-btn{display:inline-block;border:1px solid #fff;padding:12px 26px;font-size:13px;letter-spacing:.5px;text-transform:uppercase;}
-.panel-btn:hover{background:#fff;color:var(--charcoal);}
-.hero-banner{position:absolute;top:110px;left:0;right:0;text-align:center;z-index:5;color:#fff;pointer-events:none;}
-.hero-banner .eyebrow{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.9;margin-bottom:14px;}
-.hero-banner h1{font-size:clamp(38px,6vw,72px);text-shadow:0 4px 24px rgba(0,0,0,.4);}
+/* MOBILE DRAWER */
+#drawer{position:fixed;top:0;right:0;width:min(320px,80vw);height:100vh;background:var(--charcoal);z-index:1050;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;padding:100px 36px 40px;}
+#drawer.open{transform:translateX(0);}
+#drawer a{color:#fff;font-size:20px;font-family:var(--serif);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);}
+#drawer .drawer-cta{margin-top:24px;background:var(--red);color:#fff;text-align:center;padding:14px;border-radius:4px;font-size:14px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;}
+#scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1040;opacity:0;pointer-events:none;transition:opacity .3s;}
+#scrim.show{opacity:1;pointer-events:auto;}
 
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
-.reveal.in{opacity:1;transform:translateY(0);}
-section{padding:110px 0;}
-.section-header{text-align:center;max-width:620px;margin:0 auto 60px;}
-.eyebrow{color:var(--red);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;}
-.section-header h2{font-size:clamp(32px,4vw,48px);}
+/* HERO — VIDEO BG */
+#hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-video-wrap{position:absolute;inset:0;z-index:0;background:#0c0806;}
+.hero-video-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(12,8,6,.92) 0%,rgba(12,8,6,.68) 42%,rgba(12,8,6,.32) 72%,rgba(12,8,6,.18) 100%);}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1180px;margin:0 auto;padding:0 32px 100px;}
+.hero-eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:flex;align-items:center;gap:12px;opacity:0;}
+.hero-eyebrow::before{content:'';display:inline-block;width:32px;height:1px;background:var(--gold);flex-shrink:0;}
+.hero-title{font-family:var(--serif);font-weight:800;font-size:clamp(3.5rem,9vw,8rem);line-height:.93;color:#fff;margin-bottom:26px;max-width:900px;clip-path:inset(0 0 100% 0);}
+.hero-title em{font-style:normal;color:var(--red);}
+.hero-tagline{font-size:1.05rem;font-weight:300;color:rgba(255,255,255,.68);line-height:1.7;max-width:460px;margin-bottom:40px;opacity:0;}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;opacity:0;}
+.btn-solid{background:var(--red);color:#fff;border-radius:50px;padding:16px 36px;font-size:.9rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 8px 30px rgba(163,40,42,.4);transition:transform .2s,box-shadow .2s;border:none;}
+.btn-solid:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(163,40,42,.5);}
+.btn-ghost-hero{border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:50px;padding:14px 32px;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.06);backdrop-filter:blur(6px);transition:background .25s,border-color .25s;}
+.btn-ghost-hero:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.7);}
 
-.about{background:#fff;}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.about-text p{color:var(--muted);margin-bottom:16px;font-size:16px;}
-.confirm{font-size:11px;color:var(--muted);text-transform:uppercase;}
+.float-badge{position:absolute;z-index:3;padding:12px 20px;border-radius:50px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);font-size:.82rem;color:#fff;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:8px;opacity:0;}
+.fb-1{top:130px;right:60px;}
+.fb-2{top:230px;right:100px;}
+.fb-3{bottom:230px;right:44px;}
 
-.menu{background:var(--charcoal);color:var(--cream);}
-.menu .eyebrow{color:#e0b98f;}
-.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;}
-.menu-row{display:flex;justify-content:space-between;padding:18px 0;border-bottom:1px dashed rgba(255,255,255,.2);}
-.menu-row h3{font-size:19px;font-family:'Playfair Display',serif;}
-.menu-row .price{font-family:'Playfair Display',serif;color:#e0b98f;font-size:19px;}
-.menu-row span.confirm{display:block;color:#8a8177;}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:3;opacity:0;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.hero-scroll-line{width:1px;height:48px;background:rgba(255,255,255,.2);position:relative;overflow:hidden;}
+.hero-scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold);animation:scrollLineAnim 2.2s ease-in-out infinite;}
+@keyframes scrollLineAnim{0%{top:-100%;}50%{top:0;}100%{top:100%;}}
 
-.gallery{background:var(--cream);}
-.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.gal-grid img{height:220px;object-fit:cover;border-radius:2px;}
+/* MARQUEE */
+#marquee{background:var(--red);padding:18px 0;overflow:hidden;}
+.marquee-track{display:flex;gap:50px;align-items:center;width:max-content;}
+.marquee-item{font-size:.88rem;font-weight:600;color:#fff;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
+.marquee-sep{color:rgba(255,255,255,.5);flex-shrink:0;}
 
-.reviews{background:#fff;}
-.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
-.rev-card{background:var(--cream);padding:34px;border-radius:2px;border-top:3px solid var(--red);}
-.stars{color:var(--red);margin-bottom:14px;letter-spacing:2px;}
-.rev-card p{font-style:italic;margin-bottom:16px;}
-.rev-name{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+/* ABOUT */
+#about{background:#fff;padding:120px 0;overflow:hidden;}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center;}
+.about-eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:18px;}
+.about-title{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1.15;margin-bottom:22px;}
+.about-body p{color:var(--muted);margin-bottom:16px;font-size:1rem;max-width:480px;}
+.confirm-note{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:6px;}
+.about-stats{display:flex;gap:44px;margin-top:38px;}
+.stat-item .stat-num{font-family:var(--serif);font-size:2.3rem;color:var(--charcoal);line-height:1;font-weight:700;}
+.stat-item .stat-label{font-size:.75rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:6px;}
+.about-img-wrap{position:relative;height:460px;}
+.about-img{position:absolute;border-radius:8px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.18);}
+.about-img img{width:100%;height:100%;object-fit:cover;}
+.about-img-1{width:78%;height:72%;top:0;right:0;clip-path:inset(0 100% 0 0);}
+.about-img-2{width:56%;height:44%;bottom:0;left:0;clip-path:inset(0 100% 0 0);}
 
-.visit{background:var(--green);color:#fff;}
-.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
-.hours-list{list-style:none;margin-top:20px;}
-.hours-list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:15px;}
-.hours-list li.today{color:#e0b98f;font-weight:600;}
-.visit iframe{width:100%;height:340px;border:0;border-radius:2px;}
+/* OVERSIZED HEADLINE STRIP */
+#statement{background:var(--charcoal);padding:110px 0;overflow:hidden;position:relative;}
+.statement-eyebrow{color:var(--gold);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px;font-weight:600;text-align:center;}
+.statement-headline{font-family:var(--serif);font-weight:800;color:#fff;font-size:clamp(3.5rem,9vw,8rem);line-height:.92;text-align:center;letter-spacing:-.02em;}
+.statement-headline span{display:block;}
+.statement-headline .accent{color:var(--red);}
+.statement-sub{text-align:center;color:rgba(255,255,255,.5);max-width:560px;margin:34px auto 0;font-size:1rem;line-height:1.7;}
 
-footer{background:var(--charcoal);color:#c9bdb1;padding:50px 0 26px;text-align:center;}
-footer .logo{color:#fff;justify-content:center;margin-bottom:16px;}
-.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;}
-footer p{font-size:13px;margin-top:16px;}
+/* MENU */
+#menu{background:var(--green);color:var(--cream);padding:120px 0;}
+.section-header{text-align:center;max-width:640px;margin:0 auto 60px;}
+.eyebrow{color:var(--gold);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
+.section-header h2{font-size:clamp(2.2rem,4.2vw,3.6rem);color:#fff;}
+.section-header p{color:rgba(255,255,255,.55);margin-top:12px;font-size:.95rem;}
+.cash-banner{max-width:560px;margin:0 auto 50px;text-align:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:50px;padding:12px 28px;font-size:.9rem;font-weight:600;letter-spacing:.02em;}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;max-width:980px;margin:0 auto;}
+.menu-card{opacity:0;transform:translateY(36px);}
+.menu-row{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:1px dashed rgba(255,255,255,.22);gap:20px;}
+.menu-row h3{font-size:19px;font-weight:600;}
+.menu-row .price{font-family:var(--serif);color:var(--gold);font-size:19px;white-space:nowrap;}
+.menu-row .confirm{display:block;color:rgba(255,255,255,.4);font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-family:var(--sans);}
 
-.modal-overlay{position:fixed;inset:0;background:rgba(34,29,26,.88);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+/* GALLERY */
+#gallery{background:var(--cream);padding:120px 0;}
+.gallery-header{text-align:center;margin-bottom:56px;}
+.gal-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:120px;gap:12px;}
+.gal-grid .gal-item{grid-row:span 2;border-radius:6px;overflow:hidden;position:relative;opacity:0;transform:translateY(36px) scale(.96);}
+.gal-grid .gal-item:nth-child(2),.gal-grid .gal-item:nth-child(5){grid-row:span 3;}
+.gal-grid .gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;clip-path:inset(0 100% 0 0);}
+.gal-grid .gal-item:hover img{transform:scale(1.05);}
+@media(hover:hover) and (pointer:fine){.gal-grid .gal-item{cursor:pointer;}}
+
+/* REVIEWS */
+#reviews{background:#fff;padding:120px 0;}
+.reviews-header{text-align:center;margin-bottom:56px;}
+.rev-track-wrap{overflow-x:auto;padding-bottom:10px;}
+.rev-grid{display:flex;gap:26px;width:max-content;padding:0 4px;}
+.rev-card{width:360px;flex-shrink:0;background:var(--cream);padding:36px 32px;border-radius:14px;border-top:3px solid var(--red);opacity:0;transform:translateY(36px) scale(.95);}
+.stars{color:var(--red);margin-bottom:16px;letter-spacing:2px;}
+.rev-card p{font-style:italic;margin-bottom:18px;color:var(--charcoal);font-size:.96rem;line-height:1.65;}
+.rev-name{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* HOURS + MAP */
+#visit{background:var(--charcoal);color:#fff;padding:120px 0;}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+.visit .eyebrow{color:var(--gold);}
+.visit h2{font-size:clamp(2rem,3.6vw,3rem);margin-bottom:16px;}
+.visit-phone{opacity:.75;margin-bottom:26px;font-size:1rem;}
+.hours-list{list-style:none;}
+.hours-list li{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:15px;}
+.hours-list li.today{color:var(--gold);font-weight:600;}
+.visit iframe{width:100%;height:360px;border:0;border-radius:8px;filter:grayscale(.15) contrast(1.05);}
+
+/* FOOTER */
+footer{background:#120e0c;color:#c9bdb1;padding:60px 0 30px;text-align:center;}
+footer .logo{color:#fff;justify-content:center;margin-bottom:16px;display:flex;}
+.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;flex-wrap:wrap;}
+footer p{font-size:12px;margin-top:16px;opacity:.7;}
+
+/* BOOKING MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(25,21,18,.9);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal{background:#fff;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border-radius:4px;}
+.modal{background:#fff;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border-radius:8px;}
 .modal-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
 .modal-head h3{font-size:24px;}
-.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);}
+.modal-close{background:none;border:none;font-size:24px;color:var(--muted);}
 .modal-body{padding:30px;}
 .step-progress{display:flex;gap:6px;padding:0 30px;margin-top:16px;}
 .step-progress div{flex:1;height:3px;background:var(--line);border-radius:2px;}
 .step-progress div.active{background:var(--red);}
 .svc-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.svc-opt{border:1px solid var(--line);padding:16px;border-radius:4px;cursor:pointer;}
+.svc-opt{border:1px solid var(--line);padding:16px;border-radius:6px;cursor:pointer;transition:border-color .2s,background .2s;}
 .svc-opt:hover,.svc-opt.sel{border-color:var(--red);background:var(--cream);}
 .svc-opt b{display:block;font-size:15px;}
 .svc-opt span{font-size:13px;color:var(--muted);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
-.cal-day{text-align:center;padding:10px 0;border-radius:4px;cursor:pointer;font-size:14px;border:1px solid var(--line);}
+.cal-day{text-align:center;padding:10px 0;border-radius:6px;cursor:pointer;font-size:14px;border:1px solid var(--line);}
 .cal-day.disabled{opacity:.25;cursor:not-allowed;}
 .cal-day.sel{background:var(--red);color:#fff;border-color:var(--red);}
 .time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
-.time-opt{padding:12px;text-align:center;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:14px;}
+.time-opt{padding:12px;text-align:center;border:1px solid var(--line);border-radius:6px;cursor:pointer;font-size:14px;}
 .time-opt.sel{background:var(--red);color:#fff;border-color:var(--red);}
 .form-group{margin-bottom:18px;}
 .form-group label{display:block;font-size:13px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
-.form-group input{width:100%;padding:13px;border:1px solid var(--line);border-radius:4px;font-size:15px;font-family:'Barlow',sans-serif;}
-.summary-box{background:var(--cream);padding:18px;border-radius:4px;margin-bottom:20px;font-size:14px;}
+.form-group input{width:100%;padding:13px;border:1px solid var(--line);border-radius:6px;font-size:15px;font-family:var(--sans);}
+.summary-box{background:var(--cream);padding:18px;border-radius:6px;margin-bottom:20px;font-size:14px;}
+.cash-reminder{background:#fdf3e2;border:1px solid var(--gold);padding:12px 16px;border-radius:6px;font-size:13px;margin-bottom:20px;color:var(--charcoal);}
 .modal-nav{display:flex;justify-content:space-between;margin-top:24px;}
-.btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;border-radius:4px;cursor:pointer;}
-.btn-next{background:var(--red);color:#fff;border:none;padding:13px 30px;border-radius:4px;cursor:pointer;font-weight:500;}
+.btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;border-radius:6px;}
+.btn-next{background:var(--red);color:#fff;border:none;padding:13px 30px;border-radius:6px;font-weight:500;}
 .confirm-screen{text-align:center;padding:20px 0;}
-.checkmark{width:80px;height:80px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;animation:pop .4s ease;}
-@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
+.checkmark{width:80px;height:80px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;}
 
+/* MOBILE */
 @media(max-width:900px){
-  .nav-links{display:none;} .hamburger{display:flex;}
-  .hero{grid-template-columns:1fr;}
-  .hero-banner{position:static;color:var(--charcoal);padding:120px 24px 20px;text-shadow:none;}
-  .about-grid,.visit-grid,.menu-grid{grid-template-columns:1fr;gap:34px;}
-  .gal-grid{grid-template-columns:1fr 1fr;}
-  .rev-grid{grid-template-columns:1fr;}
-  .svc-pick{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero-content{padding:0 24px 90px;}
+  .hero-title{font-size:clamp(2.8rem,11vw,4.2rem);}
+  .hero-tagline{display:none;}
+  .fb-2{display:none;}
+  .fb-1{top:auto;bottom:230px;right:24px;}
+  .fb-3{bottom:150px;right:24px;}
+  .about-grid{grid-template-columns:1fr;gap:40px;}
+  .about-img-wrap{height:320px;}
+  .about-stats{flex-wrap:wrap;gap:26px;}
+  .statement-headline{font-size:clamp(2.6rem,12vw,4.5rem);}
+  #statement{padding:80px 0;}
+  .menu-grid{grid-template-columns:1fr;padding:0 8px;}
+  .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px;}
+  .gal-grid .gal-item:nth-child(2),.gal-grid .gal-item:nth-child(5){grid-row:span 2;}
+  .visit-grid{grid-template-columns:1fr;gap:40px;}
+  section{padding-left:0;padding-right:0;}
+  #about,#statement,#menu,#gallery,#reviews,#visit{padding-top:80px;padding-bottom:80px;}
 }
 </style>
 </head>
 <body>
+
+<div id="scroll-progress"></div>
 
 <header>
   <nav class="nav">
@@ -140,105 +240,173 @@ footer p{font-size:13px;margin-top:16px;}
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#visit">Visit</a></li>
     </ul>
-    <button class="book-btn" onclick="openBooking()">Order / Reserve</button>
-    <button class="hamburger"><span></span><span></span><span></span></button>
+    <div class="nav-right">
+      <button class="book-btn" onclick="openBooking()">Order / Reserve</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </nav>
 </header>
 
-<section class="hero">
-  <div class="hero-banner">
-    <div class="eyebrow">Loney Street — Fox Chase, Philadelphia</div>
-    <h1>Bill's Old London Pizza</h1>
+<div id="scrim"></div>
+<nav id="drawer">
+  <a href="#menu">Menu</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#visit">Visit</a>
+  <div class="drawer-cta" onclick="openBooking()">Order / Reserve</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1700760934249-93efbb574d23?w=1800&q=80&fm=jpg&fit=crop">
+      <source src="https://videos.pexels.com/video-files/10802656/10802656-hd_1920_1080_24fps.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
   </div>
-  <div class="panel panel-a">
-    <img src="https://images.unsplash.com/photo-1651981075280-9a9e01acbff0?w=800&q=80" alt="Fresh pizza pie">
-    <div class="panel-content">
-      <div class="panel-tag">The Pizza</div>
-      <h2>Old-School Pies</h2>
-      <p>Tomato pies, upside-down, and everything in between — Fox Chase's cash-only neighborhood favorite since the old days.</p>
-      <a class="panel-btn" href="#menu">See Pizza Menu</a>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Loney Street · Fox Chase, Philadelphia</p>
+    <h1 class="hero-title">Bill's Old<br><em>London</em> Pizza</h1>
+    <p class="hero-tagline">Old-school pies, tomato pie legends, and cash-only charm — the Fox Chase pizzeria families have trusted for years.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-solid" onclick="openBooking();return false;">Order / Reserve</a>
+      <a href="#menu" class="btn-ghost-hero">See the Menu</a>
     </div>
   </div>
-  <div class="panel panel-b">
-    <img src="https://images.unsplash.com/photo-1563245738-9169ff58eccf?w=800&q=80" alt="Italian-American plate">
-    <div class="panel-content">
-      <div class="panel-tag">The Kitchen</div>
-      <h2>Full Menu</h2>
-      <p>Stromboli, cheesesteaks, hoagies and Italian-American classics — the neighborhood spot that does it all.</p>
-      <a class="panel-btn" href="#menu">See Full Menu</a>
-    </div>
-  </div>
+  <div class="float-badge fb-1">★ 4.3 · 185 Google Reviews</div>
+  <div class="float-badge fb-2">💵 Cash Only</div>
+  <div class="float-badge fb-3">🍕 Tomato Pie Since Day One</div>
+  <div class="hero-scroll"><div class="hero-scroll-line"></div><span>Scroll</span></div>
 </section>
 
-<section class="about reveal">
+<!-- MARQUEE -->
+<div id="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">Bill's Old London Pizza</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Fox Chase, Philadelphia</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Cash Only Since The Old Days</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Tomato Pie Legends</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">185 Google Reviews</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Bill's Old London Pizza</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Fox Chase, Philadelphia</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Cash Only Since The Old Days</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Tomato Pie Legends</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">185 Google Reviews</span><span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
   <div class="container about-grid">
-    <div class="about-text">
-      <div class="eyebrow">A Fox Chase Staple</div>
-      <h2 style="font-size:40px;margin-bottom:18px;">Cash-Only, No-Frills, Neighborhood-Loved</h2>
-      <p>Bill's Old London Pizza has been feeding Fox Chase families for years — the kind of spot where regulars order the same thing every time because it never lets them down.</p>
-      <p>185 Google reviews and counting. Families recommend it to families — the tomato pie and the cheese fries are local legends.</p>
-      <p class="confirm">Cash only. [CONFIRM before visit]</p>
+    <div>
+      <p class="about-eyebrow section-title">A Fox Chase Staple</p>
+      <h2 class="about-title section-title">Cash-Only, No-Frills, Neighborhood-Loved</h2>
+      <div class="about-body">
+        <p>Bill's Old London Pizza has been feeding Fox Chase families for years — the kind of spot where regulars order the same thing every time because it never lets them down.</p>
+        <p>185 Google reviews and counting, a 4.3-star average, and not a single ad ever run. Families recommend it to families — the tomato pie and the cheese fries are local legends.</p>
+        <p class="confirm-note">Cash only. [CONFIRM before visit]</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-item"><div class="stat-num" data-count-target="185" data-count-suffix="+">0</div><div class="stat-label">Google Reviews</div></div>
+        <div class="stat-item"><div class="stat-num" data-count-target="4.3" data-count-suffix="★" data-count-decimals="1">0</div><div class="stat-label">Average Rating</div></div>
+        <div class="stat-item"><div class="stat-num" data-static="Cash">Cash</div><div class="stat-label">Payment</div></div>
+      </div>
     </div>
-    <img src="https://images.unsplash.com/photo-1672856398893-2fb52d807874?w=650&q=80" alt="Pizza slice closeup" style="border-radius:2px;">
+    <div class="about-img-wrap">
+      <div class="about-img about-img-1"><img src="https://images.unsplash.com/photo-1627626775846-122b778965ae?fm=jpg&q=80&w=800&auto=format&fit=crop" alt="Fresh pizza on a wooden table at Bill's Old London Pizza" loading="lazy"></div>
+      <div class="about-img about-img-2"><img src="https://images.unsplash.com/photo-1716237388417-79bd08e7d27a?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Fresh cheese being added to a pizza in the kitchen" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
-<section class="menu reveal" id="menu">
+<!-- OVERSIZED STATEMENT -->
+<section id="statement">
   <div class="container">
-    <div class="section-header"><div class="eyebrow">Menu &amp; Pricing</div><h2>What's Cooking</h2></div>
+    <p class="statement-eyebrow">The Pitch</p>
+    <h2 class="statement-headline">
+      <span>185 Reviews.</span>
+      <span class="accent">Zero Website.</span>
+    </h2>
+    <p class="statement-sub">Bill's has an unclaimed Google listing and no site of its own — invisible online while competitors down the street run full online ordering. Loyal regulars find them anyway. Imagine what a real web presence would do.</p>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow section-title">Menu &amp; Pricing</p>
+      <h2 class="section-title">What's Cooking</h2>
+      <p>Prices are estimates from recent visits — always confirm before you order.</p>
+    </div>
+    <div class="cash-banner">💵 Cash Only — no cards accepted in-store [CONFIRM]</div>
     <div class="menu-grid">
-      <div>
-        <div class="menu-row"><h3>Large Plain Pizza</h3><div class="price">$16<span class="confirm">Confirm</span></div></div>
-        <div class="menu-row"><h3>Large Specialty Pizza</h3><div class="price">$19<span class="confirm">Confirm</span></div></div>
-        <div class="menu-row"><h3>Tomato Pie (Upside Down)</h3><div class="price">$17<span class="confirm">Confirm</span></div></div>
-        <div class="menu-row"><h3>Sicilian Pizza</h3><div class="price">$18<span class="confirm">Confirm</span></div></div>
+      <div class="menu-card">
+        <div class="menu-row"><h3>Large Plain Pizza</h3><div><div class="price">$16</div><span class="confirm">Confirm</span></div></div>
+        <div class="menu-row"><h3>Large Specialty Pizza</h3><div><div class="price">$19</div><span class="confirm">Confirm</span></div></div>
+        <div class="menu-row"><h3>Tomato Pie (Upside Down)</h3><div><div class="price">$17</div><span class="confirm">Confirm</span></div></div>
+        <div class="menu-row"><h3>Sicilian Pizza</h3><div><div class="price">$18</div><span class="confirm">Confirm</span></div></div>
       </div>
-      <div>
-        <div class="menu-row"><h3>Stromboli</h3><div class="price">$12<span class="confirm">Confirm</span></div></div>
-        <div class="menu-row"><h3>Cheesesteak</h3><div class="price">$9<span class="confirm">Confirm</span></div></div>
-        <div class="menu-row"><h3>Chicken Parm Hoagie</h3><div class="price">$10<span class="confirm">Confirm</span></div></div>
-        <div class="menu-row"><h3>Cheese Fries</h3><div class="price">$6<span class="confirm">Confirm</span></div></div>
+      <div class="menu-card">
+        <div class="menu-row"><h3>Stromboli</h3><div><div class="price">$12</div><span class="confirm">Confirm</span></div></div>
+        <div class="menu-row"><h3>Cheesesteak</h3><div><div class="price">$9</div><span class="confirm">Confirm</span></div></div>
+        <div class="menu-row"><h3>Chicken Parm Hoagie</h3><div><div class="price">$10</div><span class="confirm">Confirm</span></div></div>
+        <div class="menu-row"><h3>Cheese Fries</h3><div><div class="price">$6</div><span class="confirm">Confirm</span></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="gallery reveal" id="gallery">
+<!-- GALLERY -->
+<section id="gallery">
   <div class="container">
-    <div class="section-header"><div class="eyebrow">Fresh Out The Oven</div><h2>From Our Kitchen</h2></div>
-    <div class="gal-grid">
-      <img src="https://images.unsplash.com/photo-1542018508502-daaee0fb76c2?w=500&q=80" alt="Pizza close up">
-      <img src="https://images.unsplash.com/photo-1668614119151-6ded31ac8a55?w=500&q=80" alt="Pizza oven">
-      <img src="https://images.unsplash.com/photo-1550401728-539ebf40d9e9?w=500&q=80" alt="Fresh ingredients">
-      <img src="https://images.unsplash.com/photo-1651980979183-79425af50103?w=500&q=80" alt="Pizza slice">
+    <div class="gallery-header">
+      <p class="eyebrow section-title">Fresh Out The Oven</p>
+      <h2 class="section-title" style="color:var(--charcoal);">From Our Kitchen</h2>
+    </div>
+    <div class="gal-grid" id="galGrid">
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1700760934249-93efbb574d23?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Whole pizza on a wooden cutting board" loading="lazy"></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1569230516306-5a8cb5586399?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Outdoor pizzeria tables with red checkered tablecloths" loading="lazy"></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1664309641932-0e03e0771b97?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Pizza with melted cheese and fresh basil" loading="lazy"></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1716237389720-2c4fdabf0ac0?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Pepperoni pizza being sliced with a pizza cutter" loading="lazy"></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1716237388087-4e47595a6615?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Hands kneading fresh pizza dough" loading="lazy"></div>
+      <div class="gal-item"><img src="https://images.unsplash.com/photo-1627626775846-122b778965ae?fm=jpg&q=80&w=700&auto=format&fit=crop" alt="Fresh pizza pie on a brown wooden table" loading="lazy"></div>
     </div>
   </div>
 </section>
 
-<section class="reviews reveal" id="reviews">
+<!-- REVIEWS -->
+<section id="reviews">
   <div class="container">
-    <div class="section-header"><div class="eyebrow">185 Reviews</div><h2>Neighborhood Favorite</h2></div>
-    <div class="rev-grid">
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"Our first time trying Bill's — recommended by family in the area, and we totally enjoyed the food options we chose. Highly recommend this location."</p><div class="rev-name">— Terri P., 9 Reviews</div></div>
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"Great food, great service, quick delivery."</p><div class="rev-name">— Google Review</div></div>
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"Ordered a small tomato pie and a large plain — couldn't be happier."</p><div class="rev-name">— Google Review</div></div>
+    <div class="reviews-header">
+      <p class="eyebrow section-title" style="color:var(--red);">185 Reviews</p>
+      <h2 class="section-title" style="color:var(--charcoal);">What Fox Chase Says</h2>
+    </div>
+    <div class="rev-track-wrap">
+      <div class="rev-grid" id="revGrid">
+        <div class="rev-card"><div class="stars">★★★★★</div><p>"Been coming here since I was a kid — the tomato pie is still exactly how I remember it. This is what a real neighborhood pizzeria is supposed to feel like."</p><div class="rev-name">— Longtime Fox Chase Regular</div></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><p>"Cash only and they don't care about frills — they just make a great pie. The Sicilian slice alone is worth the trip across the neighborhood."</p><div class="rev-name">— Google Review</div></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><p>"Family recommended it to us when we moved to the area, and now we recommend it to everyone else. Quick, honest, and the plain pizza never misses."</p><div class="rev-name">— Google Review</div></div>
+        <div class="rev-card"><div class="stars">★★★★★</div><p>"No website, no ads, just decades of loyal regulars. That should tell you everything about how good this place actually is."</p><div class="rev-name">— Google Review</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="visit reveal" id="visit">
+<!-- VISIT / HOURS / MAP -->
+<section id="visit">
   <div class="container visit-grid">
     <div>
-      <div class="eyebrow" style="color:#e0b98f;">Visit Us</div>
-      <h2 style="font-size:38px;margin-bottom:10px;">328 Loney St, Philadelphia, PA 19111</h2>
-      <p style="opacity:.85;margin-bottom:10px;">(215) 722-6660 · Cash Only</p>
-      <ul class="hours-list">
+      <p class="eyebrow section-title">Visit Us</p>
+      <h2 class="section-title">328 Loney St<br>Philadelphia, PA 19111</h2>
+      <p class="visit-phone">(215) 722-6660 · Cash Only</p>
+      <ul class="hours-list" id="hoursList">
         <li><span>Monday – Saturday</span><span>11:00 AM – 10:00 PM [CONFIRM]</span></li>
-        <li class="today"><span>Sunday</span><span>12:00 PM – 9:00 PM [CONFIRM]</span></li>
+        <li><span>Sunday</span><span>12:00 PM – 9:00 PM [CONFIRM]</span></li>
       </ul>
-      <button class="btn-primary" style="margin-top:26px;background:var(--red);color:#fff;padding:16px 32px;border:none;border-radius:4px;cursor:pointer;font-size:14px;text-transform:uppercase;letter-spacing:.5px;" onclick="openBooking()">Order / Reserve</button>
+      <button class="btn-solid" style="margin-top:30px;border:none;" onclick="openBooking()">Order / Reserve</button>
     </div>
-    <iframe src="https://maps.google.com/maps?q=328+Loney+St+Philadelphia+PA+19111&output=embed" loading="lazy"></iframe>
+    <iframe src="https://maps.google.com/maps?q=328+Loney+St+Philadelphia+PA+19111&output=embed" loading="lazy" title="Map to Bill's Old London Pizza"></iframe>
   </div>
 </section>
 
@@ -250,6 +418,7 @@ footer p{font-size:13px;margin-top:16px;}
   </div>
 </footer>
 
+<!-- BOOKING MODAL -->
 <div class="modal-overlay" id="bookingModal">
   <div class="modal">
     <div class="modal-head"><h3 id="modalTitle">Order or Reserve</h3><button class="modal-close" onclick="closeBooking()">&times;</button></div>
@@ -259,9 +428,22 @@ footer p{font-size:13px;margin-top:16px;}
 </div>
 
 <script>
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}})},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* ── HAMBURGER / DRAWER ── */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const drawer = document.getElementById('drawer');
+const scrim = document.getElementById('scrim');
+function toggleDrawer(open){
+  const isOpen = open !== undefined ? open : !drawer.classList.contains('open');
+  drawer.classList.toggle('open', isOpen);
+  scrim.classList.toggle('show', isOpen);
+  hamburgerBtn.classList.toggle('active', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+hamburgerBtn.addEventListener('click', () => toggleDrawer());
+scrim.addEventListener('click', () => toggleDrawer(false));
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleDrawer(false)));
 
+/* ── BOOKING MODAL (5-step: service -> date -> time -> contact -> confirmation) ── */
 const SERVICES = [
   {name:"Table for 2", price:0, dur:60},
   {name:"Table for 4+", price:0, dur:75},
@@ -271,8 +453,8 @@ const SERVICES = [
 const OPEN_DAYS = [0,1,2,3,4,5,6];
 const OPEN_HOUR = 11, CLOSE_HOUR = 22;
 let step=1, booking={service:null,date:null,time:null,name:'',phone:''};
-function openBooking(){document.getElementById('bookingModal').classList.add('open');step=1;renderStep();}
-function closeBooking(){document.getElementById('bookingModal').classList.remove('open');}
+function openBooking(){document.getElementById('bookingModal').classList.add('open');document.body.style.overflow='hidden';step=1;booking={service:null,date:null,time:null,name:'',phone:''};renderStep();}
+function closeBooking(){document.getElementById('bookingModal').classList.remove('open');document.body.style.overflow='';}
 function renderProgress(){document.getElementById('stepProgress').innerHTML=[1,2,3,4,5].map(i=>`<div class="${i<=step?'active':''}"></div>`).join('');}
 function renderStep(){
   renderProgress();
@@ -286,7 +468,7 @@ function renderStep(){
     let days='';const today=new Date();
     for(let i=0;i<14;i++){const d=new Date();d.setDate(today.getDate()+i);const disabled=!OPEN_DAYS.includes(d.getDay());
       days+=`<div class="cal-day ${disabled?'disabled':''} ${booking.date===d.toDateString()?'sel':''}" ${disabled?'':`onclick="selectDate('${d.toDateString()}')"`}>${d.getDate()}<br><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></div>`;}
-    body.innerHTML=`<p style="color:var(--muted);font-size:14px;">Open every day.</p><div class="cal-grid">${days}</div>
+    body.innerHTML=`<p style="color:var(--muted);font-size:14px;">Open every day. Hours [CONFIRM].</p><div class="cal-grid">${days}</div>
     <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
   } else if(step===3){
     document.getElementById('modalTitle').innerText='Pick a Time';
@@ -296,6 +478,7 @@ function renderStep(){
     document.getElementById('modalTitle').innerText='Your Info';
     const s=SERVICES[booking.service];
     body.innerHTML=`<div class="summary-box"><b>${s.name}</b><br>${booking.date} at ${booking.time}</div>
+    <div class="cash-reminder">💵 Reminder: Bill's Old London Pizza is cash only in-store [CONFIRM].</div>
     <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="John Smith"></div>
     <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="(215) 555-0123"></div>
     <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="submitBooking()">Confirm</button></div>`;
@@ -304,7 +487,7 @@ function renderStep(){
     body.innerHTML=`<div class="confirm-screen"><div class="checkmark">✓</div>
     <h3 style="margin-bottom:10px;">Thanks, ${booking.name.split(' ')[0]||'there'}!</h3>
     <p style="color:var(--muted);margin-bottom:10px;">Your ${SERVICES[booking.service].name} is requested for ${booking.date} at ${booking.time}.</p>
-    <p style="color:var(--muted);">We'll call ${booking.phone} to confirm. See you soon!</p>
+    <p style="color:var(--muted);">We'll call ${booking.phone} to confirm. Remember — cash only. See you soon!</p>
     <button class="btn-next" style="margin-top:24px;" onclick="closeBooking()">Done</button></div>`;
   }
 }
@@ -324,7 +507,141 @@ function submitBooking(){
   if(!n||!p)return alert('Please enter your name and phone number.');
   booking.name=n;booking.phone=p;step=5;renderStep();
 }
-document.querySelectorAll('a[href*="booksy"]').forEach(a=>{a.removeAttribute('href');a.onclick=(e)=>{e.preventDefault();openBooking();};});
+
+/* ── HOURS: highlight today ── */
+(function(){
+  const list = document.getElementById('hoursList');
+  const day = new Date().getDay(); // 0=Sun
+  const items = list.querySelectorAll('li');
+  if(day===0){ items[1].classList.add('today'); } else { items[0].classList.add('today'); }
+})();
+
+/* ── LENIS + GSAP ── */
+gsap.registerPlugin(ScrollTrigger);
+let lenis;
+if (typeof Lenis !== 'undefined') {
+  lenis = new Lenis({ lerp:0.1 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+
+/* Scroll progress bar */
+gsap.to('#scroll-progress', {
+  scaleX: 1, ease:'none',
+  scrollTrigger:{ trigger: document.body, start:'top top', end:'bottom bottom', scrub:0.3 }
+});
+
+/* Smooth scroll nav links */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(target, { offset:-70 });
+    else target.scrollIntoView({ behavior:'smooth' });
+  });
+});
+
+/* ── HERO ENTRANCE TIMELINE ── */
+window.addEventListener('DOMContentLoaded', () => {
+  const titleEl = document.querySelector('.hero-title');
+  const tl = gsap.timeline({ defaults:{ ease:'power3.out' } });
+  tl.to('.hero-eyebrow', { opacity:1, y:0, duration:0.7 }, 0.15)
+    .fromTo(titleEl, { clipPath:'inset(0 0 100% 0)' }, { clipPath:'inset(0 0 0% 0)', duration:0.95, ease:'expo.out' }, 0.35)
+    .to('.hero-tagline', { opacity:1, duration:0.7 }, 1.05)
+    .to('.hero-ctas', { opacity:1, duration:0.6 }, 1.25)
+    .to('.float-badge', { opacity:1, duration:0.7, stagger:0.15 }, 1.35)
+    .to('.hero-scroll', { opacity:1, duration:0.5 }, 1.7);
+});
+
+/* Section title reveals (fade + y on scroll) */
+document.querySelectorAll('.section-title').forEach(el => {
+  gsap.set(el, { opacity:0, y:40 });
+  ScrollTrigger.create({
+    trigger:el, start:'top 82%', once:true,
+    onEnter:() => gsap.to(el, { opacity:1, y:0, duration:0.8, ease:'power3.out' })
+  });
+});
+
+/* About images clip reveal */
+document.querySelectorAll('.about-img').forEach((wrap,i)=>{
+  ScrollTrigger.create({
+    trigger: wrap, start:'top 85%', once:true,
+    onEnter: () => gsap.to(wrap, { clipPath:'inset(0 0% 0 0)', duration:1, ease:'expo.out', delay:i*0.15 })
+  });
+});
+gsap.from('.stat-item', {
+  y:36, opacity:0, duration:0.7, stagger:0.15, ease:'power3.out',
+  scrollTrigger:{ trigger:'.about-stats', start:'top 85%', once:true }
+});
+ScrollTrigger.create({
+  trigger:'.about-stats', start:'top 85%', once:true,
+  onEnter() {
+    document.querySelectorAll('.stat-num[data-count-target]').forEach(el => {
+      const target = parseFloat(el.dataset.countTarget);
+      const suffix = el.dataset.countSuffix || '';
+      const decimals = parseInt(el.dataset.countDecimals || '0', 10);
+      gsap.fromTo({ val:0 }, { val:target }, {
+        duration:1.8, ease:'power2.out',
+        onUpdate() { el.textContent = this.targets()[0].val.toFixed(decimals) + suffix; },
+        onComplete() { el.textContent = target.toFixed(decimals) + suffix; }
+      });
+    });
+  }
+});
+
+/* Menu cards fade+y stagger */
+ScrollTrigger.create({
+  trigger:'.menu-grid', start:'top 80%', once:true,
+  onEnter:() => gsap.to('.menu-card', { opacity:1, y:0, duration:0.7, stagger:0.18, ease:'power3.out' })
+});
+
+/* Gallery — clip-path image reveal + card fade */
+document.querySelectorAll('.gal-item').forEach((item,i)=>{
+  const img = item.querySelector('img');
+  ScrollTrigger.create({
+    trigger:item, start:'top 88%', once:true,
+    onEnter:() => {
+      gsap.to(item, { opacity:1, y:0, scale:1, duration:0.65, ease:'power3.out', delay:(i%3)*0.12 });
+      gsap.to(img, { clipPath:'inset(0 0% 0 0)', duration:0.9, ease:'expo.out', delay:(i%3)*0.12 });
+    }
+  });
+});
+
+/* Reviews — card fade+y stagger */
+ScrollTrigger.create({
+  trigger:'#reviews', start:'top 78%', once:true,
+  onEnter:() => gsap.to('.rev-card', { opacity:1, y:0, scale:1, duration:0.7, stagger:0.15, ease:'power3.out' })
+});
+
+/* Statement headline — scale/fade impact */
+gsap.set('.statement-headline span', { opacity:0, y:50 });
+ScrollTrigger.create({
+  trigger:'#statement', start:'top 75%', once:true,
+  onEnter:() => {
+    gsap.to('.statement-headline span', { opacity:1, y:0, duration:0.95, stagger:0.18, ease:'expo.out' });
+    gsap.to('.statement-sub', { opacity:1, duration:0.8, delay:0.5, ease:'power2.out' });
+  }
+});
+gsap.set('.statement-sub', { opacity:0 });
+
+/* Marquee infinite loop */
+gsap.to('#marqueeTrack', { x:'-50%', duration:20, repeat:-1, ease:'none' });
+
+/* Floating badges sine wave (after entrance) */
+gsap.to('.float-badge', { y:-12, duration:2, repeat:-1, yoyo:true, ease:'sine.inOut', stagger:0.4, delay:2 });
+
+/* ── DESKTOP / MOBILE SPLIT ── */
+ScrollTrigger.matchMedia({
+  "(min-width: 901px)": function(){
+    // Desktop: subtle hero parallax + card hover lift handled via CSS; add parallax drift
+    gsap.to('.hero-content', { y:-40, ease:'none', scrollTrigger:{ trigger:'#hero', start:'top top', end:'+=500', scrub:1.2 } });
+  },
+  "(max-width: 900px)": function(){
+    // Mobile: no 3D transforms/parallax — plain fade/y handled by shared code above already
+  }
+});
 </script>
 </body>
 </html>

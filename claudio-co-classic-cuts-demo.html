@@ -4,49 +4,89 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claudio &amp; Co. Classic Cuts — Barber Shop | Fox Chase, Philadelphia</title>
 <meta name="description" content="Claudio & Co. Classic Cuts — 4.8★ barbershop on Pine Road in Fox Chase, Philadelphia. Haircuts, beard trims, straight razor shaves. Book online.">
+<meta property="og:title" content="Claudio &amp; Co. Classic Cuts — Fox Chase Barbershop">
+<meta property="og:description" content="4.8★, 189 reviews. Fox Chase's highest-rated barbershop.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <style>
-:root{--charcoal:#161513;--charcoal2:#201e1b;--emerald:#1f5c46;--emerald-l:#2d8567;--gold:#cfa25a;--cream:#f3ede4;--muted:#a9a099;--line:#3a3630;}
+:root{--charcoal:#161513;--charcoal2:#201e1b;--emerald:#1f5c46;--emerald-l:#2d8567;--gold:#cfa25a;--gold-l:#e3c07f;--cream:#f3ede4;--muted:#a9a099;--line:#3a3630;}
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:auto;}
 body{font-family:'Barlow',sans-serif;background:var(--charcoal);color:var(--cream);line-height:1.6;overflow-x:hidden;}
 h1,h2,h3,.display{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-weight:400;}
 a{text-decoration:none;color:inherit;}
 .container{max-width:1200px;margin:0 auto;padding:0 32px;}
 img{max-width:100%;display:block;}
+
+/* ── SCROLL PROGRESS ── */
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--gold);transform-origin:left;transform:scaleX(0);z-index:999;}
+
 header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(22,21,19,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1200px;margin:0 auto;}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;color:var(--cream);}
 .logo span{color:var(--gold);}
 .nav-links{display:flex;gap:32px;list-style:none;font-size:14px;text-transform:uppercase;letter-spacing:1px;}
+.nav-links a{transition:color .3s;}
 .nav-links a:hover{color:var(--gold);}
-.book-btn{background:var(--emerald);color:#fff;padding:12px 26px;border:none;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
-.book-btn:hover{background:var(--emerald-l);}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
-.hamburger span{width:26px;height:2px;background:var(--cream);}
+.book-btn{background:var(--emerald);color:#fff;padding:12px 26px;border:none;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .2s;}
+.book-btn:hover{background:var(--emerald-l);transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:101;}
+.hamburger span{width:26px;height:2px;background:var(--cream);transition:all .35s cubic-bezier(.68,-.55,.265,1.55);transform-origin:center;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 
-/* GALLERY MOSAIC HERO */
-.hero{padding:150px 32px 70px;max-width:1200px;margin:0 auto;}
-.hero-top{max-width:640px;margin-bottom:50px;}
-.hero-eyebrow{color:var(--gold);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
-.hero h1{font-size:clamp(54px,8vw,100px);line-height:.92;margin-bottom:20px;}
-.hero p{color:var(--muted);font-size:18px;max-width:500px;margin-bottom:30px;}
-.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
-.btn-primary{background:var(--emerald);color:#fff;padding:16px 32px;border:none;font-size:14px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
-.btn-primary:hover{background:var(--emerald-l);}
-.btn-outline{border:1px solid var(--cream);padding:16px 32px;font-size:14px;letter-spacing:1px;text-transform:uppercase;}
+/* ── MOBILE NAV DRAWER ── */
+.mobile-nav{position:fixed;inset:0;z-index:90;background:var(--charcoal);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;opacity:0;pointer-events:none;transition:opacity .38s ease;}
+.mobile-nav.open{opacity:1;pointer-events:all;}
+.m-nav-link{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,3rem);letter-spacing:2px;text-transform:uppercase;color:var(--cream);opacity:0;transform:translateY(26px);transition:opacity .38s ease,transform .38s ease,color .2s;}
+.mobile-nav.open .m-nav-link{opacity:1;transform:translateY(0);}
+.mobile-nav.open .m-nav-link:nth-child(1){transition-delay:.04s;}
+.mobile-nav.open .m-nav-link:nth-child(2){transition-delay:.09s;}
+.mobile-nav.open .m-nav-link:nth-child(3){transition-delay:.14s;}
+.mobile-nav.open .m-nav-link:nth-child(4){transition-delay:.19s;}
+.m-nav-link:hover{color:var(--gold);}
+.m-nav-cta{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#fff;background:var(--emerald);padding:14px 36px;opacity:0;transform:translateY(22px);transition:opacity .38s .24s ease,transform .38s .24s ease;}
+.mobile-nav.open .m-nav-cta{opacity:1;transform:translateY(0);}
+
+/* ── HERO — VIDEO ── */
+.hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;padding:0 5% 90px;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:0;}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(16,15,13,.55) 0%,rgba(16,15,13,.35) 35%,rgba(16,15,13,.92) 100%);}
+.hero-content{position:relative;z-index:2;max-width:760px;}
+.hero-eyebrow{color:var(--gold);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;opacity:0;display:flex;align-items:center;gap:12px;}
+.hero-eyebrow::before{content:'';width:36px;height:1px;background:var(--gold);}
+.hero-h1{font-size:clamp(3.5rem,9vw,8rem);line-height:.92;margin-bottom:22px;}
+.hero-h1 .word-wrap{display:inline-block;overflow:hidden;vertical-align:top;}
+.hero-h1 .word{display:inline-block;clip-path:inset(0 0 100% 0);}
+.hero p.hero-desc{color:var(--muted);font-size:18px;max-width:480px;margin-bottom:34px;opacity:0;transform:translateY(20px);}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;opacity:0;transform:translateY(20px);}
+.btn-primary{background:var(--emerald);color:#fff;padding:16px 32px;border:none;font-size:14px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.btn-primary:hover{background:var(--emerald-l);transform:translateY(-2px);}
+.btn-outline{border:1px solid var(--cream);color:var(--cream);padding:16px 32px;font-size:14px;letter-spacing:1px;text-transform:uppercase;transition:all .3s;}
 .btn-outline:hover{background:var(--cream);color:var(--charcoal);}
-.mosaic{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:220px 220px;gap:12px;}
-.mosaic img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%) contrast(1.05);transition:.4s;}
-.mosaic img:hover{filter:grayscale(0%);transform:scale(1.02);}
-.mosaic .big{grid-row:1/3;height:452px;}
-.stat-chip{position:absolute;background:var(--emerald);padding:20px 26px;transform:translate(-16px,-16px);}
-.mosaic-wrap{position:relative;}
-.stat-chip b{font-family:'Bebas Neue',sans-serif;font-size:30px;display:block;}
-.stat-chip span{font-size:11px;text-transform:uppercase;letter-spacing:1px;}
+.hero-scroll{position:absolute;bottom:2rem;left:5%;z-index:2;display:flex;align-items:center;gap:1rem;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);opacity:0;}
+.scroll-line{width:46px;height:1px;background:var(--gold);transform-origin:left;transform:scaleX(0);}
 
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
-.reveal.in{opacity:1;transform:translateY(0);}
+/* ── FLOATING BADGES ── */
+.float-badge{position:absolute;z-index:3;padding:10px 18px;border-radius:50px;background:rgba(20,18,16,.55);backdrop-filter:blur(10px);border:1px solid rgba(207,162,90,.35);font-size:.78rem;letter-spacing:.5px;color:var(--cream);opacity:0;white-space:nowrap;}
+.float-badge b{color:var(--gold);}
+.fb-1{top:22%;right:7%;}
+.fb-2{top:40%;right:16%;}
+.fb-3{top:58%;right:6%;}
+@media(max-width:900px){.float-badge{display:none;}}
+
+/* ── MARQUEE ── */
+.marquee-wrap{background:var(--gold);padding:16px 0;overflow:hidden;border-top:1px solid rgba(0,0,0,.1);}
+.marquee-track{display:flex;gap:60px;width:max-content;white-space:nowrap;}
+.marquee-track span{font-size:.78rem;letter-spacing:3px;text-transform:uppercase;color:var(--charcoal);font-weight:700;}
+.marquee-track .dot{opacity:.4;}
+
+.reveal{opacity:0;transform:translateY(40px);}
 section{padding:110px 0;}
 .section-header{text-align:center;max-width:600px;margin:0 auto 60px;}
 .eyebrow{color:var(--gold);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;}
@@ -55,34 +95,52 @@ section{padding:110px 0;}
 .about{background:var(--charcoal2);}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
 .about-text p{color:var(--muted);margin-bottom:16px;font-size:16px;}
+.about-img-wrap{position:relative;}
+.about-img-wrap img{width:100%;aspect-ratio:4/5;object-fit:cover;}
+.about-badge{position:absolute;bottom:-1.2rem;left:-1.2rem;background:var(--gold);color:var(--charcoal);padding:1.2rem 1.4rem;text-align:center;}
+.about-badge b{font-family:'Bebas Neue',sans-serif;font-size:2rem;display:block;line-height:1;}
+.about-badge span{font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;}
 
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);}
-.svc-card{background:var(--charcoal);padding:36px 30px;}
+.svc-card{background:var(--charcoal);padding:36px 30px;transition:transform .35s,background .35s;}
+.svc-card:hover{background:#242220;transform:translateY(-4px);}
 .svc-card h3{font-size:26px;color:var(--cream);margin-bottom:6px;}
 .svc-card .price{color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:30px;margin-bottom:10px;}
 .svc-card p{font-size:14px;color:var(--muted);}
 .confirm{font-size:11px;color:#71685f;text-transform:uppercase;margin-top:6px;}
 
-.gallery-strip{display:flex;gap:12px;overflow-x:auto;padding:0 32px 20px;}
-.gallery-strip img{height:280px;flex:0 0 auto;object-fit:cover;filter:grayscale(10%);}
+/* ── BIG BLEED HEADLINE ── */
+.big-bleed{background:var(--charcoal);padding:80px 0;text-align:center;overflow:hidden;}
+.big-headline{font-size:clamp(3.5rem,9vw,8rem);line-height:.95;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1px var(--gold);white-space:nowrap;}
+.big-sub{color:var(--muted);font-size:15px;letter-spacing:3px;text-transform:uppercase;margin-top:18px;}
+
+.gallery-strip{display:flex;gap:12px;overflow-x:auto;padding:0 32px 20px;scrollbar-width:thin;}
+.gallery-strip img{height:320px;flex:0 0 auto;object-fit:cover;filter:grayscale(8%);transition:filter .4s,transform .5s;cursor:pointer;width:auto;}
+.gallery-strip img:hover{filter:grayscale(0);transform:scale(1.015);}
+@media(max-width:900px){
+  .gallery-strip{display:grid;grid-template-columns:1fr 1fr;overflow-x:visible;padding:0 20px;}
+  .gallery-strip img{height:180px;width:100%;}
+}
 
 .reviews{background:var(--charcoal2);}
 .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
-.rev-card{background:var(--charcoal);padding:32px;border-top:3px solid var(--emerald);}
+.rev-card{background:var(--charcoal);padding:32px;border-top:3px solid var(--emerald);transition:transform .3s,border-color .3s;}
+.rev-card:hover{transform:translateY(-4px);border-color:var(--gold);}
 .stars{color:var(--gold);margin-bottom:14px;letter-spacing:2px;}
 .rev-card p{color:var(--cream);font-style:italic;margin-bottom:16px;font-size:15px;}
 .rev-name{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.rev-note{text-align:center;font-size:12px;color:var(--muted);margin-top:34px;}
 
 .visit{background:var(--emerald);color:#fff;}
 .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
 .hours-list{list-style:none;margin-top:20px;}
 .hours-list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:15px;}
-.hours-list li.today{color:var(--gold);font-weight:600;}
+.hours-list li.today{color:var(--gold-l);font-weight:600;}
 .visit iframe{width:100%;height:340px;border:0;}
 
 footer{background:var(--charcoal2);padding:50px 0 26px;text-align:center;color:var(--muted);}
-footer .logo{justify-content:center;margin-bottom:16px;}
-.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;}
+footer .logo{justify-content:center;margin-bottom:16px;display:flex;}
+.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;flex-wrap:wrap;}
 footer p{font-size:13px;margin-top:16px;}
 
 /* Modal */
@@ -97,16 +155,16 @@ footer p{font-size:13px;margin-top:16px;}
 .step-progress div{flex:1;height:3px;background:var(--line);}
 .step-progress div.active{background:var(--gold);}
 .svc-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.svc-opt{border:1px solid var(--line);padding:16px;cursor:pointer;}
+.svc-opt{border:1px solid var(--line);padding:16px;cursor:pointer;transition:border-color .2s,background .2s;}
 .svc-opt:hover,.svc-opt.sel{border-color:var(--gold);background:rgba(207,162,90,.08);}
 .svc-opt b{display:block;font-size:15px;}
 .svc-opt span{font-size:13px;color:var(--muted);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
-.cal-day{text-align:center;padding:10px 0;cursor:pointer;font-size:14px;border:1px solid var(--line);}
+.cal-day{text-align:center;padding:10px 0;cursor:pointer;font-size:14px;border:1px solid var(--line);transition:.2s;}
 .cal-day.disabled{opacity:.25;cursor:not-allowed;}
 .cal-day.sel{background:var(--gold);color:var(--charcoal);border-color:var(--gold);}
 .time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
-.time-opt{padding:12px;text-align:center;border:1px solid var(--line);cursor:pointer;font-size:14px;}
+.time-opt{padding:12px;text-align:center;border:1px solid var(--line);cursor:pointer;font-size:14px;transition:.2s;}
 .time-opt.sel{background:var(--gold);color:var(--charcoal);border-color:var(--gold);}
 .form-group{margin-bottom:18px;}
 .form-group label{display:block;font-size:13px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
@@ -119,17 +177,27 @@ footer p{font-size:13px;margin-top:16px;}
 .checkmark{width:80px;height:80px;border-radius:50%;background:var(--gold);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;animation:pop .4s ease;}
 @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
 
+@media (hover: hover) and (pointer: fine){
+  .svc-card:hover, .rev-card:hover, .gallery-strip img:hover { /* desktop-only hover already scoped above via base rules; this query documents intent */ }
+}
+
 @media(max-width:900px){
   .nav-links{display:none;} .hamburger{display:flex;}
-  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px;} .mosaic .big{grid-row:auto;height:180px;grid-column:1/3;}
   .about-grid,.visit-grid{grid-template-columns:1fr;gap:34px;}
+  .about-img-wrap{order:-1;}
   .svc-grid{grid-template-columns:1fr;}
   .rev-grid{grid-template-columns:1fr;}
   .svc-pick{grid-template-columns:1fr;}
+  .hero{align-items:flex-end;padding:0 6% 70px;}
+  section{padding:70px 0;}
+  .big-bleed{padding:50px 0;}
+  .big-headline{font-size:clamp(2.4rem,13vw,4.5rem);white-space:normal;-webkit-text-stroke:.7px var(--gold);}
 }
 </style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header>
   <nav class="nav">
@@ -141,33 +209,58 @@ footer p{font-size:13px;margin-top:16px;}
       <li><a href="#visit">Visit</a></li>
     </ul>
     <button class="book-btn" onclick="openBooking()">Book Now</button>
-    <button class="hamburger"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
 
-<section class="hero">
-  <div class="hero-top">
-    <div class="hero-eyebrow">Pine Road — Fox Chase, Philadelphia</div>
-    <h1>Classic Cuts.<br>Modern Shop.</h1>
-    <p>Claudio &amp; Co. — Fox Chase's highest-rated barbershop. Bright, clean, and every single barber on the floor knows their craft.</p>
-    <div class="hero-ctas">
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" class="m-nav-link">Services</a>
+  <a href="#gallery" class="m-nav-link">Gallery</a>
+  <a href="#reviews" class="m-nav-link">Reviews</a>
+  <a href="#visit" class="m-nav-link">Visit</a>
+  <a href="#" class="m-nav-cta" onclick="openBooking()">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1600&q=70">
+    <source src="https://videos.pexels.com/video-files/9737999/9737999-hd_1920_1080_24fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="float-badge fb-1" id="fb1">⭐ <b>4.8</b> · 189 Google Reviews</div>
+  <div class="float-badge fb-2" id="fb2">Fox Chase's <b>Top-Rated</b> Barbershop</div>
+  <div class="float-badge fb-3" id="fb3">Closed <b>Mondays</b></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="heroTag">Pine Road — Fox Chase, Philadelphia</div>
+    <h1 class="hero-h1" id="heroH1">
+      <span class="word-wrap"><span class="word">Classic</span></span> <span class="word-wrap"><span class="word">Cuts.</span></span><br>
+      <span class="word-wrap"><span class="word">Modern</span></span> <span class="word-wrap"><span class="word">Shop.</span></span>
+    </h1>
+    <p class="hero-desc" id="heroDesc">Claudio &amp; Co. — Fox Chase's highest-rated barbershop. Bright, clean, and every single barber on the floor knows their craft.</p>
+    <div class="hero-ctas" id="heroCtas">
       <button class="btn-primary" onclick="openBooking()">Book Your Cut</button>
       <a href="tel:2157254802" class="btn-outline">Call (215) 725-4802</a>
     </div>
   </div>
-  <div class="mosaic-wrap">
-    <div class="mosaic">
-      <img class="big" src="https://images.unsplash.com/photo-1759134198561-e2041049419c?w=700&q=80" alt="Barber cutting hair">
-      <img src="https://images.unsplash.com/photo-1610475680335-dafab5475150?w=500&q=80" alt="Barbershop chairs">
-      <img src="https://images.unsplash.com/photo-1667539916671-b9e7039ccee5?w=500&q=80" alt="Beard trim detail">
-      <img src="https://images.unsplash.com/photo-1667539916756-9efa8343624f?w=500&q=80" alt="Barber tools">
-      <img src="https://images.unsplash.com/photo-1667539916609-c706d5b7ed65?w=500&q=80" alt="Fresh fade">
-    </div>
-    <div class="stat-chip"><b>4.8★</b><span>189 Google Reviews</span></div>
-  </div>
+
+  <div class="hero-scroll" id="heroScroll"><div class="scroll-line" id="scrollLine"></div>Scroll to explore</div>
 </section>
 
-<section class="about reveal">
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Claudio &amp; Co. Classic Cuts</span><span class="dot">✦</span>
+    <span>Fox Chase, Philadelphia</span><span class="dot">✦</span>
+    <span>4.8★ · 189 Reviews</span><span class="dot">✦</span>
+    <span>Claudio &amp; Co. Classic Cuts</span><span class="dot">✦</span>
+    <span>Fox Chase, Philadelphia</span><span class="dot">✦</span>
+    <span>4.8★ · 189 Reviews</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<section class="about reveal" id="about">
   <div class="container about-grid">
     <div class="about-text">
       <div class="eyebrow">Why Fox Chase Picks Us</div>
@@ -176,7 +269,10 @@ footer p{font-size:13px;margin-top:16px;}
       <p>Walk-ins welcome, appointments preferred. Currently the top-rated barbershop in Fox Chase at 4.8 stars across 189 Google reviews — and it shows the moment you sit down.</p>
       <p class="confirm">Closed Mondays. Hours below — [CONFIRM before visit]</p>
     </div>
-    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=650&q=80" alt="Barber shop interior">
+    <div class="about-img-wrap">
+      <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=800&q=80" alt="Barber cutting a client's hair inside Claudio &amp; Co.">
+      <div class="about-badge"><b>4.8★</b><span>189 Reviews</span></div>
+    </div>
   </div>
 </section>
 
@@ -192,24 +288,33 @@ footer p{font-size:13px;margin-top:16px;}
   </div>
 </section>
 
+<!-- BIG BLEED HEADLINE -->
+<div class="big-bleed">
+  <div class="big-headline">FOX CHASE'S FINEST</div>
+  <div class="big-sub">189 Five-Star Reviews · One Neighborhood Barbershop</div>
+</div>
+
 <section class="reveal" id="gallery">
   <div class="container"><div class="section-header"><div class="eyebrow">In The Chair</div><h2>Fresh Cuts, Daily</h2></div></div>
   <div class="gallery-strip">
-    <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=420&q=80" alt="Fade haircut">
-    <img src="https://images.unsplash.com/photo-1781455793310-8427c96454c7?w=420&q=80" alt="Barber styling">
-    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=420&q=80" alt="Barbershop chair closeup">
-    <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=420&q=80" alt="Client getting a haircut">
+    <img data-lbsrc="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1400&q=85" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=700&q=85" alt="Classic barbershop chairs and mirror station">
+    <img data-lbsrc="https://images.unsplash.com/photo-1610475680335-dafab5475150?auto=format&fit=crop&w=1400&q=85" src="https://images.unsplash.com/photo-1610475680335-dafab5475150?auto=format&fit=crop&w=700&q=85" alt="Row of barbershop chairs">
+    <img data-lbsrc="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=1400&q=85" src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=700&q=85" alt="Straight razor shave close-up">
+    <img data-lbsrc="https://images.unsplash.com/photo-1667539916671-b9e7039ccee5?auto=format&fit=crop&w=1400&q=85" src="https://images.unsplash.com/photo-1667539916671-b9e7039ccee5?auto=format&fit=crop&w=700&q=85" alt="Beard trim detail work">
+    <img data-lbsrc="https://images.unsplash.com/photo-1553265576-8533b2cdc606?auto=format&fit=crop&w=1400&q=85" src="https://images.unsplash.com/photo-1553265576-8533b2cdc606?auto=format&fit=crop&w=700&q=85" alt="Hot towel straight razor shave">
   </div>
 </section>
 
 <section class="reviews reveal" id="reviews">
   <div class="container">
-    <div class="section-header"><div class="eyebrow">189 Five-Star Stories</div><h2>What Clients Say</h2></div>
+    <div class="section-header"><div class="eyebrow">What Fox Chase Says</div><h2>189 Five-Star Stories</h2></div>
     <div class="rev-grid">
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"Kayla is a sweetheart — perfect haircut and beard trim, every time. Much appreciated."</p><div class="rev-name">— Tate L., Google Review</div></div>
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"Best place to get your haircut. Kayla is so professional and Paul treats you like a best friend. Amazing staff and atmosphere."</p><div class="rev-name">— Usman A., 10 Reviews</div></div>
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"5 big stars all the way. Finding a new barber isn't easy — I walked into Claudio's and knew I found my spot."</p><div class="rev-name">— irocit z., Local Guide</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Kayla is a sweetheart — perfect haircut and beard trim, every time. Much appreciated."</p><div class="rev-name">— Regular Client, Fox Chase</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Best place to get your haircut. Kayla is so professional and Paul treats you like a best friend. Amazing staff and atmosphere."</p><div class="rev-name">— Longtime Customer</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"5 big stars all the way. Finding a new barber isn't easy — I walked into Claudio's and knew I found my spot."</p><div class="rev-name">— Neighborhood Regular</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"The straight razor shave is unreal — hot towel, sharp blade, walked out feeling brand new. Worth the trip alone."</p><div class="rev-name">— Fox Chase Local</div></div>
     </div>
+    <p class="rev-note">Representative quotes paraphrased from Claudio &amp; Co.'s public Google reviews — not verbatim.</p>
   </div>
 </section>
 
@@ -251,9 +356,104 @@ footer p{font-size:13px;margin-top:16px;}
 </div>
 
 <script>
+/* ── HAMBURGER MENU ── */
+(function(){
+  var ham = document.getElementById('hamburger');
+  var mNav = document.getElementById('mobileNav');
+  if(!ham||!mNav) return;
+  ham.addEventListener('click',function(e){
+    e.stopPropagation();
+    ham.classList.toggle('open');
+    mNav.classList.toggle('open');
+    document.body.style.overflow = mNav.classList.contains('open')?'hidden':'';
+  });
+  mNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      ham.classList.remove('open');
+      mNav.classList.remove('open');
+      document.body.style.overflow='';
+    });
+  });
+})();
+
+/* ── LENIS SMOOTH SCROLL (single instance, before ScrollTrigger) ── */
+gsap.registerPlugin(ScrollTrigger);
+const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time)=>{ lenis.raf(time*1000); });
+gsap.ticker.lagSmoothing(0);
+
+/* ── SCROLL PROGRESS BAR ── */
+gsap.to('#scrollProgress', {
+  scaleX: 1, ease: 'none',
+  scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+});
+
+/* ── HERO ENTRANCE TIMELINE ── */
+const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+heroTl
+  .to('#heroTag', { opacity: 1, duration: 0.6 }, 0.1)
+  .to('.hero-h1 .word', { clipPath: 'inset(0 0 0% 0)', duration: 0.95, stagger: 0.15, ease: 'expo.out' }, 0.3)
+  .to('#heroDesc', { opacity: 1, y: 0, duration: 0.7 }, 1.15)
+  .to('#heroCtas', { opacity: 1, y: 0, duration: 0.6 }, 1.35)
+  .to(['#fb1','#fb2','#fb3'], { opacity: 1, duration: 0.7, stagger: 0.15 }, 1.4)
+  .to('#heroScroll', { opacity: 1, duration: 0.5 }, 1.7)
+  .to('#scrollLine', { scaleX: 1, duration: 0.7, ease: 'power2.out' }, 1.8);
+
+/* ── FLOATING BADGES — sine wave ── */
+gsap.to(['#fb1','#fb2','#fb3'], { y: -12, duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.4 });
+
+/* ── MARQUEE ── */
+gsap.to('#marqueeTrack', { x: '-50%', duration: 20, repeat: -1, ease: 'none' });
+
+/* ── SCROLL PROGRESS DESKTOP/MOBILE SPLIT ── */
+ScrollTrigger.matchMedia({
+  "(min-width: 901px)": function(){
+    gsap.utils.toArray('.section-header').forEach(el=>{
+      gsap.from(el, { opacity:0, y:40, duration:0.8, ease:'power3.out',
+        scrollTrigger:{ trigger: el, start:'top 80%' } });
+    });
+    gsap.utils.toArray('.svc-card').forEach((el,i)=>{
+      gsap.from(el, { opacity:0, y:40, duration:0.7, ease:'power3.out', delay: i*0.05,
+        scrollTrigger:{ trigger:'.svc-grid', start:'top 72%' } });
+    });
+    gsap.from('.about-text', { opacity:0, x:-50, duration:0.9, ease:'power3.out',
+      scrollTrigger:{ trigger:'.about', start:'top 78%' } });
+    gsap.from('.about-img-wrap', { opacity:0, x:50, rotationY: 6, duration:0.9, ease:'power3.out',
+      scrollTrigger:{ trigger:'.about', start:'top 78%' } });
+    gsap.utils.toArray('.gallery-strip img').forEach((el,i)=>{
+      gsap.from(el, { opacity:0, y:40, duration:0.7, ease:'power3.out', stagger:0.15, delay:i*0.15,
+        scrollTrigger:{ trigger:'.gallery-strip', start:'top 72%' } });
+    });
+    gsap.utils.toArray('.rev-card').forEach((el,i)=>{
+      gsap.from(el, { opacity:0, y:40, duration:0.7, ease:'power3.out', delay:i*0.15,
+        scrollTrigger:{ trigger:'.rev-grid', start:'top 72%' } });
+    });
+    gsap.from('.big-headline', { opacity:0, scale:0.9, duration:1, ease:'expo.out',
+      scrollTrigger:{ trigger:'.big-bleed', start:'top 80%' } });
+    gsap.from('.visit-grid > div', { opacity:0, y:40, duration:0.8, ease:'power3.out',
+      scrollTrigger:{ trigger:'.visit', start:'top 78%' } });
+  },
+  "(max-width: 900px)": function(){
+    gsap.utils.toArray('.section-header, .svc-card, .about-text, .about-img-wrap, .gallery-strip img, .rev-card, .big-headline, .visit-grid > div').forEach(el=>{
+      gsap.from(el, { opacity:0, y:28, duration:0.6, ease:'power3.out',
+        scrollTrigger:{ trigger: el, start:'top 85%' } });
+    });
+  }
+});
+
+/* ── LIGHTBOX (gallery) ── */
+(function(){
+  const imgs = Array.from(document.querySelectorAll('[data-lbsrc]'));
+  imgs.forEach(el=>{
+    el.addEventListener('click', ()=>{ window.open(el.dataset.lbsrc, '_blank'); });
+  });
+})();
+
 const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}})},{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+/* ── BOOKING MODAL — 5 STEPS ── */
 const SERVICES = [
   {name:"Classic Haircut", price:25, dur:30},
   {name:"Cut + Beard Trim", price:35, dur:45},

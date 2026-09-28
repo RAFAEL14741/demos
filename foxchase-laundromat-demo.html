@@ -1,240 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foxchase Laundromat — Wash, Fold &amp; Dry Cleaning | Rhawn St, Philadelphia</title>
-<meta name="description" content="Foxchase Laundromat — self-service laundry, wash & fold drop-off, and dry cleaning on Rhawn Street in Fox Chase, Philadelphia. Schedule a drop-off online.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Foxchase Laundromat | Wash, Fold &amp; Dry Cleaning — Rhawn St, Philadelphia</title>
+<meta name="description" content="Foxchase Laundromat — self-service laundry, wash & fold drop-off, and dry cleaning on Rhawn Street in Fox Chase, Philadelphia. Schedule a drop-off online."/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <style>
-:root{--steel:#2f5d78;--steel-d:#22475d;--mint:#dff0ea;--white:#ffffff;--ink:#1f2a30;--muted:#6b7a82;--line:#dde6e9;}
-*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --steel:#1f6fb2;--steel-d:#124a7d;--steel-l:#5aa3d8;--sky:#eaf4fb;
+  --ink:#101a22;--mut:#5b6c78;--line:#dfe8ee;--white:#ffffff;
+  --accent:#ff7a45;--accent-d:#e6612e;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--ink);line-height:1.6;overflow-x:hidden;}
-h1,h2,h3{font-weight:600;}
-a{text-decoration:none;color:inherit;}
-.container{max-width:1180px;margin:0 auto;padding:0 32px;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;}
+.sf{font-family:'Fraunces',serif;}
+h1,h2,h3{font-family:'Fraunces',serif;}
 img{max-width:100%;display:block;}
-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1180px;margin:0 auto;}
-.logo{font-size:22px;font-weight:700;color:var(--steel-d);}
-.logo span{color:var(--steel);font-weight:400;}
-.nav-links{display:flex;gap:30px;list-style:none;font-size:14px;font-weight:500;}
-.nav-links a:hover{color:var(--steel);}
-.book-btn{background:var(--steel);color:#fff;padding:11px 26px;border-radius:6px;font-size:14px;font-weight:600;border:none;cursor:pointer;}
-.book-btn:hover{background:var(--steel-d);}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
-.hamburger span{width:26px;height:2px;background:var(--ink);}
+a{color:inherit;text-decoration:none;}
 
-/* HORIZONTAL PHOTO STRIP HERO */
-.hero{display:flex;min-height:100vh;padding-top:74px;}
-.hero-text{flex:0 0 40%;display:flex;flex-direction:column;justify-content:center;padding:40px 50px;background:var(--mint);}
-.hero-eyebrow{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--steel-d);margin-bottom:18px;font-weight:600;}
-.hero h1{font-size:clamp(38px,4.5vw,56px);line-height:1.08;margin-bottom:20px;color:var(--steel-d);}
-.hero p{color:var(--muted);font-size:17px;max-width:400px;margin-bottom:28px;}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
-.btn-primary{background:var(--steel);color:#fff;padding:15px 30px;border-radius:6px;font-size:14px;font-weight:600;border:none;cursor:pointer;}
-.btn-primary:hover{background:var(--steel-d);}
-.btn-outline{border:1.5px solid var(--steel-d);color:var(--steel-d);padding:15px 30px;border-radius:6px;font-size:14px;font-weight:600;}
-.btn-outline:hover{background:var(--steel-d);color:#fff;}
-.hero-rating{margin-top:36px;font-size:15px;color:var(--steel-d);font-weight:600;}
-.hero-strip{flex:1;display:flex;overflow:hidden;}
-.hero-strip img{width:100%;height:100%;object-fit:cover;flex:1;filter:saturate(1.05);}
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--steel-d);z-index:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+#loader .lo-name{font-family:'Fraunces',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:#fff;letter-spacing:.02em;opacity:0;}
+#loader .lo-it{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);opacity:0;}
+#loader .lo-bar{width:120px;height:1px;background:rgba(255,255,255,.2);margin-top:20px;overflow:hidden;}
+#loader .lo-fill{height:100%;background:var(--accent);width:0;}
 
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
-.reveal.in{opacity:1;transform:translateY(0);}
-section{padding:110px 0;}
-.section-header{text-align:center;max-width:620px;margin:0 auto 60px;}
-.eyebrow{color:var(--steel);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:600;}
-.section-header h2{font-size:clamp(32px,4vw,46px);color:var(--steel-d);}
+/* SCROLL PROGRESS */
+#spb{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--steel),var(--accent));transform-origin:left;transform:scaleX(0);z-index:200;pointer-events:none;}
+#pt{position:fixed;inset:0;background:var(--steel-d);z-index:500;transform:translateY(-100%);pointer-events:none;}
 
-.about{background:#fff;}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.about-text p{color:var(--muted);margin-bottom:16px;font-size:16px;}
-.stat-row{display:flex;gap:36px;margin-top:28px;}
-.stat-row div b{display:block;font-size:32px;color:var(--steel-d);font-weight:700;}
-.stat-row div span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .45s cubic-bezier(.22,1,.36,1);}
+#nav.scrolled{background:rgba(255,255,255,.96);backdrop-filter:blur(20px);padding:14px 48px;box-shadow:0 1px 0 rgba(0,0,0,.06);}
+#nav.onvideo:not(.scrolled) .nlinks a,#nav.onvideo:not(.scrolled) .ntitle{color:#fff;}
+.nlogo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.nmark{width:36px;height:36px;background:var(--steel);border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .35s;flex-shrink:0;}
+.nmark:hover{transform:rotate(-8deg) scale(1.08);}
+.nmark svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;}
+.ntitle{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--ink);transition:color .3s;}
+.ntitle em{font-style:normal;font-weight:500;color:var(--steel);}
+.nlinks{display:flex;align-items:center;gap:36px;}
+.nlinks a{font-size:13px;font-weight:600;color:var(--mut);letter-spacing:.03em;transition:color .2s;position:relative;}
+.nlinks a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:currentColor;transition:width .35s cubic-bezier(.22,1,.36,1);}
+.nlinks a:hover::after{width:100%;}
+.ncta{background:var(--accent);color:#fff;padding:12px 26px;border-radius:100px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .28s;letter-spacing:.02em;}
+.ncta:hover{background:var(--accent-d);transform:translateY(-2px);box-shadow:0 12px 26px rgba(255,122,69,.35);}
+.hmb{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;z-index:10;}
+.hmb span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all .35s cubic-bezier(.22,1,.36,1);}
+#nav.onvideo:not(.scrolled) .hmb span{background:#fff;}
+.hmb.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);background:var(--ink)!important;}
+.hmb.open span:nth-child(2){opacity:0;}
+.hmb.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);background:var(--ink)!important;}
+.mob-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:#fff;z-index:150;transform:translateX(100%);transition:transform .45s cubic-bezier(.22,1,.36,1);padding:90px 36px 40px;display:flex;flex-direction:column;gap:6px;box-shadow:-20px 0 60px rgba(0,0,0,.12);}
+.mob-drawer a{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--ink);padding:10px 0;border-bottom:1px solid var(--line);}
+.mob-drawer .mob-cta{margin-top:24px;background:var(--accent);color:#fff;padding:16px 28px;border-radius:100px;font-size:15px;font-weight:700;border:none;cursor:pointer;}
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:140;opacity:0;pointer-events:none;transition:opacity .35s;}
+.mob-overlay.open{opacity:1;pointer-events:all;}
+.mob-drawer.open{transform:translateX(0);}
+@media(max-width:900px){ .nlinks,.ncta{display:none;} .hmb{display:flex;} }
 
-.svc-band{background:var(--steel-d);color:#fff;}
-.svc-band .eyebrow{color:var(--mint);}
-.svc-band .section-header h2{color:#fff;}
-.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.1);}
-.svc-card{background:var(--steel-d);padding:30px 24px;}
-.svc-card h3{font-size:18px;margin-bottom:10px;}
-.svc-card .price{font-size:26px;font-weight:700;color:var(--mint);margin-bottom:8px;}
-.svc-card p{font-size:13px;color:#c3d6dd;}
-.confirm{font-size:11px;color:#8fa8b1;text-transform:uppercase;margin-top:6px;display:block;}
+/* HERO — VIDEO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;padding:0 0 90px;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,26,34,.55) 0%,rgba(16,26,34,.35) 40%,rgba(16,26,34,.88) 100%);z-index:1;}
+.h-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 48px;width:100%;}
+.htag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);padding:8px 18px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#fff;margin-bottom:26px;}
+.hdot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.75);}}
+.hh1{font-size:clamp(52px,7.5vw,110px);font-weight:800;line-height:.96;color:#fff;letter-spacing:-.02em;margin-bottom:22px;}
+.hh1 .word{display:inline-block;overflow:hidden;vertical-align:top;}
+.hh1 .word span{display:inline-block;clip-path:inset(0 0 100% 0);}
+.hh1 .ac{color:var(--accent);}
+.hdesc{font-size:18px;color:rgba(255,255,255,.82);line-height:1.7;max-width:520px;margin-bottom:38px;}
+.hact{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.bp{background:var(--accent);color:#fff;padding:17px 32px;border-radius:100px;font-size:14px;font-weight:700;border:none;cursor:pointer;letter-spacing:.03em;transition:all .28s;}
+.bp:hover{background:var(--accent-d);transform:translateY(-2px);box-shadow:0 16px 34px rgba(255,122,69,.35);}
+.bo{background:rgba(255,255,255,.1);color:#fff;padding:17px 32px;border-radius:100px;font-size:14px;font-weight:600;border:1.5px solid rgba(255,255,255,.4);backdrop-filter:blur(6px);cursor:pointer;transition:all .28s;}
+.bo:hover{background:rgba(255,255,255,.22);transform:translateY(-2px);}
 
-.strip2{display:flex;gap:8px;}
-.strip2 img{flex:1;height:300px;object-fit:cover;}
+.float-badge{position:absolute;padding:14px 20px;border-radius:16px;background:rgba(255,255,255,.14);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.28);z-index:3;color:#fff;}
+.fb1{top:130px;right:56px;}
+.fb2{top:240px;right:110px;}
+.fb-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.65);margin-bottom:4px;}
+.fb-val{font-family:'Fraunces',serif;font-size:20px;font-weight:700;}
+@media(max-width:900px){.float-badge{display:none;}}
 
-.reviews{background:var(--mint);}
-.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
-.rev-card{background:#fff;padding:32px;border-radius:10px;}
-.stars{color:var(--steel);margin-bottom:14px;letter-spacing:2px;}
-.rev-card p{font-style:italic;font-size:15px;margin-bottom:16px;}
-.rev-name{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+/* MARQUEE */
+.mqw{background:var(--steel-d);padding:18px 0;overflow:hidden;position:relative;}
+.mqt{display:flex;width:max-content;}
+.mqi{display:flex;align-items:center;gap:10px;padding:0 34px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#fff;white-space:nowrap;flex-shrink:0;}
+.mqd{width:4px;height:4px;background:var(--accent);border-radius:50%;flex-shrink:0;}
 
-.visit{background:#fff;}
-.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
-.hours-list{list-style:none;margin-top:20px;}
-.hours-list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;}
+/* SECTIONS */
+.sec{padding:110px 48px;}
+.sw{background:#fff;}
+.sl{background:var(--sky);}
+.sd{background:var(--steel-d);color:#fff;}
+.container{max-width:1180px;margin:0 auto;}
+.slabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--steel);margin-bottom:14px;}
+.sd .slabel{color:var(--steel-l);}
+.stitle{font-size:clamp(34px,4vw,54px);font-weight:800;line-height:1.08;color:var(--ink);margin-bottom:14px;letter-spacing:-.01em;}
+.sd .stitle{color:#fff;}
+.ssub{font-size:17px;color:var(--mut);line-height:1.72;max-width:540px;}
+.sd .ssub{color:rgba(255,255,255,.72);}
+.sc{text-align:center;}
+.sc .ssub{margin:0 auto;}
+.rv{opacity:0;transform:translateY(36px);}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center;}
+.about-text p{color:var(--mut);margin-bottom:16px;font-size:16.5px;line-height:1.75;}
+.stat-row{display:flex;gap:40px;margin-top:32px;flex-wrap:wrap;}
+.stat-row div b{display:block;font-family:'Fraunces',serif;font-size:34px;color:var(--steel-d);font-weight:800;}
+.stat-row div span{font-size:11.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;}
+.about-img{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px rgba(16,26,34,.18);}
+.about-img img{height:520px;object-fit:cover;width:100%;}
+
+/* SERVICES */
+.svgg{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.12);margin-top:56px;border-radius:18px;overflow:hidden;}
+.svc-card{background:var(--steel-d);padding:38px 28px;transition:background .3s;}
+.svc-card:hover{background:#0d3a63;}
+.svc-card h3{font-size:19px;margin-bottom:12px;color:#fff;font-weight:700;}
+.svc-card .price{font-size:28px;font-weight:800;color:var(--accent);margin-bottom:10px;font-family:'Fraunces',serif;}
+.svc-card p{font-size:13.5px;color:#c2d6e6;line-height:1.6;}
+.confirm{font-size:10px;color:#8fa8b8;text-transform:uppercase;margin-top:10px;display:block;letter-spacing:.06em;}
+@media(max-width:900px){.svgg{grid-template-columns:1fr 1fr;}}
+
+/* GALLERY */
+.gal-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:260px 260px;gap:14px;margin-top:20px;}
+.gal-grid img{width:100%;height:100%;object-fit:cover;border-radius:16px;transition:transform .5s cubic-bezier(.22,1,.36,1);}
+.gal-item{overflow:hidden;border-radius:16px;}
+.gal-item:hover img{transform:scale(1.06);}
+.gi1{grid-row:1/3;}
+@media(max-width:900px){.gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px 180px;}.gi1{grid-row:auto;grid-column:1/3;height:220px;}}
+
+/* BIG HEADLINE */
+.big-hl{font-family:'Fraunces',serif;font-size:clamp(3.5rem,9vw,8rem);line-height:.95;letter-spacing:-.03em;color:var(--ink);overflow:hidden;font-weight:800;}
+.big-hl span{display:block;}
+
+/* WHY */
+.whyg{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;}
+.whyq{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1.35;color:var(--ink);position:relative;padding-left:28px;}
+.whyq::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:3px;background:linear-gradient(180deg,var(--steel),var(--steel-l));border-radius:100px;}
+.whyfs{display:flex;flex-direction:column;gap:16px;}
+.whyf{display:flex;gap:16px;align-items:flex-start;padding:18px;border-radius:14px;border:1px solid transparent;transition:all .3s;}
+.whyf:hover{background:#fff;border-color:var(--line);box-shadow:0 10px 26px rgba(0,0,0,.06);}
+.whyfi{width:42px;height:42px;background:var(--sky);border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.whyfi svg{width:19px;height:19px;stroke:var(--steel-d);fill:none;stroke-width:1.6;}
+.whyft{font-size:15px;font-weight:700;margin-bottom:3px;}
+.whyfd{font-size:13.5px;color:var(--mut);line-height:1.6;}
+
+/* REVIEWS */
+.testg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1180px;margin:56px auto 0;}
+.test{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;transition:all .4s cubic-bezier(.22,1,.36,1);}
+.test:hover{transform:translateY(-7px);box-shadow:0 26px 60px rgba(0,0,0,.08);}
+.tst-stars{color:var(--accent);font-size:16px;margin-bottom:14px;letter-spacing:3px;}
+.tst-q{font-size:15.5px;color:var(--mut);line-height:1.72;margin-bottom:22px;font-style:italic;}
+.tst-auth{display:flex;align-items:center;gap:12px;}
+.tst-av{width:40px;height:40px;border-radius:50%;background:var(--sky);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:16px;color:var(--steel-d);}
+.tst-name{font-weight:700;font-size:13.5px;}
+.tst-loc{font-size:12px;color:var(--mut);}
+.rev-note{font-size:12px;color:var(--mut);text-align:center;margin-top:28px;opacity:.75;}
+
+/* VISIT */
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.hours-list{list-style:none;margin-top:22px;}
+.hours-list li{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;}
 .hours-list li.today{color:var(--steel-d);font-weight:700;}
-.visit iframe{width:100%;height:340px;border:0;border-radius:8px;}
+.visit iframe{width:100%;height:360px;border:0;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.1);}
 
-footer{background:var(--steel-d);color:#c3d6dd;padding:50px 0 26px;text-align:center;}
-footer .logo{color:#fff;justify-content:center;margin-bottom:16px;}
-.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;}
-footer p{font-size:13px;margin-top:16px;}
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.55);padding:64px 48px 32px;}
+.fti{max-width:1180px;margin:0 auto;}
+.ftt{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:52px;}
+.fbn{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#fff;}
+.fbn em{font-style:normal;font-weight:500;color:var(--steel-l);}
+.fbd{font-size:14px;line-height:1.72;margin-top:14px;max-width:260px;}
+.fcol h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35);margin-bottom:18px;}
+.fcol a{display:block;font-size:14px;color:rgba(255,255,255,.55);margin-bottom:10px;transition:color .2s;cursor:pointer;}
+.fcol a:hover{color:#fff;}
+.fb{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;flex-wrap:wrap;gap:10px;}
 
-.modal-overlay{position:fixed;inset:0;background:rgba(31,42,48,.85);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+@media(max-width:900px){
+  .about-grid,.whyg,.visit-grid,.ftt{grid-template-columns:1fr;}
+  .about-img img{height:320px;}
+  .testg{grid-template-columns:1fr;}
+  .sec{padding:64px 22px;}
+  .hero{padding-bottom:56px;}
+  #nav{padding:16px 22px;}
+  .h-inner{padding:0 22px;}
+}
+
+/* BOOKING MODAL (Schedule a Drop-Off) */
+.modal-overlay{position:fixed;inset:0;background:rgba(16,26,34,.85);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
-.modal{background:#fff;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border-radius:10px;}
+.modal{background:#fff;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border-radius:18px;}
 .modal-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
 .modal-head h3{font-size:22px;}
-.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--mut);}
 .modal-body{padding:30px;}
 .step-progress{display:flex;gap:6px;padding:0 30px;margin-top:16px;}
 .step-progress div{flex:1;height:3px;background:var(--line);border-radius:2px;}
 .step-progress div.active{background:var(--steel);}
 .svc-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.svc-opt{border:1px solid var(--line);padding:16px;border-radius:8px;cursor:pointer;}
-.svc-opt:hover,.svc-opt.sel{border-color:var(--steel);background:var(--mint);}
+.svc-opt{border:1px solid var(--line);padding:16px;border-radius:12px;cursor:pointer;transition:all .2s;}
+.svc-opt:hover,.svc-opt.sel{border-color:var(--steel);background:var(--sky);}
 .svc-opt b{display:block;font-size:15px;}
-.svc-opt span{font-size:13px;color:var(--muted);}
+.svc-opt span{font-size:13px;color:var(--mut);}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
-.cal-day{text-align:center;padding:10px 0;border-radius:6px;cursor:pointer;font-size:14px;border:1px solid var(--line);}
+.cal-day{text-align:center;padding:10px 0;border-radius:8px;cursor:pointer;font-size:14px;border:1px solid var(--line);}
 .cal-day.disabled{opacity:.25;cursor:not-allowed;}
 .cal-day.sel{background:var(--steel);color:#fff;border-color:var(--steel);}
 .time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
-.time-opt{padding:12px;text-align:center;border:1px solid var(--line);border-radius:6px;cursor:pointer;font-size:14px;}
+.time-opt{padding:12px;text-align:center;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:14px;}
 .time-opt.sel{background:var(--steel);color:#fff;border-color:var(--steel);}
 .form-group{margin-bottom:18px;}
-.form-group label{display:block;font-size:13px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
-.form-group input{width:100%;padding:13px;border:1px solid var(--line);border-radius:6px;font-size:15px;font-family:'Poppins',sans-serif;}
-.summary-box{background:var(--mint);padding:18px;border-radius:8px;margin-bottom:20px;font-size:14px;}
+.form-group label{display:block;font-size:12px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);font-weight:700;}
+.form-group input{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;background:var(--sky);transition:all .2s;outline:none;}
+.form-group input:focus{border-color:var(--steel);background:#fff;box-shadow:0 0 0 3px rgba(31,111,178,.12);}
+.summary-box{background:var(--sky);padding:18px;border-radius:12px;margin-bottom:20px;font-size:14px;}
 .modal-nav{display:flex;justify-content:space-between;margin-top:24px;}
-.btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;border-radius:6px;cursor:pointer;}
-.btn-next{background:var(--steel);color:#fff;border:none;padding:13px 30px;border-radius:6px;cursor:pointer;font-weight:600;}
+.btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;border-radius:100px;cursor:pointer;font-weight:600;}
+.btn-next{background:var(--accent);color:#fff;border:none;padding:13px 30px;border-radius:100px;cursor:pointer;font-weight:700;transition:all .2s;}
+.btn-next:hover{background:var(--accent-d);}
 .confirm-screen{text-align:center;padding:20px 0;}
 .checkmark{width:80px;height:80px;border-radius:50%;background:var(--steel);color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;animation:pop .4s ease;}
 @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
-
-@media(max-width:900px){
-  .nav-links{display:none;} .hamburger{display:flex;}
-  .hero{flex-direction:column;padding-top:74px;}
-  .hero-text{flex:none;padding:50px 24px;}
-  .hero-strip{height:280px;}
-  .about-grid,.visit-grid{grid-template-columns:1fr;gap:34px;}
-  .svc-grid{grid-template-columns:1fr 1fr;}
-  .strip2{flex-wrap:wrap;} .strip2 img{flex:1 1 45%;height:200px;}
-  .rev-grid{grid-template-columns:1fr;}
-  .svc-pick{grid-template-columns:1fr;}
-}
+@media(max-width:640px){.svc-pick,.time-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<header>
-  <nav class="nav">
-    <div class="logo">Foxchase <span>Laundromat</span></div>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#visit">Visit</a></li>
-    </ul>
-    <button class="book-btn" onclick="openBooking()">Schedule Drop-Off</button>
-    <button class="hamburger"><span></span><span></span><span></span></button>
-  </nav>
-</header>
+<div id="loader">
+  <div class="lo-name">Foxchase Laundromat</div>
+  <div class="lo-it">Fox Chase · Philadelphia</div>
+  <div class="lo-bar"><div class="lo-fill" id="loFill"></div></div>
+</div>
 
-<section class="hero">
-  <div class="hero-text">
-    <div class="hero-eyebrow">Rhawn Street — Fox Chase, Philadelphia</div>
-    <h1>Wash. Fold. Done.</h1>
-    <p>Full-service wash &amp; fold, dry cleaning, and self-service machines for every size load — a Fox Chase staple for over a decade.</p>
-    <div class="hero-ctas">
-      <button class="btn-primary" onclick="openBooking()">Schedule a Drop-Off</button>
-      <a href="tel:2157287322" class="btn-outline">Call (215) 728-7322</a>
-    </div>
-    <div class="hero-rating">4.0★ · 120 Google Reviews</div>
+<div id="spb"></div>
+<div id="pt"></div>
+
+<div class="mob-overlay" id="mobOv" onclick="closeMob()"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#gallery" onclick="closeMob()">Gallery</a>
+  <a href="#reviews" onclick="closeMob()">Reviews</a>
+  <a href="#visit" onclick="closeMob()">Visit</a>
+  <button class="mob-cta" onclick="closeMob();openBooking()">Schedule a Drop-Off</button>
+</div>
+
+<nav id="nav" class="onvideo">
+  <a class="nlogo" href="#top">
+    <div class="nmark"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M4 6h.01M8 6h.01"/></svg></div>
+    <span class="ntitle">Foxchase <em>Laundromat</em></span>
+  </a>
+  <div class="nlinks">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#visit">Visit</a>
   </div>
-  <div class="hero-strip">
-    <img src="https://images.unsplash.com/photo-1604335398980-ededcadcc37d?w=500&q=80" alt="Laundromat machines">
-    <img src="https://images.unsplash.com/photo-1635274605638-d44babc08a4f?w=500&q=80" alt="Folded laundry">
-    <img src="https://images.unsplash.com/photo-1550025005-05b9002486c5?w=500&q=80" alt="Clean laundry room">
+  <button class="ncta" onclick="openBooking()">Schedule a Drop-Off</button>
+  <button class="hmb" id="hmb" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero" id="top">
+  <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1638949493140-edb10b7be2f3?w=1600&q=80&auto=format&fit=crop">
+    <source src="https://videos.pexels.com/video-files/8756892/8756892-uhd_1440_2732_25fps.mp4" type="video/mp4"/>
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="float-badge fb1"><div class="fb-label">Google Rating</div><div class="fb-val">4.0★ · 120 Reviews</div></div>
+  <div class="float-badge fb2"><div class="fb-label">Serving Fox Chase</div><div class="fb-val">10+ Years</div></div>
+  <div class="h-inner">
+    <div class="htag"><div class="hdot"></div>Rhawn Street · Fox Chase, Philadelphia</div>
+    <h1 class="hh1" id="hh1">Wash. Fold. <span class="ac">Done.</span></h1>
+    <p class="hdesc">Full-service wash &amp; fold, dry cleaning, and extra-large machines for comforters and bulky loads — a Fox Chase staple for over a decade. Skip the wait, schedule your drop-off online.</p>
+    <div class="hact">
+      <button class="bp" onclick="openBooking()">Schedule a Drop-Off</button>
+      <a href="tel:2157287322" class="bo">Call (215) 728-7322</a>
+    </div>
   </div>
 </section>
 
-<section class="about reveal">
+<div class="mqw"><div class="mqt" id="mqt"></div></div>
+
+<section class="sec sw" id="about">
   <div class="container about-grid">
     <div class="about-text">
-      <div class="eyebrow">Why Fox Chase Trusts Us</div>
-      <h2 style="font-size:38px;margin-bottom:18px;color:var(--steel-d);">Big Machines, Real Service</h2>
-      <p>Foxchase Laundromat has been the neighborhood's go-to for over ten years — extra-large washers for comforters and duvets, a full range of machine sizes, and staff who handle drop-off wash &amp; fold and dry cleaning.</p>
-      <p>Skip the wait — schedule a drop-off online and pick up clean, folded laundry on your schedule.</p>
+      <div class="slabel rv">Why Fox Chase Trusts Us</div>
+      <h2 class="stitle rv d1">Big Machines. Real Service.</h2>
+      <p class="rv d1">Foxchase Laundromat has been the neighborhood's go-to for over ten years — extra-large washers built for comforters, duvets, and rugs you can't wash at home, plus a full range of machine sizes for everyday loads.</p>
+      <p class="rv d2">Our staff handles drop-off wash &amp; fold and dry cleaning, so you can skip the folding and get your time back. Schedule online and pick up clean, folded laundry on your schedule.</p>
       <div class="stat-row">
-        <div><b>10+ Yrs</b><span>Serving Fox Chase</span></div>
-        <div><b>120</b><span>Google Reviews</span></div>
-        <div><b>4.0★</b><span>Average Rating</span></div>
+        <div class="rv d2"><b>10+ Yrs</b><span>Serving Fox Chase</span></div>
+        <div class="rv d3"><b>120</b><span>Google Reviews</span></div>
+        <div class="rv d3"><b>4.0★</b><span>Average Rating</span></div>
       </div>
     </div>
-    <img src="https://images.unsplash.com/photo-1638949493140-edb10b7be2f3?w=650&q=80" alt="Rows of washing machines" style="border-radius:8px;">
+    <div class="about-img rv d1"><img src="https://images.unsplash.com/photo-1580175486077-959357d7c72e?w=900&q=80&auto=format&fit=crop" alt="Laundry baskets ready for wash and fold service"/></div>
   </div>
 </section>
 
-<section class="svc-band reveal" id="services">
-  <div class="container"><div class="section-header"><div class="eyebrow">Services &amp; Pricing</div><h2>Drop It Off, We'll Handle It</h2></div></div>
-  <div class="svc-grid">
-    <div class="svc-card"><h3>Wash &amp; Fold Drop-Off</h3><div class="price">$1.75/lb</div><p>Bring it in, we wash, dry &amp; fold.</p><span class="confirm">[Confirm before visit]</span></div>
-    <div class="svc-card"><h3>Dry Cleaning</h3><div class="price">from $6</div><p>Shirts, pants, suits &amp; dresses.</p><span class="confirm">[Confirm before visit]</span></div>
-    <div class="svc-card"><h3>Comforter / Duvet Wash</h3><div class="price">$12</div><p>Extra-large machines for bulky items.</p><span class="confirm">[Confirm before visit]</span></div>
-    <div class="svc-card"><h3>Same-Day Rush Service</h3><div class="price">+$10</div><p>Need it back today? We've got you.</p><span class="confirm">[Confirm before visit]</span></div>
-  </div>
-</section>
-
-<section class="reveal" id="gallery">
-  <div class="strip2">
-    <img src="https://images.unsplash.com/photo-1580175486077-959357d7c72e?w=500&q=80" alt="Laundry baskets">
-    <img src="https://images.unsplash.com/photo-1625093440280-42de742a496d?w=500&q=80" alt="Clean folded towels">
-    <img src="https://images.unsplash.com/photo-1577553698923-17f1a80ce5bc?w=500&q=80" alt="Laundromat interior">
-    <img src="https://images.unsplash.com/photo-1469504512102-900f29606341?w=500&q=80" alt="Washing machine detail">
-  </div>
-</section>
-
-<section class="reviews reveal" id="reviews">
+<section class="sec sd" id="services">
   <div class="container">
-    <div class="section-header"><div class="eyebrow">120 Neighbors Agree</div><h2>What Customers Say</h2></div>
-    <div class="rev-grid">
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"Great local laundromat. Lots of different size machines and plenty of dryers — I use the extra-large washers for comforters I can't wash at home."</p><div class="rev-name">— Jeanne G., Local Guide</div></div>
-      <div class="rev-card"><div class="stars">★★★★</div><p>"Fair priced laundromat, staff very friendly, machines work well."</p><div class="rev-name">— Google Review</div></div>
-      <div class="rev-card"><div class="stars">★★★★★</div><p>"Best prices and great service for drop off and dry cleaning!"</p><div class="rev-name">— Google Review</div></div>
+    <div class="sc"><div class="slabel rv">Services &amp; Pricing</div><h2 class="stitle rv d1">Drop It Off, We'll Handle It.</h2><p class="ssub rv d2">Self-service machines for every size load, plus full wash &amp; fold and dry cleaning drop-off.</p></div>
+    <div class="svgg">
+      <div class="svc-card rv"><h3>Wash &amp; Fold Drop-Off</h3><div class="price">$1.75/lb</div><p>Bring it in, we wash, dry &amp; fold — ready for pickup.</p><span class="confirm">[Confirm Before Visit]</span></div>
+      <div class="svc-card rv d1"><h3>Dry Cleaning</h3><div class="price">from $6</div><p>Shirts, pants, suits &amp; dresses, professionally cleaned.</p><span class="confirm">[Confirm Before Visit]</span></div>
+      <div class="svc-card rv d2"><h3>Comforter / Duvet Wash</h3><div class="price">$12</div><p>Extra-large machines built for bulky items.</p><span class="confirm">[Confirm Before Visit]</span></div>
+      <div class="svc-card rv d3"><h3>Same-Day Rush Service</h3><div class="price">+$10</div><p>Need it back today? We've got you covered.</p><span class="confirm">[Confirm Before Visit]</span></div>
     </div>
   </div>
 </section>
 
-<section class="visit reveal" id="visit">
+<section class="sec sw" id="gallery">
+  <div class="container">
+    <div class="sc"><div class="slabel rv">Inside Foxchase Laundromat</div><h2 class="stitle rv d1">A Clean, Reliable Space.</h2></div>
+    <div class="gal-grid">
+      <div class="gal-item gi1 rv"><img src="https://images.unsplash.com/photo-1577553698923-17f1a80ce5bc?w=900&q=80&auto=format&fit=crop" alt="Laundromat interior with rows of machines"/></div>
+      <div class="gal-item rv d1"><img src="https://images.unsplash.com/photo-1625093440280-42de742a496d?w=700&q=80&auto=format&fit=crop" alt="Clean folded towels ready for pickup"/></div>
+      <div class="gal-item rv d2"><img src="https://images.unsplash.com/photo-1489274495757-95c7c837b101?w=700&q=80&auto=format&fit=crop" alt="Dry cleaning garment rack"/></div>
+      <div class="gal-item rv d1"><img src="https://images.unsplash.com/photo-1469504512102-900f29606341?w=700&q=80&auto=format&fit=crop" alt="Washing machine detail"/></div>
+      <div class="gal-item rv d2"><img src="https://images.unsplash.com/photo-1638949493140-edb10b7be2f3?w=700&q=80&auto=format&fit=crop" alt="Rows of washing machines at Foxchase Laundromat"/></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sl">
+  <div class="whyg">
+    <div><div class="slabel rv">Why Choose Us</div><p class="whyq rv d1">We don't just wash clothes.<br/>We give you your time back.</p></div>
+    <div class="whyfs">
+      <div class="whyf rv"><div class="whyfi"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div><div><div class="whyft">Extra-Large Machines</div><div class="whyfd">Built for comforters, duvets &amp; rugs you can't wash at home.</div></div></div>
+      <div class="whyf rv d1"><div class="whyfi"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="whyft">Schedule Online</div><div class="whyfd">Pick a drop-off window that fits your day — no more guessing.</div></div></div>
+      <div class="whyf rv d2"><div class="whyfi"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="whyft">Wash &amp; Fold + Dry Cleaning</div><div class="whyfd">Full-service drop-off, done right, ready when you are.</div></div></div>
+      <div class="whyf rv d3"><div class="whyfi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="whyft">10+ Years in Fox Chase</div><div class="whyfd">A trusted neighborhood laundromat, not a chain.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG HEADLINE BREAK -->
+<section style="background:#fff;padding:90px 48px;overflow:hidden;border-top:1px solid var(--line);">
+  <div style="max-width:1180px;margin:0 auto;">
+    <div class="big-hl rv" id="bigHl">
+      <span>Fresh Laundry.</span>
+      <span style="color:var(--steel);padding-left:clamp(40px,8vw,120px);">Zero Hassle.</span>
+    </div>
+    <div style="max-width:440px;margin-top:28px;margin-left:4px;">
+      <p style="font-size:16px;color:var(--mut);line-height:1.7;">Real wash &amp; fold and dry cleaning service, now easy to schedule online — no more calling ahead or hoping a machine's free.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sl" id="reviews">
+  <div class="container">
+    <div class="sc"><div class="slabel rv">120 Neighbors Agree</div><h2 class="stitle rv d1">What Fox Chase Says</h2></div>
+    <div class="testg">
+      <div class="test rv"><div class="tst-stars">★★★★★</div><p class="tst-q">"Great local laundromat — lots of different size machines and plenty of dryers. I use the extra-large washers for comforters I can't fit anywhere else."</p><div class="tst-auth"><div class="tst-av">J</div><div><div class="tst-name">Jeanne G.</div><div class="tst-loc">Fox Chase, Philadelphia</div></div></div></div>
+      <div class="test rv d1"><div class="tst-stars">★★★★</div><p class="tst-q">"Fair prices, friendly staff, and the machines actually work well — which isn't a given at every laundromat around here."</p><div class="tst-auth"><div class="tst-av">M</div><div><div class="tst-name">Michael R.</div><div class="tst-loc">Fox Chase, Philadelphia</div></div></div></div>
+      <div class="test rv d2"><div class="tst-stars">★★★★★</div><p class="tst-q">"Been dropping off wash &amp; fold here for years. Best prices around and the dry cleaning always comes back looking sharp."</p><div class="tst-auth"><div class="tst-av">D</div><div><div class="tst-name">Denise T.</div><div class="tst-loc">Rhawnhurst, Philadelphia</div></div></div></div>
+    </div>
+    <p class="rev-note">Representative testimonials based on Foxchase Laundromat's public Google reviews, paraphrased for this preview.</p>
+  </div>
+</section>
+
+<section class="sec sw" id="visit">
   <div class="container visit-grid">
     <div>
-      <div class="eyebrow">Visit Us</div>
-      <h2 style="font-size:36px;margin-bottom:10px;color:var(--steel-d);">418 Rhawn St, Philadelphia, PA 19111</h2>
-      <p style="color:var(--muted);margin-bottom:10px;">(215) 728-7322</p>
-      <ul class="hours-list">
-        <li><span>Monday – Saturday</span><span>7:00 AM – 10:00 PM [CONFIRM]</span></li>
-        <li class="today"><span>Sunday</span><span>8:00 AM – 10:00 PM [CONFIRM]</span></li>
-        <li><span>Last Wash-In</span><span>9:00 PM [CONFIRM]</span></li>
+      <div class="slabel rv">Visit Us</div>
+      <h2 class="stitle rv d1" style="font-size:36px;">418 Rhawn St, Philadelphia, PA 19111</h2>
+      <p style="color:var(--mut);margin-bottom:6px;" class="rv d1">(215) 728-7322</p>
+      <ul class="hours-list rv d2">
+        <li><span>Monday – Saturday</span><span>7:00 AM – 9:00 PM [CONFIRM BEFORE VISIT]</span></li>
+        <li class="today"><span>Sunday</span><span>8:00 AM – 9:00 PM [CONFIRM BEFORE VISIT]</span></li>
+        <li><span>Last Wash-In</span><span>8:00 PM [CONFIRM BEFORE VISIT]</span></li>
       </ul>
-      <button class="btn-primary" style="margin-top:26px;" onclick="openBooking()">Schedule a Drop-Off</button>
+      <button class="bp" style="margin-top:28px;background:var(--steel);" onclick="openBooking()">Schedule a Drop-Off</button>
     </div>
-    <iframe src="https://maps.google.com/maps?q=418+Rhawn+St+Philadelphia+PA+19111&output=embed" loading="lazy"></iframe>
+    <iframe class="rv d1" src="https://maps.google.com/maps?q=418+Rhawn+St+Philadelphia+PA+19111&output=embed" loading="lazy"></iframe>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <div class="logo">Foxchase Laundromat</div>
-    <div class="foot-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a><a href="foxchase-laundromat-admin.html">Staff Login</a></div>
-    <p>© 2026 Foxchase Laundromat · 418 Rhawn St, Philadelphia, PA 19111 · (215) 728-7322</p>
+  <div class="fti">
+    <div class="ftt">
+      <div><div class="fbn">Foxchase <em>Laundromat</em></div><p class="fbd">Wash &amp; fold, dry cleaning, and self-service laundry on Rhawn Street. Fox Chase, Philadelphia.</p></div>
+      <div class="fcol"><h4>Services</h4><a href="#services">Wash &amp; Fold</a><a href="#services">Dry Cleaning</a><a href="#services">Comforter Wash</a></div>
+      <div class="fcol"><h4>Company</h4><a href="#about">About Us</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a></div>
+      <div class="fcol"><h4>Account</h4><a href="foxchase-laundromat-admin.html">Staff Login</a><a onclick="openBooking()">Schedule a Drop-Off</a></div>
+    </div>
+    <div class="fb"><span>© 2026 Foxchase Laundromat · 418 Rhawn St, Philadelphia, PA 19111 · (215) 728-7322</span></div>
   </div>
 </footer>
 
@@ -247,43 +408,176 @@ footer p{font-size:13px;margin-top:16px;}
 </div>
 
 <script>
-const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}})},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+gsap.registerPlugin(ScrollTrigger);
+let lenis=null;
 
+// ── LOADER ──
+function initLoader(){
+  if(sessionStorage.getItem('fl_loaded')){document.getElementById('loader').style.display='none';return;}
+  const tl=gsap.timeline({onComplete:()=>{
+    gsap.to('#loader',{opacity:0,duration:.5,ease:'power2.inOut',onComplete:()=>{
+      document.getElementById('loader').style.display='none';
+      sessionStorage.setItem('fl_loaded','1');
+    }});
+  }});
+  tl.to('#loFill',{width:'100%',duration:1.1,ease:'power2.inOut'})
+    .to('.lo-name',{opacity:1,y:0,duration:.6,ease:'power3.out'},0)
+    .to('.lo-it',{opacity:1,y:0,duration:.5,ease:'power3.out'},.2);
+  gsap.set(['.lo-name','.lo-it'],{y:16});
+}
+
+// ── LENIS ──
+function initLenis(){
+  if(lenis){lenis.destroy();lenis=null;}
+  lenis=new Lenis({lerp:.08,smoothWheel:true});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(t=>lenis.raf(t*1000));
+  gsap.ticker.lagSmoothing(0);
+}
+
+// ── SCROLL PROGRESS ──
+function initScrollProgress(){
+  gsap.to('#spb',{scaleX:1,ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:0}});
+}
+
+// ── MOBILE MENU ──
+function toggleMob(){
+  document.getElementById('hmb').classList.toggle('open');
+  document.getElementById('mobDrawer').classList.toggle('open');
+  document.getElementById('mobOv').classList.toggle('open');
+}
+function closeMob(){
+  document.getElementById('hmb').classList.remove('open');
+  document.getElementById('mobDrawer').classList.remove('open');
+  document.getElementById('mobOv').classList.remove('open');
+}
+
+// NAV SCROLL STATE
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('nav');
+  nav.classList.toggle('scrolled',scrollY>50);
+},{passive:true});
+
+// MARQUEE
+const mqItems=[
+  {i:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',l:'Foxchase Laundromat'},
+  {i:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',l:'Fox Chase, Philadelphia'},
+  {i:'<path d="M20 6L9 17l-5-5"/>',l:'Wash · Fold · Dry Clean'},
+  {i:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',l:'10+ Years Serving Fox Chase'},
+  {i:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',l:'4.0★ · 120 Google Reviews'},
+];
+function buildMarquee(){
+  const t=document.getElementById('mqt');
+  [...mqItems,...mqItems].forEach((it,i)=>{
+    const d=document.createElement('div');d.className='mqi';
+    d.innerHTML=`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5">${it.i}</svg>${it.l}`;
+    t.appendChild(d);
+    if(i<mqItems.length*2-1){const dot=document.createElement('div');dot.className='mqd';t.appendChild(dot);}
+  });
+  gsap.to('#mqt',{x:'-50%',duration:20,repeat:-1,ease:'none'});
+  document.querySelector('.mqw').addEventListener('mouseenter',()=>gsap.globalTimeline.timeScale(.3));
+  document.querySelector('.mqw').addEventListener('mouseleave',()=>gsap.globalTimeline.timeScale(1));
+}
+
+// SCROLL REVEAL
+function initReveal(){
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+}
+
+// LANDING INIT
+function initLanding(){
+  ScrollTrigger.getAll().forEach(t=>t.kill());
+
+  // Hero: clip-path word reveal
+  const h1=document.getElementById('hh1');
+  const words=h1.innerHTML.split(/(\s+)/);
+  h1.innerHTML=words.map(w=>w.trim()?`<span class="word"><span>${w}</span></span>`:w).join('');
+
+  const tl=gsap.timeline({delay:.15});
+  tl.to('.htag',{y:0,opacity:1,duration:.6,ease:'power3.out'},0)
+    .to('.hh1 .word span',{clipPath:'inset(0 0 0% 0)',duration:.95,ease:'power3.out',stagger:.15},'-=.25')
+    .to('.hdesc',{y:0,opacity:1,duration:.7,ease:'power3.out'},'-=.45')
+    .to('.hact',{y:0,opacity:1,duration:.6,ease:'power3.out'},'-=.4')
+    .to('.float-badge',{opacity:1,duration:.5,ease:'power3.out',stagger:.15},'-=.5');
+  gsap.set(['.htag','.hdesc','.hact'],{y:18,opacity:0});
+  gsap.set('.float-badge',{opacity:0});
+
+  // Floating badges — sine wave
+  gsap.to('.float-badge',{y:-12,duration:2,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.4,delay:1.4});
+
+  // ScrollTrigger.matchMedia desktop/mobile split
+  ScrollTrigger.matchMedia({
+    '(min-width:901px)':function(){
+      gsap.utils.toArray('.svc-card').forEach((el,i)=>
+        gsap.fromTo(el,{y:44,opacity:0},{scrollTrigger:{trigger:el,start:'top 87%'},y:0,opacity:1,duration:.7,ease:'power3.out',delay:i*.08}));
+      gsap.utils.toArray('.gal-item').forEach((el,i)=>
+        gsap.fromTo(el,{y:50,opacity:0},{scrollTrigger:{trigger:el,start:'top 87%'},y:0,opacity:1,duration:.75,ease:'power3.out',delay:i*.1}));
+      gsap.utils.toArray('.test').forEach((el,i)=>
+        gsap.fromTo(el,{y:40,opacity:0},{scrollTrigger:{trigger:el,start:'top 88%'},y:0,opacity:1,duration:.7,ease:'power3.out',delay:i*.1}));
+      gsap.utils.toArray('.whyf').forEach((el,i)=>
+        gsap.fromTo(el,{x:30,opacity:0},{scrollTrigger:{trigger:el,start:'top 89%'},x:0,opacity:1,duration:.65,ease:'power3.out',delay:i*.1}));
+      gsap.fromTo('.about-img',{scale:.94,opacity:0},{scrollTrigger:{trigger:'.about-img',start:'top 85%'},scale:1,opacity:1,duration:.9,ease:'power3.out'});
+      gsap.from('#bigHl .big-hl span',{scrollTrigger:{trigger:'#bigHl',start:'top 80%'},y:60,opacity:0,stagger:.15,duration:.9,ease:'power3.out'});
+    },
+    '(max-width:900px)':function(){
+      gsap.utils.toArray('.svc-card,.gal-item,.test,.whyf,.about-img').forEach(el=>
+        gsap.fromTo(el,{opacity:0,y:26},{scrollTrigger:{trigger:el,start:'top 90%'},opacity:1,y:0,duration:.7,ease:'power2.out'}));
+    }
+  });
+
+  // section-header / generic .rv fade+y on scroll (all screens)
+  gsap.utils.toArray('.rv').forEach((el,i)=>{
+    gsap.fromTo(el,{y:36,opacity:0},{scrollTrigger:{trigger:el,start:'top 92%'},y:0,opacity:1,duration:.7,ease:'power3.out'});
+  });
+
+  initReveal();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  initLoader();
+  buildMarquee();
+  initLenis();
+  initScrollProgress();
+  initLanding();
+});
+
+/* ══════════════ BOOKING MODAL — "Schedule a Drop-Off" (5 steps) ══════════════ */
 const SERVICES = [
-  {name:"Wash & Fold Drop-Off", price:25, dur:15},
-  {name:"Dry Cleaning Drop-Off", price:15, dur:10},
+  {name:"Wash & Fold Drop-Off", price:"1.75/lb", dur:15},
+  {name:"Dry Cleaning", price:"from $6", dur:10},
   {name:"Comforter / Duvet Wash", price:12, dur:10},
-  {name:"Same-Day Rush Service", price:35, dur:15}
+  {name:"Same-Day Rush Service", price:"+$10", dur:15}
 ];
 const OPEN_DAYS = [0,1,2,3,4,5,6];
 const OPEN_HOUR = 7, CLOSE_HOUR = 21;
 let step=1, booking={service:null,date:null,time:null,name:'',phone:''};
-function openBooking(){document.getElementById('bookingModal').classList.add('open');step=1;renderStep();}
+function openBooking(){document.getElementById('bookingModal').classList.add('open');step=1;booking={service:null,date:null,time:null,name:'',phone:''};renderStep();}
 function closeBooking(){document.getElementById('bookingModal').classList.remove('open');}
 function renderProgress(){document.getElementById('stepProgress').innerHTML=[1,2,3,4,5].map(i=>`<div class="${i<=step?'active':''}"></div>`).join('');}
+function priceLabel(p){return typeof p==='number' ? '$'+p : p;}
 function renderStep(){
   renderProgress();
   const body=document.getElementById('modalBody');
   if(step===1){
     document.getElementById('modalTitle').innerText='Choose a Service';
-    body.innerHTML=`<div class="svc-pick">${SERVICES.map((s,i)=>`<div class="svc-opt ${booking.service===i?'sel':''}" onclick="selectService(${i})"><b>${s.name}</b><span>from $${s.price} · ${s.dur} min drop-off</span></div>`).join('')}</div>
+    body.innerHTML=`<div class="svc-pick">${SERVICES.map((s,i)=>`<div class="svc-opt ${booking.service===i?'sel':''}" onclick="selectService(${i})"><b>${s.name}</b><span>${priceLabel(s.price)} · ~${s.dur} min drop-off</span></div>`).join('')}</div>
     <div class="modal-nav"><span></span><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
   } else if(step===2){
     document.getElementById('modalTitle').innerText='Pick a Drop-Off Date';
     let days='';const today=new Date();
     for(let i=0;i<14;i++){const d=new Date();d.setDate(today.getDate()+i);const disabled=!OPEN_DAYS.includes(d.getDay());
       days+=`<div class="cal-day ${disabled?'disabled':''} ${booking.date===d.toDateString()?'sel':''}" ${disabled?'':`onclick="selectDate('${d.toDateString()}')"`}>${d.getDate()}<br><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></div>`;}
-    body.innerHTML=`<p style="color:var(--muted);font-size:14px;">Open every day.</p><div class="cal-grid">${days}</div>
+    body.innerHTML=`<p style="color:var(--mut);font-size:14px;">Open every day.</p><div class="cal-grid">${days}</div>
     <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
   } else if(step===3){
-    document.getElementById('modalTitle').innerText='Pick a Time';
+    document.getElementById('modalTitle').innerText='Pick a Drop-Off Window';
     let slots='';for(let h=OPEN_HOUR;h<CLOSE_HOUR;h++){['00','30'].forEach(m=>{const label=`${h>12?h-12:h}:${m} ${h>=12?'PM':'AM'}`;slots+=`<div class="time-opt ${booking.time===label?'sel':''}" onclick="selectTime('${label}')">${label}</div>`;});}
     body.innerHTML=`<div class="time-grid">${slots}</div><div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
   } else if(step===4){
     document.getElementById('modalTitle').innerText='Your Info';
     const s=SERVICES[booking.service];
-    body.innerHTML=`<div class="summary-box"><b>${s.name}</b> — from $${s.price}<br>${booking.date} at ${booking.time}</div>
+    body.innerHTML=`<div class="summary-box"><b>${s.name}</b> — ${priceLabel(s.price)}<br>${booking.date} at ${booking.time}</div>
     <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Jane Smith"></div>
     <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="(215) 555-0123"></div>
     <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="submitBooking()">Confirm Drop-Off</button></div>`;
@@ -291,8 +585,8 @@ function renderStep(){
     document.getElementById('modalTitle').innerText="You're All Set!";
     body.innerHTML=`<div class="confirm-screen"><div class="checkmark">✓</div>
     <h3 style="margin-bottom:10px;">Thanks, ${booking.name.split(' ')[0]||'there'}!</h3>
-    <p style="color:var(--muted);margin-bottom:10px;">Your ${SERVICES[booking.service].name} is scheduled for ${booking.date} at ${booking.time}.</p>
-    <p style="color:var(--muted);">We'll call ${booking.phone} to confirm. See you soon!</p>
+    <p style="color:var(--mut);margin-bottom:10px;">Your ${SERVICES[booking.service].name} drop-off is scheduled for ${booking.date} at ${booking.time}.</p>
+    <p style="color:var(--mut);">We'll call ${booking.phone} to confirm. We'll have it ready for pickup!</p>
     <button class="btn-next" style="margin-top:24px;" onclick="closeBooking()">Done</button></div>`;
   }
 }
