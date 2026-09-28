@@ -194,6 +194,11 @@ footer a{color:var(--blush);font-size:.8rem;text-decoration:none;font-weight:600
 .service-option:hover,.service-option.selected{border-color:var(--teal);background:var(--teal-tint)}
 .service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--ink)}
 .service-option .svc-price{font-family:'Spectral',serif;font-size:1.05rem;font-weight:600;color:var(--teal);margin-top:.25rem}
+.cal-nav-header{display:flex;align-items:center;justify-content:space-between;margin-top:.7rem}
+.cal-nav-btn{background:none;border:2px solid var(--border);color:var(--ink);width:2rem;height:2rem;border-radius:50%;font-size:1rem;font-weight:700;line-height:1;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-family:'Albert Sans',sans-serif}
+.cal-nav-btn:disabled{opacity:.32;cursor:default}
+@media(hover:hover){.cal-nav-btn:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}}
+.cal-month-label{font-family:'Spectral',serif;font-weight:600;color:var(--ink);font-size:.92rem}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
 .cal-day-name{text-align:center;font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
 .cal-day{text-align:center;padding:.5rem;border-radius:8px;font-size:.86rem;cursor:pointer;transition:all .2s}
@@ -222,7 +227,18 @@ footer a{color:var(--blush);font-size:.8rem;text-decoration:none;font-weight:600
 .confirm-detail div:last-child{border:none}
 .confirm-detail span:first-child{color:var(--muted);font-weight:600;flex-shrink:0}
 .confirm-detail span:last-child{color:var(--ink);font-weight:600;text-align:right}
-@media(hover:none){.review-card{transform:none!important}}
+@media(hover:none){
+  .review-card{transform:none!important}
+  .tab-btn:hover:not(.active){border-color:var(--border)!important;color:var(--muted)!important}
+  .service-option:hover:not(.selected){border-color:var(--border)!important;background:transparent!important}
+  .gallery-item:hover img{transform:none!important}
+  .gallery-item:hover .gallery-overlay{opacity:0!important}
+  .gallery-item:hover .gallery-overlay span{transform:translateY(8px)!important}
+  .cal-day:hover:not(.disabled):not(.selected){background:transparent!important;color:var(--ink)!important}
+  .time-slot:hover:not(.selected){border-color:var(--border)!important;background:transparent!important;color:var(--ink)!important}
+  .btn-primary:hover{transform:none!important}
+  .cal-nav-btn:hover{border-color:var(--border)!important;color:var(--ink)!important}
+}
 @media(max-width:860px){
   .hours-grid,.family-grid{grid-template-columns:1fr}
   .family-grid{gap:2.6rem}
@@ -248,7 +264,7 @@ footer a{color:var(--blush);font-size:.8rem;text-decoration:none;font-weight:600
 <!-- PIPELINE DATA NOTES (internal) - remove before handing the site to the client.
 VERIFIED (direct Google Maps lookup, 2026-09-27): business name "Top Cut Hair Salon" - 9975 Bustleton Ave, Philadelphia, PA 19115 (inside The Shops At Red Lion) - phone (215) 677-3900 (tel:2156773900) - 4.3-star rating - 167 Google reviews - online presence is an Instagram page only (instagram.com), no real website (this is the sales angle: no online booking, no services menu or pricing, no branding they control, does not rank on Google like a real site would).
 [CONFIRM BEFORE VISIT] HOURS ARE ASSUMED, not verified: Tuesday-Saturday 9:00 AM-7:00 PM, Sunday 10:00 AM-4:00 PM, Monday Closed. Confirm with the owner, then update the #hoursList rows, the CLOSED_DAYS constant and the SLOTS / SUN_SLOTS arrays in the script together.
-[CONFIRM BEFORE VISIT] ALL PRICES ARE PHILADELPHIA-MARKET ESTIMATES, not the salon's real menu: Womens Haircut and Style $45, Blowout $35, Color Single Process from $65, Highlights from $90, Deep Conditioning Treatment $25, Mens Haircut $28, Kids Cut (12 and under) $20, Wash Plus Relaxing Massage $15. Update the service tabs AND the SERVICES array in the script together.
+[CONFIRM BEFORE VISIT] ALL PRICES ARE PHILADELPHIA-MARKET ESTIMATES, not the salon's real menu: Womens Haircut and Style $45, Blowout $35, Color Single Process from $65, Highlights from $90, Deep Conditioning Treatment $25, Mens Haircut $28, Kids Cut (12 and under) $20, Wash + Relaxing Massage $15. Update the service tabs AND the SERVICES array in the script together.
 [CONFIRM BEFORE VISIT] YEARS IN BUSINESS are unknown - no founding year or "since" claim appears anywhere on this page. Do not add one without the owner.
 -->
 <div id="progressBar"></div>

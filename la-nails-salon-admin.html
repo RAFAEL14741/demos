@@ -112,6 +112,11 @@ td{font-size:.85rem;padding:.65rem .5rem;border-bottom:1px solid var(--lilac);co
 .service-option .svc-name{font-weight:700;font-size:.86rem;color:var(--ink)}
 .service-option .svc-price{font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--plum);margin-top:.25rem}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.6rem}
+.cal-month{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--display);font-weight:700;font-size:1.02rem;color:var(--plum);margin-top:.3rem}
+.cal-nav{display:flex;gap:.4rem}
+.cal-nav button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:var(--white);color:var(--plum);font-size:1rem;line-height:1;cursor:pointer;transition:all .2s}
+.cal-nav button:hover:not(:disabled){border-color:var(--plum);background:var(--lilac)}
+.cal-nav button:disabled{opacity:.35;cursor:default}
 .cal-day-name{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.3rem 0}
 .calendar-grid .cal-day{text-align:center;padding:.5rem 0;border-radius:8px;font-size:.84rem;cursor:pointer;transition:all .2s;aspect-ratio:auto}
 .calendar-grid .cal-day:hover:not(.disabled){background:var(--plum);color:#fff}
@@ -207,7 +212,7 @@ This is an internal staff tool (PIN-gated); it is not linked from the public mar
             <thead><tr><th>Time</th><th>Client</th><th>Service</th><th>Status</th></tr></thead>
             <tbody>
               <tr><td>9:30 AM</td><td>Gianna D.</td><td>Gel Manicure</td><td><span class="status completed">Completed</span></td></tr>
-              <tr><td>10:15 AM</td><td>Maria G.</td><td>Classic Pedicure</td><td><span class="status completed">Completed</span></td></tr>
+              <tr><td>10:15 AM</td><td>Sofia G.</td><td>Classic Pedicure</td><td><span class="status completed">Completed</span></td></tr>
               <tr><td>11:00 AM</td><td>Colleen O.</td><td>Dip Powder Full Set</td><td><span class="status confirmed">Confirmed</span></td></tr>
               <tr><td>12:30 PM</td><td>Rachel S.</td><td>Liquid Gel Fill-In</td><td><span class="status confirmed">Confirmed</span></td></tr>
               <tr><td>1:45 PM</td><td>Anthony M.</td><td>Gel Pedicure</td><td><span class="status pending">Pending</span></td></tr>
@@ -403,7 +408,9 @@ function addBooking(){
 const WEEKDAY_SLOTS=['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'];
 const SUNDAY_SLOTS=['11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','4:30 PM'];
 const SERVICES=[['Classic Pedicure','$32'],['Gel Pedicure','$45'],['Gel Manicure','$35'],['Liquid Gel Full Set','$55'],['Liquid Gel Fill-In','$40'],['Dip Powder Full Set','$50'],['Dip Powder Fill-In','$38'],['Nail Art Add-On','from $5']];
-let step=1,chosen={service:'',date:'',time:'',name:'',phone:'',_y:0,_m:0,_d:0};
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const CAL_MAX_OFFSET=6;
+let step=1,calOffset=0,chosen={service:'',date:'',time:'',name:'',phone:'',_y:0,_m:0,_d:0};
 const titles=['Select Service','Pick a Date','Pick a Time','Client Info','Appointment Added'];
 
 function parseTimeOnDate(dateObj,timeStr){
@@ -422,7 +429,7 @@ function slotsForDate(dateObj){
 }
 
 function openBooking(){
-  step=1;chosen={service:'',date:'',time:'',name:'',phone:'',_y:0,_m:0,_d:0};
+  step=1;calOffset=0;chosen={service:'',date:'',time:'',name:'',phone:'',_y:0,_m:0,_d:0};
   renderStep();
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
@@ -432,9 +439,9 @@ function handleOverlayClick(e){if(e.target===document.getElementById('modalOverl
 function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'');}}
 function selectDate(y,m,d){
   chosen._y=y;chosen._m=m;chosen._d=d;
-  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  chosen.date=`${months[m]} ${d}, ${y}`;chosen.time='';renderStep();
+  chosen.date=`${MONTHS[m]} ${d}, ${y}`;chosen.time='';renderStep();
 }
+function shiftMonth(n){calOffset=Math.max(0,Math.min(CAL_MAX_OFFSET,calOffset+n));renderStep()}
 
 function renderStep(){
   document.getElementById('modalTitle').textContent=titles[step-1];
@@ -447,12 +454,16 @@ function renderStep(){
         <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
   }else if(step===2){
-    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
-    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
-    let cal=`<div class="step-title">Choose a Date</div><div class="calendar-grid">
+    const now=new Date();
+    const view=new Date(now.getFullYear(),now.getMonth()+calOffset,1);
+    const y=view.getFullYear(),m=view.getMonth();
+    const first=view.getDay(),daysInMonth=new Date(y,m+1,0).getDate();
+    let cal=`<div class="step-title">Choose a Date</div>
+      <div class="cal-month"><span>${MONTHS[m]} ${y}</span><span class="cal-nav"><button type="button" aria-label="Previous month" onclick="shiftMonth(-1)"${calOffset===0?' disabled':''}>‹</button><button type="button" aria-label="Next month" onclick="shiftMonth(1)"${calOffset>=CAL_MAX_OFFSET?' disabled':''}>›</button></span></div>
+      <div class="calendar-grid">
       ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
       ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
-    const today=new Date(y,m,now.getDate());
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     for(let d=1;d<=daysInMonth;d++){
       const date=new Date(y,m,d);
       const isPast=date<today;

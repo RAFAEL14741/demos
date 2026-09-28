@@ -200,6 +200,11 @@ footer a{color:var(--gold-soft);font-size:.85rem;text-decoration:none;font-weigh
 .service-option .svc-name{font-weight:700;font-size:.86rem;color:var(--ink)}
 .service-option .svc-price{font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--plum);margin-top:.25rem}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.6rem}
+.cal-month{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--display);font-weight:700;font-size:1.02rem;color:var(--plum);margin-top:.3rem}
+.cal-nav{display:flex;gap:.4rem}
+.cal-nav button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:var(--white);color:var(--plum);font-size:1rem;line-height:1;cursor:pointer;transition:all .2s}
+.cal-nav button:hover:not(:disabled){border-color:var(--plum);background:var(--lilac)}
+.cal-nav button:disabled{opacity:.35;cursor:default}
 .cal-day-name{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.3rem 0}
 .cal-day{text-align:center;padding:.5rem 0;border-radius:8px;font-size:.84rem;cursor:pointer;transition:all .2s}
 .cal-day:hover:not(.disabled){background:var(--plum);color:#fff}
@@ -227,7 +232,7 @@ footer a{color:var(--gold-soft);font-size:.85rem;text-decoration:none;font-weigh
 .confirm-detail div:last-child{border:none}
 .confirm-detail span:first-child{color:var(--muted);font-weight:600}
 .confirm-detail span:last-child{color:var(--ink);font-weight:700;text-align:right}
-@media(hover:none){.diff-card,.review-card{transform:none!important}}
+@media(hover:none){.diff-card,.review-card{transform:none!important}.gallery-overlay{opacity:0!important}.mtile img{transform:none!important}}
 @media(max-width:860px){
   .hero{grid-template-columns:1fr;min-height:auto;padding-top:5rem}
   .hero-panel{padding:2.8rem 6% 2rem}
@@ -351,21 +356,21 @@ Reviews on this page are original paraphrases of themes found in real Google rev
     </div>
     <div class="menu-grid">
       <div class="menu-col reveal">
-        <h3>Pedicures &amp; Manicures</h3>
+        <h3>Pedicures, Manicures &amp; Extras</h3>
         <ul class="price-list">
           <li class="price-row"><span class="price-name">Classic Pedicure</span><span class="price-leader"></span><span class="price-amount">$32</span></li>
           <li class="price-row"><span class="price-name">Gel Pedicure</span><span class="price-leader"></span><span class="price-amount">$45</span></li>
           <li class="price-row"><span class="price-name">Gel Manicure</span><span class="price-leader"></span><span class="price-amount">$35</span></li>
+          <li class="price-row"><span class="price-name">Nail Art Add-On</span><span class="price-leader"></span><span class="price-amount">from $5</span></li>
         </ul>
       </div>
       <div class="menu-col reveal">
-        <h3>Gel, Dip &amp; Add-Ons</h3>
+        <h3>Gel &amp; Dip Sets</h3>
         <ul class="price-list">
           <li class="price-row"><span class="price-name">Liquid Gel Full Set</span><span class="price-leader"></span><span class="price-amount">$55</span></li>
           <li class="price-row"><span class="price-name">Liquid Gel Fill-In</span><span class="price-leader"></span><span class="price-amount">$40</span></li>
           <li class="price-row"><span class="price-name">Dip Powder Full Set <span class="tag-gold">Most Requested</span></span><span class="price-leader"></span><span class="price-amount">$50</span></li>
           <li class="price-row"><span class="price-name">Dip Powder Fill-In</span><span class="price-leader"></span><span class="price-amount">$38</span></li>
-          <li class="price-row"><span class="price-name">Nail Art Add-On</span><span class="price-leader"></span><span class="price-amount">from $5</span></li>
         </ul>
       </div>
     </div>
@@ -607,7 +612,9 @@ const CLOSED_DAYS=[];
 const WEEKDAY_SLOTS=['9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM'];
 const SUNDAY_SLOTS=['11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','4:30 PM'];
 const SERVICES=[['Classic Pedicure','$32'],['Gel Pedicure','$45'],['Gel Manicure','$35'],['Liquid Gel Full Set','$55'],['Liquid Gel Fill-In','$40'],['Dip Powder Full Set','$50'],['Dip Powder Fill-In','$38'],['Nail Art Add-On','from $5']];
-let step=1,chosen={service:'',date:'',time:'',name:'',phone:'',notes:'',_y:0,_m:0,_d:0};
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const CAL_MAX_OFFSET=6;
+let step=1,calOffset=0,chosen={service:'',date:'',time:'',name:'',phone:'',notes:'',_y:0,_m:0,_d:0};
 const titles=['Select Service','Pick a Date','Pick a Time','Your Info','Confirmed'];
 
 function parseTimeOnDate(dateObj,timeStr){
@@ -626,11 +633,12 @@ function slotsForDate(dateObj){
   return base;
 }
 
-function openModal(){step=1;chosen={service:'',date:'',time:'',name:'',phone:'',notes:'',_y:0,_m:0,_d:0};renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';lenis&&lenis.stop()}
+function openModal(){step=1;calOffset=0;chosen={service:'',date:'',time:'',name:'',phone:'',notes:'',_y:0,_m:0,_d:0};renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';lenis&&lenis.stop()}
 function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';lenis&&lenis.start()}
 function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
 function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
-function selectDate(y,m,d){chosen._y=y;chosen._m=m;chosen._d=d;const months=['January','February','March','April','May','June','July','August','September','October','November','December'];chosen.date=`${months[m]} ${d}, ${y}`;chosen.time='';renderStep()}
+function selectDate(y,m,d){chosen._y=y;chosen._m=m;chosen._d=d;chosen.date=`${MONTHS[m]} ${d}, ${y}`;chosen.time='';renderStep()}
+function shiftMonth(n){calOffset=Math.max(0,Math.min(CAL_MAX_OFFSET,calOffset+n));renderStep()}
 
 function renderStep(){
   document.getElementById('modalTitle').textContent=titles[step-1];
@@ -643,12 +651,16 @@ function renderStep(){
         <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
   } else if(step===2){
-    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
-    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
-    let cal=`<div class="step-title">Choose a Date</div><div class="calendar-grid">
+    const now=new Date();
+    const view=new Date(now.getFullYear(),now.getMonth()+calOffset,1);
+    const y=view.getFullYear(),m=view.getMonth();
+    const first=view.getDay(),daysInMonth=new Date(y,m+1,0).getDate();
+    let cal=`<div class="step-title">Choose a Date</div>
+      <div class="cal-month"><span>${MONTHS[m]} ${y}</span><span class="cal-nav"><button type="button" aria-label="Previous month" onclick="shiftMonth(-1)"${calOffset===0?' disabled':''}>‹</button><button type="button" aria-label="Next month" onclick="shiftMonth(1)"${calOffset>=CAL_MAX_OFFSET?' disabled':''}>›</button></span></div>
+      <div class="calendar-grid">
       ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
       ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
-    const today=new Date(y,m,now.getDate());
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     for(let d=1;d<=daysInMonth;d++){
       const date=new Date(y,m,d);
       const isPast=date<today;
@@ -671,7 +683,7 @@ function renderStep(){
     body.innerHTML=`<div class="step-title">Your Information</div>
       <div class="form-group"><label>Full Name</label><input id="fn" placeholder="Your name" value="${esc(chosen.name)}"></div>
       <div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="${esc(chosen.phone)}"></div>
-      <div class="form-group"><label>Nail tech preference / design inspiration (optional)</label><input id="fv" placeholder="e.g. chrome French, or ask for Maria" value="${esc(chosen.notes)}"></div>`;
+      <div class="form-group"><label>Nail tech preference / design inspiration (optional)</label><input id="fv" placeholder="e.g. chrome French, ombre, or a photo you'll bring in" value="${esc(chosen.notes)}"></div>`;
     foot.innerHTML=`<button class="btn-back" onclick="step=3;renderStep()">← Back</button>
       <button class="btn-next" onclick="chosen.name=document.getElementById('fn').value;chosen.phone=document.getElementById('fp').value;chosen.notes=document.getElementById('fv').value;if(chosen.name&&chosen.phone){step=5;renderStep()}">Confirm Booking</button>`;
   } else {
