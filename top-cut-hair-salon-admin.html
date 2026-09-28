@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Cut Hair Salon — Staff Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --stone:#F5F1EC;--stone2:#EFE8DD;--white:#FFFFFF;
+  --teal:#1F5C56;--teal-dark:#164A45;--teal-tint:#E7F0EE;
+  --blush:#E8B4A0;--blush-dark:#D89A82;
+  --ink:#2A2622;--muted:#6B6259;--border:#E4DCCF;
+}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--stone);color:var(--ink);font-family:'Albert Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+h1,h2,h3{font-family:'Spectral',serif}
+
+/* ===== LOGIN ===== */
+#loginScreen{
+  position:fixed;inset:0;z-index:999;
+  background:linear-gradient(160deg,var(--ink),var(--teal-dark));
+  display:flex;align-items:center;justify-content:center;padding:1rem;
+}
+.login-box{text-align:center;padding:3rem 2.6rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:20px;max-width:360px;width:100%}
+.login-logo{font-family:'Spectral',serif;font-size:1.9rem;font-weight:600;color:#fff;margin-bottom:.3rem}
+.login-logo em{color:var(--blush);font-style:italic}
+.login-sub{font-size:.76rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:2.2rem}
+.pin-display{font-family:'Spectral',serif;font-size:2.5rem;font-weight:600;color:var(--blush);letter-spacing:.35em;min-height:3.1rem;margin-bottom:1.8rem}
+.pin-grid{display:grid;grid-template-columns:repeat(3,64px);gap:.6rem;justify-content:center;margin-bottom:.8rem}
+.pin-btn{height:64px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-family:'Spectral',serif;font-size:1.4rem;font-weight:600;border-radius:12px;cursor:pointer;transition:background .15s}
+.pin-btn:hover{background:var(--teal)}
+.pin-clear{margin-top:.4rem;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);cursor:pointer}
+
+/* ===== DASHBOARD ===== */
+#dashboard{display:none}
+.topbar{background:var(--ink);padding:1rem 1.8rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem}
+.topbar-logo{font-family:'Spectral',serif;font-size:1.25rem;font-weight:600;color:#fff}
+.topbar-logo em{color:var(--blush);font-style:italic}
+.topbar-right{display:flex;align-items:center;gap:1.2rem}
+.topbar-date{font-size:.82rem;color:rgba(255,255,255,.62)}
+.logout-btn{font-family:'Albert Sans',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);background:none;border:1px solid rgba(255,255,255,.28);padding:.45rem .95rem;border-radius:20px;cursor:pointer;transition:all .2s}
+.logout-btn:hover{color:#fff;border-color:#fff}
+.dash{padding:1.8rem 1.8rem 3rem;max-width:1280px;margin:0 auto}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.6rem}
+.kpi{background:var(--white);padding:1.4rem 1.3rem;border-radius:14px;border-top:3px solid var(--teal);box-shadow:0 4px 14px rgba(42,38,34,.05)}
+.kpi-val{font-family:'Spectral',serif;font-size:2rem;font-weight:600;color:var(--ink);line-height:1}
+.kpi-val span{font-size:1.15rem;color:var(--blush-dark)}
+.kpi-label{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:.45rem}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:1rem;align-items:start}
+.card{background:var(--white);padding:1.5rem;border-radius:14px;border:1px solid var(--border);margin-bottom:1rem}
+.card-title{font-family:'Spectral',serif;font-size:1.08rem;font-weight:600;color:var(--ink);margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap}
+.add-btn{background:var(--teal);color:#fff;border:none;padding:.55rem 1.2rem;border-radius:22px;font-family:'Albert Sans',sans-serif;font-weight:600;font-size:.8rem;cursor:pointer;transition:background .2s;white-space:nowrap}
+.add-btn:hover{background:var(--teal-dark)}
+.closed-note{display:none;background:var(--teal-tint);color:var(--teal-dark);border-radius:10px;padding:.75rem 1rem;font-size:.82rem;font-weight:500;margin-bottom:1rem}
+table{width:100%;border-collapse:collapse}
+th{font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:.6rem .5rem;text-align:left;border-bottom:2px solid var(--border)}
+td{font-size:.85rem;padding:.68rem .5rem;border-bottom:1px solid var(--border);color:var(--ink)}
+tr:last-child td{border-bottom:none}
+.status{display:inline-block;font-size:.64rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.28rem .6rem;border-radius:12px;white-space:nowrap}
+.status.confirmed{background:#DCEFE9;color:var(--teal-dark)}
+.status.pending{background:#FBEAE0;color:#9A5A34}
+.status.completed{background:#E9E4DA;color:var(--muted)}
+/* mini calendar */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.2rem}
+.cal-head{font-size:.6rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:center;padding:.3rem 0}
+#calGrid .cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:500;color:var(--ink);border-radius:8px;position:relative}
+#calGrid .cal-day.today{background:var(--teal);color:#fff;font-weight:700}
+#calGrid .cal-day.has-appt::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--blush-dark);position:absolute;bottom:4px}
+#calGrid .cal-day.today.has-appt::after{background:#fff}
+#calGrid .cal-day.empty{opacity:0}
+/* services panel */
+.svc-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--border);gap:.6rem}
+.svc-row:last-child{border-bottom:none}
+.svc-row .svc-name{font-size:.84rem;font-weight:500;color:var(--ink)}
+.svc-row .svc-price{font-family:'Spectral',serif;font-size:.9rem;font-weight:600;color:var(--teal);white-space:nowrap}
+.svc-edit{font-size:.66rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);background:none;border:none;cursor:pointer}
+.svc-edit:hover{color:var(--teal-dark);text-decoration:underline}
+/* hours panel */
+.hours-list{list-style:none}
+.hours-list li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.84rem;position:relative}
+.hours-list li:last-child{border-bottom:none}
+.hours-list li span:first-child{font-weight:600;color:var(--ink)}
+.hours-list li span:last-child{color:var(--muted)}
+.hours-list li.closed span:last-child{color:var(--blush-dark);font-weight:600}
+.hours-list li.today::before{content:'TODAY';position:absolute;left:0;top:-.72rem;font-size:.56rem;font-weight:700;letter-spacing:.1em;color:var(--teal)}
+/* staff footer */
+.staff-footer{background:var(--ink);padding:1.6rem 1.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;align-items:center}
+.staff-footer .addr{color:rgba(255,255,255,.55);font-size:.78rem}
+.staff-footer a{color:var(--blush);text-decoration:none;font-weight:600;font-size:.85rem}
+/* toast */
+.toast{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:.75rem 1.4rem;border-radius:24px;font-size:.84rem;opacity:0;pointer-events:none;transition:all .3s;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:88vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:480px){table{font-size:.8rem}th,td{padding:.5rem .35rem}}
+
+/* ===== BOOKING MODAL (adapted from the public site's booking modal) ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(42,38,34,.72);backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:520px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.modal-header{padding:1.6rem 1.7rem .85rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-header h3{font-family:'Spectral',serif;font-size:1.3rem;font-weight:600;color:var(--ink)}
+.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:.2rem}
+.modal-steps{display:flex;gap:.32rem;padding:.9rem 1.7rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.step-dot{flex:1;height:3px;background:var(--border);border-radius:2px;transition:background .3s}
+.step-dot.active{background:var(--teal)}
+.step-dot.done{background:var(--blush-dark)}
+.modal-body{padding:1.7rem;overflow-y:auto;flex:1}
+.step-title{font-family:'Spectral',serif;font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:1.2rem}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.service-option{border:2px solid var(--border);border-radius:10px;padding:.85rem;cursor:pointer;transition:all .2s}
+.service-option:hover,.service-option.selected{border-color:var(--teal);background:var(--teal-tint)}
+.service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--ink)}
+.service-option .svc-price{font-family:'Spectral',serif;font-size:1.05rem;font-weight:600;color:var(--teal);margin-top:.25rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
+.cal-day-name{text-align:center;font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
+.calendar-grid .cal-day{text-align:center;padding:.5rem;border-radius:8px;font-size:.86rem;cursor:pointer;transition:all .2s}
+.calendar-grid .cal-day:hover:not(.disabled){background:var(--teal);color:#fff}
+.calendar-grid .cal-day.selected{background:var(--teal);color:#fff;font-weight:700}
+.calendar-grid .cal-day.disabled{color:#D8CFC0;pointer-events:none}
+.calendar-grid .cal-day.empty{visibility:hidden}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.52rem;margin-top:.7rem}
+.time-slot{border:2px solid var(--border);border-radius:8px;padding:.58rem;text-align:center;font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s}
+.time-slot:hover,.time-slot.selected{border-color:var(--teal);background:var(--teal-tint);color:var(--teal-dark)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:.35rem}
+.form-group input{width:100%;border:2px solid var(--border);border-radius:8px;padding:.68rem .9rem;font-family:'Albert Sans',sans-serif;font-size:16px;color:var(--ink);background:var(--stone);outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--teal)}
+.modal-footer{padding:1rem 1.7rem;border-top:1px solid var(--border);display:flex;gap:.6rem;justify-content:flex-end;flex-shrink:0;position:sticky;bottom:0;background:var(--white)}
+.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:.58rem 1.1rem;border-radius:24px;font-size:.86rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Albert Sans',sans-serif}
+.btn-back:hover{border-color:var(--ink);color:var(--ink)}
+.btn-next{background:var(--teal);color:#fff;border:none;padding:.58rem 1.4rem;border-radius:24px;font-size:.86rem;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap;font-family:'Albert Sans',sans-serif}
+.btn-next:hover{background:var(--teal-dark)}
+.confirm-screen{text-align:center;padding:.8rem 0}
+.confirm-icon{font-size:2.6rem;margin-bottom:.8rem}
+.confirm-screen h3{font-family:'Spectral',serif;font-size:1.4rem;font-weight:600;color:var(--ink);margin-bottom:.5rem}
+.confirm-screen p{color:var(--muted);line-height:1.7;font-size:.9rem}
+.confirm-detail{background:var(--stone);border-radius:10px;padding:.9rem 1rem;margin:1rem 0;text-align:left}
+.confirm-detail div{display:flex;justify-content:space-between;padding:.32rem 0;font-size:.85rem;border-bottom:1px solid var(--border);gap:1rem}
+.confirm-detail div:last-child{border:none}
+.confirm-detail span:first-child{color:var(--muted);font-weight:600;flex-shrink:0}
+.confirm-detail span:last-child{color:var(--ink);font-weight:600;text-align:right}
+@media(max-width:480px){
+  .service-grid{grid-template-columns:1fr}
+  .time-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<!-- PIPELINE DATA NOTES (internal) - remove before handing this admin tool to the client.
+[CONFIRM BEFORE VISIT] HOURS ARE ASSUMED, not verified: Tuesday-Saturday 9:00 AM-7:00 PM, Sunday 10:00 AM-4:00 PM, Monday Closed. Confirm with the owner, then update #hoursPanel, the CLOSED_DAYS constant and the SLOTS / SUN_SLOTS arrays together (must match top-cut-hair-salon-demo.html).
+[CONFIRM BEFORE VISIT] ALL PRICES ARE PHILADELPHIA-MARKET ESTIMATES, not the salon's real menu: Womens Haircut and Style $45, Mens Haircut $28, Kids Cut (12 and under) $20, Blowout $35, Color Single Process from $65, Highlights from $90, Deep Conditioning Treatment $25, Wash Plus Relaxing Massage $15. Update #servicesPanel AND the SERVICES array together.
+[CONFIRM BEFORE VISIT] Sample appointments, client names and the Google rating (4.3 / 167 reviews) on this dashboard are placeholder demo data for internal review only, not real bookings.
+-->
+
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Top <em>Cut</em></div>
+    <div class="login-sub">Staff Access — Enter PIN</div>
+    <div class="pin-display" id="pinDisplay">○○○○</div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="enterPin('1')">1</button>
+      <button class="pin-btn" onclick="enterPin('2')">2</button>
+      <button class="pin-btn" onclick="enterPin('3')">3</button>
+      <button class="pin-btn" onclick="enterPin('4')">4</button>
+      <button class="pin-btn" onclick="enterPin('5')">5</button>
+      <button class="pin-btn" onclick="enterPin('6')">6</button>
+      <button class="pin-btn" onclick="enterPin('7')">7</button>
+      <button class="pin-btn" onclick="enterPin('8')">8</button>
+      <button class="pin-btn" onclick="enterPin('9')">9</button>
+      <button class="pin-btn" onclick="enterPin('0')" style="grid-column:2">0</button>
+    </div>
+    <div class="pin-clear" onclick="clearPin()">Clear ×</div>
+  </div>
+</div>
+
+<div id="dashboard">
+  <div class="topbar">
+    <div class="topbar-logo">Top <em>Cut</em> Hair Salon <span style="opacity:.6;font-weight:400;font-size:.9rem">— Staff Admin</span></div>
+    <div class="topbar-right">
+      <div class="topbar-date" id="topbarDate"></div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="dash">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-val" id="kpiToday">0</div><div class="kpi-label">Today's Appointments</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpiWeek">0</div><div class="kpi-label">This Week</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpiRevenue">$0</div><div class="kpi-label">Est. Revenue This Week ($)</div></div>
+      <div class="kpi"><div class="kpi-val">4.3<span>★</span></div><div class="kpi-label">Google Rating · 167 Reviews</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Upcoming Appointments <button class="add-btn" onclick="openBooking()">+ Add Booking</button></div>
+        <div class="closed-note" id="closedNote">🚪 <strong>Closed Today</strong> — it's Monday, the shop is closed. Here's what's on the books for the rest of the week.</div>
+        <table>
+          <thead><tr><th>Time</th><th>Client</th><th>Service</th><th>Status</th></tr></thead>
+          <tbody id="apptBody">
+            <tr id="closedRow" style="display:none"><td colspan="4" style="text-align:center;color:var(--muted);font-style:italic;padding:1.1rem 0">Closed today (Monday) — no appointments booked today.</td></tr>
+            <tr><td data-day="2" data-price="45">Tue · 9:15 AM</td><td>Maria S.</td><td>Womens Haircut and Style</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td data-day="2" data-price="28">Tue · 11:00 AM</td><td>Anthony D.</td><td>Mens Haircut</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td data-day="3" data-price="65">Wed · 1:30 PM</td><td>Rachel G.</td><td>Color, Single Process</td><td><span class="status pending">Pending</span></td></tr>
+            <tr><td data-day="4" data-price="20">Thu · 10:00 AM</td><td>Jamal W.</td><td>Kids Cut (12 and under)</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td data-day="4" data-price="90">Thu · 3:15 PM</td><td>Mei L.</td><td>Highlights</td><td><span class="status pending">Pending</span></td></tr>
+            <tr><td data-day="5" data-price="25">Fri · 9:30 AM</td><td>Patrick M.</td><td>Deep Conditioning Treatment</td><td><span class="status completed">Completed</span></td></tr>
+            <tr><td data-day="5" data-price="35">Fri · 5:00 PM</td><td>DeShawn T.</td><td>Blowout</td><td><span class="status confirmed">Confirmed</span></td></tr>
+            <tr><td data-day="6" data-price="45">Sat · 12:00 PM</td><td>Sofia V.</td><td>Womens Haircut and Style</td><td><span class="status confirmed">Confirmed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">This Month</div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <div class="card" id="servicesPanel">
+          <div class="card-title">Services</div>
+          <div class="svc-row"><span class="svc-name">Womens Haircut and Style</span><span class="svc-price" id="svcPrice0">$45</span><button class="svc-edit" onclick="editPrice(0)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Mens Haircut</span><span class="svc-price" id="svcPrice1">$28</span><button class="svc-edit" onclick="editPrice(1)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Kids Cut (12 and under)</span><span class="svc-price" id="svcPrice2">$20</span><button class="svc-edit" onclick="editPrice(2)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Blowout</span><span class="svc-price" id="svcPrice3">$35</span><button class="svc-edit" onclick="editPrice(3)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Color, Single Process</span><span class="svc-price" id="svcPrice4">from $65</span><button class="svc-edit" onclick="editPrice(4)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Highlights</span><span class="svc-price" id="svcPrice5">from $90</span><button class="svc-edit" onclick="editPrice(5)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Deep Conditioning Treatment</span><span class="svc-price" id="svcPrice6">$25</span><button class="svc-edit" onclick="editPrice(6)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Wash Plus Relaxing Massage</span><span class="svc-price" id="svcPrice7">$15</span><button class="svc-edit" onclick="editPrice(7)">Edit</button></div>
+        </div>
+        <div class="card" id="hoursPanel">
+          <div class="card-title">Weekly Hours</div>
+          <ul class="hours-list" id="hoursPanelList">
+            <li data-days="2,3,4,5,6"><span>Tuesday – Saturday</span><span>9:00 AM – 7:00 PM</span></li>
+            <li data-days="0"><span>Sunday</span><span>10:00 AM – 4:00 PM</span></li>
+            <li class="closed" data-days="1"><span>Monday</span><span>Closed</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="staff-footer">
+    <div class="addr">Top Cut Hair Salon · 9975 Bustleton Ave, Philadelphia PA 19115 · Inside The Shops At Red Lion</div>
+    <a href="tel:2156773900">(215) 677-3900</a>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add Booking</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div><div class="step-dot" id="sd3"></div><div class="step-dot" id="sd4"></div><div class="step-dot" id="sd5"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const CLOSED_DAYS=[1]; /* Monday closed */
+const SLOTS=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
+const SUN_SLOTS=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM'];
+const SERVICES=[['Womens Haircut and Style','$45',45],['Mens Haircut','$28',28],['Kids Cut (12 and under)','$20',20],['Blowout','$35',35],['Color, Single Process','from $65',65],['Highlights','from $90',90],['Deep Conditioning Treatment','$25',25],['Wash Plus Relaxing Massage','$15',15]];
+
+function parseTime(t){
+  const m=String(t).match(/(\d+):(\d+)\s*(AM|PM)/i); if(!m) return 0;
+  let h=parseInt(m[1],10),min=parseInt(m[2],10); const ap=m[3].toUpperCase();
+  if(ap==='PM'&&h!==12)h+=12; if(ap==='AM'&&h===12)h=0;
+  return h*60+min;
+}
+
+/* ===== PIN LOGIN ===== */
+let pin='';
+function enterPin(d){
+  if(pin.length>=4)return;
+  pin+=d;
+  document.getElementById('pinDisplay').textContent=pin.replace(/./g,'●').padEnd(4,'○');
+  if(pin.length===4){
+    setTimeout(()=>{
+      if(pin==='1234'){
+        document.getElementById('loginScreen').style.display='none';
+        document.getElementById('dashboard').style.display='block';
+        pin='';
+        initDash();
+      } else {
+        alert('Incorrect PIN');
+        pin='';
+        document.getElementById('pinDisplay').textContent='○○○○';
+      }
+    },150);
+  }
+}
+function clearPin(){pin='';document.getElementById('pinDisplay').textContent='○○○○'}
+function logout(){document.getElementById('loginScreen').style.display='flex';document.getElementById('dashboard').style.display='none';clearPin()}
+
+/* ===== DASHBOARD ===== */
+function initDash(){
+  const now=new Date();
+  document.getElementById('topbarDate').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  buildCal(now);
+  computeKPIs(now);
+  handleClosedToday(now);
+  markTodayHours(now);
+}
+function buildCal(now){
+  const cal=document.getElementById('calGrid');
+  cal.innerHTML='';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{
+    const h=document.createElement('div');h.className='cal-head';h.textContent=d;cal.appendChild(h);
+  });
+  const y=now.getFullYear(),m=now.getMonth();
+  const first=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const apptCandidates=[3,6,9,12,15,19,22,26,29];
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day empty';cal.appendChild(e)}
+  for(let d=1;d<=daysInMonth;d++){
+    const e=document.createElement('div');e.className='cal-day';e.textContent=d;
+    const dow=new Date(y,m,d).getDay();
+    if(d===now.getDate())e.classList.add('today');
+    if(apptCandidates.includes(d)&&dow!==1)e.classList.add('has-appt');
+    cal.appendChild(e);
+  }
+}
+function computeKPIs(now){
+  const cells=[...document.querySelectorAll('#apptBody tr td[data-day]')];
+  const todayDow=now.getDay();
+  const todayCount=cells.filter(c=>parseInt(c.dataset.day,10)===todayDow).length;
+  const weekCount=cells.length;
+  const revenue=cells.reduce((s,c)=>s+(parseFloat(c.dataset.price)||0),0);
+  document.getElementById('kpiToday').textContent=todayCount;
+  document.getElementById('kpiWeek').textContent=weekCount;
+  document.getElementById('kpiRevenue').textContent='$'+revenue.toLocaleString();
+}
+function handleClosedToday(now){
+  const isClosed=CLOSED_DAYS.includes(now.getDay());
+  const row=document.getElementById('closedRow');
+  const note=document.getElementById('closedNote');
+  if(row)row.style.display=isClosed?'table-row':'none';
+  if(note)note.style.display=isClosed?'block':'none';
+}
+function markTodayHours(now){
+  const day=now.getDay();
+  document.querySelectorAll('#hoursPanelList li').forEach(li=>{
+    const days=(li.getAttribute('data-days')||'').split(',').filter(Boolean).map(Number);
+    if(days.includes(day))li.classList.add('today');
+  });
+}
+function addCalendarDot(dateObj){
+  const now=new Date();
+  if(dateObj.getMonth()!==now.getMonth()||dateObj.getFullYear()!==now.getFullYear())return;
+  const cells=[...document.querySelectorAll('#calGrid .cal-day:not(.empty)')];
+  const idx=dateObj.getDate()-1;
+  if(cells[idx])cells[idx].classList.add('has-appt');
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ===== SERVICES PANEL — real inline price editing ===== */
+function editPrice(i){
+  const svc=SERVICES[i];
+  if(!svc)return;
+  const input=prompt('New price for '+svc[0]+':',svc[1]);
+  if(input===null)return;
+  const trimmed=input.trim();
+  if(!trimmed)return;
+  const num=parseFloat(trimmed.replace(/[^0-9.]/g,''))||0;
+  const display=/^(\$|from)/i.test(trimmed)?trimmed:'$'+trimmed;
+  SERVICES[i][1]=display;
+  SERVICES[i][2]=num;
+  const priceEl=document.getElementById('svcPrice'+i);
+  if(priceEl)priceEl.textContent=display;
+  showToast('Updated '+svc[0]+' to '+display);
+}
+
+/* ===== APPOINTMENTS TABLE HELPERS ===== */
+function prependApptRow(c){
+  const tbody=document.getElementById('apptBody');
+  const dow=c.dateObj.getDay();
+  const tr=document.createElement('tr');
+  tr.innerHTML='<td data-day="'+dow+'" data-price="'+c.price+'">'+esc(c.time)+'</td><td>'+esc(c.name)+'</td><td>'+esc(c.service)+'</td><td><span class="status pending">Pending</span></td>';
+  const sameDayRows=[...tbody.querySelectorAll('tr')].filter(r=>{
+    const td=r.querySelector('td[data-day]');
+    return td&&parseInt(td.dataset.day,10)===dow;
+  });
+  let placed=false;
+  for(const r of sameDayRows){
+    if(parseTime(r.querySelector('td').textContent)>parseTime(c.time)){tbody.insertBefore(tr,r);placed=true;break}
+  }
+  if(!placed){
+    const closedRow=document.getElementById('closedRow');
+    tbody.insertBefore(tr,closedRow?closedRow.nextSibling:tbody.firstChild);
+  }
+}
+
+/* ===== BOOKING MODAL (adapted from the public site) ===== */
+let step=1,chosen={service:'',date:'',dateObj:null,dow:null,isToday:false,time:'',name:'',phone:'',committed:false};
+const titles=['Select Service','Pick a Date','Pick a Time','Client Info','Appointment Added'];
+
+function openBooking(){
+  step=1;
+  chosen={service:'',date:'',dateObj:null,dow:null,isToday:false,time:'',name:'',phone:'',committed:false};
+  renderStep();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function selectDate(y,m,d,dow){
+  chosen.dateObj=new Date(y,m,d);
+  chosen.date=chosen.dateObj.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  chosen.dow=dow;
+  const now=new Date();
+  chosen.isToday=chosen.dateObj.toDateString()===now.toDateString();
+  chosen.time='';
+  renderStep();
+}
+function commitBooking(){
+  const svc=SERVICES.find(s=>s[0]===chosen.service);
+  const price=svc?svc[2]:0;
+  const now=new Date();
+  if(chosen.isToday){
+    prependApptRow({time:chosen.time,name:chosen.name,service:chosen.service,price,dateObj:chosen.dateObj});
+    const el=document.getElementById('kpiToday');
+    if(el)el.textContent=(parseInt(el.textContent,10)||0)+1;
+  } else {
+    addCalendarDot(chosen.dateObj);
+    showToast('Added to '+chosen.date);
+  }
+  const startOfWeek=new Date(now);startOfWeek.setHours(0,0,0,0);startOfWeek.setDate(now.getDate()-now.getDay());
+  const endOfWeek=new Date(startOfWeek);endOfWeek.setDate(startOfWeek.getDate()+6);endOfWeek.setHours(23,59,59,999);
+  if(chosen.dateObj>=startOfWeek&&chosen.dateObj<=endOfWeek){
+    const wEl=document.getElementById('kpiWeek');
+    if(wEl)wEl.textContent=(parseInt(wEl.textContent,10)||0)+1;
+    const rEl=document.getElementById('kpiRevenue');
+    if(rEl){const cur=parseFloat(rEl.textContent.replace(/[^0-9.]/g,''))||0;rEl.textContent='$'+(cur+price).toLocaleString();}
+  }
+}
+function renderStep(){
+  document.getElementById('modalTitle').textContent=titles[step-1];
+  setStepDots();
+  const body=document.getElementById('modalBody'),foot=document.getElementById('modalFooter');
+  body.innerHTML='';foot.innerHTML='';
+  if(step===1){
+    body.innerHTML='<div class="step-title">What Is The Appointment For?</div><div class="service-grid">'+
+      SERVICES.map(([n,p])=>'<div class="service-option'+(chosen.service===n?' selected':'')+"\" onclick='chosen.service="+JSON.stringify(n)+";renderStep()'>"+
+        '<div class="svc-name">'+esc(n)+'</div><div class="svc-price">'+esc(p)+'</div></div>').join('')+'</div>';
+    foot.innerHTML='<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>';
+  } else if(step===2){
+    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
+    const today=new Date(y,m,now.getDate());
+    const curMin=now.getHours()*60+now.getMinutes();
+    let cal='<div class="step-title">Choose A Date</div><div class="calendar-grid">'+
+      ['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>'<div class="cal-day-name">'+d+'</div>').join('')+
+      Array(first).fill('<div class="cal-day empty"></div>').join('');
+    for(let d=1;d<=daysInMonth;d++){
+      const date=new Date(y,m,d),dow=date.getDay();
+      const isPast=date<today,isClosed=CLOSED_DAYS.includes(dow),isToday=date.getTime()===today.getTime();
+      let noSlotsToday=false;
+      if(isToday){
+        const list=dow===0?SUN_SLOTS:SLOTS;
+        noSlotsToday=!list.some(t=>parseTime(t)>curMin);
+      }
+      const disabled=isPast||isClosed||(isToday&&noSlotsToday);
+      const isSel=chosen.dateObj&&chosen.dateObj.getTime()===date.getTime();
+      cal+='<div class="cal-day'+(disabled?' disabled':isSel?' selected':'')+'"'+(!disabled?' onclick="selectDate('+y+','+m+','+d+','+dow+')"':'')+'>'+d+'</div>';
+    }
+    body.innerHTML=cal+'</div><p style="font-size:.74rem;color:var(--muted);margin-top:.7rem">Closed Mondays</p>';
+    foot.innerHTML='<button class="btn-back" onclick="step=1;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.dateObj){step=3;renderStep()}">Continue →</button>';
+  } else if(step===3){
+    let list=chosen.dow===0?SUN_SLOTS:SLOTS;
+    if(chosen.isToday){const now=new Date();const curMin=now.getHours()*60+now.getMinutes();list=list.filter(t=>parseTime(t)>curMin)}
+    body.innerHTML='<div class="step-title">Choose A Time</div><div class="time-grid">'+
+      list.map(t=>'<div class="time-slot'+(chosen.time===t?' selected':'')+"\" onclick='chosen.time="+JSON.stringify(t)+";renderStep()'>"+t+'</div>').join('')+'</div>';
+    foot.innerHTML='<button class="btn-back" onclick="step=2;renderStep()">← Back</button><button class="btn-next" onclick="if(chosen.time){step=4;renderStep()}">Continue →</button>';
+  } else if(step===4){
+    body.innerHTML='<div class="step-title">Client Info</div>'+
+      '<div class="form-group"><label>Client Name</label><input id="fn" placeholder="Client name" value="'+esc(chosen.name)+'"></div>'+
+      '<div class="form-group"><label>Phone Number</label><input id="fp" type="tel" placeholder="(215) 000-0000" value="'+esc(chosen.phone)+'"></div>';
+    foot.innerHTML='<button class="btn-back" onclick="step=3;renderStep()">← Back</button>'+
+      '<button class="btn-next" onclick="chosen.name=document.getElementById(\'fn\').value;chosen.phone=document.getElementById(\'fp\').value;if(chosen.name&&chosen.phone){step=5;renderStep()}">Add to Schedule</button>';
+  } else {
+    if(!chosen.committed){commitBooking();chosen.committed=true}
+    body.innerHTML='<div class="confirm-screen">'+
+      '<div class="confirm-icon">✂️</div>'+
+      '<h3>Appointment Added</h3>'+
+      '<p>'+esc(chosen.name.split(' ')[0]||'Client')+' is on the schedule. We\'ll reach out to confirm.</p>'+
+      '<div class="confirm-detail">'+
+        '<div><span>Service</span><span>'+esc(chosen.service)+'</span></div>'+
+        '<div><span>Date</span><span>'+esc(chosen.date)+'</span></div>'+
+        '<div><span>Time</span><span>'+esc(chosen.time)+'</span></div>'+
+        '<div><span>Client</span><span>'+esc(chosen.name)+'</span></div>'+
+        '<div><span>Phone</span><span>'+esc(chosen.phone)+'</span></div>'+
+      '</div>'+
+    '</div>';
+    foot.innerHTML='<button class="btn-next" onclick="closeModal()">Done ✓</button>';
+  }
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&document.getElementById('modalOverlay').classList.contains('open'))closeModal();
+});
+</script>
+</body>
+</html>
