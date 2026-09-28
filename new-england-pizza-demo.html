@@ -172,6 +172,11 @@ html.no-motion .reveal{opacity:1!important;transform:none!important}
 .service-option:hover,.service-option.selected{border-color:var(--brick);background:#FBEAE7}
 .service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--charcoal)}
 .service-option .svc-price{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:var(--brick);margin-top:.25rem}
+.cal-month{display:flex;justify-content:space-between;align-items:center;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--charcoal)}
+.cal-nav{display:flex;gap:.4rem}
+.cal-nav button{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--white);color:var(--charcoal);font-size:1rem;line-height:1;cursor:pointer;transition:all .2s}
+.cal-nav button:hover{border-color:var(--brick);color:var(--brick)}
+.cal-nav button:disabled{opacity:.35;cursor:default}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
 .cal-day-name{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
 .cal-day{text-align:center;padding:.46rem;border-radius:4px;font-size:.84rem;cursor:pointer;transition:all .2s}
@@ -499,7 +504,7 @@ function filterMenu(cat,btn){
 })();
 
 /* Basic custom cursor — works with or without GSAP */
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+if(matchMedia('(hover:hover) and (pointer:fine) and (min-width:861px)').matches){
   document.documentElement.classList.add('cursor-on');
   const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
   let mx=0,my=0,rx=0,ry=0;
@@ -601,14 +606,14 @@ if(MOTION){
 /* ===== Booking modal: order pickup time ===== */
 const CLOSED_DAYS=[];
 const SLOT_HOURS=[11,12,13,14,15,16,17,18,19,20,21];
-const SERVICES=[['Cheese Pizza (Large)','$16'],['Pepperoni Pizza (Large)','$18'],['Chicken Wings 10pc','$13'],['Buffalo Wings 10pc','$14'],['Baked Ziti','$12'],['Cheesesteak','$9']];
-let step=1,chosen={service:'',date:'',time:'',name:'',phone:'',notes:''};
+const SERVICES=[['Cheese Pizza (Large)','$16'],['Pepperoni Pizza (Large)','$18'],['Chicken Wings 10pc','$13'],['Buffalo Wings 10pc','$14'],['Baked Ziti','$12'],['Chicken Parmigiana','$14'],['Cheesesteak','$9'],['Chicken Cheesesteak','$9.50'],['Italian Hoagie','$9'],['Turkey Hoagie','$9']];
+let step=1,calOffset=0,chosen={service:'',date:'',time:'',name:'',phone:'',notes:''};
 const titles=['Choose Your Order','Pick a Pickup Date','Pick a Pickup Time','Your Info','Confirmed'];
 
 function slotLabel(h){const period=h<12?'AM':'PM';let hh=h%12;if(hh===0)hh=12;return hh+':00 '+period}
 
 function openModal(){
-  step=1;renderStep();
+  step=1;calOffset=0;renderStep();
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
   lenis&&lenis.stop();
@@ -620,6 +625,7 @@ function closeModal(){
 }
 function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
 function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function shiftMonth(n){calOffset=Math.max(0,Math.min(2,calOffset+n));renderStep()}
 
 function renderStep(){
   document.getElementById('modalTitle').textContent=titles[step-1];
@@ -632,12 +638,15 @@ function renderStep(){
         <div class="svc-name">${esc(n)}</div><div class="svc-price">${esc(p)}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
   } else if(step===2){
-    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const now=new Date(),view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
     const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const today=new Date(y,m,now.getDate());
+    const longMonths=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     const todayHasSlots=SLOT_HOURS.some(h=>h>now.getHours());
-    let cal=`<div class="step-title">Choose A Pickup Date</div><div class="calendar-grid">
+    let cal=`<div class="step-title">Choose A Pickup Date</div>
+      <div class="cal-month"><span>${longMonths[m]} ${y}</span><span class="cal-nav"><button type="button" aria-label="Previous month" onclick="shiftMonth(-1)"${calOffset===0?' disabled':''}>‹</button><button type="button" aria-label="Next month" onclick="shiftMonth(1)"${calOffset>=2?' disabled':''}>›</button></span></div>
+      <div class="calendar-grid">
       ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
       ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
     for(let d=1;d<=daysInMonth;d++){

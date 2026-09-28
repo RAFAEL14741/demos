@@ -103,6 +103,11 @@ td{font-size:.86rem;padding:.7rem;border-bottom:1px solid var(--cream);color:var
 .service-option:hover,.service-option.selected{border-color:var(--brick);background:#FBEAE7}
 .service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--charcoal)}
 .service-option .svc-price{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:var(--brick);margin-top:.25rem}
+.cal-month{display:flex;justify-content:space-between;align-items:center;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--charcoal)}
+.cal-nav{display:flex;gap:.4rem}
+.cal-nav button{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--white);color:var(--charcoal);font-size:1rem;line-height:1;cursor:pointer;transition:all .2s}
+.cal-nav button:hover{border-color:var(--brick);color:var(--brick)}
+.cal-nav button:disabled{opacity:.35;cursor:default}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
 .calendar-grid .cal-day-name{text-align:center;font-size:.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
 .calendar-grid .cal-day{text-align:center;padding:.46rem;border-radius:4px;font-size:.84rem;cursor:pointer;transition:all .2s}
@@ -367,13 +372,13 @@ function addOrderRow(time,name,item){
 /* ===== ORDER MODAL (adapted from the customer-facing demo) ===== */
 const CLOSED_DAYS=[];
 const SLOT_HOURS=[11,12,13,14,15,16,17,18,19,20,21];
-let step=1,chosen={serviceIdx:null,date:'',time:'',name:'',phone:'',notes:'',finalized:false};
+let step=1,calOffset=0,chosen={serviceIdx:null,date:'',time:'',name:'',phone:'',notes:'',finalized:false};
 const titles=['Select Item','Pickup Date','Pickup Time','Customer Info','Order Confirmed'];
 
 function slotLabel(h){const period=h<12?'AM':'PM';let hh=h%12;if(hh===0)hh=12;return hh+':00 '+period}
 
 function openBooking(){
-  step=1;chosen={serviceIdx:null,date:'',time:'',name:'',phone:'',notes:'',finalized:false};
+  step=1;calOffset=0;chosen={serviceIdx:null,date:'',time:'',name:'',phone:'',notes:'',finalized:false};
   renderStep();
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
@@ -384,6 +389,7 @@ function closeModal(){
 }
 function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
 function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
+function shiftMonth(n){calOffset=Math.max(0,Math.min(2,calOffset+n));renderStep()}
 function selectService(i){chosen.serviceIdx=i;renderStep();}
 
 function renderStep(){
@@ -397,12 +403,15 @@ function renderStep(){
         <div class="svc-name">${esc(s.n)}</div><div class="svc-price">${esc(fmt(s.p))}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.serviceIdx!=null){step=2;renderStep()}">Continue →</button>`;
   } else if(step===2){
-    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const now=new Date(),view=new Date(now.getFullYear(),now.getMonth()+calOffset,1),y=view.getFullYear(),m=view.getMonth();
     const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const today=new Date(y,m,now.getDate());
+    const longMonths=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     const todayHasSlots=SLOT_HOURS.some(h=>h>now.getHours());
-    let cal=`<div class="step-title">Choose A Pickup Date</div><div class="calendar-grid">
+    let cal=`<div class="step-title">Choose A Pickup Date</div>
+      <div class="cal-month"><span>${longMonths[m]} ${y}</span><span class="cal-nav"><button type="button" aria-label="Previous month" onclick="shiftMonth(-1)"${calOffset===0?' disabled':''}>‹</button><button type="button" aria-label="Next month" onclick="shiftMonth(1)"${calOffset>=2?' disabled':''}>›</button></span></div>
+      <div class="calendar-grid">
       ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
       ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
     for(let d=1;d<=daysInMonth;d++){
