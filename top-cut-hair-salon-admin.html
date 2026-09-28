@@ -114,6 +114,11 @@ tr:last-child td{border-bottom:none}
 .service-option:hover,.service-option.selected{border-color:var(--teal);background:var(--teal-tint)}
 .service-option .svc-name{font-weight:600;font-size:.86rem;color:var(--ink)}
 .service-option .svc-price{font-family:'Spectral',serif;font-size:1.05rem;font-weight:600;color:var(--teal);margin-top:.25rem}
+.cal-nav-header{display:flex;align-items:center;justify-content:space-between;margin-top:.7rem}
+.cal-nav-btn{background:none;border:2px solid var(--border);color:var(--ink);width:2rem;height:2rem;border-radius:50%;font-size:1rem;font-weight:700;line-height:1;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-family:'Albert Sans',sans-serif}
+.cal-nav-btn:disabled{opacity:.32;cursor:default}
+@media(hover:hover){.cal-nav-btn:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}}
+.cal-month-label{font-family:'Spectral',serif;font-weight:600;color:var(--ink);font-size:.92rem}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.26rem;margin-top:.7rem}
 .cal-day-name{text-align:center;font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;padding:.32rem 0}
 .calendar-grid .cal-day{text-align:center;padding:.5rem;border-radius:8px;font-size:.86rem;cursor:pointer;transition:all .2s}
@@ -146,12 +151,18 @@ tr:last-child td{border-bottom:none}
   .service-grid{grid-template-columns:1fr}
   .time-grid{grid-template-columns:repeat(2,1fr)}
 }
+@media(hover:none){
+  .service-option:hover:not(.selected){border-color:var(--border)!important;background:transparent!important}
+  .time-slot:hover:not(.selected){border-color:var(--border)!important;background:transparent!important;color:var(--ink)!important}
+  .calendar-grid .cal-day:hover:not(.disabled):not(.selected){background:transparent!important;color:var(--ink)!important}
+  .cal-nav-btn:hover{border-color:var(--border)!important;color:var(--ink)!important}
+}
 </style>
 </head>
 <body>
 <!-- PIPELINE DATA NOTES (internal) - remove before handing this admin tool to the client.
 [CONFIRM BEFORE VISIT] HOURS ARE ASSUMED, not verified: Tuesday-Saturday 9:00 AM-7:00 PM, Sunday 10:00 AM-4:00 PM, Monday Closed. Confirm with the owner, then update #hoursPanel, the CLOSED_DAYS constant and the SLOTS / SUN_SLOTS arrays together (must match top-cut-hair-salon-demo.html).
-[CONFIRM BEFORE VISIT] ALL PRICES ARE PHILADELPHIA-MARKET ESTIMATES, not the salon's real menu: Womens Haircut and Style $45, Mens Haircut $28, Kids Cut (12 and under) $20, Blowout $35, Color Single Process from $65, Highlights from $90, Deep Conditioning Treatment $25, Wash Plus Relaxing Massage $15. Update #servicesPanel AND the SERVICES array together.
+[CONFIRM BEFORE VISIT] ALL PRICES ARE PHILADELPHIA-MARKET ESTIMATES, not the salon's real menu: Womens Haircut and Style $45, Mens Haircut $28, Kids Cut (12 and under) $20, Blowout $35, Color Single Process from $65, Highlights from $90, Deep Conditioning Treatment $25, Wash + Relaxing Massage $15. Update #servicesPanel AND the SERVICES array together.
 [CONFIRM BEFORE VISIT] Sample appointments, client names and the Google rating (4.3 / 167 reviews) on this dashboard are placeholder demo data for internal review only, not real bookings.
 -->
 
@@ -227,7 +238,7 @@ tr:last-child td{border-bottom:none}
           <div class="svc-row"><span class="svc-name">Color, Single Process</span><span class="svc-price" id="svcPrice4">from $65</span><button class="svc-edit" onclick="editPrice(4)">Edit</button></div>
           <div class="svc-row"><span class="svc-name">Highlights</span><span class="svc-price" id="svcPrice5">from $90</span><button class="svc-edit" onclick="editPrice(5)">Edit</button></div>
           <div class="svc-row"><span class="svc-name">Deep Conditioning Treatment</span><span class="svc-price" id="svcPrice6">$25</span><button class="svc-edit" onclick="editPrice(6)">Edit</button></div>
-          <div class="svc-row"><span class="svc-name">Wash Plus Relaxing Massage</span><span class="svc-price" id="svcPrice7">$15</span><button class="svc-edit" onclick="editPrice(7)">Edit</button></div>
+          <div class="svc-row"><span class="svc-name">Wash + Relaxing Massage</span><span class="svc-price" id="svcPrice7">$15</span><button class="svc-edit" onclick="editPrice(7)">Edit</button></div>
         </div>
         <div class="card" id="hoursPanel">
           <div class="card-title">Weekly Hours</div>
@@ -268,7 +279,7 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;',
 const CLOSED_DAYS=[1]; /* Monday closed */
 const SLOTS=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
 const SUN_SLOTS=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM'];
-const SERVICES=[['Womens Haircut and Style','$45',45],['Mens Haircut','$28',28],['Kids Cut (12 and under)','$20',20],['Blowout','$35',35],['Color, Single Process','from $65',65],['Highlights','from $90',90],['Deep Conditioning Treatment','$25',25],['Wash Plus Relaxing Massage','$15',15]];
+const SERVICES=[['Womens Haircut and Style','$45',45],['Mens Haircut','$28',28],['Kids Cut (12 and under)','$20',20],['Blowout','$35',35],['Color, Single Process','from $65',65],['Highlights','from $90',90],['Deep Conditioning Treatment','$25',25],['Wash + Relaxing Massage','$15',15]];
 
 function parseTime(t){
   const m=String(t).match(/(\d+):(\d+)\s*(AM|PM)/i); if(!m) return 0;
@@ -415,15 +426,23 @@ function prependApptRow(c){
 }
 
 /* ===== BOOKING MODAL (adapted from the public site) ===== */
-let step=1,chosen={service:'',date:'',dateObj:null,dow:null,isToday:false,time:'',name:'',phone:'',committed:false};
+let step=1,chosen={service:'',date:'',dateObj:null,dow:null,isToday:false,time:'',name:'',phone:'',committed:false},calY=null,calM=null;
 const titles=['Select Service','Pick a Date','Pick a Time','Client Info','Appointment Added'];
 
 function openBooking(){
   step=1;
   chosen={service:'',date:'',dateObj:null,dow:null,isToday:false,time:'',name:'',phone:'',committed:false};
+  const n=new Date();calY=n.getFullYear();calM=n.getMonth();
   renderStep();
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
+}
+function navMonth(delta){
+  const now=new Date();
+  let ny=calY,nm=calM+delta;
+  if(nm<0){nm=11;ny--} else if(nm>11){nm=0;ny++}
+  if(ny<now.getFullYear()||(ny===now.getFullYear()&&nm<now.getMonth()))return;
+  calY=ny;calM=nm;renderStep();
 }
 function closeModal(){
   document.getElementById('modalOverlay').classList.remove('open');
@@ -450,7 +469,8 @@ function commitBooking(){
     if(el)el.textContent=(parseInt(el.textContent,10)||0)+1;
   } else {
     addCalendarDot(chosen.dateObj);
-    showToast('Added to '+chosen.date);
+    const dayLabel=chosen.dateObj.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    showToast('Added to '+dayLabel+' — check the calendar');
   }
   const startOfWeek=new Date(now);startOfWeek.setHours(0,0,0,0);startOfWeek.setDate(now.getDate()-now.getDay());
   const endOfWeek=new Date(startOfWeek);endOfWeek.setDate(startOfWeek.getDate()+6);endOfWeek.setHours(23,59,59,999);
@@ -472,11 +492,19 @@ function renderStep(){
         '<div class="svc-name">'+esc(n)+'</div><div class="svc-price">'+esc(p)+'</div></div>').join('')+'</div>';
     foot.innerHTML='<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>';
   } else if(step===2){
-    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const now=new Date(),y=calY,m=calM;
     const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
-    const today=new Date(y,m,now.getDate());
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     const curMin=now.getHours()*60+now.getMinutes();
-    let cal='<div class="step-title">Choose A Date</div><div class="calendar-grid">'+
+    const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const atMinMonth=(y===now.getFullYear()&&m===now.getMonth());
+    let cal='<div class="step-title">Choose A Date</div>'+
+      '<div class="cal-nav-header">'+
+        '<button type="button" class="cal-nav-btn" onclick="navMonth(-1)"'+(atMinMonth?' disabled':'')+' aria-label="Previous month">‹</button>'+
+        '<span class="cal-month-label">'+monthNames[m]+' '+y+'</span>'+
+        '<button type="button" class="cal-nav-btn" onclick="navMonth(1)" aria-label="Next month">›</button>'+
+      '</div>'+
+      '<div class="calendar-grid">'+
       ['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>'<div class="cal-day-name">'+d+'</div>').join('')+
       Array(first).fill('<div class="cal-day empty"></div>').join('');
     for(let d=1;d<=daysInMonth;d++){

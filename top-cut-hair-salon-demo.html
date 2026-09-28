@@ -652,15 +652,22 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;',
 const CLOSED_DAYS=[1]; /* Monday closed */
 const SLOTS=['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'];
 const SUN_SLOTS=['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM'];
-const SERVICES=[['Womens Haircut and Style','$45'],['Mens Haircut','$28'],['Kids Cut (12 and under)','$20'],['Blowout','$35'],['Color, Single Process','from $65'],['Highlights','from $90'],['Deep Conditioning Treatment','$25'],['Wash Plus Relaxing Massage','$15']];
-let step=1,chosen={service:'',date:'',dow:null,isToday:false,time:'',name:'',phone:'',notes:''};
+const SERVICES=[['Womens Haircut and Style','$45'],['Mens Haircut','$28'],['Kids Cut (12 and under)','$20'],['Blowout','$35'],['Color, Single Process','from $65'],['Highlights','from $90'],['Deep Conditioning Treatment','$25'],['Wash + Relaxing Massage','$15']];
+let step=1,chosen={service:'',date:'',dow:null,isToday:false,time:'',name:'',phone:'',notes:''},calY=null,calM=null;
 const titles=['Select Service','Pick a Date','Pick a Time','Your Info','Confirmed'];
 function slotHour(t){
   const m=t.match(/(\d+):00 (AM|PM)/); if(!m) return 0;
   let h=parseInt(m[1]); if(m[2]==='PM'&&h!==12)h+=12; if(m[2]==='AM'&&h===12)h=0;
   return h;
 }
-function openModal(){step=1;renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';if(MOTION&&lenis)lenis.stop()}
+function openModal(){step=1;const n=new Date();calY=n.getFullYear();calM=n.getMonth();renderStep();document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden';if(MOTION&&lenis)lenis.stop()}
+function navMonth(delta){
+  const now=new Date();
+  let ny=calY,nm=calM+delta;
+  if(nm<0){nm=11;ny--} else if(nm>11){nm=0;ny++}
+  if(ny<now.getFullYear()||(ny===now.getFullYear()&&nm<now.getMonth()))return;
+  calY=ny;calM=nm;renderStep();
+}
 function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';if(MOTION&&lenis)lenis.start()}
 function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
 function setStepDots(){for(let i=1;i<=5;i++){const d=document.getElementById('sd'+i);d.className='step-dot'+(i<step?' done':i===step?' active':'')}}
@@ -675,11 +682,18 @@ function renderStep(){
         <div class="svc-name">${n}</div><div class="svc-price">${p}</div></div>`).join('')}</div>`;
     foot.innerHTML=`<button class="btn-next" onclick="if(chosen.service){step=2;renderStep()}">Continue →</button>`;
   } else if(step===2){
-    const now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    const now=new Date(),y=calY,m=calM;
     const first=new Date(y,m,1).getDay(),daysInMonth=new Date(y,m+1,0).getDate();
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const today=new Date(y,m,now.getDate()),curHour=now.getHours();
-    let cal=`<div class="step-title">Choose A Date</div><div class="calendar-grid">
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate()),curHour=now.getHours();
+    const atMinMonth=(y===now.getFullYear()&&m===now.getMonth());
+    let cal=`<div class="step-title">Choose A Date</div>
+      <div class="cal-nav-header">
+        <button type="button" class="cal-nav-btn" onclick="navMonth(-1)"${atMinMonth?' disabled':''} aria-label="Previous month">‹</button>
+        <span class="cal-month-label">${months[m]} ${y}</span>
+        <button type="button" class="cal-nav-btn" onclick="navMonth(1)" aria-label="Next month">›</button>
+      </div>
+      <div class="calendar-grid">
       ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
       ${Array(first).fill('<div class="cal-day empty"></div>').join('')}`;
     for(let d=1;d<=daysInMonth;d++){
