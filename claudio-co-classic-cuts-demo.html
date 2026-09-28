@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claudio &amp; Co. Classic Cuts — Barber Shop | Fox Chase, Philadelphia</title>
+<meta name="description" content="Claudio & Co. Classic Cuts — 4.8★ barbershop on Pine Road in Fox Chase, Philadelphia. Haircuts, beard trims, straight razor shaves. Book online.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--charcoal:#161513;--charcoal2:#201e1b;--emerald:#1f5c46;--emerald-l:#2d8567;--gold:#cfa25a;--cream:#f3ede4;--muted:#a9a099;--line:#3a3630;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--charcoal);color:var(--cream);line-height:1.6;overflow-x:hidden;}
+h1,h2,h3,.display{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-weight:400;}
+a{text-decoration:none;color:inherit;}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+img{max-width:100%;display:block;}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(22,21,19,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1200px;margin:0 auto;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;color:var(--cream);}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;gap:32px;list-style:none;font-size:14px;text-transform:uppercase;letter-spacing:1px;}
+.nav-links a:hover{color:var(--gold);}
+.book-btn{background:var(--emerald);color:#fff;padding:12px 26px;border:none;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
+.book-btn:hover{background:var(--emerald-l);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+.hamburger span{width:26px;height:2px;background:var(--cream);}
+
+/* GALLERY MOSAIC HERO */
+.hero{padding:150px 32px 70px;max-width:1200px;margin:0 auto;}
+.hero-top{max-width:640px;margin-bottom:50px;}
+.hero-eyebrow{color:var(--gold);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
+.hero h1{font-size:clamp(54px,8vw,100px);line-height:.92;margin-bottom:20px;}
+.hero p{color:var(--muted);font-size:18px;max-width:500px;margin-bottom:30px;}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{background:var(--emerald);color:#fff;padding:16px 32px;border:none;font-size:14px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
+.btn-primary:hover{background:var(--emerald-l);}
+.btn-outline{border:1px solid var(--cream);padding:16px 32px;font-size:14px;letter-spacing:1px;text-transform:uppercase;}
+.btn-outline:hover{background:var(--cream);color:var(--charcoal);}
+.mosaic{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:220px 220px;gap:12px;}
+.mosaic img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%) contrast(1.05);transition:.4s;}
+.mosaic img:hover{filter:grayscale(0%);transform:scale(1.02);}
+.mosaic .big{grid-row:1/3;height:452px;}
+.stat-chip{position:absolute;background:var(--emerald);padding:20px 26px;transform:translate(-16px,-16px);}
+.mosaic-wrap{position:relative;}
+.stat-chip b{font-family:'Bebas Neue',sans-serif;font-size:30px;display:block;}
+.stat-chip span{font-size:11px;text-transform:uppercase;letter-spacing:1px;}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+section{padding:110px 0;}
+.section-header{text-align:center;max-width:600px;margin:0 auto 60px;}
+.eyebrow{color:var(--gold);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;}
+.section-header h2{font-size:clamp(36px,5vw,56px);}
+
+.about{background:var(--charcoal2);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.about-text p{color:var(--muted);margin-bottom:16px;font-size:16px;}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);}
+.svc-card{background:var(--charcoal);padding:36px 30px;}
+.svc-card h3{font-size:26px;color:var(--cream);margin-bottom:6px;}
+.svc-card .price{color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:30px;margin-bottom:10px;}
+.svc-card p{font-size:14px;color:var(--muted);}
+.confirm{font-size:11px;color:#71685f;text-transform:uppercase;margin-top:6px;}
+
+.gallery-strip{display:flex;gap:12px;overflow-x:auto;padding:0 32px 20px;}
+.gallery-strip img{height:280px;flex:0 0 auto;object-fit:cover;filter:grayscale(10%);}
+
+.reviews{background:var(--charcoal2);}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.rev-card{background:var(--charcoal);padding:32px;border-top:3px solid var(--emerald);}
+.stars{color:var(--gold);margin-bottom:14px;letter-spacing:2px;}
+.rev-card p{color:var(--cream);font-style:italic;margin-bottom:16px;font-size:15px;}
+.rev-name{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+.visit{background:var(--emerald);color:#fff;}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+.hours-list{list-style:none;margin-top:20px;}
+.hours-list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:15px;}
+.hours-list li.today{color:var(--gold);font-weight:600;}
+.visit iframe{width:100%;height:340px;border:0;}
+
+footer{background:var(--charcoal2);padding:50px 0 26px;text-align:center;color:var(--muted);}
+footer .logo{justify-content:center;margin-bottom:16px;}
+.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;}
+footer p{font-size:13px;margin-top:16px;}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,10,9,.88);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--charcoal2);max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border:1px solid var(--line);color:var(--cream);}
+.modal-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.modal-head h3{font-size:28px;}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);}
+.modal-body{padding:30px;}
+.step-progress{display:flex;gap:6px;padding:0 30px;margin-top:16px;}
+.step-progress div{flex:1;height:3px;background:var(--line);}
+.step-progress div.active{background:var(--gold);}
+.svc-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.svc-opt{border:1px solid var(--line);padding:16px;cursor:pointer;}
+.svc-opt:hover,.svc-opt.sel{border-color:var(--gold);background:rgba(207,162,90,.08);}
+.svc-opt b{display:block;font-size:15px;}
+.svc-opt span{font-size:13px;color:var(--muted);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
+.cal-day{text-align:center;padding:10px 0;cursor:pointer;font-size:14px;border:1px solid var(--line);}
+.cal-day.disabled{opacity:.25;cursor:not-allowed;}
+.cal-day.sel{background:var(--gold);color:var(--charcoal);border-color:var(--gold);}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.time-opt{padding:12px;text-align:center;border:1px solid var(--line);cursor:pointer;font-size:14px;}
+.time-opt.sel{background:var(--gold);color:var(--charcoal);border-color:var(--gold);}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:13px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+.form-group input{width:100%;padding:13px;border:1px solid var(--line);background:var(--charcoal);color:var(--cream);font-size:15px;font-family:'Barlow',sans-serif;}
+.summary-box{background:var(--charcoal);padding:18px;margin-bottom:20px;font-size:14px;border-left:3px solid var(--gold);}
+.modal-nav{display:flex;justify-content:space-between;margin-top:24px;}
+.btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;cursor:pointer;color:var(--cream);}
+.btn-next{background:var(--gold);color:var(--charcoal);border:none;padding:13px 30px;cursor:pointer;font-weight:600;}
+.confirm-screen{text-align:center;padding:20px 0;}
+.checkmark{width:80px;height:80px;border-radius:50%;background:var(--gold);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;animation:pop .4s ease;}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
+
+@media(max-width:900px){
+  .nav-links{display:none;} .hamburger{display:flex;}
+  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px;} .mosaic .big{grid-row:auto;height:180px;grid-column:1/3;}
+  .about-grid,.visit-grid{grid-template-columns:1fr;gap:34px;}
+  .svc-grid{grid-template-columns:1fr;}
+  .rev-grid{grid-template-columns:1fr;}
+  .svc-pick{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="logo">Claudio<span>&amp;Co.</span></div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <button class="book-btn" onclick="openBooking()">Book Now</button>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-top">
+    <div class="hero-eyebrow">Pine Road — Fox Chase, Philadelphia</div>
+    <h1>Classic Cuts.<br>Modern Shop.</h1>
+    <p>Claudio &amp; Co. — Fox Chase's highest-rated barbershop. Bright, clean, and every single barber on the floor knows their craft.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="openBooking()">Book Your Cut</button>
+      <a href="tel:2157254802" class="btn-outline">Call (215) 725-4802</a>
+    </div>
+  </div>
+  <div class="mosaic-wrap">
+    <div class="mosaic">
+      <img class="big" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=700&q=80" alt="Barber cutting hair">
+      <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=500&q=80" alt="Barbershop chairs">
+      <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=500&q=80" alt="Beard trim detail">
+      <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500&q=80" alt="Barber tools">
+      <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80" alt="Fresh fade">
+    </div>
+    <div class="stat-chip"><b>4.8★</b><span>189 Google Reviews</span></div>
+  </div>
+</section>
+
+<section class="about reveal">
+  <div class="container about-grid">
+    <div class="about-text">
+      <div class="eyebrow">Why Fox Chase Picks Us</div>
+      <h2 style="font-size:44px;margin-bottom:18px;">Every Barber, Top Notch</h2>
+      <p>Modern, bright, and clean — with a TV running sports and a shop full of regulars who trust every chair, not just one barber. Kayla, Paul and the team turn a haircut into the best part of your week.</p>
+      <p>Walk-ins welcome, appointments preferred. Currently the top-rated barbershop in Fox Chase at 4.8 stars across 189 Google reviews — and it shows the moment you sit down.</p>
+      <p class="confirm">Closed Mondays. Hours below — [CONFIRM before visit]</p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=650&q=80" alt="Barber shop interior">
+  </div>
+</section>
+
+<section class="reveal" id="services">
+  <div class="container"><div class="section-header"><div class="eyebrow">Services &amp; Pricing</div><h2>The Menu</h2></div></div>
+  <div class="svc-grid">
+    <div class="svc-card"><h3>Classic Haircut</h3><div class="price">$25</div><p>Clippers, scissor work, or both — your call.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Cut + Beard Trim</h3><div class="price">$35</div><p>Full haircut with a clean beard shape-up.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Beard Trim / Line Up</h3><div class="price">$15</div><p>Quick, precise edge-up on its own.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Straight Razor Shave</h3><div class="price">$30</div><p>Hot towel, straight razor, the full treatment.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Kids Cut</h3><div class="price">$18</div><p>Patient barbers, quick and painless for kids.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Gray Coverage / Color</h3><div class="price">$40</div><p>Natural-looking color and gray blending.</p><p class="confirm">[Confirm before visit]</p></div>
+  </div>
+</section>
+
+<section class="reveal" id="gallery">
+  <div class="container"><div class="section-header"><div class="eyebrow">In The Chair</div><h2>Fresh Cuts, Daily</h2></div></div>
+  <div class="gallery-strip">
+    <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=420&q=80" alt="Fade haircut">
+    <img src="https://images.unsplash.com/photo-1595152772835-219674b2a163?w=420&q=80" alt="Barber styling">
+    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=420&q=80" alt="Barbershop chair closeup">
+    <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=420&q=80" alt="Client getting a haircut">
+  </div>
+</section>
+
+<section class="reviews reveal" id="reviews">
+  <div class="container">
+    <div class="section-header"><div class="eyebrow">189 Five-Star Stories</div><h2>What Clients Say</h2></div>
+    <div class="rev-grid">
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Kayla is a sweetheart — perfect haircut and beard trim, every time. Much appreciated."</p><div class="rev-name">— Tate L., Google Review</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Best place to get your haircut. Kayla is so professional and Paul treats you like a best friend. Amazing staff and atmosphere."</p><div class="rev-name">— Usman A., 10 Reviews</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"5 big stars all the way. Finding a new barber isn't easy — I walked into Claudio's and knew I found my spot."</p><div class="rev-name">— irocit z., Local Guide</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit reveal" id="visit">
+  <div class="container visit-grid">
+    <div>
+      <div class="eyebrow" style="color:var(--charcoal);opacity:.7;">Visit Us</div>
+      <h2 style="font-size:42px;margin-bottom:10px;">8011 Pine Rd, Philadelphia, PA 19111</h2>
+      <p style="margin-bottom:10px;">(215) 725-4802</p>
+      <ul class="hours-list">
+        <li class="today"><span>Monday</span><span>Closed</span></li>
+        <li><span>Tuesday</span><span>8:30 AM – 6:00 PM [CONFIRM]</span></li>
+        <li><span>Wednesday</span><span>8:30 AM – 6:00 PM [CONFIRM]</span></li>
+        <li><span>Thursday</span><span>8:30 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Friday</span><span>8:30 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Saturday</span><span>8:00 AM – 5:00 PM [CONFIRM]</span></li>
+        <li><span>Sunday</span><span>Closed [CONFIRM]</span></li>
+      </ul>
+      <button class="btn-primary" style="margin-top:26px;background:var(--charcoal);" onclick="openBooking()">Book Your Cut</button>
+    </div>
+    <iframe src="https://maps.google.com/maps?q=8011+Pine+Rd+Philadelphia+PA+19111&output=embed" loading="lazy"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo">Claudio &amp; Co.</div>
+    <div class="foot-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a><a href="claudio-co-classic-cuts-admin.html">Staff Login</a></div>
+    <p>© 2026 Claudio &amp; Co. Classic Cuts · 8011 Pine Rd, Philadelphia, PA 19111 · (215) 725-4802</p>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="modalTitle">Book Your Cut</h3><button class="modal-close" onclick="closeBooking()">&times;</button></div>
+    <div class="step-progress" id="stepProgress"><div class="active"></div><div></div><div></div><div></div><div></div></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const SERVICES = [
+  {name:"Classic Haircut", price:25, dur:30},
+  {name:"Cut + Beard Trim", price:35, dur:45},
+  {name:"Beard Trim / Line Up", price:15, dur:15},
+  {name:"Straight Razor Shave", price:30, dur:30},
+  {name:"Kids Cut", price:18, dur:20},
+  {name:"Gray Coverage / Color", price:40, dur:40}
+];
+const OPEN_DAYS = [2,3,4,5,6];
+const OPEN_HOUR = 9, CLOSE_HOUR = 18;
+let step=1, booking={service:null,date:null,time:null,name:'',phone:''};
+function openBooking(){document.getElementById('bookingModal').classList.add('open');step=1;renderStep();}
+function closeBooking(){document.getElementById('bookingModal').classList.remove('open');}
+function renderProgress(){document.getElementById('stepProgress').innerHTML=[1,2,3,4,5].map(i=>`<div class="${i<=step?'active':''}"></div>`).join('');}
+function renderStep(){
+  renderProgress();
+  const body=document.getElementById('modalBody');
+  if(step===1){
+    document.getElementById('modalTitle').innerText='Choose a Service';
+    body.innerHTML=`<div class="svc-pick">${SERVICES.map((s,i)=>`<div class="svc-opt ${booking.service===i?'sel':''}" onclick="selectService(${i})"><b>${s.name}</b><span>$${s.price} · ${s.dur} min</span></div>`).join('')}</div>
+    <div class="modal-nav"><span></span><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===2){
+    document.getElementById('modalTitle').innerText='Pick a Date';
+    let days='';const today=new Date();
+    for(let i=0;i<14;i++){const d=new Date();d.setDate(today.getDate()+i);const disabled=!OPEN_DAYS.includes(d.getDay());
+      days+=`<div class="cal-day ${disabled?'disabled':''} ${booking.date===d.toDateString()?'sel':''}" ${disabled?'':`onclick="selectDate('${d.toDateString()}')"`}>${d.getDate()}<br><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></div>`;}
+    body.innerHTML=`<p style="color:var(--muted);font-size:14px;">Closed Mondays &amp; Sundays.</p><div class="cal-grid">${days}</div>
+    <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===3){
+    document.getElementById('modalTitle').innerText='Pick a Time';
+    let slots='';for(let h=OPEN_HOUR;h<CLOSE_HOUR;h++){['00','30'].forEach(m=>{const label=`${h>12?h-12:h}:${m} ${h>=12?'PM':'AM'}`;slots+=`<div class="time-opt ${booking.time===label?'sel':''}" onclick="selectTime('${label}')">${label}</div>`;});}
+    body.innerHTML=`<div class="time-grid">${slots}</div><div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===4){
+    document.getElementById('modalTitle').innerText='Your Info';
+    const s=SERVICES[booking.service];
+    body.innerHTML=`<div class="summary-box"><b>${s.name}</b> — $${s.price}<br>${booking.date} at ${booking.time}</div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="John Smith"></div>
+    <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="(215) 555-0123"></div>
+    <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="submitBooking()">Confirm Booking</button></div>`;
+  } else if(step===5){
+    document.getElementById('modalTitle').innerText="You're Booked!";
+    body.innerHTML=`<div class="confirm-screen"><div class="checkmark">✓</div>
+    <h3 style="margin-bottom:10px;">Thanks, ${booking.name.split(' ')[0]||'there'}!</h3>
+    <p style="color:var(--muted);margin-bottom:10px;">Your ${SERVICES[booking.service].name} is requested for ${booking.date} at ${booking.time}.</p>
+    <p style="color:var(--muted);">We'll call ${booking.phone} to confirm. See you in the chair!</p>
+    <button class="btn-next" style="margin-top:24px;" onclick="closeBooking()">Done</button></div>`;
+  }
+}
+function selectService(i){booking.service=i;renderStep();}
+function selectDate(d){booking.date=d;renderStep();}
+function selectTime(t){booking.time=t;renderStep();}
+function nextStep(){
+  if(step===1&&booking.service===null)return alert('Please select a service.');
+  if(step===2&&!booking.date)return alert('Please select a date.');
+  if(step===3&&!booking.time)return alert('Please select a time.');
+  step++;renderStep();
+}
+function prevStep(){step--;renderStep();}
+function submitBooking(){
+  const n=document.getElementById('custName').value.trim();
+  const p=document.getElementById('custPhone').value.trim();
+  if(!n||!p)return alert('Please enter your name and phone number.');
+  booking.name=n;booking.phone=p;step=5;renderStep();
+}
+document.querySelectorAll('a[href*="booksy"]').forEach(a=>{a.removeAttribute('href');a.onclick=(e)=>{e.preventDefault();openBooking();};});
+</script>
+</body>
+</html>

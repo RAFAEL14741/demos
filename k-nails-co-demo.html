@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K Nails &amp; Co. — Nail Salon | Oxford Ave, Fox Chase, Philadelphia</title>
+<meta name="description" content="K Nails & Co. — 4.8★ nail salon on Oxford Ave in Fox Chase, Philadelphia. Manicures, pedicures, acrylics, dip powder. Book online.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#faf5ef;--terracotta:#c8603a;--terracotta-d:#a04a2b;--ink:#2c2320;--muted:#8f8177;--line:#e9ddd0;--blush:#f1ddd2;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;overflow-x:hidden;}
+h1,h2,h3,.display{font-family:'Cormorant Garamond',serif;font-weight:500;}
+a{text-decoration:none;color:inherit;}
+.container{max-width:1180px;margin:0 auto;padding:0 32px;}
+img{max-width:100%;display:block;}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,245,239,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;max-width:1180px;margin:0 auto;}
+.logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:28px;color:var(--terracotta-d);}
+.nav-links{display:flex;gap:32px;list-style:none;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;}
+.nav-links a:hover{color:var(--terracotta);}
+.book-btn{background:var(--terracotta);color:#fff;padding:11px 26px;border-radius:30px;font-size:13px;letter-spacing:.5px;border:none;cursor:pointer;}
+.book-btn:hover{background:var(--terracotta-d);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+.hamburger span{width:26px;height:2px;background:var(--ink);}
+
+/* EDITORIAL FULL-BLEED HERO */
+.hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(44,35,32,.75) 0%,rgba(44,35,32,.1) 55%,rgba(44,35,32,.35) 100%);}
+.hero-inner{position:relative;z-index:2;color:#fff;padding:0 32px 80px;max-width:1180px;margin:0 auto;width:100%;}
+.hero-eyebrow{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--blush);margin-bottom:20px;}
+.hero h1{font-size:clamp(48px,8vw,110px);line-height:.95;margin-bottom:26px;font-style:italic;max-width:800px;}
+.hero-meta{display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap;}
+.hero-ctas{display:flex;gap:16px;}
+.btn-primary{background:var(--terracotta);color:#fff;padding:16px 34px;border-radius:30px;font-size:14px;letter-spacing:.5px;border:none;cursor:pointer;}
+.btn-primary:hover{background:var(--terracotta-d);}
+.btn-outline{border:1px solid #fff;color:#fff;padding:16px 34px;border-radius:30px;font-size:14px;letter-spacing:.5px;}
+.btn-outline:hover{background:#fff;color:var(--ink);}
+.hero-rating{font-family:'Cormorant Garamond',serif;font-size:22px;}
+.hero-rating b{font-size:32px;color:var(--blush);}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+section{padding:120px 0;}
+.section-header{text-align:center;max-width:640px;margin:0 auto 64px;}
+.eyebrow{color:var(--terracotta);font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
+.section-header h2{font-size:clamp(34px,4.5vw,54px);font-style:italic;}
+
+.about{background:#fff;}
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center;}
+.about-text p{color:var(--muted);margin-bottom:18px;font-size:16px;}
+.about-img{border-radius:2px;}
+
+.svc-band{background:var(--blush);}
+.svc-list{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--terracotta-d);}
+.svc-row{display:flex;justify-content:space-between;align-items:baseline;padding:26px 20px;border-bottom:1px solid rgba(160,74,43,.25);}
+.svc-row:nth-child(odd){border-right:1px solid rgba(160,74,43,.25);}
+.svc-row h3{font-size:22px;}
+.svc-row .price{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--terracotta-d);}
+.confirm{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;margin-top:3px;}
+
+.gallery{background:var(--cream);}
+.gal-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;height:560px;}
+.gal-grid img{width:100%;height:100%;object-fit:cover;border-radius:2px;}
+.gal-grid .tall{grid-row:1/3;height:100%;}
+
+.reviews{background:#fff;}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+.rev-card{background:var(--cream);padding:38px 32px;border-radius:2px;}
+.stars{color:var(--terracotta);margin-bottom:16px;letter-spacing:2px;}
+.rev-card p{font-style:italic;font-size:16px;margin-bottom:18px;}
+.rev-name{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+.visit{background:var(--ink);color:#fff;}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.hours-list{list-style:none;margin-top:24px;}
+.hours-list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:15px;}
+.hours-list li.today{color:var(--blush);font-weight:600;}
+.visit iframe{width:100%;height:340px;border:0;border-radius:2px;}
+
+footer{background:#fff;padding:50px 0 26px;text-align:center;color:var(--muted);border-top:1px solid var(--line);}
+footer .logo{justify-content:center;margin-bottom:16px;}
+.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;}
+footer p{font-size:13px;margin-top:16px;}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(44,35,32,.85);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border-radius:12px;}
+.modal-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.modal-head h3{font-size:26px;font-style:italic;}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);}
+.modal-body{padding:30px;}
+.step-progress{display:flex;gap:6px;padding:0 30px;margin-top:16px;}
+.step-progress div{flex:1;height:3px;background:var(--line);border-radius:2px;}
+.step-progress div.active{background:var(--terracotta);}
+.svc-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.svc-opt{border:1px solid var(--line);padding:16px;border-radius:10px;cursor:pointer;}
+.svc-opt:hover,.svc-opt.sel{border-color:var(--terracotta);background:var(--blush);}
+.svc-opt b{display:block;font-size:15px;}
+.svc-opt span{font-size:13px;color:var(--muted);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
+.cal-day{text-align:center;padding:10px 0;border-radius:8px;cursor:pointer;font-size:14px;border:1px solid var(--line);}
+.cal-day.disabled{opacity:.25;cursor:not-allowed;}
+.cal-day.sel{background:var(--terracotta);color:#fff;border-color:var(--terracotta);}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.time-opt{padding:12px;text-align:center;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:14px;}
+.time-opt.sel{background:var(--terracotta);color:#fff;border-color:var(--terracotta);}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:13px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+.form-group input{width:100%;padding:13px;border:1px solid var(--line);border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;}
+.summary-box{background:var(--blush);padding:18px;border-radius:10px;margin-bottom:20px;font-size:14px;}
+.modal-nav{display:flex;justify-content:space-between;margin-top:24px;}
+.btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;border-radius:8px;cursor:pointer;}
+.btn-next{background:var(--terracotta);color:#fff;border:none;padding:13px 30px;border-radius:8px;cursor:pointer;font-weight:500;}
+.confirm-screen{text-align:center;padding:20px 0;}
+.checkmark{width:80px;height:80px;border-radius:50%;background:var(--terracotta);color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;animation:pop .4s ease;}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
+
+@media(max-width:900px){
+  .nav-links{display:none;} .hamburger{display:flex;}
+  .about-grid,.visit-grid{grid-template-columns:1fr;gap:34px;}
+  .svc-list{grid-template-columns:1fr;} .svc-row:nth-child(odd){border-right:none;}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px 180px;height:auto;} .gal-grid .tall{grid-row:auto;height:180px;}
+  .rev-grid{grid-template-columns:1fr;}
+  .svc-pick{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="logo">K Nails &amp; Co.</div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <button class="book-btn" onclick="openBooking()">Book Now</button>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1600&q=80" alt="Nail art closeup at K Nails & Co">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Oxford Avenue — Fox Chase, Philadelphia</div>
+    <h1>Nails, Done Beautifully.</h1>
+    <div class="hero-meta">
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="openBooking()">Book an Appointment</button>
+        <a href="tel:2156137298" class="btn-outline">Call (215) 613-7298</a>
+      </div>
+      <div class="hero-rating"><b>4.8★</b> · 85 Google Reviews</div>
+    </div>
+  </div>
+</section>
+
+<section class="about reveal">
+  <div class="container about-grid">
+    <img class="about-img" src="https://images.unsplash.com/photo-1610992015762-45dca7fa3a85?w=640&q=80" alt="Nail technician at work">
+    <div class="about-text">
+      <div class="eyebrow">Fresh Off Oxford Ave</div>
+      <h2 style="font-size:40px;margin-bottom:18px;">Talented Techs, Real Attention to Detail</h2>
+      <p>K Nails &amp; Co. has quickly become a Fox Chase favorite — clients rave about the nail techs by name, and about how their gel and dip sets hold up for weeks longer than anywhere else they've tried.</p>
+      <p>Whether you're in for a quick fill or a full custom set, the vibe here is welcoming and the work is precise — with an owner who responds personally to nearly every review.</p>
+      <p class="confirm">Hours listed below — [CONFIRM before visit]</p>
+    </div>
+  </div>
+</section>
+
+<section class="svc-band reveal" id="services">
+  <div class="container">
+    <div class="section-header"><div class="eyebrow">Services &amp; Pricing</div><h2>The Menu</h2></div>
+    <div class="svc-list">
+      <div class="svc-row"><h3>Classic Manicure</h3><div class="price">$22<span class="confirm">Confirm before visit</span></div></div>
+      <div class="svc-row"><h3>Gel Manicure</h3><div class="price">$35<span class="confirm">Confirm before visit</span></div></div>
+      <div class="svc-row"><h3>Classic Pedicure</h3><div class="price">$32<span class="confirm">Confirm before visit</span></div></div>
+      <div class="svc-row"><h3>Gel Pedicure</h3><div class="price">$45<span class="confirm">Confirm before visit</span></div></div>
+      <div class="svc-row"><h3>Full Set (Acrylic)</h3><div class="price">$55<span class="confirm">Confirm before visit</span></div></div>
+      <div class="svc-row"><h3>Dip Powder</h3><div class="price">$45<span class="confirm">Confirm before visit</span></div></div>
+      <div class="svc-row"><h3>Fill-In</h3><div class="price">$35<span class="confirm">Confirm before visit</span></div></div>
+      <div class="svc-row"><h3>Nail Art / Add-On</h3><div class="price">from $5<span class="confirm">Confirm before visit</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery reveal" id="gallery">
+  <div class="container">
+    <div class="section-header"><div class="eyebrow">In The Salon</div><h2>Our Work</h2></div>
+    <div class="gal-grid">
+      <img class="tall" src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?w=800&q=80" alt="Nail art design">
+      <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&q=80" alt="Manicure set">
+      <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=500&q=80" alt="Pedicure station">
+      <img src="https://images.unsplash.com/photo-1690749138086-7422f71dc159?w=500&q=80" alt="Gel polish colors">
+      <img src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?w=500&q=80" alt="Nail salon interior">
+    </div>
+  </div>
+</section>
+
+<section class="reviews reveal" id="reviews">
+  <div class="container">
+    <div class="section-header"><div class="eyebrow">85 Happy Clients</div><h2>What They're Saying</h2></div>
+    <div class="rev-grid">
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"I love this place. First time seeing Shaylee and I can't get enough — got an incredible pedicure too. Leaving a very happy lady!"</p><div class="rev-name">— thyare r., Local Guide</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Never disappoints! Love it here! Everyone is so sweet — I will never go anywhere else to get my nails done."</p><div class="rev-name">— Audrey G., Google Review</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Best nail place I've ever been. This is the only place I can go 3+ weeks without an issue — the designs are incredible too."</p><div class="rev-name">— Taylor G., Google Review</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit reveal" id="visit">
+  <div class="container visit-grid">
+    <div>
+      <div class="eyebrow" style="color:var(--terracotta);">Visit Us</div>
+      <h2 style="font-size:38px;margin-bottom:10px;">7954 Oxford Ave, Philadelphia, PA 19111</h2>
+      <p style="opacity:.8;margin-bottom:10px;">(215) 613-7298</p>
+      <ul class="hours-list">
+        <li><span>Monday</span><span>9:30 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Tuesday</span><span>9:30 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Wednesday</span><span>9:30 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Thursday</span><span>9:30 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Friday</span><span>9:30 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Saturday</span><span>9:00 AM – 6:00 PM [CONFIRM]</span></li>
+        <li class="today"><span>Sunday</span><span>11:00 AM – 5:00 PM [CONFIRM]</span></li>
+      </ul>
+      <button class="btn-primary" style="margin-top:28px;" onclick="openBooking()">Book an Appointment</button>
+    </div>
+    <iframe src="https://maps.google.com/maps?q=7954+Oxford+Ave+Philadelphia+PA+19111&output=embed" loading="lazy"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo">K Nails &amp; Co.</div>
+    <div class="foot-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a><a href="k-nails-co-admin.html">Staff Login</a></div>
+    <p>© 2026 K Nails &amp; Co. · 7954 Oxford Ave, Philadelphia, PA 19111 · (215) 613-7298</p>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="modalTitle">Book an Appointment</h3><button class="modal-close" onclick="closeBooking()">&times;</button></div>
+    <div class="step-progress" id="stepProgress"><div class="active"></div><div></div><div></div><div></div><div></div></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const SERVICES = [
+  {name:"Classic Manicure", price:22, dur:30},
+  {name:"Gel Manicure", price:35, dur:45},
+  {name:"Classic Pedicure", price:32, dur:40},
+  {name:"Gel Pedicure", price:45, dur:50},
+  {name:"Full Set (Acrylic)", price:55, dur:75},
+  {name:"Dip Powder", price:45, dur:50}
+];
+const OPEN_DAYS = [0,1,2,3,4,5,6];
+const OPEN_HOUR = 10, CLOSE_HOUR = 19;
+let step=1, booking={service:null,date:null,time:null,name:'',phone:''};
+function openBooking(){document.getElementById('bookingModal').classList.add('open');step=1;renderStep();}
+function closeBooking(){document.getElementById('bookingModal').classList.remove('open');}
+function renderProgress(){document.getElementById('stepProgress').innerHTML=[1,2,3,4,5].map(i=>`<div class="${i<=step?'active':''}"></div>`).join('');}
+function renderStep(){
+  renderProgress();
+  const body=document.getElementById('modalBody');
+  if(step===1){
+    document.getElementById('modalTitle').innerText='Choose a Service';
+    body.innerHTML=`<div class="svc-pick">${SERVICES.map((s,i)=>`<div class="svc-opt ${booking.service===i?'sel':''}" onclick="selectService(${i})"><b>${s.name}</b><span>$${s.price} · ${s.dur} min</span></div>`).join('')}</div>
+    <div class="modal-nav"><span></span><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===2){
+    document.getElementById('modalTitle').innerText='Pick a Date';
+    let days='';const today=new Date();
+    for(let i=0;i<14;i++){const d=new Date();d.setDate(today.getDate()+i);const disabled=!OPEN_DAYS.includes(d.getDay());
+      days+=`<div class="cal-day ${disabled?'disabled':''} ${booking.date===d.toDateString()?'sel':''}" ${disabled?'':`onclick="selectDate('${d.toDateString()}')"`}>${d.getDate()}<br><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></div>`;}
+    body.innerHTML=`<p style="color:var(--muted);font-size:14px;">Open 7 days a week.</p><div class="cal-grid">${days}</div>
+    <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===3){
+    document.getElementById('modalTitle').innerText='Pick a Time';
+    let slots='';for(let h=OPEN_HOUR;h<CLOSE_HOUR;h++){['00','30'].forEach(m=>{const label=`${h>12?h-12:h}:${m} ${h>=12?'PM':'AM'}`;slots+=`<div class="time-opt ${booking.time===label?'sel':''}" onclick="selectTime('${label}')">${label}</div>`;});}
+    body.innerHTML=`<div class="time-grid">${slots}</div><div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===4){
+    document.getElementById('modalTitle').innerText='Your Info';
+    const s=SERVICES[booking.service];
+    body.innerHTML=`<div class="summary-box"><b>${s.name}</b> — $${s.price}<br>${booking.date} at ${booking.time}</div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Jane Smith"></div>
+    <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="(215) 555-0123"></div>
+    <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="submitBooking()">Confirm Booking</button></div>`;
+  } else if(step===5){
+    document.getElementById('modalTitle').innerText="You're Booked!";
+    body.innerHTML=`<div class="confirm-screen"><div class="checkmark">✓</div>
+    <h3 style="margin-bottom:10px;">Thanks, ${booking.name.split(' ')[0]||'there'}!</h3>
+    <p style="color:var(--muted);margin-bottom:10px;">Your ${SERVICES[booking.service].name} is requested for ${booking.date} at ${booking.time}.</p>
+    <p style="color:var(--muted);">We'll call ${booking.phone} to confirm. See you soon!</p>
+    <button class="btn-next" style="margin-top:24px;" onclick="closeBooking()">Done</button></div>`;
+  }
+}
+function selectService(i){booking.service=i;renderStep();}
+function selectDate(d){booking.date=d;renderStep();}
+function selectTime(t){booking.time=t;renderStep();}
+function nextStep(){
+  if(step===1&&booking.service===null)return alert('Please select a service.');
+  if(step===2&&!booking.date)return alert('Please select a date.');
+  if(step===3&&!booking.time)return alert('Please select a time.');
+  step++;renderStep();
+}
+function prevStep(){step--;renderStep();}
+function submitBooking(){
+  const n=document.getElementById('custName').value.trim();
+  const p=document.getElementById('custPhone').value.trim();
+  if(!n||!p)return alert('Please enter your name and phone number.');
+  booking.name=n;booking.phone=p;step=5;renderStep();
+}
+document.querySelectorAll('a[href*="booksy"]').forEach(a=>{a.removeAttribute('href');a.onclick=(e)=>{e.preventDefault();openBooking();};});
+</script>
+</body>
+</html>

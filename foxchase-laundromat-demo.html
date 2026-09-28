@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foxchase Laundromat — Wash, Fold &amp; Dry Cleaning | Rhawn St, Philadelphia</title>
+<meta name="description" content="Foxchase Laundromat — self-service laundry, wash & fold drop-off, and dry cleaning on Rhawn Street in Fox Chase, Philadelphia. Schedule a drop-off online.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--steel:#2f5d78;--steel-d:#22475d;--mint:#dff0ea;--white:#ffffff;--ink:#1f2a30;--muted:#6b7a82;--line:#dde6e9;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--ink);line-height:1.6;overflow-x:hidden;}
+h1,h2,h3{font-weight:600;}
+a{text-decoration:none;color:inherit;}
+.container{max-width:1180px;margin:0 auto;padding:0 32px;}
+img{max-width:100%;display:block;}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1180px;margin:0 auto;}
+.logo{font-size:22px;font-weight:700;color:var(--steel-d);}
+.logo span{color:var(--steel);font-weight:400;}
+.nav-links{display:flex;gap:30px;list-style:none;font-size:14px;font-weight:500;}
+.nav-links a:hover{color:var(--steel);}
+.book-btn{background:var(--steel);color:#fff;padding:11px 26px;border-radius:6px;font-size:14px;font-weight:600;border:none;cursor:pointer;}
+.book-btn:hover{background:var(--steel-d);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+.hamburger span{width:26px;height:2px;background:var(--ink);}
+
+/* HORIZONTAL PHOTO STRIP HERO */
+.hero{display:flex;min-height:100vh;padding-top:74px;}
+.hero-text{flex:0 0 40%;display:flex;flex-direction:column;justify-content:center;padding:40px 50px;background:var(--mint);}
+.hero-eyebrow{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--steel-d);margin-bottom:18px;font-weight:600;}
+.hero h1{font-size:clamp(38px,4.5vw,56px);line-height:1.08;margin-bottom:20px;color:var(--steel-d);}
+.hero p{color:var(--muted);font-size:17px;max-width:400px;margin-bottom:28px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{background:var(--steel);color:#fff;padding:15px 30px;border-radius:6px;font-size:14px;font-weight:600;border:none;cursor:pointer;}
+.btn-primary:hover{background:var(--steel-d);}
+.btn-outline{border:1.5px solid var(--steel-d);color:var(--steel-d);padding:15px 30px;border-radius:6px;font-size:14px;font-weight:600;}
+.btn-outline:hover{background:var(--steel-d);color:#fff;}
+.hero-rating{margin-top:36px;font-size:15px;color:var(--steel-d);font-weight:600;}
+.hero-strip{flex:1;display:flex;overflow:hidden;}
+.hero-strip img{width:100%;height:100%;object-fit:cover;flex:1;filter:saturate(1.05);}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+section{padding:110px 0;}
+.section-header{text-align:center;max-width:620px;margin:0 auto 60px;}
+.eyebrow{color:var(--steel);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:600;}
+.section-header h2{font-size:clamp(32px,4vw,46px);color:var(--steel-d);}
+
+.about{background:#fff;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.about-text p{color:var(--muted);margin-bottom:16px;font-size:16px;}
+.stat-row{display:flex;gap:36px;margin-top:28px;}
+.stat-row div b{display:block;font-size:32px;color:var(--steel-d);font-weight:700;}
+.stat-row div span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+
+.svc-band{background:var(--steel-d);color:#fff;}
+.svc-band .eyebrow{color:var(--mint);}
+.svc-band .section-header h2{color:#fff;}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.1);}
+.svc-card{background:var(--steel-d);padding:30px 24px;}
+.svc-card h3{font-size:18px;margin-bottom:10px;}
+.svc-card .price{font-size:26px;font-weight:700;color:var(--mint);margin-bottom:8px;}
+.svc-card p{font-size:13px;color:#c3d6dd;}
+.confirm{font-size:11px;color:#8fa8b1;text-transform:uppercase;margin-top:6px;display:block;}
+
+.strip2{display:flex;gap:8px;}
+.strip2 img{flex:1;height:300px;object-fit:cover;}
+
+.reviews{background:var(--mint);}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.rev-card{background:#fff;padding:32px;border-radius:10px;}
+.stars{color:var(--steel);margin-bottom:14px;letter-spacing:2px;}
+.rev-card p{font-style:italic;font-size:15px;margin-bottom:16px;}
+.rev-name{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+
+.visit{background:#fff;}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.hours-list{list-style:none;margin-top:20px;}
+.hours-list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;}
+.hours-list li.today{color:var(--steel-d);font-weight:700;}
+.visit iframe{width:100%;height:340px;border:0;border-radius:8px;}
+
+footer{background:var(--steel-d);color:#c3d6dd;padding:50px 0 26px;text-align:center;}
+footer .logo{color:#fff;justify-content:center;margin-bottom:16px;}
+.foot-links{display:flex;justify-content:center;gap:22px;margin:18px 0;font-size:13px;}
+footer p{font-size:13px;margin-top:16px;}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(31,42,48,.85);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border-radius:10px;}
+.modal-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.modal-head h3{font-size:22px;}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);}
+.modal-body{padding:30px;}
+.step-progress{display:flex;gap:6px;padding:0 30px;margin-top:16px;}
+.step-progress div{flex:1;height:3px;background:var(--line);border-radius:2px;}
+.step-progress div.active{background:var(--steel);}
+.svc-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.svc-opt{border:1px solid var(--line);padding:16px;border-radius:8px;cursor:pointer;}
+.svc-opt:hover,.svc-opt.sel{border-color:var(--steel);background:var(--mint);}
+.svc-opt b{display:block;font-size:15px;}
+.svc-opt span{font-size:13px;color:var(--muted);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
+.cal-day{text-align:center;padding:10px 0;border-radius:6px;cursor:pointer;font-size:14px;border:1px solid var(--line);}
+.cal-day.disabled{opacity:.25;cursor:not-allowed;}
+.cal-day.sel{background:var(--steel);color:#fff;border-color:var(--steel);}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.time-opt{padding:12px;text-align:center;border:1px solid var(--line);border-radius:6px;cursor:pointer;font-size:14px;}
+.time-opt.sel{background:var(--steel);color:#fff;border-color:var(--steel);}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:13px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+.form-group input{width:100%;padding:13px;border:1px solid var(--line);border-radius:6px;font-size:15px;font-family:'Poppins',sans-serif;}
+.summary-box{background:var(--mint);padding:18px;border-radius:8px;margin-bottom:20px;font-size:14px;}
+.modal-nav{display:flex;justify-content:space-between;margin-top:24px;}
+.btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;border-radius:6px;cursor:pointer;}
+.btn-next{background:var(--steel);color:#fff;border:none;padding:13px 30px;border-radius:6px;cursor:pointer;font-weight:600;}
+.confirm-screen{text-align:center;padding:20px 0;}
+.checkmark{width:80px;height:80px;border-radius:50%;background:var(--steel);color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;animation:pop .4s ease;}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
+
+@media(max-width:900px){
+  .nav-links{display:none;} .hamburger{display:flex;}
+  .hero{flex-direction:column;padding-top:74px;}
+  .hero-text{flex:none;padding:50px 24px;}
+  .hero-strip{height:280px;}
+  .about-grid,.visit-grid{grid-template-columns:1fr;gap:34px;}
+  .svc-grid{grid-template-columns:1fr 1fr;}
+  .strip2{flex-wrap:wrap;} .strip2 img{flex:1 1 45%;height:200px;}
+  .rev-grid{grid-template-columns:1fr;}
+  .svc-pick{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="logo">Foxchase <span>Laundromat</span></div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <button class="book-btn" onclick="openBooking()">Schedule Drop-Off</button>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Rhawn Street — Fox Chase, Philadelphia</div>
+    <h1>Wash. Fold. Done.</h1>
+    <p>Full-service wash &amp; fold, dry cleaning, and self-service machines for every size load — a Fox Chase staple for over a decade.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="openBooking()">Schedule a Drop-Off</button>
+      <a href="tel:2157287322" class="btn-outline">Call (215) 728-7322</a>
+    </div>
+    <div class="hero-rating">4.0★ · 120 Google Reviews</div>
+  </div>
+  <div class="hero-strip">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=80" alt="Laundromat machines">
+    <img src="https://images.unsplash.com/photo-1620626011761-996317702519?w=500&q=80" alt="Folded laundry">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80" alt="Clean laundry room">
+  </div>
+</section>
+
+<section class="about reveal">
+  <div class="container about-grid">
+    <div class="about-text">
+      <div class="eyebrow">Why Fox Chase Trusts Us</div>
+      <h2 style="font-size:38px;margin-bottom:18px;color:var(--steel-d);">Big Machines, Real Service</h2>
+      <p>Foxchase Laundromat has been the neighborhood's go-to for over ten years — extra-large washers for comforters and duvets, a full range of machine sizes, and staff who handle drop-off wash &amp; fold and dry cleaning.</p>
+      <p>Skip the wait — schedule a drop-off online and pick up clean, folded laundry on your schedule.</p>
+      <div class="stat-row">
+        <div><b>10+ Yrs</b><span>Serving Fox Chase</span></div>
+        <div><b>120</b><span>Google Reviews</span></div>
+        <div><b>4.0★</b><span>Average Rating</span></div>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=650&q=80" alt="Rows of washing machines" style="border-radius:8px;">
+  </div>
+</section>
+
+<section class="svc-band reveal" id="services">
+  <div class="container"><div class="section-header"><div class="eyebrow">Services &amp; Pricing</div><h2>Drop It Off, We'll Handle It</h2></div></div>
+  <div class="svc-grid">
+    <div class="svc-card"><h3>Wash &amp; Fold Drop-Off</h3><div class="price">$1.75/lb</div><p>Bring it in, we wash, dry &amp; fold.</p><span class="confirm">[Confirm before visit]</span></div>
+    <div class="svc-card"><h3>Dry Cleaning</h3><div class="price">from $6</div><p>Shirts, pants, suits &amp; dresses.</p><span class="confirm">[Confirm before visit]</span></div>
+    <div class="svc-card"><h3>Comforter / Duvet Wash</h3><div class="price">$12</div><p>Extra-large machines for bulky items.</p><span class="confirm">[Confirm before visit]</span></div>
+    <div class="svc-card"><h3>Same-Day Rush Service</h3><div class="price">+$10</div><p>Need it back today? We've got you.</p><span class="confirm">[Confirm before visit]</span></div>
+  </div>
+</section>
+
+<section class="reveal" id="gallery">
+  <div class="strip2">
+    <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=500&q=80" alt="Laundry baskets">
+    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&q=80" alt="Clean folded towels">
+    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Laundromat interior">
+    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80" alt="Washing machine detail">
+  </div>
+</section>
+
+<section class="reviews reveal" id="reviews">
+  <div class="container">
+    <div class="section-header"><div class="eyebrow">120 Neighbors Agree</div><h2>What Customers Say</h2></div>
+    <div class="rev-grid">
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Great local laundromat. Lots of different size machines and plenty of dryers — I use the extra-large washers for comforters I can't wash at home."</p><div class="rev-name">— Jeanne G., Local Guide</div></div>
+      <div class="rev-card"><div class="stars">★★★★</div><p>"Fair priced laundromat, staff very friendly, machines work well."</p><div class="rev-name">— Google Review</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Best prices and great service for drop off and dry cleaning!"</p><div class="rev-name">— Google Review</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit reveal" id="visit">
+  <div class="container visit-grid">
+    <div>
+      <div class="eyebrow">Visit Us</div>
+      <h2 style="font-size:36px;margin-bottom:10px;color:var(--steel-d);">418 Rhawn St, Philadelphia, PA 19111</h2>
+      <p style="color:var(--muted);margin-bottom:10px;">(215) 728-7322</p>
+      <ul class="hours-list">
+        <li><span>Monday – Saturday</span><span>7:00 AM – 10:00 PM [CONFIRM]</span></li>
+        <li class="today"><span>Sunday</span><span>8:00 AM – 10:00 PM [CONFIRM]</span></li>
+        <li><span>Last Wash-In</span><span>9:00 PM [CONFIRM]</span></li>
+      </ul>
+      <button class="btn-primary" style="margin-top:26px;" onclick="openBooking()">Schedule a Drop-Off</button>
+    </div>
+    <iframe src="https://maps.google.com/maps?q=418+Rhawn+St+Philadelphia+PA+19111&output=embed" loading="lazy"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo">Foxchase Laundromat</div>
+    <div class="foot-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a><a href="foxchase-laundromat-admin.html">Staff Login</a></div>
+    <p>© 2026 Foxchase Laundromat · 418 Rhawn St, Philadelphia, PA 19111 · (215) 728-7322</p>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="modalTitle">Schedule a Drop-Off</h3><button class="modal-close" onclick="closeBooking()">&times;</button></div>
+    <div class="step-progress" id="stepProgress"><div class="active"></div><div></div><div></div><div></div><div></div></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const SERVICES = [
+  {name:"Wash & Fold Drop-Off", price:25, dur:15},
+  {name:"Dry Cleaning Drop-Off", price:15, dur:10},
+  {name:"Comforter / Duvet Wash", price:12, dur:10},
+  {name:"Same-Day Rush Service", price:35, dur:15}
+];
+const OPEN_DAYS = [0,1,2,3,4,5,6];
+const OPEN_HOUR = 7, CLOSE_HOUR = 21;
+let step=1, booking={service:null,date:null,time:null,name:'',phone:''};
+function openBooking(){document.getElementById('bookingModal').classList.add('open');step=1;renderStep();}
+function closeBooking(){document.getElementById('bookingModal').classList.remove('open');}
+function renderProgress(){document.getElementById('stepProgress').innerHTML=[1,2,3,4,5].map(i=>`<div class="${i<=step?'active':''}"></div>`).join('');}
+function renderStep(){
+  renderProgress();
+  const body=document.getElementById('modalBody');
+  if(step===1){
+    document.getElementById('modalTitle').innerText='Choose a Service';
+    body.innerHTML=`<div class="svc-pick">${SERVICES.map((s,i)=>`<div class="svc-opt ${booking.service===i?'sel':''}" onclick="selectService(${i})"><b>${s.name}</b><span>from $${s.price} · ${s.dur} min drop-off</span></div>`).join('')}</div>
+    <div class="modal-nav"><span></span><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===2){
+    document.getElementById('modalTitle').innerText='Pick a Drop-Off Date';
+    let days='';const today=new Date();
+    for(let i=0;i<14;i++){const d=new Date();d.setDate(today.getDate()+i);const disabled=!OPEN_DAYS.includes(d.getDay());
+      days+=`<div class="cal-day ${disabled?'disabled':''} ${booking.date===d.toDateString()?'sel':''}" ${disabled?'':`onclick="selectDate('${d.toDateString()}')"`}>${d.getDate()}<br><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></div>`;}
+    body.innerHTML=`<p style="color:var(--muted);font-size:14px;">Open every day.</p><div class="cal-grid">${days}</div>
+    <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===3){
+    document.getElementById('modalTitle').innerText='Pick a Time';
+    let slots='';for(let h=OPEN_HOUR;h<CLOSE_HOUR;h++){['00','30'].forEach(m=>{const label=`${h>12?h-12:h}:${m} ${h>=12?'PM':'AM'}`;slots+=`<div class="time-opt ${booking.time===label?'sel':''}" onclick="selectTime('${label}')">${label}</div>`;});}
+    body.innerHTML=`<div class="time-grid">${slots}</div><div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+  } else if(step===4){
+    document.getElementById('modalTitle').innerText='Your Info';
+    const s=SERVICES[booking.service];
+    body.innerHTML=`<div class="summary-box"><b>${s.name}</b> — from $${s.price}<br>${booking.date} at ${booking.time}</div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Jane Smith"></div>
+    <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="(215) 555-0123"></div>
+    <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="submitBooking()">Confirm Drop-Off</button></div>`;
+  } else if(step===5){
+    document.getElementById('modalTitle').innerText="You're All Set!";
+    body.innerHTML=`<div class="confirm-screen"><div class="checkmark">✓</div>
+    <h3 style="margin-bottom:10px;">Thanks, ${booking.name.split(' ')[0]||'there'}!</h3>
+    <p style="color:var(--muted);margin-bottom:10px;">Your ${SERVICES[booking.service].name} is scheduled for ${booking.date} at ${booking.time}.</p>
+    <p style="color:var(--muted);">We'll call ${booking.phone} to confirm. See you soon!</p>
+    <button class="btn-next" style="margin-top:24px;" onclick="closeBooking()">Done</button></div>`;
+  }
+}
+function selectService(i){booking.service=i;renderStep();}
+function selectDate(d){booking.date=d;renderStep();}
+function selectTime(t){booking.time=t;renderStep();}
+function nextStep(){
+  if(step===1&&booking.service===null)return alert('Please select a service.');
+  if(step===2&&!booking.date)return alert('Please select a date.');
+  if(step===3&&!booking.time)return alert('Please select a time.');
+  step++;renderStep();
+}
+function prevStep(){step--;renderStep();}
+function submitBooking(){
+  const n=document.getElementById('custName').value.trim();
+  const p=document.getElementById('custPhone').value.trim();
+  if(!n||!p)return alert('Please enter your name and phone number.');
+  booking.name=n;booking.phone=p;step=5;renderStep();
+}
+document.querySelectorAll('a[href*="booksy"]').forEach(a=>{a.removeAttribute('href');a.onclick=(e)=>{e.preventDefault();openBooking();};});
+</script>
+</body>
+</html>

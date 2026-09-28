@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klipper's Hair Studio — Family Salon in Fox Chase | Philadelphia, PA</title>
+<meta name="description" content="Klipper's Hair Studio — family-owned hair salon on Rhawn Street in Fox Chase, Philadelphia. Cuts, color, keratin treatments. Book online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose:#b3654a; --rose-dark:#8f4a34; --cream:#faf4ee; --charcoal:#241f1c;
+    --gold:#c9a15a; --ink:#2b2420; --muted:#8a7c72; --line:#e7dcd2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;overflow-x:hidden;}
+  h1,h2,h3,.display{font-family:'Cormorant Garamond',serif;font-weight:600;}
+  a{text-decoration:none;color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 32px;}
+  img{max-width:100%;display:block;}
+
+  /* NAV */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,244,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:.3s;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:1180px;margin:0 auto;}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;letter-spacing:.5px;color:var(--rose-dark);}
+  .logo span{color:var(--gold);}
+  .nav-links{display:flex;gap:34px;list-style:none;font-size:14px;letter-spacing:.5px;text-transform:uppercase;}
+  .nav-links a{position:relative;padding-bottom:4px;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--rose);transition:.3s;}
+  .nav-links a:hover::after{width:100%;}
+  .book-btn{background:var(--rose-dark);color:#fff;padding:11px 26px;border-radius:2px;font-size:13px;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;transition:.3s;}
+  .book-btn:hover{background:var(--gold);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{width:26px;height:2px;background:var(--ink);}
+
+  /* HERO — split screen */
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:0;}
+  .hero-img{position:relative;overflow:hidden;}
+  .hero-img img{width:100%;height:100%;object-fit:cover;min-height:100vh;transform:scale(1.05);}
+  .hero-content{display:flex;flex-direction:column;justify-content:center;padding:0 60px;background:var(--cream);position:relative;}
+  .hero-eyebrow{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:22px;opacity:0;animation:fadeUp .8s ease .1s forwards;}
+  .hero h1{font-size:clamp(42px,5vw,68px);line-height:1.05;margin-bottom:22px;opacity:0;animation:fadeUp .8s ease .3s forwards;}
+  .hero p{font-size:18px;color:var(--muted);max-width:420px;margin-bottom:32px;opacity:0;animation:fadeUp .8s ease .5s forwards;}
+  .hero-ctas{display:flex;gap:16px;opacity:0;animation:fadeUp .8s ease .7s forwards;}
+  .btn-primary{background:var(--rose-dark);color:#fff;padding:16px 34px;border-radius:2px;font-size:14px;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;}
+  .btn-primary:hover{background:var(--gold);}
+  .btn-outline{border:1px solid var(--ink);color:var(--ink);padding:16px 34px;border-radius:2px;font-size:14px;letter-spacing:1px;text-transform:uppercase;}
+  .btn-outline:hover{background:var(--ink);color:#fff;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .hero-stats{display:flex;gap:40px;margin-top:48px;padding-top:32px;border-top:1px solid var(--line);opacity:0;animation:fadeUp .8s ease .9s forwards;}
+  .hero-stats div b{display:block;font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--rose-dark);}
+  .hero-stats div span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  section{padding:110px 0;}
+  .section-header{text-align:center;max-width:600px;margin:0 auto 60px;}
+  .eyebrow{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:14px;}
+  .section-header h2{font-size:clamp(32px,4vw,48px);}
+
+  /* Story */
+  .story{background:#fff;}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+  .story-text p{color:var(--muted);margin-bottom:18px;font-size:16px;}
+  .story-img{position:relative;}
+  .story-img img{border-radius:2px;}
+  .badge-ring{position:absolute;bottom:-24px;right:-24px;width:130px;height:130px;background:var(--rose-dark);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.3;padding:10px;}
+  .badge-ring b{display:block;font-size:30px;}
+
+  /* Services */
+  .services{background:var(--charcoal);color:#f4ece4;}
+  .services .eyebrow{color:var(--gold);}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.08);}
+  .svc-card{background:var(--charcoal);padding:34px 28px;transition:.3s;}
+  .svc-card:hover{background:#332b25;}
+  .svc-card h3{font-size:22px;margin-bottom:8px;color:#fff;}
+  .svc-card .price{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:10px;}
+  .svc-card p{font-size:14px;color:#c9bdb1;}
+  .confirm{font-size:11px;color:#8a7c72;text-transform:uppercase;letter-spacing:.5px;}
+
+  /* Gallery mosaic strip */
+  .gallery{background:var(--cream);}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .gal-grid img{height:220px;object-fit:cover;border-radius:2px;transition:.4s;}
+  .gal-grid img:hover{transform:scale(1.03);filter:brightness(1.05);}
+
+  /* Reviews */
+  .reviews{background:#fff;}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .rev-card{background:var(--cream);padding:36px;border-radius:2px;border-left:3px solid var(--rose);}
+  .stars{color:var(--gold);margin-bottom:14px;letter-spacing:2px;}
+  .rev-card p{font-style:italic;color:var(--ink);margin-bottom:16px;}
+  .rev-name{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+
+  /* Hours/contact */
+  .visit{background:var(--rose-dark);color:#fff;}
+  .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .hours-list{list-style:none;margin-top:24px;}
+  .hours-list li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:15px;}
+  .hours-list li.today{color:var(--gold);font-weight:600;}
+  .visit iframe{width:100%;height:340px;border:0;border-radius:2px;filter:grayscale(30%);}
+
+  footer{background:var(--charcoal);color:#c9bdb1;padding:60px 0 30px;text-align:center;}
+  footer .logo{color:#fff;margin-bottom:16px;justify-content:center;}
+  footer p{font-size:13px;margin-top:20px;color:#8a7c72;}
+  .foot-links{display:flex;justify-content:center;gap:24px;margin:20px 0;font-size:13px;}
+
+  /* Booking Modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(36,31,28,.85);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:#fff;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;border-radius:4px;position:relative;}
+  .modal-head{padding:26px 30px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .modal-head h3{font-size:24px;}
+  .modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);}
+  .modal-body{padding:30px;}
+  .step-progress{display:flex;gap:6px;padding:0 30px;margin-top:16px;}
+  .step-progress div{flex:1;height:3px;background:var(--line);border-radius:2px;}
+  .step-progress div.active{background:var(--rose-dark);}
+  .svc-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .svc-opt{border:1px solid var(--line);padding:16px;border-radius:4px;cursor:pointer;transition:.2s;}
+  .svc-opt:hover,.svc-opt.sel{border-color:var(--rose-dark);background:var(--cream);}
+  .svc-opt b{display:block;font-size:15px;}
+  .svc-opt span{font-size:13px;color:var(--muted);}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;}
+  .cal-day{text-align:center;padding:10px 0;border-radius:4px;cursor:pointer;font-size:14px;border:1px solid var(--line);}
+  .cal-day.disabled{opacity:.25;cursor:not-allowed;}
+  .cal-day.sel{background:var(--rose-dark);color:#fff;border-color:var(--rose-dark);}
+  .time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+  .time-opt{padding:12px;text-align:center;border:1px solid var(--line);border-radius:4px;cursor:pointer;font-size:14px;}
+  .time-opt.sel{background:var(--rose-dark);color:#fff;border-color:var(--rose-dark);}
+  .form-group{margin-bottom:18px;}
+  .form-group label{display:block;font-size:13px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+  .form-group input{width:100%;padding:13px;border:1px solid var(--line);border-radius:4px;font-size:15px;font-family:'Jost',sans-serif;}
+  .summary-box{background:var(--cream);padding:18px;border-radius:4px;margin-bottom:20px;font-size:14px;}
+  .modal-nav{display:flex;justify-content:space-between;margin-top:24px;}
+  .btn-ghost{background:none;border:1px solid var(--line);padding:13px 24px;border-radius:4px;cursor:pointer;}
+  .btn-next{background:var(--rose-dark);color:#fff;border:none;padding:13px 30px;border-radius:4px;cursor:pointer;font-weight:500;}
+  .confirm-screen{text-align:center;padding:20px 0;}
+  .checkmark{width:80px;height:80px;border-radius:50%;background:var(--rose-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 24px;animation:pop .4s ease;}
+  @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.15);}100%{transform:scale(1);}}
+
+  @media(max-width:860px){
+    .nav-links,.hero-stats{display:none;}
+    .hamburger{display:flex;}
+    .hero{grid-template-columns:1fr;}
+    .hero-img img{min-height:50vh;}
+    .hero-content{padding:50px 24px;}
+    .story-grid,.visit-grid{grid-template-columns:1fr;gap:36px;}
+    .svc-grid{grid-template-columns:1fr;}
+    .gal-grid{grid-template-columns:repeat(2,1fr);}
+    .rev-grid{grid-template-columns:1fr;}
+    .svc-pick{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="logo">Klipper's <span>Hair Studio</span></div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <button class="book-btn" onclick="openBooking()">Book Now</button>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=1200&q=80" alt="Klipper's Hair Studio interior">
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Fox Chase, Philadelphia — Rhawn Street</div>
+    <h1>Family-Run Hair Care, Done Right.</h1>
+    <p>Robert, Doris and the team have been giving Fox Chase great haircuts for decades — walk in feeling like family, leave with hair you love.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="openBooking()">Book Your Appointment</button>
+      <a href="tel:2157253134" class="btn-outline">Call (215) 725-3134</a>
+    </div>
+    <div class="hero-stats">
+      <div><b>4.7★</b><span>130 Google Reviews</span></div>
+      <div><b>Decades</b><span>Family Owned</span></div>
+      <div><b>443</b><span>Rhawn St</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="story reveal">
+  <div class="container story-grid">
+    <div class="story-img">
+      <img src="https://images.unsplash.com/photo-1595152772835-219674b2a163?w=700&q=80" alt="Stylist working with a client">
+      <div class="badge-ring"><b>4.7★</b>130 reviews</div>
+    </div>
+    <div class="story-text">
+      <div class="eyebrow">Our Story</div>
+      <h2 style="margin-bottom:20px;font-size:38px;">A Fox Chase Staple, Chair by Chair</h2>
+      <p>Klipper's Hair Studio has been a fixture on Rhawn Street for years, run by a genuinely family team — clients mention Robert, Doris and Gina by name because they've been cutting the same neighborhood's hair for that long.</p>
+      <p>It's bright, it's clean, and it's the kind of place where you're greeted like you've been coming in for years — even on your first visit. Men's cuts, women's color and styling, keratin treatments, and everything in between.</p>
+      <p class="confirm">Closed Mondays. Open Tuesday–Saturday. [CONFIRM full hours before visit]</p>
+    </div>
+  </div>
+</section>
+
+<section class="services reveal" id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Services & Pricing</div>
+      <h2>What We Offer</h2>
+    </div>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card"><h3>Women's Cut &amp; Style</h3><div class="price">$45</div><p>Consultation, shampoo, cut, blow-dry finish.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Men's Haircut</h3><div class="price">$25</div><p>Classic or modern, clippers or scissor work.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Full Color / Highlights</h3><div class="price">$95+</div><p>Single process or foil highlights, toner included.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Keratin Treatment</h3><div class="price">$150</div><p>Smoothing treatment — client-requested specialty.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Blowout &amp; Style</h3><div class="price">$35</div><p>Wash, blow-dry, finishing style for any occasion.</p><p class="confirm">[Confirm before visit]</p></div>
+    <div class="svc-card"><h3>Kids Cut (12 &amp; under)</h3><div class="price">$18</div><p>Patient, friendly cuts for the little ones.</p><p class="confirm">[Confirm before visit]</p></div>
+  </div>
+</section>
+
+<section class="gallery reveal" id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Inside The Studio</div>
+      <h2>Bright, Clean, Welcoming</h2>
+    </div>
+    <div class="gal-grid">
+      <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=500&q=80" alt="Salon chairs">
+      <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=500&q=80" alt="Hair color work">
+      <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500&q=80" alt="Styling tools">
+      <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80" alt="Finished blowout">
+    </div>
+  </div>
+</section>
+
+<section class="reviews reveal" id="reviews">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Fox Chase Loves Us</div>
+      <h2>What Our Clients Say</h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Robert and Doris are amazing — you leave feeling great, surrounded by genuinely good energy. We've been coming back for years."</p><div class="rev-name">— Jeannette D., Google Review</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"Always great service — haircuts are amazing, coloring is always on point. Staff is friendly and the shop is bright and clean."</p><div class="rev-name">— Shirley F., Local Guide</div></div>
+      <div class="rev-card"><div class="stars">★★★★★</div><p>"This family-owned salon makes you feel welcomed the second you walk in. Every stylist is a master at their craft — Gina did an amazing job on my highlights."</p><div class="rev-name">— Patricia B., Local Guide</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit reveal" id="visit">
+  <div class="container visit-grid">
+    <div>
+      <div class="eyebrow" style="color:var(--gold);">Visit Us</div>
+      <h2 style="font-size:38px;margin-bottom:10px;">443 Rhawn St, Philadelphia, PA 19111</h2>
+      <p style="opacity:.85;margin-bottom:10px;">(215) 725-3134</p>
+      <ul class="hours-list">
+        <li class="today"><span>Monday</span><span>Closed</span></li>
+        <li><span>Tuesday</span><span>9:00 AM – 6:00 PM [CONFIRM]</span></li>
+        <li><span>Wednesday</span><span>9:00 AM – 6:00 PM [CONFIRM]</span></li>
+        <li><span>Thursday</span><span>9:00 AM – 7:00 PM [CONFIRM]</span></li>
+        <li><span>Friday</span><span>9:00 AM – 6:00 PM [CONFIRM]</span></li>
+        <li><span>Saturday</span><span>9:00 AM – 4:00 PM [CONFIRM]</span></li>
+        <li><span>Sunday</span><span>Closed [CONFIRM]</span></li>
+      </ul>
+      <button class="btn-primary" style="margin-top:28px;" onclick="openBooking()">Book Your Appointment</button>
+    </div>
+    <iframe src="https://maps.google.com/maps?q=443+Rhawn+St+Philadelphia+PA+19111&output=embed" loading="lazy"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo">Klipper's Hair Studio</div>
+    <div class="foot-links">
+      <a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a>
+      <a href="klippers-hair-studio-admin.html">Staff Login</a>
+    </div>
+    <p>© 2026 Klipper's Hair Studio · 443 Rhawn St, Philadelphia, PA 19111 · (215) 725-3134</p>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="modalTitle">Book Your Visit</h3><button class="modal-close" onclick="closeBooking()">&times;</button></div>
+    <div class="step-progress" id="stepProgress"><div class="active"></div><div></div><div></div><div></div><div></div></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // reveal on scroll
+  const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}})},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Booking system
+  const SERVICES = [
+    {name:"Women's Cut & Style", price:45, dur:45},
+    {name:"Men's Haircut", price:25, dur:30},
+    {name:"Full Color / Highlights", price:95, dur:120},
+    {name:"Keratin Treatment", price:150, dur:150},
+    {name:"Blowout & Style", price:35, dur:40},
+    {name:"Kids Cut", price:18, dur:25}
+  ];
+  const OPEN_DAYS = [2,3,4,5,6]; // Tue-Sat (0=Sun)
+  const OPEN_HOUR = 9, CLOSE_HOUR = 18;
+  let step=1, booking={service:null,date:null,time:null,name:'',phone:''};
+
+  function openBooking(){document.getElementById('bookingModal').classList.add('open');step=1;renderStep();}
+  function closeBooking(){document.getElementById('bookingModal').classList.remove('open');}
+
+  function renderProgress(){
+    document.getElementById('stepProgress').innerHTML = [1,2,3,4,5].map(i=>`<div class="${i<=step?'active':''}"></div>`).join('');
+  }
+
+  function renderStep(){
+    renderProgress();
+    const body = document.getElementById('modalBody');
+    if(step===1){
+      document.getElementById('modalTitle').innerText = 'Choose a Service';
+      body.innerHTML = `<div class="svc-pick">${SERVICES.map((s,i)=>`<div class="svc-opt ${booking.service===i?'sel':''}" onclick="selectService(${i})"><b>${s.name}</b><span>$${s.price} · ${s.dur} min</span></div>`).join('')}</div>
+      <div class="modal-nav"><span></span><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+    } else if(step===2){
+      document.getElementById('modalTitle').innerText = 'Pick a Date';
+      let days='';
+      const today = new Date();
+      for(let i=0;i<14;i++){
+        const d = new Date(); d.setDate(today.getDate()+i);
+        const disabled = !OPEN_DAYS.includes(d.getDay());
+        days += `<div class="cal-day ${disabled?'disabled':''} ${booking.date===d.toDateString()?'sel':''}" ${disabled?'':`onclick="selectDate('${d.toDateString()}')"`}>${d.getDate()}<br><small>${d.toLocaleDateString('en-US',{month:'short'})}</small></div>`;
+      }
+      body.innerHTML = `<p style="color:var(--muted);font-size:14px;">Closed Mondays &amp; Sundays.</p><div class="cal-grid">${days}</div>
+      <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+    } else if(step===3){
+      document.getElementById('modalTitle').innerText = 'Pick a Time';
+      let slots='';
+      for(let h=OPEN_HOUR;h<CLOSE_HOUR;h++){
+        ['00','30'].forEach(m=>{
+          const label = `${h>12?h-12:h}:${m} ${h>=12?'PM':'AM'}`;
+          slots += `<div class="time-opt ${booking.time===label?'sel':''}" onclick="selectTime('${label}')">${label}</div>`;
+        });
+      }
+      body.innerHTML = `<div class="time-grid">${slots}</div>
+      <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Continue</button></div>`;
+    } else if(step===4){
+      document.getElementById('modalTitle').innerText = 'Your Info';
+      const s = SERVICES[booking.service];
+      body.innerHTML = `<div class="summary-box"><b>${s.name}</b> — $${s.price}<br>${booking.date} at ${booking.time}</div>
+      <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Jane Smith"></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="custPhone" placeholder="(215) 555-0123"></div>
+      <div class="modal-nav"><button class="btn-ghost" onclick="prevStep()">Back</button><button class="btn-next" onclick="submitBooking()">Confirm Booking</button></div>`;
+    } else if(step===5){
+      document.getElementById('modalTitle').innerText = "You're Booked!";
+      body.innerHTML = `<div class="confirm-screen"><div class="checkmark">✓</div>
+      <h3 style="margin-bottom:10px;">Thanks, ${booking.name.split(' ')[0]||'there'}!</h3>
+      <p style="color:var(--muted);margin-bottom:10px;">Your ${SERVICES[booking.service].name} is requested for ${booking.date} at ${booking.time}.</p>
+      <p style="color:var(--muted);">We'll call ${booking.phone} to confirm. See you soon!</p>
+      <button class="btn-next" style="margin-top:24px;" onclick="closeBooking()">Done</button></div>`;
+    }
+  }
+  function selectService(i){booking.service=i;renderStep();}
+  function selectDate(d){booking.date=d;renderStep();}
+  function selectTime(t){booking.time=t;renderStep();}
+  function nextStep(){
+    if(step===1 && booking.service===null) return alert('Please select a service.');
+    if(step===2 && !booking.date) return alert('Please select a date.');
+    if(step===3 && !booking.time) return alert('Please select a time.');
+    step++;renderStep();
+  }
+  function prevStep(){step--;renderStep();}
+  function submitBooking(){
+    const n = document.getElementById('custName').value.trim();
+    const p = document.getElementById('custPhone').value.trim();
+    if(!n||!p) return alert('Please enter your name and phone number.');
+    booking.name=n;booking.phone=p;step=5;renderStep();
+  }
+  // convert any booksy-style links
+  document.querySelectorAll('a[href*="booksy"]').forEach(a=>{a.removeAttribute('href');a.onclick=(e)=>{e.preventDefault();openBooking();};});
+</script>
+</body>
+</html>
