@@ -61,6 +61,9 @@ nav.top.solid{background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-f
 /* mode pill */
 .mode{position:fixed;left:50%;bottom:22px;z-index:75;transform:translate(-50%,140%);display:flex;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(16px);border:1px solid var(--ln);border-radius:60px;padding:5px;transition:transform .6s cubic-bezier(.2,.8,.2,1),background .7s;box-shadow:0 10px 40px rgba(0,0,0,.25)}
 .mode.on{transform:translate(-50%,0)}
+.mode button:not(.on)::after{content:'';position:absolute;top:8px;right:9px;width:6px;height:6px;border-radius:50%;background:var(--ac);animation:pd 1.8s infinite}
+@keyframes pd{0%{box-shadow:0 0 0 0 var(--ac)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media(prefers-reduced-motion:reduce){.mode button:not(.on)::after{animation:none}}
 .mode button{white-space:nowrap;position:relative;z-index:2;padding:11px 22px;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;border-radius:50px;transition:color .4s;color:var(--mu)}
 .mode button.on{color:var(--acx)}
 .mode .th{position:absolute;top:5px;bottom:5px;left:5px;width:0;background:var(--ac);border-radius:50px;transition:left .5s cubic-bezier(.7,0,.2,1),width .5s cubic-bezier(.7,0,.2,1),background .7s;z-index:1}
@@ -97,7 +100,7 @@ nav.top.solid{background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-f
 .tt .k{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;font-weight:600;opacity:.92}
 .tt h1{font-size:clamp(2.2rem,5.6vw,5rem);margin-top:10px;text-shadow:0 4px 40px rgba(0,0,0,.35)}
 .tt h1 em{color:#fff}
-.hint{position:absolute;left:50%;bottom:4.5vh;transform:translateX(-50%);z-index:6;color:#fff;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;display:flex;gap:14px;align-items:center;font-weight:600;pointer-events:none;text-align:center;white-space:nowrap}
+.hint{position:absolute;left:50%;bottom:calc(4.5vh + 78px);transform:translateX(-50%);z-index:6;color:#fff;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;display:flex;gap:14px;align-items:center;font-weight:600;pointer-events:none;text-align:center;white-space:nowrap}
 .hstat{position:absolute;left:5vw;top:13vh;z-index:6;color:#fff;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;display:flex;gap:10px;align-items:center}
 .hstat b{width:9px;height:9px;border-radius:50%;background:#8d8d8d}
 .hstat.on b{background:#7dffb1;box-shadow:0 0 12px #7dffb1}
@@ -260,7 +263,7 @@ footer .cr{grid-column:1/-1;background:#14120f;color:#7a7266;font-size:.72rem;pa
   .mosw{position:static}.mos{grid-auto-rows:70px}
   footer{grid-template-columns:1fr}footer .fl,footer .fr{padding:70px 6vw 40px;min-height:260px}
   .tms{grid-template-columns:repeat(3,1fr)}
-  .hint{bottom:3vh}
+  .hint{display:none}
   .mode button{padding:10px 16px;font-size:.68rem}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -275,7 +278,7 @@ footer .cr{grid-column:1/-1;background:#14120f;color:#7a7266;font-size:.72rem;pa
   <div class="nr"><a href="#book" class="btn sm">Book a time</a><button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button></div>
 </nav>
 <div class="drawer" id="drawer"><a class="big" href="#duo">Two sides</a><a class="big" href="#services">Services</a><a class="big" href="#reviews">Reviews</a><a class="big" href="#book">Book</a><a class="big" href="#visit">Visit</a></div>
-<div class="mode" id="mode"><div class="th" id="modeTh"></div><button class="on" data-m="barber">Barber</button><button data-m="nails">Nails &amp; Brows</button></div>
+<div class="mode" id="mode"><div class="th" id="modeTh"></div><button class="on" data-m="barber">✂ Barber</button><button data-m="nails">✦ Nails &amp; Brows</button></div>
 
 <header class="split" id="split">
   <div class="side l"><img id="imgL" src="https://images.unsplash.com/photo-1759134198561-e2041049419c?auto=format&fit=crop&w=2000&q=75" alt="Barbershop interior" fetchpriority="high" onerror="this.remove()"></div>
@@ -434,9 +437,9 @@ function goTo(sel){var el=$(sel);if(!el)return;if(lenis)lenis.scrollTo(el,{offse
 $$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();if(a.dataset.side)setMode(a.dataset.side);if(a.dataset.svc)pickSvc(a.dataset.svc);closeDrawer();goTo(h)}})});
 var drawer=$('#drawer'),burger=$('#burger');
 function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');if(lenis)lenis.start()}
-burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);if(lenis){on?lenis.stop():lenis.start()}});
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);ns();if(lenis){on?lenis.stop():lenis.start()}});
 var nav=$('#nav'),mp=$('#mode');
-function ns(){var y=scrollY;nav.classList.toggle('solid',y>innerHeight*.7);mp.classList.toggle('on',y>innerHeight*.6&&y+innerHeight<document.documentElement.scrollHeight-500)}
+function ns(){var y=scrollY;nav.classList.toggle('solid',y>innerHeight*.7);mp.classList.toggle('on',!drawer.classList.contains('on'))}
 addEventListener('scroll',ns,{passive:true});ns();
 
 /* ---------- mode (theme morph) ---------- */
