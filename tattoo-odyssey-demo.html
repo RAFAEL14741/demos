@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+DEMO CONCEPT NOTES - facts marked [CONFIRM] are shown only as labelled placeholders:
+[CONFIRM] hours (Yelp hours shown with "owner confirms" tag; Instagram snippet says Tue/Thu until 9 PM)
+[CONFIRM] walk-in vs appointment policy (NOT stated; form says "request a consult")
+[CONFIRM] years in business (placeholder card only)
+[CONFIRM] artist roles / bios / specialties for Gil & Manny (placeholders "owner adds")
+[CONFIRM] prices (none shown - "Quotes after consult"), promos, age/ID policy, piercing (omitted)
+No testimonials shown. Photos are Unsplash sample imagery, not the shop's work.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tattoo Odyssey - Custom, Traditional &amp; Cover-Up Tattoos, Castor Ave Philadelphia</title>
+<meta name="description" content="Tattoo Odyssey Inc, 8012B Castor Ave, Philadelphia PA 19152 (Rhawnhurst). Custom, traditional and cover-up tattoos, line work, shading and blending. 5.0 stars on Google. Request a consult online.">
+<meta name="theme-color" content="#efe3c8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat+Brush&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TattooParlor","name":"Tattoo Odyssey Inc","telephone":"+1-215-725-1166","address":{"@type":"PostalAddress","streetAddress":"8012B Castor Ave","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19152","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"174"}}
+</script>
+<style>
+:root{
+  --paper:#efe3c8;--paper2:#e4d1a4;--card:#f8f0da;--ink:#17130f;--red:#c8302a;--teal:#1d7773;--mus:#dca11a;--mu:#5d5142;
+  --slab:'Alfa Slab One',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--hand:'Caveat Brush','Comic Sans MS',cursive;--sans:'IBM Plex Sans',system-ui,sans-serif;
+  --wrap:min(1240px,90vw);--nav:72px;
+  --blot:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 8c22-4 34 10 52 14 24 6 42 22 36 46-5 20 14 30 8 54-6 26-30 30-46 44-18 16-34 30-58 24-22-5-30-22-50-28-24-8-38-22-34-48 3-20-12-34-4-56 8-24 32-22 46-34 12-10 32-10 50-16z'/%3E%3Ccircle cx='18' cy='30' r='7'/%3E%3Ccircle cx='187' cy='178' r='9'/%3E%3Ccircle cx='172' cy='12' r='5'/%3E%3Ccircle cx='10' cy='150' r='4'/%3E%3C/svg%3E");
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:150;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .26 0 0 0 0 .15 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.wrap{width:var(--wrap);margin:0 auto}
+.slab{font-family:var(--slab);font-weight:400;line-height:.98;letter-spacing:.005em;text-transform:uppercase}
+.mono{font-family:var(--mono)}
+.eb{font-family:var(--mono);font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.eb b{white-space:nowrap;background:var(--ink);color:var(--paper);padding:3px 9px;letter-spacing:.1em}
+.eb::after{content:"";height:3px;width:60px;background:var(--red)}
+.h2{font-size:clamp(2.3rem,5.6vw,4.9rem)}
+.h2 em{font-style:normal;color:var(--red)}
+.sec{padding:120px 0;position:relative}
+.hand{font-family:var(--hand);font-size:1.5rem;line-height:1.1;color:var(--red)}
+.tag{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:2px 8px;border:1.5px dashed var(--ink);background:var(--card);color:var(--ink);white-space:nowrap}
+.w{display:inline-block}
+.halftone{position:absolute;pointer-events:none;background-image:radial-gradient(circle,var(--ink) 1.4px,transparent 1.8px);background-size:9px 9px;opacity:.28}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;background:var(--red);color:var(--paper);font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;padding:13px 26px;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);transition:transform .25s,box-shadow .25s,background .25s}
+.btn.alt{background:var(--card);color:var(--ink)}
+.btn.sm{min-height:44px;padding:9px 18px;font-size:.72rem;box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+
+/* blot mask */
+.blot{-webkit-mask:var(--blot) center/var(--ms,230%) var(--ms,230%) no-repeat;mask:var(--blot) center/var(--ms,230%) var(--ms,230%) no-repeat}
+
+/* nav */
+nav.top{position:fixed;inset:0 0 auto 0;height:var(--nav);z-index:80;display:flex;justify-content:space-between;align-items:center;padding:0 4vw;transition:background .3s}
+nav.top.solid{background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(6px)}
+.nav-rule{position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--ink)}
+.js .nav-rule{opacity:0}
+.js .nav-on .nav-rule{opacity:1}
+.logo{font-family:var(--slab);font-size:1.25rem;line-height:1;text-transform:uppercase;display:flex;align-items:center;gap:10px;min-height:44px}
+.logo svg{width:34px;height:34px;flex:none}
+.logo span i{display:block;font-family:var(--mono);font-style:normal;font-size:.56rem;letter-spacing:.24em;color:var(--red);margin-top:3px}
+.links{display:flex;gap:30px;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.links a{position:relative;padding:12px 0}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nr{display:flex;align-items:center;gap:12px}
+.burger{display:none;width:48px;height:48px;border:3px solid var(--ink);background:var(--card);position:relative;z-index:95}
+.burger span{position:absolute;left:10px;right:10px;height:3px;background:var(--ink);transition:.3s}
+.burger span:nth-child(1){top:14px}.burger span:nth-child(2){top:22px}.burger span:nth-child(3){top:30px}
+.burger.x span:nth-child(1){top:22px;transform:rotate(45deg)}.burger.x span:nth-child(2){opacity:0}.burger.x span:nth-child(3){top:22px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:90;background:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:var(--nav) 8vw 0;gap:4px;clip-path:inset(0 0 100% 0);transition:clip-path .6s cubic-bezier(.7,0,.2,1);visibility:hidden}
+.drawer.on{clip-path:inset(0);visibility:visible}
+.drawer a.big{font-family:var(--slab);text-transform:uppercase;font-size:clamp(2.2rem,11vw,3.6rem);line-height:1.15;border-bottom:3px solid var(--ink);padding:6px 0;min-height:48px}
+.drawer a.big span{color:var(--red);font-family:var(--mono);font-size:.8rem;margin-right:12px;vertical-align:middle}
+
+/* preloader */
+.pre{position:fixed;inset:0;z-index:200}
+.pre .pt,.pre .pb{position:absolute;left:0;right:0;background:var(--paper)}
+.pre .pt{top:0;height:50%}.pre .pb{bottom:0;height:50%}
+.pre .pl{position:absolute;left:0;right:0;top:50%;height:5px;margin-top:-2.5px;background:var(--ink);transform-origin:left center;z-index:3}
+.pre .pm{position:absolute;left:0;top:50%;width:96px;margin:-64px 0 0 -12px;z-index:4;will-change:transform}
+.pre .px{position:absolute;left:0;right:0;top:calc(50% + 26px);z-index:3;text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
+.pre .px b{font-family:var(--slab);font-weight:400;font-size:clamp(1.6rem,5vw,3rem);letter-spacing:.02em;display:block;line-height:1;margin-bottom:10px}
+
+/* hero */
+.hero{position:relative;min-height:100svh;padding:calc(var(--nav) + 46px) 0 70px;display:flex;align-items:center;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.32fr .68fr;gap:2vw;align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(2.6rem,6.2vw,5.6rem);line-height:.96}
+.hero h1 .ln{display:block;overflow:hidden;padding:.06em 0 .04em}
+.hero h1 .ln>span{display:block}
+.hero h1 .r{color:var(--red)}.hero h1 .t{color:var(--teal)}
+.hero h1 .ln:first-child>span{-webkit-text-stroke:0}
+.hero .sub{max-width:520px;margin:26px 0 30px;font-size:1.06rem}
+.hero .sub b{font-weight:600}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;font-weight:600;text-transform:uppercase;background:var(--card);border:2px solid var(--ink);padding:8px 14px}
+.status b{width:11px;height:11px;border-radius:50%;background:#8a7d6a;border:2px solid var(--ink);flex:none}
+.status.on b{background:#2fa36b}
+.hph{position:relative;justify-self:center;width:min(100%,420px)}
+.hph .fr{position:relative;border:4px solid var(--ink);background:var(--card);padding:12px 12px 46px;box-shadow:12px 12px 0 var(--teal);rotate:2.5deg}
+.hph .im{position:relative;aspect-ratio:4/5;overflow:hidden;background:repeating-linear-gradient(45deg,var(--paper2) 0 8px,var(--card) 8px 16px);border:3px solid var(--ink)}
+.hph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.55) contrast(1.15) sepia(.25)}
+.hph .cap{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-family:var(--hand);font-size:1.45rem;color:var(--red)}
+.hph .sun{position:absolute;inset:-20% -30% -10% -30%;z-index:-1;background:repeating-conic-gradient(from 0deg at 50% 50%,var(--mus) 0 5deg,transparent 5deg 15deg);-webkit-mask:radial-gradient(circle at 50% 50%,#000 0 30%,transparent 68%);mask:radial-gradient(circle at 50% 50%,#000 0 30%,transparent 68%);opacity:.55}
+.badge{position:absolute;right:-26px;top:-30px;width:118px;height:118px;border-radius:50%;background:var(--red);color:var(--paper);border:4px solid var(--ink);display:grid;place-items:center;text-align:center;rotate:12deg;box-shadow:4px 4px 0 var(--ink);z-index:4;line-height:1}
+.badge b{font-family:var(--slab);font-weight:400;font-size:2rem;display:block}
+.badge small{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.hint{position:absolute;left:-30px;bottom:56px;z-index:4;max-width:170px;rotate:-6deg}
+.hint svg{display:block;width:70px;height:40px;margin-top:2px}
+.hero .halftone{left:-40px;bottom:-40px;width:340px;height:340px;-webkit-mask:radial-gradient(circle at 0 100%,#000,transparent 70%);mask:radial-gradient(circle at 0 100%,#000,transparent 70%)}
+
+/* proof strip */
+.proof{border-block:5px solid var(--ink);background:var(--card)}
+.proof .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.pc{padding:26px 22px;border-left:3px solid var(--ink);display:flex;flex-direction:column;gap:4px;min-width:0}
+.pc:first-child{border-left:0}
+.pc .n{font-family:var(--slab);font-size:clamp(2.2rem,4vw,3.4rem);line-height:1}
+.pc .n small{font-family:var(--mono);font-size:.9rem;color:var(--red)}
+.pc p{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.pc a.lk{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--red);align-self:flex-start;padding:10px 0 2px;min-height:44px}
+.pc.ph{background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(23,19,15,.05) 10px 20px)}
+.pc.ph .n{font-size:1.5rem;line-height:1.15;color:var(--mu)}
+
+/* sheet */
+.sheet-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.sheet-head p{max-width:420px}
+.styles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:48px 0 56px}
+.st{border:4px solid var(--ink);background:var(--card);padding:26px 24px 24px;box-shadow:8px 8px 0 var(--ink);position:relative}
+.st:nth-child(1){box-shadow:8px 8px 0 var(--red)}.st:nth-child(2){box-shadow:8px 8px 0 var(--teal)}.st:nth-child(3){box-shadow:8px 8px 0 var(--mus)}
+.st .no{font-family:var(--mono);font-weight:600;font-size:.72rem;letter-spacing:.2em}
+.st h3{font-size:clamp(1.7rem,2.6vw,2.3rem);margin:8px 0 10px}
+.st p{font-size:.95rem}
+.sheet{position:relative;background:var(--card);border:5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);display:grid;grid-template-columns:repeat(3,1fr)}
+.sheet::before{content:"";position:absolute;inset:8px;border:2px solid var(--ink);pointer-events:none;z-index:2}
+.cell{padding:34px 20px 22px;border-right:2px dashed rgba(23,19,15,.45);border-bottom:2px dashed rgba(23,19,15,.45);display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+.cell:nth-child(3n){border-right:0}.cell:nth-child(n+4){border-bottom:0}
+.fi{width:min(100%,190px);height:auto;overflow:visible}
+.fi .o{fill:none;stroke:var(--ink);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.fi .f{stroke:none}
+.cell .lab{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;display:flex;gap:10px;align-items:center}
+.cell .lab i{font-style:normal;background:var(--ink);color:var(--paper);padding:1px 7px}
+.sheet-note{margin-top:22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+
+/* wall */
+.wall-sec{background:var(--paper2);border-block:5px solid var(--ink)}
+.wall-sec .halftone{right:0;top:0;width:520px;height:420px;-webkit-mask:radial-gradient(circle at 100% 0,#000,transparent 70%);mask:radial-gradient(circle at 100% 0,#000,transparent 70%)}
+.wall-top{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;position:relative}
+.wall-top .hand{max-width:250px;rotate:-3deg}
+.wall{position:relative;height:880px;margin-top:40px;border:4px solid var(--ink);background:var(--paper);box-shadow:inset 0 0 0 10px var(--paper2),inset 0 0 0 13px var(--ink)}
+.fc{position:absolute;left:var(--x);top:var(--y);width:var(--w,230px);rotate:var(--r,0deg);background:var(--card);border:3px solid var(--ink);padding:10px 10px 12px;box-shadow:6px 6px 0 rgba(23,19,15,.85);touch-action:pan-y;user-select:none;-webkit-user-select:none;transition:rotate .3s,box-shadow .3s}
+.fc::before,.fc::after{content:"";position:absolute;width:64px;height:22px;background:rgba(220,161,26,.78);border:1.5px solid rgba(23,19,15,.4);z-index:3}
+.fc::before{top:-13px;left:-22px;rotate:-38deg}
+.fc::after{bottom:-13px;right:-22px;rotate:-38deg}
+.fc.dg{rotate:0deg;box-shadow:12px 14px 0 rgba(23,19,15,.85)}
+.fc .im{position:relative;aspect-ratio:1/1;overflow:hidden;background:repeating-linear-gradient(45deg,var(--paper2) 0 8px,var(--card) 8px 16px);border:2px solid var(--ink)}
+.fc .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.5) contrast(1.15) sepia(.28);pointer-events:none;-webkit-user-drag:none}
+.fc.t23 .im{aspect-ratio:3/4}.fc.t45 .im{aspect-ratio:5/4}
+.fc .cp{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-top:9px;display:flex;justify-content:space-between;gap:6px}
+.fc .cp i{font-style:normal;color:var(--red)}
+.fc.ic{text-align:center;padding-top:16px}
+.fc.ic svg{width:88%;height:auto;margin:0 auto}
+.fc.tx{background:var(--ink);color:var(--paper);border-color:var(--ink);padding:18px 16px}
+.fc.tx.r{background:var(--red)}.fc.tx.tl{background:var(--teal)}
+.fc.tx h4{font-family:var(--slab);font-weight:400;text-transform:uppercase;font-size:1.7rem;line-height:1}
+.fc.tx p{font-family:var(--hand);font-size:1.3rem;line-height:1.1;margin-top:8px;color:var(--mus)}
+.fc.tx.r p,.fc.tx.tl p{color:var(--paper)}
+.fc.tx::before,.fc.tx::after{background:rgba(239,227,200,.7)}
+.wall-hint{position:absolute;right:26px;bottom:20px;z-index:1}
+.wall-tag{margin-top:16px;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--mu)}
+.sw-hint{display:none}
+.reset{margin-top:12px}
+
+/* process */
+.proc{display:grid;grid-template-columns:.85fr 1.15fr;gap:5vw;align-items:center}
+.steps{display:grid;gap:0;margin-top:36px;counter-reset:s}
+.step{display:grid;grid-template-columns:70px 1fr;gap:18px;padding:22px 0;border-top:3px solid var(--ink);align-items:start}
+.step:last-child{border-bottom:3px solid var(--ink)}
+.step .no{font-family:var(--slab);font-size:2.8rem;line-height:1;color:var(--red)}
+.step h4{font-family:var(--slab);font-weight:400;font-size:1.5rem;text-transform:uppercase;line-height:1.1}
+.step p{margin-top:4px;font-size:.96rem}
+.pics{position:relative;height:560px}
+.pics .p1,.pics .p2{position:absolute;border:4px solid var(--ink);background:repeating-linear-gradient(45deg,var(--paper2) 0 8px,var(--card) 8px 16px);overflow:hidden}
+.pics .p1{left:0;top:0;width:66%;height:78%;box-shadow:10px 10px 0 var(--red)}
+.pics .p2{right:0;bottom:0;width:52%;height:52%;box-shadow:10px 10px 0 var(--teal)}
+.pics img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.5) contrast(1.15) sepia(.28)}
+.pics .tg{position:absolute;left:0;bottom:0;z-index:3}
+.pics .hand{position:absolute;right:4%;top:1%;rotate:6deg;z-index:3;max-width:150px;text-align:center}
+
+/* hours tickets */
+.hrs-sec{background:var(--ink);color:var(--paper)}
+.hrs-sec .eb b{white-space:nowrap;background:var(--paper);color:var(--ink)}
+.hrs-sec .h2 em{color:var(--mus)}
+.hrs-top{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.hrs-top .status{margin-top:0;color:var(--ink)}
+.tks{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 28px;margin-top:56px}
+.tk{position:relative;display:grid;grid-template-columns:1fr 34%;background:var(--card);color:var(--ink);border:4px solid var(--ink);box-shadow:8px 8px 0 var(--mus);min-height:200px;overflow:visible}
+.tk:nth-child(2){box-shadow:8px 8px 0 var(--red)}.tk:nth-child(3){box-shadow:8px 8px 0 var(--teal)}
+.tk::before,.tk::after{content:"";position:absolute;left:calc(66% - 13px);width:26px;height:26px;border-radius:50%;background:var(--ink);border:0;z-index:2}
+.tk::before{top:-15px}.tk::after{bottom:-15px}
+.tk .m{padding:22px 20px 18px 22px;position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
+.tk .m .adm{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;font-weight:600;text-transform:uppercase}
+.tk .m .dy{font-family:var(--slab);font-size:clamp(3rem,5vw,4.4rem);line-height:.9;text-transform:uppercase}
+.tk .m .fl{font-family:var(--hand);font-size:1.3rem;color:var(--red);line-height:1}
+.tk .s{border-left:3px dashed var(--ink);padding:16px 12px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;background:rgba(220,161,26,.2)}
+.tk .s .tm{font-family:var(--mono);font-weight:600;font-size:.98rem;line-height:1.25}
+.tk .s .tm small{display:block;font-size:.66rem;letter-spacing:.16em;color:var(--mu)}
+.tk .stamp{position:absolute;right:calc(34% + 6px);bottom:-16px;width:96px;height:96px;z-index:5;color:var(--red);pointer-events:none;rotate:-11deg}
+.tk .stamp svg{width:100%;height:100%;overflow:visible}
+.tk.today::after{border:0}
+.tk .today-r{position:absolute;left:-4px;top:-4px;background:var(--red);color:var(--paper);font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;font-weight:600;padding:3px 10px;display:none;border:3px solid var(--ink);transform:translate(-8px,-12px)}
+.tk.today .today-r{display:block}
+.closed{margin-top:42px;font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;display:flex;gap:12px 22px;flex-wrap:wrap;align-items:center;text-transform:uppercase}
+.closed span.x{border:2px solid var(--paper);padding:3px 12px;text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px}
+.hrs-sec .tag{background:var(--mus);border-color:var(--ink)}
+.hrs-sec .src{margin-top:18px;font-family:var(--mono);font-size:.72rem;color:#cbbf9f}
+
+/* crew */
+.crew{display:grid;grid-template-columns:.8fr 1.2fr;gap:5vw;align-items:center}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cd{border:4px solid var(--ink);background:var(--card);padding:22px;box-shadow:8px 8px 0 var(--ink);position:relative}
+.cd .in{width:74px;height:74px;border-radius:50%;background:var(--teal);color:var(--paper);display:grid;place-items:center;font-family:var(--slab);font-size:2.4rem;border:4px solid var(--ink);margin-bottom:14px;line-height:1}
+.cd:nth-child(2) .in{background:var(--red)}
+.cd h4{font-family:var(--slab);font-weight:400;font-size:2rem;text-transform:uppercase;line-height:1}
+.cd ul{list-style:none;margin-top:14px;display:grid;gap:8px}
+.cd li{border:2px dashed var(--ink);padding:8px 10px;font-family:var(--mono);font-size:.74rem;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
+
+/* consult */
+.cons-sec{background:var(--paper2);border-top:5px solid var(--ink)}
+.cons{display:grid;grid-template-columns:.72fr 1.28fr;gap:5vw;align-items:start}
+.cons-l p{margin-top:22px;max-width:380px}
+.cons-l .quote{margin-top:26px;border:3px solid var(--ink);background:var(--card);padding:16px 18px;font-family:var(--mono);font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.06em;box-shadow:6px 6px 0 var(--red)}
+.cons-l .quote b{font-family:var(--slab);font-weight:400;font-size:1.3rem;display:block;color:var(--red);letter-spacing:0;margin-bottom:2px}
+.cons-l .hand{margin-top:26px;rotate:-3deg;max-width:260px}
+.form{background:var(--card);border:5px solid var(--ink);box-shadow:12px 12px 0 var(--ink);padding:clamp(22px,3.4vw,44px);position:relative;min-width:0}
+.fs{margin-bottom:34px}
+.fs>label,.fs>.lg{display:flex;align-items:center;gap:12px;font-family:var(--slab);text-transform:uppercase;font-size:1.25rem;line-height:1.1;margin-bottom:12px}
+.fs>label i,.fs>.lg i{font-style:normal;font-family:var(--mono);font-size:.74rem;background:var(--ink);color:var(--paper);padding:3px 9px;letter-spacing:.06em}
+.fs .h{font-family:var(--mono);font-size:.7rem;color:var(--mu);margin:-6px 0 12px;letter-spacing:.04em}
+textarea,input[type=text],input[type=tel]{width:100%;background:var(--paper);border:3px solid var(--ink);color:var(--ink);font:inherit;font-size:1rem;padding:13px 14px;border-radius:0;outline:0;transition:box-shadow .2s}
+textarea{resize:vertical;min-height:112px;background-image:repeating-linear-gradient(transparent 0 27px,rgba(23,19,15,.13) 27px 28px);line-height:28px;padding-top:2px}
+textarea:focus,input[type=text]:focus,input[type=tel]:focus{box-shadow:5px 5px 0 var(--teal)}
+::placeholder{color:#7d6f5a}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2}
+.chip span{display:flex;align-items:center;justify-content:center;min-height:46px;padding:9px 16px;border:3px solid var(--ink);background:var(--paper);font-family:var(--mono);font-weight:600;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;text-align:center;transition:background .2s,color .2s,box-shadow .2s}
+.chip span small{display:block;font-weight:400;font-size:.62rem;letter-spacing:.04em;color:var(--mu);text-transform:none}
+.chip input:checked+span{background:var(--red);color:var(--paper);box-shadow:4px 4px 0 var(--ink)}
+.chip input:checked+span small{color:var(--paper)}
+.chip input:focus-visible+span{outline:3px solid var(--teal);outline-offset:3px}
+.chips.sz .chip span{flex-direction:column;min-width:120px}
+.bodyw{display:grid;grid-template-columns:minmax(0,340px) 1fr;gap:22px;align-items:start}
+.body-svg{width:100%;height:auto;background:var(--paper);border:3px solid var(--ink);padding:6px}
+.body-svg .o{fill:var(--card);stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round}
+.body-svg .z{fill:rgba(248,240,218,.85);stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4;cursor:pointer;transition:fill .2s}
+.body-svg .z.on{fill:rgba(200,48,42,.62);stroke-dasharray:none;stroke-width:2.6}
+.body-svg text{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.2em;fill:var(--ink)}
+.plout{font-family:var(--mono);font-size:.78rem;margin-bottom:12px;letter-spacing:.06em;text-transform:uppercase}
+.plout b{color:var(--red)}
+.chips.pl .chip span{min-height:44px;padding:8px 14px;font-size:.74rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.err{color:var(--red);font-family:var(--mono);font-size:.8rem;font-weight:600;min-height:1.4em;margin:-8px 0 12px}
+.form .demo{margin-top:14px;font-family:var(--mono);font-size:.68rem;color:var(--mu)}
+.done{display:none;text-align:center;padding:30px 0 10px}
+.done.on{display:block}
+.done .stp{width:170px;height:170px;margin:0 auto 12px;color:var(--red);rotate:-9deg}
+.done .stp svg{width:100%;height:100%;overflow:visible}
+.done h3{font-size:clamp(1.8rem,3.4vw,2.6rem);margin-bottom:10px}
+.done p{max-width:420px;margin:0 auto 18px}
+.done .sum{font-family:var(--mono);font-size:.78rem;background:var(--paper);border:3px dashed var(--ink);padding:14px;max-width:420px;margin:0 auto 22px;text-align:left;text-transform:uppercase;letter-spacing:.04em}
+
+/* visit */
+.vg{display:grid;grid-template-columns:.9fr 1.1fr;gap:5vw;margin-top:46px;align-items:start}
+.vi{display:grid;gap:0}
+.vi .b{border-top:3px solid var(--ink);padding:20px 0}
+.vi .b:last-child{border-bottom:3px solid var(--ink)}
+.vi small{font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red);font-weight:600}
+.vi .v{font-family:var(--slab);font-size:clamp(1.4rem,2.5vw,2rem);line-height:1.15;margin-top:6px;text-transform:uppercase}
+.vi .v a{display:inline-block;min-height:44px;border-bottom:4px solid var(--red)}
+.vi .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.map{position:relative;min-height:470px;border:5px solid var(--ink);box-shadow:12px 12px 0 var(--teal);background:var(--paper2)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.55) sepia(.3) contrast(1.05)}
+
+/* footer */
+footer{background:var(--ink);color:var(--paper);padding:80px 0 26px;position:relative;overflow:hidden}
+footer .big{font-size:clamp(3rem,13vw,11rem);line-height:.85;color:var(--paper)}
+footer .big em{font-style:normal;color:var(--red)}
+.fg{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:44px;font-family:var(--mono);font-size:.82rem;line-height:1.8}
+.fg a{border-bottom:2px solid var(--red)}
+.fg div{max-width:340px}
+footer .cr{margin-top:56px;padding-top:18px;border-top:2px solid #4a4032;font-family:var(--mono);font-size:.7rem;color:#a89b82;letter-spacing:.04em}
+
+@media(hover:hover) and (pointer:fine){
+  .links a:hover::after{transform:scaleX(1)}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .btn.sm:hover{box-shadow:6px 6px 0 var(--ink)}
+  .body-svg .z:hover{fill:rgba(220,161,26,.55)}
+  .body-svg .z.on:hover{fill:rgba(200,48,42,.7)}
+  .chip:hover span{background:var(--mus)}
+  .chip input:checked:hover+span{background:var(--red)}
+  .fc{cursor:grab}.fc.dg{cursor:grabbing}
+  .st:hover{transform:translateY(-4px)}
+  .st{transition:transform .3s}
+}
+@media(max-width:960px){
+  :root{--nav:64px}
+  .links,.nr .btn{display:none}.burger{display:block}
+  .sec{padding:80px 0}
+  .hero{padding-top:calc(var(--nav) + 30px);min-height:auto}
+  .hero .wrap{grid-template-columns:1fr;gap:56px}
+  .hero h1{font-size:clamp(2.2rem,10.6vw,4.6rem)}
+  .hph{width:min(86%,360px)}
+  .badge{right:-14px;width:98px;height:98px}.badge b{font-size:1.65rem}
+  .hint{left:-6px;bottom:52px;max-width:130px}
+  .proof .wrap{grid-template-columns:1fr 1fr}
+  .pc:nth-child(3){border-left:0}.pc:nth-child(n+3){border-top:3px solid var(--ink)}
+  .styles{grid-template-columns:1fr;gap:26px}
+  .sheet{grid-template-columns:1fr 1fr}
+  .cell:nth-child(3n){border-right:2px dashed rgba(23,19,15,.45)}.cell:nth-child(2n){border-right:0}
+  .cell:nth-child(n+4){border-bottom:2px dashed rgba(23,19,15,.45)}.cell:nth-child(n+5){border-bottom:0}
+  .cell{padding:26px 10px 16px}
+  /* wall -> swipe stack */
+  .wall{height:auto;display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:34px 8vw 40px;border:0;box-shadow:none;background:none;margin-inline:-5vw;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .wall::-webkit-scrollbar{display:none}
+  .fc{position:relative;left:auto;top:auto;flex:none;width:min(72vw,290px);scroll-snap-align:center;touch-action:auto}
+  .wall-hint{display:none}
+  .sw-hint{display:block;margin-top:2px}
+  .proc,.crew,.cons,.vg{grid-template-columns:1fr}
+  .pics{height:440px}
+  .tks{grid-template-columns:1fr;gap:38px}
+  
+  .cg{grid-template-columns:1fr 1fr}
+  .bodyw{grid-template-columns:1fr}
+  .body-svg{max-width:340px}
+  .two{grid-template-columns:1fr}
+  .map{min-height:360px}
+  .wall-top .hand,.pics .hand{display:none}
+}
+@media(max-width:520px){
+  .cg{grid-template-columns:1fr}
+  .proof .wrap{grid-template-columns:1fr 1fr}
+  .pc{padding:20px 14px}
+  .fg{flex-direction:column}
+  .logo{font-size:1.05rem}
+  .logo span i{letter-spacing:.14em}
+  .btn{padding:12px 18px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<script>function fb(i){var f=i.dataset.fb;if(f&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+f+'?auto=format&fit=crop&w=800&q=75'}else{i.style.display='none'}}
+</script>
+</head>
+<body>
+
+<!-- shared SVG defs: filters, path for stamp text, icon symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="2" seed="8" result="t"/>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -4 3.4" result="m"/>
+      <feComposite in="d" in2="m" operator="in"/>
+    </filter>
+    <path id="sp" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/>
+    <symbol id="i-anchor" viewBox="0 0 100 100">
+      <path class="f" data-c="teal" d="M20 58 Q26 86 50 88 Q74 86 80 58 L70 64 Q62 78 50 79 Q38 78 30 64 Z"/>
+      <circle class="f" data-c="mus" cx="50" cy="18" r="7"/>
+      <circle class="o" cx="50" cy="18" r="7"/>
+      <path class="o" d="M50 25 V84"/><path class="o" d="M35 37 H65"/>
+      <path class="o" d="M20 58 Q26 86 50 88 Q74 86 80 58"/>
+      <path class="o" d="M12 62 L20 55 L29 66"/><path class="o" d="M88 62 L80 55 L71 66"/>
+      <path class="o" d="M42 46 Q50 42 58 46 M42 56 Q50 52 58 56"/>
+    </symbol>
+    <symbol id="i-dagger" viewBox="0 0 100 100">
+      <path class="f" data-c="mus" d="M26 63 Q50 53 74 63 Q68 73 50 68 Q32 73 26 63 Z"/>
+      <rect class="f" data-c="red" x="44" y="70" width="12" height="16"/>
+      <path class="o" d="M50 6 L59 20 V60 H41 V20 Z"/><path class="o" d="M50 10 V58"/>
+      <path class="o" d="M26 63 Q50 53 74 63 Q68 73 50 68 Q32 73 26 63 Z"/>
+      <path class="o" d="M44 70 H56 V86 H44 Z"/><circle class="o" cx="50" cy="92" r="4.5"/>
+      <path class="o" d="M44 75 H56 M44 80 H56"/>
+    </symbol>
+    <symbol id="i-rose" viewBox="0 0 100 100">
+      <path class="f" data-c="teal" d="M50 82 C36 84 26 78 26 68 C40 66 50 72 50 82 Z M50 76 C64 78 74 72 74 62 C60 60 50 66 50 76 Z"/>
+      <path class="f" data-c="red" d="M50 14 C28 12 20 32 30 46 C36 56 64 56 70 46 C80 32 72 12 50 14 Z"/>
+      <path class="o" d="M50 14 C28 12 20 32 30 46 C36 56 64 56 70 46 C80 32 72 12 50 14 Z"/>
+      <path class="o" d="M50 24 C40 24 37 36 45 38 C53 40 57 32 51 29 C47 27 43 31 47 33"/>
+      <path class="o" d="M30 46 C28 56 40 62 50 60 C60 62 72 56 70 46"/>
+      <path class="o" d="M50 60 V94"/>
+      <path class="o" d="M50 82 C36 84 26 78 26 68 C40 66 50 72 50 82 Z"/>
+      <path class="o" d="M50 76 C64 78 74 72 74 62 C60 60 50 66 50 76 Z"/>
+    </symbol>
+    <symbol id="i-swallow" viewBox="0 0 100 100">
+      <path class="f" data-c="teal" d="M10 38 C24 30 40 34 52 46 C60 40 74 30 92 26 C86 42 76 50 68 54 C74 62 84 72 92 88 C74 82 64 74 58 64 C50 72 38 76 24 74 C34 66 38 60 38 54 C28 52 16 46 10 38 Z"/>
+      <path class="o" d="M10 38 C24 30 40 34 52 46 C60 40 74 30 92 26 C86 42 76 50 68 54 C74 62 84 72 92 88 C74 82 64 74 58 64 C50 72 38 76 24 74 C34 66 38 60 38 54 C28 52 16 46 10 38 Z"/>
+      <path class="o" d="M40 46 C48 44 56 47 62 54"/><path class="o" d="M46 52 C52 52 56 55 58 60"/>
+      <circle class="f" data-c="red" cx="22" cy="40" r="3.2"/>
+      <path class="o" d="M4 40 L10 38"/>
+      <path class="o" d="M64 30 C70 24 78 20 86 18"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 100 100">
+      <path class="f" data-c="red" d="M50 74 C20 54 14 34 28 24 C38 18 46 24 50 32 C54 24 62 18 72 24 C86 34 80 54 50 74 Z"/>
+      <path class="o" d="M50 74 C20 54 14 34 28 24 C38 18 46 24 50 32 C54 24 62 18 72 24 C86 34 80 54 50 74 Z"/>
+      <path class="o" d="M30 34 Q33 29 39 30"/>
+      <path class="f" data-c="mus" d="M8 56 L92 56 L84 68 L92 80 L8 80 L16 68 Z"/>
+      <path class="o" d="M8 56 L92 56 L84 68 L92 80 L8 80 L16 68 Z"/>
+      <path class="o" d="M26 68 H74" style="stroke-dasharray:1 7"/>
+    </symbol>
+    <symbol id="i-skull" viewBox="0 0 100 100">
+      <path class="f" data-c="paper" d="M50 10 C28 10 19 26 21 44 C22 52 27 57 32 59 V72 H68 V59 C73 57 78 52 79 44 C81 26 72 10 50 10 Z"/>
+      <path class="o" d="M50 10 C28 10 19 26 21 44 C22 52 27 57 32 59 V72 H68 V59 C73 57 78 52 79 44 C81 26 72 10 50 10 Z"/>
+      <ellipse class="f" data-c="red" cx="38" cy="42" rx="8" ry="9"/><ellipse class="f" data-c="red" cx="62" cy="42" rx="8" ry="9"/>
+      <ellipse class="o" cx="38" cy="42" rx="8" ry="9"/><ellipse class="o" cx="62" cy="42" rx="8" ry="9"/>
+      <path class="o" d="M50 52 L45 61 H55 Z"/>
+      <path class="o" d="M32 72 V82 H68 V72"/><path class="o" d="M41 72 V82 M50 72 V83 M59 72 V82"/>
+      <path class="o" d="M20 90 L38 80 M80 90 L62 80"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pt"></div><div class="pb"></div>
+  <div class="px"><b>Tattoo Odyssey</b>Castor Ave &middot; Philadelphia</div>
+  <div class="pl" id="preLine"></div>
+  <svg class="pm" id="preM" viewBox="0 0 96 64" fill="none" stroke="#17130f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- tattoo machine -->
+    <path d="M14 34 H38 L44 18 H66 L72 34" fill="#dca11a"/>
+    <path d="M30 34 V20 H16 V34" fill="#c8302a"/>
+    <rect x="34" y="6" width="34" height="12" rx="3" fill="#1d7773"/>
+    <path d="M52 34 V46 L57 58" />
+    <path d="M57 58 L58 63" stroke-width="2"/>
+    <path d="M72 30 C84 28 88 20 84 12" />
+    <circle cx="20" cy="27" r="3" fill="#efe3c8"/>
+  </svg>
+</div>
+
+<nav class="top" id="nav">
+  <a href="#top" class="logo" aria-label="Tattoo Odyssey, home">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-anchor" style="--x:0"/></svg>
+    <span>Tattoo Odyssey<i>CASTOR AVE &middot; PHILLY</i></span>
+  </a>
+  <div class="links"><a href="#sheet">The Sheet</a><a href="#wall">Flash Wall</a><a href="#hours">Hours</a><a href="#consult">Consult</a><a href="#visit">Visit</a></div>
+  <div class="nr"><a href="#consult" class="btn sm">Request a consult</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  <div class="nav-rule" id="navRule"></div>
+</nav>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a class="big" href="#sheet"><span>01</span>The Sheet</a><a class="big" href="#wall"><span>02</span>Flash Wall</a><a class="big" href="#hours"><span>03</span>Hours</a><a class="big" href="#consult"><span>04</span>Consult</a><a class="big" href="#visit"><span>05</span>Visit</a>
+</div>
+
+<header class="hero" id="top">
+  <div class="halftone" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <div class="eb"><b>NO. 01</b>Tattoo studio &middot; Rhawnhurst</div>
+      <h1 class="slab" id="h1"><span class="ln"><span>Custom.</span></span><span class="ln r"><span>Traditional.</span></span><span class="ln t"><span>Cover-ups.</span></span></h1>
+      <p class="sub">Tattoo Odyssey on Castor Ave, Northeast Philly. Line work, shading and blending &mdash; <b>send your idea, the shop gets back to you.</b></p>
+      <div class="cta"><a href="#consult" class="btn">Request a consult</a><a href="#wall" class="btn alt">See the flash wall</a></div>
+      <div class="status" id="status"><b></b><span>Checking hours&hellip;</span></div>
+    </div>
+    <div class="hph" id="hph">
+      <div class="sun" aria-hidden="true"></div>
+      <div class="fr">
+        <div class="im"><img class="blot" id="heroImg" src="https://images.unsplash.com/photo-1546432635-c2476e6a2a25?auto=format&fit=crop&w=900&q=75" data-fb="1513078094721-e7b6e0394a6a" alt="A tattoo artist working with a tattoo machine" fetchpriority="high" onerror="fb(this)"></div>
+        <div class="cap">custom ink, done by hand</div>
+      </div>
+      <div class="badge" id="badge"><div><b>5.0</b><small>174 Google<br>reviews</small></div></div>
+    </div>
+  </div>
+</header>
+
+<section class="proof" aria-label="Ratings">
+  <div class="wrap">
+    <div class="pc"><div class="n">5.0 <small>&#9733;</small></div><p>Google &middot; 174 reviews</p><a class="lk" target="_blank" rel="noopener" href="https://www.google.com/search?q=Tattoo+Odyssey+Inc+8012B+Castor+Ave+Philadelphia+reviews">Read reviews on Google</a></div>
+    <div class="pc"><div class="n">5.0 <small>&#9733;</small></div><p>Yelp &middot; 20 reviews</p></div>
+    <div class="pc ph"><div class="n">Years in business</div><p><span class="tag">Owner confirms</span></p></div>
+    <div class="pc"><div class="n">Quotes</div><p>After your consult</p></div>
+  </div>
+</section>
+
+<section class="sec" id="sheet">
+  <div class="wrap">
+    <div class="sheet-head"><div><div class="eb"><b>NO. 02</b>The sheet</div><h2 class="slab h2 bl">Pick a lane,<br><em>then a design.</em></h2></div><p>Custom pieces, traditional work and cover-ups &mdash; with line work, shading and blending behind all three.</p></div>
+    <div class="styles">
+      <article class="st"><div class="no">STYLE 01</div><h3 class="slab">Custom</h3><p>Bring an idea, a sketch or just a feeling. Describe it in the consult form and the shop takes it from there.</p></article>
+      <article class="st"><div class="no">STYLE 02</div><h3 class="slab">Traditional</h3><p>Bold outlines, solid colour, classic flash subjects &mdash; anchors, daggers, roses, swallows.</p></article>
+      <article class="st"><div class="no">STYLE 03</div><h3 class="slab">Cover-up</h3><p>Got older ink you want to rework? Blending and shading work is part of the job. Tell us what it covers.</p></article>
+    </div>
+    <div class="sheet" id="sheetGrid" role="group" aria-label="Sample flash sheet: six traditional tattoo motifs">
+      <div class="cell"><svg class="fi" data-icon="anchor" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="lab"><i>01</i>Anchor</div></div>
+      <div class="cell"><svg class="fi" data-icon="dagger" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="lab"><i>02</i>Dagger</div></div>
+      <div class="cell"><svg class="fi" data-icon="rose" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="lab"><i>03</i>Rose</div></div>
+      <div class="cell"><svg class="fi" data-icon="swallow" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="lab"><i>04</i>Swallow</div></div>
+      <div class="cell"><svg class="fi" data-icon="heart" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="lab"><i>05</i>Heart &amp; banner</div></div>
+      <div class="cell"><svg class="fi" data-icon="skull" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="lab"><i>06</i>Skull</div></div>
+    </div>
+    <div class="sheet-note"><span class="tag">Sample drawings &mdash; not the shop's flash</span><span class="hand">the real sheet goes here &rarr;</span></div>
+  </div>
+</section>
+
+<section class="sec wall-sec" id="wall">
+  <div class="halftone" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="wall-top"><div><div class="eb"><b>NO. 03</b>Flash wall</div><h2 class="slab h2 bl">Rearrange<br><em>the wall.</em></h2></div><div class="hand" aria-hidden="true">drag anything &mdash; it&rsquo;s your wall now</div></div>
+    <div class="hand sw-hint" aria-hidden="true">swipe the cards &rarr;</div>
+    <div class="wall" id="wallBox">
+      <article class="fc" style="--x:3%;--y:5%;--r:-4deg;--w:250px"><div class="im"><img class="blot" loading="lazy" src="https://images.unsplash.com/photo-1526893299283-37e82b1e4da5?auto=format&fit=crop&w=700&q=75" data-fb="1542744383-8c330d91f4b1" alt="A tattoo machine on a pink background" onerror="fb(this)"></div><div class="cp"><span>Machine</span><i>No.01</i></div></article>
+      <article class="fc ic" style="--x:27%;--y:3%;--r:3deg;--w:190px"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-anchor"/></svg><div class="cp"><span>Anchor</span><i>Flash</i></div></article>
+      <article class="fc tx r" style="--x:44%;--y:8%;--r:-2deg;--w:220px"><h4>Custom</h4><p>bring your idea &mdash; we&rsquo;ll draw it</p></article>
+      <article class="fc t23" style="--x:64%;--y:2%;--r:4deg;--w:240px"><div class="im"><img class="blot" loading="lazy" src="https://images.unsplash.com/photo-1758404255679-9afd847ede1c?auto=format&fit=crop&w=700&q=75" data-fb="1568515045052-f9a854d70bfd" alt="Close-up of a tattoo artist working on a detailed black ink design on an arm" onerror="fb(this)"></div><div class="cp"><span>Black &amp; grey</span><i>No.02</i></div></article>
+      <article class="fc ic" style="--x:84%;--y:9%;--r:-5deg;--w:170px"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-swallow"/></svg><div class="cp"><span>Swallow</span><i>Flash</i></div></article>
+      <article class="fc t45" style="--x:6%;--y:41%;--r:3deg;--w:260px"><div class="im"><img class="blot" loading="lazy" src="https://images.unsplash.com/photo-1753260814170-9f77d48c016e?auto=format&fit=crop&w=700&q=75" data-fb="1760877611905-0f885a3ce551" alt="A hand cutting out small tattoo stencils from a sheet of flash art" onerror="fb(this)"></div><div class="cp"><span>Stencils</span><i>No.03</i></div></article>
+      <article class="fc ic" style="--x:32%;--y:38%;--r:-3deg;--w:195px"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-rose"/></svg><div class="cp"><span>Rose</span><i>Flash</i></div></article>
+      <article class="fc tx" style="--x:52%;--y:43%;--r:3deg;--w:225px"><h4>Cover-ups</h4><p>blending &amp; shading to rework old ink</p></article>
+      <article class="fc" style="--x:72%;--y:37%;--r:-3deg;--w:235px"><div class="im"><img class="blot" loading="lazy" src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?auto=format&fit=crop&w=700&q=75" data-fb="1513078094721-e7b6e0394a6a" alt="A tattoo artist at work, inking an arm" onerror="fb(this)"></div><div class="cp"><span>Ink time</span><i>No.04</i></div></article>
+      <article class="fc ic" style="--x:4%;--y:74%;--r:-2deg;--w:170px"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-dagger"/></svg><div class="cp"><span>Dagger</span><i>Flash</i></div></article>
+      <article class="fc" style="--x:22%;--y:70%;--r:4deg;--w:220px"><div class="im"><img class="blot" loading="lazy" src="https://images.unsplash.com/photo-1482328177731-274399da39f0?auto=format&fit=crop&w=700&q=75" data-fb="1565058379802-bbe93b2f703a" alt="Lettering tattoo on an arm" onerror="fb(this)"></div><div class="cp"><span>Lettering</span><i>No.05</i></div></article>
+      <article class="fc tx tl" style="--x:45%;--y:74%;--r:-3deg;--w:235px"><h4>Line work</h4><p>shading &middot; blending &middot; solid colour</p></article>
+      <article class="fc ic" style="--x:66%;--y:70%;--r:3deg;--w:185px"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-heart"/></svg><div class="cp"><span>Heart &amp; banner</span><i>Flash</i></div></article>
+      <article class="fc ic" style="--x:85%;--y:72%;--r:-4deg;--w:150px"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#i-skull"/></svg><div class="cp"><span>Skull</span><i>Flash</i></div></article>
+      <div class="hand wall-hint" aria-hidden="true">the shop&rsquo;s own flash goes up here</div>
+    </div>
+    <p class="wall-tag">Sample imagery &mdash; replace with the shop's real work.</p>
+  </div>
+</section>
+
+<section class="sec" id="process">
+  <div class="wrap proc">
+    <div>
+      <div class="eb"><b>NO. 04</b>How it works</div>
+      <h2 class="slab h2 bl">Idea in.<br><em>Shop calls.</em></h2>
+      <div class="steps">
+        <div class="step"><div class="no">1</div><div><h4>Send your idea</h4><p>Describe it, tap where it goes, pick a size and a day that suits you.</p></div></div>
+        <div class="step"><div class="no">2</div><div><h4>The shop contacts you</h4><p>You get a call or text back to talk it through.</p></div></div>
+        <div class="step"><div class="no">3</div><div><h4>Quote after consult</h4><p>No prices posted online &mdash; every piece is quoted once it&rsquo;s been discussed.</p></div></div>
+      </div>
+    </div>
+    <div class="pics" aria-label="Sample tattoo photos">
+      <div class="p1"><img class="blot" loading="lazy" src="https://images.unsplash.com/photo-1513078094721-e7b6e0394a6a?auto=format&fit=crop&w=800&q=75" data-fb="1565058379802-bbe93b2f703a" alt="A tattoo artist applying ink to a client's arm" onerror="fb(this)"></div>
+      <div class="p2"><img class="blot" loading="lazy" src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?auto=format&fit=crop&w=700&q=75" data-fb="1546432635-c2476e6a2a25" alt="Shallow focus view of a tattoo artist working on a client's arm" onerror="fb(this)"></div>
+      <div class="hand">no prices online &mdash; ask us</div>
+      <span class="tag" style="left:8px;bottom:8px">Sample imagery &mdash; replace with the shop's real work</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec hrs-sec" id="hours">
+  <div class="wrap">
+    <div class="hrs-top"><div><div class="eb"><b>NO. 05</b>Hours</div><h2 class="slab h2 bl">Three days.<br><em>Punch your ticket.</em></h2></div><div class="status" id="status2"><b></b><span>&hellip;</span></div></div>
+    <div class="tks" id="tks">
+      <div class="tk" data-d="2"><div class="today-r">TODAY</div><div class="m"><div class="adm">ADMIT ONE &middot; CONSULT</div><div class="dy">Tue</div><div class="fl">Tuesday</div></div><div class="s"><div class="tm"><small>FROM</small>2 PM<small>TO</small>8:30 PM</div><span class="tag">Owner confirms</span></div>
+        <div class="stamp"><svg viewBox="0 0 120 120" filter="url(#rough)"><circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="2.5"/><text font-family="IBM Plex Mono" font-weight="600" font-size="10.5" letter-spacing="2.2" fill="currentColor"><textPath href="#sp" startOffset="0">TATTOO ODYSSEY &#9733; CASTOR AVE &#9733;</textPath></text><text x="60" y="70" text-anchor="middle" font-family="Alfa Slab One" font-size="24" fill="currentColor">OPEN</text></svg></div></div>
+      <div class="tk" data-d="4"><div class="today-r">TODAY</div><div class="m"><div class="adm">ADMIT ONE &middot; CONSULT</div><div class="dy">Thu</div><div class="fl">Thursday</div></div><div class="s"><div class="tm"><small>FROM</small>2 PM<small>TO</small>8:30 PM</div><span class="tag">Owner confirms</span></div>
+        <div class="stamp"><svg viewBox="0 0 120 120" filter="url(#rough)"><circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="2.5"/><text font-family="IBM Plex Mono" font-weight="600" font-size="10.5" letter-spacing="2.2" fill="currentColor"><textPath href="#sp" startOffset="0">TATTOO ODYSSEY &#9733; CASTOR AVE &#9733;</textPath></text><text x="60" y="70" text-anchor="middle" font-family="Alfa Slab One" font-size="24" fill="currentColor">OPEN</text></svg></div></div>
+      <div class="tk" data-d="6"><div class="today-r">TODAY</div><div class="m"><div class="adm">ADMIT ONE &middot; CONSULT</div><div class="dy">Sat</div><div class="fl">Saturday</div></div><div class="s"><div class="tm"><small>FROM</small>1 PM<small>TO</small>6 PM</div><span class="tag">Owner confirms</span></div>
+        <div class="stamp"><svg viewBox="0 0 120 120" filter="url(#rough)"><circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="2.5"/><text font-family="IBM Plex Mono" font-weight="600" font-size="10.5" letter-spacing="2.2" fill="currentColor"><textPath href="#sp" startOffset="0">TATTOO ODYSSEY &#9733; CASTOR AVE &#9733;</textPath></text><text x="60" y="70" text-anchor="middle" font-family="Alfa Slab One" font-size="24" fill="currentColor">OPEN</text></svg></div></div>
+    </div>
+    <div class="closed"><span>Closed:</span><span class="x">Mon</span><span class="x">Wed</span><span class="x">Fri</span><span class="x">Sun</span></div>
+    <p class="src">Hours shown as listed on Yelp. The shop confirms before this goes live &mdash; one clear set of hours, everywhere.</p>
+  </div>
+</section>
+
+<section class="sec" id="crew">
+  <div class="wrap crew">
+    <div><div class="eb"><b>NO. 06</b>The shop</div><h2 class="slab h2 bl">Gil <em>&amp;</em> Manny.</h2><p style="margin-top:20px;max-width:380px">The two names that come up again and again in Google and Yelp reviews. Their bios are added here once the shop sends them.</p></div>
+    <div class="cg">
+      <article class="cd"><div class="in">G</div><h4>Gil</h4><ul><li>Role &mdash; owner adds</li><li>Bio &mdash; owner adds</li><li>Specialties &mdash; owner adds</li></ul></article>
+      <article class="cd"><div class="in">M</div><h4>Manny</h4><ul><li>Role &mdash; owner adds</li><li>Bio &mdash; owner adds</li><li>Specialties &mdash; owner adds</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec cons-sec" id="consult">
+  <div class="wrap cons">
+    <div class="cons-l">
+      <div class="eb"><b>NO. 07</b>Consult</div>
+      <h2 class="slab h2 bl">Start<br>with <em>your idea.</em></h2>
+      <p>Fill in the sheet. It goes straight to the shop, and they contact you to talk it through. Filling it out isn&rsquo;t a booking &mdash; it&rsquo;s a conversation starter.</p>
+      <div class="quote"><b>Quotes after consult</b>No prices posted online.</div>
+      <div class="hand">tap the body to mark the spot</div>
+    </div>
+    <div class="form" id="formBox">
+      <form id="form" novalidate autocomplete="on">
+        <div class="fs"><label for="idea"><i>01</i>Your idea</label><textarea id="idea" name="idea" placeholder="What are you thinking? A design, a subject, a photo you love, or an old tattoo to cover&hellip;" required></textarea></div>
+        <div class="fs"><div class="lg" id="plLbl"><i>02</i>Where does it go?</div>
+          <div class="bodyw">
+            <svg class="body-svg" id="bodySvg" viewBox="0 0 440 400" role="group" aria-labelledby="plLbl"></svg>
+            <div>
+              <div class="plout">Placement: <b id="plOut">not picked</b></div>
+              <div class="chips pl" id="plChips" role="radiogroup" aria-labelledby="plLbl"></div>
+            </div>
+          </div>
+        </div>
+        <div class="fs"><div class="lg" id="szLbl"><i>03</i>Size</div>
+          <div class="chips sz" role="radiogroup" aria-labelledby="szLbl">
+            <label class="chip"><input type="radio" name="size" value="Small"><span>Small<small>palm or less</small></span></label>
+            <label class="chip"><input type="radio" name="size" value="Medium"><span>Medium<small>hand to forearm</small></span></label>
+            <label class="chip"><input type="radio" name="size" value="Large"><span>Large<small>half a limb or more</small></span></label>
+            <label class="chip"><input type="radio" name="size" value="Sleeve-scale"><span>Sleeve-scale<small>big project</small></span></label>
+          </div></div>
+        <div class="fs"><div class="lg" id="stLbl"><i>04</i>Style</div>
+          <div class="chips" role="radiogroup" aria-labelledby="stLbl">
+            <label class="chip"><input type="radio" name="style" value="Traditional"><span>Traditional</span></label>
+            <label class="chip"><input type="radio" name="style" value="Custom"><span>Custom</span></label>
+            <label class="chip"><input type="radio" name="style" value="Cover-up"><span>Cover-up</span></label>
+            <label class="chip"><input type="radio" name="style" value="Not sure"><span>Not sure</span></label>
+          </div></div>
+        <div class="fs"><div class="lg" id="dyLbl"><i>05</i>Preferred day</div><div class="h">Tue / Thu / Sat over the next 3 weeks. The shop confirms the time.</div>
+          <div class="chips" id="dayChips" role="radiogroup" aria-labelledby="dyLbl"></div></div>
+        <div class="fs" style="margin-bottom:22px"><div class="lg"><i>06</i>Who&rsquo;s asking?</div>
+          <div class="two"><input type="text" id="fName" name="name" placeholder="Your name" autocomplete="name" aria-label="Your name"><input type="tel" id="fPhone" name="phone" placeholder="Phone number" autocomplete="tel" aria-label="Phone number"></div></div>
+        <div class="err" id="err" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn" id="send">Request a consult &rarr;</button>
+        <div class="demo">Demo site &mdash; requests are saved on this device only.</div>
+      </form>
+      <div class="done" id="done" role="status">
+        <div class="stp"><svg viewBox="0 0 120 120" filter="url(#rough)"><circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="2.5"/><text font-family="IBM Plex Mono" font-weight="600" font-size="10.5" letter-spacing="2.2" fill="currentColor"><textPath href="#sp">TATTOO ODYSSEY &#9733; CASTOR AVE &#9733;</textPath></text><text x="60" y="70" text-anchor="middle" font-family="Alfa Slab One" font-size="24" fill="currentColor">SENT</text></svg></div>
+        <h3 class="slab" id="dT">Consult request sent</h3>
+        <p>Consult request sent &ndash; the shop will contact you.</p>
+        <div class="sum" id="dS"></div>
+        <button class="btn alt sm" id="again" type="button">Send another idea</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="visit">
+  <div class="wrap">
+    <div class="eb"><b>NO. 08</b>Find us</div><h2 class="slab h2 bl">Castor Ave, <em>Rhawnhurst.</em></h2>
+    <div class="vg">
+      <div class="vi">
+        <div class="b"><small>Address</small><div class="v">8012B Castor Ave<br>Suite B<br>Philadelphia, PA 19152</div><div class="row"><a class="btn sm" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=8012B+Castor+Ave+Philadelphia+PA+19152">Directions</a></div></div>
+        <div class="b"><small>Call</small><div class="v"><a href="tel:+12157251166">(215) 725-1166</a></div></div>
+        <div class="b"><small>Also</small><div class="row" style="margin-top:8px"><a class="btn alt sm" target="_blank" rel="noopener" href="https://facebook.com/tattooodysseyphilly">Facebook</a><a class="btn alt sm" target="_blank" rel="noopener" href="https://www.google.com/search?q=Tattoo+Odyssey+Inc+8012B+Castor+Ave+Philadelphia+reviews">5.0 &#9733; on Google</a></div></div>
+      </div>
+      <div class="map"><iframe title="Map to Tattoo Odyssey Inc, 8012B Castor Ave, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=8012B+Castor+Ave,+Philadelphia,+PA+19152&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="big slab">Tattoo <em>Odyssey</em></div>
+    <div class="fg">
+      <div>8012B Castor Ave, Suite B<br>Philadelphia, PA 19152<br><a href="tel:+12157251166">(215) 725-1166</a></div>
+      <div>Tue &amp; Thu 2 &ndash; 8:30 PM<br>Sat 1 &ndash; 6 PM<br><span style="color:#a89b82">Hours: owner confirms</span></div>
+      <div><a href="#consult">Request a consult</a><br><a target="_blank" rel="noopener" href="https://facebook.com/tattooodysseyphilly">facebook.com/tattooodysseyphilly</a></div>
+    </div>
+    <div class="cr">Demo concept by Rafael's web agency &mdash; not affiliated with Tattoo Odyssey.</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var SLUG='tattoo-odyssey';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+if(hasG){document.documentElement.classList.add('js');gsap.registerPlugin(ScrollTrigger);if(window.Draggable)gsap.registerPlugin(Draggable)}
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var COL={teal:'#1d7773',red:'#c8302a',mus:'#dca11a',paper:'#f8f0da'};
+
+/* ---------- hours (Yelp, owner confirms) ---------- */
+var H={2:[14,20.5],4:[14,20.5],6:[13,18]};
+function fmtH(h){var x=Math.floor(h),m=h%1?':30':'',ap=x>=12?'PM':'AM';x=x%12||12;return x+m+' '+ap}
+function ny(){try{var o={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'long',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});return{d:DAYS.indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60}}catch(e){var n=new Date();return{d:n.getDay(),h:n.getHours()+n.getMinutes()/60}}}
+function status(){var n=ny(),h=H[n.d],on=h&&n.h>=h[0]&&n.h<h[1],t;
+  if(on)t='Open now · until '+fmtH(h[1])+' (per Yelp)';
+  else{var nx=null,add=0;for(var i=0;i<8;i++){var d=(n.d+i)%7;if(H[d]&&(i>0||n.h<H[d][0])){nx=d;add=i;break}}t='Closed · next: '+(add===0?'today':add===1?'tomorrow':DAYS[nx].slice(0,3))+' '+fmtH(H[nx][0])}
+  ['#status','#status2'].forEach(function(s){var el=$(s);if(!el)return;el.classList.toggle('on',!!on);$('span',el).textContent=t});
+  $$('.tk').forEach(function(k){k.classList.toggle('today',+k.dataset.d===n.d)})}
+status();setInterval(status,60000);
+
+/* ---------- icons: clone symbols into inline svgs ---------- */
+function fillIcons(){$$('.fi').forEach(function(s){var sym=document.getElementById('i-'+s.dataset.icon);if(!sym)return;s.innerHTML=sym.innerHTML;$$('.f',s).forEach(function(f){f.style.fill=COL[f.dataset.c]||'#c8302a'})})}
+fillIcons();
+/* logo icon = anchor outline */
+(function(){var lg=$('.logo svg'),sym=document.getElementById('i-anchor');if(lg&&sym){lg.innerHTML=sym.innerHTML;$$('.f',lg).forEach(function(f){f.style.fill=COL[f.dataset.c]});$$('.o',lg).forEach(function(o){o.setAttribute('fill','none');o.setAttribute('stroke','#17130f');o.setAttribute('stroke-width','5');o.setAttribute('stroke-linecap','round');o.setAttribute('stroke-linejoin','round')})}})();
+/* wall <use> icons: style fills/strokes via css (use shadow tree inherits) */
+(function(){var st=document.createElement('style');st.textContent='.fc.ic .o{fill:none;stroke:#17130f;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}.fc.ic .f{stroke:none}';document.head.appendChild(st)})();
+/* wall <use> fills need colours: replace with cloned inline content instead */
+$$('.fc.ic svg').forEach(function(s){var u=$('use',s);if(!u)return;var id=u.getAttribute('href').slice(1),sym=document.getElementById(id);s.innerHTML=sym.innerHTML;$$('.f',s).forEach(function(f){f.style.fill=COL[f.dataset.c]||'#c8302a'})});
+
+/* ---------- lenis / nav ---------- */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.15,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+function goTo(sel){var el=$(sel);if(!el)return;var off=sel==='#top'?0:-60;if(lenis)lenis.scrollTo(el,{offset:off,duration:1.3});else el.scrollIntoView({behavior:'smooth'})}
+var drawer=$('#drawer'),burger=$('#burger');
+function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');drawer.setAttribute('aria-hidden','true');if(lenis)lenis.start()}
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();closeDrawer();goTo(h)}})});
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on);drawer.setAttribute('aria-hidden',!on);if(lenis){on?lenis.stop():lenis.start()}});
+addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer()});
+var nav=$('#nav');
+function ns(){nav.classList.toggle('solid',scrollY>40)}
+addEventListener('scroll',ns,{passive:true});ns();
+
+/* ---------- body map ---------- */
+var ZN=[['Shoulder','shoulder'],['Chest','chest'],['Ribs','ribs'],['Back','back'],['Arm','arm'],['Forearm','forearm'],['Hand','hand'],['Leg','leg'],['Calf','calf'],['Other','other']];
+(function(){
+  var NS='http://www.w3.org/2000/svg',svg=$('#bodySvg');
+  function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+  function fig(ox,back){
+    var g=el('g',{transform:'translate('+ox+',0)'});
+    el('circle',{cx:100,cy:32,r:22,class:'o'},g);
+    el('rect',{x:91,y:52,width:18,height:16,class:'o'},g);
+    el('rect',{x:70,y:150,width:60,height:52,rx:8,class:'o'},g);            /* hips */
+    el('ellipse',{cx:82,cy:378,rx:16,ry:8,class:'o'},g);el('ellipse',{cx:118,cy:378,rx:16,ry:8,class:'o'},g);
+    function z(name,tag,attrs){attrs.class='z';attrs['data-zone']=name;attrs.tabindex=-1;attrs['aria-hidden']='true';el(tag,attrs,g)}
+    /* outlines under zones */
+    [[38,1],[162,1]].forEach(function(a){});
+    el('rect',{x:66,y:68,width:68,height:86,rx:14,class:'o'},g);z('Shoulder','ellipse',{cx:54,cy:84,rx:17,ry:15});z('Shoulder','ellipse',{cx:146,cy:84,rx:17,ry:15});
+    z('Arm','rect',{x:38,y:100,width:22,height:62,rx:10});z('Arm','rect',{x:140,y:100,width:22,height:62,rx:10});
+    z('Forearm','rect',{x:36,y:166,width:20,height:62,rx:9});z('Forearm','rect',{x:144,y:166,width:20,height:62,rx:9});
+    z('Hand','ellipse',{cx:45,cy:246,rx:11,ry:16});z('Hand','ellipse',{cx:155,cy:246,rx:11,ry:16});
+    if(back){z('Back','rect',{x:68,y:72,width:64,height:80,rx:10})}
+    else{z('Chest','rect',{x:68,y:72,width:64,height:44,rx:10});z('Ribs','rect',{x:70,y:118,width:60,height:32,rx:8})}
+    z('Leg','rect',{x:70,y:206,width:28,height:86,rx:13});z('Leg','rect',{x:102,y:206,width:28,height:86,rx:13});
+    z('Calf','rect',{x:72,y:296,width:24,height:72,rx:11});z('Calf','rect',{x:104,y:296,width:24,height:72,rx:11});
+    var t=el('text',{x:100,y:398,'text-anchor':'middle'},g);t.textContent=back?'BACK':'FRONT';
+  }
+  fig(0,false);fig(220,true);
+  svg.setAttribute('viewBox','24 0 372 408');
+  var chips=$('#plChips');
+  ZN.forEach(function(z){var l=document.createElement('label');l.className='chip';l.innerHTML='<input type="radio" name="place" value="'+z[0]+'"><span>'+z[0]+'</span>';chips.appendChild(l)});
+  function setPl(v){$$('.z',svg).forEach(function(e){e.classList.toggle('on',e.dataset.zone===v)});$('#plOut').textContent=v||'not picked';var r=$('input[name=place][value="'+v+'"]');if(r)r.checked=true}
+  svg.addEventListener('click',function(e){var z=e.target.closest('.z');if(z)setPl(z.dataset.zone)});
+  chips.addEventListener('change',function(e){if(e.target.name==='place')setPl(e.target.value)});
+  window.__setPl=setPl;
+})();
+
+/* ---------- day chips ---------- */
+(function(){var box=$('#dayChips'),d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+1);var end=new Date(d);end.setDate(end.getDate()+21);
+  while(d<end){var w=d.getDay();if(w===2||w===4||w===6){var iso=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+    var l=document.createElement('label');l.className='chip';l.innerHTML='<input type="radio" name="day" value="'+iso+'" data-l="'+DAYS[w].slice(0,3)+' '+MN[d.getMonth()]+' '+d.getDate()+'"><span>'+DAYS[w].slice(0,3)+'<small>'+MN[d.getMonth()]+' '+d.getDate()+'</small></span>';box.appendChild(l)}
+    d.setDate(d.getDate()+1)}})();
+
+/* ---------- form ---------- */
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+function val(n){var r=$('input[name='+n+']:checked');return r?r.value:''}
+function err(m){$('#err').textContent=m}
+$('#form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var idea=$('#idea').value.trim(),nm=$('#fName').value.trim(),ph=$('#fPhone').value.replace(/\D/g,'');
+  if(idea.length<3)return err('Tell us your idea first.');
+  if(!val('place'))return err('Pick where it goes (tap the body or a chip).');
+  if(!val('size'))return err('Pick a size.');
+  if(!val('style'))return err('Pick a style, or "Not sure".');
+  if(!val('day'))return err('Pick a preferred day.');
+  if(!nm)return err('Add your name.');
+  if(ph.length<10)return err('Add a 10-digit phone number.');
+  err('');
+  var dch=$('input[name=day]:checked');
+  var rec={id:'T'+Date.now().toString(36).toUpperCase(),created:new Date().toISOString(),status:'new',idea:idea,placement:val('place'),size:val('size'),style:val('style'),day:val('day'),dayLabel:dch.dataset.l,name:nm,phone:$('#fPhone').value.trim()};
+  try{var a=getB();a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+  $('#dS').innerHTML='';
+  [['Name',nm],['Idea',idea.length>90?idea.slice(0,90)+'…':idea],['Placement',rec.placement],['Size',rec.size],['Style',rec.style],['Day',rec.dayLabel]].forEach(function(r){var d=document.createElement('div');d.textContent=r[0]+': '+r[1];$('#dS').appendChild(d)});
+  $('#form').style.display='none';var dn=$('#done');dn.classList.add('on');
+  if(anim){gsap.fromTo('.done .stp',{scale:2.4,opacity:0,rotation:-30},{scale:1,opacity:1,rotation:-9,duration:.7,ease:'expo.out'});gsap.fromTo('.done h3,.done p,.done .sum,.done .btn',{y:20,opacity:0},{y:0,opacity:1,duration:.7,stagger:.1,delay:.25,ease:'power3.out'})}
+  if(lenis)lenis.scrollTo('#formBox',{offset:-90,duration:1});
+});
+$('#again').addEventListener('click',function(){$('#form').reset();$('#form').style.display='';$('#done').classList.remove('on');window.__setPl('');$('#plOut').textContent='not picked'});
+
+/* ---------- intro / preloader ---------- */
+var introDone=false,scrollSet=false;
+function heroPrep(){gsap.set('#h1 .ln>span',{yPercent:112});gsap.set('.hero .eb,.hero .sub,.hero .cta,.hero .status,.hph .fr,.badge,.hint',{opacity:0});gsap.set('.hph .fr',{y:40});gsap.set('#heroImg',{'--ms':'0%'});gsap.set('.hph .sun',{opacity:0})}
+if(anim)heroPrep();
+function intro(){
+  if(introDone)return;introDone=true;var pre=$('#pre');
+  if(!anim){pre.remove();document.documentElement.classList.add('nav-on');$('#nav').classList.add('nav-on');return}
+  var W=innerWidth,mach=$('#preM'),line=$('#preLine');
+  gsap.set(line,{scaleX:0});gsap.set(mach,{x:0,opacity:1});gsap.set('.pre .px',{opacity:0});
+  var buzz=gsap.to(mach,{y:-3,duration:.05,repeat:-1,yoyo:true,ease:'none'});
+  var dist=W-96+12;
+  var tl=gsap.timeline();
+  tl.to('.pre .px',{opacity:1,duration:.6,ease:'power2.out'},0)
+    .to(line,{scaleX:1,duration:1.5,ease:'power2.inOut'},0.1)
+    .to(mach,{x:dist,duration:1.5,ease:'power2.inOut'},0.1)
+    .add(function(){buzz.kill()})
+    .to(mach,{x:dist+160,opacity:0,y:-30,duration:.6,ease:'power2.in'},'>-0.05')
+    .to('.pre .px',{opacity:0,duration:.6,ease:'power2.out'},'<')
+    .to('.pre .pt',{yPercent:-100,duration:1,ease:'power2.inOut'},'>-0.1')
+    .to('.pre .pb',{yPercent:100,duration:1,ease:'power2.inOut'},'<')
+    .to(line,{y:function(){return -(innerHeight/2-nav.offsetHeight+2.5)},duration:1,ease:'power2.inOut'},'<')
+    .add(function(){nav.classList.add('nav-on');document.documentElement.classList.add('nav-on');pre.style.display='none'})
+    .to('#h1 .ln>span',{yPercent:0,duration:1,stagger:.14,ease:'expo.out'},'-=.55')
+    .to('.hero .eb,.hero .sub,.hero .cta,.hero .status',{opacity:1,duration:.8,stagger:.1,ease:'power3.out'},'-=.7')
+    .to('.hph .fr',{opacity:1,y:0,duration:1,ease:'power3.out'},'-=1.1')
+    .to('.hph .sun',{opacity:.55,duration:1.2,ease:'power2.out'},'<')
+    .to('#heroImg',{'--ms':'230%',duration:1.6,ease:'power2.inOut'},'-=.9')
+    .to('.badge',{opacity:1,duration:.6,ease:'power3.out'},'-=.7')
+    .from('.badge',{scale:.3,rotation:-40,duration:.7,ease:'back.out(1.6)'},'<')
+    .to('.hint',{opacity:1,duration:.7,ease:'power3.out'},'-=.3');
+  tl.eventCallback('onComplete',function(){gsap.set('#heroImg',{clearProps:'mask,webkitMask,--ms'});setupScroll()});
+  setTimeout(setupScroll,7000);
+}
+if(anim){setTimeout(intro,700);setTimeout(intro,3000)}else{var pp=$('#pre');if(pp)pp.remove();document.documentElement.classList.add('nav-on');nav.classList.add('nav-on')}
+
+/* ---------- split words ---------- */
+function softWords(sel){$$(sel).forEach(function(el){if(el.dataset.sp)return;el.dataset.sp=1;
+  var walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;while((n=walk.nextNode()))ns.push(n);
+  ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(\s+)/).forEach(function(p){if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(' '));return}var s=document.createElement('span');s.className='w';s.textContent=p;f.appendChild(s)});t.parentNode.replaceChild(f,t)})})}
+
+/* ---------- scroll ---------- */
+function setupScroll(){
+  if(scrollSet||!anim)return;scrollSet=true;
+  /* headings */
+  softWords('.bl');
+  $$('.bl').forEach(function(el){var ws=$$('.w',el);gsap.from(ws,{yPercent:70,opacity:0,rotation:2,duration:.9,stagger:.09,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}})});
+  $$('.eb').forEach(function(el){if(el.closest('.hero'))return;gsap.from(el,{x:-24,opacity:0,duration:.7,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}})});
+  gsap.from('.pc',{y:30,opacity:0,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.proof',start:'top 88%',once:true}});
+  gsap.from('.st',{y:60,opacity:0,rotation:function(i){return i%2?2:-2},duration:.9,stagger:.14,ease:'power3.out',scrollTrigger:{trigger:'.styles',start:'top 85%',once:true}});
+
+  /* flash icons tattoo themselves */
+  $$('.fi').forEach(function(s,i){
+    var os=$$('.o',s),fs=$$('.f',s);
+    os.forEach(function(p){var L=p.getTotalLength?p.getTotalLength():200;p.style.strokeDasharray=L+' '+L;p.style.strokeDashoffset=L});
+    gsap.set(fs,{opacity:0,transformOrigin:'50% 50%'});
+    var tl=gsap.timeline({scrollTrigger:{trigger:s,start:'top 85%',once:true},delay:(i%3)*.1});
+    tl.to(os,{strokeDashoffset:0,duration:1.6,stagger:.12,ease:'power2.inOut'})
+      .to(fs,{opacity:1,duration:.6,stagger:.05,ease:'power3.out'},'-=.5')
+      .from(fs,{scale:.9,duration:.6,stagger:.05,ease:'back.out(1.6)'},'<');
+  });
+
+  /* ink-blot photo reveals */
+  $$('img.blot').forEach(function(im){if(im.id==='heroImg')return;
+    gsap.fromTo(im,{'--ms':'0%'},{'--ms':'230%',duration:1.5,ease:'power2.inOut',scrollTrigger:{trigger:im.parentNode,start:'top 88%',once:true},onComplete:function(){gsap.set(im,{clearProps:'mask,webkitMask,--ms'})}})});
+  gsap.from('.pics .hand',{opacity:0,rotation:-10,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.pics',start:'top 70%',once:true}});
+  gsap.from('.step',{x:-30,opacity:0,duration:.8,stagger:.14,ease:'power3.out',scrollTrigger:{trigger:'.steps',start:'top 85%',once:true}});
+
+  /* hours: stamp */
+  var tks=$$('.tk'),tt=gsap.timeline({paused:true});
+  gsap.set('.tk .stamp',{opacity:0,scale:2.5,rotation:-32});
+  tks.forEach(function(k,i){var st=$('.stamp',k),at=i*.5;
+    tt.from(k,{y:50,opacity:0,duration:.7,ease:'power3.out'},at)
+      .to(st,{opacity:.94,scale:1,rotation:-11,duration:.6,ease:'expo.out'},at+.5)
+      .to(k,{y:6,duration:.12,ease:'power2.out'},at+.62)
+      .to(k,{y:0,duration:.6,ease:'power3.out'},at+.74)});
+  ScrollTrigger.create({trigger:'.tks',start:'top 78%',once:true,onEnter:function(){tt.play()}});
+  gsap.from('.closed span',{opacity:0,x:-14,duration:.6,stagger:.08,ease:'power3.out',scrollTrigger:{trigger:'.closed',start:'top 92%',once:true}});
+  gsap.from('.cd',{y:50,opacity:0,rotation:function(i){return i?2:-2},duration:.9,stagger:.15,ease:'power3.out',scrollTrigger:{trigger:'.cg',start:'top 85%',once:true}});
+  gsap.from('.form',{y:60,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.form',start:'top 92%',once:true}});
+  gsap.from('.vi .b',{y:30,opacity:0,duration:.8,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.vi',start:'top 85%',once:true}});
+
+  /* desktop / mobile split */
+  var mm=gsap.matchMedia();
+  mm.add('(min-width:961px)',function(){
+    gsap.to('.hph .fr',{yPercent:-6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    gsap.from('.fc',{y:-90,opacity:0,rotation:function(i){return (i%2?1:-1)*8},duration:1,stagger:.08,ease:'power3.out',scrollTrigger:{trigger:'#wallBox',start:'top 78%',once:true}});
+    var z=10,ds=[];
+    if(window.Draggable){ds=Draggable.create('.fc',{type:'x,y',bounds:'#wallBox',edgeResistance:.85,minimumMovement:3,
+      onPress:function(){z++;this.target.style.zIndex=z;this.target.classList.add('dg')},
+      onRelease:function(){this.target.classList.remove('dg')}})}
+    return function(){ds.forEach(function(d){d.kill()});$$('.fc').forEach(function(c){c.style.zIndex='';c.classList.remove('dg')})};
+  });
+  mm.add('(max-width:960px)',function(){
+    gsap.from('.fc',{x:60,opacity:0,duration:.9,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'#wallBox',start:'top 85%',once:true}});
+  });
+  ScrollTrigger.refresh();
+}
+addEventListener('load',function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+if(document.fonts&&document.fonts.ready&&hasG)document.fonts.ready.then(function(){if(scrollSet)ScrollTrigger.refresh()});
+})();
+</script>
+</body>
+</html>
