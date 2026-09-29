@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pro Hair & Nail Salon — Barber and nails under one roof, Rising Sun Ave, Philadelphia</title>
+<meta name="description" content="Pro Hair and Nail Salon at 6628 Rising Sun Ave, Philadelphia. Barbershop and nail salon under one roof: fades, kids cuts, manicures, gel pedicures, acrylics, eyebrows. 5.0 stars on Google. Book online.">
+<meta name="theme-color" content="#14120f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HairSalon","name":"Pro Hair and Nail Salon","telephone":"+1-267-691-5787","address":{"@type":"PostalAddress","streetAddress":"6628 Rising Sun Ave","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19111","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"257"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"18:00"}]}
+</script>
+<style>
+:root{--serif:'Fraunces',Georgia,serif;--sans:'Manrope',system-ui,sans-serif;--wrap:min(1240px,92vw);
+--bg:#14120f;--bg2:#1d1a16;--tx:#f3ebe0;--mu:#a09686;--ac:#d18441;--acx:#1a0f05;--ln:rgba(255,255,255,.11)}
+body[data-mode="nails"]{--bg:#f7eee8;--bg2:#efe0d8;--tx:#33262a;--mu:#85706f;--ac:#c2566f;--acx:#ffffff;--ln:rgba(51,38,42,.15)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-weight:400;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased;transition:background-color .7s ease,color .7s ease}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{width:var(--wrap);margin:0 auto}
+.sr{font-family:var(--serif);font-weight:500;letter-spacing:-.02em;line-height:1.02}
+.sr em{font-style:italic;font-weight:400;color:var(--ac);transition:color .7s}
+.eb{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ac);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;transition:color .7s}
+.eb::before{content:"";width:34px;height:1px;background:currentColor}
+.h2{font-size:clamp(2.4rem,6vw,5.2rem)}
+.sec{padding:130px 0;position:relative}
+.alt{background:var(--bg2);transition:background-color .7s}
+.js .bl{opacity:0}
+.w{display:inline-block}
+
+/* nav */
+nav.top{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:20px 4vw;color:#fff;transition:background .4s,padding .4s,color .4s}
+nav.top.solid{background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);padding:12px 4vw;color:var(--tx);border-bottom:1px solid var(--ln)}
+.logo{font-family:var(--serif);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;display:flex;gap:8px;align-items:baseline}
+.logo i{font-style:italic;font-weight:400}
+.links{display:flex;gap:30px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.links a{position:relative;padding:6px 0;opacity:.85}
+.links a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--ac);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.nr{display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ac);color:var(--acx);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:16px 28px;border-radius:60px;transition:transform .35s,background .7s,color .7s,filter .3s}
+.btn.o{background:transparent;color:inherit;border:1px solid currentColor}
+.btn.sm{padding:11px 20px;font-size:.7rem}
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:1px solid currentColor;position:relative;z-index:95;opacity:.9}
+.burger span{position:absolute;left:13px;right:13px;height:2px;background:currentColor;transition:.35s}
+.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:25px}
+.burger.x{color:var(--tx)}.burger.x span:nth-child(1){top:21px;transform:rotate(45deg)}.burger.x span:nth-child(2){top:21px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:0 8vw;gap:6px;clip-path:inset(0 0 100% 0);transition:clip-path .7s cubic-bezier(.7,0,.2,1),background .7s;visibility:hidden}
+.drawer.on{clip-path:inset(0);visibility:visible}
+.drawer a.big{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,12vw,4rem);letter-spacing:-.03em;line-height:1.15}
+
+*>.form,.bk-g>*,.vg>*,.svc-grid>*,.rv>*,.duo>*{min-width:0}
+.form{max-width:100%}
+/* mode pill */
+.mode{position:fixed;left:50%;bottom:22px;z-index:75;transform:translate(-50%,140%);display:flex;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(16px);border:1px solid var(--ln);border-radius:60px;padding:5px;transition:transform .6s cubic-bezier(.2,.8,.2,1),background .7s;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.mode.on{transform:translate(-50%,0)}
+.mode button{white-space:nowrap;position:relative;z-index:2;padding:11px 22px;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;border-radius:50px;transition:color .4s;color:var(--mu)}
+.mode button.on{color:var(--acx)}
+.mode .th{position:absolute;top:5px;bottom:5px;left:5px;width:0;background:var(--ac);border-radius:50px;transition:left .5s cubic-bezier(.7,0,.2,1),width .5s cubic-bezier(.7,0,.2,1),background .7s;z-index:1}
+
+/* preloader */
+.pre{position:fixed;inset:0;z-index:200;display:flex}
+.pre .a,.pre .b{flex:1;display:flex;align-items:center;padding:0 4vw;font-family:var(--serif);font-size:clamp(3rem,13vw,10rem);letter-spacing:-.04em;font-weight:500}
+.pre .a{background:#14120f;color:#f3ebe0;justify-content:flex-end}
+.pre .b{background:#f7eee8;color:#33262a;font-style:italic;font-weight:400}
+
+/* hero split */
+.split{position:relative;height:100svh;min-height:620px;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;--p:50%;cursor:ew-resize}
+.side{position:absolute;inset:0;overflow:hidden}
+.side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.1)}
+.side.l{background:linear-gradient(135deg,#221d17,#0d0b09)}
+.side.l img{filter:brightness(.62) contrast(1.08) saturate(.9)}
+.side.r{background:linear-gradient(135deg,#f0cfc5,#d99aa0);clip-path:inset(0 0 0 var(--p))}
+.side.r img{filter:brightness(.9) saturate(1.05)}
+.side::after{content:"";position:absolute;inset:0}
+.side.l::after{background:linear-gradient(0deg,rgba(13,11,9,.85),transparent 55%)}
+.side.r::after{background:linear-gradient(0deg,rgba(60,28,40,.7),transparent 55%)}
+.sd-c{position:absolute;bottom:14vh;z-index:3;max-width:min(420px,42vw)}
+.sd-c.l{left:5vw;color:#f3ebe0}.sd-c.r{right:5vw;color:#fff;text-align:right}
+.sd-c h2{font-size:clamp(2.4rem,6.4vw,6rem)}
+.sd-c h2 em{color:inherit;opacity:.85}
+.sd-c p{margin:14px 0 22px;font-size:.98rem;opacity:.92}
+.sd-c.r p{margin-left:auto}
+.sd-c .btn{position:relative;z-index:6}
+.sd-c.r .btn{background:#fff;color:#7a2a44}
+.hd{position:absolute;top:0;bottom:0;left:var(--p);width:2px;background:#fff;z-index:5;transform:translateX(-1px);pointer-events:none;box-shadow:0 0 30px rgba(0,0,0,.4)}
+.hd .kn{position:absolute;top:50%;left:50%;width:62px;height:62px;border-radius:50%;background:#fff;color:#14120f;transform:translate(-50%,-50%);display:grid;place-items:center;font-size:1.2rem;letter-spacing:-.1em;box-shadow:0 8px 40px rgba(0,0,0,.35);pointer-events:auto;cursor:ew-resize}
+.hd .kn:focus-visible{outline:3px solid var(--ac)}
+.tt{position:absolute;top:13vh;left:50%;transform:translateX(-50%);z-index:6;text-align:center;color:#fff;pointer-events:none;mix-blend-mode:normal;width:90vw}
+.tt .k{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;font-weight:600;opacity:.92}
+.tt h1{font-size:clamp(2.2rem,5.6vw,5rem);margin-top:10px;text-shadow:0 4px 40px rgba(0,0,0,.35)}
+.tt h1 em{color:#fff}
+.hint{position:absolute;left:50%;bottom:4.5vh;transform:translateX(-50%);z-index:6;color:#fff;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;display:flex;gap:14px;align-items:center;font-weight:600;pointer-events:none;text-align:center;white-space:nowrap}
+.hstat{position:absolute;left:5vw;top:13vh;z-index:6;color:#fff;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;display:flex;gap:10px;align-items:center}
+.hstat b{width:9px;height:9px;border-radius:50%;background:#8d8d8d}
+.hstat.on b{background:#7dffb1;box-shadow:0 0 12px #7dffb1}
+
+/* marquee */
+.mq{padding:28px 0;overflow:hidden;white-space:nowrap;border-block:1px solid var(--ln);transition:border-color .7s}
+.mq .tr{display:inline-flex;will-change:transform}
+.mq span{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.6rem,3.6vw,3rem);padding:0 .6em;display:inline-flex;align-items:center;gap:1.2em}
+.mq span::after{content:"✦";font-style:normal;color:var(--ac);font-size:.55em;transition:color .7s}
+
+/* duo */
+.duo-h{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.duo-h p{max-width:400px;color:var(--mu)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:56px}
+.pc{position:relative;border-radius:24px;overflow:hidden;min-height:520px;display:flex;align-items:flex-end;padding:34px;color:#fff;background:linear-gradient(135deg,#2b241d,#0d0b09)}
+.pc.n{background:linear-gradient(135deg,#f0cfc5,#c98595)}
+.pc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.pc::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,8,6,.88),rgba(10,8,6,.1) 60%)}
+.pc.n::after{background:linear-gradient(0deg,rgba(74,28,46,.85),rgba(74,28,46,.05) 60%)}
+.pc .in{position:relative;z-index:2}
+.pc small{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;font-weight:700;opacity:.85}
+.pc h3{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3.6vw,3.2rem);letter-spacing:-.02em;line-height:1;margin:8px 0 12px}
+.pc h3 em{font-weight:400}
+.pc p{max-width:380px;opacity:.92;font-size:.96rem}
+.pc .tg{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.pc .tg span{border:1px solid rgba(255,255,255,.5);padding:6px 14px;border-radius:40px;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+
+/* services */
+.svc-top{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.svc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:5vw;margin-top:56px;align-items:start}
+.lst{display:none}.lst.on{display:block}
+.row{display:grid;grid-template-columns:54px 1fr auto;gap:8px 18px;padding:26px 0;border-top:1px solid var(--ln);align-items:center;transition:border-color .7s}
+.row:last-child{border-bottom:1px solid var(--ln)}
+.row .n{font-family:var(--serif);font-style:italic;color:var(--ac);font-size:1.3rem;transition:color .7s}
+.row h4{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:-.02em;line-height:1.1}
+.row p{grid-column:2;color:var(--mu);font-size:.94rem}
+.row .bk{grid-column:3;grid-row:1/3;border:1px solid var(--ln);border-radius:50px;padding:10px 20px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;transition:.3s}
+.mosw{position:sticky;top:100px}
+.mos{display:none;grid-template-columns:repeat(6,1fr);grid-auto-rows:88px;gap:10px}
+.mos.on{display:grid}
+.mos figure{position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#3a3026,#1a1510)}
+.mos.n figure{background:linear-gradient(135deg,#f0cfc5,#d99aa0)}
+.mos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mos figure:nth-child(1){grid-column:span 4;grid-row:span 3}
+.mos figure:nth-child(2){grid-column:span 2;grid-row:span 2}
+.mos figure:nth-child(3){grid-column:span 2;grid-row:span 3}
+.mos figure:nth-child(4){grid-column:span 2;grid-row:span 2}
+.mos figure:nth-child(5){grid-column:span 2;grid-row:span 2}
+.mos figure:nth-child(6){grid-column:span 6;grid-row:span 2}
+.note{margin-top:16px;font-size:.78rem;color:var(--mu)}
+
+/* reviews cloud */
+.rv{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw;align-items:center;margin-top:50px}
+.big{font-family:var(--serif);font-weight:500;font-size:clamp(7rem,20vw,16rem);line-height:.8;letter-spacing:-.06em}
+.big em{color:var(--ac)}
+.stars{color:var(--ac);letter-spacing:8px;font-size:1.4rem;margin:18px 0 6px;transition:color .7s}
+.cloud{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:baseline}
+.cloud span{font-family:var(--serif);font-weight:500;letter-spacing:-.02em;line-height:1;padding:8px 18px;border:1px solid var(--ln);border-radius:60px;transition:.4s}
+.cloud span i{font-family:var(--sans);font-style:normal;font-size:.7rem;color:var(--ac);vertical-align:super;margin-left:6px;font-weight:700}
+.cloud span.h{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.cloud span.h i{color:var(--acx)}
+
+/* book */
+.bk-g{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw;align-items:start}
+.bk-g>div:first-child p{color:var(--mu);max-width:380px;margin-top:22px}
+.perks{margin-top:30px;display:grid;gap:12px;font-size:.92rem}
+.perks div{display:flex;gap:12px;align-items:center}
+.perks i{width:8px;height:8px;background:var(--ac);border-radius:50%;flex:none;transition:.7s}
+.form{background:var(--bg);border:1px solid var(--ln);border-radius:26px;padding:clamp(24px,3.4vw,46px);min-height:520px;transition:background .7s,border-color .7s}
+.alt .form{background:var(--bg)}
+.sw{display:flex;gap:8px;margin-bottom:24px}
+.sw button{flex:1;padding:12px;border:1px solid var(--ln);border-radius:14px;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;transition:.3s}
+.sw button.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.fp{display:flex;gap:6px;margin-bottom:26px}
+.fp i{flex:1;height:3px;background:var(--ln);border-radius:3px;position:relative;overflow:hidden}
+.fp i::after{content:"";position:absolute;inset:0;background:var(--ac);transform:scaleX(0);transform-origin:left;transition:transform .5s,background .7s}
+.fp i.on::after{transform:scaleX(1)}
+.fs{display:none}.fs.on{display:block}
+.fs h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,2.6vw,2.2rem);letter-spacing:-.02em;margin-bottom:6px}
+.fs .hnt{color:var(--mu);font-size:.88rem;margin-bottom:20px}
+.opts{display:grid;gap:10px}
+.opt{border:1px solid var(--ln);border-radius:14px;padding:16px 18px;text-align:left;display:flex;justify-content:space-between;gap:12px;align-items:center;transition:.25s;font-weight:600}
+.opt small{display:block;font-weight:400;color:var(--mu);font-size:.8rem}
+.opt::after{content:"";width:18px;height:18px;border-radius:50%;border:1px solid var(--ln);flex:none;transition:.25s}
+.opt.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
+.opt.on::after{background:var(--ac);border-color:var(--ac);box-shadow:inset 0 0 0 4px var(--bg)}
+.stf{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.stf button{border:1px solid var(--ln);border-radius:40px;padding:9px 18px;font-size:.78rem;font-weight:600;transition:.25s}
+.stf button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;margin-bottom:16px}
+.days::-webkit-scrollbar{display:none}
+.dy{flex:none;width:64px;border:1px solid var(--ln);border-radius:14px;padding:10px 0;text-align:center;transition:.25s}
+.dy small{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:600}
+.dy b{font-family:var(--serif);font-size:1.5rem;font-weight:500}
+.dy.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}.dy.on small{color:var(--acx)}
+.tms{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-height:230px;overflow:auto;padding-right:2px}
+.tm{border:1px solid var(--ln);border-radius:12px;padding:11px 0;text-align:center;font-size:.84rem;font-weight:600;transition:.25s}
+.tm.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.tm.x{opacity:.32;text-decoration:line-through;pointer-events:none}
+.fld{display:grid;gap:10px}
+.fld input,.fld textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--ln);color:var(--tx);font:inherit;font-size:1rem;padding:13px 2px;outline:0;border-radius:0;transition:border-color .3s}
+.fld textarea{resize:none;height:64px}
+.fld input:focus,.fld textarea:focus{border-color:var(--ac)}
+.fld ::placeholder{color:var(--mu)}
+.fn{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:12px}
+.bck{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:600}
+.err{color:#e0604c;font-size:.82rem;min-height:1.3em;margin-top:10px}
+.done{text-align:center;padding:26px 0}
+.done svg{width:92px;height:92px;margin-bottom:16px}
+.done circle{fill:none;stroke:var(--ac);stroke-width:3;stroke-dasharray:283;stroke-dashoffset:283}
+.done path{fill:none;stroke:var(--ac);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60}
+.done.go circle{animation:dr .8s .1s forwards}.done.go path{animation:dr .5s .8s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.done p{color:var(--mu);max-width:380px;margin:8px auto 0}
+.demo{margin-top:16px;font-size:.72rem;color:var(--mu);text-align:center}
+
+/* visit */
+.vg{display:grid;grid-template-columns:.9fr 1.1fr;gap:5vw;margin-top:50px}
+.vi{display:grid;gap:24px}
+.vi .b{border-top:1px solid var(--ln);padding-top:18px}
+.vi small{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ac);font-weight:700}
+.vi .v{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2.6vw,2.1rem);margin-top:6px;line-height:1.15;letter-spacing:-.02em}
+.hrs div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--ln);font-size:.92rem;color:var(--mu)}
+.hrs div.td{color:var(--tx);font-weight:600}
+.hrs div.td b::after{content:"today";margin-left:10px;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;background:var(--ac);color:var(--acx);padding:2px 8px;border-radius:30px}
+.map{border-radius:22px;overflow:hidden;min-height:440px;position:relative;background:var(--bg2);border:1px solid var(--ln)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.5) contrast(1.05)}
+body:not([data-mode="nails"]) .map iframe{filter:grayscale(.6) contrast(1.05) brightness(.85)}
+
+/* footer split */
+footer{display:grid;grid-template-columns:1fr 1fr;min-height:60vh}
+footer .fl,footer .fr{padding:100px 5vw 60px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+footer .fl{background:#14120f;color:#f3ebe0}
+footer .fr{background:#f7eee8;color:#33262a}
+footer .t{font-family:var(--serif);font-weight:500;font-size:clamp(3rem,9vw,8rem);letter-spacing:-.05em;line-height:.85}
+footer .fr .t{font-style:italic;font-weight:400;color:#c2566f}
+footer .fl .t{color:#d18441}
+footer small{font-size:.86rem;opacity:.75;line-height:1.7;display:block}
+footer .cr{grid-column:1/-1;background:#14120f;color:#7a7266;font-size:.72rem;padding:16px 5vw;letter-spacing:.06em}
+.stk{display:none}
+
+@media(hover:hover) and (pointer:fine){
+  .links a:hover{opacity:1}.links a:hover::after{transform:scaleX(1)}
+  .btn:hover{transform:translateY(-3px);filter:brightness(1.08)}
+  .row .bk:hover{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+  .pc:hover img{transform:scale(1.06)}
+  .opt:hover,.dy:hover,.tm:hover{border-color:var(--ac)}
+  .cloud span:hover{border-color:var(--ac)}
+}
+@media(max-width:960px){
+  .links,.nr .btn{display:none}.burger{display:block}
+  .sec{padding:90px 0}
+  .sd-c{bottom:16vh;max-width:44vw}.sd-c p{display:none}
+  .sd-c h2{font-size:8.4vw}
+  .sd-c .btn{padding:12px 16px;font-size:.62rem;letter-spacing:.08em}
+  .sd-c{bottom:19vh}
+  .tt{top:11vh}.hstat{top:auto;bottom:11vh;left:4vw;font-size:.62rem}
+  .duo,.svc-grid,.rv,.bk-g,.vg{grid-template-columns:1fr}
+  .pc{min-height:400px}
+  .mosw{position:static}.mos{grid-auto-rows:70px}
+  footer{grid-template-columns:1fr}footer .fl,footer .fr{padding:70px 6vw 40px;min-height:260px}
+  .tms{grid-template-columns:repeat(3,1fr)}
+  .hint{bottom:3vh}
+  .mode button{padding:10px 16px;font-size:.68rem}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-mode="barber">
+<div class="pre" id="pre"><div class="a">Pro</div><div class="b">Hair &amp; Nail</div></div>
+
+<nav class="top" id="nav">
+  <a href="#top" class="logo">Pro <i>Hair &amp; Nail</i></a>
+  <div class="links"><a href="#duo">Two sides</a><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></div>
+  <div class="nr"><a href="#book" class="btn sm">Book a time</a><button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button></div>
+</nav>
+<div class="drawer" id="drawer"><a class="big" href="#duo">Two sides</a><a class="big" href="#services">Services</a><a class="big" href="#reviews">Reviews</a><a class="big" href="#book">Book</a><a class="big" href="#visit">Visit</a></div>
+<div class="mode" id="mode"><div class="th" id="modeTh"></div><button class="on" data-m="barber">Barber</button><button data-m="nails">Nails &amp; Brows</button></div>
+
+<header class="split" id="split">
+  <div class="side l"><img id="imgL" src="https://images.unsplash.com/photo-1759134198561-e2041049419c?auto=format&fit=crop&w=2000&q=75" alt="Barbershop interior" fetchpriority="high" onerror="this.remove()"></div>
+  <div class="side r"><img id="imgR" src="https://images.unsplash.com/photo-1659391542239-9648f307c0b1?auto=format&fit=crop&w=2000&q=75" alt="Manicure in progress" fetchpriority="high" onerror="this.remove()"></div>
+  <div class="hstat" id="status"><b></b><span>—</span></div>
+  <div class="tt"><div class="k">Rising Sun Ave · Philadelphia</div><h1 class="sr" id="ttl">Barber <em>&amp;</em> Nails.<br>One door.</h1></div>
+  <div class="sd-c l"><h2 class="sr">The <em>Barber</em></h2><p>Fades, lineups and kids cuts from a barber customers have followed for years.</p><a href="#book" class="btn" data-side="barber">Book a cut</a></div>
+  <div class="sd-c r"><h2 class="sr">Nails <em>&amp; Brows</em></h2><p>Manicures, gel pedicures, acrylics and eyebrow shaping — done right.</p><a href="#book" class="btn" data-side="nails">Book nails</a></div>
+  <div class="hd" id="hd"><div class="kn" id="kn" role="slider" tabindex="0" aria-label="Drag to compare barber and nails sides" aria-valuemin="6" aria-valuemax="94" aria-valuenow="50">◂▸</div></div>
+  <div class="hint" id="hint">← Drag to choose your side →</div>
+</header>
+
+<div class="mq"><div class="tr" id="mq"><span>Fades</span><span>Kids cuts</span><span>Manicures</span><span>Gel pedicures</span><span>Acrylics</span><span>Eyebrow shaping</span><span>Fades</span><span>Kids cuts</span><span>Manicures</span><span>Gel pedicures</span><span>Acrylics</span><span>Eyebrow shaping</span></div></div>
+
+<section class="sec" id="duo">
+  <div class="wrap">
+    <div class="duo-h"><div><div class="eb">Under one roof</div><h2 class="sr h2 bl">Dad gets a fade.<br><em>Mom gets nails.</em></h2></div><p>A barbershop and a nail salon in one spot on Rising Sun Ave. Bring the whole family and get everyone done in one trip.</p></div>
+    <div class="duo">
+      <article class="pc"><img loading="lazy" src="https://images.unsplash.com/photo-1702865272115-5afdbae975af?auto=format&fit=crop&w=1400&q=75" alt="Barber chair" onerror="this.remove()"><div class="in"><small>Barber</small><h3>Dave <em>&amp; the fade.</em></h3><p>Several customers say they've followed Dave for 8–10+ years. Haircuts, fades and kids cuts.</p><div class="tg"><span>Fades</span><span>Kids</span><span>Lineups</span></div></div></article>
+      <article class="pc n"><img loading="lazy" src="https://images.unsplash.com/photo-1667207229735-266c430cca15?auto=format&fit=crop&w=1400&q=75" alt="French manicure" onerror="this.remove()"><div class="in"><small>Nails &amp; Brows</small><h3>Tracy <em>&amp; the details.</em></h3><p>Manicures, gel pedicures, acrylics and eyebrow shaping with a clean, calm, welcoming feel.</p><div class="tg"><span>Manicure</span><span>Pedicure</span><span>Brows</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="services">
+  <div class="wrap">
+    <div class="svc-top"><div><div class="eb">Services</div><h2 class="sr h2 bl">What we <em>do.</em></h2></div><a class="btn o" href="#book">Book a time</a></div>
+    <div class="svc-grid">
+      <div>
+        <div class="lst on" data-l="barber">
+          <div class="row"><span class="n">01</span><h4>Haircut &amp; fade</h4><a class="bk" href="#book" data-svc="Haircut & fade" data-side="barber">Book</a><p>Clean fades, tapers and classic cuts.</p></div>
+          <div class="row"><span class="n">02</span><h4>Kids cut</h4><a class="bk" href="#book" data-svc="Kids cut" data-side="barber">Book</a><p>Patient, friendly, and quick for little ones.</p></div>
+          <div class="row"><span class="n">03</span><h4>Beard trim &amp; lineup</h4><a class="bk" href="#book" data-svc="Beard trim & lineup" data-side="barber">Book</a><p>Sharp edges and a shaped beard.</p></div>
+        </div>
+        <div class="lst" data-l="nails">
+          <div class="row"><span class="n">01</span><h4>Manicure</h4><a class="bk" href="#book" data-svc="Manicure" data-side="nails">Book</a><p>Shape, care and polish.</p></div>
+          <div class="row"><span class="n">02</span><h4>Gel pedicure</h4><a class="bk" href="#book" data-svc="Gel pedicure" data-side="nails">Book</a><p>Long-lasting shine with a relaxing soak.</p></div>
+          <div class="row"><span class="n">03</span><h4>Acrylics</h4><a class="bk" href="#book" data-svc="Acrylics" data-side="nails">Book</a><p>Full sets and fills.</p></div>
+          <div class="row"><span class="n">04</span><h4>Eyebrow shaping</h4><a class="bk" href="#book" data-svc="Eyebrow shaping" data-side="nails">Book</a><p>Clean, natural, framed to your face.</p></div>
+        </div>
+        <div class="note">Prices are added here once the owner confirms the list.</div>
+      </div>
+      <div class="mosw">
+        <div class="mos on" data-l="barber">
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?auto=format&fit=crop&w=1200&q=75" alt="Fade haircut" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1599011176306-4a96f1516d4d?auto=format&fit=crop&w=800&q=75" alt="Beard trim" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1592647420148-bfcc177e2117?auto=format&fit=crop&w=800&q=75" alt="Vintage barber chair" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1568339434343-2a640a1a9946?auto=format&fit=crop&w=800&q=75" alt="Design fade" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1704072650662-76df3af134a7?auto=format&fit=crop&w=900&q=75" alt="Child in barber cape" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1703792685152-d13e206924d8?auto=format&fit=crop&w=900&q=75" alt="Barber with a young client" onerror="this.remove()"></figure>
+        </div>
+        <div class="mos n" data-l="nails">
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1659391542239-9648f307c0b1?auto=format&fit=crop&w=1200&q=75" alt="Manicure" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?auto=format&fit=crop&w=800&q=75" alt="Polish shelf" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1666226398826-5b7ae0111e9a?auto=format&fit=crop&w=800&q=75" alt="Pedicure chair" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1567629307995-b9f33097bd30?auto=format&fit=crop&w=800&q=75" alt="Eyebrow close-up" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1602585578130-c9076e09330d?auto=format&fit=crop&w=900&q=75" alt="Neutral polish bottles" onerror="this.remove()"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1648241815778-fdc8daf0d6ef?auto=format&fit=crop&w=900&q=75" alt="Nail technician at work" onerror="this.remove()"></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="reviews">
+  <div class="wrap">
+    <div class="eb">What Google says</div><h2 class="sr h2 bl">A perfect <em>five.</em></h2>
+    <div class="rv">
+      <div><div class="big"><span id="rN">5.0</span></div><div class="stars">★★★★★</div><div style="color:var(--mu);font-size:.88rem">257 Google reviews</div></div>
+      <div><div class="cloud" id="cloud">
+        <span class="h" style="font-size:2.6rem">Barber<i>71</i></span><span style="font-size:2.1rem">Cleanliness<i>40</i></span><span style="font-size:1.5rem">Welcoming staff<i>18</i></span><span style="font-size:1.3rem">Manicures<i>11</i></span><span style="font-size:1.1rem">Eyebrows<i>5</i></span><span style="font-size:1.1rem">Fades<i>4</i></span><span style="font-size:1rem">Early hours<i>3</i></span>
+      </div><div class="note">Number of Google reviews that mention each topic.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="book">
+  <div class="wrap bk-g">
+    <div>
+      <div class="eb">Book a time</div><h2 class="sr h2 bl">Skip <em>the wait.</em></h2>
+      <p>Pick a service, pick a time, done. Walk-ins are still welcome — booking is for people who'd rather not wait.</p>
+      <div class="perks"><div><i></i>Barber and nails, one booking page</div><div><i></i>Choose Dave, Tracy, or whoever's free</div><div><i></i>We'll confirm by phone or text</div></div>
+    </div>
+    <div class="form" id="form">
+      <div class="fp" id="fp"><i class="on"></i><i></i><i></i></div>
+      <div class="fs on" data-s="0">
+        <div class="sw" id="sw"><button class="on" data-m="barber">Barber</button><button data-m="nails">Nails &amp; Brows</button></div>
+        <h3>What are we doing?</h3><div class="hnt">Pick one service.</div>
+        <div class="opts" id="svcOpts"></div>
+      </div>
+      <div class="fs" data-s="1">
+        <h3>Day &amp; time</h3><div class="hnt">Monday to Saturday, 8 AM – 6 PM.</div>
+        <div class="stf" id="stf"></div>
+        <div class="days" id="days"></div>
+        <div class="tms" id="tms"></div>
+      </div>
+      <div class="fs" data-s="2">
+        <h3>Who's it for?</h3><div class="hnt">We'll confirm by phone or text.</div>
+        <div class="fld"><input id="fName" placeholder="Name" autocomplete="name"><input id="fPhone" placeholder="Phone" type="tel" autocomplete="tel"><textarea id="fNote" placeholder="Anything we should know? (optional)"></textarea></div>
+      </div>
+      <div class="fs" data-s="3"><div class="done" id="done"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"/><path d="M28 52 l15 15 l30 -34"/></svg><h3 id="dT">You're booked in.</h3><p id="dP"></p></div></div>
+      <div class="err" id="err"></div>
+      <div class="fn" id="fnav"><button class="bck" id="bck" style="visibility:hidden">← Back</button><button class="btn" id="nxt">Continue</button></div>
+      <div class="demo">Demo site — bookings are saved on this device only.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="visit">
+  <div class="wrap">
+    <div class="eb">Come by</div><h2 class="sr h2 bl">Rising Sun <em>Ave.</em></h2>
+    <div class="vg">
+      <div class="vi">
+        <div class="b"><small>Address</small><div class="v">6628 Rising Sun Ave<br>Philadelphia, PA 19111</div><a class="btn o sm" style="margin-top:16px" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=6628+Rising+Sun+Ave+Philadelphia+PA+19111">Directions</a></div>
+        <div class="b"><small>Call</small><div class="v"><a href="tel:+12676915787">(267) 691-5787</a></div></div>
+        <div class="b"><small>Hours</small><div class="hrs" id="hrs"></div></div>
+      </div>
+      <div class="map"><iframe title="Map to Pro Hair and Nail Salon" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=6628+Rising+Sun+Ave,+Philadelphia,+PA+19111&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl"><div class="t">Pro</div><small>6628 Rising Sun Ave<br>Philadelphia, PA 19111<br><a href="tel:+12676915787">(267) 691-5787</a></small></div>
+  <div class="fr"><div class="t">Hair &amp; Nail</div><small>Mon–Sat 8 AM – 6 PM<br>Barber · Manicures · Pedicures · Acrylics · Brows</small></div>
+  <div class="cr">Concept demo — not yet the live site.</div>
+</footer>
+<a class="stk" href="tel:+12676915787">Call</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var SLUG='pro-hair-nail';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+if(hasG)document.documentElement.classList.add('js');
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var mode='barber';
+
+/* ---------- hours ---------- */
+var H={1:[8,18],2:[8,18],3:[8,18],4:[8,18],5:[8,18],6:[8,18]};
+function ny(){try{var o={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'long',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});return{d:DAYS.indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60}}catch(e){var n=new Date();return{d:n.getDay(),h:n.getHours()+n.getMinutes()/60}}}
+function status(){var n=ny(),h=H[n.d],el=$('#status'),on=h&&n.h>=h[0]&&n.h<h[1];el.classList.toggle('on',!!on);
+  var t;if(on)t='Open now · until 6 PM';else{var add=0,nx=null;for(var i=0;i<7;i++){var d=(n.d+i)%7;if(H[d]&&(i>0||n.h<H[d][0])){nx=d;add=i;break}}t='Closed · opens '+(add===0?'today':add===1?'tomorrow':DAYS[nx].slice(0,3))+' 8 AM'}
+  $('span',el).textContent=t;
+  var box=$('#hrs');box.innerHTML='';[1,2,3,4,5,6,0].forEach(function(d){var r=document.createElement('div');if(d===n.d)r.className='td';r.innerHTML='<b style="font-weight:inherit">'+DAYS[d]+'</b><span>'+(H[d]?'8 AM – 6 PM':'Call to confirm')+'</span>';box.appendChild(r)})}
+status();setInterval(status,60000);
+
+/* ---------- lenis / nav ---------- */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.15,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+function goTo(sel){var el=$(sel);if(!el)return;if(lenis)lenis.scrollTo(el,{offset:sel==='#top'?0:-20,duration:1.4});else el.scrollIntoView({behavior:'smooth'})}
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();if(a.dataset.side)setMode(a.dataset.side);if(a.dataset.svc)pickSvc(a.dataset.svc);closeDrawer();goTo(h)}})});
+var drawer=$('#drawer'),burger=$('#burger');
+function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');if(lenis)lenis.start()}
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);if(lenis){on?lenis.stop():lenis.start()}});
+var nav=$('#nav'),mp=$('#mode');
+function ns(){var y=scrollY;nav.classList.toggle('solid',y>innerHeight*.7);mp.classList.toggle('on',y>innerHeight*.6&&y+innerHeight<document.documentElement.scrollHeight-500)}
+addEventListener('scroll',ns,{passive:true});ns();
+
+/* ---------- mode (theme morph) ---------- */
+var mbtn=$$('#mode button'),th=$('#modeTh');
+function posTh(){var b=$('#mode button.on');if(b){th.style.left=b.offsetLeft+'px';th.style.width=b.offsetWidth+'px'}}
+function setMode(m){
+  mode=m;document.body.dataset.mode=m;
+  mbtn.forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});posTh();
+  $$('.lst,.mos').forEach(function(e){var on=e.dataset.l===m;e.classList.toggle('on',on);if(on&&anim)gsap.fromTo(e.children,{y:24,opacity:0},{y:0,opacity:1,duration:.6,stagger:.07,ease:'power3.out',clearProps:'all'})});
+  $$('#sw button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});
+  if(typeof renderSvc==='function'){renderSvc()}
+  var tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=m==='nails'?'#f7eee8':'#14120f';
+}
+mbtn.forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.m)})});
+$$('#sw button').forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.m)})});
+addEventListener('resize',posTh);
+
+/* ---------- split drag ---------- */
+var split=$('#split'),P=50,drag=false,touched=false;
+function setP(v){P=Math.max(6,Math.min(94,v));split.style.setProperty('--p',P+'%');$('#kn').setAttribute('aria-valuenow',Math.round(P))}
+function px(e){var r=split.getBoundingClientRect();return((e.clientX-r.left)/r.width)*100}
+split.addEventListener('pointerdown',function(e){if(e.target.closest('a'))return;drag=true;touched=true;if(idle)idle.kill();split.setPointerCapture&&split.setPointerCapture(e.pointerId);setP(px(e));$('#hint').style.opacity=0});
+split.addEventListener('pointermove',function(e){if(drag)setP(px(e))});
+['pointerup','pointercancel'].forEach(function(t){split.addEventListener(t,function(){drag=false})});
+$('#kn').addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){setP(P-5);e.preventDefault()}if(e.key==='ArrowRight'){setP(P+5);e.preventDefault()}});
+var idle=null;
+
+/* ---------- services -> booking ---------- */
+var SV={barber:[['Haircut & fade','Dave'],['Kids cut','Dave'],['Beard trim & lineup','Dave']],nails:[['Manicure','Tracy'],['Gel pedicure','Tracy'],['Acrylics','Tracy'],['Eyebrow shaping','Tracy']]};
+var B={svc:'',staff:'Any',day:'',time:''},step=0;
+function renderSvc(){
+  var box=$('#svcOpts');box.innerHTML='';
+  SV[mode].forEach(function(s){var b=document.createElement('button');b.className='opt'+(B.svc===s[0]?' on':'');b.innerHTML='<span>'+s[0].replace('&','&amp;')+'<small>with '+s[1]+' or whoever’s free</small></span>';b.addEventListener('click',function(){B.svc=s[0];$$('#svcOpts .opt').forEach(function(x){x.classList.remove('on')});b.classList.add('on')});box.appendChild(b)});
+  if(!SV[mode].some(function(s){return s[0]===B.svc}))B.svc='';
+  var stf=$('#stf');stf.innerHTML='';var nm=mode==='barber'?'Dave':'Tracy';[['Any',mode==='barber'?'Any barber':'Anyone'],[nm,nm]].forEach(function(o){var b=document.createElement('button');b.textContent=o[1];b.className=B.staff===o[0]?'on':'';b.addEventListener('click',function(){B.staff=o[0];$$('#stf button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');B.time='';renderTimes()});stf.appendChild(b)});
+  if(B.staff!=='Any'&&B.staff!==nm)B.staff='Any';
+  renderTimes();
+}
+function pickSvc(name){B.svc=name;renderSvc();show(0)}
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+function hash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h}
+function slots(){var a=[];for(var m=8*60;m<=17*60+30;m+=30)a.push(m);return a}
+function lab(m){var h=Math.floor(m/60),mm=m%60,ap=h>=12?'PM':'AM';h=h%12||12;return h+':'+(mm?'30':'00')+' '+ap}
+function renderTimes(){
+  var box=$('#tms');box.innerHTML='';
+  if(!B.day){box.innerHTML='<div style="color:var(--mu);font-size:.9rem;grid-column:1/-1">Pick a day to see times.</div>';return}
+  var taken=getB().filter(function(b){return b.date===B.day&&b.side===mode&&(B.staff==='Any'||b.staff===B.staff||b.staff==='Any')}).map(function(b){return b.time});
+  var n=ny(),today=new Date().toISOString().slice(0,10)===B.day;
+  slots().forEach(function(m){var t=lab(m),b=document.createElement('button');b.className='tm';b.textContent=t;
+    var x=(hash(B.day+mode+B.staff+m)%10)<3||taken.indexOf(t)>-1||(today&&m/60<=n.h+.5);
+    if(x)b.classList.add('x');else b.addEventListener('click',function(){B.time=t;$$('.tm').forEach(function(y){y.classList.remove('on')});b.classList.add('on')});
+    if(B.time===t&&!x)b.classList.add('on');box.appendChild(b)});
+}
+(function(){var box=$('#days'),d=new Date(),c=0;while(c<8){if(d.getDay()!==0){(function(dt){var b=document.createElement('button');b.className='dy';b.innerHTML='<small>'+DAYS[dt.getDay()].slice(0,3)+'</small><b>'+dt.getDate()+'</b><small>'+MN[dt.getMonth()]+'</small>';var iso=new Date(dt.getTime()-dt.getTimezoneOffset()*60000).toISOString().slice(0,10);b.addEventListener('click',function(){$$('.dy').forEach(function(x){x.classList.remove('on')});b.classList.add('on');B.day=iso;B.time='';renderTimes()});box.appendChild(b)})(new Date(d));c++}d.setDate(d.getDate()+1)}})();
+var fs=$$('.fs'),fp=$$('#fp i');
+function show(n){step=n;fs.forEach(function(s,i){s.classList.toggle('on',i===n)});fp.forEach(function(p,i){p.classList.toggle('on',i<=Math.min(n,2))});$('#bck').style.visibility=(n>0&&n<3)?'visible':'hidden';$('#nxt').textContent=n===2?'Confirm booking':'Continue';$('#fnav').style.display=n===3?'none':'flex';$('#err').textContent='';if(anim&&n<3)gsap.fromTo(fs[n],{y:24,opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out',clearProps:'all'})}
+function err(m){$('#err').textContent=m}
+$('#bck').addEventListener('click',function(){if(step>0)show(step-1)});
+$('#nxt').addEventListener('click',function(){
+  if(step===0){if(!B.svc)return err('Pick a service.');show(1)}
+  else if(step===1){if(!B.day)return err('Pick a day.');if(!B.time)return err('Pick a time.');show(2)}
+  else if(step===2){var nm=$('#fName').value.trim(),ph=$('#fPhone').value.replace(/\D/g,'');if(!nm)return err('Add your name.');if(ph.length<10)return err('Add a 10-digit phone number.');
+    var rec={id:'P'+Date.now().toString(36).toUpperCase(),side:mode,service:B.svc,staff:B.staff,date:B.day,time:B.time,name:nm,phone:$('#fPhone').value.trim(),notes:$('#fNote').value.trim(),created:new Date().toISOString(),status:'new'};
+    try{var k=SLUG+'_bookings',a=getB();a.unshift(rec);localStorage.setItem(k,JSON.stringify(a))}catch(e){}
+    var dd=new Date(B.day+'T12:00:00');$('#dT').textContent='You’re booked in, '+nm.split(' ')[0]+'.';
+    $('#dP').textContent=B.svc+(B.staff!=='Any'?' with '+B.staff:'')+' · '+DAYS[dd.getDay()]+' '+MN[dd.getMonth()]+' '+dd.getDate()+' at '+B.time+'. We’ll confirm at '+rec.phone+'.';
+    show(3);var dn=$('#done');dn.classList.remove('go');void dn.offsetWidth;dn.classList.add('go');B.time='';B.day='';$$('.dy').forEach(function(x){x.classList.remove('on')});renderTimes()}
+});
+renderSvc();
+
+/* ---------- intro ---------- */
+var introDone=false,scrollSet=false;
+function softWords(sel){$$(sel).forEach(function(el){if(el.dataset.sp)return;el.dataset.sp=1;
+  var walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;while((n=walk.nextNode()))ns.push(n);
+  ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(\s+)/).forEach(function(p){if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(' '));return}var s=document.createElement('span');s.className='w';s.textContent=p;f.appendChild(s)});t.parentNode.replaceChild(f,t)})})}
+function intro(){
+  if(introDone)return;introDone=true;var pre=$('#pre');
+  if(!anim){pre.remove();return}
+  softWords('#ttl');
+  var tl=gsap.timeline();
+  tl.to('.pre .a',{xPercent:-100,duration:1.1,ease:'expo.inOut'},0.1).to('.pre .b',{xPercent:100,duration:1.1,ease:'expo.inOut'},0.1).set(pre,{display:'none'})
+    .from('.side img',{scale:1.35,duration:2.2,ease:'expo.out'},0.2)
+    .from('#ttl .w',{y:40,opacity:0,filter:'blur(12px)',duration:1.1,stagger:.08,ease:'power3.out',clearProps:'filter'},0.6)
+    .from('.tt .k,.hstat,.sd-c,.hint',{y:24,opacity:0,duration:.9,stagger:.1,ease:'power3.out',clearProps:'transform'},'-=.7')
+    .from('.kn',{scale:0,duration:.7,ease:'back.out(1.8)'},'-=.6')
+    .from('nav.top',{y:-50,opacity:0,duration:.7,ease:'power3.out'},'-=.7');
+  tl.eventCallback('onComplete',function(){
+    setupScroll();
+    idle=gsap.timeline({delay:.6});var o={v:50};
+    idle.to(o,{v:34,duration:1.1,ease:'power2.inOut',onUpdate:function(){if(!touched)setP(o.v)}}).to(o,{v:66,duration:1.6,ease:'power2.inOut',onUpdate:function(){if(!touched)setP(o.v)}}).to(o,{v:50,duration:1.1,ease:'power2.inOut',onUpdate:function(){if(!touched)setP(o.v)}});
+  });
+  setTimeout(setupScroll,4500);
+}
+if(anim){setTimeout(intro,900);setTimeout(intro,3500)}else{var pp=$('#pre');if(pp)pp.remove()}
+posTh();addEventListener('load',posTh);
+
+function setupScroll(){
+  if(scrollSet||!anim)return;scrollSet=true;
+  $$('.bl').forEach(function(el){softWords('.bl');var ws=$$('.w',el);gsap.set(el,{opacity:1});gsap.from(ws,{y:38,opacity:0,filter:'blur(10px)',duration:1,stagger:.07,ease:'power3.out',clearProps:'filter',scrollTrigger:{trigger:el,start:'top 88%',once:true}})});
+  $$('.eb').forEach(function(el){gsap.from(el,{x:-20,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}})});
+  gsap.to('#mq',{xPercent:-50,duration:40,ease:'none',repeat:-1});
+  gsap.from('.pc',{y:70,opacity:0,duration:1.1,stagger:.15,ease:'power3.out',scrollTrigger:{trigger:'.duo',start:'top 85%',once:true},clearProps:'transform,opacity'});
+  gsap.from('.row',{y:30,opacity:0,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.svc-grid',start:'top 85%',once:true},clearProps:'transform,opacity'});
+  $$('.pc img').forEach(function(im){gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:im.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+  ScrollTrigger.create({trigger:'.rv',start:'top 80%',once:true,onEnter:function(){var c={v:0};gsap.to(c,{v:5,duration:1.6,ease:'power2.out',onUpdate:function(){$('#rN').textContent=c.v.toFixed(1)}});gsap.from('.cloud span',{scale:.6,opacity:0,duration:.7,stagger:.09,ease:'back.out(1.6)',clearProps:'all'})}});
+  gsap.from('.form',{y:60,opacity:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:'.form',start:'top 90%',once:true},clearProps:'transform,opacity'});
+  gsap.from('.vi .b',{y:40,opacity:0,duration:.8,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.vi',start:'top 85%',once:true},clearProps:'transform,opacity'});
+  ScrollTrigger.matchMedia({'(min-width:961px)':function(){gsap.to('.split .tt',{y:-70,opacity:0,ease:'none',scrollTrigger:{trigger:'.split',start:'top top',end:'bottom top',scrub:true}})}});
+  gsap.to('.side img',{yPercent:8,ease:'none',scrollTrigger:{trigger:'.split',start:'top top',end:'bottom top',scrub:true}});
+  ScrollTrigger.refresh();
+}
+addEventListener('load',function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+})();
+</script>
+</body>
+</html>
