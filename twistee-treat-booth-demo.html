@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<!--
+DEMO CONCEPT - facts marked [CONFIRM] with the owner before any real launch:
+ - Franchise vs independent: "Twistee Treat" is also a national franchise brand; this Mayfair shop looks like a single local shop [CONFIRM]
+ - Hours: Yelp says Mon-Fri 1-10 PM, Sat-Sun 12-10 PM; Google showed "opens 12 PM" on a Wednesday [CONFIRM]
+ - Phone number (none on Google) [CONFIRM]
+ - Flavors list, prices, cup/cone sizes [CONFIRM]
+ - Seasonal months / closing months, seasonal items (pumpkin pie / apple pie sundae seen on Yelp) [CONFIRM]
+ - Owner name, years open [CONFIRM]
+ - Retro / neon look mentioned by one reviewer: unverified, NOT stated on the site
+ Photos are Unsplash stock (see photos.txt), not this shop.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Twistee Treat - Soft serve, water ice and funnel cake in Mayfair, Philadelphia</title>
+<meta name="description" content="Twistee Treat at 3401 Longshore Ave in Mayfair, Northeast Philadelphia. Soft serve, scoop ice cream, water ice, banana splits and funnel cake. 4.8 stars from 261 Google reviews. Takeout and delivery.">
+<meta name="theme-color" content="#fff6e6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"IceCreamShop","name":"Twistee Treat","address":{"@type":"PostalAddress","streetAddress":"3401 Longshore Ave","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19149","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"261"}}
+</script>
+<script>
+/* image fallback chain: second known-good photo, then a designed gradient block */
+function imgFail(el){
+  var fb=el.getAttribute('data-fb');
+  if(fb){el.removeAttribute('data-fb');el.src='https://images.unsplash.com/photo-'+fb+'?auto=format&fit=crop&w=900&q=75';return}
+  el.onerror=null;el.style.display='none';if(el.parentNode)el.parentNode.classList.add('nophoto');
+}
+</script>
+<style>
+:root{
+  --cream:#fff6e6;--cream2:#ffeccb;--paper:#fffdf7;
+  --red:#e8324a;--red-d:#c11f37;--teal:#12b5a6;--teal-d:#0a8c80;--yel:#ffc933;--ink:#2a1240;--ink2:#4a2f63;
+  --disp:'Lilita One','Arial Rounded MT Bold','Trebuchet MS',system-ui,sans-serif;
+  --sans:'Nunito',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,Menlo,monospace;
+  --wrap:min(1240px,92vw);--navh:66px
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip;scroll-padding-top:80px}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:600;line-height:1.55;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+.wrap{width:var(--wrap);margin:0 auto}
+.disp{font-family:var(--disp);font-weight:400;letter-spacing:.005em;line-height:.98}
+.mono{font-family:var(--mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem}
+.tagc{display:inline-block;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;background:var(--yel);color:var(--ink);border:2px solid var(--ink);border-radius:30px;padding:2px 9px;font-weight:500;white-space:nowrap}
+.sec{position:relative;padding:120px 0}
+.h2{font-size:clamp(2.6rem,6.4vw,5.6rem)}
+.eyb{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px}
+.eyb i{width:28px;height:28px;border-radius:50%;background:var(--red);border:3px solid var(--ink);display:inline-block}
+.w{display:inline-block}
+.js .bl{opacity:0}
+
+/* ---- buttons ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;background:var(--red);color:#fff;border:3px solid var(--ink);border-radius:60px;padding:0 28px;font-family:var(--disp);font-size:1.15rem;letter-spacing:.03em;box-shadow:4px 4px 0 var(--ink);transition:transform .25s,box-shadow .25s}
+.btn.y{background:var(--yel);color:var(--ink)}
+.btn.t{background:var(--teal);color:var(--ink)}
+.btn.o{background:var(--paper);color:var(--ink)}
+.btn.sm{min-height:44px;padding:0 20px;font-size:1rem;box-shadow:3px 3px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+
+/* ---- nav ---- */
+nav.top{position:fixed;inset:0 0 auto 0;height:var(--navh);z-index:80;display:flex;justify-content:space-between;align-items:center;padding:0 4vw;background:var(--cream);border-bottom:3px solid var(--ink)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-size:1.6rem;line-height:1;letter-spacing:.01em}
+.logo svg{width:30px;height:38px;flex:none}
+.logo b{color:var(--red);font-weight:400}
+.links{display:flex;gap:30px;font-weight:800;font-size:.9rem}
+.links a{padding:8px 0;position:relative}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:4px;border-radius:4px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nr{display:flex;align-items:center;gap:10px}
+.burger{display:none;width:46px;height:46px;border-radius:50%;border:3px solid var(--ink);position:relative;background:var(--yel);z-index:95}
+.burger span{position:absolute;left:11px;right:11px;height:3px;border-radius:3px;background:var(--ink);transition:.3s}
+.burger span:nth-child(1){top:14px}.burger span:nth-child(2){top:23px}
+.burger.x span:nth-child(1){top:19px;transform:rotate(45deg)}.burger.x span:nth-child(2){top:19px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:90;background:var(--red);display:flex;flex-direction:column;justify-content:center;padding:0 9vw;gap:4px;clip-path:inset(0 0 100% 0);transition:clip-path .7s cubic-bezier(.7,0,.2,1);visibility:hidden}
+.drawer.on{clip-path:inset(0);visibility:visible}
+.drawer a.big{font-family:var(--disp);font-size:clamp(2.6rem,13vw,4.4rem);color:var(--cream);line-height:1.15;min-height:44px}
+.drawer small{margin-top:18px;color:var(--cream);opacity:.85}
+
+/* ---- preloader ---- */
+.pre{position:fixed;inset:0;z-index:200;background:var(--red);display:grid;place-items:center;overflow:hidden}
+.pre .tk{background:var(--paper);border:4px solid var(--ink);border-radius:14px;padding:20px 34px;text-align:center;transform:rotate(-3deg);box-shadow:8px 8px 0 var(--ink)}
+.pre .tk .mono{display:block;color:var(--red);margin-bottom:4px}
+.pre .tk b{font-family:var(--disp);font-weight:400;font-size:clamp(2.2rem,8vw,4.4rem);line-height:1}
+
+/* ---- hero ---- */
+.hero{position:relative;min-height:100svh;padding:calc(var(--navh) + 150px) 0 70px;background:var(--cream);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(42,18,64,.09) 2px,transparent 2.5px) 0 0/26px 26px;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,#000,transparent 80%);mask-image:linear-gradient(180deg,#000,transparent 80%)}
+#awning{position:absolute;left:0;right:0;top:var(--navh);height:clamp(70px,9.4vw,136px);z-index:20;transform-origin:50% 0;filter:drop-shadow(0 9px 0 rgba(42,18,64,.16))}
+#awning svg{width:100%;height:100%}
+.hg{position:relative;z-index:5;display:grid;grid-template-columns:1.08fr .92fr;gap:3vw;align-items:center}
+.hg>*{min-width:0}
+.hero h1{font-size:clamp(3.2rem,7.6vw,7.4rem);color:var(--ink);margin:6px 0 26px}
+.hero h1 .r{color:var(--red)}
+.hero h1 .t{color:var(--teal-d)}
+.hero p.lead{font-size:clamp(1.05rem,1.5vw,1.25rem);max-width:30em;color:var(--ink2);margin-bottom:28px}
+.hbtn{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:30px}
+.hpills{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;background:var(--paper);border:3px solid var(--ink);border-radius:60px;padding:9px 18px 9px 14px;box-shadow:3px 3px 0 var(--ink);font-weight:800;font-size:.92rem;line-height:1.2}
+.pill b{width:13px;height:13px;border-radius:50%;background:#9a8fa5;border:2px solid var(--ink);flex:none}
+.pill.on b{background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.3)}
+.pill.s{background:var(--yel)}
+.stage{position:relative;height:clamp(460px,58vw,700px)}
+.stage .sun{position:absolute;left:50%;top:50%;width:min(92%,560px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:var(--teal);border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
+.stage .sun::after{content:"";position:absolute;inset:16px;border-radius:50%;border:3px dashed rgba(42,18,64,.45)}
+#heroCone{position:absolute;left:50%;top:50%;height:96%;transform:translate(-50%,-50%);width:auto;overflow:visible}
+.stage .pol{position:absolute;left:-2%;bottom:1%;width:min(38%,220px);background:var(--paper);border:3px solid var(--ink);border-radius:8px;padding:8px 8px 6px;transform:rotate(-7deg);box-shadow:5px 5px 0 var(--ink);z-index:4}
+.pol .ph{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:linear-gradient(135deg,var(--teal),var(--yel))}
+.pol .ph img{width:100%;height:100%;object-fit:cover}
+.pol figcaption{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;padding-top:6px;text-align:center;color:var(--ink2)}
+.badge{position:absolute;right:-1%;top:2%;width:clamp(120px,15vw,190px);aspect-ratio:1;z-index:4}
+.badge svg{width:100%;height:100%}
+.badge .spin{transform-origin:50% 50%;animation:spin 22s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.nophoto{background:linear-gradient(135deg,var(--teal),var(--yel) 60%,var(--red))!important}
+
+/* ---- stats strip ---- */
+.strip{background:var(--ink);color:var(--cream);border-block:3px solid var(--ink);overflow:hidden;padding:18px 0;white-space:nowrap}
+.strip .tr{display:inline-flex;will-change:transform}
+.strip span{font-family:var(--disp);font-size:clamp(1.5rem,3vw,2.4rem);padding:0 .5em;display:inline-flex;align-items:center;gap:1em}
+.strip span::after{content:"";width:.5em;height:.5em;border-radius:50%;background:var(--yel);flex:none}
+.strip span:nth-child(3n+2)::after{background:var(--red)}.strip span:nth-child(3n)::after{background:var(--teal)}
+
+/* ---- stacker ---- */
+.stk{background:var(--teal);padding:0;min-height:100svh;overflow:hidden}
+.stk-in{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:center;padding:calc(var(--navh) + 20px) 0 30px;width:var(--wrap);margin:0 auto}
+.stk-in>*{min-width:0}
+.stk h2{color:var(--ink)}
+.stk h2 em{font-style:normal;color:var(--cream);-webkit-text-stroke:0}
+.stk .mono{color:var(--ink)}
+.slist{list-style:none;margin:28px 0 18px;display:grid;gap:10px;max-width:520px}
+.slist li{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;background:rgba(255,253,247,.4);border:3px solid rgba(42,18,64,.45);border-radius:16px;padding:10px 16px;transition:background .3s,border-color .3s,transform .4s,box-shadow .3s;min-height:56px}
+.slist li b{font-family:var(--disp);font-weight:400;font-size:1.6rem;line-height:1;opacity:.55}
+.slist li span{font-family:var(--disp);font-size:1.5rem;line-height:1.05}
+.slist li small{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.slist li.on{background:var(--paper);border-color:var(--ink);box-shadow:4px 4px 0 var(--ink);transform:translateX(6px)}
+.slist li.on b{opacity:1;color:var(--red)}
+.snote{font-size:.85rem;color:var(--ink);max-width:460px;opacity:.85}
+.stbtns{display:none;gap:12px;flex-wrap:wrap;align-items:center;position:relative;z-index:2}
+.cnt{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.svgw{position:relative;display:grid;place-items:center;justify-items:center}
+#stackSvg{position:relative;z-index:1;height:min(76vh,720px);width:auto;max-width:100%;overflow:visible}
+.svgw::before{content:"";position:absolute;width:min(78%,440px);aspect-ratio:1;border-radius:50%;background:var(--yel);border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);top:5%}
+
+/* ---- price board ---- */
+.board{background:var(--red);color:var(--cream);padding:0;overflow:hidden}
+.board-in{padding:110px 0 100px;width:100%}
+@media(min-width:961px){.board{min-height:100svh;display:flex;align-items:center}}
+.bh{width:var(--wrap);margin:0 auto 46px;display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.bh h2{color:var(--cream)}
+.bh h2 span{color:var(--yel)}
+.bh p{max-width:380px;font-size:1rem;opacity:.95}
+.bh .mono{color:var(--yel);display:block;margin-bottom:12px}
+.track{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;width:var(--wrap);margin:0 auto}
+.tkw{filter:drop-shadow(6px 6px 0 var(--ink));min-width:0}
+.tkt{position:relative;background:var(--paper);color:var(--ink);display:flex;flex-direction:column;height:100%;-webkit-mask:radial-gradient(circle 15px at 0 calc(100% - 76px),#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 15px at 100% calc(100% - 76px),#0000 97%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 15px at 0 calc(100% - 76px),#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 15px at 100% calc(100% - 76px),#0000 97%,#000) right/51% 100% no-repeat;border-radius:18px}
+.tkt .ph{position:relative;height:190px;background:linear-gradient(135deg,var(--teal),var(--yel));overflow:hidden;border-bottom:3px solid var(--ink)}
+.tkt .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tkt .ph .no{position:absolute;left:14px;top:12px;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;background:var(--ink);color:var(--cream);padding:4px 10px;border-radius:30px;z-index:2}
+.tkt .bd{padding:20px 24px 0;flex:1}
+.tkt h3{font-family:var(--disp);font-weight:400;font-size:2.1rem;line-height:1;color:var(--ink)}
+.tkt p{font-size:.94rem;color:var(--ink2);margin-top:8px}
+.tkt .perf{border-top:3px dashed var(--ink);margin:20px 0 0;height:76px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tkt .perf .mono{font-size:.6rem}
+.tkt .perf a{font-family:var(--disp);color:var(--red);font-size:1.05rem;min-height:44px;display:inline-flex;align-items:center}
+.tkw.sea .tkt .ph{background:linear-gradient(135deg,var(--yel),var(--red))}
+
+/* ---- oversized ---- */
+.big{background:var(--yel);padding:70px 0;overflow:hidden;border-block:4px solid var(--ink);position:relative}
+.big .ln{display:block;white-space:nowrap;font-family:var(--disp);font-size:clamp(4.4rem,17vw,17rem);line-height:.9;color:var(--ink);will-change:transform;letter-spacing:.005em}
+.big .ln.o{color:transparent;-webkit-text-stroke:3px var(--ink)}
+.big .ln.r{color:var(--red)}
+.big .cap{width:var(--wrap);margin:26px auto 0;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;text-align:right}
+
+/* ---- reviews ---- */
+.rv{background:var(--cream)}
+.rvg{display:grid;grid-template-columns:1.05fr .95fr;gap:5vw;align-items:center;margin-top:40px}
+.rvg>*{min-width:0}
+.scorebox{background:var(--paper);border:4px solid var(--ink);border-radius:26px;padding:clamp(24px,3.4vw,44px);box-shadow:8px 8px 0 var(--ink);display:grid;grid-template-columns:auto 1fr;gap:10px 30px;align-items:center}
+.score{font-family:var(--disp);font-size:clamp(6rem,15vw,12rem);line-height:.82;color:var(--red)}
+.stars{color:var(--yel);-webkit-text-stroke:2px var(--ink);letter-spacing:6px;font-size:1.7rem}
+.cnts{display:grid;gap:6px}
+.cnts .n{font-family:var(--disp);font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1}
+.chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:20px;border-top:3px dashed var(--ink)}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--teal);border:3px solid var(--ink);border-radius:60px;padding:8px 18px;font-family:var(--disp);font-size:1.15rem;line-height:1.1}
+.chip.k{background:var(--yel)}
+.chip.p{background:#ffb3bf}
+.rvp{position:relative;border-radius:26px;overflow:hidden;border:4px solid var(--ink);aspect-ratio:4/3;background:linear-gradient(135deg,var(--teal),var(--yel));box-shadow:8px 8px 0 var(--ink)}
+.rvp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rvp figcaption{position:absolute;left:14px;bottom:14px;z-index:2;background:var(--paper);border:3px solid var(--ink);border-radius:30px;padding:4px 14px;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+.rvl{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px;align-items:center}
+
+/* ---- order ticket ---- */
+.ord{background:var(--teal)}
+.ord::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(255,246,230,.28) 3px,transparent 3.5px) 0 0/34px 34px;pointer-events:none}
+.og{position:relative;display:grid;grid-template-columns:.8fr 1.2fr;gap:5vw;align-items:start}
+.og>*{min-width:0}
+.og .lh p{margin-top:20px;max-width:24em;font-size:1.08rem}
+.perks{margin-top:26px;display:grid;gap:12px}
+.perks div{display:flex;gap:12px;align-items:center;font-weight:800}
+.perks i{width:18px;height:18px;border-radius:50%;background:var(--yel);border:3px solid var(--ink);flex:none}
+.tw{position:relative;filter:drop-shadow(8px 8px 0 var(--ink))}
+.tmain{position:relative;background:var(--paper);border-radius:22px 22px 0 0;padding:clamp(22px,3vw,40px) clamp(20px,3vw,40px) 26px;-webkit-mask:radial-gradient(circle 16px at 0 100%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 16px at 100% 100%,#0000 97%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 16px at 0 100%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 16px at 100% 100%,#0000 97%,#000) right/51% 100% no-repeat;border-bottom:3px dashed var(--ink);min-height:200px}
+.thead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.thead h3{font-family:var(--disp);font-weight:400;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1}
+.tsub{font-size:.88rem;color:var(--ink2);margin-bottom:18px}
+.fg{margin-top:18px}
+.fg>label,.fg>.lbl{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.fchips{display:flex;flex-wrap:wrap;gap:8px}
+.fchip{min-height:44px;padding:0 16px;border:3px solid var(--ink);border-radius:60px;background:var(--paper);font-family:var(--disp);font-size:1.02rem;transition:background .2s,transform .2s}
+.fchip[aria-pressed="true"]{background:var(--red);color:#fff;box-shadow:3px 3px 0 var(--ink)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.frow>*{min-width:0}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;min-height:44px;border:3px solid var(--ink);border-radius:14px;font-family:var(--disp);font-size:1.02rem;background:var(--paper)}
+.seg button[aria-pressed="true"]{background:var(--yel);box-shadow:3px 3px 0 var(--ink)}
+.qty{display:flex;align-items:center;gap:0;border:3px solid var(--ink);border-radius:14px;overflow:hidden;width:max-content;background:var(--paper)}
+.qty button{width:46px;height:44px;font-family:var(--disp);font-size:1.5rem;background:var(--cream2)}
+.qty output{width:52px;text-align:center;font-family:var(--disp);font-size:1.3rem}
+.fld input,.fld select,.fld textarea{width:100%;min-height:48px;background:var(--cream);border:3px solid var(--ink);border-radius:14px;color:var(--ink);font:inherit;font-weight:700;font-size:1rem;padding:10px 14px;outline:0;border-radius:14px}
+.fld textarea{resize:none;height:76px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{background:#fff;box-shadow:0 0 0 4px var(--yel)}
+.fld ::placeholder{color:#8b7c98}
+.err{color:var(--red-d);font-weight:800;font-size:.9rem;min-height:1.4em;margin-top:12px}
+.tstub{position:relative;background:var(--paper);border-radius:0 0 22px 22px;padding:18px clamp(20px,3vw,40px) 22px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;transform-origin:0 0;-webkit-mask:radial-gradient(circle 16px at 0 0,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 16px at 100% 0,#0000 97%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 16px at 0 0,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 16px at 100% 0,#0000 97%,#000) right/51% 100% no-repeat}
+.tstub small{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;max-width:26em;line-height:1.5}
+.done{display:none;text-align:center;padding:20px 0 8px}
+.done.on{display:block}
+.done .stamp{width:110px;height:110px;border-radius:50%;border:5px solid var(--red);color:var(--red);display:grid;place-items:center;margin:0 auto 18px;font-family:var(--disp);font-size:1.5rem;line-height:1;transform:rotate(-10deg)}
+.done h3{font-family:var(--disp);font-weight:400;font-size:2.2rem}
+.done p{margin:10px auto 0;max-width:30em}
+.done .tn{display:inline-block;margin-top:14px;background:var(--yel);border:3px solid var(--ink);border-radius:30px;padding:3px 14px}
+
+/* ---- visit ---- */
+.visit{background:var(--ink);color:var(--cream)}
+.visit .h2{color:var(--cream)}
+.visit .h2 span{color:var(--yel)}
+.vg{display:grid;grid-template-columns:.9fr 1.1fr;gap:5vw;margin-top:44px}
+.vg>*{min-width:0}
+.vi{display:grid;gap:22px;align-content:start}
+.vi .b{border-top:3px solid rgba(255,246,230,.25);padding-top:16px}
+.vi .mono{color:var(--yel);display:block;margin-bottom:6px}
+.vi .v{font-family:var(--disp);font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.12}
+.vi .n{font-size:.9rem;opacity:.85;margin-top:6px}
+.hrs{display:grid;gap:0;margin-top:6px}
+.hrs div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:2px dashed rgba(255,246,230,.25);font-size:.95rem}
+.hrs div.td{color:var(--yel)}
+.hrs div.td b::after{content:"today";margin-left:10px;font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;background:var(--yel);color:var(--ink);padding:2px 8px;border-radius:30px}
+.map{border-radius:26px;overflow:hidden;min-height:460px;position:relative;background:var(--ink2);border:4px solid var(--cream);box-shadow:8px 8px 0 var(--teal)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05) brightness(.97)}
+.vstrip{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:22px}
+.vstrip figure{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;border:3px solid var(--cream);background:linear-gradient(135deg,var(--teal),var(--yel))}
+.vstrip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+footer{background:var(--ink);color:var(--cream);border-top:3px solid rgba(255,246,230,.25);padding:56px 0 34px}
+footer .fw{width:var(--wrap);margin:0 auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:end}
+footer .ft{font-family:var(--disp);font-size:clamp(3rem,10vw,8rem);line-height:.85;color:var(--red)}
+footer .ft span{color:var(--yel)}
+footer small{display:block;font-size:.86rem;opacity:.8;line-height:1.7}
+footer .cr{width:var(--wrap);margin:38px auto 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;opacity:.65}
+
+@media(hover:hover) and (pointer:fine){
+  .links a:hover::after{transform:scaleX(1)}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+  .fchip:hover,.seg button:hover{background:var(--yel)}
+  .tkt{transition:transform .4s}
+  .tkw:hover .tkt{transform:translateY(-6px) rotate(-.6deg)}
+  .slist li:hover{border-color:var(--ink)}
+}
+@media(max-width:960px){
+  .links,.nr .btn.dk{display:none}.burger{display:block}
+  .sec{padding:84px 0}
+  .hero{padding-top:calc(var(--navh) + 96px)}
+  .hg,.rvg,.og,.vg{grid-template-columns:1fr}
+  .stage{height:min(112vw,520px);margin-top:10px}
+  .badge{right:2%;top:0;width:112px}
+  .stage .pol{width:36%;left:0}
+  .stk-in{padding:calc(var(--navh) + 30px) 0 60px}
+  #stackSvg{height:min(56vh,440px)}
+  .stk-in{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .stk-in .tx{display:contents}
+  .stk-in .tx>*{order:3}
+  .stk-in .tx>.mono{order:0}.stk-in .tx>h2{order:0}
+  .svgw{order:1;margin-top:24px}
+  .svgw .stbtns{justify-content:center;margin-top:22px;width:100%}
+  .stk-in .tx>.slist{order:2;margin-top:8px}
+  .stk-in .tx{display:block}
+  .stbtns{display:flex}
+  .track{grid-template-columns:1fr;gap:34px}
+  .board-in{padding:84px 0 84px}
+  .scorebox{grid-template-columns:1fr}
+  .rvp{aspect-ratio:16/11}
+  .frow{grid-template-columns:1fr}
+  .map{min-height:340px}
+  .big{padding:44px 0}
+}
+@media(max-width:520px){
+  .logo{font-size:1.35rem}.logo svg{width:24px;height:31px}
+  .btn{padding:0 22px}
+  .slist li{grid-template-columns:34px 1fr}
+  .slist li small{display:none}
+  .vstrip{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.badge .spin{animation:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="pre" id="pre"><div class="tk"><span class="mono">Admit one &middot; Mayfair</span><b>Twistee Treat</b></div></div>
+
+<nav class="top" id="nav">
+  <a href="#top" class="logo" aria-label="Twistee Treat home">
+    <svg viewBox="0 0 30 38" aria-hidden="true"><path d="M7 19h16l-8 18z" fill="#f2b45a" stroke="#2a1240" stroke-width="2.5" stroke-linejoin="round"/><path d="M5 19a10 5 0 0 1 20 0z" fill="#fffdf7" stroke="#2a1240" stroke-width="2.5" stroke-linejoin="round"/><path d="M9 14a6 4 0 0 1 12 0z" fill="#fffdf7" stroke="#2a1240" stroke-width="2.5" stroke-linejoin="round"/><path d="M12 10a3 4 0 0 1 6 0c0 3-3 3-3-1" fill="#e8324a" stroke="#2a1240" stroke-width="2.5" stroke-linejoin="round"/></svg>
+    <span>Twistee <b>Treat</b></span>
+  </a>
+  <div class="links"><a href="#scoops">Scoops</a><a href="#menu">Price board</a><a href="#reviews">Reviews</a><a href="#order">Order ahead</a><a href="#visit">Visit</a></div>
+  <div class="nr"><a href="#order" class="btn sm dk">Order ahead</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div>
+</nav>
+<div class="drawer" id="drawer"><a class="big" href="#scoops">Scoops</a><a class="big" href="#menu">Price board</a><a class="big" href="#reviews">Reviews</a><a class="big" href="#order">Order ahead</a><a class="big" href="#visit">Visit</a><small class="mono">3401 Longshore Ave &middot; Mayfair</small></div>
+
+<header class="hero" id="top">
+  <div id="awning" aria-hidden="true"></div>
+  <div class="wrap hg">
+    <div>
+      <div class="eyb"><i></i><span class="mono">Mayfair &middot; Northeast Philly</span></div>
+      <h1 class="disp" id="ttl"><span class="r">Soft serve,</span> scooped <span class="t">with a smile.</span></h1>
+      <p class="lead">A neighborhood window on Longshore Ave for soft serve, scoop ice cream, water ice, banana splits and funnel cake. Takeout and delivery.</p>
+      <div class="hbtn"><a href="#order" class="btn">Pre-order a pickup</a><a href="#menu" class="btn y">See the price board</a></div>
+      <div class="hpills">
+        <div class="pill" id="status"><b></b><span>Checking the window...</span><span class="tagc">confirm</span></div>
+        <div class="pill s"><span>Seasonal &middot; owner confirms months</span></div>
+      </div>
+    </div>
+    <div class="stage" id="stage">
+      <div class="sun"></div>
+      <svg id="heroCone" viewBox="0 0 400 640" role="img" aria-label="Illustration of a soft serve cone">
+        <defs><clipPath id="hcl"><path d="M118 330 L282 330 L200 622 Z"/></clipPath></defs>
+        <g id="hcCone">
+          <path d="M118 330 L282 330 L200 622 Z" fill="#f2b45a" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/>
+          <g clip-path="url(#hcl)" stroke="#b9772b" stroke-width="4" opacity=".75"><path d="M90 350 L330 470 M90 400 L330 520 M90 450 L330 570 M90 300 L330 420 M330 350 L90 470 M330 400 L90 520 M330 450 L90 570 M330 300 L90 420"/></g>
+          <path d="M118 330 L282 330 L200 622 Z" fill="none" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/>
+        </g>
+        <g id="hcT1"><rect x="86" y="262" width="228" height="88" rx="44" fill="#fffdf7" stroke="#2a1240" stroke-width="6"/><path d="M116 322 q84 -34 170 -10" fill="none" stroke="#2a1240" stroke-width="4" stroke-linecap="round" opacity=".28"/><path d="M112 292 q10 -14 30 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".95" class="hi"/></g>
+        <g id="hcT2" transform="rotate(-4 200 240)"><rect x="112" y="200" width="176" height="78" rx="39" fill="#fffdf7" stroke="#2a1240" stroke-width="6"/><path d="M136 262 q66 -26 130 -8" fill="none" stroke="#2a1240" stroke-width="4" stroke-linecap="round" opacity=".28"/><path d="M134 228 q8 -12 26 -16" fill="none" stroke="#e8324a" stroke-width="7" stroke-linecap="round" opacity=".0"/></g>
+        <g id="hcT3" transform="rotate(4 200 180)"><rect x="140" y="146" width="122" height="68" rx="34" fill="#fffdf7" stroke="#2a1240" stroke-width="6"/><path d="M160 200 q42 -20 84 -6" fill="none" stroke="#2a1240" stroke-width="4" stroke-linecap="round" opacity=".28"/></g>
+        <g id="hcT4"><path d="M176 158 C168 118 196 100 208 54 C214 96 240 116 226 158 Z" fill="#fffdf7" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/></g>
+        <path id="hcSw" d="M110 318 Q200 290 292 314 M132 258 Q200 232 270 254 M154 196 Q204 176 250 194" fill="none" stroke="#e8324a" stroke-width="7" stroke-linecap="round" opacity="0"/>
+        <g id="hcStar" fill="#ffc933" stroke="#2a1240" stroke-width="4" stroke-linejoin="round"><path d="M64 96 l7 16 17 2 -13 11 4 17 -15 -9 -15 9 4 -17 -13 -11 17 -2z"/><path d="M338 470 l5 12 13 1 -10 8 3 13 -11 -7 -11 7 3 -13 -10 -8 13 -1z"/></g>
+      </svg>
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="#ffc933" stroke="#2a1240" stroke-width="4"/><circle cx="100" cy="100" r="58" fill="#fffdf7" stroke="#2a1240" stroke-width="4"/>
+          <defs><path id="bc" d="M100 100 m-77 0 a77 77 0 1 1 154 0 a77 77 0 1 1 -154 0"/></defs>
+          <g class="spin"><text font-family="DM Mono,monospace" font-weight="500" font-size="13.5" fill="#2a1240" letter-spacing="1"><textPath href="#bc" textLength="476" lengthAdjust="spacing">SOFT SERVE * WATER ICE * FUNNEL CAKE * BANANA SPLIT *</textPath></text></g>
+          <circle cx="100" cy="104" r="19" fill="#e8324a" stroke="#2a1240" stroke-width="4"/><path d="M100 86 q4 -16 18 -18" fill="none" stroke="#2a1240" stroke-width="4" stroke-linecap="round"/><path d="M93 98 q3 -6 8 -6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/></svg>
+      </div>
+      <figure class="pol"><div class="ph"><img src="https://images.unsplash.com/photo-1756728504462-931c45d550ad?auto=format&fit=crop&w=700&q=75" data-fb="1723341500670-7af0963c0cda" alt="Ice cream stand window with cones and soft serve (stock photo)" fetchpriority="high" onerror="imgFail(this)"></div><figcaption>Summer window &middot; stock photo</figcaption></figure>
+    </div>
+  </div>
+</header>
+
+<div class="strip" aria-hidden="true"><div class="tr" id="mq"><span>Soft serve</span><span>Scoop ice cream</span><span>Water ice</span><span>Banana split</span><span>Funnel cake</span><span>Takeout</span><span>Delivery</span><span>Soft serve</span><span>Scoop ice cream</span><span>Water ice</span><span>Banana split</span><span>Funnel cake</span><span>Takeout</span><span>Delivery</span></div></div>
+
+<section class="stk" id="scoops" aria-labelledby="stkH">
+  <div class="stk-in" id="stkIn">
+    <div class="tx">
+      <span class="mono">Ticket 01 &middot; the stacker</span>
+      <h2 class="disp h2" id="stkH" style="margin-top:14px">Stack up <em>the menu.</em></h2>
+      <ol class="slist" id="slist">
+        <li data-i="0"><b>01</b><span>Soft serve</span><small>Popular &middot; Google &amp; Yelp</small></li>
+        <li data-i="1"><b>02</b><span>Scoop ice cream</span><small>Popular &middot; Google &amp; Yelp</small></li>
+        <li data-i="2"><b>03</b><span>Water ice</span><small>Popular &middot; Google &amp; Yelp</small></li>
+        <li data-i="3"><b>04</b><span>Banana split</span><small>Popular &middot; Google &amp; Yelp</small></li>
+        <li data-i="4"><b>05</b><span>Funnel cake</span><small>Popular &middot; Google &amp; Yelp</small></li>
+      </ol>
+      <p class="snote">Scoop colors are just for fun. Flavors &amp; prices are added once the owner confirms them.</p>
+    </div>
+    <div class="svgw">
+      <svg id="stackSvg" viewBox="0 0 400 800" role="img" aria-label="A cone with five scoops stacking up">
+        <defs>
+          <clipPath id="scl"><path d="M104 520 L296 520 L200 782 Z"/></clipPath>
+          <path id="scp" d="M-58 8 C-58 -34 -30 -56 0 -56 C30 -56 58 -34 58 8 Q58 16 50 16 Q46 36 38 16 Q30 16 24 16 Q18 28 12 16 Q2 20 -6 16 Q-14 34 -22 16 Q-32 16 -38 16 Q-44 34 -50 16 Q-58 16 -58 8 Z"/>
+        </defs>
+        <g id="scCone"><path d="M104 520 L296 520 L200 782 Z" fill="#f2b45a" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/>
+          <g clip-path="url(#scl)" stroke="#b9772b" stroke-width="4" opacity=".75"><path d="M80 540 L320 660 M80 590 L320 710 M80 640 L320 760 M80 500 L320 620 M320 540 L80 660 M320 590 L80 710 M320 640 L80 760 M320 500 L80 620"/></g>
+          <path d="M104 520 L296 520 L200 782 Z" fill="none" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="94" y="506" width="212" height="26" rx="13" fill="#e39a3c" stroke="#2a1240" stroke-width="6"/></g>
+        <g transform="translate(200 492) scale(1.3)"><g class="scg" data-i="0"><use href="#scp" fill="#fff3d6" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/><path d="M-36 -22 q6 -14 22 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></g></g>
+        <g transform="translate(200 424) scale(1.3)"><g class="scg" data-i="1"><use href="#scp" fill="#e8324a" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/><path d="M-36 -22 q6 -14 22 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/></g></g>
+        <g transform="translate(200 356) scale(1.3)"><g class="scg" data-i="2"><use href="#scp" fill="#12b5a6" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/><path d="M-36 -22 q6 -14 22 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/></g></g>
+        <g transform="translate(200 288) scale(1.3)"><g class="scg" data-i="3"><use href="#scp" fill="#ffc933" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/><path d="M-36 -22 q6 -14 22 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".8"/></g></g>
+        <g transform="translate(200 220) scale(1.3)"><g class="scg" data-i="4"><use href="#scp" fill="#ffb3bf" stroke="#2a1240" stroke-width="6" stroke-linejoin="round"/><path d="M-36 -22 q6 -14 22 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+          <path d="M2 -60 q6 -24 24 -28" fill="none" stroke="#2a1240" stroke-width="5" stroke-linecap="round"/><circle cx="0" cy="-70" r="15" fill="#e8324a" stroke="#2a1240" stroke-width="5"/><path d="M-6 -76 q3 -5 7 -5" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g></g>
+      </svg>
+      <div class="stbtns" id="stbtns"><button class="btn y" id="addSc" type="button">Add a scoop</button><button class="btn o sm" id="rstSc" type="button">Start over</button><span class="cnt" id="cnt">0 / 5</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="menu" aria-labelledby="menuH">
+  <div class="board-in" id="boardIn">
+    <div class="bh">
+      <div><span class="mono">Ticket 02 &middot; the price board</span><h2 class="disp h2" id="menuH">Take a <span>ticket.</span></h2></div>
+      <p>The confirmed favorites, one ticket each. Flavors &amp; prices added once the owner confirms them.</p>
+    </div>
+    <div class="track" id="track">
+      <div class="tkw"><article class="tkt"><div class="ph"><span class="no">No. 01</span><img loading="lazy" src="https://images.unsplash.com/photo-1636564499112-6113e73c504a?auto=format&fit=crop&w=800&q=75" data-fb="1629385701021-fcd568a743e8" alt="Soft serve swirl in a cone (stock photo)" onerror="imgFail(this)"></div><div class="bd"><h3>Soft serve</h3><p>The swirl a lot of neighbors stop in for.</p></div><div class="perf"><span class="tagc">price: owner confirms</span><a href="#order" data-item="Soft serve">Order</a></div></article></div>
+      <div class="tkw"><article class="tkt"><div class="ph"><span class="no">No. 02</span><img loading="lazy" src="https://images.unsplash.com/photo-1636696301991-3e176a6b77dc?auto=format&fit=crop&w=800&q=75" data-fb="1765478006783-2df9698dfef6" alt="Three scoops of ice cream in a bowl (stock photo)" onerror="imgFail(this)"></div><div class="bd"><h3>Scoop ice cream</h3><p>Classic scoops. Flavor list added once the owner confirms.</p></div><div class="perf"><span class="tagc">price: owner confirms</span><a href="#order" data-item="Scoop ice cream">Order</a></div></article></div>
+      <div class="tkw"><article class="tkt"><div class="ph"><span class="no">No. 03</span><img loading="lazy" src="https://images.unsplash.com/photo-1768204042188-f5a337e61ca5?auto=format&fit=crop&w=800&q=75" data-fb="1716626669148-1731504429dd" alt="Shaved ice dessert, a stand-in photo for water ice (stock photo)" onerror="imgFail(this)"></div><div class="bd"><h3>Water ice</h3><p>The Philly summer cooler, always a top order.</p></div><div class="perf"><span class="tagc">price: owner confirms</span><a href="#order" data-item="Water ice">Order</a></div></article></div>
+      <div class="tkw"><article class="tkt"><div class="ph"><span class="no">No. 04</span><img loading="lazy" src="https://images.unsplash.com/photo-1633981806729-973c239476c3?auto=format&fit=crop&w=800&q=75" data-fb="1579954115567-dff2eeb6fdeb" alt="Dessert with banana, ice cream and a cherry, a stand-in photo for a banana split (stock photo)" onerror="imgFail(this)"></div><div class="bd"><h3>Banana split</h3><p>The big sundae for sharing. Or not.</p></div><div class="perf"><span class="tagc">price: owner confirms</span><a href="#order" data-item="Banana split">Order</a></div></article></div>
+      <div class="tkw"><article class="tkt"><div class="ph"><span class="no">No. 05</span><img loading="lazy" src="https://images.unsplash.com/photo-1771263467491-df494e6b3a9f?auto=format&fit=crop&w=800&q=75" data-fb="1723341500670-7af0963c0cda" alt="Powdered sugar on fresh funnel cake (stock photo)" onerror="imgFail(this)"></div><div class="bd"><h3>Funnel cake</h3><p>Fried-to-order fair food, right in Mayfair.</p></div><div class="perf"><span class="tagc">price: owner confirms</span><a href="#order" data-item="Funnel cake">Order</a></div></article></div>
+      <div class="tkw sea"><article class="tkt"><div class="ph"><span class="no">No. 06 &middot; seasonal</span><img loading="lazy" src="https://images.unsplash.com/photo-1695886855588-47117bca2fe6?auto=format&fit=crop&w=800&q=75" data-fb="1579954115567-dff2eeb6fdeb" alt="Ice cream sundae with chocolate and whipped cream (stock photo)" onerror="imgFail(this)"></div><div class="bd"><h3>Seasonal sundaes</h3><p>Yelp shows pumpkin pie and apple pie sundaes. Season &amp; menu owner confirms.</p></div><div class="perf"><span class="tagc">price: owner confirms</span><a href="#order" data-item="Seasonal sundae">Order</a></div></article></div>
+    </div>
+  </div>
+</section>
+
+<section class="big" aria-label="Twistee Treat">
+  <span class="ln" data-x="-1">ICE COLD.</span>
+  <span class="ln o" data-x="1">WARM WELCOME.</span>
+  <span class="ln r" data-x="-1">MAYFAIR.</span>
+  <div class="cap">Friendly staff is a top theme in Google reviews</div>
+</section>
+
+<section class="sec rv" id="reviews" aria-labelledby="rvH">
+  <div class="wrap">
+    <div class="eyb"><i></i><span class="mono">What Google says</span></div>
+    <h2 class="disp h2 bl" id="rvH">The neighborhood <span style="color:var(--red)">keeps score.</span></h2>
+    <div class="rvg">
+      <div class="scorebox" id="scorebox">
+        <div class="score"><span id="cN">4.8</span></div>
+        <div class="cnts"><div class="stars" aria-label="4.8 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div><span class="n" id="cR">261</span> <span class="mono">Google reviews</span></div></div>
+        <div class="chips">
+          <span class="chip k">Friendly staff</span><span class="chip">Soft serve</span><span class="chip p">Water ice</span><span class="chip k">Funnel cake</span>
+          <span class="mono" style="width:100%;margin-top:6px;opacity:.7">Themes people mention most in Google reviews</span>
+        </div>
+      </div>
+      <div>
+        <figure class="rvp"><img loading="lazy" src="https://images.unsplash.com/photo-1723341500670-7af0963c0cda?auto=format&fit=crop&w=900&q=75" data-fb="1636564499112-6113e73c504a" alt="Red sign reading soft serve ice cream (stock photo)" onerror="imgFail(this)"><figcaption>Stock photo &middot; demo only</figcaption></figure>
+        <div class="rvl"><a class="btn t" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Twistee+Treat+3401+Longshore+Ave+Philadelphia+PA+19149">Read reviews on Google</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec ord" id="order" aria-labelledby="ordH">
+  <div class="wrap og">
+    <div class="lh">
+      <span class="mono">Ticket 03 &middot; pre-order</span>
+      <h2 class="disp h2 bl" id="ordH" style="margin-top:14px">Skip the <span style="color:var(--cream)">line.</span></h2>
+      <p>Pick what you want, tear off your ticket, and pick up at the window. The shop confirms by phone or text.</p>
+      <div class="perks"><div><i></i>Takeout &amp; delivery both available</div><div><i></i>Pay at the window (card &amp; Apple Pay per Yelp)</div><div><i></i>Pickup time you choose</div></div>
+    </div>
+    <div class="tw" id="tw">
+      <form class="tmain" id="tmain" novalidate>
+        <div id="fbody">
+          <div class="thead"><h3>Pickup ticket</h3><span class="mono" id="tnum">Admit one</span></div>
+          <div class="tsub">Choose one or more. Flavors &amp; prices are confirmed at the window.</div>
+          <div class="fg"><span class="lbl" id="lbItems">What are you craving</span><div class="fchips" id="fchips" role="group" aria-labelledby="lbItems"></div></div>
+          <div class="frow">
+            <div class="fg"><span class="lbl" id="lbSize">Size <span class="tagc" style="margin-left:6px">shop confirms</span></span><div class="seg" id="seg" role="group" aria-labelledby="lbSize"><button type="button" aria-pressed="false">Small</button><button type="button" aria-pressed="true">Medium</button><button type="button" aria-pressed="false">Large</button></div></div>
+            <div class="fg"><span class="lbl" id="lbQty">How many</span><div class="qty" role="group" aria-labelledby="lbQty"><button type="button" id="qm" aria-label="One fewer">&minus;</button><output id="qv" aria-live="polite">1</output><button type="button" id="qp" aria-label="One more">+</button></div></div>
+          </div>
+          <div class="frow fld">
+            <div class="fg"><label for="fName">Name</label><input id="fName" autocomplete="name" placeholder="First name is fine"></div>
+            <div class="fg"><label for="fPhone">Phone</label><input id="fPhone" type="tel" autocomplete="tel" placeholder="(215) 555-0100"></div>
+          </div>
+          <div class="fg fld"><label for="fTime">Pickup time</label><select id="fTime"></select></div>
+          <div class="fg fld"><label for="fNote">Notes (optional)</label><textarea id="fNote" placeholder="Allergies, toppings, anything the window should know"></textarea></div>
+          <div class="err" id="err" role="alert"></div>
+        </div>
+        <div class="done" id="done"><div class="stamp">TORN<br>OFF</div><h3 id="dT">Ticket torn.</h3><p id="dP"></p><span class="tn mono" id="dN"></span><p style="font-size:.85rem;opacity:.8">Demo only - the real site would send this to the shop.</p><button type="button" class="btn sm y" id="again" style="margin-top:20px">Make another ticket</button></div>
+      </form>
+      <div class="tstub" id="tstub"><small>Demo only. Tickets are saved on this device, not sent to the shop.</small><button type="submit" form="tmain" class="btn" id="tear">Tear &amp; send</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec visit" id="visit" aria-labelledby="visH">
+  <div class="wrap">
+    <div class="eyb"><i></i><span class="mono" style="color:var(--yel)">Come by the window</span></div>
+    <h2 class="disp h2 bl" id="visH">Longshore <span>Ave.</span></h2>
+    <div class="vg">
+      <div class="vi">
+        <div class="b"><span class="mono">Address</span><div class="v">3401 Longshore Ave<br>Philadelphia, PA 19149</div><a class="btn y sm" style="margin-top:16px" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=3401+Longshore+Ave+Philadelphia+PA+19149">Directions</a></div>
+        <div class="b"><span class="mono">Phone</span><div class="v">Phone: owner confirms</div><div class="n">No number is listed on Google yet.</div></div>
+        <div class="b"><span class="mono">Hours <span class="tagc" style="margin-left:6px">confirm</span></span><div class="hrs" id="hrs"></div><div class="n">Hours as listed on Yelp. Seasonal months: owner confirms.</div></div>
+        <div class="b"><span class="mono">Good to know</span><div class="n" style="margin-top:0;opacity:1">Takeout and delivery. Cards and Apple Pay accepted (per Yelp). Find them on Facebook (Twistee Treats) and Instagram <a href="https://www.instagram.com/twistee_treat215/" target="_blank" rel="noopener" style="text-decoration:underline">@twistee_treat215</a>.</div></div>
+      </div>
+      <div>
+        <div class="map"><iframe title="Map to Twistee Treat, 3401 Longshore Ave" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=3401%20Longshore%20Ave%2C%20Philadelphia%2C%20PA%2019149&output=embed"></iframe></div>
+        <div class="vstrip">
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1695886855588-47117bca2fe6?auto=format&fit=crop&w=800&q=75" data-fb="1723341500670-7af0963c0cda" alt="Ice cream sundae with chocolate and whipped cream (stock photo)" onerror="imgFail(this)"></figure>
+          <figure><img loading="lazy" src="https://images.unsplash.com/photo-1559703248-dcaaec9fab78?auto=format&fit=crop&w=800&q=75" data-fb="1629385701021-fcd568a743e8" alt="Ice cream cone against a blue background (stock photo)" onerror="imgFail(this)"></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fw"><div class="ft">Twistee <span>Treat</span></div><small>3401 Longshore Ave<br>Philadelphia, PA 19149<br>Phone: owner confirms</small></div>
+  <div class="cr">Demo concept by Rafael's web agency - not affiliated with Twistee Treat. Photos are stock images.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var SLUG='twistee-treat-booth';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+if(hasG){document.documentElement.classList.add('js');gsap.registerPlugin(ScrollTrigger)}
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ---------- awning (generated svg) ---------- */
+(function(){
+  var s='<svg viewBox="0 0 1440 124" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">',n=24,w=60;
+  s+='<rect x="-4" y="-4" width="1448" height="16" fill="#2a1240"/>';
+  for(var i=0;i<n;i++){var x0=i*w,x1=x0+w,f=i%2?'#fffdf7':'#e8324a';s+='<path d="M'+x0+' 8 H'+x1+' V84 A30 30 0 0 1 '+x0+' 84 Z" fill="'+f+'" stroke="#2a1240" stroke-width="4" stroke-linejoin="round"/>'}
+  s+='<rect x="-4" y="-4" width="1448" height="16" fill="#2a1240"/></svg>';
+  $('#awning').innerHTML=s;
+})();
+
+/* ---------- hours (Yelp, CONFIRM) ---------- */
+var H={1:[13,22],2:[13,22],3:[13,22],4:[13,22],5:[13,22],6:[12,22],0:[12,22]};
+function lab(h){var hh=Math.floor(h),m=Math.round((h-hh)*60),ap=hh>=12?'PM':'AM';hh=hh%12||12;return hh+':'+(m<10?'0':'')+m+' '+ap}
+function ny(){try{var o={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'long',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});return{d:DAYS.indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60}}catch(e){var n=new Date();return{d:n.getDay(),h:n.getHours()+n.getMinutes()/60}}}
+function status(){
+  var n=ny(),h=H[n.d],el=$('#status'),on=h&&n.h>=h[0]&&n.h<h[1];el.classList.toggle('on',!!on);
+  var t;if(on)t='Window open · until 10 PM';else{var nx=null,add=0;for(var i=0;i<7;i++){var d=(n.d+i)%7;if(i>0||n.h<H[d][0]){nx=d;add=i;break}}t='Window closed · opens '+(add===0?'today':add===1?'tomorrow':DAYS[nx].slice(0,3))+' '+lab(H[nx][0]).replace(':00','')}
+  $('span',el).textContent=t;
+  var box=$('#hrs');box.innerHTML='';[[1,'Mon–Fri','1 PM – 10 PM'],[6,'Sat–Sun','12 PM – 10 PM']].forEach(function(r){var td=(r[0]===6?(n.d===6||n.d===0):(n.d>=1&&n.d<=5));var d=document.createElement('div');if(td)d.className='td';d.innerHTML='<b style="font-weight:inherit">'+r[1]+'</b><span>'+r[2]+'</span>';box.appendChild(d)})
+}
+status();setInterval(status,60000);
+
+/* ---------- lenis / nav ---------- */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.15,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+function goTo(sel){var el=$(sel);if(!el)return;if(lenis)lenis.scrollTo(el,{offset:sel==='#top'?0:-10,duration:1.4});else el.scrollIntoView({behavior:reduce?'auto':'smooth'})}
+var drawer=$('#drawer'),burger=$('#burger');
+function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');if(lenis)lenis.start()}
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();if(a.dataset.item)pickItem(a.dataset.item);closeDrawer();goTo(h)}})});
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on?'true':'false');if(lenis){on?lenis.stop():lenis.start()}});
+
+/* ---------- order form ---------- */
+var ITEMS=['Soft serve','Scoop ice cream','Water ice','Banana split','Funnel cake','Seasonal sundae'];
+var sel={},size='Medium',qty=1;
+var chips=$('#fchips');
+ITEMS.forEach(function(it){var b=document.createElement('button');b.type='button';b.className='fchip';b.textContent=it;b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){sel[it]=!sel[it];b.setAttribute('aria-pressed',sel[it]?'true':'false')});chips.appendChild(b)});
+function pickItem(name){sel[name]=true;$$('.fchip').forEach(function(b){if(b.textContent===name)b.setAttribute('aria-pressed','true')})}
+$$('#seg button').forEach(function(b){b.addEventListener('click',function(){size=b.textContent;$$('#seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')})})});
+function setQ(v){qty=Math.max(1,Math.min(20,v));$('#qv').textContent=qty}
+$('#qm').addEventListener('click',function(){setQ(qty-1)});$('#qp').addEventListener('click',function(){setQ(qty+1)});
+function timeOpts(){
+  var s=$('#fTime'),n=ny(),html='<option value="">Choose a pickup time</option>',day=n.d,label='Today',start=null;
+  function build(d,from){var o=[],h=H[d];for(var t=Math.max(h[0],from);t<=h[1]-.5;t+=.5)o.push(t);return o}
+  var first=Math.ceil((n.h+.33)*2)/2,slots=H[day]?build(day,first):[];
+  if(!slots.length){day=(day+1)%7;label='Tomorrow';slots=build(day,0)}
+  if(label==='Today'&&H[n.d]&&n.h>=H[n.d][0]&&n.h<H[n.d][1]-.5)html+='<option>ASAP (about 20 min)</option>';
+  slots.forEach(function(t){html+='<option>'+label+' '+lab(t)+'</option>'});
+  s.innerHTML=html;
+}
+timeOpts();
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+function err(m){$('#err').textContent=m}
+var tmain=$('#tmain'),tstub=$('#tstub');
+tmain.addEventListener('submit',function(e){
+  e.preventDefault();
+  var items=ITEMS.filter(function(i){return sel[i]}),nm=$('#fName').value.trim(),ph=$('#fPhone').value.replace(/\D/g,''),pt=$('#fTime').value;
+  if(!items.length)return err('Pick at least one item.');
+  if(!nm)return err('Add your name.');
+  if(ph.length<10)return err('Add a 10-digit phone number.');
+  if(!pt)return err('Choose a pickup time.');
+  err('');
+  var rec={id:'TT'+Date.now().toString(36).toUpperCase().slice(-6),created:new Date().toISOString(),status:'new',name:nm,phone:$('#fPhone').value.trim(),items:items,size:size,qty:qty,pickup:pt,notes:$('#fNote').value.trim()};
+  try{var a=getB();a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+  $('#tnum').textContent='No. '+rec.id;
+  $('#dT').textContent='Ticket torn, '+nm.split(' ')[0]+'.';
+  $('#dP').textContent=qty+' x '+items.join(', ')+' ('+size.toLowerCase()+') for pickup '+pt.replace('Today ','today ').replace('Tomorrow ','tomorrow ')+'.';
+  $('#dN').textContent='Ticket '+rec.id;
+  var fb=$('#fbody'),dn=$('#done');
+  function swap(){fb.style.display='none';dn.classList.add('on');tstub.style.display='none';if(anim)gsap.fromTo(dn,{y:20,opacity:0},{y:0,opacity:1,duration:.7,ease:'power3.out',clearProps:'transform'})}
+  if(anim){
+    var tl=gsap.timeline({onComplete:swap});
+    tl.to('#tw',{x:-5,duration:.08,repeat:3,yoyo:true,ease:'power2.inOut'})
+      .to(tstub,{rotation:16,x:70,y:150,opacity:0,duration:.85,ease:'power2.in'},.2)
+      .to(tmain,{y:-6,duration:.3,ease:'power2.out'},.55).to(tmain,{y:0,duration:.4,ease:'power3.out'});
+  }else swap();
+});
+$('#again').addEventListener('click',function(){
+  $('#done').classList.remove('on');$('#fbody').style.display='block';tstub.style.display='flex';if(window.gsap)gsap.set([tstub,'#tw',tmain],{clearProps:'all'});
+  sel={};$$('.fchip').forEach(function(b){b.setAttribute('aria-pressed','false')});['#fName','#fPhone','#fNote'].forEach(function(s){$(s).value=''});setQ(1);$('#tnum').textContent='Admit one';timeOpts();
+});
+
+/* ---------- scoop stacker ---------- */
+var N=5,shown=0,scg=$$('.scg'),lis=$$('#slist li');
+function setActive(k){lis.forEach(function(li,i){li.classList.toggle('on',i===k-1)});var c=$('#cnt');if(c)c.textContent=k+' / '+N}
+function addScoop(){
+  if(shown>=N)return;var g=scg[shown];shown++;setActive(shown);
+  if(anim)gsap.fromTo(g,{y:-560,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out'});
+  if(!anim)g.style.opacity=1;
+  $('#addSc').textContent=shown>=N?'Stack complete':'Add a scoop';
+}
+function resetScoops(){shown=0;scg.forEach(function(g){if(anim)gsap.set(g,{y:-560,opacity:0});else g.style.opacity=0});setActive(0);lis.forEach(function(l){l.classList.remove('on')});$('#addSc').textContent='Add a scoop'}
+$('#addSc').addEventListener('click',addScoop);$('#rstSc').addEventListener('click',resetScoops);
+
+/* ---------- intro ---------- */
+var introDone=false,scrollSet=false;
+function words(sel){$$(sel).forEach(function(el){if(el.dataset.sp)return;el.dataset.sp=1;
+  var walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;while((n=walk.nextNode()))ns.push(n);
+  ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(\s+)/).forEach(function(p){if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(' '));return}var s=document.createElement('span');s.className='w';s.textContent=p;f.appendChild(s)});t.parentNode.replaceChild(f,t)})})}
+function intro(){
+  if(introDone)return;introDone=true;var pre=$('#pre');
+  if(!anim){pre.remove();return}
+  words('#ttl');
+  gsap.set('#ttl .w',{opacity:0,y:70,rotation:5});
+  gsap.set('#awning',{yPercent:-105,scaleY:.55});
+  gsap.set(['#hcT1','#hcT2','#hcT3','#hcT4'],{scale:0,transformOrigin:'50% 100%',svgOrigin:'200 350'});
+  gsap.set('#hcCone',{opacity:0,y:40});
+  var tl=gsap.timeline();
+  tl.to(pre,{yPercent:-100,duration:1,ease:'expo.inOut'},.15).set(pre,{display:'none'})
+    .to('#awning',{yPercent:0,scaleY:1,duration:1.3,ease:'expo.out'},.55)
+    .to('#hcCone',{opacity:1,y:0,duration:.8,ease:'power3.out'},.9)
+    .to('#hcT1',{scale:1,duration:.7,ease:'power3.out'},1.2)
+    .to('#hcT2',{scale:1,duration:.7,ease:'power3.out'},1.4)
+    .to('#hcT3',{scale:1,duration:.7,ease:'power3.out'},1.6)
+    .to('#hcT4',{scale:1,duration:.7,ease:'power3.out'},1.8)
+    .fromTo('#hcSw',{strokeDasharray:400,strokeDashoffset:400,opacity:0},{strokeDashoffset:0,opacity:1,duration:1.1,ease:'power2.inOut'},1.6)
+    .to('#ttl .w',{opacity:1,y:0,rotation:0,duration:.9,stagger:.13,ease:'power3.out'},1)
+    .fromTo('.hero .eyb,.hero .lead,.hbtn,.hpills',{y:24,opacity:0},{y:0,opacity:1,duration:.8,stagger:.1,ease:'power3.out',clearProps:'transform'},1.3)
+    .fromTo('.badge,.pol',{scale:.5,opacity:0},{scale:1,opacity:1,duration:.8,stagger:.15,ease:'back.out(1.6)'},2)
+    .fromTo('.sun',{scale:.6,opacity:0},{scale:1,opacity:1,duration:1,ease:'power3.out'},.8);
+  tl.eventCallback('onComplete',function(){setupScroll()});
+  setTimeout(setupScroll,5200);
+}
+if(anim){resetScoops();setTimeout(intro,700);setTimeout(intro,3500)}else{var pp=$('#pre');if(pp)pp.remove();scg.forEach(function(g){g.style.opacity=1});$$('.hero .sun').forEach(function(){})}
+if(!anim){/* static: show full stack */setActive(N);lis.forEach(function(l){l.classList.add('on')})}
+
+function setupScroll(){
+  if(scrollSet||!anim)return;scrollSet=true;
+  words('.bl');
+  $$('.bl').forEach(function(el){var ws=$$('.w',el);gsap.set(el,{opacity:1});gsap.from(ws,{y:44,opacity:0,rotation:3,duration:.9,stagger:.08,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}})});
+  gsap.to('#mq',{xPercent:-50,duration:34,ease:'none',repeat:-1});
+  ScrollTrigger.create({trigger:'#scorebox',start:'top 78%',once:true,onEnter:function(){
+    var c={a:0,b:0};gsap.to(c,{a:4.8,b:261,duration:1.8,ease:'power2.out',onUpdate:function(){$('#cN').textContent=c.a.toFixed(1);$('#cR').textContent=Math.round(c.b)}});
+    gsap.fromTo('.chip',{scale:.6,opacity:0},{scale:1,opacity:1,duration:.7,stagger:.1,ease:'back.out(1.6)'})}});
+  gsap.fromTo('.tw',{y:60,opacity:0},{y:0,opacity:1,duration:1,ease:'expo.out',scrollTrigger:{trigger:'.tw',start:'top 90%',once:true},clearProps:'transform'});
+  gsap.fromTo('.vi .b',{y:40,opacity:0},{y:0,opacity:1,duration:.8,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.vi',start:'top 85%',once:true},clearProps:'transform'});
+  $$('.big .ln').forEach(function(l){var d=+l.dataset.x;gsap.fromTo(l,{xPercent:d*-7},{xPercent:d*7,ease:'none',scrollTrigger:{trigger:'.big',start:'top bottom',end:'bottom top',scrub:true}})});
+  var mm=gsap.matchMedia();
+  mm.add('(min-width:961px)',function(){
+    /* stacker: pinned, scoops drop with scroll */
+    var stl=gsap.timeline({scrollTrigger:{trigger:'#scoops',start:'top top',end:'+=2400',pin:true,scrub:.6,anticipatePin:1,invalidateOnRefresh:true}});
+    scg.forEach(function(g,i){
+      stl.fromTo(g,{y:-620,opacity:0},{y:0,opacity:1,duration:1,ease:'power3.out',immediateRender:true},i*1.1).call(function(){setActive(i+1)},null,i*1.1+.55);
+    });
+    stl.to({},{duration:.6});
+    /* price board: horizontal pin */
+    var tr=$('#track'),bi=$('#boardIn');
+    gsap.set(tr,{display:'flex',width:'auto',margin:0,paddingLeft:'max(4vw,calc((100vw - 1240px)/2))',paddingRight:'8vw'});
+    $$('.tkw',tr).forEach(function(t){t.style.flex='0 0 360px'});
+    var dist=function(){return Math.max(0,tr.scrollWidth-innerWidth)};
+    gsap.to(tr,{x:function(){return -dist()},ease:'none',scrollTrigger:{trigger:'#menu',start:'top top',end:function(){return '+='+dist()},pin:true,scrub:.6,invalidateOnRefresh:true,anticipatePin:1}});
+    gsap.set(bi,{paddingTop:'calc(var(--navh) + 40px)',paddingBottom:40});
+    return function(){gsap.set(tr,{clearProps:'all'});gsap.set(bi,{clearProps:'all'});$$('.tkw',tr).forEach(function(t){t.style.flex=''})};
+  });
+  mm.add('(max-width:960px)',function(){
+    $$('.tkw').forEach(function(t){gsap.fromTo(t,{y:60,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',clearProps:'transform',scrollTrigger:{trigger:t,start:'top 90%',once:true}})});
+  });
+  ScrollTrigger.refresh();
+}
+addEventListener('load',function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+})();
+</script>
+</body>
+</html>
