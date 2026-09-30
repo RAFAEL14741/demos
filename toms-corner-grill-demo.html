@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<!--
+[CONFIRM] facts on this demo (owner must verify before going live):
+ - Opening hours Mon-Sun 11:00 AM - 11:00 PM (Yelp only)
+ - Current menu items and ALL prices (menu names come from an October 2014 flyer; no prices shown)
+ - "Best of Philly 2014" mention (from their old flyer)
+ - Owner names, years in business, delivery radius/fees, payment types, whether online ordering exists
+ - Phones 215.335.3662 and 215.335.3219 (only on their old site; (215) 335-3661 is on Google)
+Order form is a REQUEST demo only: saves to this browser (localStorage), sends nothing to the shop.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tom's Corner Grill &amp; Pizza | Pizza, steaks, hoagies and wings on Crabtree St, Philadelphia</title>
+<meta name="description" content="Tom's Corner Grill &amp; Pizza at 7375 Crabtree St, Philadelphia (Mayfair/Tacony). Pizza, cheesesteaks, hoagies and wings. Dine-in, takeout and delivery. 4.5 stars on Google. Send a pickup or delivery request.">
+<meta name="theme-color" content="#f6efe0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@500;700&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Tom's Corner Grill & Pizza","servesCuisine":["Pizza","Cheesesteaks","Hoagies","Chicken wings"],"priceRange":"$10-20","telephone":"+1-215-335-3661","address":{"@type":"PostalAddress","streetAddress":"7375 Crabtree St","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19136","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.5","reviewCount":"192"}}
+</script>
+<style>
+:root{--cream:#f6efe0;--paper:#fffaf0;--red:#d8321f;--red2:#b32617;--green:#1f5a3a;--green2:#163f29;--ink:#1b1512;--mus:#e8b634;--mu:#66594c;--ln:rgba(27,21,18,.16);
+--disp:'Alfa Slab One','Rockwell','Rockwell Extra Bold',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,Menlo,monospace;--hand:'Caveat','Segoe Script','Bradley Hand',cursive;--wrap:min(1240px,90vw);--nav:72px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip;scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.55;overflow-x:clip;-webkit-font-smoothing:antialiased;font-size:17px}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:4px}
+.dark :focus-visible,.red :focus-visible,.green :focus-visible{outline-color:var(--mus)}
+.wrap{width:var(--wrap);margin:0 auto}
+.disp{font-family:var(--disp);font-weight:400;line-height:.98;letter-spacing:-.005em}
+.disp em{font-style:normal;color:var(--red)}
+.mono{font-family:var(--mono)}
+.hand{font-family:var(--hand);font-weight:700}
+.kick{font-family:var(--mono);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;display:inline-flex;align-items:center;gap:12px;color:var(--red2);margin-bottom:18px}
+.kick::before{content:"";width:26px;height:3px;background:currentColor}
+.h2{font-size:clamp(2.4rem,5.6vw,4.8rem)}
+.sec{padding:120px 0;position:relative}
+.w{display:inline-block}
+.js .bl{opacity:0}
+.confirm{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;background:var(--mus);color:var(--ink);padding:2px 7px;border-radius:3px;vertical-align:middle;font-weight:500;white-space:nowrap}
+.chk{height:40px;background:conic-gradient(var(--red) 25%,var(--cream) 0 50%,var(--red) 0 75%,var(--cream) 0) 0 0/40px 40px}
+.chk.g{background:conic-gradient(var(--green) 25%,var(--cream) 0 50%,var(--green) 0 75%,var(--cream) 0) 0 0/40px 40px}
+.chk.k{background:conic-gradient(var(--ink) 25%,var(--cream) 0 50%,var(--ink) 0 75%,var(--cream) 0) 0 0/40px 40px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;background:var(--red);color:#fff;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .25s,box-shadow .25s,background .25s}
+.btn.g{background:var(--green)}
+.btn.c{background:var(--paper);color:var(--ink)}
+.btn.sm{min-height:44px;padding:0 20px;font-size:.78rem;box-shadow:3px 3px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+
+/* nav */
+nav.top{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--nav);display:flex;align-items:center;justify-content:space-between;padding:0 4vw;transition:background .35s,box-shadow .35s}
+nav.top.solid{background:rgba(246,239,224,.94);backdrop-filter:blur(10px);box-shadow:0 3px 0 var(--ink)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-size:1.3rem;line-height:1}
+.logo small{display:block;font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;margin-top:5px;color:var(--red2);font-weight:500}
+.logo svg{width:36px;height:36px;flex:none}
+.links{display:flex;gap:32px;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.links a{position:relative;padding:8px 0}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.nr{display:flex;align-items:center;gap:12px}
+.burger{display:none;width:48px;height:48px;border:3px solid var(--ink);border-radius:50%;position:relative;z-index:95;background:var(--paper)}
+.burger span{position:absolute;left:12px;right:12px;height:3px;background:var(--ink);transition:.3s}
+.burger span:nth-child(1){top:16px}.burger span:nth-child(2){top:25px}
+.burger.x span:nth-child(1){top:20px;transform:rotate(45deg)}.burger.x span:nth-child(2){top:20px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:90;background:var(--red);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 9vw;gap:4px;clip-path:inset(0 0 100% 0);transition:clip-path .7s cubic-bezier(.7,0,.2,1);visibility:hidden}
+.drawer.on{clip-path:inset(0);visibility:visible}
+.drawer a.big{font-family:var(--disp);font-size:clamp(2.6rem,13vw,4.2rem);line-height:1.15;padding:4px 0}
+.drawer .dm{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-top:24px;opacity:.9}
+.drawer .chk{position:absolute;left:0;right:0;bottom:0;background:conic-gradient(var(--ink) 25%,var(--red) 0 50%,var(--ink) 0 75%,var(--red) 0) 0 0/40px 40px}
+
+/* status pill */
+.pill{display:inline-flex;align-items:center;gap:10px;background:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:7px 16px 7px 12px;font-family:var(--mono);font-size:.76rem;font-weight:500;letter-spacing:.03em;box-shadow:3px 3px 0 var(--ink);max-width:100%}
+.pill b{width:12px;height:12px;border-radius:50%;background:#8c8378;flex:none}
+.pill.on b{background:#2fa15b;box-shadow:0 0 0 0 rgba(47,161,91,.6);animation:pu 1.8s infinite}
+@keyframes pu{70%{box-shadow:0 0 0 9px rgba(47,161,91,0)}100%{box-shadow:0 0 0 0 rgba(47,161,91,0)}}
+
+/* preloader */
+.pre{position:fixed;inset:0;z-index:200;background:var(--red);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;overflow:hidden}
+.pre .chk{position:absolute;left:0;right:0;height:40px;background:conic-gradient(var(--ink) 25%,var(--red) 0 50%,var(--ink) 0 75%,var(--red) 0) 0 0/40px 40px}
+.pre .t1{top:0}.pre .t2{bottom:0}
+.pre .pie{width:92px;height:92px;border-radius:50%;background:conic-gradient(var(--mus) 0 12.5%,var(--ink) 0 14%,var(--mus) 0 26.5%,var(--ink) 0 28%,var(--mus) 0 40.5%,var(--ink) 0 42%,var(--mus) 0 54.5%,var(--ink) 0 56%,var(--mus) 0 68.5%,var(--ink) 0 70%,var(--mus) 0 82.5%,var(--ink) 0 84%,var(--mus) 0 96.5%,var(--ink) 0 100%);border:5px solid #b9782b;animation:sp 1.6s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pre .pn{font-family:var(--disp);font-size:clamp(3rem,12vw,8rem);line-height:.9}
+.pre .ps{font-family:var(--mono);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase}
+
+/* hero */
+.hero{position:relative;min-height:100svh;padding-top:var(--nav);overflow:clip}
+.hero-in{width:var(--wrap);margin:0 auto;display:grid;grid-template-columns:.92fr 1.08fr;align-items:center;gap:2vw;min-height:calc(100svh - var(--nav) - 40px)}
+.hero-t{position:relative;z-index:3;padding:18px 0 30px}
+.hero .pill{margin-bottom:26px}
+.hl-stack{display:grid}
+.hl{grid-area:1/1}
+.hl:not(:first-child){display:none}
+.hl h1,.hl .h1s{font-family:var(--disp);font-weight:400;font-size:clamp(2.8rem,5.5vw,5.4rem);line-height:.96;letter-spacing:-.01em}
+.hl h1 em,.hl .h1s em{font-style:normal;color:var(--red)}
+.hl p.hs{font-size:1.15rem;max-width:30ch;margin-top:20px;color:var(--mu);font-weight:500}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:34px}
+.hero-meta{display:flex;align-items:center;gap:14px;margin-top:30px;font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;flex-wrap:wrap}
+.hero-meta .st{color:var(--red);font-size:1.05rem;letter-spacing:2px}
+.hero-p{position:relative;display:grid;place-items:center;align-self:stretch}
+.pz{position:relative;width:min(80vh,54vw);aspect-ratio:1;flex:none}
+.pz::before{content:"";position:absolute;inset:6%;border-radius:50%;background:conic-gradient(rgba(216,50,31,.2) 25%,transparent 0 50%,rgba(216,50,31,.2) 0 75%,transparent 0) 0 0/56px 56px;border:4px solid var(--ink);background-color:var(--paper)}
+.pz svg{position:relative;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 18px 20px rgba(27,21,18,.28))}
+.pol{position:absolute;left:0;bottom:7%;width:min(200px,15vw);transform:rotate(-7deg);background:#fff;padding:9px 9px 8px;box-shadow:0 12px 26px rgba(27,21,18,.3);z-index:4}
+.pol .ph{aspect-ratio:1;background:linear-gradient(135deg,#e6b55a,#c55a2c);overflow:hidden;position:relative}
+.pol img{width:100%;height:100%;object-fit:cover}
+.pol .cap{font-family:var(--hand);font-weight:700;font-size:1.25rem;text-align:center;padding-top:4px;line-height:1.1}
+.note-arrow{position:absolute;right:2%;top:8%;z-index:4;width:200px;text-align:center;transform:rotate(6deg)}
+.note-arrow span{font-family:var(--hand);font-weight:700;font-size:1.5rem;line-height:1.05;display:block;color:var(--green)}
+.note-arrow svg{width:70px;height:60px;margin:2px auto 0;display:block}
+.hero .chk{position:absolute;left:0;right:0;bottom:0;z-index:5}
+
+/* marquee */
+.mq{background:var(--red);color:var(--paper);overflow:hidden;white-space:nowrap;border-block:3px solid var(--ink);position:relative;z-index:2}
+.mq .chk{height:20px;background:conic-gradient(var(--ink) 25%,var(--cream) 0 50%,var(--ink) 0 75%,var(--cream) 0) 0 0/20px 20px}
+.mq .tr{display:inline-flex;will-change:transform;padding:16px 0}
+.mq span{font-family:var(--disp);font-size:clamp(1.5rem,3.4vw,2.6rem);padding:0 .5em;display:inline-flex;align-items:center;gap:1em;text-transform:uppercase}
+.mq span::after{content:"";width:.5em;height:.5em;border-radius:50%;background:var(--mus);border:3px solid var(--ink);flex:none}
+.torn{height:22px;background:var(--ink);-webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50% 100%/26px 13px repeat-x,linear-gradient(#000 0 0) 0 0/100% calc(100% - 12px) no-repeat;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50% 100%/26px 13px repeat-x,linear-gradient(#000 0 0) 0 0/100% calc(100% - 12px) no-repeat;margin-top:-1px}
+
+/* menu rail */
+.menu{background:var(--ink);color:var(--paper);padding:100px 0 110px;position:relative}
+.menu .kick{color:var(--mus)}
+.menu .disp em{color:var(--mus)}
+.menu-h{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.menu-h p{max-width:420px;color:#cdbfae;font-size:.98rem}
+.menu-h p b{color:var(--paper)}
+.tabbar{display:flex;align-items:center;gap:12px;margin:44px 0 26px;flex-wrap:wrap}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;flex:1}
+.tab{min-height:44px;padding:0 18px;border:2px solid rgba(255,250,240,.4);border-radius:999px;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);transition:.25s;white-space:nowrap}
+.tab.on{background:var(--mus);color:var(--ink);border-color:var(--mus)}
+.arrs{display:flex;gap:8px}
+.arr{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,250,240,.5);font-size:1.3rem;transition:.25s;color:var(--paper)}
+.rail{overflow-x:hidden;overflow-y:hidden;touch-action:pan-y;padding:0 5vw 34px;margin:0 -5vw;scroll-snap-type:x proximity;scroll-padding-left:5vw;scrollbar-width:thin;scrollbar-color:var(--mus) transparent;-webkit-overflow-scrolling:touch}
+.rail.drag{scroll-snap-type:none;cursor:grabbing}
+.rail-in{position:relative;display:flex;gap:30px;align-items:flex-start;width:max-content;padding:40px 0 10px}
+.rail-in::before{content:"";position:absolute;left:-5vw;right:-5vw;top:22px;height:14px;border-radius:8px;background:linear-gradient(180deg,#d8d2c8,#8e8679 55%,#5a544b);box-shadow:0 6px 12px rgba(0,0,0,.5)}
+.tkw{position:relative;width:340px;flex:none;scroll-snap-align:start;filter:drop-shadow(0 12px 14px rgba(0,0,0,.5));transform:rotate(var(--r,0deg));transform-origin:50% 0}
+.tkw::before{content:"";position:absolute;left:50%;top:-22px;width:46px;height:34px;margin-left:-23px;background:linear-gradient(180deg,#e2ddd4,#8e8679);border-radius:6px 6px 3px 3px;z-index:3;box-shadow:0 2px 0 rgba(0,0,0,.35)}
+.tk{-webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50% 100%/16px 9px repeat-x,linear-gradient(#000 0 0) 0 0/100% calc(100% - 8px) no-repeat;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50% 100%/16px 9px repeat-x,linear-gradient(#000 0 0) 0 0/100% calc(100% - 8px) no-repeat}
+.tk-body{background:var(--paper);color:var(--ink);padding:26px 24px 36px;position:relative;background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(27,21,18,.04) 31px 32px)}
+.js .tk-body{clip-path:inset(0 0 100% 0)}
+.tk-head{border-bottom:2px dashed rgba(27,21,18,.4);padding-bottom:14px;margin-bottom:12px;position:relative}
+.tk-no{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);display:flex;justify-content:space-between;gap:10px;white-space:nowrap}
+.tk-head h3{font-family:var(--disp);font-weight:400;font-size:2rem;line-height:1;margin:8px 0 4px;color:var(--red)}
+.tk-head .hn{font-family:var(--hand);font-weight:700;font-size:1.2rem;color:var(--green);line-height:1.05;display:block;margin-top:6px}
+.tk-g h4{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;margin:16px 0 4px;color:var(--ink);font-weight:500;display:flex;gap:8px;align-items:center}
+.tk-g h4::after{content:"";flex:1;border-top:1px solid rgba(27,21,18,.3)}
+.tk ul{list-style:none}
+.it{display:flex;align-items:baseline;gap:8px;width:100%;min-height:36px;padding:5px 0;text-align:left;font-weight:600;font-size:.98rem;line-height:1.25;position:relative}
+.it .nm{flex:none;max-width:78%}
+.it i{flex:1;border-bottom:2px dotted rgba(27,21,18,.35);transform:translateY(-4px);min-width:10px}
+.it .ad{flex:none;width:28px;height:28px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:1rem;line-height:1;font-weight:700;transform:translateY(4px);transition:.2s;background:var(--paper)}
+.it .ct{position:absolute;right:36px;top:8px;background:var(--red);color:#fff;font-family:var(--mono);font-size:.68rem;border-radius:9px;padding:0 6px;display:none}
+.it.has .ct{display:block}
+.it.has .ad{background:var(--green);color:#fff;border-color:var(--green)}
+.tk-foot{margin-top:18px;padding-top:14px;border-top:2px dashed rgba(27,21,18,.4);display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.stamp{border:2px solid var(--red);color:var(--red);padding:3px 8px;border-radius:4px;transform:rotate(-6deg);font-weight:500;white-space:nowrap}
+.rail-hint{font-family:var(--hand);font-weight:700;font-size:1.3rem;color:var(--mus);margin-top:6px}
+.prog{height:4px;background:rgba(255,250,240,.16);border-radius:4px;margin-top:8px;overflow:hidden}
+.prog i{display:block;height:100%;width:20%;background:var(--mus);transform-origin:left}
+
+/* photo band */
+.band{padding:110px 0 100px;position:relative;overflow:clip}
+.band-h{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.band-h p{max-width:380px;color:var(--mu)}
+.snap{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:64px;align-items:start}
+.sn{background:#fff;padding:10px 10px 12px;box-shadow:0 12px 26px rgba(27,21,18,.22);position:relative;transform:rotate(var(--r,0deg))}
+.sn:nth-child(even){margin-top:36px}
+.sn .ph{aspect-ratio:4/5;position:relative;overflow:hidden;background:linear-gradient(135deg,#e9b25f,#c4472a)}
+.sn img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.sn .cap{font-family:var(--hand);font-weight:700;font-size:1.35rem;text-align:center;padding-top:8px;line-height:1.1}
+.sn::before{content:"";position:absolute;top:-13px;left:50%;width:84px;height:26px;margin-left:-42px;background:rgba(232,182,52,.75);transform:rotate(-3deg);z-index:2}
+.nophoto::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#f4c542 0 24%,#d8321f 24.5% 27%,transparent 27.5%),conic-gradient(from 0deg at 50% 50%,rgba(255,250,240,.18) 0 12.5%,transparent 0 25%,rgba(255,250,240,.18) 0 37.5%,transparent 0 50%,rgba(255,250,240,.18) 0 62.5%,transparent 0 75%,rgba(255,250,240,.18) 0 87.5%,transparent 0)}
+.foot-note{font-size:.8rem;color:var(--mu);margin-top:34px}
+
+/* big text */
+.bigt{background:var(--red);color:var(--paper);padding:90px 0;overflow:clip;border-block:3px solid var(--ink);position:relative}
+.bigt .ln1{font-family:var(--disp);font-size:clamp(4.4rem,17vw,17rem);line-height:.9;text-transform:uppercase;white-space:nowrap;display:block;will-change:transform;letter-spacing:-.01em}
+.bigt .ln1.o{color:transparent;-webkit-text-stroke:3px var(--paper)}
+.bigt .ln1.y{color:var(--mus)}
+.bigt .sm{font-family:var(--hand);font-weight:700;font-size:clamp(1.5rem,3vw,2.4rem);text-align:center;margin-top:34px;color:var(--paper);padding:0 6vw}
+
+/* stats */
+.stats{position:relative}
+.st-g{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center}
+.st-photo{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;border:4px solid var(--ink);box-shadow:10px 10px 0 var(--ink);background:linear-gradient(135deg,#e9b25f,#c4472a);max-width:520px;width:100%;justify-self:center}
+.st-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stars{position:relative;display:inline-block;font-size:2rem;letter-spacing:6px;color:rgba(27,21,18,.18);line-height:1}
+.stars i{position:absolute;left:0;top:0;bottom:0;overflow:hidden;font-style:normal;color:var(--red);white-space:nowrap;width:90%}
+.bignum{font-family:var(--disp);font-size:clamp(6rem,17vw,13rem);line-height:.85;color:var(--red);letter-spacing:-.02em}
+.stat-row{display:flex;flex-wrap:wrap;gap:16px 40px;margin-top:22px;align-items:flex-end}
+.stat-row .n{font-family:var(--disp);font-size:clamp(2.6rem,5vw,4rem);line-height:1}
+.stat-row small{display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.chips span{border:3px solid var(--ink);border-radius:999px;padding:8px 18px;font-weight:700;font-size:.85rem;background:var(--paper);letter-spacing:.04em}
+.chips span small{font-weight:500;color:var(--mu)}
+.badge{display:inline-block;margin-top:24px;border:2px dashed var(--ink);padding:8px 14px;font-size:.8rem;font-family:var(--mono);max-width:440px;transform:rotate(-1.5deg);background:var(--paper)}
+.stats .btn{margin-top:26px}
+
+/* order */
+.order{background:var(--paper);border-block:3px solid var(--ink)}
+.order-g{display:grid;grid-template-columns:.7fr 1.3fr;gap:5vw;align-items:start}
+.order-i .h2{font-size:clamp(2.2rem,4.2vw,3.7rem)}
+.order-i p{color:var(--mu);margin-top:22px;max-width:400px}
+.demo-box{margin-top:26px;border:3px dashed var(--red);border-radius:14px;padding:16px 18px;font-size:.9rem;background:#fff4ee}
+.demo-box b{color:var(--red2)}
+.order-ph{margin-top:30px;position:relative;aspect-ratio:4/3;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#e9b25f,#c4472a);box-shadow:6px 6px 0 var(--ink)}
+.order-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.order-ph small{position:absolute;left:10px;bottom:8px;z-index:2;font-family:var(--mono);font-size:.62rem;background:var(--paper);padding:2px 7px;border-radius:3px}
+.form{background:var(--cream);border:3px solid var(--ink);border-radius:22px;padding:clamp(20px,3vw,38px);box-shadow:8px 8px 0 var(--ink);min-width:0}
+.fgrid{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;min-width:0}
+.fgrid>*{min-width:0}
+.fs{margin-bottom:26px}
+.fs>label,.fs>.lbl{display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin-bottom:10px;color:var(--ink)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg button{min-height:52px;border:3px solid var(--ink);border-radius:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem;background:var(--paper);transition:.2s}
+.seg button.on{background:var(--green);color:#fff}
+.cchips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.cc{min-height:44px;padding:0 14px;border:2px solid var(--ink);border-radius:999px;font-weight:700;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;background:var(--paper);transition:.2s}
+.cc.on{background:var(--ink);color:var(--paper)}
+.ilist{position:relative;max-height:392px;overflow-y:auto;border:3px solid var(--ink);border-radius:14px;background:var(--paper);overscroll-behavior:auto}
+.og{position:sticky;top:0;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;z-index:2}
+.oi{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--ln);min-height:52px;padding:0 10px 0 14px}
+.oi label{display:flex;align-items:center;gap:12px;flex:1;min-height:52px;cursor:pointer;min-width:0}
+.oi input{position:absolute;opacity:0;pointer-events:none}
+.oi .bx{width:26px;height:26px;border:3px solid var(--ink);border-radius:6px;flex:none;position:relative;background:#fff;transition:.15s}
+.oi input:checked+.bx{background:var(--green);border-color:var(--green)}
+.oi input:checked+.bx::after{content:"";position:absolute;left:6px;top:1px;width:7px;height:13px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.oi input:focus-visible+.bx{outline:3px solid var(--green);outline-offset:2px}
+.oi .on2{font-weight:600;line-height:1.2;min-width:0}
+.oi .on2 small{display:block;font-weight:400;color:var(--mu);font-size:.74rem}
+.qty{display:none;align-items:center;gap:0;flex:none}
+.oi.sel .qty{display:flex}
+.qty button{width:44px;height:44px;border:2px solid var(--ink);border-radius:50%;font-size:1.25rem;font-weight:700;background:var(--paper)}
+.qty output{min-width:30px;text-align:center;font-family:var(--mono);font-weight:500}
+.fld{display:grid;gap:10px}
+.fld input,.fld select,.fld textarea{width:100%;background:var(--paper);border:3px solid var(--ink);border-radius:12px;padding:12px 14px;font-size:1rem;min-height:52px;outline:0;transition:border-color .2s}
+.fld textarea{min-height:84px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(31,90,58,.25)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f2>*{min-width:0}
+#addrW{display:none}
+.err{color:var(--red2);font-weight:700;font-size:.9rem;min-height:1.4em;margin:6px 0 10px}
+.live{position:sticky;top:96px;align-self:start}
+.rc{background:var(--paper);border:3px solid var(--ink);padding:18px 18px 26px;font-family:var(--mono);font-size:.82rem;position:relative;-webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50% 100%/14px 8px repeat-x,linear-gradient(#000 0 0) 0 0/100% calc(100% - 7px) no-repeat;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50% 100%/14px 8px repeat-x,linear-gradient(#000 0 0) 0 0/100% calc(100% - 7px) no-repeat;border-bottom:0}
+.rc h5{font-family:var(--disp);font-weight:400;font-size:1.3rem;color:var(--red);margin-bottom:4px}
+.rc .mt{color:var(--mu);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px dashed rgba(27,21,18,.4);padding-bottom:8px;margin-bottom:8px}
+.rc .rl{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.rc .rl span:first-child{min-width:0}
+.rc .em{color:var(--mu);padding:10px 0;font-family:var(--hand);font-size:1.25rem;line-height:1.1}
+.rc .tot{border-top:2px dashed rgba(27,21,18,.4);margin-top:8px;padding-top:8px;display:flex;justify-content:space-between;font-weight:500}
+.rc .pr{font-size:.68rem;color:var(--mu);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}
+.done{display:none;text-align:center;padding:10px 0}
+.done.on{display:block}
+.done .rc{max-width:380px;margin:20px auto 0;text-align:left}
+.done h3{font-family:var(--disp);font-weight:400;font-size:clamp(2rem,4vw,3rem);line-height:1}
+.done .dm{display:inline-block;margin-top:14px;background:var(--mus);border:3px solid var(--ink);padding:8px 14px;font-weight:700;font-size:.92rem;border-radius:10px}
+.done .btn{margin-top:26px}
+.tstamp{position:absolute;right:8px;top:12px;border:3px solid var(--red);color:var(--red);font-family:var(--disp);padding:2px 10px;font-size:1rem;transform:rotate(9deg);opacity:.9}
+.toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:var(--paper);border-radius:999px;padding:12px 20px;font-weight:700;font-size:.9rem;z-index:120;transition:.35s;display:flex;gap:14px;align-items:center;white-space:nowrap;max-width:92vw;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast a{color:var(--mus);text-decoration:underline}
+
+/* visit */
+.visit{background:var(--green);color:var(--paper);position:relative}
+.visit .kick{color:var(--mus)}
+.visit .disp em{color:var(--mus)}
+.vg{display:grid;grid-template-columns:.95fr 1.05fr;gap:5vw;margin-top:50px;align-items:start}
+.vcard{background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:28px 26px 30px;border-radius:6px;position:relative}
+.vb{padding:16px 0;border-top:2px dashed rgba(27,21,18,.35)}
+.vb:first-child{border-top:0;padding-top:0}
+.vb small{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red2);font-weight:500}
+.vb .v{font-family:var(--disp);font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.15;margin-top:6px}
+.phones{display:grid;gap:4px;margin-top:8px}
+.phones a{display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px;min-height:48px;font-family:var(--disp);font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1;padding:4px 0}
+.phones a small{font-family:var(--mono);color:var(--mu);font-size:.66rem;letter-spacing:.06em;text-transform:none}
+.hrs div span{white-space:nowrap}
+.hrs div{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dotted rgba(27,21,18,.35);font-size:.94rem;color:var(--mu)}
+.hrs div.td{color:var(--ink);font-weight:700}
+.hrs div.td b::after{content:"today";margin-left:8px;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;padding:2px 7px;border-radius:3px;vertical-align:middle}
+.how{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.how span{border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-weight:700;font-size:.82rem}
+.how-n{font-size:.78rem;color:var(--mu);margin-top:8px}
+.mapw{border:3px solid var(--ink);border-radius:6px;overflow:hidden;min-height:520px;position:relative;background:var(--cream);box-shadow:8px 8px 0 var(--ink)}
+.mapw iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05) brightness(.98)}
+.vcard .btn{margin-top:14px}
+
+/* footer */
+footer{background:var(--ink);color:var(--paper);position:relative}
+footer .chk{background:conic-gradient(var(--red) 25%,var(--ink) 0 50%,var(--red) 0 75%,var(--ink) 0 100%) 0 0/40px 40px}
+.ft{width:var(--wrap);margin:0 auto;padding:70px 0 40px;display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:40px}
+.ft .big{font-family:var(--disp);font-size:clamp(3rem,8vw,7rem);line-height:.9;color:var(--mus)}
+.ft .big small{display:block;font-size:.3em;color:var(--paper);margin-top:12px;letter-spacing:.02em}
+.ft h6{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mus);margin-bottom:12px;font-weight:500}
+.ft p,.ft a{font-size:.95rem;line-height:1.9;display:block;color:#e2d8c8}
+.ft a{min-height:32px}
+.cr{width:var(--wrap);margin:0 auto;padding:22px 0 34px;border-top:1px solid rgba(255,250,240,.2);font-size:.82rem;color:#b9ad9c;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* mobile bar */
+.mbar{display:none}
+
+@media(hover:hover) and (pointer:fine){
+  .links a:hover::after{transform:scaleX(1)}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+  .btn.sm:hover{box-shadow:5px 5px 0 var(--ink)}
+  .tab:hover,.arr:hover{border-color:var(--mus)}
+  .it:hover .ad{background:var(--red);color:#fff;border-color:var(--red)}
+  .it:hover .nm{color:var(--red)}
+  .cc:hover{background:var(--mus)}
+  .seg button:hover{background:var(--mus)}
+  .seg button.on:hover{background:var(--green)}
+  .oi:hover{background:#fff4d8}
+  .phones a:hover{color:var(--red)}
+  .sn{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+  .sn:hover{transform:rotate(0deg) translateY(-6px)}
+}
+@media(max-width:960px){
+  body{font-size:16px}
+  :root{--nav:64px}
+  .links,.nr .btn{display:none}
+  .burger{display:block}
+  .sec{padding:80px 0}
+  .hero{min-height:auto}
+  .hero-in{grid-template-columns:1fr;min-height:0;gap:0;padding-bottom:60px}
+  .hero-t{order:2;padding-top:0}
+  .hero-p{order:1;margin:6px 0 0;padding-bottom:46px}
+  .pz{width:min(92vw,470px)}
+  .pol{width:32vw;max-width:140px;left:0;bottom:0}
+  .phones a{font-size:1.45rem}
+  .note-arrow{display:none}
+  .hero .pill{margin-top:10px}
+  .hl h1{font-size:clamp(2.8rem,13vw,4.4rem)}
+  .hl p.hs{font-size:1.05rem}
+  .hero-cta .btn{flex:1 1 200px}
+  .menu{padding:80px 0 90px}
+  .tabbar{margin:32px 0 18px}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:2px 2px 6px;margin:0 -5vw;padding-left:5vw;padding-right:5vw}
+  .tabs::-webkit-scrollbar{display:none}
+  .arrs{display:none}
+  .rail{overflow:visible;margin:0;padding:0;scroll-snap-type:none}
+  .rail-in{flex-direction:column;width:auto;gap:44px;padding-top:36px;align-items:stretch}
+  .rail-in::before{left:-5vw;right:-5vw}
+  .tkw{width:100%;max-width:440px;margin:0 auto;transform:none!important}
+  .prog,.rail-hint{display:none}
+  .band{padding:80px 0}
+  .snap{grid-template-columns:1fr 1fr;gap:20px}
+  .sn:nth-child(even){margin-top:24px}
+  .bigt{padding:60px 0}
+  .st-g,.order-g,.vg,.fgrid{grid-template-columns:1fr}
+  .live{position:static}
+  .st-photo{max-width:340px;order:2}
+  .mapw{min-height:380px}
+  .ft{grid-template-columns:1fr;gap:30px;padding-top:50px}
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px 4vw calc(10px + env(safe-area-inset-bottom));background:rgba(246,239,224,.96);border-top:3px solid var(--ink);backdrop-filter:blur(8px)}
+  .mbar .btn{min-height:48px;padding:0 10px;font-size:.8rem}
+  body{padding-bottom:72px}
+  .toast{bottom:88px}
+  .f2{grid-template-columns:1fr}
+}
+@media(min-width:961px){
+  .js .hl:not(:first-child){display:block;opacity:0}
+  .hero{min-height:100svh}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="pre" id="pre" aria-hidden="true"><div class="chk t1"></div><div class="pie"></div><div class="pn">Tom's</div><div class="ps">Corner Grill &amp; Pizza</div><div class="chk t2"></div></div>
+
+<nav class="top" id="nav">
+  <a href="#top" class="logo" aria-label="Tom's Corner Grill and Pizza, home"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#f6efe0" stroke="#1b1512" stroke-width="3"/><path d="M20 20 L9 8 A18 18 0 0 1 31 8 Z" fill="#e8b634" stroke="#1b1512" stroke-width="2.5" stroke-linejoin="round"/><circle cx="20" cy="12" r="2.6" fill="#d8321f"/><path d="M20 20 L31 8 A18 18 0 0 1 36 20 Z" fill="#d8321f" opacity=".85"/></svg><span>Tom's Corner<small>Grill &amp; Pizza</small></span></a>
+  <div class="links"><a href="#menu">Menu</a><a href="#order">Order</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></div>
+  <div class="nr"><a href="#order" class="btn sm">Start an order</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div>
+</nav>
+<div class="drawer" id="drawer"><a class="big" href="#menu">Menu</a><a class="big" href="#order">Order</a><a class="big" href="#reviews">Reviews</a><a class="big" href="#visit">Visit</a><div class="dm">7375 Crabtree St<br>(215) 335-3661</div><div class="chk"></div></div>
+
+<header class="hero" id="top">
+  <div class="hero-in">
+    <div class="hero-t">
+      <div class="pill" data-status><b></b><span class="pt">Checking hours...</span></div>
+      <div class="hl-stack" id="hls">
+        <div class="hl"><h1>Your corner <em>pizzeria.</em></h1><p class="hs">Pizza, steaks, hoagies and wings on Crabtree St in Mayfair.</p></div>
+        <div class="hl" aria-hidden="true"><p class="h1s">Pies. Steaks. <em>Hoagies.</em> Wings.</p><p class="hs">Dine in, take out, or get it delivered.</p></div>
+        <div class="hl" aria-hidden="true"><p class="h1s">Order ahead. <em>Grab it hot.</em></p><p class="hs">Send a pickup or delivery request in about a minute.</p></div>
+      </div>
+      <div class="hero-cta"><a href="#order" class="btn">Start an order</a><a href="#menu" class="btn c">See the menu</a></div>
+      <div class="hero-meta"><span class="st" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span><b>4.5</b> &middot; 192 Google reviews</span></div>
+    </div>
+    <div class="hero-p">
+      <div class="pz" id="pz"><svg viewBox="-60 -60 520 520" role="img" aria-label="Illustration of a pizza cut into eight slices"><defs><radialGradient id="chg" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#ffd865"/><stop offset="1" stop-color="#f0b93a"/></radialGradient></defs><g class="spin"><g transform="rotate(0 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="202.4" cy="110.3" rx="10.6" ry="5.4" fill="#d98f2a" opacity=".38" transform="rotate(130 202.4 110.3)"/><ellipse cx="181.2" cy="67.3" rx="10.0" ry="5.4" fill="#d98f2a" opacity=".38" transform="rotate(157 181.2 67.3)"/><ellipse cx="176.7" cy="74.9" rx="7.5" ry="4.3" fill="#d98f2a" opacity=".38" transform="rotate(177 176.7 74.9)"/><ellipse cx="204.8" cy="90.3" rx="8.0" ry="5.4" fill="#d98f2a" opacity=".38" transform="rotate(157 204.8 90.3)"/><ellipse cx="206.6" cy="81.9" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(135 206.6 81.9)"/><ellipse cx="188.2" cy="144.6" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(61 188.2 144.6)"/><ellipse cx="214.2" cy="87.9" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(83 214.2 87.9)"/><circle cx="203.7" cy="138.8" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="199.7" cy="135.8" r="2.2" fill="#7d1610"/><circle cx="208.7" cy="140.8" r="2" fill="#7d1610"/><circle cx="202.7" cy="144.8" r="1.8" fill="#7d1610"/><circle cx="204.9" cy="89.9" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="200.9" cy="86.9" r="2.2" fill="#7d1610"/><circle cx="209.9" cy="91.9" r="2" fill="#7d1610"/><circle cx="203.9" cy="95.9" r="1.8" fill="#7d1610"/><circle cx="207.5" cy="52.2" r="7" fill="#1b1512"/><circle cx="207.5" cy="52.2" r="2.6" fill="#f0b93a"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g><g transform="rotate(45 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="190.9" cy="110.2" rx="11.0" ry="7.0" fill="#d98f2a" opacity=".38" transform="rotate(21 190.9 110.2)"/><ellipse cx="190.1" cy="82.6" rx="7.1" ry="4.9" fill="#d98f2a" opacity=".38" transform="rotate(17 190.1 82.6)"/><ellipse cx="182.0" cy="99.7" rx="6.5" ry="4.9" fill="#d98f2a" opacity=".38" transform="rotate(17 182.0 99.7)"/><ellipse cx="222.8" cy="56.4" rx="6.0" ry="4.6" fill="#d98f2a" opacity=".38" transform="rotate(13 222.8 56.4)"/><ellipse cx="221.5" cy="103.0" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(101 221.5 103.0)"/><ellipse cx="202.8" cy="106.0" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(50 202.8 106.0)"/><ellipse cx="186.3" cy="69.0" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(22 186.3 69.0)"/><circle cx="195.0" cy="140.5" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="191.0" cy="137.5" r="2.2" fill="#7d1610"/><circle cx="200.0" cy="142.5" r="2" fill="#7d1610"/><circle cx="194.0" cy="146.5" r="1.8" fill="#7d1610"/><ellipse cx="214.4" cy="92.0" rx="11" ry="5.5" fill="#2f7a3f" stroke="#1f5a3a" stroke-width="1.5" transform="rotate(-43 214.4 92.0)"/><circle cx="181.9" cy="56.2" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="177.9" cy="53.2" r="2.2" fill="#7d1610"/><circle cx="186.9" cy="58.2" r="2" fill="#7d1610"/><circle cx="180.9" cy="62.2" r="1.8" fill="#7d1610"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g><g transform="rotate(90 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="206.3" cy="153.8" rx="6.9" ry="5.7" fill="#d98f2a" opacity=".38" transform="rotate(114 206.3 153.8)"/><ellipse cx="221.0" cy="106.3" rx="9.8" ry="5.3" fill="#d98f2a" opacity=".38" transform="rotate(98 221.0 106.3)"/><ellipse cx="198.1" cy="147.2" rx="7.1" ry="4.8" fill="#d98f2a" opacity=".38" transform="rotate(151 198.1 147.2)"/><ellipse cx="212.8" cy="127.7" rx="7.1" ry="5.2" fill="#d98f2a" opacity=".38" transform="rotate(154 212.8 127.7)"/><ellipse cx="178.8" cy="84.5" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(37 178.8 84.5)"/><ellipse cx="192.1" cy="128.0" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(156 192.1 128.0)"/><ellipse cx="192.2" cy="115.8" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(18 192.2 115.8)"/><circle cx="197.1" cy="143.2" r="7" fill="#1b1512"/><circle cx="197.1" cy="143.2" r="2.6" fill="#f0b93a"/><circle cx="183.1" cy="89.7" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="179.1" cy="86.7" r="2.2" fill="#7d1610"/><circle cx="188.1" cy="91.7" r="2" fill="#7d1610"/><circle cx="182.1" cy="95.7" r="1.8" fill="#7d1610"/><circle cx="205.6" cy="53.7" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="201.6" cy="50.7" r="2.2" fill="#7d1610"/><circle cx="210.6" cy="55.7" r="2" fill="#7d1610"/><circle cx="204.6" cy="59.7" r="1.8" fill="#7d1610"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g><g transform="rotate(135 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="202.1" cy="146.0" rx="10.2" ry="4.4" fill="#d98f2a" opacity=".38" transform="rotate(98 202.1 146.0)"/><ellipse cx="190.6" cy="140.6" rx="10.5" ry="6.5" fill="#d98f2a" opacity=".38" transform="rotate(63 190.6 140.6)"/><ellipse cx="181.5" cy="81.6" rx="9.1" ry="5.7" fill="#d98f2a" opacity=".38" transform="rotate(175 181.5 81.6)"/><ellipse cx="224.9" cy="57.7" rx="9.0" ry="5.3" fill="#d98f2a" opacity=".38" transform="rotate(26 224.9 57.7)"/><ellipse cx="200.3" cy="138.6" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(65 200.3 138.6)"/><ellipse cx="207.0" cy="125.3" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(65 207.0 125.3)"/><ellipse cx="217.2" cy="107.4" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(125 217.2 107.4)"/><circle cx="196.6" cy="140.6" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="192.6" cy="137.6" r="2.2" fill="#7d1610"/><circle cx="201.6" cy="142.6" r="2" fill="#7d1610"/><circle cx="195.6" cy="146.6" r="1.8" fill="#7d1610"/><circle cx="184.8" cy="88.4" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="180.8" cy="85.4" r="2.2" fill="#7d1610"/><circle cx="189.8" cy="90.4" r="2" fill="#7d1610"/><circle cx="183.8" cy="94.4" r="1.8" fill="#7d1610"/><ellipse cx="202.7" cy="55.3" rx="11" ry="5.5" fill="#2f7a3f" stroke="#1f5a3a" stroke-width="1.5" transform="rotate(49 202.7 55.3)"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g><g transform="rotate(180 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="179.3" cy="94.3" rx="7.1" ry="6.7" fill="#d98f2a" opacity=".38" transform="rotate(4 179.3 94.3)"/><ellipse cx="198.1" cy="152.4" rx="7.2" ry="4.1" fill="#d98f2a" opacity=".38" transform="rotate(72 198.1 152.4)"/><ellipse cx="202.6" cy="119.5" rx="6.7" ry="5.1" fill="#d98f2a" opacity=".38" transform="rotate(115 202.6 119.5)"/><ellipse cx="210.5" cy="52.5" rx="9.5" ry="5.8" fill="#d98f2a" opacity=".38" transform="rotate(35 210.5 52.5)"/><ellipse cx="221.4" cy="90.1" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(121 221.4 90.1)"/><ellipse cx="213.3" cy="55.0" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(8 213.3 55.0)"/><ellipse cx="203.2" cy="147.9" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(123 203.2 147.9)"/><ellipse cx="198.1" cy="143.2" rx="11" ry="5.5" fill="#2f7a3f" stroke="#1f5a3a" stroke-width="1.5" transform="rotate(-43 198.1 143.2)"/><circle cx="184.6" cy="85.0" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="180.6" cy="82.0" r="2.2" fill="#7d1610"/><circle cx="189.6" cy="87.0" r="2" fill="#7d1610"/><circle cx="183.6" cy="91.0" r="1.8" fill="#7d1610"/><circle cx="211.1" cy="51.9" r="7" fill="#1b1512"/><circle cx="211.1" cy="51.9" r="2.6" fill="#f0b93a"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g><g transform="rotate(225 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="214.9" cy="61.8" rx="9.5" ry="6.4" fill="#d98f2a" opacity=".38" transform="rotate(87 214.9 61.8)"/><ellipse cx="206.6" cy="121.6" rx="10.5" ry="6.6" fill="#d98f2a" opacity=".38" transform="rotate(106 206.6 121.6)"/><ellipse cx="169.6" cy="59.4" rx="8.5" ry="4.0" fill="#d98f2a" opacity=".38" transform="rotate(169 169.6 59.4)"/><ellipse cx="203.1" cy="118.0" rx="9.0" ry="4.2" fill="#d98f2a" opacity=".38" transform="rotate(163 203.1 118.0)"/><ellipse cx="193.2" cy="138.2" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(106 193.2 138.2)"/><ellipse cx="193.6" cy="73.7" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(177 193.6 73.7)"/><ellipse cx="197.0" cy="89.0" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(138 197.0 89.0)"/><circle cx="202.5" cy="143.0" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="198.5" cy="140.0" r="2.2" fill="#7d1610"/><circle cx="207.5" cy="145.0" r="2" fill="#7d1610"/><circle cx="201.5" cy="149.0" r="1.8" fill="#7d1610"/><circle cx="203.3" cy="95.7" r="7" fill="#1b1512"/><circle cx="203.3" cy="95.7" r="2.6" fill="#f0b93a"/><circle cx="187.5" cy="52.8" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="183.5" cy="49.8" r="2.2" fill="#7d1610"/><circle cx="192.5" cy="54.8" r="2" fill="#7d1610"/><circle cx="186.5" cy="58.8" r="1.8" fill="#7d1610"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g><g transform="rotate(270 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="199.9" cy="83.2" rx="9.1" ry="6.8" fill="#d98f2a" opacity=".38" transform="rotate(65 199.9 83.2)"/><ellipse cx="191.7" cy="61.6" rx="6.7" ry="5.8" fill="#d98f2a" opacity=".38" transform="rotate(132 191.7 61.6)"/><ellipse cx="210.7" cy="142.3" rx="9.3" ry="5.3" fill="#d98f2a" opacity=".38" transform="rotate(61 210.7 142.3)"/><ellipse cx="205.7" cy="124.2" rx="7.0" ry="5.3" fill="#d98f2a" opacity=".38" transform="rotate(51 205.7 124.2)"/><ellipse cx="192.5" cy="57.8" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(149 192.5 57.8)"/><ellipse cx="180.7" cy="54.6" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(34 180.7 54.6)"/><ellipse cx="215.6" cy="99.1" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(10 215.6 99.1)"/><circle cx="205.1" cy="135.7" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="201.1" cy="132.7" r="2.2" fill="#7d1610"/><circle cx="210.1" cy="137.7" r="2" fill="#7d1610"/><circle cx="204.1" cy="141.7" r="1.8" fill="#7d1610"/><circle cx="188.9" cy="93.3" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="184.9" cy="90.3" r="2.2" fill="#7d1610"/><circle cx="193.9" cy="95.3" r="2" fill="#7d1610"/><circle cx="187.9" cy="99.3" r="1.8" fill="#7d1610"/><ellipse cx="189.6" cy="53.0" rx="11" ry="5.5" fill="#2f7a3f" stroke="#1f5a3a" stroke-width="1.5" transform="rotate(-33 189.6 53.0)"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g><g transform="rotate(315 200 200)"><g class="sl-in"><path d="M200 200 L130.7 23.1 A190 190 0 0 1 269.3 23.1 Z" fill="#d99a3e" stroke="#7a4d17" stroke-width="3.5" stroke-linejoin="round"/><path d="M200 200 L139.8 34.6 A176 176 0 0 1 260.2 34.6 Z" fill="#c73a22"/><path d="M200 200 L145.3 41.2 A168 168 0 0 1 254.7 41.2 Z" fill="url(#chg)"/><ellipse cx="193.0" cy="68.8" rx="8.6" ry="6.0" fill="#d98f2a" opacity=".38" transform="rotate(159 193.0 68.8)"/><ellipse cx="182.8" cy="111.9" rx="6.2" ry="6.6" fill="#d98f2a" opacity=".38" transform="rotate(10 182.8 111.9)"/><ellipse cx="188.6" cy="86.0" rx="7.8" ry="5.9" fill="#d98f2a" opacity=".38" transform="rotate(144 188.6 86.0)"/><ellipse cx="193.1" cy="158.5" rx="8.3" ry="4.1" fill="#d98f2a" opacity=".38" transform="rotate(68 193.1 158.5)"/><ellipse cx="187.8" cy="126.1" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(12 187.8 126.1)"/><ellipse cx="173.4" cy="49.0" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(27 173.4 49.0)"/><ellipse cx="208.2" cy="84.1" rx="8" ry="3.5" fill="#fff0b0" opacity=".55" transform="rotate(94 208.2 84.1)"/><circle cx="202.2" cy="132.5" r="7" fill="#1b1512"/><circle cx="202.2" cy="132.5" r="2.6" fill="#f0b93a"/><circle cx="199.2" cy="93.6" r="15" fill="#b3261e" stroke="#7d1610" stroke-width="2.5"/><circle cx="195.2" cy="90.6" r="2.2" fill="#7d1610"/><circle cx="204.2" cy="95.6" r="2" fill="#7d1610"/><circle cx="198.2" cy="99.6" r="1.8" fill="#7d1610"/><ellipse cx="177.9" cy="57.6" rx="11" ry="5.5" fill="#2f7a3f" stroke="#1f5a3a" stroke-width="1.5" transform="rotate(0 177.9 57.6)"/><path d="M141.9 25.4 A184 184 0 0 1 258.1 25.4" fill="none" stroke="#f0c47a" stroke-width="3" stroke-linecap="round" opacity=".7"/></g></g></g></svg></div>
+      <figure class="pol"><div class="ph"><img src="https://images.unsplash.com/photo-1778449736460-9a8f2117571a?auto=format&fit=crop&w=700&q=75" data-fb="https://images.unsplash.com/photo-1778362561139-84fc85c97fe0?auto=format&fit=crop&w=700&q=75,https://images.unsplash.com/photo-1676300187140-00828e014d2a?auto=format&fit=crop&w=700&q=75" alt="A cheesesteak sandwich on a dark background (stock photo)" fetchpriority="high" onerror="fb(this)"></div><figcaption class="cap">steaks too</figcaption></figure>
+      <div class="note-arrow" id="nArr" aria-hidden="true"><span>scroll to slice it</span><svg viewBox="0 0 70 60" fill="none" stroke="#1f5a3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M50 4 C64 20 52 40 16 52"/><path d="M28 40 L14 52 L32 56"/></svg></div>
+    </div>
+  </div>
+  <div class="chk"></div>
+</header>
+
+<div class="mq" aria-hidden="true"><div class="chk"></div><div class="tr" id="mq"><span>Cheese Steak</span><span>Tom's Special</span><span>Buffalo Chicken Pizza</span><span>Italian Hoagie</span><span>Buffalo Wings</span><span>Hawaiian Pizza</span><span>Mozzarella Sticks</span><span>Chicken Parmigiana</span><span>Cheese Fries</span><span>BBQ Chicken Pizza</span><span>Roast Beef</span><span>Greek Salad</span><span>Onion Rings</span><span>Pizza Steak</span><span>Cheese Steak</span><span>Tom's Special</span><span>Buffalo Chicken Pizza</span><span>Italian Hoagie</span><span>Buffalo Wings</span><span>Hawaiian Pizza</span><span>Mozzarella Sticks</span><span>Chicken Parmigiana</span><span>Cheese Fries</span><span>BBQ Chicken Pizza</span><span>Roast Beef</span><span>Greek Salad</span><span>Onion Rings</span><span>Pizza Steak</span></div><div class="chk"></div></div>
+
+<section class="menu dark" id="menu">
+  <div class="wrap">
+    <div class="menu-h"><div><div class="kick">The kitchen rail</div><h2 class="disp h2 bl">Tickets <em>up.</em></h2></div>
+    <p><b>Menu items from the shop's own printed flyer.</b> Prices are added once the owner confirms them, so there are none here yet. Tap a + to add an item to your order request.</p></div>
+    <div class="tabbar"><div class="tabs" id="tabs" role="tablist" aria-label="Menu categories"><button class="tab on" role="tab" data-k="all" aria-selected="true">All</button><button class="tab" role="tab" data-k="pizza" aria-selected="false">Pizza</button><button class="tab" role="tab" data-k="steaks" aria-selected="false">Steaks</button><button class="tab" role="tab" data-k="hoagies" aria-selected="false">Hoagies</button><button class="tab" role="tab" data-k="wings" aria-selected="false">Wings &amp; Apps</button><button class="tab" role="tab" data-k="salads" aria-selected="false">Salads &amp; Chicken</button><button class="tab" role="tab" data-k="dinners" aria-selected="false">Dinners</button></div><div class="arrs"><button class="arr" id="aPrev" aria-label="Scroll tickets left">&#8592;</button><button class="arr" id="aNext" aria-label="Scroll tickets right">&#8594;</button></div></div>
+    <div class="rail" id="rail" tabindex="0" aria-label="Menu tickets, scroll sideways"><div class="rail-in"><div class="tkw" id="tk-pizza" data-k="pizza" style="--r:-1.6deg"><article class="tk"><div class="tk-body"><div class="tk-head"><div class="tk-no"><span>TICKET No. 01</span><span>DINE / TAKE / DELIVER</span></div><h3>Pizzas</h3><span class="hn">sizes: small, medium, large, X-large, Sicilian (per old flyer)</span></div><div class="tk-g"><h4>Italian Pizzas</h4><ul><li><button type="button" class="it" data-id="i0" aria-label="Add Plain (Italian Pizzas) to order request"><span class="nm">Plain</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i1" aria-label="Add Tomato (Italian Pizzas) to order request"><span class="nm">Tomato</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i2" aria-label="Add Bacon (Italian Pizzas) to order request"><span class="nm">Bacon</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i3" aria-label="Add Up Side Down (Italian Pizzas) to order request"><span class="nm">Up Side Down</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i4" aria-label="Add Broccoli or Spinach (Italian Pizzas) to order request"><span class="nm">Broccoli or Spinach</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i5" aria-label="Add Manhattan Style (Italian Pizzas) to order request"><span class="nm">Manhattan Style</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i6" aria-label="Add Tom's Special (Italian Pizzas) to order request"><span class="nm">Tom's Special</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i7" aria-label="Add Tom's Chicken Supreme (Italian Pizzas) to order request"><span class="nm">Tom's Chicken Supreme</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i8" aria-label="Add Vegetable (Italian Pizzas) to order request"><span class="nm">Vegetable</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i9" aria-label="Add Hawaiian (Italian Pizzas) to order request"><span class="nm">Hawaiian</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i10" aria-label="Add Buffalo Chicken (Italian Pizzas) to order request"><span class="nm">Buffalo Chicken</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i11" aria-label="Add BBQ Chicken (Italian Pizzas) to order request"><span class="nm">BBQ Chicken</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i12" aria-label="Add Greek Pizza (Italian Pizzas) to order request"><span class="nm">Greek Pizza</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i13" aria-label="Add White Pizza (Italian Pizzas) to order request"><span class="nm">White Pizza</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-foot"><span>Prices added once owner confirms</span><span class="stamp">ask in store</span></div></div></article></div><div class="tkw" id="tk-steaks" data-k="steaks" style="--r:1.2deg"><article class="tk"><div class="tk-body"><div class="tk-head"><div class="tk-no"><span>TICKET No. 02</span><span>DINE / TAKE / DELIVER</span></div><h3>Steaks</h3><span class="hn">Tom's Special = mushrooms, pepperoni, roast pepper, onion</span></div><div class="tk-g"><h4>Steaks</h4><ul><li><button type="button" class="it" data-id="i14" aria-label="Add Steak (Steaks) to order request"><span class="nm">Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i15" aria-label="Add Cheese Steak (Steaks) to order request"><span class="nm">Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i16" aria-label="Add Pizza Steak (Steaks) to order request"><span class="nm">Pizza Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i17" aria-label="Add Roast Pepper Cheese Steak (Steaks) to order request"><span class="nm">Roast Pepper Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i18" aria-label="Add Pepperoni Cheese Steak (Steaks) to order request"><span class="nm">Pepperoni Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i19" aria-label="Add Mushroom Cheese Steak (Steaks) to order request"><span class="nm">Mushroom Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i20" aria-label="Add Cheese Steak Hoagie (Steaks) to order request"><span class="nm">Cheese Steak Hoagie</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i21" aria-label="Add Bacon Cheese Steak (Steaks) to order request"><span class="nm">Bacon Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i22" aria-label="Add Tom's Special Steak (Steaks) to order request"><span class="nm">Tom's Special Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-g"><h4>Chicken Steaks</h4><ul><li><button type="button" class="it" data-id="i23" aria-label="Add Chicken Cheese Steak (Chicken Steaks) to order request"><span class="nm">Chicken Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i24" aria-label="Add Buffalo Chicken Cheese Steak (Chicken Steaks) to order request"><span class="nm">Buffalo Chicken Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i25" aria-label="Add Bacon Chicken Cheese Steak (Chicken Steaks) to order request"><span class="nm">Bacon Chicken Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i26" aria-label="Add Mushroom Chicken Cheese Steak (Chicken Steaks) to order request"><span class="nm">Mushroom Chicken Cheese Steak</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-foot"><span>Prices added once owner confirms</span><span class="stamp">ask in store</span></div></div></article></div><div class="tkw" id="tk-hoagies" data-k="hoagies" style="--r:-0.8deg"><article class="tk"><div class="tk-body"><div class="tk-head"><div class="tk-no"><span>TICKET No. 03</span><span>DINE / TAKE / DELIVER</span></div><h3>Hoagies &amp; Sandwiches</h3></div><div class="tk-g"><h4>Hoagies</h4><ul><li><button type="button" class="it" data-id="i27" aria-label="Add Regular (Hoagies) to order request"><span class="nm">Regular</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i28" aria-label="Add Italian (Hoagies) to order request"><span class="nm">Italian</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i29" aria-label="Add American (Hoagies) to order request"><span class="nm">American</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i30" aria-label="Add Turkey (Hoagies) to order request"><span class="nm">Turkey</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i31" aria-label="Add Roast Beef (Hoagies) to order request"><span class="nm">Roast Beef</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i32" aria-label="Add Tuna (Hoagies) to order request"><span class="nm">Tuna</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i33" aria-label="Add Shrimp (Hoagies) to order request"><span class="nm">Shrimp</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i34" aria-label="Add Veggie (Hoagies) to order request"><span class="nm">Veggie</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i35" aria-label="Add Cheeseburger (Hoagies) to order request"><span class="nm">Cheeseburger</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-g"><h4>Hot Dogs</h4><ul><li><button type="button" class="it" data-id="i36" aria-label="Add Hot Dogs (Hot Dogs) to order request"><span class="nm">Hot Dogs</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-g"><h4>Hot Sandwiches</h4><ul><li><button type="button" class="it" data-id="i37" aria-label="Add Roast Beef (Hot Sandwiches) to order request"><span class="nm">Roast Beef</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i38" aria-label="Add Reuben (Hot Sandwiches) to order request"><span class="nm">Reuben</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i39" aria-label="Add Eggplant Parmigiana (Hot Sandwiches) to order request"><span class="nm">Eggplant Parmigiana</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i40" aria-label="Add Meatball Parmigiana (Hot Sandwiches) to order request"><span class="nm">Meatball Parmigiana</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i41" aria-label="Add Sausage Parmigiana (Hot Sandwiches) to order request"><span class="nm">Sausage Parmigiana</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i42" aria-label="Add Chicken Parmigiana (Hot Sandwiches) to order request"><span class="nm">Chicken Parmigiana</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i43" aria-label="Add Veal Parmigiana (Hot Sandwiches) to order request"><span class="nm">Veal Parmigiana</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-g"><h4>Sandwiches &amp; Wraps</h4><ul><li><button type="button" class="it" data-id="i44" aria-label="Add BLT (Sandwiches & Wraps) to order request"><span class="nm">BLT</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i45" aria-label="Add Tuna (Sandwiches & Wraps) to order request"><span class="nm">Tuna</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i46" aria-label="Add Grilled Cheese (Sandwiches & Wraps) to order request"><span class="nm">Grilled Cheese</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i47" aria-label="Add Wraps (Sandwiches & Wraps) to order request"><span class="nm">Wraps</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-foot"><span>Prices added once owner confirms</span><span class="stamp">ask in store</span></div></div></article></div><div class="tkw" id="tk-wings" data-k="wings" style="--r:1.8deg"><article class="tk"><div class="tk-body"><div class="tk-head"><div class="tk-no"><span>TICKET No. 04</span><span>DINE / TAKE / DELIVER</span></div><h3>Wings &amp; Apps</h3></div><div class="tk-g"><h4>Wings</h4><ul><li><button type="button" class="it" data-id="i48" aria-label="Add Buffalo Wings (Wings) to order request"><span class="nm">Buffalo Wings</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i49" aria-label="Add Wing Zings (Wings) to order request"><span class="nm">Wing Zings</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i50" aria-label="Add Chicken Wings (Wings) to order request"><span class="nm">Chicken Wings</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i51" aria-label="Add Chicken Nuggets (Wings) to order request"><span class="nm">Chicken Nuggets</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-g"><h4>Appetizers</h4><ul><li><button type="button" class="it" data-id="i52" aria-label="Add French Fries (Appetizers) to order request"><span class="nm">French Fries</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i53" aria-label="Add Cheese Fries (Appetizers) to order request"><span class="nm">Cheese Fries</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i54" aria-label="Add Cajun Fries (Appetizers) to order request"><span class="nm">Cajun Fries</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i55" aria-label="Add Mozzarella Sticks (Appetizers) to order request"><span class="nm">Mozzarella Sticks</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i56" aria-label="Add Onion Rings (Appetizers) to order request"><span class="nm">Onion Rings</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i57" aria-label="Add Mega Fries (Appetizers) to order request"><span class="nm">Mega Fries</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i58" aria-label="Add Buffalo Chicken Fries (Appetizers) to order request"><span class="nm">Buffalo Chicken Fries</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i59" aria-label="Add Tom's Cheese Fries (Appetizers) to order request"><span class="nm">Tom's Cheese Fries</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i60" aria-label="Add Jalapeno Poppers (Appetizers) to order request"><span class="nm">Jalapeno Poppers</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i61" aria-label="Add Chicken Fingers (Appetizers) to order request"><span class="nm">Chicken Fingers</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i62" aria-label="Add Potato Skins (Appetizers) to order request"><span class="nm">Potato Skins</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-foot"><span>Prices added once owner confirms</span><span class="stamp">ask in store</span></div></div></article></div><div class="tkw" id="tk-salads" data-k="salads" style="--r:-1.2deg"><article class="tk"><div class="tk-body"><div class="tk-head"><div class="tk-no"><span>TICKET No. 05</span><span>DINE / TAKE / DELIVER</span></div><h3>Salads &amp; Chicken</h3></div><div class="tk-g"><h4>Salads</h4><ul><li><button type="button" class="it" data-id="i63" aria-label="Add Tossed (Salads) to order request"><span class="nm">Tossed</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i64" aria-label="Add Chicken (Salads) to order request"><span class="nm">Chicken</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i65" aria-label="Add Chef (Salads) to order request"><span class="nm">Chef</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i66" aria-label="Add Antipasto (Salads) to order request"><span class="nm">Antipasto</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i67" aria-label="Add Greek (Salads) to order request"><span class="nm">Greek</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i68" aria-label="Add Caesar (Salads) to order request"><span class="nm">Caesar</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i69" aria-label="Add Buffalo Chicken (Salads) to order request"><span class="nm">Buffalo Chicken</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-g"><h4>Boneless Chicken</h4><ul><li><button type="button" class="it" data-id="i70" aria-label="Add Grilled Chicken Florentine (Boneless Chicken) to order request"><span class="nm">Grilled Chicken Florentine</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i71" aria-label="Add Honey Mustard Grilled Chicken (Boneless Chicken) to order request"><span class="nm">Honey Mustard Grilled Chicken</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i72" aria-label="Add Grilled Cajun Chicken (Boneless Chicken) to order request"><span class="nm">Grilled Cajun Chicken</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i73" aria-label="Add Tom's Grilled Chicken (Boneless Chicken) to order request"><span class="nm">Tom's Grilled Chicken</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-foot"><span>Prices added once owner confirms</span><span class="stamp">ask in store</span></div></div></article></div><div class="tkw" id="tk-dinners" data-k="dinners" style="--r:0.9deg"><article class="tk"><div class="tk-body"><div class="tk-head"><div class="tk-no"><span>TICKET No. 06</span><span>DINE / TAKE / DELIVER</span></div><h3>Dinners &amp; Seafood</h3><span class="hn">and more: ask in store</span></div><div class="tk-g"><h4>Dinners</h4><ul><li><button type="button" class="it" data-id="i74" aria-label="Add Spaghetti (Dinners) to order request"><span class="nm">Spaghetti</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i75" aria-label="Add Ziti (Dinners) to order request"><span class="nm">Ziti</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i76" aria-label="Add Ravioli (Dinners) to order request"><span class="nm">Ravioli</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i77" aria-label="Add Lasagna (Dinners) to order request"><span class="nm">Lasagna</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i78" aria-label="Add Fettuccine (Dinners) to order request"><span class="nm">Fettuccine</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i79" aria-label="Add Chicken Parmigiana (Dinners) to order request"><span class="nm">Chicken Parmigiana</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li><li><button type="button" class="it" data-id="i80" aria-label="Add Marsala (Dinners) to order request"><span class="nm">Marsala</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-g"><h4>Seafood</h4><ul><li><button type="button" class="it" data-id="i81" aria-label="Add Seafood Platters (Seafood) to order request"><span class="nm">Seafood Platters</span><i></i><span class="ct"></span><span class="ad" aria-hidden="true">+</span></button></li></ul></div><div class="tk-foot"><span>Prices added once owner confirms</span><span class="stamp">ask in store</span></div></div></article></div></div></div>
+    <div class="prog" id="prog"><i id="progI"></i></div>
+    <div class="rail-hint">swipe or use the arrows &rarr;</div>
+  </div>
+</section>
+<div class="torn" aria-hidden="true"></div>
+
+<section class="band">
+  <div class="wrap">
+    <div class="band-h"><div><div class="kick">Off the line</div><h2 class="disp h2 bl">From the <em>kitchen.</em></h2></div><p>Stock photos for illustration only. Real photos of Tom's food would go here.</p></div>
+    <div class="snap"><figure class="sn" style="--r:-3deg"><div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1593504049359-74330189a345?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=75,https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=75" alt="Close-up of a cheese pizza (stock photo)" onerror="fb(this)"></div><figcaption class="cap">pies</figcaption></figure><figure class="sn" style="--r:2deg"><div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1727280376746-b89107a5b0df?auto=format&fit=crop&w=800&q=75,https://images.unsplash.com/photo-1734987942068-a1a459d65d3d?auto=format&fit=crop&w=800&q=75" alt="Buffalo chicken wings with ranch (stock photo)" onerror="fb(this)"></div><figcaption class="cap">wings</figcaption></figure><figure class="sn" style="--r:-2deg"><div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1676300187140-00828e014d2a?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=75,https://images.unsplash.com/photo-1778362561139-84fc85c97fe0?auto=format&fit=crop&w=800&q=75" alt="A sandwich with meat, cheese and peppers (stock photo)" onerror="fb(this)"></div><figcaption class="cap">hoagies</figcaption></figure><figure class="sn" style="--r:3deg"><div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1556761223-4c4282c73f77?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1516100882582-96c3a05fe590?auto=format&fit=crop&w=800&q=75" alt="A fork lifting spaghetti (stock photo)" onerror="fb(this)"></div><figcaption class="cap">dinners</figcaption></figure></div>
+  </div>
+</section>
+
+<section class="bigt red" aria-label="Pizza, steaks, hoagies, wings">
+  <span class="ln1" data-d="-1">Pizza. Steaks.</span>
+  <span class="ln1 o" data-d="1">Hoagies. Wings.</span>
+  <span class="ln1 y" data-d="-1">On the corner.</span>
+  <div class="sm">Crabtree St &middot; Mayfair &middot; Northeast Philly</div>
+</section>
+
+<section class="sec stats" id="reviews">
+  <div class="wrap st-g">
+    <div>
+      <div class="kick">What Google says</div>
+      <div class="bignum" id="rN" aria-label="4.5 out of 5">4.5</div>
+      <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;<i>&#9733;&#9733;&#9733;&#9733;&#9733;</i></div>
+      <div class="stat-row">
+        <div><span class="n" id="rC">192</span><small>Google reviews</small></div>
+        <div><span class="n">$10&ndash;20</span><small>per person (per Google)</small></div>
+      </div>
+      <div class="chips"><span>Dine-in</span><span>Takeout</span><span>Delivery</span></div>
+      <div class="badge">Best of Philly 2014 (per their old flyer) <span class="confirm">[CONFIRM]</span></div><br>
+      <a class="btn g" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Tom%27s+Corner+Grill+%26+Pizza+7375+Crabtree+St+Philadelphia+PA">Read reviews on Google</a>
+    </div>
+    <div class="st-photo"><img loading="lazy" src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=900&q=75" data-fb="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=75,https://images.unsplash.com/photo-1593504049359-74330189a345?auto=format&fit=crop&w=900&q=75" alt="A sliced pizza with pepperoni and ham on a dark wooden table (stock photo)" onerror="fb(this)"></div>
+  </div>
+</section>
+
+<section class="sec order" id="order">
+  <div class="wrap order-g">
+    <div class="order-i">
+      <div class="kick">Order request</div>
+      <h2 class="disp h2 bl">Call it <em>in.</em><br>Or click it.</h2>
+      <p>Pick pickup or delivery, choose what you want from the menu, and send a request. The shop confirms by phone.</p>
+      <div class="demo-box"><b>Demo only.</b> This form saves to this browser so the owner can see how it would work. It does not contact the shop. For a real order, call <a href="tel:+12153353661"><b>(215) 335-3661</b></a>.</div>
+      <div class="order-ph"><img loading="lazy" src="https://images.unsplash.com/photo-1569230516306-5a8cb5586399?auto=format&fit=crop&w=900&q=75" data-fb="https://images.unsplash.com/photo-1644917777632-04f68ce502dd?auto=format&fit=crop&w=900&q=75" alt="Outdoor tables with red checkered tablecloths at a pizzeria (stock photo, not Tom's)" onerror="fb(this)"><small>Stock photo</small></div>
+    </div>
+    <div class="form" id="form">
+      <form id="ordForm" novalidate>
+        <div class="fgrid">
+          <div>
+            <div class="fs"><span class="lbl" id="lblT">1. Pickup or delivery?</span><div class="seg" role="group" aria-labelledby="lblT"><button type="button" class="on" data-t="pickup" aria-pressed="true">Pickup</button><button type="button" data-t="delivery" aria-pressed="false">Delivery</button></div></div>
+            <div class="fs"><span class="lbl">2. What are you hungry for?</span>
+              <div class="cchips" id="cchips"></div>
+              <div class="ilist" id="ilist" data-lenis-prevent></div>
+            </div>
+            <div class="fs"><span class="lbl">3. Your details</span>
+              <div class="fld">
+                <div class="f2"><input id="fName" placeholder="Your name" autocomplete="name" aria-label="Your name"><input id="fPhone" placeholder="Phone number" type="tel" inputmode="tel" autocomplete="tel" aria-label="Phone number"></div>
+                <div id="addrW"><input id="fAddr" placeholder="Delivery address" autocomplete="street-address" aria-label="Delivery address"></div>
+                <select id="fTime" aria-label="Pickup or delivery time"></select>
+                <textarea id="fNote" placeholder="Notes (allergies, cut, sauce...)" aria-label="Notes"></textarea>
+              </div>
+            </div>
+            <div class="err" id="err" role="alert"></div>
+            <button class="btn" type="submit">Send order request</button>
+          </div>
+          <aside class="live" aria-label="Your ticket so far"><div class="rc" id="rc"></div></aside>
+        </div>
+      </form>
+      <div class="done" id="done" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec visit green" id="visit">
+  <div class="wrap">
+    <div class="kick">Come by</div><h2 class="disp h2 bl">7375 <em>Crabtree St.</em></h2>
+    <div class="vg">
+      <div class="vcard">
+        <div class="vb"><small>Address</small><div class="v">7375 Crabtree St<br>Philadelphia, PA 19136</div><a class="btn sm c" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=7375+Crabtree+St+Philadelphia+PA+19136">Get directions</a></div>
+        <div class="vb"><small>Call</small><div class="phones"><a href="tel:+12153353661">(215) 335-3661 <small>on Google</small></a><a href="tel:+12153353662">(215) 335-3662 <small>old site <span class="confirm">[CONFIRM]</span></small></a><a href="tel:+12153353219">(215) 335-3219 <small>old site <span class="confirm">[CONFIRM]</span></small></a></div></div>
+        <div class="vb"><small>Hours <span class="confirm">[CONFIRM]</span></small><div class="hrs" id="hrs"></div><div style="margin-top:12px"><div class="pill" data-status><b></b><span class="pt">Checking hours...</span></div></div></div>
+        <div class="vb"><small>Ways to eat</small><div class="how"><span>Dine-in</span><span>Takeout</span><span>Delivery</span></div><div class="how-n">Delivery area and fees: owner confirms.</div></div>
+      </div>
+      <div class="mapw"><iframe title="Map to Tom's Corner Grill and Pizza, 7375 Crabtree St, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=7375+Crabtree+St,+Philadelphia,+PA+19136&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="chk"></div>
+  <div class="ft">
+    <div class="big">Tom's<small>Corner Grill &amp; Pizza</small></div>
+    <div><h6>Find us</h6><p>7375 Crabtree St<br>Philadelphia, PA 19136</p><a href="tel:+12153353661">(215) 335-3661</a></div>
+    <div><h6>Jump to</h6><a href="#menu">Menu</a><a href="#order">Order request</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></div>
+  </div>
+  <div class="cr"><span>Demo concept by Rafael's web agency &mdash; not affiliated with Tom's Corner Grill &amp; Pizza</span><span>Stock photos are illustrative.</span></div>
+</footer>
+<div class="mbar"><a class="btn c" href="tel:+12153353661">Call</a><a class="btn" href="#order">Order request</a></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastT"></span><a href="#order" id="toastA">View</a></div>
+
+<script>
+function fb(im){var l=(im.getAttribute('data-fb')||'').split(',').filter(Boolean);if(l.length){var n=l.shift();im.setAttribute('data-fb',l.join(','));im.src=n}else{im.onerror=null;im.style.display='none';if(im.parentNode)im.parentNode.classList.add('nophoto')}}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var SLUG='toms-corner-grill';
+var MENU=[{"key": "pizza", "name": "Pizzas", "short": "Pizza", "note": "sizes: small, medium, large, X-large, Sicilian (per old flyer)", "groups": [{"name": "Italian Pizzas", "items": ["Plain", "Tomato", "Bacon", "Up Side Down", "Broccoli or Spinach", "Manhattan Style", "Tom's Special", "Tom's Chicken Supreme", "Vegetable", "Hawaiian", "Buffalo Chicken", "BBQ Chicken", "Greek Pizza", "White Pizza"]}]}, {"key": "steaks", "name": "Steaks", "short": "Steaks", "note": "Tom's Special = mushrooms, pepperoni, roast pepper, onion", "groups": [{"name": "Steaks", "items": ["Steak", "Cheese Steak", "Pizza Steak", "Roast Pepper Cheese Steak", "Pepperoni Cheese Steak", "Mushroom Cheese Steak", "Cheese Steak Hoagie", "Bacon Cheese Steak", "Tom's Special Steak"]}, {"name": "Chicken Steaks", "items": ["Chicken Cheese Steak", "Buffalo Chicken Cheese Steak", "Bacon Chicken Cheese Steak", "Mushroom Chicken Cheese Steak"]}]}, {"key": "hoagies", "name": "Hoagies & Sandwiches", "short": "Hoagies", "note": "", "groups": [{"name": "Hoagies", "items": ["Regular", "Italian", "American", "Turkey", "Roast Beef", "Tuna", "Shrimp", "Veggie", "Cheeseburger"]}, {"name": "Hot Dogs", "items": ["Hot Dogs"]}, {"name": "Hot Sandwiches", "items": ["Roast Beef", "Reuben", "Eggplant Parmigiana", "Meatball Parmigiana", "Sausage Parmigiana", "Chicken Parmigiana", "Veal Parmigiana"]}, {"name": "Sandwiches & Wraps", "items": ["BLT", "Tuna", "Grilled Cheese", "Wraps"]}]}, {"key": "wings", "name": "Wings & Apps", "short": "Wings & Apps", "note": "", "groups": [{"name": "Wings", "items": ["Buffalo Wings", "Wing Zings", "Chicken Wings", "Chicken Nuggets"]}, {"name": "Appetizers", "items": ["French Fries", "Cheese Fries", "Cajun Fries", "Mozzarella Sticks", "Onion Rings", "Mega Fries", "Buffalo Chicken Fries", "Tom's Cheese Fries", "Jalapeno Poppers", "Chicken Fingers", "Potato Skins"]}]}, {"key": "salads", "name": "Salads & Chicken", "short": "Salads & Chicken", "note": "", "groups": [{"name": "Salads", "items": ["Tossed", "Chicken", "Chef", "Antipasto", "Greek", "Caesar", "Buffalo Chicken"]}, {"name": "Boneless Chicken", "items": ["Grilled Chicken Florentine", "Honey Mustard Grilled Chicken", "Grilled Cajun Chicken", "Tom's Grilled Chicken"]}]}, {"key": "dinners", "name": "Dinners & Seafood", "short": "Dinners", "note": "and more: ask in store", "groups": [{"name": "Dinners", "items": ["Spaghetti", "Ziti", "Ravioli", "Lasagna", "Fettuccine", "Chicken Parmigiana", "Marsala"]}, {"name": "Seafood", "items": ["Seafood Platters"]}]}];
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+if(anim)document.documentElement.classList.add('js');
+if(hasG)gsap.registerPlugin(ScrollTrigger);
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+/* ---------- hours / open-now (hours are [CONFIRM]) ---------- */
+var OPEN=11,CLOSE=23;
+function ny(){try{var o={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'long',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});return{d:DAYS.indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60}}catch(e){var n=new Date();return{d:n.getDay(),h:n.getHours()+n.getMinutes()/60}}}
+function status(){
+  var n=ny(),on=n.h>=OPEN&&n.h<CLOSE,t;
+  if(on)t='Open right now · until 11 PM [confirm]';else if(n.h<OPEN)t='Closed · opens 11 AM today [confirm]';else t='Closed · opens 11 AM tomorrow [confirm]';
+  $$('[data-status]').forEach(function(el){el.classList.toggle('on',on);$('.pt',el).textContent=t});
+  var box=$('#hrs');if(box){box.innerHTML='';[1,2,3,4,5,6,0].forEach(function(d){var r=document.createElement('div');if(d===n.d)r.className='td';r.innerHTML='<b style="font-weight:inherit">'+DAYS[d]+'</b><span>11:00 AM – 11:00 PM</span>';box.appendChild(r)})}
+}
+status();setInterval(status,60000);
+
+/* ---------- lenis / nav ---------- */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.1,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0);}
+function goTo(sel){var el=typeof sel==='string'?$(sel):sel;if(!el)return;if(lenis)lenis.scrollTo(el,{offset:sel==='#top'?0:-70,duration:1.3});else el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}
+var drawer=$('#drawer'),burger=$('#burger');
+function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');if(lenis)lenis.start()}
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();var wasOpen=drawer.classList.contains('on');closeDrawer();if(wasOpen&&lenis)setTimeout(function(){goTo(h)},60);else goTo(h)}})});
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on);if(lenis){on?lenis.stop():lenis.start()}});
+addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer()});
+var nav=$('#nav');
+function ns(){nav.classList.toggle('solid',scrollY>40)}
+addEventListener('scroll',ns,{passive:true});ns();
+
+/* ---------- toast ---------- */
+var tt=null;
+function toast(msg){$('#toastT').textContent=msg;var t=$('#toast');t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on')},2600)}
+
+/* ---------- order request form ---------- */
+var ITEMS=[];MENU.forEach(function(c){c.groups.forEach(function(g){g.items.forEach(function(n){ITEMS.push({id:'i'+ITEMS.length,name:n,group:g.name,cat:c.key,catName:c.name})})})});
+var sel={},type='pickup',cat='all';
+function itemById(id){for(var i=0;i<ITEMS.length;i++)if(ITEMS[i].id===id)return ITEMS[i]}
+function nSel(){var n=0;for(var k in sel)n+=sel[k];return n}
+function renderChips(){var b=$('#cchips');b.innerHTML='';[{key:'all',name:'All'}].concat(MENU).forEach(function(c){var x=document.createElement('button');x.type='button';x.className='cc'+(c.key===cat?' on':'');x.textContent=c.short||c.name;x.setAttribute('aria-pressed',c.key===cat);x.addEventListener('click',function(){cat=c.key;renderChips();renderList()});b.appendChild(x)})}
+function renderList(){
+  var box=$('#ilist'),h='',last='';
+  ITEMS.forEach(function(it){if(cat!=='all'&&it.cat!==cat)return;
+    if(it.group!==last){h+='<div class="og">'+esc(it.group)+'</div>';last=it.group}
+    var q=sel[it.id]||0;
+    h+='<div class="oi'+(q?' sel':'')+'" data-id="'+it.id+'"><label><input type="checkbox"'+(q?' checked':'')+' aria-label="'+esc(it.name+' ('+it.group+')')+'"><span class="bx"></span><span class="on2">'+esc(it.name)+'</span></label><div class="qty"><button type="button" data-q="-1" aria-label="Fewer '+esc(it.name)+'">&minus;</button><output>'+(q||1)+'</output><button type="button" data-q="1" aria-label="More '+esc(it.name)+'">+</button></div></div>'});
+  box.innerHTML=h;
+}
+$('#ilist').addEventListener('change',function(e){var row=e.target.closest('.oi');if(!row)return;var id=row.dataset.id;if(e.target.checked){sel[id]=sel[id]||1}else{delete sel[id]}row.classList.toggle('sel',!!sel[id]);$('output',row).textContent=sel[id]||1;renderReceipt();syncTicketBadges()});
+$('#ilist').addEventListener('click',function(e){var b=e.target.closest('button[data-q]');if(!b)return;var row=b.closest('.oi'),id=row.dataset.id,q=(sel[id]||1)+(+b.dataset.q);if(q<1){delete sel[id];row.classList.remove('sel');$('input',row).checked=false;$('output',row).textContent=1}else{sel[id]=Math.min(q,20);$('output',row).textContent=sel[id]}renderReceipt();syncTicketBadges()});
+function renderReceipt(){
+  var rc=$('#rc'),n=nSel(),h='<h5>Your ticket</h5><div class="mt">'+(type==='pickup'?'Pickup':'Delivery')+' request &middot; demo</div>';
+  if(!n)h+='<div class="em">nothing yet. pick something tasty.</div>';
+  else ITEMS.forEach(function(it){if(sel[it.id])h+='<div class="rl"><span>'+sel[it.id]+' &times; '+esc(it.name)+'</span><span></span></div>'});
+  h+='<div class="tot"><span>Items</span><span>'+n+'</span></div><div class="pr">Prices added once owner confirms</div>';
+  rc.innerHTML=h;
+}
+function syncTicketBadges(){$$('.it').forEach(function(b){var q=sel[b.dataset.id]||0;b.classList.toggle('has',!!q);var c=$('.ct',b);if(c)c.textContent=q?'x'+q:''})}
+$$('.it').forEach(function(b){b.addEventListener('click',function(){var id=b.dataset.id;sel[id]=Math.min((sel[id]||0)+1,20);renderList();renderReceipt();syncTicketBadges();var it=itemById(id);toast('Added: '+it.name+' (x'+sel[id]+')')})});
+$$('.seg button').forEach(function(b){b.addEventListener('click',function(){type=b.dataset.t;$$('.seg button').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});$('#addrW').style.display=type==='delivery'?'block':'none';buildTimes();renderReceipt()})});
+function lab(m){var h=Math.floor(m/60),mm=m%60,ap=h>=12?'PM':'AM';h=h%12||12;return h+':'+(mm?'30':'00')+' '+ap}
+function buildTimes(){var s=$('#fTime'),n=ny(),h='<option value="ASAP">'+(type==='pickup'?'Pickup':'Delivery')+' as soon as possible</option>';
+  for(var m=OPEN*60;m<=CLOSE*60-30;m+=30){if(m/60>n.h+.4)h+='<option>'+lab(m)+'</option>'}
+  s.innerHTML=h}
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+function ferr(m){$('#err').textContent=m}
+$('#ordForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var nm=$('#fName').value.trim(),ph=$('#fPhone').value.replace(/\D/g,''),ad=$('#fAddr').value.trim();
+  if(!nSel())return ferr('Add at least one item to your ticket.');
+  if(!nm)return ferr('Add your name.');
+  if(ph.length<10)return ferr('Add a 10-digit phone number.');
+  if(type==='delivery'&&!ad)return ferr('Add a delivery address.');
+  ferr('');
+  var items=[];ITEMS.forEach(function(it){if(sel[it.id])items.push({name:it.name,group:it.group,qty:sel[it.id]})});
+  var rec={id:'T'+Date.now().toString(36).toUpperCase(),created:new Date().toISOString(),status:'new',name:nm,phone:$('#fPhone').value.trim(),type:type,address:type==='delivery'?ad:'',items:items,time:$('#fTime').value,notes:$('#fNote').value.trim()};
+  try{var a=getB();a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+  showDone(rec);
+});
+function showDone(rec){
+  var d=$('#done'),cnt=0;rec.items.forEach(function(i){cnt+=i.qty});
+  var h='<h3>Ticket printed, '+esc(rec.name.split(' ')[0])+'.</h3><div class="dm">Demo only - the real site would send this to the shop.</div><div class="rc" id="rcDone"><span class="tstamp">DEMO</span><h5>Order '+esc(rec.id)+'</h5><div class="mt">'+(rec.type==='pickup'?'Pickup':'Delivery')+' &middot; '+esc(rec.time==='ASAP'?'as soon as possible':rec.time)+'</div>';
+  rec.items.forEach(function(i){h+='<div class="rl"><span>'+i.qty+' &times; '+esc(i.name)+'</span><span></span></div>'});
+  h+='<div class="tot"><span>Items</span><span>'+cnt+'</span></div><div class="pr">'+esc(rec.name)+' &middot; '+esc(rec.phone)+(rec.address?'<br>'+esc(rec.address):'')+(rec.notes?'<br>Note: '+esc(rec.notes):'')+'<br>Prices added once owner confirms</div></div><button class="btn" type="button" id="again">Start another request</button>';
+  d.innerHTML=h;$('#ordForm').style.display='none';d.classList.add('on');
+  var rc=$('#rcDone');
+  if(anim){gsap.fromTo(rc,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',opacity:1,duration:1.4,ease:'power2.inOut',clearProps:'clipPath'});gsap.fromTo($$('.rl',rc),{opacity:0,y:-6},{opacity:1,y:0,duration:.6,stagger:.09,ease:'power3.out',delay:.2})}
+  goTo('#order');
+  $('#again').addEventListener('click',function(){sel={};$('#fName').value='';$('#fPhone').value='';$('#fAddr').value='';$('#fNote').value='';d.classList.remove('on');d.innerHTML='';$('#ordForm').style.display='';renderList();renderReceipt();syncTicketBadges();buildTimes()});
+}
+renderChips();renderList();renderReceipt();buildTimes();
+
+/* ---------- rail / tabs ---------- */
+var rail=$('#rail'),tabs=$$('.tab'),tks=$$('.tkw');
+function desk(){return matchMedia('(min-width:961px)').matches}
+function setTab(k){tabs.forEach(function(t){var on=t.dataset.k===k;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)})}
+tabs.forEach(function(t){t.addEventListener('click',function(){var k=t.dataset.k;setTab(k);var tk=k==='all'?tks[0]:$('#tk-'+k);if(!tk)return;if(desk()){rail.scrollTo({left:k==='all'?0:tk.offsetLeft-rail.querySelector('.rail-in').offsetLeft,behavior:reduce?'auto':'smooth'})}else{goTo(tk)}})});
+function step(dir){var w=tks[0]?tks[0].offsetWidth+30:370;rail.scrollBy({left:dir*w*1.5,behavior:reduce?'auto':'smooth'})}
+$('#aPrev').addEventListener('click',function(){step(-1)});$('#aNext').addEventListener('click',function(){step(1)});
+function railScroll(){if(!desk())return;var max=rail.scrollWidth-rail.clientWidth,p=max>0?rail.scrollLeft/max:0;var bar=$('#progI');bar.style.width=Math.max(12,(rail.clientWidth/rail.scrollWidth)*100)+'%';bar.style.marginLeft=(p*(100-parseFloat(bar.style.width)))+'%';
+  var x=rail.scrollLeft+40,cur=tks[0],off=rail.querySelector('.rail-in').offsetLeft;tks.forEach(function(t){if(t.offsetLeft-off<=x)cur=t});if(p>.985)cur=tks[tks.length-1];if(rail.scrollLeft<24)cur=null;setTab(cur?cur.dataset.k:'all')}
+rail.addEventListener('scroll',railScroll,{passive:true});rail.addEventListener('wheel',function(e){if(!desk())return;if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();rail.scrollLeft+=e.deltaX}},{passive:false});(function(){var d=false,sx=0,sl=0;rail.addEventListener('pointerdown',function(e){if(!desk()||e.target.closest('button,a'))return;d=true;sx=e.clientX;sl=rail.scrollLeft;rail.classList.add('drag')});addEventListener('pointermove',function(e){if(d)rail.scrollLeft=sl-(e.clientX-sx)});addEventListener('pointerup',function(){d=false;rail.classList.remove('drag')})})();addEventListener('resize',railScroll);railScroll();
+
+/* ---------- print tickets (IntersectionObserver so sideways rail works) ---------- */
+function printTk(tk){
+  if(tk._p)return;tk._p=1;if(!anim)return;
+  var body=$('.tk-body',tk),lns=$$('.it,.tk-g h4,.tk-foot',tk),head=$$('.tk-head > *',tk);
+  var tl=gsap.timeline();
+  tl.fromTo(tk,{y:-30,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',clearProps:'opacity'},0)
+    .fromTo(body,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',opacity:1,duration:Math.min(3.2,1.2+lns.length*.06),ease:'power2.inOut',onComplete:function(){body.style.clipPath='none'}},0.1)
+    .fromTo(head,{opacity:0,y:-8},{opacity:1,y:0,duration:.7,stagger:.1,ease:'power3.out'},0.25)
+    .fromTo(lns,{opacity:0,y:-8},{opacity:1,y:0,duration:.6,stagger:.08,ease:'power3.out'},0.55);
+}
+if(anim){
+  $$('.tk-head > *,.it,.tk-g h4,.tk-foot').forEach(function(e){e.style.opacity=0});
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){printTk(en.target);io.unobserve(en.target)}})},{threshold:.06});tks.forEach(function(t){io.observe(t)})}
+  else tks.forEach(printTk);
+}
+
+/* ---------- intro + scroll ---------- */
+var introDone=false,scrollSet=false;
+function softWords(sel){$$(sel).forEach(function(el){if(el.dataset.sp)return;el.dataset.sp=1;
+  var walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;while((n=walk.nextNode()))ns.push(n);
+  ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(\s+)/).forEach(function(p){if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(' '));return}var s=document.createElement('span');s.className='w';s.textContent=p;f.appendChild(s)});t.parentNode.replaceChild(f,t)})})}
+function intro(){
+  if(introDone)return;introDone=true;var pre=$('#pre');
+  if(!anim){pre.remove();return}
+  var tl=gsap.timeline();
+  tl.to(pre,{yPercent:-100,duration:1,ease:'power2.inOut',delay:.15}).set(pre,{display:'none'})
+    .fromTo('.hero .pill',{y:20,opacity:0},{y:0,opacity:1,duration:.8,ease:'power3.out',clearProps:'transform,opacity'},'-=.55')
+    .fromTo('.hl:first-child',{y:60,opacity:0},{y:0,opacity:1,duration:1,ease:'expo.out',clearProps:'transform'},'-=.55')
+    .fromTo('.hero-cta,.hero-meta',{y:24,opacity:0},{y:0,opacity:1,duration:.8,stagger:.12,ease:'power3.out',clearProps:'transform'},'-=.7')
+    .fromTo('#pz',{scale:.7,rotation:-40,opacity:0},{scale:1,rotation:0,opacity:1,duration:1.6,ease:'expo.out',clearProps:'transform'},'-=1.3')
+    .fromTo('.pol,.note-arrow',{y:30,opacity:0},{y:0,opacity:1,duration:.9,stagger:.15,ease:'power3.out',clearProps:'opacity,transform'},'-=.8')
+    .fromTo('nav.top',{y:-60,opacity:0},{y:0,opacity:1,duration:.7,ease:'power3.out',clearProps:'transform,opacity'},'-=1');
+  tl.eventCallback('onComplete',setupScroll);
+  setTimeout(setupScroll,5200);
+}
+if(anim){setTimeout(intro,700);setTimeout(intro,3200)}else{var pp=$('#pre');if(pp)pp.remove()}
+
+function setupScroll(){
+  if(scrollSet||!anim)return;scrollSet=true;
+  /* spin pizza slowly */
+  gsap.to('.spin',{rotation:360,svgOrigin:'200 200',duration:80,ease:'none',repeat:-1});
+  var sl=$$('.sl-in');
+  var mm=gsap.matchMedia();
+  mm.add('(min-width:961px)',function(){
+    var h=$$('.hl');
+    var tl=gsap.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'+=170%',pin:true,scrub:.6,anticipatePin:1,invalidateOnRefresh:true}});
+    tl.fromTo(h[0],{opacity:1,y:0},{opacity:0,y:-60,duration:.7,ease:'power2.inOut',immediateRender:false},0.15)
+      .fromTo(h[1],{opacity:0,y:60},{opacity:1,y:0,duration:.8,ease:'power2.inOut',immediateRender:false},0.5)
+      .fromTo('#nArr',{opacity:1},{opacity:0,duration:.4,ease:'none',immediateRender:false},0)
+      .to('#pz',{scale:1.06,duration:2,ease:'none'},0);
+    sl.forEach(function(s,i){var dir=i%2?1:-1;tl.to(s,{y:-34,rotation:dir*3,svgOrigin:'200 200',duration:1,ease:'power2.inOut'},0.1).to(s,{y:-78,rotation:dir*7,svgOrigin:'200 200',duration:1,ease:'power2.inOut'},1.35)});
+    tl.fromTo(h[1],{opacity:1,y:0},{opacity:0,y:-60,duration:.7,ease:'power2.inOut',immediateRender:false},1.55)
+      .fromTo(h[2],{opacity:0,y:60},{opacity:1,y:0,duration:.8,ease:'power2.inOut',immediateRender:false},1.9)
+      .to({},{duration:.5},2.7);
+  });
+  mm.add('(max-width:960px)',function(){
+    sl.forEach(function(s,i){gsap.to(s,{y:-40,rotation:(i%2?1:-1)*4,svgOrigin:'200 200',ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom 25%',scrub:.6}})});
+  });
+  /* headings */
+  softWords('.bl');
+  $$('.bl').forEach(function(el){var ws=$$('.w',el);gsap.set(el,{opacity:1});gsap.from(ws,{y:38,opacity:0,duration:1,stagger:.08,ease:'power3.out',clearProps:'transform,opacity',scrollTrigger:{trigger:el,start:'top 88%',once:true}})});
+  $$('.kick').forEach(function(el){gsap.from(el,{x:-24,opacity:0,duration:.8,ease:'power3.out',clearProps:'transform,opacity',scrollTrigger:{trigger:el,start:'top 92%',once:true}})});
+  /* marquee */
+  gsap.to('#mq',{xPercent:-50,duration:60,ease:'none',repeat:-1});
+  /* photo snaps */
+  gsap.from('.sn',{y:80,opacity:0,duration:1.1,stagger:.14,ease:'power3.out',clearProps:'transform,opacity',scrollTrigger:{trigger:'.snap',start:'top 85%',once:true}});
+  /* oversized text */
+  $$('.bigt .ln1').forEach(function(el){var d=+el.dataset.d;gsap.fromTo(el,{x:d*22+'vw'},{x:-d*22+'vw',ease:'none',immediateRender:false,scrollTrigger:{trigger:'.bigt',start:'top bottom',end:'bottom top',scrub:.8}})});
+  gsap.fromTo('.bigt .sm',{opacity:0,y:30},{opacity:1,y:0,duration:.9,ease:'power3.out',immediateRender:false,scrollTrigger:{trigger:'.bigt .sm',start:'top 92%',once:true}});
+  /* stats count-up */
+  ScrollTrigger.create({trigger:'.stats',start:'top 70%',once:true,onEnter:function(){
+    var a={v:0},b={v:0};
+    gsap.to(a,{v:4.5,duration:1.8,ease:'power2.out',onUpdate:function(){$('#rN').textContent=a.v.toFixed(1)}});
+    gsap.to(b,{v:192,duration:2,ease:'power2.out',onUpdate:function(){$('#rC').textContent=Math.round(b.v)}});
+    gsap.fromTo('.stars i',{width:'0%'},{width:'90%',duration:1.6,ease:'power2.out'});
+    gsap.fromTo('.chips span',{y:20,opacity:0},{y:0,opacity:1,duration:.7,stagger:.12,ease:'power3.out',clearProps:'transform,opacity'})}});
+  gsap.fromTo('.st-photo',{scale:.85,opacity:0},{scale:1,opacity:1,duration:1.2,ease:'expo.out',immediateRender:false,clearProps:'transform,opacity',scrollTrigger:{trigger:'.st-photo',start:'top 88%',once:true}});
+  gsap.fromTo('.form,.demo-box',{y:50,opacity:0},{y:0,opacity:1,duration:1,stagger:.14,ease:'expo.out',immediateRender:false,clearProps:'transform,opacity',scrollTrigger:{trigger:'.order-g',start:'top 85%',once:true}});
+  gsap.fromTo('.vcard,.mapw',{y:50,opacity:0},{y:0,opacity:1,duration:1,stagger:.15,ease:'expo.out',immediateRender:false,clearProps:'transform,opacity',scrollTrigger:{trigger:'.vg',start:'top 85%',once:true}});
+  ScrollTrigger.refresh();
+}
+addEventListener('load',function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+})();
+</script>
+</body>
+</html>

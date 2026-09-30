@@ -1,10 +1,10 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Twistee Treat - Admin</title><meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Medo Barbershop — Admin</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#fff6e6;--sf:#fffdf7;--tx:#2a1240;--mu:#6d5a80;--ac:#e8324a;--acx:#ffffff;--ln:#2a1240;--teal:#12b5a6;--yel:#ffc933;--f1:'Lilita One','Arial Rounded MT Bold',sans-serif;--f2:'Nunito',system-ui,sans-serif;--mono:'DM Mono',monospace}
-body{font-weight:600;font-family:var(--f2);background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
+:root{--bg:#f1eee6;--sf:#fbf9f3;--tx:#0f1b33;--mu:#4a5876;--ac:#ff5a1f;--acx:#ffffff;--ink:#0f1b33;--ln:rgba(15,27,51,.2);--f1:'Space Grotesk',sans-serif;--f2:'Public Sans',sans-serif;--fm:'JetBrains Mono',monospace}
+body{font-family:var(--f2);background:var(--bg);background-image:linear-gradient(rgba(15,27,51,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(15,27,51,.07) 1px,transparent 1px);background-size:40px 40px;color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 #login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .lb{background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:44px 36px;width:min(92vw,370px);text-align:center}
@@ -35,7 +35,7 @@ h1{font-family:var(--f1);font-size:2rem;font-weight:500}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}.tabs button{border:1px solid var(--ln);border-radius:30px;padding:5px 12px;font-size:.7rem;letter-spacing:.06em;text-transform:none}
 .tabs button.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
 .tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:640px}
+table{width:100%;border-collapse:collapse;min-width:760px}
 th{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);text-align:left;padding:8px 10px;border-bottom:1px solid var(--ln)}
 td{padding:11px 10px;border-bottom:1px solid var(--ln);font-size:.86rem;vertical-align:top}
 tr:last-child td{border-bottom:0}
@@ -51,49 +51,49 @@ select.st{background:var(--bg);color:var(--tx);border:1px solid var(--ln);border
 .row.t b{font-weight:600}
 @media(max-width:820px){.kp{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.top .r span{display:none}}
 
-.lb,.k,.c{border:3px solid var(--ln);box-shadow:5px 5px 0 var(--ln)}
-.lb{border-radius:22px}
-.lg{color:var(--ac);font-size:2.2rem}
-.pb{border:3px solid var(--ln);background:var(--sf);font-family:var(--f1);font-size:1.3rem;min-height:48px}
-.pb:hover{background:var(--yel);border-color:var(--ln)}
-.pe{border:3px solid var(--ln);box-shadow:3px 3px 0 var(--ln);font-family:var(--f1);font-size:1.15rem}
-.top{background:var(--yel);border-bottom:3px solid var(--ln)}
-.top .br{color:var(--tx);font-size:1.4rem}
-.top .r{color:var(--tx)}
-.sm{border:3px solid var(--ln);background:var(--sf);border-radius:30px;font-weight:800;min-height:40px}
-.sm:hover{background:var(--teal);color:var(--tx);border-color:var(--ln)}
-.k{border-top:3px solid var(--ln);position:relative}
-.k:nth-child(1){background:#ffd9df}.k:nth-child(2){background:#c9f1ed}.k:nth-child(3){background:#fff0bd}.k:nth-child(4){background:var(--sf)}
-.k small,.ct,th,.ls,.hint{font-family:var(--mono);color:var(--tx);opacity:.8}
-.k b{font-size:2.4rem}.k b.tx{font-size:1.5rem;line-height:1.2;padding-top:8px}
-h1{color:var(--tx);font-size:2.6rem}
-th{border-bottom:3px solid var(--ln)}
-td{border-bottom:2px dashed rgba(42,18,64,.25)}
-.tabs button{border:2px solid var(--ln);color:var(--tx);font-weight:800}
-.tabs button.on{background:var(--ac);color:#fff}
-select.st{background:var(--sf);border:2px solid var(--ln);color:var(--tx);font-weight:800}
-.tag{border:2px solid var(--ln);color:var(--tx);background:var(--yel);font-family:var(--mono)}
-.banner{background:var(--yel);border:2px dashed var(--ln);color:var(--tx);font-weight:800}
-.row{border-bottom:2px dashed rgba(42,18,64,.25)}
-.row input{background:var(--bg);border:2px solid var(--ln);color:var(--tx);font-weight:700}
-.row .p{color:var(--ac)}
-.x{color:var(--tx)}
-.dot{display:inline-block;font-family:var(--mono);font-size:.62rem;background:var(--teal);border:2px solid var(--ln);border-radius:20px;padding:1px 8px;margin:2px 4px 2px 0}
+.lb{border:2px solid var(--ink);border-radius:0;box-shadow:8px 8px 0 var(--ink)}
+.lg{font-weight:700;letter-spacing:-.04em;color:var(--ink);font-size:2.2rem}.lg em{font-style:normal;color:var(--ac)}
+.ls,.k small,.ct,th,.hint,.tabs button,.tag,.banner,select.st{font-family:var(--fm)}
+.ls{color:var(--ac);color:#c23600}
+.pb{border:2px solid var(--ink);border-radius:0;background:#fff8}.pb:hover{border-color:var(--ac);background:var(--ac);color:#fff}
+.pe{background:var(--ac);color:#fff;border:2px solid var(--ink);border-radius:0;font-family:var(--fm)}
+.top{background:var(--ink);color:var(--bg);border-bottom:3px solid var(--ac)}.top .br{color:var(--bg);font-weight:700;letter-spacing:-.03em}.top .br em{font-style:normal;color:var(--ac)}
+.top .r{color:#9fb0d0}.sm{border:1px solid #6f7d99;border-radius:0;color:var(--bg);font-family:var(--fm)}.sm:hover{border-color:var(--ac);color:var(--ac)}
+h1{font-weight:700;letter-spacing:-.04em;font-size:2.6rem}
+.k,.c{border-radius:0;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.k{border-top:2px solid var(--ink);position:relative}.k::before{content:"";position:absolute;left:0;top:0;width:100%;height:5px;background:var(--ac)}
+.k b{font-weight:700;letter-spacing:-.04em}
+.tabs button{border-radius:0;border:1px solid var(--ink)}
+th{color:var(--mu);border-bottom:2px solid var(--ink)}
+select.st{background:var(--sf);border:1px solid var(--ink);border-radius:0}
+.tag{border:1px solid var(--ink);color:var(--ink);border-radius:0}
+.banner{background:var(--ac);color:#fff;border:2px solid var(--ink);border-radius:0;font-weight:500}
+.row input{background:#fff;border:1px solid var(--ink);border-radius:0}
+.row .p{font-family:var(--fm);font-size:.72rem;color:#c23600}
 :focus-visible{outline:3px solid var(--ac);outline-offset:2px}
-.row input{width:150px}.sm{white-space:nowrap}
-@media(max-width:520px){.top{padding:12px 14px}.top .br{font-size:1.05rem}.top .r{gap:8px}.wrap{padding:22px 16px 60px}}
+.pb,.pe,.sm,.tabs button,.x{min-height:44px}
+.row input{width:150px}td a{color:inherit;border-bottom:1px solid var(--ac);text-decoration:none}
+@media(max-width:820px){.top{padding:12px 14px}.wrap{padding:20px 14px 60px}h1{font-size:2rem}}
 </style></head><body>
-<div id="login"><div class="lb"><div class="lg">Twistee Treat</div><div class="ls">Window staff access</div><div class="pd" id="pd">· · · ·</div>
+<div id="login"><div class="lb"><div class="lg">Medo<em>/</em></div><div class="ls">Barbershop admin &middot; demo</div><div class="pd" id="pd">· · · ·</div>
 <div class="pg"><button class="pb" data-d="1">1</button><button class="pb" data-d="2">2</button><button class="pb" data-d="3">3</button><button class="pb" data-d="4">4</button><button class="pb" data-d="5">5</button><button class="pb" data-d="6">6</button><button class="pb" data-d="7">7</button><button class="pb" data-d="8">8</button><button class="pb" data-d="9">9</button><button class="pb w" id="clr">Clear</button><button class="pb" data-d="0">0</button></div>
 <button class="pe" id="ent">ENTER →</button><div class="pr" id="pr"></div><div class="hint">Demo PIN: 1234</div></div></div>
 <div id="dash">
-<div class="top"><div class="br">Twistee Treat - Admin</div><div class="r"><span id="dt"></span><button class="sm" id="csv">Export CSV</button><button class="sm" id="out">Log out</button></div></div>
-<div class="wrap"><h1>Pickup orders</h1><div class="sub">Pre-order tickets from the website. Demo: stored on this device only.</div>
-<div class="kp"><div class="k"><small>Orders today</small><b id="k1">0</b></div><div class="k"><small>Pending</small><b id="k2">0</b></div><div class="k"><small>Avg items / order</small><b id="k3">0</b></div><div class="k"><small>Most-ordered item</small><b id="k4" class="tx">-</b></div></div>
-<div class="g"><div><div class="c"><div class="ct"><span>Pickup orders</span><div class="tabs" id="tabs"></div></div><div id="ban"></div><div class="tw"><table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table></div><div class="empty" id="em" style="display:none">No orders in this tab yet.</div></div></div>
-<div><div class="c"><div class="ct">Hours (per Yelp - confirm)</div><div id="hrs"></div><div class="hint" style="margin-top:8px">Edits save on this device (demo).</div></div><div class="c"><div class="ct">Menu (set prices)</div><div id="svc"></div></div></div></div></div></div>
+<div class="top"><div class="br">Medo<em>/</em> Barbershop — Admin</div><div class="r"><span id="dt"></span><button class="sm" id="csv">Export CSV</button><button class="sm" id="out">Log out</button></div></div>
+<div class="wrap"><h1>Dashboard</h1><div class="sub">Appointment grid requests from the demo site (this device only)</div>
+<div class="kp"><div class="k"><small>Today's chairs booked</small><b id="k1">0</b></div><div class="k"><small>This week</small><b id="k2">0</b></div><div class="k"><small>No-shows</small><b id="k3">0</b></div><div class="k"><small>Google rating</small><b id="k4">0</b></div></div>
+<div class="g"><div><div class="c"><div class="ct"><span>Appointments</span><div class="tabs" id="tabs"></div></div><div id="ban"></div><div class="tw"><table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table></div><div class="empty" id="em" style="display:none">Nothing here yet.</div></div></div>
+<div><div class="c"><div class="ct">Hours [CONFIRM]</div><div id="hrs"></div><div class="hint" style="margin-top:8px">Edits save on this device (demo).</div></div><div class="c"><div class="ct">Services (prices: owner confirms)</div><div id="svc"></div></div></div></div></div></div>
 <script>
-var CFG={"tabKey": "status", "tabs": ["new", "preparing", "ready", "picked up", "cancelled"], "status": ["new", "preparing", "ready", "picked up", "cancelled"], "cols": [["Name / phone", "name"], ["Items", "items"], ["Pickup", "pickup"]], "fmt": {"name": "fN", "items": "fS", "pickup": "fD"}, "k4": "k4", "hours": [["Mon-Fri", "1 PM - 10 PM"], ["Sat-Sun", "12 PM - 10 PM"], ["Seasonal months", "Owner confirms"]], "svc": [["Soft serve", "Set price"], ["Scoop ice cream", "Set price"], ["Water ice", "Set price"], ["Banana split", "Set price"], ["Funnel cake", "Set price"], ["Seasonal sundae", "Set price"]], "seed": [{"name": "Sample - Jordan M.", "phone": "(215) 555-0133", "items": ["Soft serve", "Funnel cake"], "size": "Medium", "qty": 2, "pickup": "ASAP (about 20 min)", "notes": "", "status": "new"}, {"name": "Sample - Aaliyah R.", "phone": "(267) 555-0278", "items": ["Water ice"], "size": "Large", "qty": 3, "pickup": "Today 7:30 PM", "notes": "Cherry if you have it", "status": "preparing"}, {"name": "Sample - Mr. Kowalski", "phone": "(215) 555-0319", "items": ["Banana split", "Scoop ice cream"], "size": "Large", "qty": 1, "pickup": "Today 8:00 PM", "notes": "", "status": "ready"}, {"name": "Sample - Dee P.", "phone": "(215) 555-0445", "items": ["Soft serve"], "size": "Small", "qty": 4, "pickup": "Tomorrow 2:00 PM", "notes": "For a birthday party", "status": "new"}, {"name": "Sample - Tomas B.", "phone": "(267) 555-0561", "items": ["Funnel cake", "Water ice"], "size": "Medium", "qty": 2, "pickup": "Today 6:00 PM", "notes": "", "status": "picked up"}], "slug": "twistee-treat"};
+var TD=(function(){var d=new Date();return d})();
+function isoOff(n){var d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+var CFG={"tabKey":"service","tabs":["Haircut","Haircut and shave","Shave only"],"status":["new","confirmed","done","no-show","cancelled"],"cols":[["Name","name"],["Phone","phone"],["Service","service"],["Date","date"],["Time","time"]],"fmt":{"name":"fN","phone":"fP","service":"fS","date":"fD","time":"fT"},"k4":"k4","hours":[["Mon\u2013Sun","9 AM \u2013 8 PM [CONFIRM]"]],"svc":[["Haircut","Price: owner confirms"],["Haircut and shave","Price: owner confirms"],["Shave only","Price: owner confirms"]],"seed":[
+{"name":"Sample: Marcus W.","phone":"(215) 555-0133","service":"Haircut","date":isoOff(0),"time":"4:00 PM","notes":"","status":"new"},
+{"name":"Sample: Devon R.","phone":"(267) 555-0278","service":"Haircut and shave","date":isoOff(0),"time":"5:30 PM","notes":"","status":"confirmed"},
+{"name":"Sample: Tony L.","phone":"(215) 555-0319","service":"Shave only","date":isoOff(1),"time":"10:00 AM","notes":"","status":"new"},
+{"name":"Sample: Andre K.","phone":"(215) 555-0445","service":"Haircut","date":isoOff(2),"time":"1:30 PM","notes":"Low fade","status":"confirmed"},
+{"name":"Sample: Chris P.","phone":"(267) 555-0562","service":"Haircut","date":isoOff(-1),"time":"11:00 AM","notes":"","status":"no-show"},
+{"name":"Sample: Sam B.","phone":"(215) 555-0671","service":"Haircut and shave","date":isoOff(-2),"time":"6:00 PM","notes":"","status":"done"}],"slug":"medo-barbershop"};
 var $=function(s){return document.querySelector(s)};
 var pin='',KEY=CFG.slug+'_bookings',HK=CFG.slug+'_hours',filt='all';
 function upd(){$('#pd').textContent=pin?('● '.repeat(pin.length)).trim():'· · · ·'}
@@ -108,7 +108,7 @@ function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function fmtD(iso){if(!iso)return'';var d=new Date(iso.length===10?iso+'T12:00:00':iso);return isNaN(d)?iso:d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
 function render(){
-  var real=load(),seed=!real.length,rows=seed?CFG.seed.map(function(r,i){var o=JSON.parse(JSON.stringify(r));o.id='S'+i;o._s=1;o.created=new Date().toISOString();return o}):real;
+  var real=load(),seed=!real.length,rows=seed?CFG.seed.map(function(r,i){var o=JSON.parse(JSON.stringify(r));o.id='S'+i;o._s=1;return o}):real;
   $('#ban').innerHTML=seed?'<div class="banner">Sample data — submit a request on the demo site and it appears here live.</div>':'';
   var tabs=['all'].concat(CFG.tabs);$('#tabs').innerHTML=tabs.map(function(t){return '<button class="'+(t===filt?'on':'')+'" data-t="'+esc(t)+'">'+esc(t==='all'?'All':t)+'</button>'}).join('');
   document.querySelectorAll('#tabs button').forEach(function(b){b.onclick=function(){filt=b.dataset.t;render()}});
@@ -120,9 +120,11 @@ function render(){
   $('#em').style.display=vis.length?'none':'block';
   document.querySelectorAll('select.st').forEach(function(s){s.onchange=function(){if(s.dataset.id[0]==='S'&&/^S\d+$/.test(s.dataset.id)&&seed){var a=CFG.seed.map(function(r,i){var o=JSON.parse(JSON.stringify(r));o.id='S'+i;return o});a.forEach(function(o){if(o.id===s.dataset.id)o.status=s.value});save(a)}else{var a=load();a.forEach(function(o){if(o.id===s.dataset.id)o.status=s.value});save(a)}render()}});
   document.querySelectorAll('[data-del]').forEach(function(b){b.onclick=function(){save(load().filter(function(o){return o.id!==b.dataset.del}));render()}});
-  var td=new Date().toDateString(),today=rows.filter(function(r){return r.created&&new Date(r.created).toDateString()===td}).length,pend=rows.filter(function(r){return r.status==='new'||r.status==='preparing'}).length;
-  var tot=0;rows.forEach(function(r){tot+=(r.qty||1)});
-  $('#k1').textContent=today;$('#k2').textContent=pend;$('#k3').textContent=rows.length?(tot/rows.length).toFixed(1):'0';$('#k4').textContent=k4(rows);
+  var t0=isoOff(0),wk=weekRange(),live=rows.filter(function(r){return r.status!=='cancelled'});
+  $('#k1').textContent=live.filter(function(r){return r.date===t0}).length;
+  $('#k2').textContent=live.filter(function(r){return r.date>=wk[0]&&r.date<=wk[1]}).length;
+  $('#k3').textContent=rows.filter(function(r){return r.status==='no-show'}).length;
+  $("#k4").innerHTML=window[CFG.k4](rows);
 }
 function hours(){
   var h;try{h=JSON.parse(localStorage.getItem(HK)||'null')}catch(e){}h=h||CFG.hours;
@@ -132,8 +134,11 @@ function hours(){
 function svcs(){$('#svc').innerHTML=CFG.svc.map(function(r){return '<div class="row"><span>'+esc(r[0])+'</span><span class="p">'+esc(r[1])+'</span></div>'}).join('')}
 $('#csv').onclick=function(){var a=load();if(!a.length){a=CFG.seed}var keys=Object.keys(a[0]).filter(function(k){return k[0]!=='_'});var csv=[keys.join(',')].concat(a.map(function(r){return keys.map(function(k){return '"'+String(r[k]==null?'':(typeof r[k]==='object'?JSON.stringify(r[k]):r[k])).replace(/"/g,'""')+'"'}).join(',')})).join('\n');var l=document.createElement('a');l.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));l.download=CFG.slug+'-requests.csv';l.click()};
 function boot(){$('#dt').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});render();hours();svcs()}
-function fN(r){return esc(r.name)+'<small>'+esc(r.phone)+'</small>'}
-function fS(r){var it=Array.isArray(r.items)?r.items:[r.items];return it.map(function(i){return '<span class="tag">'+esc(i)+'</span>'}).join(' ')+'<small>'+esc(r.qty||1)+' x '+esc((r.size||'').toLowerCase())+'</small>'}
-function fD(r){return esc(r.pickup||'')+(r.notes?'<small>'+esc(r.notes)+'</small>':'')}
-function k4(rows){var c={};rows.forEach(function(r){(r.items||[]).forEach(function(i){c[i]=(c[i]||0)+(r.qty||1)})});var b='-',m=0;Object.keys(c).forEach(function(k){if(c[k]>m){m=c[k];b=k}});return b}
+function weekRange(){var d=new Date(),dow=(d.getDay()+6)%7,s=new Date(d),e=new Date(d);s.setDate(d.getDate()-dow);e.setDate(s.getDate()+6);var f=function(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};return[f(s),f(e)]}
+function fN(r){return '<b>'+esc(r.name)+'</b>'+(r.notes?'<small>'+esc(r.notes)+'</small>':'')}
+function fP(r){return '<a href="tel:'+esc(String(r.phone||'').replace(/[^\d+]/g,''))+'">'+esc(r.phone)+'</a>'}
+function fS(r){return '<span class="tag">'+esc(r.service)+'</span>'}
+function fD(r){return esc(fmtD(r.date))}
+function fT(r){return esc(r.time)}
+function k4(rows){return '4.8 <small style="display:inline;font-size:.6rem">(290)</small>'}
 </script></body></html>
