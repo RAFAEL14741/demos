@@ -8,16 +8,16 @@ DEMO CONCEPT — [CONFIRM] items still open with the owner:
  - Dine-in / delivery (Google lists them) — site says takeout only + "owner confirms" for seating/delivery
  - Prices: only two Yelp-listed prices shown, both tagged [confirm]; everything else "Prices added once owner confirms"
  - Not used on purpose: founder/family name, year founded, holiday-order policy, catering, any placeweb.site link
- - Photos are stock (Unsplash), not the bakery's own.
+ - Photos are stock (Unsplash), not the bakery's own; stromboli and pepperoni bread use calzone / stuffed-bread stand-ins.
 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nonno Ugo's Italian Bakery — Bread, tomato pie &amp; stromboli in Mayfair, Philadelphia</title>
+<title>Nonno Ugo's Italian Bakery — Tomato pie, bread &amp; stromboli in Mayfair, Philadelphia</title>
 <meta name="description" content="Nonno Ugo's Italian Bakery, 6606 Frankford Ave, Philadelphia. Bread and rolls, tomato pie, stromboli, cannoli and cookies. Open Wednesday to Sunday, closing at 3 PM. 4.8 stars on Google.">
-<meta name="theme-color" content="#C9A27A">
+<meta name="theme-color" content="#161A12">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Bakery","name":"Nonno Ugo's Italian Bakery","telephone":"+1-215-332-3033","address":{"@type":"PostalAddress","streetAddress":"6606 Frankford Ave","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19135","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"90"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"15:00"}]}
 </script>
@@ -29,530 +29,429 @@ if(window.gsap&&window.ScrollTrigger&&!matchMedia('(prefers-reduced-motion:reduc
 function fb(i){var f=i.getAttribute('data-fb');if(f&&!i.dataset.t){i.dataset.t=1;i.src=f;return}i.removeAttribute('onerror');i.style.display='none';i.parentNode.classList.add('noimg')}
 </script>
 <style>
-:root{--kraft:#C9A27A;--kraft-d:#A67F57;--kraft-l:#DDC09C;--flour:#FBF7EF;--tom:#B3261E;--tom-d:#8E1C16;--olive:#4F5B2A;--ink:#231A14;--mu:#6e5c4b;
---disp:'Alfa Slab One','Rockwell','Georgia',serif;--mono:'Courier Prime','Courier New',monospace;--sans:'Work Sans',system-ui,sans-serif;--wrap:min(1200px,90vw);
---grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .14 0 0 0 0 .1 0 0 0 0 .08 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-*{margin:0;padding:0;box-sizing:border-box}
-html{overflow-x:clip;scroll-behavior:auto}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-.lenis.lenis-stopped{overflow:hidden}
-body{background:var(--flour);color:var(--ink);font-family:var(--sans);line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0;background:var(--grain);opacity:.10;pointer-events:none;z-index:300;mix-blend-mode:multiply}
-img{display:block;max-width:100%}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:3px solid var(--tom);outline-offset:3px;border-radius:2px}
-.wrap{width:var(--wrap);margin:0 auto}
-.disp{font-family:var(--disp);font-weight:400;line-height:1.02;letter-spacing:.005em}
-.mono{font-family:var(--mono)}
-.eb{font-family:var(--mono);font-weight:700;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tom);display:inline-flex;align-items:center;gap:10px;margin-bottom:16px}
-.eb::before{content:"";width:26px;height:0;border-top:2px dashed currentColor}
-.kraft{background:var(--kraft);position:relative}
-.kraft::before,.paper::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.16;pointer-events:none;mix-blend-mode:multiply}
-.kraft>*,.paper>*{position:relative}
-.h2{font-size:clamp(2.2rem,5.6vw,4.6rem)}
-.h2 em{font-style:normal;color:var(--tom)}
-.sec{padding:110px 0;position:relative}
-.w{display:inline-block}
-.js .bl,.js .rv{opacity:0}
-.js .pre{display:flex}
-.pre{display:none;position:fixed;inset:0;z-index:400;flex-direction:column}
-.pre .h{flex:1;background:var(--kraft);position:relative;overflow:hidden}
-.pre .h::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.2;mix-blend-mode:multiply}
-.pre .t{clip-path:polygon(0 0,100% 0,100% 100%,97% 93%,94% 100%,91% 93%,88% 100%,85% 93%,82% 100%,79% 93%,76% 100%,73% 93%,70% 100%,67% 93%,64% 100%,61% 93%,58% 100%,55% 93%,52% 100%,49% 93%,46% 100%,43% 93%,40% 100%,37% 93%,34% 100%,31% 93%,28% 100%,25% 93%,22% 100%,19% 93%,16% 100%,13% 93%,10% 100%,7% 93%,4% 100%,0 93%)}
-.pre .b{clip-path:polygon(0 7%,3% 0,6% 7%,9% 0,12% 7%,15% 0,18% 7%,21% 0,24% 7%,27% 0,30% 7%,33% 0,36% 7%,39% 0,42% 7%,45% 0,48% 7%,51% 0,54% 7%,57% 0,60% 7%,63% 0,66% 7%,69% 0,72% 7%,75% 0,78% 7%,81% 0,84% 7%,87% 0,90% 7%,93% 0,96% 7%,100% 0,100% 100%,0 100%)}
-.pre .stampw{position:absolute;left:0;right:0;top:50%;z-index:2;display:grid;place-items:center;transform:translateY(-50%);pointer-events:none}
-.pre .stamp{font-family:var(--disp);color:var(--tom);border:5px double var(--tom);padding:14px 28px;font-size:clamp(1.8rem,7vw,4.4rem);transform:rotate(-4deg);text-align:center;line-height:1;mix-blend-mode:multiply;background:transparent}
-.pre .stamp small{display:block;font-family:var(--mono);font-size:.22em;letter-spacing:.3em;margin-top:10px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#161A12;--ink2:#1d2217;--ink3:#262d1e;
+  --parch:#F3ECE0;--parch2:#E9E0D0;
+  --tom:#B8321F;--tom-l:#E58B77;
+  --hl-d:rgba(243,236,224,.16);--hl-l:rgba(22,26,18,.16);
+  --mu-d:rgba(243,236,224,.7);--mu-l:#5a584a;
+  --serif:'Instrument Serif','Cormorant Garamond',Georgia,serif;--sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --gut:clamp(20px,4.4vw,64px);
+  --lx:max(var(--gut),calc((100vw - 1280px)/2 + var(--gut)));
+  --bar:0px;
+}
+html,body{overflow-x:clip}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-size:16px;line-height:1.65;background:var(--ink);color:var(--parch);-webkit-font-smoothing:antialiased;padding-bottom:var(--bar)}
+img{display:block;max-width:100%;filter:saturate(.92) contrast(1.03) brightness(.98)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid var(--tom-l);outline-offset:3px}
+.lt :focus-visible{outline-color:var(--tom)}
+.skip{position:fixed;left:12px;top:-60px;z-index:100;background:var(--parch);color:var(--ink);padding:10px 16px;border-radius:99px;font-weight:600;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--gut)}
+.sec{padding:clamp(84px,11vw,160px) 0}
+.dk{background:var(--ink);color:var(--parch)}.lt{background:var(--parch);color:var(--ink)}
+.eb{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:14px;margin-bottom:26px;color:var(--mu-d)}
+.lt .eb{color:var(--mu-l)}
+.eb::before{content:"";width:34px;height:1px;background:currentColor;opacity:.7}
+h1,h2,h3,.disp{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.012em}
+.h2{font-size:clamp(2.5rem,5.2vw,4.7rem)}
+em{font-style:italic}
+.ln{display:block;overflow:hidden;padding:.06em 0 .12em;margin:-.06em 0 -.12em}
+.ln>span{display:block}
+.cf{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.04em;padding:1px 8px;border:1px solid currentColor;border-radius:99px;color:var(--tom-l);vertical-align:2px;white-space:nowrap;line-height:1.7;text-transform:none}
+.lt .cf{color:var(--tom)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 30px;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:1px solid var(--parch);border-radius:99px;transition:background .35s,color .35s,border-color .35s}
+.btn.p{background:var(--tom);border-color:var(--tom);color:var(--parch)}
+.lt .btn{border-color:var(--ink)}.lt .btn.p{border-color:var(--tom)}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:var(--parch);color:var(--ink)}.btn.p:hover{background:var(--parch);border-color:var(--parch);color:var(--tom)}.lt .btn:hover{background:var(--ink);color:var(--parch)}.lt .btn.p:hover{background:var(--ink);border-color:var(--ink);color:var(--parch)}}
+.tl{display:inline-flex;align-items:center;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;min-height:44px;padding:0}
 
-/* nav */
-nav.top{position:fixed;inset:0 0 auto 0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:14px 4vw;transition:background .35s,box-shadow .35s}
-nav.top.solid{background:rgba(251,247,239,.94);backdrop-filter:blur(8px);box-shadow:0 1px 0 rgba(35,26,20,.15),0 6px 0 -3px var(--kraft)}
-.logo{display:flex;flex-direction:column;line-height:1;min-height:44px;justify-content:center}
-.logo b{font-family:var(--disp);font-weight:400;font-size:1.35rem;color:var(--ink)}
-.logo b i{font-style:normal;color:var(--tom)}
-.logo small{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;margin-top:4px;color:var(--mu)}
-.links{display:flex;gap:28px;font-family:var(--mono);font-weight:700;font-size:.84rem;letter-spacing:.1em;text-transform:uppercase}
-.links a{padding:10px 0;position:relative}
-.links a::after{content:"";position:absolute;left:0;right:0;bottom:4px;border-bottom:2px dashed var(--tom);transform:scaleX(0);transform-origin:left;transition:transform .35s}
-.nr{display:flex;gap:10px;align-items:center}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;background:var(--tom);color:var(--flour);font-family:var(--mono);font-weight:700;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;padding:12px 26px;border:2px solid var(--ink);border-radius:4px;box-shadow:4px 4px 0 var(--ink);transition:transform .2s,box-shadow .2s,background .2s}
-.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
-.btn.o{background:var(--flour);color:var(--ink)}
-.btn.sm{min-height:44px;padding:8px 16px;font-size:.78rem;box-shadow:3px 3px 0 var(--ink)}
-.burger{display:none;width:46px;height:46px;border:2px solid var(--ink);border-radius:4px;background:var(--flour);position:relative;z-index:95}
-.burger span{position:absolute;left:11px;right:11px;height:2px;background:var(--ink);transition:.3s}
-.burger span:nth-child(1){top:16px}.burger span:nth-child(2){top:26px}
-.burger.x span:nth-child(1){top:21px;transform:rotate(45deg)}.burger.x span:nth-child(2){top:21px;transform:rotate(-45deg)}
-.drawer{position:fixed;inset:0;z-index:90;background:var(--kraft);display:flex;flex-direction:column;justify-content:center;padding:80px 9vw 40px;gap:2px;clip-path:inset(0 0 100% 0);transition:clip-path .6s cubic-bezier(.7,0,.2,1);visibility:hidden}
-.drawer.on{clip-path:inset(0);visibility:visible}
-.drawer a.big{font-family:var(--disp);font-size:clamp(2.2rem,11vw,3.4rem);line-height:1.2;padding:4px 0;border-bottom:2px dashed rgba(35,26,20,.35)}
-.drawer a.big small{font-family:var(--mono);font-size:.32em;color:var(--tom);margin-right:12px;vertical-align:middle}
-.drawer .dm{font-family:var(--mono);font-size:.85rem;margin-top:22px}
+/* header */
+nav.top{position:fixed;inset:0 0 auto 0;z-index:60;transition:background .5s,border-color .5s,height .4s;border-bottom:1px solid transparent}
+nav.top.solid{background:rgba(22,26,18,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:var(--hl-d)}
+.nv{display:flex;align-items:center;justify-content:space-between;height:80px;transition:height .4s}
+nav.top.solid .nv{height:64px}
+.logo{font-family:var(--serif);font-size:1.75rem;text-decoration:none;line-height:1;letter-spacing:-.01em;display:flex;align-items:center;min-height:44px}
+.links{display:flex;align-items:center;gap:38px}
+.links a{position:relative;font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.links a.btn{min-height:44px;padding:0 22px;font-size:.7rem}
+@media (hover:hover) and (pointer:fine){.links a:not(.btn):hover::after{transform:scaleX(1)}}
+#burger{display:none;width:44px;height:44px;position:relative}
+#burger i{position:absolute;left:10px;right:10px;height:1px;background:var(--parch);transition:transform .45s cubic-bezier(.16,1,.3,1),top .45s cubic-bezier(.16,1,.3,1)}
+#burger i:nth-child(1){top:18px}#burger i:nth-child(2){top:25px}
+#burger.x i:nth-child(1){top:21px;transform:rotate(45deg)}#burger.x i:nth-child(2){top:21px;transform:rotate(-45deg)}
+#drawer{position:fixed;inset:0;z-index:55;background:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:calc(76px + 4vh) var(--gut) max(28px,env(safe-area-inset-bottom));visibility:hidden;clip-path:inset(0 0 100% 0);transition:clip-path .7s cubic-bezier(.76,0,.24,1),visibility 0s .7s;overflow-y:auto}
+#drawer.on{visibility:visible;clip-path:inset(0);transition:clip-path .7s cubic-bezier(.76,0,.24,1),visibility 0s}
+#drawer nav{display:flex;flex-direction:column}
+#drawer .dl{display:flex;align-items:baseline;gap:16px;font-family:var(--serif);font-size:clamp(2.4rem,11vw,3.4rem);line-height:1.1;text-decoration:none;padding:10px 0;border-bottom:1px solid var(--hl-d);min-height:44px;opacity:0;transform:translateY(34px);transition:opacity .6s,transform .8s cubic-bezier(.16,1,.3,1)}
+#drawer .dl small{font-family:var(--sans);font-size:.7rem;letter-spacing:.16em;color:var(--mu-d)}
+#drawer.on .dl{opacity:1;transform:none}
+#drawer.on .dl:nth-child(1){transition-delay:.22s}#drawer.on .dl:nth-child(2){transition-delay:.3s}#drawer.on .dl:nth-child(3){transition-delay:.38s}#drawer.on .dl:nth-child(4){transition-delay:.46s}#drawer.on .dl:nth-child(5){transition-delay:.54s}
+#drawer .dinfo{margin-top:28px;font-size:.92rem;color:var(--mu-d);line-height:1.7;opacity:0;transition:opacity .7s .7s}
+#drawer.on .dinfo{opacity:1}
+#drawer .dinfo b{color:var(--parch);font-weight:600}
+#drawer .dinfo a{display:inline-flex;align-items:center;min-height:44px;color:var(--parch)}
 
 /* hero */
-.hero{min-height:100svh;padding:120px 0 70px;display:flex;align-items:center;overflow:hidden}
-.hg{display:grid;grid-template-columns:1.05fr .95fr;gap:4vw;align-items:center}
-.stat{display:inline-flex;align-items:center;gap:10px;background:var(--flour);border:2px solid var(--ink);padding:8px 14px;font-family:var(--mono);font-weight:700;font-size:.86rem;letter-spacing:.04em;box-shadow:3px 3px 0 var(--ink);margin-bottom:22px}
-.stat b{width:11px;height:11px;border-radius:50%;background:#8b8b8b;flex:none}
-.stat.on b{background:#2f8f3a;box-shadow:0 0 0 4px rgba(47,143,58,.25)}
-.hero h1{font-size:clamp(2.6rem,5.4vw,5.2rem);color:var(--ink);text-shadow:3px 3px 0 var(--kraft-l)}
-.hero h1 em{font-style:normal;color:var(--tom);display:block}
-.hero p.lead{font-size:clamp(1.05rem,1.5vw,1.25rem);max-width:520px;margin:22px 0 28px;font-weight:500}
-.hero .cta{display:flex;gap:14px;flex-wrap:wrap}
-.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:34px;font-family:var(--mono);font-size:.85rem;font-weight:700}
-.facts span{display:flex;gap:8px;align-items:center}
-.facts span::before{content:"✱";color:var(--tom)}
-.dust{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
-.dust i{position:absolute;border-radius:50%;background:var(--flour);opacity:.55;animation:fl linear infinite}
-@keyframes fl{0%{transform:translate(0,0)}50%{transform:translate(14px,-30px)}100%{transform:translate(-6px,-70px)}}
-.hg{position:relative;z-index:2}
-/* box */
-.boxw{position:relative;width:min(520px,100%);margin:0 auto;aspect-ratio:1/.9;perspective:1400px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.box{position:absolute;inset:0;transform-style:preserve-3d}
-.box-in{position:absolute;inset:0;border-radius:6px;background:#7d5d3b;box-shadow:inset 0 0 50px rgba(0,0,0,.5),0 34px 40px -22px rgba(35,26,20,.6);overflow:hidden}
-.tissue{position:absolute;inset:7% 6% 16% 6%;background:var(--flour);border-radius:4px;padding:10px;transform:rotate(-1.5deg);box-shadow:0 4px 14px rgba(0,0,0,.3)}
-.tissue .ph{position:absolute;inset:10px;overflow:hidden;background:linear-gradient(135deg,#d7a34f,#b3261e)}
-.ph{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--kraft-l),var(--kraft-d))}
-.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ph.noimg{background:repeating-linear-gradient(45deg,var(--kraft-l) 0 14px,#d3b088 14px 28px)}
-.ph.noimg::after{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:14px;font-family:var(--disp);font-size:1.3rem;color:var(--tom);opacity:.85}
-.box-front{position:absolute;left:0;right:0;bottom:0;height:20%;background:var(--kraft);border-radius:0 0 6px 6px;z-index:3;box-shadow:0 -8px 14px -4px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;letter-spacing:.24em;font-size:clamp(.6rem,1.6vw,.78rem);text-transform:uppercase;color:var(--ink);overflow:hidden}
-.box-front::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.2;mix-blend-mode:multiply}
-.box-front .tw{position:absolute;left:calc(50% - 5px);width:10px;top:0;bottom:0;background:repeating-linear-gradient(0deg,var(--tom) 0 6px,var(--flour) 6px 12px);box-shadow:0 0 6px rgba(0,0,0,.3)}
-.box-front span.t{position:relative;z-index:1;background:var(--kraft);padding:2px 10px}
-.box-front::after{content:"";position:absolute;left:0;right:0;top:0;border-top:3px dashed rgba(35,26,20,.35)}
-.lid{position:absolute;inset:0;left:-1.5%;right:-1.5%;border-radius:6px;background:#D9B68B;transform-origin:50% 0;z-index:4;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 26px 34px -10px rgba(0,0,0,.4);overflow:hidden;display:grid;place-items:center}
-.lid::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.24;mix-blend-mode:multiply}
-.lid::after{content:"";position:absolute;inset:10px;border:3px dashed rgba(35,26,20,.28);border-radius:3px}
-.twv,.twh{position:absolute;background:repeating-linear-gradient(0deg,var(--tom) 0 6px,var(--flour) 6px 12px);z-index:1}
-.twv{left:calc(50% - 4px);width:8px;top:0;bottom:0}
-.twh{top:58%;left:0;right:0;height:8px;background:repeating-linear-gradient(90deg,var(--tom) 0 6px,var(--flour) 6px 12px)}
-.lab{position:relative;z-index:2;background:var(--flour);border:3px double var(--ink);padding:14px 18px;text-align:center;transform:rotate(-3deg);box-shadow:0 6px 0 rgba(0,0,0,.18);max-width:78%}
-.lab b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(1.3rem,4vw,2rem);line-height:1;color:var(--tom)}
-.lab span{display:block;font-family:var(--mono);font-weight:700;font-size:clamp(.58rem,1.5vw,.74rem);letter-spacing:.14em;margin-top:6px;text-transform:uppercase}
-.hint{position:absolute;left:0;right:0;bottom:-38px;text-align:center;font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:.75}
-.hticket{position:absolute;top:-6%;right:-4%;z-index:6;background:var(--flour);width:clamp(118px,29%,150px);padding:10px 10px 18px;text-align:center;transform:rotate(6deg);box-shadow:0 10px 20px rgba(0,0,0,.3);border:2px solid var(--ink);clip-path:polygon(0 0,100% 0,100% 94%,92% 100%,84% 94%,76% 100%,68% 94%,60% 100%,52% 94%,44% 100%,36% 94%,28% 100%,20% 94%,12% 100%,4% 94%,0 100%)}
-.hticket small{display:block;font-family:var(--mono);font-weight:700;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase}
-.hticket strong{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(1.8rem,5vw,2.6rem);line-height:1;color:var(--tom);margin:4px 0}
-.hticket em{display:block;font-style:normal;font-family:var(--mono);font-weight:700;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase}
-.stampd{position:absolute;left:-3%;bottom:14%;z-index:5;font-family:var(--disp);color:var(--tom);border:4px double var(--tom);padding:6px 12px;font-size:clamp(.9rem,2.6vw,1.3rem);transform:rotate(-9deg);background:rgba(251,247,239,.65);mix-blend-mode:multiply;line-height:1.05;text-align:center}
-.js .boxw{opacity:0}
-.js .lid{transform:rotateX(0)}
-html:not(.js) .lid{transform:rotateX(-108deg);opacity:0;visibility:hidden}
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,6.4fr) minmax(0,5fr);grid-template-rows:1fr auto;min-height:100svh;min-height:100vh;background:var(--ink)}
+@supports (height:100svh){.hero{min-height:100svh}}
+.hl{grid-column:1;grid-row:1;padding:150px 3vw 44px var(--lx);display:flex;flex-direction:column;justify-content:flex-end}
+.hero .eb{margin-bottom:24px}
+.hero h1{font-size:clamp(3.1rem,5.8vw,6.2rem);line-height:.96}
+.hero h1 .ln{padding-right:.1em}
+.hs{margin-top:clamp(24px,3vw,36px);max-width:46ch;color:rgba(243,236,224,.84);font-size:1.05rem}
+.ha{margin-top:clamp(24px,3vw,34px);display:flex;flex-wrap:wrap;align-items:center;gap:12px 30px}
+.ha .call{font-family:var(--serif);font-size:1.7rem;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;line-height:1;border-bottom:1px solid var(--hl-d)}
+.hr{grid-column:2;grid-row:1;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--ink3),var(--ink2))}
+.hr .pi{position:absolute;left:0;right:0;top:-7%;height:114%}
+.hr .pi img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;transform-origin:50% 60%}
+.hr::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,26,18,.55),rgba(22,26,18,0) 26%),linear-gradient(0deg,rgba(22,26,18,.35),rgba(22,26,18,0) 30%);pointer-events:none}
+.hs2{position:absolute;z-index:3;left:calc(56.14% - clamp(70px,6vw,110px));bottom:calc(96px + clamp(36px,6vh,72px));width:clamp(150px,14vw,220px);aspect-ratio:4/5;border:6px solid var(--ink);overflow:hidden;background:var(--ink3)}
+.hs2 img{width:100%;height:100%;object-fit:cover}
+.htag{position:absolute;right:14px;bottom:12px;z-index:2;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--parch);text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.hero .strip{grid-column:1/-1;grid-row:2;position:relative;z-index:4}
+.strip{background:var(--ink2);border-top:1px solid var(--hl-d)}
+.sg{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr}
+.sg>div{padding:22px 28px;border-left:1px solid var(--hl-d);display:flex;flex-direction:column;justify-content:center;gap:2px}
+.sg>div:first-child{border-left:0;padding-left:0}
+.sg small{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mu-d);font-weight:600}
+.sg b{font-family:var(--serif);font-weight:400;font-size:1.5rem;line-height:1.2}
+.sg a{text-decoration:none}
+#status{display:flex;align-items:center;gap:10px;font-size:.95rem;font-weight:600}
+#status::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(243,236,224,.4);flex:none}
+#status.on::before{background:#8fbf7a;box-shadow:0 0 0 4px rgba(143,191,122,.18)}
+#status.off::before{background:var(--tom-l)}
+.js .hl>*,.js .strip{opacity:0}
+.js .hr{clip-path:inset(0 0 100% 0)}
+.js .hs2{clip-path:inset(0 0 100% 0)}
+.js .hero .hl>h1{opacity:1}
 
-/* dough */
-.dough{background:var(--olive);color:var(--flour);padding:72px 0 64px;overflow:hidden;position:relative}
-.dough::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.2;mix-blend-mode:multiply}
-.dough .lines{position:relative}
-.dl{display:block;font-family:var(--disp);font-size:clamp(3rem,11.4vw,10.5rem);line-height:.98;text-transform:uppercase;white-space:nowrap;width:max-content;max-width:none;padding:0 4vw}
-.dl:nth-child(2){color:var(--kraft-l);margin-left:auto}
-.dl:nth-child(3){color:#F0C9A0}
-.dough .cap{position:relative;font-family:var(--mono);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;margin:30px 4vw 0;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.dough .stampd{position:static;transform:rotate(-3deg);background:none;color:var(--kraft-l);border-color:var(--kraft-l);mix-blend-mode:normal;font-size:1rem}
+/* frames + reveals */
+.ph{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--ink3),var(--ink2))}
+.lt .ph{background:linear-gradient(135deg,var(--parch2),#dccfba)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu-l);margin-top:12px}
+.js .clip{clip-path:inset(0 0 100% 0)}
+.js .rv{opacity:0}
 
-/* tray */
-.tray{background:var(--flour);padding:96px 0 0;overflow:hidden}
-.tray .h2{font-size:clamp(2rem,3.8vw,3.4rem)}
-.tray-h{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:22px}
-.tray-h p{max-width:430px;color:var(--mu);font-weight:500}
-.track{display:flex;gap:26px;padding:12px 5vw 26px;width:max-content}
-.card{flex:none;width:clamp(270px,22vw,320px);background:var(--kraft-l);border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);position:relative;display:flex;flex-direction:column;transform:rotate(var(--r,0deg))}
-.card:nth-child(odd){--r:-.8deg}.card:nth-child(even){--r:.7deg}
-.card .ph{aspect-ratio:16/10;border-bottom:2px solid var(--ink)}
-.card .no{position:absolute;top:10px;left:10px;z-index:3;background:var(--flour);border:2px solid var(--ink);font-family:var(--mono);font-weight:700;font-size:.78rem;padding:2px 8px}
-.card .bd{padding:12px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.card h3{font-family:var(--disp);font-weight:400;font-size:1.55rem;line-height:1.05}
-.card p{font-size:.93rem;line-height:1.45}
-.card .pr{font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--mu);border-top:2px dashed rgba(35,26,20,.35);padding-top:8px;margin-top:auto}
-.card .pr b{color:var(--tom)}
-.add{min-height:46px;border:2px solid var(--ink);background:var(--flour);font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 12px;transition:background .2s,color .2s}
-.add.on{background:var(--olive);color:var(--flour)}
-.card.art .ph{background:var(--tom)}
-.card.art svg{position:absolute;inset:0;width:100%;height:100%}
-.prog{width:var(--wrap);margin:0 auto 14px;height:8px;border:2px solid var(--ink);background:var(--flour);position:relative}
-.prog i{position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--tom) 0 10px,var(--kraft) 10px 20px);transform:scaleX(0);transform-origin:left}
-.tray .end{padding-bottom:30px}
-.tray-note{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--mu)}
+/* about */
+.ab{display:grid;grid-template-columns:5fr 6fr;gap:clamp(36px,7vw,110px);align-items:center}
+.ab .ph{aspect-ratio:4/5}
+.ab .ph .pi{position:absolute;left:0;right:0;top:-8%;height:116%}
+.ab h2{margin-bottom:34px}
+.ab p{color:#33372b;max-width:52ch;font-size:1.05rem}
+.ab p+p{margin-top:18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:46px;border-top:1px solid var(--hl-l)}
+.stats div{padding:22px 16px 0 0}
+.stats div+div{padding-left:22px;border-left:1px solid var(--hl-l)}
+.stats b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,4vw,3.3rem);line-height:1}
+.stats small{display:block;margin-top:8px;font-size:.74rem;letter-spacing:.04em;color:var(--mu-l);line-height:1.4}
+.ab .tl{margin-top:28px}
 
-/* board */
-.board{background:var(--kraft);padding:110px 0}
-.bw{background:var(--flour);border:3px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:clamp(24px,4vw,54px);position:relative;margin-top:40px}
-.bw::before,.bw::after{content:"";position:absolute;top:-16px;width:110px;height:32px;background:rgba(221,192,156,.85);border:1px dashed rgba(35,26,20,.3);transform:rotate(-4deg)}
-.bw::before{left:8%}.bw::after{right:8%;transform:rotate(5deg)}
-.bcols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px)}
-.bcols>*{min-width:0}
-.bcols h3{font-family:var(--disp);font-weight:400;font-size:1.7rem;color:var(--tom);border-bottom:3px double var(--ink);padding-bottom:6px;margin-bottom:8px}
-.bi{display:flex;align-items:baseline;gap:8px;padding:10px 0;font-weight:600;line-height:1.25}
-.bi::after{content:"";order:2;flex:1;border-bottom:2px dotted rgba(35,26,20,.5);min-width:14px;transform:translateY(-4px)}
-.bi .pz{order:3;font-family:var(--mono);font-weight:700;white-space:nowrap;color:var(--mu);font-size:.86rem}
-.bi .pz b{color:var(--tom);font-size:1rem}
-.bi .pz i{font-style:normal;font-size:.68rem;letter-spacing:.06em;background:var(--kraft-l);border:1px solid var(--ink);padding:0 4px;margin-left:4px;color:var(--ink);text-transform:uppercase}
-.bnote{margin-top:26px;font-family:var(--mono);font-size:.85rem;font-weight:700;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:2px dashed rgba(35,26,20,.4);padding-top:14px}
+/* menu / counter */
+.mh{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:clamp(40px,5vw,72px);flex-wrap:wrap}
+.mh p{max-width:36ch;color:var(--mu-d);font-size:.94rem}
+.mg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(36px,6vw,96px);align-items:start}
+.stk{position:sticky;top:12vh}
+.stkf{position:relative;height:min(68vh,640px);overflow:hidden;background:linear-gradient(135deg,var(--ink3),var(--ink2))}
+.stkf .f{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .7s}
+.stkf .f.on{opacity:1}
+.js .stkf .f{opacity:1;clip-path:inset(100% 0 0 0);transition:none}
+.stkf .f img{width:100%;height:100%;object-fit:cover}
+.stkm{display:flex;justify-content:space-between;margin-top:14px;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu-d)}
+.rows{list-style:none;border-top:1px solid var(--hl-d)}
+.row{position:relative;display:grid;grid-template-columns:44px 1fr auto;gap:0 14px;align-items:start;padding:26px 0 24px;border-bottom:1px solid var(--hl-d);transition:padding .6s cubic-bezier(.16,1,.3,1)}
+.row .h{grid-column:2}
+.row .n{font-size:.7rem;letter-spacing:.14em;color:var(--mu-d);padding-top:.7em;font-weight:600}
+.row h3{font-size:clamp(2rem,3.4vw,3rem);line-height:1.02;transition:transform .6s cubic-bezier(.16,1,.3,1),color .4s}
+.row .pr{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu-d);white-space:nowrap;padding-top:.9em}
+.row .d{grid-column:2/4;color:var(--mu-d);font-size:.94rem;margin-top:8px;max-width:44ch}
+.row .px{grid-column:2/4;margin-top:12px;font-size:.88rem;display:grid;gap:4px;max-width:360px}
+.row .px div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--hl-d);padding-bottom:4px}
+.row .thumb{display:none}
+.add{grid-column:2/4;justify-self:start;margin-top:10px;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:0;min-height:44px;display:inline-flex;align-items:center;gap:8px;opacity:.85}
+.add.on{color:var(--tom-l);opacity:1}
+.row.act h3{color:var(--parch)}
+@media (hover:hover) and (pointer:fine){
+  .row:hover{padding-left:14px}
+  .row:hover h3{transform:translateX(6px);font-style:italic}
+  .add:hover{opacity:1;text-decoration:underline;text-underline-offset:5px}
+}
+.stock{margin-top:36px;font-size:.78rem;color:var(--mu-d)}
+.early{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px}
+.early p{font-family:var(--serif);font-size:clamp(1.6rem,2.4vw,2.1rem);line-height:1.1}
 
 /* hours */
-.hours{background:var(--flour);padding:110px 0;overflow:hidden}
-.hgr{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center;margin-top:30px}
-.hgr>*{min-width:0}
-.pie{width:min(480px,100%);margin:0 auto;display:block;overflow:visible}
-.slice{cursor:pointer;outline:none}
-.slice .sauce{transition:fill .25s}
-.slice.act .sauce,.slice:focus-visible .sauce{fill:#cf3a2f}
-.slice:focus-visible .crust{stroke:var(--ink);stroke-width:4}
-.hub{fill:var(--flour);stroke:var(--ink);stroke-width:3}
-.hubt{font-family:var(--disp);fill:var(--tom);text-anchor:middle}
-.hubs{font-family:var(--mono);font-weight:700;fill:var(--ink);text-anchor:middle}
-.hlist{border:3px solid var(--ink);background:var(--kraft-l);box-shadow:8px 8px 0 var(--ink)}
-.hr{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:13px 20px;border-bottom:2px dashed rgba(35,26,20,.4);min-height:52px}
-.hr:last-of-type{border-bottom:0}
-.hr b{font-family:var(--disp);font-weight:400;font-size:1.35rem}
-.hr span{font-family:var(--mono);font-weight:700;font-size:1rem}
-.hr.cl{color:var(--mu)}
-.hr.cl span{color:var(--tom);border:2px solid var(--tom);padding:0 10px;transform:rotate(-3deg);font-family:var(--disp);font-weight:400;font-size:.95rem;letter-spacing:.08em}
-.hr.td{background:var(--flour)}
-.hr.td b::after{content:"today";margin-left:10px;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:var(--tom);color:var(--flour);padding:2px 8px;vertical-align:middle}
-.hconf{padding:14px 20px;background:var(--flour);border-top:3px solid var(--ink);font-family:var(--mono);font-size:.85rem;font-weight:700}
-.hconf i{font-style:normal;background:#f6d365;border:1px solid var(--ink);padding:0 6px}
+.hg{display:grid;grid-template-columns:5fr 6fr;gap:clamp(36px,8vw,130px);align-items:start}
+.hg h2{margin-bottom:28px}
+.hg p{color:#33372b;max-width:40ch}
+.hg .st{margin-top:30px;display:inline-flex;padding:12px 20px;border:1px solid var(--hl-l);border-radius:99px}
+.hg .st #status2{display:flex;align-items:center;gap:10px;font-size:.95rem;font-weight:600;color:var(--ink)}
+.hg .st #status2::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(22,26,18,.35);flex:none}
+.hg .st #status2.on::before{background:#3f8a3a;box-shadow:0 0 0 4px rgba(63,138,58,.16)}
+.hg .st #status2.off::before{background:var(--tom)}
+.note{margin-top:22px;font-size:.88rem;color:var(--mu-l)}
+table.ht{width:100%;border-collapse:collapse}
+.ht th,.ht td{text-align:left;font-weight:400;padding:20px 0;border-bottom:1px solid var(--hl-l)}
+.ht tr:first-child th,.ht tr:first-child td{border-top:1px solid var(--hl-l)}
+.ht th{font-family:var(--serif);font-size:clamp(1.6rem,2.6vw,2.2rem);line-height:1.1}
+.ht td{text-align:right;font-size:1rem;font-weight:500}
+.ht tr.cl td{color:var(--mu-l);font-weight:400}
+.ht tr.td th::after{content:"Today";margin-left:14px;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--tom);vertical-align:middle;border:1px solid var(--tom);border-radius:99px;padding:2px 10px}
 
 /* order */
-.order{background:var(--kraft-l);padding:110px 0;position:relative;overflow:hidden}
-.order::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.16;mix-blend-mode:multiply;pointer-events:none}
-.og{display:grid;grid-template-columns:.75fr 1.25fr;gap:5vw;align-items:start;position:relative}
-.og>*{min-width:0}
-.og .cp p{margin-top:18px;font-weight:500;max-width:420px}
-.steps{list-style:none;margin-top:26px;display:grid;gap:12px;counter-reset:s}
-.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;font-weight:600}
-.steps li::before{content:counter(s);flex:none;width:34px;height:34px;border-radius:50%;background:var(--tom);color:var(--flour);font-family:var(--disp);display:grid;place-items:center;font-size:1rem}
-.ticket{display:grid;grid-template-columns:150px 1fr;position:relative;filter:drop-shadow(8px 8px 0 var(--ink))}
-.stub{background:var(--tom);color:var(--flour);padding:22px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:3px solid var(--ink);border-right:0;position:relative;transform-origin:100% 100%}
-.stub small{font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
-.stub .n{font-family:var(--disp);font-size:3.4rem;line-height:1;margin:6px 0}
-.stub .no{font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.1em}
-.tb{background:var(--flour);border:3px solid var(--ink);border-left:3px dashed var(--ink);padding:clamp(20px,3vw,36px);min-width:0}
-.ticket::before,.ticket::after{content:"";position:absolute;left:150px;width:26px;height:26px;border-radius:50%;background:var(--kraft-l);border:3px solid var(--ink);z-index:3;transform:translateX(-50%)}
-.ticket::before{top:-14px;clip-path:inset(50% 0 0 0)}
-.ticket::after{bottom:-14px;clip-path:inset(0 0 50% 0)}
-.fl{display:grid;gap:18px}
-.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.f2>*{min-width:0}
-.fld label,.fld legend{display:block;font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
-.fld{border:0;min-width:0}
-.fld input[type=text],.fld input[type=tel],.fld select,.fld textarea{width:100%;background:transparent;border:0;border-bottom:2px solid var(--ink);font:inherit;font-size:1rem;font-weight:500;padding:11px 2px;border-radius:0;color:var(--ink);outline:0;min-height:46px}
-.fld textarea{resize:vertical;min-height:70px;border:2px solid var(--ink);padding:10px;background:rgba(221,192,156,.25)}
-.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--tom);box-shadow:0 3px 0 -1px var(--tom)}
-.fld select{appearance:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' fill='none' stroke='%23231A14' stroke-width='2'/></svg>") no-repeat right 4px center}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{min-height:44px;padding:8px 14px;border:2px solid var(--ink);background:var(--flour);font-weight:600;font-size:.92rem;border-radius:30px;transition:background .2s,color .2s}
-.chip[aria-pressed=true]{background:var(--olive);color:var(--flour)}
-.chip[aria-pressed=true]::before{content:"✓ "}
-.dys{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.dy{border:2px solid var(--ink);background:var(--flour);padding:8px 2px;text-align:center;min-height:62px;transition:background .2s,color .2s}
-.dy b{display:block;font-family:var(--disp);font-weight:400;font-size:1.15rem;line-height:1.1}
-.dy small{display:block;font-family:var(--mono);font-weight:700;font-size:.72rem}
-.dy[aria-pressed=true]{background:var(--tom);color:var(--flour)}
-.err{color:var(--tom);font-family:var(--mono);font-weight:700;font-size:.88rem;min-height:1.3em}
+.og{display:grid;grid-template-columns:5fr 7fr;gap:clamp(36px,7vw,110px);align-items:start}
+.og h2{margin-bottom:26px}
+.og .lede{color:var(--mu-d);max-width:38ch}
+.og ul{list-style:none;margin-top:34px;border-top:1px solid var(--hl-d)}
+.og li{padding:14px 0;border-bottom:1px solid var(--hl-d);font-size:.92rem;color:var(--mu-d)}
+.slip{border:1px solid var(--hl-d);background:var(--ink2);padding:clamp(26px,4vw,54px)}
+.slh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--hl-d);padding-bottom:18px;margin-bottom:28px}
+.slh span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mu-d);font-weight:600}
+.slh b{font-family:var(--serif);font-weight:400;font-size:2.2rem;line-height:1}
+.fld{margin-bottom:26px;border:0;min-width:0}
+.fld label,.fld legend{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu-d);font-weight:600;margin-bottom:10px;padding:0}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.fld input,.fld select,.fld textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(243,236,224,.4);border-radius:0;padding:10px 0;font-size:1rem;min-height:46px;color:var(--parch);-webkit-appearance:none;appearance:none}
+.fld textarea{resize:vertical;min-height:80px;line-height:1.5}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,var(--parch) 50%),linear-gradient(-45deg,transparent 50%,var(--parch) 50%);background-size:5px 5px;background-position:calc(100% - 9px) 52%,calc(100% - 4px) 52%;background-repeat:no-repeat}
+.fld select option{background:var(--ink);color:var(--parch)}
+.fld input::placeholder,.fld textarea::placeholder{color:rgba(243,236,224,.5)}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:0;border-color:var(--parch)}
+.dm{font-size:.78rem;color:var(--mu-d);margin-top:6px}
+.chips,.dys{display:flex;flex-wrap:wrap;gap:10px}
+.chip,.dy{min-height:44px;padding:0 18px;border:1px solid rgba(243,236,224,.36);border-radius:99px;font-size:.86rem;transition:background .3s,color .3s,border-color .3s}
+.dy{display:flex;flex-direction:column;justify-content:center;align-items:center;line-height:1.15;padding:6px 18px;min-width:76px}
+.dy small{font-size:.7rem;opacity:.8}
+.chip[aria-pressed=true],.dy[aria-pressed=true]{background:var(--parch);color:var(--ink);border-color:var(--parch)}
+@media (hover:hover) and (pointer:fine){.chip:hover,.dy:hover{border-color:var(--parch)}}
+.err{color:var(--tom-l);font-size:.88rem;min-height:1.4em;margin-bottom:10px}
 .sub{width:100%}
-.dm{font-family:var(--mono);font-size:.76rem;font-weight:700;color:var(--mu);margin-top:4px}
-.done{display:none;text-align:left}
-.done.on{display:block}
-.done h3{font-family:var(--disp);font-weight:400;font-size:clamp(1.7rem,3.6vw,2.6rem);line-height:1.05;color:var(--tom)}
-.done .rc{margin:18px 0;border-top:2px dashed var(--ink);border-bottom:2px dashed var(--ink);padding:14px 0;font-family:var(--mono);font-weight:700;display:grid;gap:6px;font-size:.95rem;overflow-wrap:anywhere}
-.done p{font-weight:500;margin-bottom:16px}
-.js .done .rc>*{opacity:0}
-
-/* proof */
-.proof{background:var(--olive);color:var(--flour);padding:100px 0;position:relative;overflow:hidden}
-.proof::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.2;mix-blend-mode:multiply}
-.proof .h2{font-size:clamp(2rem,3.9vw,3.4rem)}
-.pg{display:grid;grid-template-columns:.9fr 1.1fr;gap:5vw;align-items:center;position:relative}
-.pg>*{min-width:0}
-.sticker{width:min(300px,70vw);aspect-ratio:1;border-radius:50%;background:var(--tom);border:4px solid var(--flour);outline:4px dashed var(--kraft-l);outline-offset:8px;display:grid;place-content:center;text-align:center;transform:rotate(-8deg);box-shadow:8px 10px 0 rgba(0,0,0,.35);margin:10px auto}
-.sticker b{font-family:var(--disp);font-weight:400;font-size:clamp(4.4rem,10vw,6.6rem);line-height:.9}
-.sticker span{font-family:var(--mono);font-weight:700;letter-spacing:.14em;font-size:.82rem;text-transform:uppercase;margin-top:6px}
-.plist{list-style:none;display:grid;gap:0;margin:22px 0 28px}
-.plist li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:2px dashed rgba(251,247,239,.4);font-weight:600}
-.plist li span:last-child{font-family:var(--mono);font-weight:700;text-align:right}
-.proof .ph{aspect-ratio:16/8;border:3px solid var(--flour);margin-top:34px;box-shadow:8px 8px 0 rgba(0,0,0,.35)}
-.proof .btn{background:var(--flour);color:var(--ink)}
-.proof .eb{color:var(--kraft-l)}
-.proof .h2 em{color:var(--kraft-l)}
+.done{display:none}.done.on{display:block}
+.done h3{font-size:clamp(2rem,3.4vw,2.8rem);margin-bottom:22px}
+.rc{border-top:1px solid var(--hl-d)}
+.rc div{padding:12px 0;border-bottom:1px solid var(--hl-d);font-size:.95rem}
+.done p{color:var(--mu-d);font-size:.9rem;margin:22px 0 26px;max-width:44ch}
 
 /* visit */
-.visit{background:var(--flour);padding:110px 0}
-.vg{display:grid;grid-template-columns:.95fr 1.05fr;gap:5vw;margin-top:34px}
-.vg>*{min-width:0}
-.vi{display:grid;gap:0;border:3px solid var(--ink);background:var(--kraft-l);box-shadow:8px 8px 0 var(--ink)}
-.vb{padding:16px 20px;border-bottom:2px dashed rgba(35,26,20,.4)}
-.vb:last-child{border-bottom:0}
-.vb small{display:block;font-family:var(--mono);font-weight:700;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tom);margin-bottom:2px}
-.vb .v{font-family:var(--disp);font-size:clamp(1.25rem,2.2vw,1.65rem);line-height:1.15}
-.vb .v a{display:inline-block;padding:4px 0}
-.vb p{font-weight:500;font-size:.96rem}
-.cf{background:#f6d365;border:1px solid var(--ink);padding:0 6px;font-family:var(--mono);font-size:.82em;font-weight:700;white-space:nowrap}
-.mapw{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);min-height:520px;position:relative;background:var(--kraft-l)}
-.mapw iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.45) contrast(1.05) sepia(.15)}
-.look{margin-top:26px;background:var(--flour);border:3px dashed var(--ink);padding:18px 22px;position:relative}
-.look h4{font-family:var(--disp);font-weight:400;font-size:1.3rem;color:var(--tom);margin-bottom:8px}
-.look ul{list-style:none;display:flex;gap:8px 18px;flex-wrap:wrap;font-family:var(--mono);font-weight:700;font-size:.88rem}
-.look li::before{content:"→ "}
+.vg{display:grid;grid-template-columns:5fr 6fr;gap:clamp(36px,7vw,110px);align-items:start}
+.vg h2{margin-bottom:38px}
+.vb{padding:18px 0;border-top:1px solid var(--hl-l);display:grid;grid-template-columns:120px 1fr;gap:16px}
+.vb:last-child{border-bottom:1px solid var(--hl-l)}
+.vb small{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu-l);font-weight:600;padding-top:5px}
+.vb .v{font-family:var(--serif);font-size:1.6rem;line-height:1.2}
+.vb a{text-decoration:none}
+.vb p{color:#33372b}
+.mapw{position:relative;aspect-ratio:1/1.05;border:1px solid var(--hl-l);overflow:hidden;background:var(--parch2)}
+.mapw iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.55) contrast(.95) brightness(.98)}
+.look{margin-top:22px;font-size:.9rem;color:var(--mu-l)}
 
-footer{background:var(--ink);color:var(--kraft-l);padding:70px 0 34px;position:relative;overflow:hidden}
-footer .big{font-family:var(--disp);font-size:clamp(2.6rem,10vw,8rem);line-height:.92;color:var(--kraft)}
-footer .big em{font-style:normal;color:var(--tom)}
-footer .fr{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:34px;font-family:var(--mono);font-size:.9rem;font-weight:700}
-footer .fr a{padding:6px 0;display:inline-block}
-footer .cr{margin-top:36px;padding-top:18px;border-top:1px dashed rgba(221,192,156,.35);font-size:.8rem;color:#a99883;font-family:var(--mono)}
+/* footer */
+footer{background:var(--ink);border-top:1px solid var(--hl-d);padding:clamp(56px,7vw,96px) 0 34px}
+.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+.ft .logo{font-size:2.4rem;padding:0}
+.ft p,.ft a{font-size:.9rem;color:var(--mu-d);text-decoration:none}
+.ft h4{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:14px;color:var(--parch)}
+.ft a:not(.logo){display:block;padding:5px 0}
+.fine{margin-top:56px;padding-top:22px;border-top:1px solid var(--hl-d);font-size:.76rem;color:var(--mu-d);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
-/* floating ticket pill */
-.tk{position:fixed;right:16px;bottom:16px;z-index:70;background:var(--tom);color:var(--flour);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-family:var(--mono);font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:0 18px;min-height:48px;display:none;align-items:center;gap:8px}
-.tk.on{display:inline-flex}
+/* mobile bar */
+.mbar{display:none}
 
-@media(hover:hover) and (pointer:fine){
- .links a:hover::after{transform:scaleX(1)}
- .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
- .btn.sm:hover{box-shadow:5px 5px 0 var(--ink)}
- .card{transition:transform .35s,box-shadow .35s}
- .card:hover{transform:rotate(0) translateY(-6px);box-shadow:10px 12px 0 var(--ink)}
- .chip:hover,.dy:hover,.add:hover{background:var(--kraft)}
- .slice:hover .sauce{fill:#cf3a2f}
- .hr:hover{background:var(--flour)}
+@media (max-width:960px){
+  :root{--bar:calc(64px + env(safe-area-inset-bottom))}
+  .links{display:none}#burger{display:block}
+  .nv{height:68px}nav.top.solid .nv{height:60px}
+  .logo{font-size:1.55rem}
+  .hero{display:flex;flex-direction:column;min-height:0}
+  .hr{order:-1;height:clamp(250px,38svh,420px);flex:none}
+  .hl{order:0}.hero .strip{order:1}
+  .hs2{display:none}
+  .hl{padding:26px var(--gut) 36px}
+  .hero .eb{margin-bottom:18px}
+  .hero h1{font-size:clamp(2.9rem,12.4vw,4.6rem)}
+  .ha .btn{width:100%}
+  .hero .strip{position:static}
+  .sg{grid-template-columns:1fr 1fr}
+  .sg>div{padding:18px 16px;border-top:1px solid var(--hl-d)}
+  .sg>div:nth-child(-n+2){border-top:0}
+  .sg>div:nth-child(odd){border-left:0;padding-left:0}
+  .sg b{font-size:1.2rem}
+  .ab,.hg,.og,.vg{grid-template-columns:1fr}
+  .ab .ph{aspect-ratio:4/3}
+  .mg{display:block}
+  .stk{display:none}
+  .row{grid-template-columns:96px 1fr;gap:0 16px;padding:22px 0}
+  .row .n{display:none}
+  .row .thumb{display:block;grid-row:1/span 6;grid-column:1;width:96px;height:120px;overflow:hidden;background:var(--ink3)}
+  .row .thumb img{width:100%;height:116%;margin-top:-8%;object-fit:cover}
+  .row .h,.row .pr{grid-column:2}
+  .row h3{font-size:1.7rem}
+  .row .pr{display:block;padding-top:4px}
+  .row .d,.row .px,.add{grid-column:2}
+  .row .d{font-size:.88rem}
+  .row.wide{grid-template-columns:1fr}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:8px 12px max(8px,env(safe-area-inset-bottom));background:rgba(22,26,18,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--hl-d);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  .mbar.hide{transform:translateY(110%)}
+  .mbar a{display:flex;align-items:center;justify-content:center;min-height:46px;border:1px solid var(--hl-d);border-radius:99px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+  .mbar a.p{background:var(--tom);border-color:var(--tom)}
+  .ft{grid-template-columns:1fr 1fr}.ft>div:first-child{grid-column:1/-1}
 }
-@media(max-width:960px){
- .links,.nr .btn{display:none}.burger{display:block}
- .sec,.board,.hours,.order,.visit,.proof{padding:76px 0}
- .hero{padding:96px 0 70px;align-items:flex-start}
- .hg,.hgr,.og,.pg,.vg{grid-template-columns:1fr}
- .hg{gap:56px}
- .bcols{grid-template-columns:1fr}
- .tray{padding-top:76px}
- .track{display:grid;grid-template-columns:1fr;gap:20px;width:auto;padding:8px 5vw 60px}
- .card{width:auto;display:grid;grid-template-columns:38% 1fr}
- .card .ph{aspect-ratio:auto;border-bottom:0;border-right:2px solid var(--ink);min-height:200px}
- .card .bd{padding:12px 14px}
- .card h3{font-size:1.25rem}
- .prog{display:none}
- .mapw{min-height:380px}
- .ticket{grid-template-columns:1fr}
- .stub{flex-direction:row;justify-content:space-between;border:3px solid var(--ink);border-bottom:0;padding:12px 18px;transform-origin:0 100%}
- .stub .n{font-size:2.6rem;margin:0}
- .stub div{text-align:left}
- .tb{border-left:3px solid var(--ink);border-top:3px dashed var(--ink)}
- .ticket::before,.ticket::after{left:auto;top:auto;bottom:auto;transform:none}
- .ticket::before{left:-14px;top:calc(var(--sh,70px) - 13px);clip-path:inset(0 0 0 50%)}
- .ticket::after{right:-14px;left:auto;top:calc(var(--sh,70px) - 13px);bottom:auto;clip-path:inset(0 50% 0 0)}
- .dl{font-size:11vw}
- .f2{grid-template-columns:1fr}
- .hr b{font-size:1.2rem}
+@media (max-width:560px){
+  .f2{grid-template-columns:1fr}
+  .stats b{font-size:2rem}.stats div+div{padding-left:14px}.stats div{padding-right:8px}
+  .vb{grid-template-columns:1fr;gap:4px}
+  .ht th{font-size:1.4rem}.ht td{font-size:.92rem}
+  .htag{font-size:.6rem}
+  .early .btn{width:100%}
 }
-@media(max-width:420px){
- .hero h1{font-size:2.6rem}
- .dys{gap:5px}
- .dy b{font-size:1rem}
- .hticket{right:-2%}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.dust{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-<div class="pre" id="pre" aria-hidden="true"><div class="h t"></div><div class="h b"></div><div class="stampw"><div class="stamp" id="preStamp">NONNO UGO'S<small>ITALIAN BAKERY · MAYFAIR</small></div></div></div>
-
-<nav class="top" id="nav">
-  <a href="#top" class="logo" aria-label="Nonno Ugo's Italian Bakery, home"><b>Nonno <i>Ugo's</i></b><small>Italian Bakery · Mayfair</small></a>
-  <div class="links"><a href="#fresh">The tray</a><a href="#board">The board</a><a href="#hours">Hours</a><a href="#visit">Find us</a></div>
-  <div class="nr"><a href="#order" class="btn sm">Take a number</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button></div>
-</nav>
-<div class="drawer" id="drawer">
-  <a class="big" href="#fresh"><small>01</small>The tray</a>
-  <a class="big" href="#board"><small>02</small>The board</a>
-  <a class="big" href="#hours"><small>03</small>Hours</a>
-  <a class="big" href="#order"><small>04</small>Take a number</a>
-  <a class="big" href="#visit"><small>05</small>Find us</a>
-  <div class="dm">Wed–Sun · closes 3 PM · Closed Mon &amp; Tue</div>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="top" id="nav"><div class="wrap nv">
+  <a class="logo" href="#top" aria-label="Nonno Ugo's Italian Bakery, top of page">Nonno&nbsp;<em>Ugo's</em></a>
+  <div class="links"><a href="#about">About</a><a href="#menu">Menu</a><a href="#hours">Hours</a><a href="#visit">Visit</a><a class="btn p" href="#order">Pre-order</a></div>
+  <button id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><i></i><i></i></button>
+</div></nav>
+<div id="drawer" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" inert>
+  <nav aria-label="Mobile">
+    <a class="dl" href="#about"><small>01</small>About</a><a class="dl" href="#menu"><small>02</small>Menu</a><a class="dl" href="#hours"><small>03</small>Hours</a><a class="dl" href="#order"><small>04</small>Pre-order</a><a class="dl" href="#visit"><small>05</small>Visit</a>
+  </nav>
+  <div class="dinfo"><b>Wed&ndash;Sun, 9&ndash;3*</b> &middot; Closed Mon &amp; Tue<br>6606 Frankford Ave, Philadelphia, PA 19135<br><a href="tel:+12153323033">(215) 332-3033</a></div>
 </div>
 
-<header class="hero kraft" id="top">
-  <div class="dust" id="dust" aria-hidden="true"></div>
-  <div class="wrap hg">
-    <div class="hcopy">
-      <div class="stat" id="status" aria-live="polite"><b></b><span>Checking the ovens…</span></div>
-      <h1 class="disp" id="ttl">Bread,<br>tomato pie<em>&amp; stromboli.</em></h1>
-      <p class="lead">A family-owned Italian bakery on Frankford Ave in Mayfair. Open Wednesday to Sunday, closing at 3 PM. It often sells out, so come early.</p>
-      <div class="cta"><a class="btn" href="#order">Take a number</a><a class="btn o" href="#visit">Find us</a></div>
-      <div class="facts"><span>4.8★ on Google</span><span>Private lot parking</span><span>Takeout</span></div>
-    </div>
-    <div class="hbox">
-      <div class="boxw" id="boxw" role="button" tabindex="0" aria-label="Bakery box. Press to open or close the lid." aria-pressed="false">
-        <div class="box" id="box">
-          <div class="box-in">
-            <div class="tissue"><div class="ph" data-label="Tomato pie"><img id="heroImg" src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&amp;fit=crop&amp;w=1000&amp;q=75" data-fb="https://images.unsplash.com/photo-1738334254471-e8a16e2dd46e?auto=format&amp;fit=crop&amp;w=1000&amp;q=75" alt="A tray of tomato pie style pizza on a wooden table" fetchpriority="high" onerror="fb(this)"></div></div>
-          </div>
-          <div class="box-front"><i class="tw"></i><span class="t" style="display:none"></span></div>
-          <div class="lid" id="lid"><span class="twv"></span><span class="twh"></span><div class="lab"><b>Nonno Ugo's</b><span>Italian Bakery</span><span>6606 Frankford Ave</span></div></div>
-        </div>
-        <div class="hticket" id="hticket"><small>Wed – Sun</small><strong>9–3</strong><em>Closed Mon &amp; Tue</em></div>
-        <div class="stampd" id="stampd">Come<br>early</div>
-        <div class="hint" id="bhint">Tap the box</div>
-      </div>
-    </div>
+<header class="hero" id="top">
+  <div class="hl">
+    <div class="eb">Family-owned bakery &middot; Mayfair, Philadelphia</div>
+    <h1 aria-label="Tomato pie, bread and stromboli on Frankford Ave."><span class="ln" aria-hidden="true"><span>Tomato pie, bread</span></span><span class="ln" aria-hidden="true"><span>&amp; stromboli</span></span><span class="ln" aria-hidden="true"><span><em>on Frankford Ave.</em></span></span></h1>
+    <p class="hs">Open Wednesday to Sunday until 3 PM. Popular items sell out, so come early or ask us to hold yours.</p>
+    <div class="ha"><a class="btn p" href="#order">Pre-order for pickup</a><a class="call" href="tel:+12153323033" aria-label="Call (215) 332-3033">(215) 332-3033</a></div>
   </div>
+  <div class="hr"><div class="pi"><img fetchpriority="high" decoding="async" width="1200" height="1500" src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&amp;fit=crop&amp;w=1600&amp;q=75" data-fb="https://images.unsplash.com/photo-1738334254471-e8a16e2dd46e?auto=format&amp;fit=crop&amp;w=1600&amp;q=75" alt="Tomato pie on a wooden board (stock photo)" onerror="fb(this)"></div><span class="htag">Stock photo</span></div>
+  <div class="hs2"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1671036437036-0b1f11c80941?auto=format&amp;fit=crop&amp;w=500&amp;q=75" data-fb="https://images.unsplash.com/photo-1549407981-2e656af56b4b?auto=format&amp;fit=crop&amp;w=500&amp;q=75" alt="Bread rolls (stock photo)" onerror="fb(this)"></div>
+  <div class="strip"><div class="wrap sg">
+    <div><small>Now</small><span id="status"><span>Checking hours&hellip;</span></span></div>
+    <div><small>Open</small><b>Wed&ndash;Sun &middot; 9&ndash;3*</b></div>
+    <div><small>Address</small><b><a href="https://www.google.com/maps/search/?api=1&amp;query=6606+Frankford+Ave+Philadelphia+PA+19135" target="_blank" rel="noopener">6606 Frankford Ave</a></b></div>
+    <div><small>Closed</small><b>Mon &amp; Tue</b></div>
+  </div></div>
 </header>
 
-<section class="dough" id="dough" aria-label="Bread, rolls, tomato pie">
-  <div class="lines"><span class="dl">Bread.</span><span class="dl">Rolls.</span><span class="dl">Tomato pie.</span></div>
-  <div class="cap"><span class="stampd">Come early</span><span>Most-praised in reviews: the bread &amp; rolls. Often sells out.</span></div>
-</section>
-
-<section class="tray" id="fresh">
-  <div class="wrap tray-h">
-    <div><div class="eb">The tray</div><h2 class="disp h2 bl">What comes <em>out of the oven.</em></h2></div>
-    <p>Everything below is named again and again in neighborhood reviews. Prices are added once the owner confirms. Tap a card to add it to your pickup ticket.</p>
-  </div>
-  <div class="prog" aria-hidden="true"><i id="progBar"></i></div>
-  <div class="track" id="track">
-    <article class="card" data-item="Bread & rolls"><span class="no">№ 01</span><div class="ph" data-label="Bread &amp; rolls"><img loading="lazy" src="https://images.unsplash.com/photo-1671036437036-0b1f11c80941?auto=format&amp;fit=crop&amp;w=800&amp;q=75" data-fb="https://images.unsplash.com/photo-1549407981-2e656af56b4b?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Fresh baked bread rolls" onerror="fb(this)"></div><div class="bd"><h3>Bread &amp; rolls</h3><p>The most-praised thing in the reviews. Long rolls and mini Kaisers, too.</p><div class="pr">Price: added once owner confirms</div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-    <article class="card" data-item="Tomato pie"><span class="no">№ 02</span><div class="ph" data-label="Tomato pie"><img loading="lazy" src="https://images.unsplash.com/photo-1591985666643-1ecc67616216?auto=format&amp;fit=crop&amp;w=800&amp;q=75" data-fb="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Tomato pie style pizza on a wooden tray" onerror="fb(this)"></div><div class="bd"><h3>Tomato pie</h3><p>The Philly bakery classic. Covered in a guide to the best tomato pie in the city.</p><div class="pr">Price: added once owner confirms</div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-    <article class="card" data-item="Sicilian slices"><span class="no">№ 03</span><div class="ph" data-label="Sicilian-style slices"><img loading="lazy" src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&amp;fit=crop&amp;w=800&amp;q=75" data-fb="https://images.unsplash.com/photo-1608562099373-69dd6b715cd9?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Thick Sicilian style pizza with cheese and tomato" onerror="fb(this)"></div><div class="bd"><h3>Sicilian-style slices</h3><p>Thick pan slices, plus personal Sicilian pizza in plain or pepperoni.</p><div class="pr">Personal Sicilian <b>$7.50</b> · 18" round cheese <b>$16.00</b> <span style="background:#f6d365;border:1px solid #231A14;padding:0 4px">[confirm]</span></div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-    <article class="card" data-item="Stromboli"><span class="no">№ 04</span><div class="ph" data-label="Stromboli"><img loading="lazy" src="https://images.unsplash.com/photo-1753656681797-3234c89d6d4d?auto=format&amp;fit=crop&amp;w=800&amp;q=75" data-fb="https://images.unsplash.com/photo-1628824851008-ec3ab4b45527?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="A stuffed baked calzone on a wooden board" onerror="fb(this)"></div><div class="bd"><h3>Stromboli</h3><p>Rolled, stuffed and baked. One of the tray's neighborhood favorites.</p><div class="pr">Price: added once owner confirms</div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-    <article class="card" data-item="Italian bread"><span class="no">№ 05</span><div class="ph" data-label="Italian bread"><img loading="lazy" src="https://images.unsplash.com/photo-1655662844344-ddfa82992c4d?auto=format&amp;fit=crop&amp;w=800&amp;q=75" data-fb="https://images.unsplash.com/photo-1697393645449-5a04fbbda985?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="A crusty loaf of Italian bread" onerror="fb(this)"></div><div class="bd"><h3>Italian bread</h3><p>Crusty loaves for the table, the sandwich, the sauce.</p><div class="pr">Price: added once owner confirms</div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-    <article class="card" data-item="Cannoli"><span class="no">№ 06</span><div class="ph" data-label="Cannoli"><img loading="lazy" src="https://images.unsplash.com/photo-1749767138348-2e5bf1cbcef2?auto=format&amp;fit=crop&amp;w=800&amp;q=75" data-fb="https://images.unsplash.com/photo-1746457454153-d6c60c7b04f9?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Italian cannoli piled together" onerror="fb(this)"></div><div class="bd"><h3>Cannoli</h3><p>Crisp shell, sweet filling. Boxed to go.</p><div class="pr">Price: added once owner confirms</div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-    <article class="card" data-item="Cookies & pizzelles"><span class="no">№ 07</span><div class="ph" data-label="Cookies &amp; pizzelles"><img loading="lazy" src="https://images.unsplash.com/photo-1735279912185-a0b9cba000d4?auto=format&amp;fit=crop&amp;w=800&amp;q=75" data-fb="https://images.unsplash.com/photo-1638217335700-d39d4753de51?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Italian cookies dusted with powdered sugar" onerror="fb(this)"></div><div class="bd"><h3>Cookies &amp; pizzelles</h3><p>Italian cookies, pizzelles and holiday cookies.</p><div class="pr">Price: added once owner confirms</div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-    <article class="card art" data-item="Pepperoni bread"><span class="no">№ 08</span><div class="ph"><svg viewBox="0 0 300 225" aria-hidden="true"><rect width="300" height="225" fill="#B3261E"/><g fill="none" stroke="#FBF7EF" stroke-width="3" opacity=".9"><path d="M-10 60 L60 -10 M-10 120 L120 -10 M-10 180 L180 -10 M-10 240 L240 -10 M40 250 L300 -10 M100 250 L300 50 M160 250 L300 110 M220 250 L300 170"/></g><ellipse cx="150" cy="112" rx="104" ry="46" fill="#DDC09C" stroke="#231A14" stroke-width="4"/><g fill="#8E1C16" stroke="#231A14" stroke-width="2"><circle cx="100" cy="106" r="13"/><circle cx="140" cy="118" r="13"/><circle cx="180" cy="104" r="13"/><circle cx="210" cy="120" r="11"/><circle cx="122" cy="94" r="9"/></g></svg></div><div class="bd"><h3>Pepperoni bread, eggplant pie &amp; apple turnovers</h3><p>The rest of the case, named by regulars.</p><div class="pr">Prices: added once owner confirms</div><button class="add" type="button">＋ Add to my ticket</button></div></article>
-  </div>
-  <div class="wrap end"><p class="tray-note">Stock photos shown for illustration — not the bakery's own pictures.</p></div>
-</section>
-
-<section class="board kraft" id="board">
-  <div class="wrap">
-    <div class="eb" style="color:var(--ink)">The board</div>
-    <h2 class="disp h2 bl">Butcher-paper <em style="color:var(--flour);text-shadow:3px 3px 0 var(--ink)">menu.</em></h2>
-    <div class="bw rv">
-      <div class="bcols">
-        <div><h3>Breads</h3>
-          <div class="bi"><span>Italian bread</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Long rolls</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Mini Kaiser rolls</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Pepperoni bread</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Stromboli</span><span class="pz">soon</span></div>
-        </div>
-        <div><h3>Pies &amp; slices</h3>
-          <div class="bi"><span>Tomato pie</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Sicilian-style slice</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Personal Sicilian (plain / pepperoni)</span><span class="pz"><b>$7.50</b><i>confirm</i></span></div>
-          <div class="bi"><span>18" round cheese</span><span class="pz"><b>$16.00</b><i>confirm</i></span></div>
-          <div class="bi"><span>Eggplant pie</span><span class="pz">soon</span></div>
-        </div>
-        <div><h3>Sweets</h3>
-          <div class="bi"><span>Cannoli</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Pizzelles</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Italian cookies</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Holiday cookies</span><span class="pz">soon</span></div>
-          <div class="bi"><span>Apple turnovers</span><span class="pz">soon</span></div>
-        </div>
-      </div>
-      <div class="bnote"><span>Prices added once owner confirms.</span><span>Two prices are listed on Yelp — tagged "confirm".</span></div>
+<main id="main">
+<section class="sec lt" id="about"><div class="wrap ab">
+  <div><div class="ph clip"><div class="pi"><img loading="lazy" decoding="async" width="900" height="1125" src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1644015272264-2d70518c2046?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="Breads on a bakery display shelf (stock photo)" onerror="fb(this)"></div></div><div class="cap">Stock photo</div></div>
+  <div>
+    <div class="eb rv">About</div>
+    <h2 class="disp h2"><span class="ln"><span>A family bakery</span></span><span class="ln"><span>on <em>Frankford Avenue.</em></span></span></h2>
+    <p class="rv" style="margin-top:34px">Nonno Ugo's is family-owned and a neighborhood staple for Tacony and Mayfair. Some regulars say it has been around since they were kids. It sits in a small strip next to a dry cleaner and a Dunkin. The sign is small, so look for the lot out front.</p>
+    <p class="rv">Bread and rolls are the most-praised thing in reviews, followed by tomato pie and stromboli. The tomato pie has also been named in a guide to Philadelphia's best.</p>
+    <div class="stats rv">
+      <div><b>4.8</b><small>Google &middot; 90 reviews</small></div>
+      <div><b>4.8</b><small>Yelp &middot; 14 reviews</small></div>
+      <div><b>96</b><small>Yelp health score</small></div>
     </div>
+    <a class="tl rv" href="https://www.google.com/maps/search/?api=1&amp;query=Nonno+Ugo%27s+Italian+Bakery+6606+Frankford+Ave+Philadelphia" target="_blank" rel="noopener">Read reviews on Google</a>
   </div>
-</section>
+</div></section>
 
-<section class="hours" id="hours">
-  <div class="wrap">
-    <div class="eb">Hours</div>
-    <h2 class="disp h2 bl">Five slices a week. <em>Mon &amp; Tue: the pie's off the table.</em></h2>
-    <div class="hgr">
-      <svg class="pie" id="pie" viewBox="0 0 400 400" role="group" aria-label="Tomato pie cut into days of the week. Wednesday to Sunday are open; Monday and Tuesday are closed."></svg>
-      <div class="rv">
-        <div class="hlist" id="hlist"></div>
-        <div class="hconf" style="border:3px solid var(--ink);border-top:0;margin-top:0">Opens 9 AM* &nbsp;<i>[CONFIRM 9:00 vs 9:30]</i> — the listings differ. Closes 3 PM.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="order" id="order">
-  <div class="wrap og">
-    <div class="cp">
-      <div class="eb">Pre-order request</div>
-      <h2 class="disp h2 bl">Hold my <em>rolls.</em></h2>
-      <p>It often sells out, so tell the bakery what you want and when you're coming. Take a number and the bakery follows up by phone.</p>
-      <ol class="steps"><li>Pick what you want</li><li>Pick your day and time</li><li>Take your number</li></ol>
-      <p class="dm" style="max-width:none">Request only, nothing is paid online. Demo: it saves in this browser, and shows up on the admin page.</p>
-    </div>
-    <div class="ticket rv" id="ticket">
-      <div class="stub" id="stub"><div><small>Take a</small><div class="n" id="tnum">001</div></div><div class="no">WED–SUN</div></div>
-      <div class="tb">
-        <form class="fl" id="form" novalidate>
-          <div class="f2">
-            <div class="fld"><label for="fName">Name</label><input id="fName" type="text" autocomplete="name" placeholder="First name is fine"></div>
-            <div class="fld"><label for="fPhone">Phone</label><input id="fPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(215) 555-0100"></div>
-          </div>
-          <fieldset class="fld"><legend>What should we hold?</legend><div class="chips" id="chips"></div></fieldset>
-          <fieldset class="fld"><legend>Pickup day</legend><div class="dys" id="dys"></div></fieldset>
-          <div class="f2">
-            <div class="fld"><label for="fTime">Pickup time</label><select id="fTime"></select><div class="dm">Closes 3 PM.</div></div>
-            <div class="fld"><label for="fNote">How many / anything else</label><textarea id="fNote" rows="2" placeholder="e.g. 1 dozen rolls, 1 tomato pie"></textarea></div>
-          </div>
-          <div class="err" id="err" role="alert"></div>
-          <button class="btn sub" type="submit">Take my number</button>
-        </form>
-        <div class="done" id="done" aria-live="polite">
-          <h3 id="dT">You're in line.</h3>
-          <div class="rc" id="dRc"></div>
-          <p>Keep this number. The bakery follows up at your phone number. Nothing was paid or charged.</p>
-          <button class="btn o" type="button" id="again">Take another number</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="proof" id="reviews">
-  <div class="wrap pg">
-    <div class="sticker rv" aria-label="4.8 stars on Google"><b>4.8</b><span>★★★★★ Google</span></div>
-    <div class="rv">
-      <div class="eb">Word on Frankford Ave</div>
-      <h2 class="disp h2">The neighborhood <em>keeps coming back.</em></h2>
-      <ul class="plist">
-        <li><span>Google</span><span>4.8 ★ · 90 reviews</span></li>
-        <li><span>Yelp</span><span>4.8 ★ · 14 reviews</span></li>
-        <li><span>Yelp health score</span><span>96</span></li>
-        <li><span>Tomato pie</span><span>In a guide to Philly's best</span></li>
+<section class="sec dk" id="menu"><div class="wrap">
+  <div class="mh"><div><div class="eb rv">The counter</div><h2 class="disp h2"><span class="ln"><span>What we <em>bake</em></span></span></h2></div><p class="rv">Prices are added once the owner confirms them. Items sell out, so come early or send a pre-order request.</p></div>
+  <div class="mg">
+    <div class="stk" aria-hidden="true"><div class="stkf" id="stkf"><div class="f on" data-i="0"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1671036437036-0b1f11c80941?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1549407981-2e656af56b4b?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="A close-up of a bunch of bread rolls (stock photo)" onerror="fb(this)"></div><div class="f" data-i="1"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1655662844344-ddfa82992c4d?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1697393645449-5a04fbbda985?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="A loaf of Italian bread (stock photo)" onerror="fb(this)"></div><div class="f" data-i="2"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1591985666643-1ecc67616216?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1738334254471-e8a16e2dd46e?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="Baked tomato pie on a wooden tray (stock photo)" onerror="fb(this)"></div><div class="f" data-i="3"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1608562099373-69dd6b715cd9?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="Sicilian-style pizza (stock photo)" onerror="fb(this)"></div><div class="f" data-i="4"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1753656681797-3234c89d6d4d?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1628824851008-ec3ab4b45527?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="A stuffed calzone on a wooden board, stand-in photo for stromboli (stock photo)" onerror="fb(this)"></div><div class="f" data-i="5"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1628824851008-ec3ab4b45527?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1753656681797-3234c89d6d4d?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="Stuffed bread with ham and cheese, stand-in photo for pepperoni bread (stock photo)" onerror="fb(this)"></div><div class="f" data-i="6"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1611292984550-6dd8def2e668?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1746457454153-d6c60c7b04f9?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="Fresh Italian cannoli piled on a counter (stock photo)" onerror="fb(this)"></div><div class="f" data-i="7"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1735279912185-a0b9cba000d4?auto=format&amp;fit=crop&amp;w=900&amp;q=75" data-fb="https://images.unsplash.com/photo-1638217335700-d39d4753de51?auto=format&amp;fit=crop&amp;w=900&amp;q=75" alt="Cookies dusted with powdered sugar (stock photo)" onerror="fb(this)"></div></div><div class="stkm"><span id="stkn">01 / 08</span><span>Stock photos</span></div></div>
+    <div>
+      <ul class="rows" id="rows">
+<li class="row" data-i="0" data-item="Bread &amp; rolls"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1671036437036-0b1f11c80941?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1549407981-2e656af56b4b?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">01</span><div class="h"><h3>Bread &amp; rolls</h3></div><span class="pr">Price soon</span><p class="d">Rolls, long rolls and mini Kaiser rolls. The most-praised item in reviews.</p><button class="add" type="button">+ Add to request</button></li>
+<li class="row" data-i="1" data-item="Italian bread"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1655662844344-ddfa82992c4d?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1697393645449-5a04fbbda985?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">02</span><div class="h"><h3>Italian bread</h3></div><span class="pr">Price soon</span><p class="d">Loaves for the table, often named by regulars.</p><button class="add" type="button">+ Add to request</button></li>
+<li class="row" data-i="2" data-item="Tomato pie"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1591985666643-1ecc67616216?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1738334254471-e8a16e2dd46e?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">03</span><div class="h"><h3>Tomato pie</h3></div><span class="pr">Price soon</span><p class="d">Named in a guide to Philadelphia's best tomato pie.</p><button class="add" type="button">+ Add to request</button></li>
+<li class="row" data-i="3" data-item="Sicilian slices"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1608562099373-69dd6b715cd9?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">04</span><div class="h"><h3>Sicilian pizza</h3></div><span class="pr">Slices</span><p class="d">Sicilian-style slices.</p><div class="px"><div><span>Personal Sicilian, plain or pepperoni</span><span>$7.50 <span class="cf">confirm</span></span></div><div><span>18" round cheese</span><span>$16.00 <span class="cf">confirm</span></span></div></div><button class="add" type="button">+ Add to request</button></li>
+<li class="row" data-i="4" data-item="Stromboli"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1753656681797-3234c89d6d4d?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1628824851008-ec3ab4b45527?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">05</span><div class="h"><h3>Stromboli</h3></div><span class="pr">Price soon</span><p class="d">Frequently mentioned in reviews. Photo is a stand-in.</p><button class="add" type="button">+ Add to request</button></li>
+<li class="row" data-i="5" data-item="Pepperoni bread"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1628824851008-ec3ab4b45527?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1753656681797-3234c89d6d4d?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">06</span><div class="h"><h3>Pepperoni bread &amp; more</h3></div><span class="pr">Price soon</span><p class="d">Pepperoni bread, eggplant pie and apple turnovers. Photo is a stand-in.</p><button class="add" type="button">+ Add to request</button></li>
+<li class="row" data-i="6" data-item="Cannoli"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1611292984550-6dd8def2e668?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1746457454153-d6c60c7b04f9?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">07</span><div class="h"><h3>Cannoli</h3></div><span class="pr">Price soon</span><p class="d">From the pastry case.</p><button class="add" type="button">+ Add to request</button></li>
+<li class="row" data-i="7" data-item="Cookies &amp; pizzelles"><div class="thumb"><img loading="lazy" decoding="async" width="400" height="500" src="https://images.unsplash.com/photo-1735279912185-a0b9cba000d4?auto=format&amp;fit=crop&amp;w=400&amp;q=75" data-fb="https://images.unsplash.com/photo-1638217335700-d39d4753de51?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="" onerror="fb(this)"></div><span class="n">08</span><div class="h"><h3>Cookies &amp; pizzelles</h3></div><span class="pr">Price soon</span><p class="d">Italian cookies and holiday cookies.</p><button class="add" type="button">+ Add to request</button></li>
       </ul>
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Nonno+Ugo%27s+Italian+Bakery+6606+Frankford+Ave+Philadelphia" target="_blank" rel="noopener">Read reviews on Google</a>
+      <div class="early rv"><p>Come early.</p><a class="btn" href="#order">Pre-order request</a></div>
+      <p class="stock">All photographs on this demo are stock images, not the bakery's own.</p>
     </div>
   </div>
-  <div class="wrap"><div class="ph rv" data-label="Bakery case"><img loading="lazy" src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&amp;fit=crop&amp;w=1400&amp;q=75" data-fb="https://images.unsplash.com/photo-1644015272264-2d70518c2046?auto=format&amp;fit=crop&amp;w=1400&amp;q=75" alt="Breads on a bakery display shelf" onerror="fb(this)"></div></div>
-</section>
+</div></section>
 
-<section class="visit" id="visit">
-  <div class="wrap">
-    <div class="eb">Find us</div>
-    <h2 class="disp h2 bl">A small sign. <em>A big pie.</em></h2>
-    <div class="vg">
-      <div>
-        <div class="vi rv">
-          <div class="vb"><small>Address</small><div class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=6606+Frankford+Ave+Philadelphia+PA+19135" target="_blank" rel="noopener">6606 Frankford Ave<br>Philadelphia, PA 19135</a></div></div>
-          <div class="vb"><small>Phone</small><div class="v"><a href="tel:+12153323033">(215) 332-3033</a></div></div>
-          <div class="vb"><small>Hours</small><p><b>Wed–Sun</b> · opens 9 AM* <span class="cf">[CONFIRM 9:00 vs 9:30]</span> · closes 3 PM<br><b>Closed Monday &amp; Tuesday</b></p></div>
-          <div class="vb"><small>Parking</small><p>Private lot parking.</p></div>
-          <div class="vb"><small>Paying &amp; eating</small><p>Takeout. Bring cash <span class="cf">[confirm]</span>. Seating &amp; delivery <span class="cf">[owner confirms]</span></p></div>
-        </div>
-        <div class="look rv"><h4>How to spot us</h4><ul><li>A small strip</li><li>Next to a dry cleaner &amp; a Dunkin</li><li>Small sign — easy to miss</li><li>Lot out front</li></ul></div>
+<section class="sec lt" id="hours"><div class="wrap hg">
+  <div>
+    <div class="eb rv">Hours</div>
+    <h2 class="disp h2"><span class="ln"><span>Wednesday</span></span><span class="ln"><span><em>to Sunday.</em></span></span></h2>
+    <p class="rv" style="margin-top:28px">Closes at 3 PM. Closed Monday and Tuesday. Items often sell out, so earlier is better.</p>
+    <div class="st rv"><span id="status2"><span></span></span></div>
+    <div class="note rv">* Opens 9 AM <span class="cf">CONFIRM 9:00 vs 9:30</span></div>
+  </div>
+  <div class="rv"><table class="ht" id="htab"><tbody></tbody></table></div>
+</div></section>
+
+<section class="sec dk" id="order"><div class="wrap og">
+  <div>
+    <div class="eb rv">Pre-order</div>
+    <h2 class="disp h2"><span class="ln"><span>Ask us to</span></span><span class="ln"><span><em>hold it.</em></span></span></h2>
+    <p class="lede rv" style="margin-top:26px">Tell us what you'd like and when you're coming. It's a request, not an order: nothing is paid or charged, and the bakery follows up by phone.</p>
+    <ul class="rv"><li>Pickup Wednesday to Sunday, before 3 PM</li><li>Bring cash <span class="cf">confirm</span></li><li>Private lot parking out front</li></ul>
+  </div>
+  <div class="slip rv">
+    <div class="slh"><span>Pickup request</span><b>&#8470; <span id="tnum">001</span></b></div>
+    <form id="form" novalidate>
+      <div class="f2">
+        <div class="fld"><label for="fName">Name</label><input id="fName" type="text" autocomplete="name" placeholder="First name is fine"></div>
+        <div class="fld"><label for="fPhone">Phone</label><input id="fPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(215) 555-0100"></div>
       </div>
-      <div class="mapw rv"><iframe title="Map of Nonno Ugo's Italian Bakery, 6606 Frankford Ave, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=6606%20Frankford%20Ave%2C%20Philadelphia%2C%20PA%2019135&amp;output=embed"></iframe></div>
+      <fieldset class="fld"><legend>What should we hold?</legend><div class="chips" id="chips"></div></fieldset>
+      <fieldset class="fld"><legend>Pickup day</legend><div class="dys" id="dys"></div></fieldset>
+      <div class="f2">
+        <div class="fld"><label for="fTime">Pickup time</label><select id="fTime"></select><div class="dm">Closes 3 PM.</div></div>
+        <div class="fld"><label for="fNote">How many / anything else</label><textarea id="fNote" rows="2" placeholder="e.g. 1 dozen rolls, 1 tomato pie"></textarea></div>
+      </div>
+      <div class="err" id="err" role="alert"></div>
+      <button class="btn p sub" type="submit">Send request</button>
+    </form>
+    <div class="done" id="done" aria-live="polite">
+      <h3 id="dT">Request received.</h3>
+      <div class="rc" id="dRc"></div>
+      <p>Keep this number. The bakery follows up at your phone number. Nothing was paid or charged.</p>
+      <button class="btn" type="button" id="again">Make another request</button>
     </div>
   </div>
-</section>
+</div></section>
 
-<footer>
-  <div class="wrap">
-    <div class="big">Nonno Ugo's<br><em>Wed–Sun.</em></div>
-    <div class="fr"><div>6606 Frankford Ave<br>Philadelphia, PA 19135</div><div><a href="tel:+12153323033">(215) 332-3033</a><br><a href="#order">Take a number</a></div><div>Closed Mon &amp; Tue<br>Closes 3 PM</div></div>
-    <div class="cr">Demo concept by Rafael's web agency — not affiliated with Nonno Ugo's Italian Bakery. Photos are stock images.</div>
+<section class="sec lt" id="visit"><div class="wrap vg">
+  <div>
+    <div class="eb rv">Visit</div>
+    <h2 class="disp h2"><span class="ln"><span>Small sign,</span></span><span class="ln"><span><em>big pie.</em></span></span></h2>
+    <div class="rv" style="margin-top:38px">
+      <div class="vb"><small>Address</small><div class="v"><a href="https://www.google.com/maps/search/?api=1&amp;query=6606+Frankford+Ave+Philadelphia+PA+19135" target="_blank" rel="noopener">6606 Frankford Ave<br>Philadelphia, PA 19135</a></div></div>
+      <div class="vb"><small>Phone</small><div class="v"><a href="tel:+12153323033">(215) 332-3033</a></div></div>
+      <div class="vb"><small>Parking</small><p>Private lot out front. The bakery is in a small strip next to a dry cleaner and a Dunkin.</p></div>
+      <div class="vb"><small>Good to know</small><p>Takeout. Bring cash <span class="cf">confirm</span>. Seating and delivery <span class="cf">owner confirms</span></p></div>
+    </div>
+    <p class="look rv">The sign is small and easy to miss. Look for the lot.</p>
   </div>
-</footer>
-<button class="tk" id="tk" type="button" aria-label="Go to my pickup ticket"><span id="tkT">My ticket</span> →</button>
+  <div class="mapw rv"><iframe title="Map of Nonno Ugo's Italian Bakery, 6606 Frankford Ave, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=6606%20Frankford%20Ave%2C%20Philadelphia%2C%20PA%2019135&amp;output=embed"></iframe></div>
+</div></section>
+</main>
 
+<footer><div class="wrap">
+  <div class="ft">
+    <div><a class="logo" href="#top">Nonno&nbsp;<em>Ugo's</em></a><p style="margin-top:14px;max-width:32ch">Italian bakery, 6606 Frankford Ave, Philadelphia, PA 19135.</p></div>
+    <div><h4>Hours</h4><p>Wed&ndash;Sun &middot; 9 AM* &ndash; 3 PM<br>Closed Mon &amp; Tue</p></div>
+    <div><h4>Contact</h4><a href="tel:+12153323033">(215) 332-3033</a><a href="#order">Pre-order request</a><a href="#visit">Directions</a></div>
+  </div>
+  <div class="fine"><span>Demo concept by Rafael's web agency &mdash; not affiliated with Nonno Ugo's Italian Bakery.</span><span>Photos are stock images.</span></div>
+</div></footer>
+
+<div class="mbar" id="mbar"><a href="tel:+12153323033">Call</a><a href="https://www.google.com/maps/search/?api=1&amp;query=6606+Frankford+Ave+Philadelphia+PA+19135" target="_blank" rel="noopener">Directions</a><a class="p" href="#order">Pre-order</a></div>
 <script>
 (function(){
 var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
@@ -564,82 +463,47 @@ var DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],DL=['Sunday','Monday','Tuesda
 function ny(){var p={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hour12:false,weekday:'short'}).formatToParts(new Date()).forEach(function(x){p[x.type]=x.value});return{y:+p.year,m:+p.month,d:+p.day,dow:DN.indexOf(p.weekday),min:(+p.hour%24)*60+ +p.minute}}
 function isOpenDay(d){return d===0||d>=3}
 
-/* ---------- status ---------- */
+/* live status (America/New_York) */
 function status(){
-  var n=ny(),el=$('#status'),t=$('span',el),on=false,msg;
+  var n=ny(),on=false,msg;
   if(isOpenDay(n.dow)&&n.min>=540&&n.min<900){on=true;msg='Open now · closes 3 PM'}
   else if(isOpenDay(n.dow)&&n.min<540){msg='Closed · opens today 9 AM*'}
   else{var i=1;while(!isOpenDay((n.dow+i)%7))i++;msg='Closed · opens '+(i===1?'tomorrow':DL[(n.dow+i)%7])+' 9 AM*'}
-  el.classList.toggle('on',on);t.textContent=msg;
+  ['#status','#status2'].forEach(function(s){var el=$(s);if(!el)return;el.className=on?'on':'off';var t=$('span',el);if(t)t.textContent=msg;else el.textContent=msg});
 }
 status();setInterval(status,60000);
 
-/* ---------- flour dust ---------- */
-(function(){var d=$('#dust');if(!d||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-  for(var i=0;i<22;i++){var s=document.createElement('i'),z=2+Math.random()*4;s.style.cssText='left:'+(Math.random()*100)+'%;top:'+(20+Math.random()*80)+'%;width:'+z+'px;height:'+z+'px;animation-duration:'+(9+Math.random()*10)+'s;animation-delay:-'+(Math.random()*12)+'s;opacity:'+(.25+Math.random()*.4);d.appendChild(s)}})();
+/* hours table */
+(function(){var n=ny(),tb=$('#htab tbody'),FULL=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  FULL.forEach(function(d,i){var dow=(i+1)%7,open=isOpenDay(dow),r=document.createElement('tr');r.className=(open?'':'cl')+(dow===n.dow?' td':'');r.innerHTML='<th scope="row">'+d+'</th><td>'+(open?'9 AM* – 3 PM':'Closed')+'</td>';tb.appendChild(r)})})();
 
-/* ---------- lenis / nav ---------- */
+/* lenis / nav / drawer */
 var lenis=null;
 if(anim&&window.Lenis){lenis=new Lenis({duration:1.1,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
-function goTo(sel){var el=$(sel);if(!el)return;if(lenis)lenis.scrollTo(el,{offset:sel==='#top'?0:sel==='#ticket'?-110:-10,duration:1.3});else el.scrollIntoView({behavior:'smooth'})}
-var drawer=$('#drawer'),burger=$('#burger');
-function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');if(lenis)lenis.start();document.body.style.overflow=''}
-burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on);if(lenis){on?lenis.stop():lenis.start()}document.body.style.overflow=on?'hidden':''});
-$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();closeDrawer();setTimeout(function(){goTo(h)},drawer.classList.contains('on')?0:0)}})});
-var nav=$('#nav');
-function ns(){nav.classList.toggle('solid',scrollY>40);tkUpd()}
-addEventListener('scroll',ns,{passive:true});
-
-/* ---------- hero box ---------- */
-var boxOpen=false,boxw=$('#boxw'),lid=$('#lid');
-function setBox(open,instant){
-  boxOpen=open;boxw.setAttribute('aria-pressed',open);$('#bhint').textContent=open?'Tap to close the lid':'Tap the box';
-  if(!anim){lid.style.cssText=open?'transform:rotateX(-108deg);opacity:0;visibility:hidden':'';return}
-  if(instant){gsap.set(lid,{rotateX:open?-108:0,opacity:open?0:1,visibility:open?'hidden':'visible'});return}
-  gsap.killTweensOf(lid);
-  if(open)gsap.timeline().set(lid,{visibility:'visible',opacity:1}).to(lid,{rotateX:-108,duration:1.3,ease:'power2.inOut'}).set(lid,{opacity:0,visibility:'hidden'});
-  else gsap.timeline().set(lid,{visibility:'visible',opacity:1}).to(lid,{rotateX:0,duration:1,ease:'power2.inOut'});
+function goTo(sel){var el=$(sel);if(!el)return;var off=sel==='#top'?0:-56;if(lenis)lenis.scrollTo(el,{offset:off,duration:1.3});else el.scrollIntoView({behavior:'smooth'})}
+var drawer=$('#drawer'),burger=$('#burger'),nav=$('#nav'),mbar=$('#mbar');
+function setDrawer(on){
+  drawer.classList.toggle('on',on);burger.classList.toggle('x',on);
+  burger.setAttribute('aria-expanded',on);burger.setAttribute('aria-label',on?'Close menu':'Open menu');
+  drawer.setAttribute('aria-hidden',!on);if(on)drawer.removeAttribute('inert');else drawer.setAttribute('inert','');
+  if(lenis){on?lenis.stop():lenis.start()}document.body.style.overflow=on?'hidden':'';
+  if(on){setTimeout(function(){var f=$('.dl',drawer);if(f)f.focus()},350)}else if(drawer.contains(document.activeElement))burger.focus();
 }
-boxw.addEventListener('click',function(){setBox(!boxOpen)});
-boxw.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();setBox(!boxOpen)}});
-if(!anim){boxOpen=true;boxw.setAttribute('aria-pressed','true');$('#bhint').textContent='Tap to close the lid'}
+burger.addEventListener('click',function(){setDrawer(!drawer.classList.contains('on'))});
+document.addEventListener('keydown',function(e){
+  if(!drawer.classList.contains('on'))return;
+  if(e.key==='Escape'){setDrawer(false);return}
+  if(e.key==='Tab'){var f=[burger].concat($$('a',drawer)).filter(function(x){return x.offsetParent!==null||x===burger});var i=f.indexOf(document.activeElement);
+    if(e.shiftKey&&(i<=0)){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}
+});
+addEventListener('resize',function(){if(innerWidth>960&&drawer.classList.contains('on'))setDrawer(false)});
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();var was=drawer.classList.contains('on');if(was)setDrawer(false);setTimeout(function(){goTo(h)},was?80:0)}})});
+function ns(){nav.classList.toggle('solid',scrollY>60)}
+addEventListener('scroll',ns,{passive:true});
+/* hide mobile bar while the form is in view */
+if('IntersectionObserver' in window){new IntersectionObserver(function(en){en.forEach(function(x){mbar.classList.toggle('hide',x.isIntersecting)})},{rootMargin:'0px 0px -35% 0px',threshold:0}).observe($('#order'))}
 
-/* ---------- hours pie ---------- */
-var pie=$('#pie'),NS='http://www.w3.org/2000/svg',DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],FULL=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],slices=[];
-function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
-function wedge(r,a0,a1){var x0=200+r*Math.cos(a0),y0=200+r*Math.sin(a0),x1=200+r*Math.cos(a1),y1=200+r*Math.sin(a1);return'M200 200 L'+x0.toFixed(1)+' '+y0.toFixed(1)+' A'+r+' '+r+' 0 0 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z'}
-var hubT,hubS,hubS2;
-(function(){
-  var step=Math.PI*2/7,start=-Math.PI/2,g0=el('g',{},pie);
-  DAYS.forEach(function(d,i){
-    var a0=start+i*step,a1=a0+step,am=(a0+a1)/2,open=i>=2,g=el('g',{'class':'slice'+(open?'':' cl'),tabindex:0,role:'button','aria-label':FULL[i]+(open?': open 9 AM to 3 PM':': closed')},g0);
-    var dx=open?Math.cos(am)*9:0,dy=open?Math.sin(am)*9:0;g._d={dx:dx,dy:dy,i:i,open:open};
-    if(open){
-      el('path',{'class':'crust',d:wedge(172,a0,a1),fill:'#D9A25A',stroke:'#231A14','stroke-width':3,'stroke-linejoin':'round'},g);
-      el('path',{'class':'sauce',d:wedge(150,a0+.012,a1-.012),fill:'#B3261E'},g);
-      for(var k=0;k<5;k++){var rr=70+((i*37+k*29)%70),aa=a0+.12+((i*13+k*17)%10)/10*(step-.24);el('circle',{cx:200+rr*Math.cos(aa),cy:200+rr*Math.sin(aa),r:2.4,fill:'#6f7b3c',opacity:.9},g)}
-    }else{
-      el('path',{d:wedge(172,a0,a1),fill:'rgba(35,26,20,.05)',stroke:'#231A14','stroke-width':2.5,'stroke-dasharray':'7 6','stroke-linejoin':'round',opacity:.6},g);
-    }
-    var tx=200+108*Math.cos(am),ty=200+108*Math.sin(am);
-    var t1=el('text',{x:tx,y:ty+3,'text-anchor':'middle',fill:open?'#FBF7EF':'#231A14','font-family':"'Alfa Slab One',serif",'font-size':22,opacity:open?1:.55},g);t1.textContent=d;
-    var t2=el('text',{x:tx,y:ty+20,'text-anchor':'middle',fill:open?'#FBF7EF':'#B3261E','font-family':"'Courier Prime',monospace",'font-weight':700,'font-size':open?13:11,opacity:open?.95:.9},g);t2.textContent=open?'9–3*':'CLOSED';
-    g.setAttribute('transform','translate('+dx.toFixed(2)+' '+dy.toFixed(2)+')');
-    slices.push(g);
-    var act=function(){slices.forEach(function(s){s.classList.remove('act')});if(open)g.classList.add('act');hub(i)};
-    g.addEventListener('click',act);g.addEventListener('focus',act);g.addEventListener('mouseenter',act);
-  });
-  var lg=el('g',{'class':'cuts',fill:'none',stroke:'#FBF7EF','stroke-width':2.5,'stroke-linecap':'round','pointer-events':'none'},pie);
-  for(var j=0;j<7;j++){var a=start+j*step;var ln=el('line',{x1:200,y1:200,x2:200+180*Math.cos(a),y2:200+180*Math.sin(a),opacity:0},lg);ln._i=j}
-  el('circle',{cx:200,cy:200,r:56,'class':'hub'},pie);
-  hubT=el('text',{x:200,y:198,'class':'hubt','font-size':26},pie);hubT.textContent='WED–SUN';hubT.setAttribute('font-size',16);
-  hubS=el('text',{x:200,y:218,'class':'hubs','font-size':14},pie);hubS.textContent='9 AM*–3 PM';
-})();
-function hub(i){var o=i>=2;hubT.textContent=o?FULL[i].toUpperCase().slice(0,3)==='WED'?'WEDNESDAY':FULL[i].toUpperCase():FULL[i].toUpperCase();hubT.setAttribute('font-size',FULL[i].length>7?15:16);hubS.textContent=o?'9 AM*–3 PM':'CLOSED'}
-(function(){var n=ny(),box=$('#hlist');
-  DAYS.forEach(function(d,i){var dow=(i+1)%7,open=isOpenDay(dow),r=document.createElement('div');r.className='hr'+(open?'':' cl')+(dow===n.dow?' td':'');r.innerHTML='<b>'+FULL[i]+'</b><span>'+(open?'9 AM* – 3 PM':'Closed')+'</span>';box.appendChild(r)})})();
-
-/* ---------- order form ---------- */
+/* order form */
 var ITEMS=['Bread & rolls','Italian bread','Long rolls','Tomato pie','Sicilian slices','Stromboli','Pepperoni bread','Eggplant pie','Cannoli','Cookies & pizzelles','Apple turnovers'];
 var sel={},day='';
 function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
@@ -648,21 +512,17 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;
 function nextNum(){$('#tnum').textContent=pad(getB().length+1)}
 var chips=$('#chips');
 ITEMS.forEach(function(it){var b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed','false');b.textContent=it;b.dataset.item=it;b.addEventListener('click',function(){toggleItem(it)});chips.appendChild(b)});
-function toggleItem(it,force){var on=force!==undefined?force:!sel[it];if(on)sel[it]=1;else delete sel[it];syncItems()}
+function toggleItem(it){if(sel[it])delete sel[it];else sel[it]=1;syncItems()}
 function syncItems(){$$('.chip').forEach(function(c){c.setAttribute('aria-pressed',!!sel[c.dataset.item])});
-  $$('.card').forEach(function(c){var on=!!sel[c.dataset.item],b=$('.add',c);b.classList.toggle('on',on);b.textContent=on?'✓ On my ticket':'＋ Add to my ticket'});
-  tkUpd()}
-$$('.card').forEach(function(c){$('.add',c).addEventListener('click',function(){var it=c.dataset.item;
-  if(it==='Pepperoni bread'){var on=!sel['Pepperoni bread'];['Pepperoni bread','Eggplant pie','Apple turnovers'].forEach(function(x){if(on)sel[x]=1;else delete sel[x]});syncItems()}
+  $$('.row[data-item]').forEach(function(c){var it=c.dataset.item,on=it==='Pepperoni bread'?(sel['Pepperoni bread']&&sel['Eggplant pie']&&sel['Apple turnovers']):!!sel[it],b=$('.add',c);b.classList.toggle('on',!!on);b.textContent=on?'✓ Added to request':'+ Add to request'})}
+$$('.row[data-item]').forEach(function(c){$('.add',c).addEventListener('click',function(){var it=c.dataset.item;
+  if(it==='Pepperoni bread'){var on=!(sel['Pepperoni bread']&&sel['Eggplant pie']&&sel['Apple turnovers']);['Pepperoni bread','Eggplant pie','Apple turnovers'].forEach(function(x){if(on)sel[x]=1;else delete sel[x]});syncItems()}
   else toggleItem(it)})});
-$$('.card').forEach(function(c){if(c.dataset.item==='Cookies & pizzelles')c.dataset.item='Cookies & pizzelles'});
-/* days */
 (function(){var n=ny(),box=$('#dys'),got=0,i=0;
   while(got<5&&i<14){var dt=new Date(Date.UTC(n.y,n.m-1,n.d+i)),dw=dt.getUTCDay();
     if(isOpenDay(dw)&&!(i===0&&n.min>=870)){(function(dt,dw){var iso=dt.toISOString().slice(0,10),b=document.createElement('button');b.type='button';b.className='dy';b.setAttribute('aria-pressed','false');b.dataset.iso=iso;b.dataset.dow=DN[dw];b.innerHTML='<b>'+DN[dw]+'</b><small>'+MN[dt.getUTCMonth()]+' '+dt.getUTCDate()+'</small>';
       b.addEventListener('click',function(){day=iso;$$('.dy').forEach(function(x){x.setAttribute('aria-pressed',x===b)})});box.appendChild(b)})(dt,dw);got++}
     i++}})();
-/* times */
 (function(){var s=$('#fTime'),h='<option value="">Choose a time</option><option>As early as possible</option>';
   for(var m=570;m<=870;m+=30){var hh=Math.floor(m/60),mm=m%60,ap=hh>=12?'PM':'AM';hh=hh%12||12;h+='<option>'+hh+':'+(mm?'30':'00')+' '+ap+'</option>'}s.innerHTML=h})();
 nextNum();
@@ -681,103 +541,88 @@ form.addEventListener('submit',function(e){
   try{a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
   errEl.textContent='';
   showDone(rec);
-  if(innerWidth<=960)setTimeout(function(){goTo('#ticket')},350);
 });
 function err(m){errEl.textContent=m;return false}
 function showDone(rec){
   var dt=new Date(rec.date+'T12:00:00Z');
-  $('#dT').textContent='You are number '+rec.num+', '+rec.name.split(' ')[0]+'.';
-  $('#dRc').innerHTML='<div>№ '+esc(rec.num)+'</div><div>'+esc(rec.items.join(', ')||'See note')+'</div><div>'+esc(rec.dow)+' '+MN[dt.getUTCMonth()]+' '+dt.getUTCDate()+' · '+esc(rec.time)+'</div>'+(rec.notes?'<div>Note: '+esc(rec.notes)+'</div>':'');
+  $('#dT').textContent='Thank you, '+rec.name.split(' ')[0]+'.';
+  $('#dRc').innerHTML='<div>Request № '+esc(rec.num)+'</div><div>'+esc(rec.items.join(', ')||'See note')+'</div><div>'+esc(rec.dow)+' '+MN[dt.getUTCMonth()]+' '+dt.getUTCDate()+' · '+esc(rec.time)+'</div>'+(rec.notes?'<div>Note: '+esc(rec.notes)+'</div>':'');
   $('#tnum').textContent=rec.num;
-  var tb=$('.tb'),stub=$('#stub');
-  if(anim){
-    var mob=innerWidth<=960;
-    gsap.timeline()
-      .to(form,{opacity:0,duration:.35,ease:'power2.out'})
-      .set(form,{display:'none'}).set('#done',{display:'block',opacity:1})
-      .to(stub,{rotation:mob?-3:-9,x:mob?-8:-22,y:mob?-16:-18,duration:.8,ease:'power3.out'},0.1)
-      .fromTo('#done h3',{y:24,opacity:0},{y:0,opacity:1,duration:.7,ease:'power3.out'},.45)
-      .fromTo('#dRc > *',{x:-24,opacity:0},{x:0,opacity:1,duration:.6,stagger:.12,ease:'power3.out'},.7)
-      .fromTo('#done p, #again',{y:16,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1,ease:'power3.out'},1);
-    $('#done').classList.add('on');
-  }else{form.style.display='none';$('#done').classList.add('on')}
+  form.style.display='none';var dn=$('#done');dn.classList.add('on');
+  if(anim)gsap.fromTo(dn.children,{y:16,opacity:0},{y:0,opacity:1,duration:.7,stagger:.1,ease:'power3.out'});
   sel={};syncItems();
+  if(innerWidth<=960)goTo('#order');
 }
 $('#again').addEventListener('click',function(){
-  $('#done').classList.remove('on');$('#done').style.display='';form.style.display='';form.style.opacity='';
+  var dn=$('#done');dn.classList.remove('on');form.style.display='';
   form.reset();day='';$$('.dy').forEach(function(x){x.setAttribute('aria-pressed','false')});nextNum();
-  if(anim)gsap.to($('#stub'),{rotation:0,x:0,y:0,duration:.8,ease:'power3.out'});
-  if(anim)gsap.fromTo(form,{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:'power3.out'});
+  if(anim)gsap.fromTo(form,{opacity:0,y:14},{opacity:1,y:0,duration:.7,ease:'power3.out'});
 });
-/* floating pill */
-var orderEl=$('#order');
-function tkUpd(){var n=Object.keys(sel).length,pill=$('#tk'),r=orderEl.getBoundingClientRect(),inView=r.top<innerHeight*.7&&r.bottom>innerHeight*.2;
-  $('#tkT').textContent='My ticket · '+n+(n===1?' item':' items');pill.classList.toggle('on',n>0&&!inView)}
-$('#tk').addEventListener('click',function(){goTo('#order')});
 
-/* ---------- intro & scroll ---------- */
-var introDone=false,scrollSet=false;
-function softWords(sel){$$(sel).forEach(function(el){if(el.dataset.sp)return;el.dataset.sp=1;
-  var walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;while((n=walk.nextNode()))ns.push(n);
-  ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(\s+)/).forEach(function(p){if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(' '));return}var s=document.createElement('span');s.className='w';s.textContent=p;f.appendChild(s)});t.parentNode.replaceChild(f,t)})})}
-function intro(){
-  if(introDone)return;introDone=true;var pre=$('#pre');
-  if(!anim){pre.remove();return}
-  softWords('#ttl');
-  var tl=gsap.timeline();
-  tl.fromTo('#preStamp',{scale:1.8,opacity:0,rotation:-14},{scale:1,opacity:1,rotation:-4,duration:.6,ease:'power3.out'},0)
-    .to('.pre .t',{yPercent:-100,duration:1,ease:'expo.inOut'},1.0)
-    .to('.pre .b',{yPercent:100,duration:1,ease:'expo.inOut'},1.0)
-    .to('#preStamp',{opacity:0,scale:1.15,duration:.5,ease:'power2.in'},.95)
-    .set(pre,{display:'none'})
-    .fromTo('nav.top',{y:-60,opacity:0},{y:0,opacity:1,duration:.8,ease:'power3.out'},1.4)
-    .fromTo('.hcopy .stat',{y:20,opacity:0},{y:0,opacity:1,duration:.7,ease:'power3.out'},1.5)
-    .fromTo('#ttl .w',{y:50,opacity:0},{y:0,opacity:1,duration:.9,stagger:.09,ease:'power3.out'},1.6)
-    .fromTo('.hcopy .lead,.hcopy .cta,.hcopy .facts',{y:24,opacity:0},{y:0,opacity:1,duration:.8,stagger:.12,ease:'power3.out'},2.0)
-    .fromTo('#boxw',{y:70,opacity:0},{y:0,opacity:1,duration:1,ease:'power3.out'},1.7)
-    .to('#lid',{rotateX:-108,duration:1.4,ease:'power2.inOut',onStart:function(){boxOpen=true;boxw.setAttribute('aria-pressed','true');$('#bhint').textContent='Tap to close the lid'}},2.9)
-    .set('#lid',{opacity:0,visibility:'hidden'})
-    .fromTo('#hticket',{scale:.5,opacity:0,rotation:-8},{scale:1,opacity:1,rotation:6,duration:.7,ease:'back.out(1.6)'},3.5)
-    .fromTo('#stampd',{scale:1.8,opacity:0},{scale:1,opacity:1,duration:.6,ease:'power3.out'},3.9)
-    .fromTo('#bhint',{opacity:0},{opacity:.75,duration:.6,ease:'power2.out'},4.2);
-  tl.eventCallback('onComplete',setupScroll);
-  setTimeout(setupScroll,7000);
-}
-if(anim){setTimeout(intro,700);setTimeout(intro,3500);
-  setTimeout(function(){if(!scrollSet){document.documentElement.classList.remove('js');var p=$('#pre');if(p)p.remove()}},12000)}
-else{var pp=$('#pre');if(pp)pp.remove()}
-
+/* motion */
+var scrollSet=false;
+function lines(el){return $$('.ln>span',el)}
 function setupScroll(){
   if(scrollSet||!anim)return;scrollSet=true;
   var mm=gsap.matchMedia();
-  /* 1. dough stretch (above the pin) */
-  $$('.dl').forEach(function(l,i){gsap.fromTo(l,{scaleX:.5,transformOrigin:i===1?'100% 50%':'0% 50%'},{scaleX:1,ease:'none',immediateRender:false,scrollTrigger:{trigger:'#dough',start:'top 90%',end:'center 45%',scrub:.6}})});
-  /* 2. horizontal tray (desktop only) */
+  gsap.set('.ln>span',{yPercent:112});
+  /* hero: photo panel wipes up, slow zoom, headline reveals line by line */
+  var hi=$('.hr img'),tl=gsap.timeline({defaults:{ease:'expo.out'}});
+  tl.fromTo('.hr',{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.6},0)
+    .fromTo(hi,{scale:1.3},{scale:1.04,duration:9,ease:'power2.out'},0)
+    .fromTo('nav.top',{y:-30,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out'},.3)
+    .fromTo('.hl > .eb',{y:20,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out'},.5)
+    .fromTo(lines($('.hero h1')),{yPercent:112},{yPercent:0,duration:1.3,stagger:.13},.55)
+    .fromTo('.hs,.ha',{y:26,opacity:0},{y:0,opacity:1,duration:1,stagger:.12,ease:'power3.out'},1.0)
+    .fromTo('.hs2',{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.3},.9)
+    .fromTo('.hs2 img',{scale:1.3},{scale:1,duration:2,ease:'power3.out'},.9)
+    .fromTo('.hero .strip',{y:30,opacity:0},{y:0,opacity:1,duration:1,ease:'power3.out'},1.2);
   mm.add('(min-width:961px)',function(){
-    var track=$('#track'),bar=$('#progBar');
-    var dist=function(){return Math.max(0,track.scrollWidth-innerWidth+40)};
-    gsap.to(track,{x:function(){return -dist()},ease:'none',scrollTrigger:{trigger:'#fresh',start:'top top',end:function(){return '+='+dist()},pin:true,scrub:.7,invalidateOnRefresh:true,anticipatePin:1,onUpdate:function(s){bar.style.transform='scaleX('+s.progress+')'}}});
+    gsap.fromTo('.hr .pi',{yPercent:-4},{yPercent:6,ease:'none',immediateRender:false,scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:true}});
+    gsap.fromTo('.hs2',{y:0},{y:-60,ease:'none',immediateRender:false,scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:true}});
+    gsap.fromTo('#about .pi',{yPercent:-5},{yPercent:5,ease:'none',immediateRender:false,scrollTrigger:{trigger:'#about .ph',start:'top bottom',end:'bottom top',scrub:true}});
   });
+  /* image clip reveal (about) */
+  $$('.clip').forEach(function(c){var im=$('img',c);
+    gsap.set(im,{scale:1.2});
+    ScrollTrigger.create({trigger:c,start:'top 88%',once:true,onEnter:function(){
+      gsap.to(c,{clipPath:'inset(0% 0 0% 0)',duration:1.4,ease:'expo.out'});
+      gsap.to(im,{scale:1,duration:1.9,ease:'power3.out'})}})});
+  /* headline lines on scroll */
+  $$('h2.h2').forEach(function(h){
+    ScrollTrigger.create({trigger:h,start:'top 90%',once:true,onEnter:function(){gsap.to(lines(h),{y:0,yPercent:0,duration:1.2,stagger:.12,ease:'expo.out'})}})});
+  /* fade-ups */
+  ScrollTrigger.batch('.rv',{start:'top 92%',once:true,onEnter:function(b){gsap.fromTo(b,{y:28,opacity:0},{y:0,opacity:1,duration:1,stagger:.12,ease:'power3.out',overwrite:true})}});
+  /* mobile menu rows: fade-up stagger */
   mm.add('(max-width:960px)',function(){
-    gsap.utils.toArray('.card').forEach(function(c,i){gsap.fromTo(c,{y:36,opacity:0},{y:0,opacity:1,duration:.8,ease:'power3.out',immediateRender:false,scrollTrigger:{trigger:c,start:'top 92%',once:true}})});
+    $$('.row').forEach(function(r){gsap.set(r,{opacity:0,y:30});
+      ScrollTrigger.create({trigger:r,start:'top 94%',once:true,onEnter:function(){gsap.to(r,{opacity:1,y:0,duration:.9,ease:'power3.out'})}})});
+    $$('.row .thumb img').forEach(function(im){gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',immediateRender:false,scrollTrigger:{trigger:im.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
   });
-  /* 3. headings + reveals */
-  $$('.bl').forEach(function(el){softWords('.bl');var ws=$$('.w',el);gsap.set(el,{opacity:1});gsap.from(ws,{y:38,opacity:0,duration:.9,stagger:.07,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}})});
-  ScrollTrigger.batch('.rv',{start:'top 90%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,stagger:.12,ease:'power3.out',overwrite:true})}});
-  $$('.rv').forEach(function(e){gsap.set(e,{y:34})});
-  /* 4. pie cut */
-  var cuts=$$('#pie .cuts line');
-  slices.forEach(function(s){gsap.set(s,{x:0,y:0})});
-  gsap.set(cuts,{opacity:0});
-  ScrollTrigger.create({trigger:'#pie',start:'top 75%',once:true,onEnter:function(){
-    var tl=gsap.timeline();
-    tl.fromTo(cuts,{opacity:0,strokeDasharray:190,strokeDashoffset:190},{opacity:1,strokeDashoffset:0,duration:.9,stagger:.09,ease:'power2.inOut'})
-      .to(slices,{x:function(i,t){return t._d.dx},y:function(i,t){return t._d.dy},duration:.9,stagger:.08,ease:'power3.out'},'-=.1')
-      .to(cuts,{opacity:0,duration:.6,ease:'power2.out'},'<');
-  }});
-  /* parallax on hero box */
-  mm.add('(min-width:961px)',function(){gsap.to('#boxw',{y:-50,ease:'none',scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:true}})});
+  /* signature: sticky counter photo wipes as you move through the menu */
+  mm.add('(min-width:961px)',function(){
+    var fs=$$('#stkf .f'),cur=0,z=1,rows=$$('.row'),num=$('#stkn');
+    gsap.set(fs[0],{clipPath:'inset(0% 0 0 0)',zIndex:1});
+    gsap.fromTo(rows,{y:36,opacity:0},{y:0,opacity:1,duration:.9,stagger:.06,ease:'power3.out',scrollTrigger:{trigger:'#rows',start:'top 85%',once:true}});
+    function show(i){if(i===cur)return;cur=i;z++;var f=fs[i];
+      gsap.killTweensOf(f);gsap.killTweensOf($('img',f));
+      gsap.set(f,{zIndex:z});
+      gsap.fromTo(f,{clipPath:'inset(100% 0 0 0)'},{clipPath:'inset(0% 0 0 0)',duration:1.1,ease:'expo.out'});
+      gsap.fromTo($('img',f),{scale:1.18},{scale:1,duration:1.6,ease:'power3.out'});
+      num.textContent=('0'+(i+1)).slice(-2)+' / 0'+fs.length;
+      rows.forEach(function(r,k){r.classList.toggle('act',k===i)})}
+    rows.forEach(function(r,i){
+      ScrollTrigger.create({trigger:r,start:'top 55%',end:'bottom 55%',onToggle:function(s){if(s.isActive)show(i)}});
+      if(matchMedia('(hover:hover) and (pointer:fine)').matches){r.addEventListener('mouseenter',function(){show(i)})}
+      r.addEventListener('focusin',function(){show(i)});
+    });
+    rows[0].classList.add('act');
+  });
   ScrollTrigger.refresh();
+}
+if(anim){
+  setupScroll();
+  setTimeout(function(){if(!scrollSet){document.documentElement.classList.remove('js')}},4000);
 }
 function refreshAll(){if(hasG&&scrollSet)ScrollTrigger.refresh()}
 addEventListener('load',function(){refreshAll();setTimeout(refreshAll,600)});

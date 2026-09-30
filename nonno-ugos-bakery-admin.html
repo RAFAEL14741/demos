@@ -1,67 +1,68 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nonno Ugo's Italian Bakery — Admin</title><meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courier+Prime:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#E9D9BF;--sf:#FBF7EF;--tx:#231A14;--mu:#6e5c4b;--ac:#B3261E;--acx:#FBF7EF;--ln:rgba(35,26,20,.22);--f1:'Alfa Slab One',Georgia,serif;--f2:'Work Sans',sans-serif;--f3:'Courier Prime',monospace}
-body{font-family:var(--f2);background:var(--bg) ;color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
+:root{--bg:#F3ECE0;--sf:#FBF7EF;--tx:#161A12;--mu:#5d5b4b;--ac:#B8321F;--acx:#F3ECE0;--ln:rgba(22,26,18,.16);--f1:'Instrument Serif',Georgia,serif;--f2:'Manrope',system-ui,sans-serif;--f3:'Manrope',system-ui,sans-serif}
+body{font-family:var(--f2);background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
-#login{background:#C9A27A;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
-.lb{background:var(--sf);border:3px solid #231A14;box-shadow:8px 8px 0 #231A14;border-radius:4px;padding:44px 36px;width:min(92vw,370px);text-align:center}
-.lg{font-family:var(--f1);font-size:1.7rem;color:var(--ac);line-height:1}
-.ls{font-family:var(--f3);font-weight:700;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mu);margin:8px 0 28px}
+#login{background:#161A12;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.lb{background:#1d2217;color:#F3ECE0;border:1px solid rgba(243,236,224,.16);padding:44px 36px;width:min(92vw,370px);text-align:center}
+.lg{font-family:var(--f1);font-size:2.2rem;color:#F3ECE0;line-height:1}
+.ls{font-weight:600;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(243,236,224,.6);margin:10px 0 28px}
 .pd{font-size:1.8rem;letter-spacing:10px;height:46px;margin-bottom:18px}
 .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.pb{border:1px solid var(--ln);border-radius:4px;padding:15px;font-size:1.1rem;transition:.15s}
-.pb:hover{border-color:var(--ac)}.pb.w{grid-column:span 2}
-.pe{background:var(--ac);color:var(--acx);width:100%;padding:15px;border-radius:4px;border:2px solid #231A14;font-family:var(--f3);font-weight:700;letter-spacing:.1em}
-.pr{color:#ff7a6b;font-size:.85rem;height:20px;margin-top:10px}
+.pb{border:1px solid rgba(243,236,224,.24);border-radius:99px;padding:14px;font-size:1.05rem;transition:.2s;min-height:48px}
+.pb:hover{border-color:#F3ECE0}.pb.w{grid-column:span 2}
+.pe{background:var(--ac);color:var(--acx);width:100%;padding:15px;border-radius:99px;font-weight:600;letter-spacing:.14em;font-size:.78rem}
+.pr{color:#E58B77;font-size:.85rem;height:20px;margin-top:10px}
 .hint{color:var(--mu);font-size:.72rem;margin-top:8px}
+.lb .hint{color:rgba(243,236,224,.55)}
 #dash{display:none}
-.top{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:3px solid #231A14;background:var(--sf);position:sticky;top:0;z-index:5}
-.top .br{font-family:var(--f1);font-size:1.15rem;color:var(--ac)}
-.top .r{display:flex;gap:14px;align-items:center;font-size:.82rem;color:var(--mu)}
-.sm{border:1px solid var(--ln);border-radius:8px;padding:7px 14px;font-size:.78rem;transition:.2s}.sm:hover{border-color:var(--ac);color:var(--ac)}
-.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 70px}
-h1{font-family:var(--f1);font-size:2rem;font-weight:400}
-.sub{color:var(--mu);font-size:.85rem;margin:4px 0 24px}
-.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
-.k{background:var(--sf);border:2px solid #231A14;box-shadow:4px 4px 0 #231A14;border-radius:2px;padding:18px;border-top:8px solid var(--ac)}
-.k small{font-family:var(--f3);font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu)}
-.k b{display:block;font-family:var(--f1);font-size:2.2rem;font-weight:400;line-height:1.1;margin-top:6px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:#161A12;color:#F3ECE0;position:sticky;top:0;z-index:5}
+.top .br{font-family:var(--f1);font-size:1.5rem}
+.top .r{display:flex;gap:14px;align-items:center;font-size:.82rem;color:rgba(243,236,224,.7)}
+.sm{border:1px solid rgba(243,236,224,.3);border-radius:99px;padding:8px 16px;font-size:.76rem;transition:.2s;color:#F3ECE0}.sm:hover{border-color:#F3ECE0}
+.wrap{max-width:1180px;margin:0 auto;padding:36px 24px 70px}
+h1{font-family:var(--f1);font-size:2.8rem;font-weight:400;line-height:1.05}
+.sub{color:var(--mu);font-size:.9rem;margin:6px 0 28px}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:26px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.k{padding:20px 20px 20px 0}.k+.k{padding-left:20px;border-left:1px solid var(--ln)}
+.k small{font-weight:600;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu)}
+.k b{display:block;font-family:var(--f1);font-size:2.8rem;font-weight:400;line-height:1.1;margin-top:4px}
 .g{display:grid;grid-template-columns:2fr 1fr;gap:18px}.g>*{min-width:0}
-.c{background:var(--sf);border:2px solid #231A14;box-shadow:4px 4px 0 #231A14;border-radius:2px;padding:20px;margin-bottom:18px}
-.ct{display:flex;justify-content:space-between;align-items:center;font-family:var(--f3);font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin-bottom:14px;gap:10px;flex-wrap:wrap}
-.tabs{display:flex;gap:6px;flex-wrap:wrap}.tabs button{border:2px solid #231A14;border-radius:2px;padding:5px 12px;font-size:.7rem;letter-spacing:.06em;text-transform:none}
-.tabs button.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.c{background:var(--sf);border:1px solid var(--ln);padding:22px;margin-bottom:18px}
+.ct{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}.tabs button{border:1px solid var(--ln);border-radius:99px;padding:6px 14px;font-size:.72rem;letter-spacing:.04em;text-transform:none}
+.tabs button.on{background:#161A12;color:#F3ECE0;border-color:#161A12}
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:640px}
-th{font-family:var(--f3);font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);text-align:left;padding:8px 10px;border-bottom:1px solid var(--ln)}
-td{padding:11px 10px;border-bottom:1px solid var(--ln);font-size:.86rem;vertical-align:top}
+th{font-weight:600;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);text-align:left;padding:8px 10px;border-bottom:1px solid var(--ln)}
+td{padding:13px 10px;border-bottom:1px solid var(--ln);font-size:.88rem;vertical-align:top}
 tr:last-child td{border-bottom:0}
-td small{display:block;color:var(--mu);font-size:.74rem;margin-top:2px}
-select.st{background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:20px;padding:5px 10px;font:inherit;font-size:.74rem}
-.tag{display:inline-block;padding:1px 9px;border-radius:2px;font-family:var(--f3);font-weight:700;font-size:.78rem;border:1px solid var(--ac);color:var(--ac);margin-bottom:3px}
-.x{color:var(--mu);font-size:1rem;padding:2px 8px}.x:hover{color:#ff7a6b}
+td small{display:block;color:var(--mu);font-size:.76rem;margin-top:2px}
+select.st{background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:99px;padding:6px 12px;font:inherit;font-size:.76rem}
+.tag{display:inline-block;padding:1px 10px;border-radius:99px;font-weight:600;font-size:.76rem;border:1px solid var(--ac);color:var(--ac)}
+.x{color:var(--mu);font-size:1rem;padding:2px 8px}.x:hover{color:var(--ac)}
 .empty{color:var(--mu);font-size:.9rem;padding:26px 0;text-align:center}
-.banner{color:#231A14!important;background:#f6d365;border:2px dashed #231A14;border-radius:10px;padding:10px 14px;font-size:.78rem;color:var(--mu);margin-bottom:14px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--ln);font-size:.88rem;gap:10px}
-.row:last-child{border:0}.row .p{color:var(--ac);font-family:var(--f1)}
-.row input{background:var(--bg);border:1px solid var(--ln);color:var(--tx);border-radius:8px;padding:6px 8px;font:inherit;font-size:.82rem;width:140px}
+.banner{color:var(--tx)!important;background:#ece2cf;border:1px dashed rgba(22,26,18,.35);padding:10px 14px;font-size:.8rem;margin-bottom:14px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln);font-size:.88rem;gap:10px}
+.row:last-child{border:0}.row .p{color:var(--ac);font-weight:600;font-size:.82rem}
+.row input{background:var(--bg);border:1px solid var(--ln);color:var(--tx);border-radius:6px;padding:7px 9px;font:inherit;font-size:.82rem;width:140px}
 .row.t b{font-weight:600}
-@media(max-width:820px){.kp{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.top .r span{display:none}}
+@media(max-width:820px){.kp{grid-template-columns:repeat(2,1fr)}.k:nth-child(3){border-left:0;padding-left:0}.g{grid-template-columns:1fr}.top .r span{display:none}}
 </style></head><body>
 <div id="login"><div class="lb"><div class="lg">Nonno Ugo's</div><div class="ls">Counter access</div><div class="pd" id="pd">· · · ·</div>
 <div class="pg"><button class="pb" data-d="1">1</button><button class="pb" data-d="2">2</button><button class="pb" data-d="3">3</button><button class="pb" data-d="4">4</button><button class="pb" data-d="5">5</button><button class="pb" data-d="6">6</button><button class="pb" data-d="7">7</button><button class="pb" data-d="8">8</button><button class="pb" data-d="9">9</button><button class="pb w" id="clr">Clear</button><button class="pb" data-d="0">0</button></div>
 <button class="pe" id="ent">ENTER →</button><div class="pr" id="pr"></div><div class="hint">Demo PIN: 1234</div></div></div>
 <div id="dash">
-<div class="top"><div class="br">Nonno Ugo's — Pickup tickets</div><div class="r"><span id="dt"></span><button class="sm" id="csv">Export CSV</button><button class="sm" id="out">Log out</button></div></div>
-<div class="wrap"><h1>Take-a-number board</h1><div class="sub">Pickup requests from the website — hold-my-rolls tickets</div>
+<div class="top"><div class="br">Nonno Ugo's — Pre-orders</div><div class="r"><span id="dt"></span><button class="sm" id="csv">Export CSV</button><button class="sm" id="out">Log out</button></div></div>
+<div class="wrap"><h1>Pre-order requests</h1><div class="sub">Pickup requests from the website</div>
 <div class="kp"><div class="k"><small>New</small><b id="k1">0</b></div><div class="k"><small>Confirmed</small><b id="k2">0</b></div><div class="k"><small>Total</small><b id="k3">0</b></div><div class="k"><small>Weekend (Sat–Sun)</small><b id="k4">0</b></div></div>
 <div class="g"><div><div class="c"><div class="ct"><span>Pickup requests</span><div class="tabs" id="tabs"></div></div><div id="ban"></div><div class="tw"><table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table></div><div class="empty" id="em" style="display:none">Nothing here yet.</div></div></div>
 <div><div class="c"><div class="ct">Hours</div><div id="hrs"></div><div class="hint" style="margin-top:8px">Edits save on this device (demo). *Opening time: [CONFIRM 9:00 vs 9:30].</div></div><div class="c"><div class="ct">Items (set prices)</div><div id="svc"></div></div></div></div></div></div>
 <script>
-var CFG={"tabKey":"dow","tabs":["Wed","Thu","Fri","Sat","Sun"],"status":["new","confirmed","ready","picked up","cancelled"],"cols":[["Ticket","num"],["Customer","name"],["Items","items"],["Pickup","date"]],"fmt":{"num":"fT","name":"fN","items":"fI","date":"fD"},"k4":"k4","hours":[["Wed\u2013Sun","9 AM* \u2013 3 PM"],["Mon & Tue","Closed"]],"svc":[["Bread & rolls","Set price"],["Italian bread","Set price"],["Long rolls","Set price"],["Tomato pie","Set price"],["Sicilian slices","Set price"],["Personal Sicilian pizza","$7.50 (confirm)"],["18\" round cheese","$16.00 (confirm)"],["Stromboli","Set price"],["Pepperoni bread","Set price"],["Eggplant pie","Set price"],["Cannoli","Set price"],["Cookies & pizzelles","Set price"],["Apple turnovers","Set price"]],"seed":[{"num":"003","name":"Sample: Maria T.","phone":"(215) 555-0142","items":["Bread & rolls","Tomato pie"],"notes":"1 dozen rolls, 1 tomato pie","date":"2026-10-02","dow":"Fri","time":"9:30 AM","status":"new"},{"num":"002","name":"Sample: Joe D.","phone":"(267) 555-0188","items":["Stromboli","Italian bread"],"notes":"2 strombolis","date":"2026-10-03","dow":"Sat","time":"As early as possible","status":"confirmed"},{"num":"001","name":"Sample: Lena R.","phone":"(215) 555-0107","items":["Cannoli","Cookies & pizzelles"],"notes":"Box of 6 cannoli","date":"2026-10-04","dow":"Sun","time":"11:00 AM","status":"new"},{"num":"000","name":"Sample: Frank P.","phone":"(215) 555-0163","items":["Sicilian slices"],"notes":"","date":"2026-10-01","dow":"Thu","time":"12:30 PM","status":"ready"}],"slug":"nonno-ugos-bakery"};
+var CFG={"tabKey":"dow","tabs":["Wed","Thu","Fri","Sat","Sun"],"status":["new","confirmed","ready","picked up","cancelled"],"cols":[["No.","num"],["Customer","name"],["Items","items"],["Pickup","date"]],"fmt":{"num":"fT","name":"fN","items":"fI","date":"fD"},"k4":"k4","hours":[["Wed\u2013Sun","9 AM* \u2013 3 PM"],["Mon & Tue","Closed"]],"svc":[["Bread & rolls","Set price"],["Italian bread","Set price"],["Long rolls","Set price"],["Tomato pie","Set price"],["Sicilian slices","Set price"],["Personal Sicilian pizza","$7.50 (confirm)"],["18\" round cheese","$16.00 (confirm)"],["Stromboli","Set price"],["Pepperoni bread","Set price"],["Eggplant pie","Set price"],["Cannoli","Set price"],["Cookies & pizzelles","Set price"],["Apple turnovers","Set price"]],"seed":[{"num":"003","name":"Sample: Maria T.","phone":"(215) 555-0142","items":["Bread & rolls","Tomato pie"],"notes":"1 dozen rolls, 1 tomato pie","date":"2026-10-02","dow":"Fri","time":"9:30 AM","status":"new"},{"num":"002","name":"Sample: Joe D.","phone":"(267) 555-0188","items":["Stromboli","Italian bread"],"notes":"2 strombolis","date":"2026-10-03","dow":"Sat","time":"As early as possible","status":"confirmed"},{"num":"001","name":"Sample: Lena R.","phone":"(215) 555-0107","items":["Cannoli","Cookies & pizzelles"],"notes":"Box of 6 cannoli","date":"2026-10-04","dow":"Sun","time":"11:00 AM","status":"new"},{"num":"000","name":"Sample: Frank P.","phone":"(215) 555-0163","items":["Sicilian slices"],"notes":"","date":"2026-10-01","dow":"Thu","time":"12:30 PM","status":"ready"}],"slug":"nonno-ugos-bakery"};
 var $=function(s){return document.querySelector(s)};
 var pin='',KEY=CFG.slug+'_bookings',HK=CFG.slug+'_hours',filt='all';
 function upd(){$('#pd').textContent=pin?('● '.repeat(pin.length)).trim():'· · · ·'}
