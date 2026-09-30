@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tom's Corner Grill &amp; Pizza | Order Rail (Admin demo)</title><meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Caveat:wght@700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#f6efe0;--sf:#fffaf0;--tx:#1b1512;--mu:#66594c;--ac:#d8321f;--acx:#fff;--gr:#1f5a3a;--mus:#e8b634;--ln:rgba(27,21,18,.18);--f1:'Alfa Slab One',Georgia,serif;--f2:'DM Sans',system-ui,sans-serif;--f3:'DM Mono',ui-monospace,monospace}
+:root{--bg:#f3ede2;--sf:#fbf8f2;--tx:#14100d;--mu:#6d6257;--ac:#c9432a;--acx:#fff;--gr:#2f6b4a;--mus:#c9432a;--ln:rgba(20,16,13,.14);--f1:'Playfair Display',Georgia,serif;--f2:'DM Sans',system-ui,sans-serif;--f3:'DM Sans',system-ui,sans-serif}
 body{font-family:var(--f2);background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 :focus-visible{outline:3px solid var(--gr);outline-offset:2px}
@@ -58,6 +58,20 @@ select.st{background:var(--bg);color:var(--tx);border:2px solid var(--tx);border
 .row input{background:var(--bg);border:2px solid var(--tx);color:var(--tx);border-radius:8px;padding:6px 8px;font:inherit;font-size:.82rem;width:150px}
 .cf{display:inline-block;font-family:var(--f3);font-size:.62rem;background:var(--mus);padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
 @media(max-width:900px){.kp{grid-template-columns:repeat(2,1fr)}.g{grid-template-columns:1fr}.top .r span{display:none}.wrap{padding:22px 14px 60px}h1{font-size:1.8rem}}
+
+.lb,.k,.c{box-shadow:0 30px 60px -34px rgba(0,0,0,.35);border-width:1px}
+.lb{border-radius:8px}.k,.c{border-radius:6px}
+.pb,.pe,.sm{border-radius:999px}
+.pb{border-width:1px}.pb:hover{background:var(--bg)}
+.top{background:var(--sf);border-bottom:1px solid var(--ln)}
+th{border-bottom:1px solid var(--ln)}td{border-bottom:1px solid var(--ln)}
+.banner{border-style:solid;border-width:1px}
+.lg,.top .br,h1,.k b{font-weight:500}.lg{font-style:italic}
+.ls,.hint,.k small,.ct,th{font-family:var(--f2);letter-spacing:.16em}
+.top .br{font-size:1.1rem;color:var(--tx)}
+.k b{color:var(--tx)}.k{border-top:1px solid var(--ln);border-left:3px solid var(--ac)}
+.pe{background:var(--ac)}
+
 </style></head><body>
 <div id="login"><div class="lb"><div class="lg">Tom's Corner</div><div class="ls">Order rail &middot; staff access</div><div class="pd" id="pd">&middot; &middot; &middot; &middot;</div>
 <div class="pg"><button class="pb" data-d="1">1</button><button class="pb" data-d="2">2</button><button class="pb" data-d="3">3</button><button class="pb" data-d="4">4</button><button class="pb" data-d="5">5</button><button class="pb" data-d="6">6</button><button class="pb" data-d="7">7</button><button class="pb" data-d="8">8</button><button class="pb" data-d="9">9</button><button class="pb w" id="clr">Clear</button><button class="pb" data-d="0">0</button></div>
