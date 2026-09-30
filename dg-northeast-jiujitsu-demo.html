@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daniel Gracie Northeast Jiu-Jitsu | Rhawn St, Philadelphia</title>
+<meta name="description" content="Brazilian jiu-jitsu, Muay Thai, kickboxing and a kids program at 2614 Rhawn St, Philadelphia. Beginners and advanced athletes welcome. Book a trial class.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SportsActivityLocation","name":"Daniel Gracie Northeast Jiu-Jitsu","telephone":"+1-267-467-9232","address":{"@type":"PostalAddress","streetAddress":"2614 Rhawn St","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19152"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"20"}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+/* hidden initial states only exist when GSAP + ScrollTrigger actually loaded */
+(function(){
+  try{
+    if(window.gsap && window.ScrollTrigger){
+      document.documentElement.classList.add('js');
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('rm');
+      /* failsafe: if the main script never signals ready, reveal everything */
+      setTimeout(function(){ if(!window.__dgReady){ document.documentElement.classList.remove('js'); } },5000);
+    }
+  }catch(e){}
+})();
+</script>
+<style>
+:root{
+  --ink:#0a0a0a; --mat:#121212; --mat2:#191919; --bone:#f2efe8; --mute:#a29e95; --red:#e5202b;
+  --line:rgba(242,239,232,.14); --rank:#f2efe8; --rail:56px;
+  --display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --gut:clamp(20px,5vw,84px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{background:var(--ink);scroll-behavior:auto;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--red);color:#fff;padding:10px 16px;z-index:200;font-weight:600}
+.skip:focus{top:12px}
+
+/* ---------- belt rail (desktop) + top bar (mobile) ---------- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:60;display:none;border-right:1px solid var(--line);background:rgba(10,10,10,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.rail-track{position:absolute;left:19px;top:88px;bottom:200px;width:18px;background:rgba(242,239,232,.07);border:1px solid var(--line)}
+.rail-fill{position:absolute;inset:0;background:linear-gradient(#f2efe8 0 20%,#2d6cdf 20% 40%,#8b46d6 40% 60%,#a8642e 60% 80%,#161616 80%)}
+.rail-bar{position:absolute;left:0;right:0;bottom:8%;height:9%;background:var(--red);opacity:0}
+.js .rail-fill{background:#f2efe8;transform:scaleY(0);transform-origin:top}
+.js .rail-bar{opacity:0}
+.rail-dot{position:absolute;left:-7px;width:30px;height:2px;background:var(--line)}
+.rail-dot.on{background:var(--bone)}
+.rail-mark{position:absolute;top:22px;left:0;right:0;text-align:center;font:800 22px/1 var(--display);letter-spacing:.04em}
+.rail-lab{position:absolute;bottom:22px;left:0;right:0;display:flex;justify-content:center}
+.rail-lab span{writing-mode:vertical-rl;transform:rotate(180deg);font:700 13px/1 var(--display);letter-spacing:.24em;text-transform:uppercase;color:var(--bone);white-space:nowrap}
+.topbar{position:fixed;left:0;right:0;top:0;height:5px;z-index:120;background:rgba(242,239,232,.1)}
+.topbar-fill{height:100%;background:#f2efe8}
+.js .topbar-fill{transform:scaleX(0);transform-origin:left}
+@media(min-width:900px){.rail{display:block}.topbar{display:none}body{padding-left:var(--rail)}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:5px;left:0;right:0;z-index:70;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 var(--gut);background:rgba(10,10,10,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+@media(min-width:900px){.nav{top:0;left:var(--rail);height:76px}}
+.mark{display:flex;flex-direction:column;line-height:.9;font-family:var(--display);text-transform:uppercase}
+.mark b{font-weight:900;font-size:24px;letter-spacing:.06em;white-space:nowrap}
+.mark span{font-weight:600;font-size:11px;letter-spacing:.24em;white-space:nowrap;color:var(--mute);margin-top:3px}
+.nav-links{display:none;gap:30px;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.nav-r{display:flex;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font:700 15px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;padding:14px 22px;border:0;cursor:pointer;position:relative;transition:transform .5s var(--ease),background .3s}
+.btn svg{width:14px;height:14px;transition:transform .5s var(--ease)}
+.btn.ghost{background:transparent;border:1px solid rgba(242,239,232,.4);color:var(--bone)}
+.btn.sm{padding:12px 14px;font-size:12px;white-space:nowrap}
+.dsk{display:none}@media(min-width:420px){.dsk{display:inline}}
+@media(max-width:419px){.mark b{font-size:19px}.mark span{font-size:9px;letter-spacing:.18em}.nav{gap:8px}.nav-r{gap:8px}.btn.sm{padding:11px 10px;font-size:11px;letter-spacing:.1em}}
+.burger{width:44px;height:44px;border:1px solid var(--line);background:transparent;display:grid;place-items:center;cursor:pointer;position:relative}
+.burger i{position:absolute;left:12px;right:12px;height:2px;background:var(--bone);transition:transform .5s var(--ease),top .5s var(--ease)}
+.burger i:nth-child(1){top:17px}.burger i:nth-child(2){top:25px}
+.burger[aria-expanded=true] i:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger[aria-expanded=true] i:nth-child(2){top:21px;transform:rotate(-45deg)}
+@media(min-width:900px){.nav-links{display:flex}.burger{display:none}}
+@media(hover:hover) and (pointer:fine){
+  .nav-links a{position:relative;transition:color .3s}
+  .nav-links a:hover{color:var(--bone)}
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--rank);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .btn:hover{transform:translateY(-3px);background:#ff2f3b}
+  .btn:hover svg{transform:translateX(5px)}
+  .btn.ghost:hover{background:var(--bone);color:var(--ink)}
+}
+.menu{position:fixed;inset:0;z-index:65;background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:90px var(--gut) 40px;visibility:hidden;clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--ease),visibility 0s .7s}
+.menu.open{visibility:visible;clip-path:inset(0 0 0 0);transition:clip-path .7s var(--ease),visibility 0s}
+.menu a.big{font:900 clamp(3rem,15vw,5.5rem)/1 var(--display);text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.menu a.big small{font:600 12px var(--body);letter-spacing:.2em;color:var(--mute)}
+.menu .btn{margin-top:26px;justify-content:center}
+@media(min-width:900px){.menu{display:none}}
+
+/* ---------- shared section bits ---------- */
+main{display:block}
+.rank{position:relative;overflow:clip;padding:clamp(88px,12vw,170px) var(--gut);background:var(--ink)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .rank{background:linear-gradient(180deg,color-mix(in srgb,var(--a) 15%,var(--ink)) 0%,var(--ink) 70%)}
+}
+.rank + .rank{border-top:1px solid var(--line)}
+.ghost-w{position:absolute;right:-1vw;top:2vw;font:900 clamp(9rem,30vw,32rem)/.8 var(--display);text-transform:uppercase;color:transparent;-webkit-text-stroke:1px rgba(242,239,232,.09);pointer-events:none;user-select:none;letter-spacing:-.02em}
+.tag{display:inline-flex;align-items:center;gap:14px;font:700 14px/1 var(--display);letter-spacing:.26em;text-transform:uppercase}
+.tag i{display:block;width:54px;height:12px;background:var(--a);position:relative;border:1px solid rgba(242,239,232,.35)}
+.tag i::after{content:"";position:absolute;right:7px;top:0;bottom:0;width:8px;background:#0a0a0a;opacity:.9}
+.tag span{color:var(--mute)}
+h2.h{font:900 clamp(3.4rem,10.5vw,10rem)/.86 var(--display);text-transform:uppercase;letter-spacing:-.005em;margin:22px 0 0}
+h2.h em{font-style:normal;color:var(--a)}
+h2.h .o{color:transparent;-webkit-text-stroke:2px var(--bone)}
+.lede{max-width:52ch;color:#cfcbc2;font-size:clamp(16px,1.6vw,19px);margin-top:26px}
+.wrap{position:relative;z-index:1;max-width:1440px;margin:0 auto}
+.js [data-r]{opacity:0;transform:translateY(36px)}
+.rm [data-r]{opacity:1!important;transform:none!important}
+
+/* ---------- hero ---------- */
+.hero{--a:#f2efe8;position:relative;min-height:100svh;padding:0;display:flex;align-items:flex-end;overflow:clip;background:var(--ink)}
+.hero-photo{position:absolute;inset:0;background:radial-gradient(120% 80% at 70% 20%,#2a2a2a,#0a0a0a 70%);overflow:hidden}
+.hero-photo img{position:absolute;inset:-4% 0;width:100%;height:108%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(.5);will-change:transform}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,.92) 8%,rgba(10,10,10,.35) 60%,rgba(10,10,10,.75)),linear-gradient(0deg,#0a0a0a 0,transparent 45%)}
+.hero-in{position:relative;z-index:2;width:100%;max-width:1440px;margin:0 auto;padding:120px var(--gut) 44px;display:grid;gap:34px}
+.h-stack{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:min(21vw,17.5vh);line-height:.84;letter-spacing:-.005em}
+@media(min-width:900px){.h-stack{font-size:min(15.5vw,19vh)}}
+.h-line{display:block;overflow:visible}
+.h-line span{display:block}
+.js .h-line span{opacity:0;clip-path:inset(100% -8% -8% -8%)}
+.rm .h-line span{opacity:1!important;clip-path:none!important}
+.h-line.red span{color:var(--red)}
+.h-line.out span{color:transparent;-webkit-text-stroke:2px var(--bone)}
+.hero-row{display:grid;gap:26px;align-items:end}
+@media(min-width:900px){.hero-row{grid-template-columns:1fr auto}}
+.hero p.sub{max-width:44ch;color:#d4d0c7;font-size:clamp(16px,1.5vw,19px)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.chip{display:flex;align-items:center;gap:14px;border:1px solid var(--line);background:rgba(10,10,10,.55);backdrop-filter:blur(6px);padding:14px 20px;width:max-content;max-width:100%}
+.chip b{font:900 44px/1 var(--display)}
+.chip small{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);line-height:1.4}
+.stars{color:var(--red);letter-spacing:3px;font-size:14px}
+.hero-meta{position:absolute;z-index:2;top:110px;right:var(--gut);display:none;font:600 12px var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--mute);text-align:right;line-height:2}
+@media(min-width:1100px){.hero-meta{display:block}}
+.scroll-cue{display:none}
+@media(min-width:900px){.scroll-cue{display:flex;align-items:center;gap:12px;font:700 12px var(--display);letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+ .scroll-cue::before{content:"";width:46px;height:1px;background:var(--mute)}}
+
+/* ---------- programs deck ---------- */
+#programs{--a:#2d6cdf}
+.deck{margin-top:clamp(40px,6vw,80px);display:grid;gap:18px}
+.card{--n:0;position:relative;background:var(--mat2);border:1px solid var(--line);border-top:3px solid var(--a);display:grid;overflow:hidden;transform-origin:50% 0}
+.card .ph{position:relative;min-height:220px;background:repeating-linear-gradient(135deg,#1d1d1d 0 14px,#161616 14px 28px);overflow:hidden}
+.card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1) brightness(.75)}
+.card .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,10,10,.7)),linear-gradient(90deg,color-mix(in srgb,var(--a) 22%,transparent),transparent);mix-blend-mode:normal;pointer-events:none}
+.card .body{padding:clamp(22px,3vw,44px);display:flex;flex-direction:column;gap:14px;position:relative}
+.card .no{font:900 clamp(5rem,12vw,9rem)/.8 var(--display);color:transparent;-webkit-text-stroke:1px var(--line)}
+.card h3{font:900 clamp(2.4rem,5vw,4.4rem)/.9 var(--display);text-transform:uppercase}
+.card p{color:#c9c5bc;max-width:46ch}
+.card .meta{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font:600 11px var(--body);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--line);padding:7px 11px;color:var(--mute)}
+@media(min-width:900px){
+  .deck{gap:0;display:block}
+  .card{position:sticky;top:calc(96px + var(--n) * 26px);height:min(72vh,560px);grid-template-columns:1.05fr 1fr;margin-bottom:9vh;box-shadow:0 -30px 60px rgba(0,0,0,.5)}
+  .card:last-child{margin-bottom:0}
+  .card .ph{min-height:0}
+  .card .body{justify-content:flex-start}
+}
+@media(hover:hover) and (pointer:fine){.card .ph img{transition:transform 1.2s var(--ease),filter .6s}.card:hover .ph img{transform:scale(1.06);filter:grayscale(.4) contrast(1.1) brightness(.85)}}
+
+/* ---------- belt journey ---------- */
+#journey{--a:#8b46d6}
+.steps{margin-top:clamp(40px,6vw,80px);border-top:1px solid var(--line)}
+.step{display:grid;gap:14px;padding:clamp(22px,3vw,40px) 0;border-bottom:1px solid var(--line);position:relative}
+@media(min-width:900px){.step{grid-template-columns:.9fr 1.2fr 1fr;align-items:center;gap:36px}}
+.step h3{font:900 clamp(3.2rem,8vw,7.5rem)/.85 var(--display);text-transform:uppercase}
+.step h3 small{display:block;font:700 13px/1 var(--display);letter-spacing:.3em;color:var(--mute);margin-bottom:12px}
+.step p{color:#c9c5bc;max-width:38ch}
+.belt{height:clamp(22px,3vw,34px);background:var(--bc);position:relative;transform-origin:left;border:1px solid rgba(242,239,232,.28)}
+.belt::after{content:"";position:absolute;right:9%;top:0;bottom:0;width:14%;background:#0a0a0a}
+.belt.k::after{background:var(--red)}
+.belt::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.25)}
+.js .belt{transform:scaleX(0)}
+.rm .belt{transform:none!important}
+.fine{margin-top:26px;color:var(--mute);font-size:13px;max-width:70ch}
+
+/* ---------- schedule ---------- */
+#schedule{--a:#8b46d6}
+.sched-note{display:inline-flex;align-items:center;gap:12px;margin-top:26px;background:rgba(229,32,43,.12);border:1px dashed var(--red);padding:12px 16px;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.sched-note b{color:var(--red)}
+.grid{margin-top:34px;display:grid;gap:0;border:1px solid var(--line)}
+.day{border-bottom:1px solid var(--line);display:grid;grid-template-columns:78px 1fr;background:rgba(10,10,10,.5)}
+.day:last-child{border-bottom:0}
+.day h4{font:900 26px/1 var(--display);text-transform:uppercase;padding:16px 12px;border-right:1px solid var(--line);letter-spacing:.06em;color:var(--mute)}
+.slots{display:flex;flex-wrap:wrap;gap:8px;padding:12px}
+.slot{border:1px dashed rgba(242,239,232,.28);border-left:3px solid var(--pc);padding:8px 12px;min-width:120px;flex:1 1 120px;background:rgba(242,239,232,.03)}
+.slot b{display:block;font:700 12px var(--body);letter-spacing:.06em;color:var(--mute)}
+.slot span{font:800 17px/1.15 var(--display);text-transform:uppercase;letter-spacing:.04em}
+.slot.off{border-style:dotted;color:var(--mute)}
+@media(min-width:900px){
+  .grid{grid-template-columns:repeat(7,1fr)}
+  .day{display:block;border-bottom:0;border-right:1px solid var(--line)}
+  .day:last-child{border-right:0}
+  .day h4{border-right:0;border-bottom:1px solid var(--line);padding:14px 16px;font-size:24px}
+  .slots{flex-direction:column;flex-wrap:nowrap;padding:10px}
+  .slot{flex:none;min-width:0}
+}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:18px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:8px;background:var(--pc)}
+
+/* ---------- members / brown ---------- */
+#members{--a:#a8642e}
+.stats{display:grid;gap:18px;margin-top:clamp(36px,5vw,64px)}
+@media(min-width:700px){.stats{grid-template-columns:1fr 1fr}}
+.stat{border:1px solid var(--line);padding:clamp(22px,3vw,40px);background:rgba(10,10,10,.5);display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.stat .num{font:900 clamp(6rem,17vw,14rem)/.8 var(--display);color:var(--bone)}
+.stat .num sup{font-size:.35em;color:var(--red);vertical-align:top;position:relative;top:.15em;margin-left:.05em}
+.stat p{font:700 14px/1.5 var(--display);letter-spacing:.24em;text-transform:uppercase;color:var(--mute);max-width:16ch}
+.themes{display:grid;gap:14px;margin-top:18px}
+@media(min-width:700px){.themes{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.themes{grid-template-columns:repeat(3,1fr)}}
+.theme{padding:26px;border:1px solid var(--line);background:var(--mat);position:relative}
+.theme::before{content:"";position:absolute;left:0;top:0;width:44px;height:4px;background:var(--a)}
+.theme h3{font:900 clamp(1.9rem,3vw,2.6rem)/.95 var(--display);text-transform:uppercase;margin:14px 0 8px}
+.theme p{color:#c1bdb4;font-size:15px}
+.theme small{font:600 11px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+@media(hover:hover) and (pointer:fine){.theme{transition:transform .6s var(--ease),border-color .3s}.theme:hover{transform:translateY(-6px);border-color:var(--a)}}
+.src{margin-top:22px;font-size:13px;color:var(--mute)}
+.src a{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- trial / black ---------- */
+#trial{--a:#e5202b}
+.trial-grid{display:grid;gap:clamp(30px,5vw,80px);margin-top:10px}
+@media(min-width:1000px){.trial-grid{grid-template-columns:1fr 1.05fr;align-items:start}}
+form.f{display:grid;gap:16px;background:var(--mat);border:1px solid var(--line);padding:clamp(20px,3vw,40px);position:relative}
+form.f::before{content:"";position:absolute;left:-1px;top:-1px;width:64px;height:5px;background:var(--red)}
+.row2{display:grid;gap:16px}
+@media(min-width:600px){.row2{grid-template-columns:1fr 1fr}}
+label{display:grid;gap:8px;font:700 12px var(--display);letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
+label em{color:var(--red);font-style:normal}
+input,select,textarea{width:100%;background:#0d0d0d;border:1px solid rgba(242,239,232,.2);border-radius:0;padding:14px;font:500 16px var(--body);letter-spacing:0;text-transform:none;color:var(--bone);appearance:none;-webkit-appearance:none;transition:border-color .3s,background .3s}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--bone) 50%),linear-gradient(135deg,var(--bone) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-right:38px}
+select option{background:#111}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--red);outline:none;background:#101010}
+.err{color:#ff6b73;font:500 13px var(--body);letter-spacing:0;text-transform:none;min-height:0}
+.fine2{font-size:12.5px;color:var(--mute)}
+.ok{display:none;text-align:left;padding:clamp(10px,2vw,20px) 0}
+.ok.show{display:block}
+.ok h3{font:900 clamp(2.6rem,6vw,4.6rem)/.9 var(--display);text-transform:uppercase;margin:12px 0}
+.ok .belt{transform:none!important;max-width:240px;margin-bottom:18px}
+.trial-side p{color:#cfcbc2;max-width:44ch;margin-top:20px}
+.trial-side ul{list-style:none;margin-top:28px;display:grid;gap:0;border-top:1px solid var(--line)}
+.trial-side li{padding:16px 0;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:baseline;font-size:15px}
+.trial-side li b{font:900 26px/1 var(--display);color:var(--red);min-width:34px}
+
+/* ---------- visit ---------- */
+#visit{--a:#e5202b}
+.visit-grid{display:grid;gap:clamp(24px,4vw,60px);margin-top:clamp(30px,5vw,60px)}
+@media(min-width:1000px){.visit-grid{grid-template-columns:.9fr 1.3fr}}
+.info{display:grid;gap:0;border-top:1px solid var(--line);align-content:start}
+.info div{padding:20px 0;border-bottom:1px solid var(--line)}
+.info dt{font:700 12px var(--display);letter-spacing:.28em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.info dd{font:800 clamp(1.6rem,3vw,2.2rem)/1.1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.info dd small{display:block;font:500 14px/1.5 var(--body);letter-spacing:0;text-transform:none;color:var(--mute);margin-top:6px}
+.call{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px}
+.map{position:relative;border:1px solid var(--line);min-height:340px;background:#111}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.65) contrast(1.05) brightness(.9)}
+.map::before,.map::after{content:"";position:absolute;width:26px;height:26px;border:3px solid var(--red);z-index:2;pointer-events:none}
+.map::before{left:-1px;top:-1px;border-right:0;border-bottom:0}
+.map::after{right:-1px;bottom:-1px;border-left:0;border-top:0}
+@media(min-width:1000px){.map{min-height:520px}}
+
+/* ---------- footer ---------- */
+footer{position:relative;background:#050505;border-top:1px solid var(--line);padding:clamp(60px,8vw,110px) var(--gut) 40px;overflow:clip}
+footer .big{font:900 clamp(3.4rem,13.5vw,15rem)/.82 var(--display);text-transform:uppercase;color:transparent;-webkit-text-stroke:1px rgba(242,239,232,.28);letter-spacing:-.01em}
+footer .big span{color:var(--red);-webkit-text-stroke:0}
+.foot-row{max-width:1440px;margin:40px auto 0;display:grid;gap:18px;font-size:13.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:26px}
+@media(min-width:900px){.foot-row{grid-template-columns:1.4fr 1fr 1fr}}
+.foot-row b{color:var(--bone);font-weight:600}
+.stock{color:var(--bone);border:1px dashed rgba(242,239,232,.3);padding:10px 14px;display:inline-block}
+.foot-inner{max-width:1440px;margin:0 auto}
+
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#programs">Skip to content</a>
+
+<!-- belt progression: desktop rail + mobile top bar -->
+<aside class="rail" aria-hidden="true">
+  <div class="rail-mark">DG</div>
+  <div class="rail-track" id="railTrack">
+    <div class="rail-fill" id="railFill"><div class="rail-bar" id="railBar"></div></div>
+  </div>
+  <div class="rail-lab"><span id="rankLab">White &middot; Start here</span></div>
+</aside>
+<div class="topbar" aria-hidden="true"><div class="topbar-fill" id="topFill"></div></div>
+
+<header class="nav">
+  <a class="mark" href="#top" aria-label="Daniel Gracie Northeast Jiu-Jitsu, home"><b>Daniel Gracie</b><span>Northeast Jiu-Jitsu</span></a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#programs">Programs</a><a href="#journey">The path</a><a href="#schedule">Schedule</a><a href="#members">Members</a><a href="#visit">Visit</a>
+  </nav>
+  <div class="nav-r">
+    <a class="btn sm" href="#trial">Book a trial<span class="dsk">&nbsp;class</span></a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" role="dialog" aria-label="Menu">
+  <a class="big" href="#programs">Programs <small>01</small></a>
+  <a class="big" href="#journey">The path <small>02</small></a>
+  <a class="big" href="#schedule">Schedule <small>03</small></a>
+  <a class="big" href="#members">Members <small>04</small></a>
+  <a class="big" href="#visit">Visit <small>05</small></a>
+  <a class="btn" href="#trial">Book a trial class</a>
+</div>
+
+<main id="top">
+<!-- ============ WHITE / START HERE ============ -->
+<section class="hero" data-rank="0" id="hero" aria-label="Start here">
+  <div class="hero-photo" id="heroPhoto">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1747331796135-0e2354a712e4?auto=format&fit=crop&w=1200&q=75" alt="Two grapplers training on a mat" fetchpriority="high" onerror="this.remove()">
+  </div>
+  <div class="hero-meta">2614 Rhawn St<br>Philadelphia, PA 19152<br>Opens 10 AM</div>
+  <div class="hero-in">
+    <div class="tag" style="--a:#f2efe8"><i></i>White <span>Start here</span></div>
+    <h1 class="h-stack" aria-label="Every belt starts here.">
+      <span class="h-line"><span>Every</span></span>
+      <span class="h-line"><span>Belt</span></span>
+      <span class="h-line out"><span>Starts</span></span>
+      <span class="h-line red"><span>Here.</span></span>
+    </h1>
+    <div class="hero-row">
+      <div>
+        <p class="sub" data-r>Brazilian jiu-jitsu, Muay Thai, kickboxing and a kids program on Rhawn Street. Members say beginners and advanced athletes are both welcome.</p>
+        <div class="hero-cta" data-r>
+          <a class="btn" href="#trial">Book a trial class <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a>
+          <a class="btn ghost" href="tel:+12674679232">(267) 467-9232</a>
+        </div>
+      </div>
+      <div class="chip" data-r>
+        <b>5.0</b>
+        <div><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>Google rating<br>20 reviews</small></div>
+      </div>
+    </div>
+    <div class="scroll-cue">Scroll to rank up</div>
+  </div>
+</section>
+
+<!-- ============ BLUE / LEARN ============ -->
+<section class="rank" id="programs" data-rank="1">
+  <div class="ghost-w" aria-hidden="true">Blue</div>
+  <div class="wrap">
+    <div class="tag" data-r><i></i>Blue <span>Learn</span></div>
+    <h2 class="h" data-r>Four ways<br>to <em>train.</em></h2>
+    <p class="lede" data-r>Every program below is one members mention by name in their Google reviews. Class details, ages and pricing are shared directly by the academy.</p>
+
+    <div class="deck" id="deck">
+      <article class="card" style="--n:0">
+        <div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1681923445357-0679553160da?auto=format&fit=crop&w=1200&q=75" alt="Brazilian jiu-jitsu practitioners grappling on the mat" onerror="this.remove()"></div>
+        <div class="body">
+          <div class="no">01</div>
+          <h3>Brazilian<br>Jiu-Jitsu</h3>
+          <p>Ground grappling built on leverage and timing. Members describe a room that is welcoming to first-timers and to advanced athletes alike.</p>
+          <div class="meta"><span class="pill">Mentioned in reviews</span><span class="pill">All levels</span></div>
+        </div>
+      </article>
+      <article class="card" style="--n:1">
+        <div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1517438322307-e67111335449?auto=format&fit=crop&w=1200&q=75" alt="Fighter throwing a strike at a heavy bag" onerror="this.remove()"></div>
+        <div class="body">
+          <div class="no">02</div>
+          <h3>Muay<br>Thai</h3>
+          <p>The art of eight limbs: fists, elbows, knees and shins. Padwork, clinch and conditioning for people who want to hit hard and move well.</p>
+          <div class="meta"><span class="pill">Mentioned in reviews</span><span class="pill">Striking</span></div>
+        </div>
+      </article>
+      <article class="card" style="--n:2">
+        <div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=1200&q=75" alt="Martial artist training with focus" onerror="this.remove()"></div>
+        <div class="body">
+          <div class="no">03</div>
+          <h3>Kick&shy;boxing</h3>
+          <p>Punches and kicks, footwork and fitness. A fast way to build skill and sweat, with the same friendly members around you.</p>
+          <div class="meta"><span class="pill">Mentioned in reviews</span><span class="pill">Striking</span></div>
+        </div>
+      </article>
+      <article class="card" style="--n:3">
+        <div class="ph"><img loading="lazy" src="https://images.unsplash.com/photo-1516684991026-4c3032a2b4fd?auto=format&fit=crop&w=1200&q=75" alt="Children in a martial arts class practicing kicks" onerror="this.remove()"></div>
+        <div class="body">
+          <div class="no">04</div>
+          <h3>Kids<br>Program</h3>
+          <p>Members call it a great, fun kids program. Ask the academy about age groups and class times when you book.</p>
+          <div class="meta"><span class="pill">Mentioned in reviews</span><span class="pill">Ask about ages</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PURPLE / GROW ============ -->
+<section class="rank" id="journey" data-rank="2">
+  <div class="ghost-w" aria-hidden="true">Grow</div>
+  <div class="wrap">
+    <div class="tag" data-r><i></i>Purple <span>Grow</span></div>
+    <h2 class="h" data-r>The belt<br><em>journey.</em></h2>
+    <p class="lede" data-r>Jiu-jitsu is a long game. This is the path every student walks, and the way this page moves as you scroll.</p>
+    <div class="steps">
+      <div class="step" data-b="0">
+        <h3><small>Rank 01</small>White</h3>
+        <div class="belt" style="--bc:#f2efe8"></div>
+        <p>Start here. Walk in, meet the room, learn the first moves. Reviewers say newcomers feel welcome.</p>
+      </div>
+      <div class="step" data-b="1">
+        <h3><small>Rank 02</small>Blue</h3>
+        <div class="belt" style="--bc:#2d6cdf"></div>
+        <p>Learn the fundamentals until they stop feeling new: posture, escapes, control.</p>
+      </div>
+      <div class="step" data-b="2">
+        <h3><small>Rank 03</small>Purple</h3>
+        <div class="belt" style="--bc:#8b46d6"></div>
+        <p>Grow your own game. Connect techniques, find what fits your body.</p>
+      </div>
+      <div class="step" data-b="3">
+        <h3><small>Rank 04</small>Brown</h3>
+        <div class="belt" style="--bc:#a8642e"></div>
+        <p>Sharpen under pressure. For those who want to compete, and those who simply love hard rounds.</p>
+      </div>
+      <div class="step" data-b="4">
+        <h3><small>Rank 05</small>Black</h3>
+        <div class="belt k" style="--bc:#161616"></div>
+        <p>Teach it forward. Mastery is passing on what the mat gave you.</p>
+      </div>
+    </div>
+    <p class="fine">The belt path is a storytelling frame for this page and the general BJJ tradition. It is not a statement about how this academy ranks or tests students.</p>
+  </div>
+</section>
+
+<section class="rank" id="schedule" data-rank="2" style="--a:#8b46d6">
+  <div class="wrap">
+    <div class="tag" data-r><i></i>Purple <span>Grow</span></div>
+    <h2 class="h" data-r>The week<br>on the <em>mat.</em></h2>
+    <div class="sched-note" data-r><b>Sample schedule</b> &middot; owner confirms real class times</div>
+    <div class="grid" id="sched" data-r></div>
+    <div class="legend" id="legend"></div>
+    <p class="fine">Placeholder layout only. The academy opens at 10 AM; call (267) 467-9232 for the real class calendar.</p>
+  </div>
+</section>
+
+<!-- ============ BROWN / COMPETE ============ -->
+<section class="rank" id="members" data-rank="3">
+  <div class="ghost-w" aria-hidden="true">Brown</div>
+  <div class="wrap">
+    <div class="tag" data-r><i></i>Brown <span>Compete</span></div>
+    <h2 class="h" data-r>What the<br>room <em>says.</em></h2>
+    <div class="stats">
+      <div class="stat" data-r>
+        <div class="num"><span id="n-rating" data-to="5" data-dec="1">5.0</span></div>
+        <div><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p>Google star rating</p></div>
+      </div>
+      <div class="stat" data-r>
+        <div class="num"><span id="n-rev" data-to="20" data-dec="0">20</span></div>
+        <p>Google reviews</p>
+      </div>
+    </div>
+    <div class="themes">
+      <div class="theme" data-r><small>Theme in reviews</small><h3>Beginners welcome</h3><p>New to jiu-jitsu? Reviewers say you will not feel out of place.</p></div>
+      <div class="theme" data-r><small>Theme in reviews</small><h3>Advanced athletes too</h3><p>Experienced grapplers describe finding real training here.</p></div>
+      <div class="theme" data-r><small>Theme in reviews</small><h3>Friendly members</h3><p>The people on the mat are a big part of why members stay.</p></div>
+      <div class="theme" data-r><small>Theme in reviews</small><h3>A fun kids program</h3><p>Parents and members call out the kids classes as great and fun.</p></div>
+      <div class="theme" data-r><small>Theme in reviews</small><h3>Years on the mat</h3><p>Some reviewers say they have trained here for many years.</p></div>
+      <div class="theme" data-r><small>Head instructor</small><h3>Professor Sideco</h3><p>Named as head instructor in member reviews. <em style="color:var(--mute)">[owner confirms]</em></p></div>
+    </div>
+    <p class="src" data-r>Themes paraphrased from public Google reviews. No quotes or names shown. <a href="https://www.google.com/maps/search/?api=1&query=Daniel+Gracie+Northeast+Jiu-Jitsu+2614+Rhawn+St+Philadelphia" target="_blank" rel="noopener">Read the reviews on Google</a></p>
+  </div>
+</section>
+
+<!-- ============ BLACK / TEACH ============ -->
+<section class="rank" id="trial" data-rank="4">
+  <div class="ghost-w" aria-hidden="true">Black</div>
+  <div class="wrap">
+    <div class="tag" data-r><i></i>Black <span>Teach</span></div>
+    <div class="trial-grid">
+      <div class="trial-side">
+        <h2 class="h" data-r style="font-size:clamp(3.4rem,8vw,8rem)">Step on<br>the <em>mat.</em></h2>
+        <p data-r>Every teacher once tied a white belt for the first time. Tell us what you want to train and the academy will reach out. Pricing is shared by the academy.</p>
+        <ul data-r>
+          <li><b>01</b>Send the form. No payment here.</li>
+          <li><b>02</b>The academy contacts you to confirm a time.</li>
+          <li><b>03</b>Show up and train.</li>
+        </ul>
+      </div>
+      <div data-r>
+        <form class="f" id="trialForm" novalidate>
+          <div class="row2">
+            <label><span>Name <em>*</em></span><input name="name" autocomplete="name" required><span class="err" data-e="name"></span></label>
+            <label><span>Phone <em>*</em></span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" required><span class="err" data-e="phone"></span></label>
+          </div>
+          <label>Email<input name="email" type="email" autocomplete="email"><span class="err" data-e="email"></span></label>
+          <div class="row2">
+            <label>Program
+              <select name="program"><option>Brazilian jiu-jitsu</option><option>Muay Thai</option><option>Kickboxing</option><option>Kids program</option></select>
+            </label>
+            <label>Experience
+              <select name="experience"><option>Beginner</option><option>Some experience</option><option>Advanced</option></select>
+            </label>
+          </div>
+          <label>Preferred day
+            <select name="day"><option>Any day</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select>
+          </label>
+          <label>Message<textarea name="message" placeholder="Anything we should know? Ages for kids, injuries, goals..."></textarea></label>
+          <button class="btn" type="submit">Book a trial class <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M8 2l5 5-5 5"/></svg></button>
+          <p class="fine2">Demo note: this form saves to this browser only. The live site will send requests to the academy.</p>
+        </form>
+        <div class="ok" id="ok" role="status" aria-live="polite">
+          <div class="belt k" style="--bc:#f2efe8"></div>
+          <div class="tag" style="--a:#e5202b"><i></i>Request received</div>
+          <h3>You're on<br>the list.</h3>
+          <p class="lede" style="margin-top:8px">Thanks, <span id="okName"></span>. The academy will reach out to confirm your trial class. Need it sooner? Call <a href="tel:+12674679232" style="text-decoration:underline">(267) 467-9232</a>.</p>
+          <p style="margin-top:22px"><button class="btn ghost sm" id="again" type="button">Book another</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rank" id="visit" data-rank="4" style="--a:#e5202b">
+  <div class="wrap">
+    <div class="tag" data-r><i></i>Black <span>Teach</span></div>
+    <h2 class="h" data-r>Find the<br><em>academy.</em></h2>
+    <div class="visit-grid">
+      <div data-r>
+        <dl class="info">
+          <div><dt>Address</dt><dd>2614 Rhawn St<small>Philadelphia, PA 19152</small></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+12674679232">(267) 467-9232</a></dd></div>
+          <div><dt>Hours</dt><dd>Opens 10 AM<small>Full weekly hours: call to confirm. Sample schedule above is a placeholder.</small></dd></div>
+        </dl>
+        <div class="call">
+          <a class="btn" href="tel:+12674679232">Tap to call</a>
+          <a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=2614+Rhawn+St+Philadelphia+PA+19152" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </div>
+      <div class="map" data-r>
+        <iframe title="Map to Daniel Gracie Northeast Jiu-Jitsu, 2614 Rhawn St, Philadelphia" src="https://www.google.com/maps?q=2614+Rhawn+St+Philadelphia+PA+19152&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="big" aria-hidden="true">Every belt<br>starts <span>here.</span></div>
+    <div class="foot-row">
+      <div><b>Daniel Gracie Northeast Jiu-Jitsu</b><br>2614 Rhawn St, Philadelphia, PA 19152<br><a href="tel:+12674679232" style="text-decoration:underline">(267) 467-9232</a></div>
+      <div><span class="stock">Photos are stock placeholders until we shoot your gym.</span></div>
+      <div>Demo concept. Class schedule is a sample; prices and hours are shared by the academy. &ldquo;Daniel Gracie Northeast&rdquo; is used here as the school name only.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===== core (works with or without GSAP): menu, schedule, form ===== */
+(function(){
+  var burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  function setMenu(o){menu.classList.toggle('open',o);burger.setAttribute('aria-expanded',o?'true':'false');burger.setAttribute('aria-label',o?'Close menu':'Open menu');document.documentElement.classList.toggle('menu-open',o);if(window.__lenis){o?window.__lenis.stop():window.__lenis.start();}else{document.body.style.overflow=o?'hidden':'';}}
+  burger.addEventListener('click',function(){setMenu(!menu.classList.contains('open'))});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false)});
+  window.__setMenu=setMenu;
+
+  /* sample schedule */
+  var P={bjj:['Brazilian jiu-jitsu','#2d6cdf'],mt:['Muay Thai','#e5202b'],kb:['Kickboxing','#a8642e'],kd:['Kids program','#8b46d6']};
+  var W=[
+    ['Mon',[['10:00 AM','bjj'],['12:00 PM','mt'],['5:30 PM','kd'],['6:30 PM','bjj']]],
+    ['Tue',[['10:00 AM','kb'],['5:30 PM','kd'],['6:30 PM','mt']]],
+    ['Wed',[['10:00 AM','bjj'],['12:00 PM','kb'],['5:30 PM','kd'],['6:30 PM','bjj']]],
+    ['Thu',[['10:00 AM','mt'],['5:30 PM','kd'],['6:30 PM','kb']]],
+    ['Fri',[['10:00 AM','bjj'],['12:00 PM','mt'],['6:00 PM','bjj']]],
+    ['Sat',[['10:00 AM','bjj'],['11:30 AM','kd']]],
+    ['Sun',[]]
+  ];
+  var g=document.getElementById('sched'),h='';
+  W.forEach(function(d){
+    h+='<div class="day"><h4>'+d[0]+'</h4><div class="slots">';
+    if(!d[1].length)h+='<div class="slot off"><b>TBD</b><span>Ask academy</span></div>';
+    d[1].forEach(function(s){var p=P[s[1]];h+='<div class="slot" style="--pc:'+p[1]+'"><b>'+s[0]+' &middot; sample</b><span>'+p[0]+'</span></div>'});
+    h+='</div></div>';
+  });
+  g.innerHTML=h;
+  var lg='';Object.keys(P).forEach(function(k){lg+='<span><i style="--pc:'+P[k][1]+'"></i>'+P[k][0]+'</span>'});
+  document.getElementById('legend').innerHTML=lg;
+
+  /* form -> localStorage */
+  var KEY='dg-northeast-jiujitsu_bookings';
+  var f=document.getElementById('trialForm'),ok=document.getElementById('ok');
+  function read(){try{var a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
+  function write(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){return false}}
+  function err(n,m){var s=f.querySelector('[data-e="'+n+'"]');if(s)s.textContent=m||''}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d=new FormData(f),v=function(k){return String(d.get(k)||'').trim()};
+    var bad=false;err('name');err('phone');err('email');
+    if(!v('name')){err('name','Please add your name.');bad=true}
+    if(v('phone').replace(/\D/g,'').length<7){err('phone','Please add a phone number we can reach.');bad=true}
+    if(v('email')&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email'))){err('email','That email looks off.');bad=true}
+    if(bad)return;
+    var rec={id:'b_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:v('name'),phone:v('phone'),email:v('email'),program:v('program'),experience:v('experience'),day:v('day'),message:v('message'),created:new Date().toISOString(),status:'New'};
+    var a=read();a.push(rec);write(a);
+    document.getElementById('okName').textContent=rec.name.split(' ')[0];
+    f.style.display='none';ok.classList.add('show');
+    try{ok.scrollIntoView({block:'center',behavior:'smooth'})}catch(x){}
+  });
+  document.getElementById('again').addEventListener('click',function(){f.reset();f.style.display='';ok.classList.remove('show')});
+})();
+</script>
+
+<script>
+/* ===== motion layer ===== */
+(function(){
+  if(!(window.gsap&&window.ScrollTrigger)){return}
+  try{
+  var root=document.documentElement,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({ease:'power3.out'});
+  var $=function(s,c){return (c||document).querySelector(s)}, $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+
+  /* single Lenis instance wired to ScrollTrigger */
+  var lenis=null;
+  if(window.Lenis&&!reduced){
+    lenis=new Lenis({duration:1.15,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smoothWheel:true});
+    window.__lenis=lenis;
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000)});
+    gsap.ticker.lagSmoothing(0);
+  }
+  $$('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href');if(id.length<2)return;
+      var t=$(id);if(!t)return;e.preventDefault();
+      if(lenis){lenis.scrollTo(t,{offset:id==='#top'?0:-10,duration:1.4})}else{t.scrollIntoView({behavior:reduced?'auto':'smooth'})}
+    });
+  });
+
+  /* ---- belt rank system ---- */
+  var RANKS=[{n:'White',t:'Start here',c:'#f2efe8'},{n:'Blue',t:'Learn',c:'#2d6cdf'},{n:'Purple',t:'Grow',c:'#8b46d6'},{n:'Brown',t:'Compete',c:'#a8642e'},{n:'Black',t:'Teach',c:'#2a2a2a'}];
+  var fills=[$('#railFill'),$('#topFill')], bar=$('#railBar'), lab=$('#rankLab'), cur=-1;
+  var track=$('#railTrack');
+  RANKS.forEach(function(r,i){var d=document.createElement('div');d.className='rail-dot';d.style.top=(i/4*100)+'%';d.dataset.i=i;track.appendChild(d)});
+  function setRank(i){
+    if(i===cur)return;cur=i;var r=RANKS[i];
+    gsap.to(fills,{backgroundColor:r.c,duration:reduced?0:.7,overwrite:'auto'});
+    gsap.to(bar,{opacity:i===4?1:0,duration:reduced?0:.6,overwrite:'auto'});
+    root.style.setProperty('--rank',i===4?'#e5202b':r.c);
+    if(lab)lab.innerHTML=r.n+' &middot; '+r.t;
+    $$('.rail-dot').forEach(function(d){d.classList.toggle('on',+d.dataset.i<=i)});
+  }
+  setRank(0);
+  $$('[data-rank]').forEach(function(s){
+    var i=+s.dataset.rank;
+    ScrollTrigger.create({trigger:s,start:'top 50%',end:'bottom 50%',onToggle:function(self){if(self.isActive)setRank(i)}});
+  });
+
+  var mm=gsap.matchMedia();
+
+  /* desktop */
+  mm.add('(min-width: 900px)',function(){
+    var setY=gsap.quickSetter($('#railFill'),'scaleY');
+    ScrollTrigger.create({trigger:document.body,start:'top top',end:'bottom bottom',onUpdate:function(s){setY(s.progress)}});
+    setY(0);
+    if(!reduced){
+      /* sticky deck: cards beneath recede as the next one stacks on top */
+      var cards=$$('#deck .card');
+      cards.forEach(function(c,i){
+        var nx=cards[i+1];if(!nx)return;
+        gsap.to(c,{scale:.94,filter:'brightness(.6)',ease:'none',
+          scrollTrigger:{trigger:nx,start:'top 85%',end:'top '+(96+(i+1)*26)+'px',scrub:true}});
+      });
+      /* ghost word parallax */
+      $$('.ghost-w').forEach(function(w){gsap.fromTo(w,{yPercent:-6},{yPercent:10,ease:'none',scrollTrigger:{trigger:w.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+    }
+  });
+  /* mobile */
+  mm.add('(max-width: 899.98px)',function(){
+    var setX=gsap.quickSetter($('#topFill'),'scaleX');
+    ScrollTrigger.create({trigger:document.body,start:'top top',end:'bottom bottom',onUpdate:function(s){setX(s.progress)}});
+    setX(0);
+  });
+
+  if(!reduced){
+    /* hero: stacked words clip-reveal + Ken Burns */
+    var spans=$$('.h-line span');
+    var tl=gsap.timeline({delay:.15});
+    tl.fromTo(spans,{yPercent:55,opacity:0,clipPath:'inset(100% -8% -8% -8%)'},{yPercent:0,opacity:1,clipPath:'inset(-8% -8% -8% -8%)',duration:1.3,ease:'expo.out',stagger:.13});
+    tl.to('.hero [data-r]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.12},'-=.7');
+    gsap.fromTo('#heroImg',{scale:1.2},{scale:1.02,duration:16,ease:'power2.out'});
+    gsap.to('#heroPhoto',{yPercent:14,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+    gsap.to('.hero-in',{opacity:.15,ease:'none',scrollTrigger:{trigger:'#hero',start:'55% top',end:'bottom top',scrub:true}});
+
+    /* reveals */
+    var reveal=$$('[data-r]').filter(function(el){return !el.closest('.hero')});
+    ScrollTrigger.batch(reveal,{start:'top 90%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:1.1,ease:'power3.out',stagger:.09})}});
+
+    /* belts draw across as each rank row enters */
+    $$('.step').forEach(function(s){
+      gsap.to($('.belt',s),{scaleX:1,ease:'none',scrollTrigger:{trigger:s,start:'top 88%',end:'top 45%',scrub:.6}});
+    });
+    /* heading words of steps slide */
+    $$('.step h3').forEach(function(h){gsap.from(h,{x:-40,opacity:.2,ease:'none',scrollTrigger:{trigger:h,start:'top 92%',end:'top 55%',scrub:true}})});
+
+    /* counters (verified numbers only) */
+    $$('[data-to]').forEach(function(el){
+      var to=+el.dataset.to,dec=+el.dataset.dec,o={v:0};
+      ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:function(){
+        el.textContent=(0).toFixed(dec);
+        gsap.to(o,{v:to,duration:2.2,ease:'power3.out',onUpdate:function(){el.textContent=o.v.toFixed(dec)},onComplete:function(){el.textContent=to.toFixed(dec)}});
+      }});
+    });
+
+    /* footer wordmark */
+    gsap.from('footer .big',{yPercent:20,opacity:0,duration:1.4,ease:'expo.out',scrollTrigger:{trigger:'footer',start:'top 85%',once:true}});
+  }
+
+  window.addEventListener('load',function(){ScrollTrigger.refresh()});
+  window.__dgReady=true;
+  }catch(e){
+    /* any motion failure: drop to the fully visible static page */
+    root.classList.remove('js');window.__dgReady=true;
+    if(window.console)console.warn('motion disabled',e);
+  }
+})();
+</script>
+</body>
+</html>

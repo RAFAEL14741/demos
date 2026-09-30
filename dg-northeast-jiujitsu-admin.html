@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dojo Desk | Daniel Gracie Northeast Admin</title>
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--mat:#121212;--mat2:#191919;--bone:#f2efe8;--mute:#a29e95;--red:#e5202b;--line:rgba(242,239,232,.14);
+  --display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;--body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;--ease:cubic-bezier(.16,1,.3,1);
+  --new:#2d6cdf;--contacted:#8b46d6;--attended:#a8642e}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+body{background:var(--ink);color:var(--bone);font-family:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+a{color:inherit}
+[hidden]{display:none!important}
+
+/* belt stripe running down the left edge, echoing the site */
+.stripe{position:fixed;left:0;top:0;bottom:0;width:10px;background:linear-gradient(#f2efe8 0 20%,#2d6cdf 20% 40%,#8b46d6 40% 60%,#a8642e 60% 80%,#161616 80%);z-index:5}
+.stripe::after{content:"";position:absolute;left:0;right:0;bottom:8%;height:6%;background:var(--red)}
+
+/* ---- PIN gate ---- */
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px 24px 24px 34px;background:radial-gradient(90% 60% at 80% 0,rgba(229,32,43,.14),transparent 60%),var(--ink)}
+.gate-box{width:100%;max-width:380px}
+.eyebrow{font:700 13px var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:12px}
+.eyebrow i{width:44px;height:10px;background:var(--bone);position:relative;display:block}
+.eyebrow i::after{content:"";position:absolute;right:6px;top:0;bottom:0;width:7px;background:#0a0a0a}
+.gate h1{font:900 clamp(4rem,18vw,6.5rem)/.84 var(--display);text-transform:uppercase;margin:18px 0 8px}
+.gate h1 span{color:var(--red)}
+.gate p{color:var(--mute);font-size:14px}
+.dots{display:flex;gap:14px;margin:28px 0 18px}
+.dots b{width:16px;height:16px;border:2px solid var(--bone);display:block;transition:background .2s,transform .4s var(--ease)}
+.dots b.f{background:var(--bone);transform:scale(1.15)}
+.dots.bad{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pad button{background:var(--mat);border:1px solid var(--line);padding:18px 0;font:800 30px/1 var(--display);letter-spacing:.06em;cursor:pointer;transition:background .2s,transform .3s var(--ease)}
+.pad button:active{transform:scale(.96);background:var(--mat2)}
+.pad button.s{font-size:14px;letter-spacing:.2em;color:var(--mute);text-transform:uppercase}
+.gmsg{min-height:22px;color:#ff6b73;font-size:13px;margin-top:14px}
+.hint{margin-top:6px;font-size:12px;color:var(--mute)}
+@media(hover:hover) and (pointer:fine){.pad button:hover{background:var(--mat2);border-color:rgba(242,239,232,.4)}}
+
+/* ---- app ---- */
+.app{padding:0 clamp(16px,4vw,56px) 80px clamp(28px,5vw,64px);max-width:1360px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:18px;padding:clamp(28px,4vw,56px) 0 26px;border-bottom:1px solid var(--line)}
+.top h1{font:900 clamp(3.2rem,9vw,7rem)/.84 var(--display);text-transform:uppercase}
+.top h1 span{color:var(--red)}
+.tools{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(242,239,232,.35);padding:11px 16px;font:700 13px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s,transform .4s var(--ease);text-decoration:none}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+@media(hover:hover) and (pointer:fine){.btn:hover{background:var(--bone);color:var(--ink);transform:translateY(-2px)}.btn.red:hover{background:#ff2f3b;color:#fff}}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:26px 0}
+@media(min-width:900px){.cards{grid-template-columns:repeat(4,1fr)}}
+.sc{background:var(--mat);border:1px solid var(--line);padding:20px;position:relative;overflow:hidden}
+.sc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c,var(--bone))}
+.sc small{font:700 12px var(--display);letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
+.sc b{display:block;font:900 clamp(3.6rem,9vw,6rem)/.85 var(--display);margin-top:10px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.fl{background:transparent;border:1px solid var(--line);padding:9px 14px;font:700 12px var(--display);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;color:var(--mute)}
+.fl[aria-pressed=true]{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.banner{background:rgba(229,32,43,.1);border:1px dashed var(--red);padding:12px 16px;font-size:13px;margin-bottom:16px}
+.banner b{color:var(--red);letter-spacing:.1em;text-transform:uppercase}
+
+table{width:100%;border-collapse:collapse;background:var(--mat);border:1px solid var(--line)}
+th{font:700 12px var(--display);letter-spacing:.24em;text-transform:uppercase;color:var(--mute);text-align:left;padding:14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}
+tr:last-child td{border-bottom:0}
+td .n{font:800 22px/1 var(--display);text-transform:uppercase;letter-spacing:.03em}
+td .m{color:var(--mute);font-size:12.5px}
+td a{text-decoration:underline;text-underline-offset:3px}
+.tagp{display:inline-block;font:700 11px var(--body);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:4px 8px;margin:0 6px 6px 0}
+.msg{max-width:260px;color:#cfcbc2}
+.stsel{background:#0d0d0d;border:1px solid var(--line);border-left:5px solid var(--c);padding:9px 30px 9px 10px;font:700 13px var(--display);letter-spacing:.14em;text-transform:uppercase;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--bone) 50%),linear-gradient(135deg,var(--bone) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.stsel option{background:#111}
+.stsel:disabled{opacity:.5}
+.del{background:transparent;border:1px solid var(--line);color:var(--mute);padding:9px 12px;font:700 12px var(--display);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.del:disabled{opacity:.35;cursor:not-allowed}
+@media(hover:hover) and (pointer:fine){.del:not(:disabled):hover{border-color:var(--red);color:var(--red)}tbody tr{transition:background .3s}tbody tr:hover{background:rgba(242,239,232,.03)}}
+tr.sample td{background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(242,239,232,.025) 10px 20px)}
+.sbadge{display:inline-block;background:var(--red);color:#fff;font:700 11px var(--display);letter-spacing:.2em;padding:3px 8px;margin-left:8px;vertical-align:middle}
+.empty{padding:40px;text-align:center;color:var(--mute);border:1px solid var(--line);background:var(--mat)}
+
+@media(max-width:820px){
+  table,thead,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  table{border:0;background:transparent}
+  tr{border:1px solid var(--line);background:var(--mat);margin-bottom:12px;padding:6px 0;position:relative}
+  td{border:0;padding:8px 16px}
+  td[data-l]::before{content:attr(data-l);display:block;font:700 11px var(--display);letter-spacing:.24em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
+  .msg{max-width:none}
+  .stsel{width:100%}
+}
+.foot{margin-top:30px;color:var(--mute);font-size:12.5px}
+.toast{position:fixed;right:16px;bottom:16px;background:var(--bone);color:var(--ink);padding:12px 16px;font:700 13px var(--display);letter-spacing:.14em;text-transform:uppercase;transform:translateY(80px);opacity:0;transition:transform .5s var(--ease),opacity .3s;z-index:20}
+.toast.on{transform:none;opacity:1}
+</style>
+</head>
+<body>
+<div class="stripe" aria-hidden="true"></div>
+
+<section class="gate" id="gate">
+  <div class="gate-box">
+    <div class="eyebrow"><i></i>Dojo desk</div>
+    <h1>Staff<br><span>only.</span></h1>
+    <p>Enter the 4-digit PIN to see trial class requests.</p>
+    <div class="dots" id="dots" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
+    <div class="pad" id="pad" role="group" aria-label="PIN keypad"></div>
+    <div class="gmsg" id="gmsg" role="alert"></div>
+    <p class="hint">Demo PIN: 1234</p>
+  </div>
+</section>
+
+<div class="app" id="app" hidden>
+  <div class="top">
+    <div>
+      <div class="eyebrow"><i></i>Daniel Gracie Northeast Jiu-Jitsu</div>
+      <h1 style="margin-top:14px">Trial <span>requests</span></h1>
+    </div>
+    <div class="tools">
+      <button class="btn" id="refresh" type="button">Refresh</button>
+      <button class="btn" id="csv" type="button">Export CSV</button>
+      <a class="btn" href="dg-northeast-jiujitsu-demo.html" target="_blank" rel="noopener">View site</a>
+      <button class="btn red" id="lock" type="button">Lock</button>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+  <div class="banner" id="banner" hidden><b>Sample data</b> &middot; No real requests yet. These 3 rows are examples so you can see how the desk works. Submit the trial form on the site and real rows appear here.</div>
+  <div class="filters" id="filters" role="group" aria-label="Filter by status"></div>
+  <div id="tableWrap"></div>
+  <p class="foot">Requests are stored in this browser (localStorage) for the demo. The live site would send them to the academy's inbox or a database.</p>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  var KEY='dg-northeast-jiujitsu_bookings',PIN='1234',FLAG='dg-northeast-jiujitsu_admin_ok';
+  var STATUS=['New','Contacted','Attended'],COLORS={New:'#2d6cdf',Contacted:'#8b46d6',Attended:'#a8642e'};
+  var $=function(i){return document.getElementById(i)};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function load(){try{var a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
+  function save(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){return false}}
+  function unlocked(){try{return sessionStorage.getItem(FLAG)==='1'}catch(e){return false}}
+  function setUnlocked(v){try{v?sessionStorage.setItem(FLAG,'1'):sessionStorage.removeItem(FLAG)}catch(e){}}
+  var toastT;function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on')},1800)}
+
+  /* ---- keypad ---- */
+  var buf='';
+  var pad=$('pad');
+  ['1','2','3','4','5','6','7','8','9','Clear','0','Del'].forEach(function(k){
+    var b=document.createElement('button');b.type='button';b.textContent=k;if(k.length>1)b.className='s';
+    b.setAttribute('data-k',k);pad.appendChild(b);
+  });
+  function paint(){var d=$('dots').children;for(var i=0;i<4;i++)d[i].className=i<buf.length?'f':''}
+  function press(k){
+    $('gmsg').textContent='';
+    if(k==='Clear')buf='';else if(k==='Del')buf=buf.slice(0,-1);else if(buf.length<4)buf+=k;
+    paint();
+    if(buf.length===4){
+      if(buf===PIN){setUnlocked(true);buf='';paint();open()}
+      else{var d=$('dots');d.classList.add('bad');$('gmsg').textContent='Wrong PIN. Try again.';setTimeout(function(){d.classList.remove('bad');buf='';paint()},450)}
+    }
+  }
+  pad.addEventListener('click',function(e){var b=e.target.closest('button');if(b)press(b.getAttribute('data-k'))});
+  document.addEventListener('keydown',function(e){
+    if($('gate').hidden)return;
+    if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key==='Backspace')press('Del');
+  });
+
+  /* ---- data ---- */
+  var SAMPLE=[
+    {id:'sample_1',name:'Sample Student One',phone:'(555) 010-0001',email:'sample1@example.com',program:'Brazilian jiu-jitsu',experience:'Beginner',day:'Monday',message:'Example only: never trained before, curious about a first class.',created:new Date(Date.now()-86400000*1).toISOString(),status:'New'},
+    {id:'sample_2',name:'Sample Parent Two',phone:'(555) 010-0002',email:'',program:'Kids program',experience:'Beginner',day:'Saturday',message:'Example only: asking about a kids class.',created:new Date(Date.now()-86400000*3).toISOString(),status:'Contacted'},
+    {id:'sample_3',name:'Sample Athlete Three',phone:'(555) 010-0003',email:'sample3@example.com',program:'Muay Thai',experience:'Advanced',day:'Any day',message:'Example only: has prior striking experience.',created:new Date(Date.now()-86400000*6).toISOString(),status:'Attended'}
+  ];
+  var filter='All',isSample=false,rows=[];
+  function fmt(iso){try{var d=new Date(iso);return d.toLocaleDateString(undefined,{month:'short',day:'numeric'})+' '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}catch(e){return iso}}
+
+  function render(){
+    var real=load();isSample=!real.length;rows=isSample?SAMPLE:real;
+    $('banner').hidden=!isSample;
+    var cnt={New:0,Contacted:0,Attended:0};rows.forEach(function(r){if(cnt[r.status]!=null)cnt[r.status]++});
+    $('cards').innerHTML=
+      '<div class="sc" style="--c:#f2efe8"><small>Total'+(isSample?' (sample)':'')+'</small><b>'+rows.length+'</b></div>'+
+      '<div class="sc" style="--c:'+COLORS.New+'"><small>New</small><b>'+cnt.New+'</b></div>'+
+      '<div class="sc" style="--c:'+COLORS.Contacted+'"><small>Contacted</small><b>'+cnt.Contacted+'</b></div>'+
+      '<div class="sc" style="--c:'+COLORS.Attended+'"><small>Attended</small><b>'+cnt.Attended+'</b></div>';
+    var f='';['All'].concat(STATUS).forEach(function(s){f+='<button class="fl" type="button" data-f="'+s+'" aria-pressed="'+(filter===s)+'">'+s+'</button>'});
+    $('filters').innerHTML=f;
+    var list=rows.slice().sort(function(a,b){return new Date(b.created)-new Date(a.created)}).filter(function(r){return filter==='All'||r.status===filter});
+    if(!list.length){$('tableWrap').innerHTML='<div class="empty">No requests with this status.</div>';return}
+    var h='<table><thead><tr><th>Student</th><th>Contact</th><th>Training</th><th>Message</th><th>Received</th><th>Status</th><th></th></tr></thead><tbody>';
+    list.forEach(function(r){
+      var s=r.id.indexOf('sample_')===0;
+      h+='<tr class="'+(s?'sample':'')+'" data-id="'+esc(r.id)+'">'+
+        '<td data-l="Student"><div class="n">'+esc(r.name)+(s?'<span class="sbadge">SAMPLE</span>':'')+'</div></td>'+
+        '<td data-l="Contact"><a href="tel:'+esc(String(r.phone).replace(/[^\d+]/g,''))+'">'+esc(r.phone)+'</a>'+(r.email?'<div class="m"><a href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a></div>':'')+'</td>'+
+        '<td data-l="Training"><span class="tagp">'+esc(r.program)+'</span><span class="tagp">'+esc(r.experience)+'</span><div class="m">Prefers: '+esc(r.day||'Any day')+'</div></td>'+
+        '<td data-l="Message" class="msg">'+(r.message?esc(r.message):'<span class="m">No message</span>')+'</td>'+
+        '<td data-l="Received"><span class="m">'+esc(fmt(r.created))+'</span></td>'+
+        '<td data-l="Status"><select class="stsel" style="--c:'+(COLORS[r.status]||'#f2efe8')+'" data-st aria-label="Status for '+esc(r.name)+'"'+(s?' disabled title="Sample rows are read-only"':'')+'>'+
+          STATUS.map(function(o){return '<option'+(o===r.status?' selected':'')+'>'+o+'</option>'}).join('')+'</select></td>'+
+        '<td data-l=""><button class="del" type="button" data-del'+(s?' disabled title="Sample rows are read-only"':'')+'>Delete</button></td></tr>';
+    });
+    $('tableWrap').innerHTML=h+'</tbody></table>';
+  }
+
+  document.addEventListener('click',function(e){
+    var f=e.target.closest('[data-f]');if(f){filter=f.getAttribute('data-f');render();return}
+    var d=e.target.closest('[data-del]');
+    if(d&&!d.disabled){
+      var id=d.closest('tr').getAttribute('data-id');
+      if(!confirm('Delete this request?'))return;
+      save(load().filter(function(r){return r.id!==id}));render();toast('Deleted');
+    }
+  });
+  document.addEventListener('change',function(e){
+    var s=e.target.closest('[data-st]');if(!s||s.disabled)return;
+    var id=s.closest('tr').getAttribute('data-id'),a=load();
+    a.forEach(function(r){if(r.id===id)r.status=s.value});save(a);render();toast('Status: '+s.value);
+  });
+  $('refresh').addEventListener('click',function(){render();toast('Refreshed')});
+  $('lock').addEventListener('click',function(){setUnlocked(false);$('app').hidden=true;$('gate').hidden=false;window.scrollTo(0,0)});
+  $('csv').addEventListener('click',function(){
+    var real=load();if(!real.length){toast('No real requests to export');return}
+    var cols=['id','name','phone','email','program','experience','day','message','created','status'];
+    var q=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"'};
+    var csv=[cols.join(',')].concat(real.map(function(r){return cols.map(function(c){return q(r[c])}).join(',')})).join('\n');
+    try{var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='trial-requests.csv';document.body.appendChild(a);a.click();a.remove()}catch(x){}
+  });
+  window.addEventListener('storage',function(e){if(e.key===KEY&&!$('app').hidden)render()});
+
+  function open(){$('gate').hidden=true;$('app').hidden=false;render()}
+  if(unlocked())open();
+})();
+</script>
+</body>
+</html>

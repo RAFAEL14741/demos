@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucky Foot Spa | Foot Reflexology &amp; Massage in Northeast Philadelphia</title>
+<meta name="description" content="Lucky Foot Spa, 2622 Rhawn St, Philadelphia. Foot reflexology and therapeutic massage in a calm, warmly lit space. Book a visit.">
+<meta name="theme-color" content="#d6e3d2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+/* .js class only when GSAP truly loaded and motion is welcome */
+(function(){
+  try{
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(window.gsap && window.ScrollTrigger && !reduce){ document.documentElement.classList.add('js'); }
+  }catch(e){}
+})();
+</script>
+<style>
+:root{
+  --ink:#12383a; --ink-2:#2d5557; --ink-3:#5b7a78;
+  --sage:#b5c8ae; --celadon:#d6e3d2; --mist:#e9f0e5;
+  --stone:#efe8dc; --sand:#e0d4bf; --paper:#f8f5ee; --clay:#a67b55;
+  --line:rgba(18,56,58,.16); --white:#fffdf8;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --gut:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{width:100%;max-width:1200px;margin-inline:auto;padding-inline:var(--gut)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+section{position:relative;scroll-margin-top:70px}
+
+/* type */
+.kicker{display:inline-flex;align-items:center;gap:.7rem;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--ink-3)}
+.kicker::before{content:"";width:34px;height:1px;background:currentColor}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.02;letter-spacing:-.01em}
+h2{font-size:clamp(2.3rem,6.2vw,4.4rem);margin:.9rem 0 1rem}
+h2 em,h1 em,h3 em{font-style:italic;font-weight:400;color:var(--ink-2)}
+.lede{font-size:1.06rem;color:var(--ink-2);max-width:52ch}
+.btn{display:inline-flex;align-items:center;gap:.7rem;padding:.95rem 1.6rem;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;font-size:.9rem;letter-spacing:.02em;cursor:pointer;transition:transform .5s var(--ease),background .4s,color .4s,box-shadow .5s var(--ease)}
+.btn svg{width:16px;height:16px;transition:transform .5s var(--ease)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.sm{padding:.6rem 1.15rem;font-size:.82rem}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(18,56,58,.55)}
+  .btn:hover svg{transform:translateX(4px)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .5s,box-shadow .5s,backdrop-filter .5s}
+.nav.scrolled{background:rgba(248,245,238,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1rem}
+.mark{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.mark svg{width:30px;height:30px;flex:none}
+.mark b{font-family:var(--serif);font-weight:600;font-size:1.45rem;letter-spacing:.01em;line-height:1}
+.mark b i{font-weight:400}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.04em;position:relative;padding:.3rem 0}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+@media (hover:hover) and (pointer:fine){.nav-links a:hover::after{transform:scaleX(1)}}
+.nav-cta{display:flex;align-items:center;gap:.6rem}
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(255,253,248,.6);cursor:pointer;position:relative}
+.burger span{position:absolute;left:13px;right:13px;height:1.5px;background:var(--ink);transition:transform .5s var(--ease),opacity .3s}
+.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:26px}
+.burger[aria-expanded=true] span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
+.burger[aria-expanded=true] span:nth-child(2){transform:translateY(-4.5px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:45;background:var(--celadon);display:flex;flex-direction:column;justify-content:center;padding:90px var(--gut) 40px;visibility:hidden;opacity:0;transition:opacity .5s var(--ease),visibility 0s .5s}
+.menu.open{visibility:visible;opacity:1;transition:opacity .5s var(--ease)}
+.menu a.big{font-family:var(--serif);font-size:clamp(2.6rem,12vw,3.6rem);line-height:1.15;text-decoration:none;display:block;border-bottom:1px solid var(--line);padding:.4rem 0}
+.menu a.big em{color:var(--ink-3)}
+.menu .m-foot{margin-top:2rem;font-size:.9rem;color:var(--ink-2)}
+@media (max-width:860px){.nav-links{display:none}.burger{display:block}.nav-cta .btn{display:none}}
+
+/* hero */
+.hero{min-height:100svh;padding:112px 0 64px;background:
+  radial-gradient(ellipse 70% 60% at 82% 38%,rgba(255,253,248,.85),transparent 70%),
+  linear-gradient(160deg,var(--celadon) 0%,var(--mist) 52%,var(--stone) 100%);
+  overflow:hidden;display:flex;align-items:center}
+.hero .wrap{position:relative;z-index:3;display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+.ripples{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.ring{position:absolute;width:var(--s,300px);height:var(--s,300px);margin:calc(var(--s,300px)/-2) 0 0 calc(var(--s,300px)/-2);border-radius:50%;border:1px solid rgba(18,56,58,.34);box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 0 0 1px rgba(255,255,255,.28);transform:scale(.02);opacity:0;animation:ring 3.6s cubic-bezier(.16,1,.3,1) var(--d,0s) forwards}
+@keyframes ring{0%{transform:scale(.02);opacity:.75}100%{transform:scale(1);opacity:0}}
+.hero-copy .kicker{margin-bottom:1.4rem}
+.hero h1{font-size:clamp(3.6rem,10.5vw,8.2rem);line-height:.92;letter-spacing:-.025em}
+.hero h1 .ln{display:block;overflow:hidden;padding:.04em .1em .16em 0;margin-bottom:-.1em}
+.hero h1 .ln>span{display:inline-block}
+.hero-sub{margin:1.8rem 0 2rem;font-size:1.1rem;max-width:44ch;color:var(--ink-2)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.4rem;font-size:.82rem;color:var(--ink-2)}
+.hero-meta span{display:inline-flex;align-items:center;gap:.5rem}
+.hero-meta svg{width:15px;height:15px}
+.hero-meta b{font-weight:700;color:var(--ink)}
+.hero-art{position:relative;justify-self:end;width:min(100%,440px)}
+.arch{position:relative;aspect-ratio:3/4;border-radius:999px 999px 26px 26px;overflow:hidden;background:linear-gradient(170deg,var(--sage),var(--stone) 70%);box-shadow:0 40px 70px -40px rgba(18,56,58,.6)}
+.arch img{width:100%;height:112%;object-fit:cover;filter:saturate(.85) contrast(.98) brightness(1.03)}
+.arch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(214,227,210,.25),rgba(18,56,58,.12));pointer-events:none}
+.orb{position:absolute;left:-15%;bottom:-6%;width:44%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:6px solid var(--paper);background:linear-gradient(140deg,var(--sand),var(--sage));box-shadow:0 24px 44px -22px rgba(18,56,58,.6)}
+.orb img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;right:-4%;top:14%;background:var(--white);border-radius:18px;padding:.8rem 1rem;box-shadow:0 20px 40px -22px rgba(18,56,58,.55);font-size:.75rem;line-height:1.35;text-align:left;max-width:150px}
+.badge strong{display:block;font-family:var(--serif);font-size:2rem;line-height:1;font-weight:600}
+.badge small{color:var(--ink-3);font-weight:500}
+.scroll-cue{position:absolute;left:50%;bottom:18px;z-index:3;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.scroll-cue i{width:1px;height:34px;background:linear-gradient(var(--ink-3),transparent);display:block;animation:cue 2.4s var(--ease) infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+@media (max-width:860px){
+  .hero{padding-top:96px;align-items:flex-start}
+  .hero .wrap{grid-template-columns:1fr;gap:2.4rem}
+  .hero-art{justify-self:center;width:min(74%,300px);margin-top:.6rem}
+  .orb{left:-12%}.badge{right:-10%}
+  .scroll-cue{display:none}
+}
+
+/* quiet band with pebbles */
+.quiet{padding:clamp(4.5rem,10vw,8rem) 0;background:var(--stone)}
+.quiet .wrap{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.pebbles{position:relative;max-width:300px;margin-inline:auto;width:100%}
+.pebbles svg{width:100%;height:auto;overflow:visible;display:block}
+.pebble-ring{fill:none;stroke:rgba(18,56,58,.25);stroke-width:1;transform-origin:120px 276px;animation:pring 4.5s ease-out infinite}
+.pebble-ring:nth-of-type(2){animation-delay:1.5s}.pebble-ring:nth-of-type(3){animation-delay:3s}
+@keyframes pring{0%{transform:scale(.7);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+.js .pebble{opacity:0}
+.quiet-copy blockquote{font-family:var(--serif);font-size:clamp(1.9rem,4.6vw,3.3rem);line-height:1.12;font-weight:400}
+.quiet-copy blockquote em{color:var(--ink-2)}
+.quiet-copy cite{display:block;margin-top:1rem;font-style:normal;font-size:.8rem;color:var(--ink-3);letter-spacing:.04em}
+.facts{display:flex;flex-wrap:wrap;gap:1rem 2.4rem;margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+.facts div{min-width:120px}
+.facts strong{display:block;font-family:var(--serif);font-size:2.3rem;line-height:1;font-weight:500}
+.facts span{font-size:.78rem;color:var(--ink-3);letter-spacing:.04em}
+.strip-photo{margin-top:2.2rem;height:clamp(150px,22vw,240px);border-radius:120px 120px 22px 22px;overflow:hidden;background:linear-gradient(120deg,var(--sage),var(--sand))}
+.strip-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.8)}
+@media (max-width:860px){.quiet .wrap{grid-template-columns:1fr}.pebbles{max-width:200px}}
+
+/* foot map */
+.map-sec{padding:clamp(4.5rem,10vw,8rem) 0;background:linear-gradient(180deg,var(--stone),var(--mist) 45%,var(--celadon))}
+.head{max-width:720px}
+.map-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(1.6rem,5vw,4.5rem);margin-top:3rem;align-items:center}
+.foot-stage{position:relative;max-width:min(100%,420px);width:100%;margin-inline:auto;aspect-ratio:300/600;}
+.foot-stage::before{content:"";position:absolute;inset:8% -14% 4% -14%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,253,248,.9),rgba(255,253,248,0) 72%);z-index:0}
+.foot-stage svg{position:relative;z-index:1;width:100%;height:100%;overflow:visible;display:block;filter:drop-shadow(0 30px 30px rgba(18,56,58,.16))}
+.zone{fill:rgba(181,200,174,.55);stroke:rgba(18,56,58,.32);stroke-width:1.2;stroke-dasharray:4 5;cursor:pointer;transition:fill .5s var(--ease),stroke .5s;outline:none}
+.zone.stroke{fill:none;stroke:rgba(120,150,120,.5);stroke-width:26;stroke-dasharray:none;stroke-linecap:round}
+.zone.on{fill:rgba(18,56,58,.78);stroke:rgba(18,56,58,.9)}
+.zone.stroke.on{fill:none;stroke:rgba(18,56,58,.78)}
+.zone:focus-visible{stroke:var(--ink);stroke-width:3;stroke-dasharray:none}
+@media (hover:hover) and (pointer:fine){
+  .zone:hover{fill:rgba(45,85,87,.55)}
+  .zone.stroke:hover{fill:none;stroke:rgba(45,85,87,.55)}
+  .zone.on:hover{fill:rgba(18,56,58,.78)}
+  .zone.stroke.on:hover{stroke:rgba(18,56,58,.78)}
+}
+.zlbl circle.n{fill:var(--white);stroke:var(--ink);stroke-width:1}
+.zlbl text{font-family:var(--sans);font-size:12px;font-weight:700;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.zlbl circle.p{fill:none;stroke:var(--ink);stroke-width:1;transform-box:fill-box;transform-origin:center;animation:zp 2.8s ease-out infinite}
+.zlbl:nth-of-type(2) circle.p{animation-delay:.5s}.zlbl:nth-of-type(3) circle.p{animation-delay:1s}.zlbl:nth-of-type(4) circle.p{animation-delay:1.5s}.zlbl:nth-of-type(5) circle.p{animation-delay:2s}
+@keyframes zp{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.4);opacity:0}}
+.map-side{min-width:0}
+@media (max-width:860px){.map-grid{grid-template-columns:1fr;gap:2rem}.foot-stage{max-width:250px}.zcard{min-height:0}}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
+.pill{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem .95rem;border-radius:999px;border:1px solid var(--line);background:rgba(255,253,248,.7);cursor:pointer;font-size:.82rem;font-weight:600;transition:background .4s,color .4s,border-color .4s}
+.pill i{font-style:normal;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--celadon);font-size:.68rem}
+.pill.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pill.on i{background:var(--paper);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.pill:not(.on):hover{border-color:var(--ink)}}
+.zcard{background:var(--white);border-radius:26px;padding:clamp(1.5rem,3.5vw,2.4rem);box-shadow:0 30px 60px -38px rgba(18,56,58,.5);border:1px solid rgba(18,56,58,.07);min-height:300px;position:relative;overflow:hidden}
+.zcard::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;border:1px solid var(--line);box-shadow:0 0 0 22px rgba(181,200,174,.14),0 0 0 44px rgba(181,200,174,.09)}
+.zcard .zn{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--ink-3)}
+.zcard h3{font-size:clamp(2rem,4.5vw,3rem);margin:.5rem 0 .9rem;position:relative;z-index:1}
+.zcard p{color:var(--ink-2);max-width:46ch;position:relative;z-index:1}
+.zcard .feel{margin:1rem 0 1.5rem;font-family:var(--serif);font-size:1.4rem;font-style:italic;line-height:1.25;color:var(--ink)}
+.zcard .btn{position:relative;z-index:1}
+.disclaim{margin-top:1rem;font-size:.75rem;color:var(--ink-3);max-width:60ch}
+
+/* services */
+.services{padding:clamp(4.5rem,10vw,8rem) 0;background:var(--celadon)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:3rem}
+.svc{position:relative;background:rgba(255,253,248,.72);border:1px solid rgba(18,56,58,.09);border-radius:24px;padding:1.8rem 1.6rem 1.5rem;display:flex;flex-direction:column;gap:.7rem;min-height:290px;transition:transform .6s var(--ease),background .5s,box-shadow .6s var(--ease);overflow:hidden}
+.svc .num{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--ink-3)}
+.svc svg.ic{width:44px;height:44px;stroke:var(--ink);fill:none;stroke-width:1.2;margin:.3rem 0}
+.svc h3{font-size:1.9rem}
+.svc p{font-size:.94rem;color:var(--ink-2);flex:1}
+.svc .foot-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border-top:1px solid var(--line);padding-top:.9rem;font-size:.78rem;color:var(--ink-3)}
+.svc button.pick{background:none;border:0;cursor:pointer;font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);padding:.4rem 0;position:relative}
+.svc button.pick::after{content:" \2192"}
+.svc.sig{background:var(--ink);color:var(--paper)}
+.svc.sig h3,.svc.sig svg.ic{color:var(--paper);stroke:var(--paper)}
+.svc.sig p,.svc.sig .num,.svc.sig .foot-row{color:rgba(248,245,238,.78)}
+.svc.sig button.pick{color:var(--paper)}
+.svc.sig .foot-row{border-color:rgba(248,245,238,.25)}
+@media (hover:hover) and (pointer:fine){.svc:hover{transform:translateY(-6px);box-shadow:0 34px 50px -34px rgba(18,56,58,.55);background:var(--white)}.svc.sig:hover{background:var(--ink)}}
+.room-note{margin-top:1.6rem;display:flex;gap:.8rem;align-items:flex-start;font-size:.9rem;color:var(--ink-2);max-width:70ch}
+.room-note svg{width:22px;height:22px;flex:none;stroke:var(--ink);fill:none;stroke-width:1.3;margin-top:2px}
+@media (max-width:960px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.svc-grid{grid-template-columns:1fr}.svc{min-height:0}}
+
+/* ritual */
+.ritual{padding:clamp(4.5rem,10vw,8rem) 0;background:linear-gradient(180deg,var(--celadon),var(--stone))}
+.tl{position:relative;margin-top:3.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
+.tl-track{position:absolute;left:0;right:0;top:17px;height:2px;background:rgba(18,56,58,.16);border-radius:2px}
+.tl-fill{position:absolute;left:0;top:17px;height:2px;width:100%;background:var(--ink);transform-origin:left center;border-radius:2px}
+.js .tl-fill{transform:scale(0,0)}
+.step{position:relative;padding-top:56px}
+.step .dot{position:absolute;top:8px;left:0;width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);box-shadow:0 0 0 6px rgba(181,200,174,.35);z-index:2}
+.step .sn{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--ink-3)}
+.step h3{font-size:2.4rem;margin:.1rem 0 .5rem}
+.step p{font-size:.94rem;color:var(--ink-2);max-width:30ch}
+.js .step{opacity:0;transform:translateY(24px)}
+.ritual .fine{margin-top:2.4rem;font-size:.78rem;color:var(--ink-3)}
+@media (max-width:860px){
+  .tl{grid-template-columns:1fr;gap:2rem;padding-left:44px}
+  .tl-track{left:9px;right:auto;top:8px;bottom:8px;width:2px;height:auto}
+  .tl-fill{left:9px;top:8px;bottom:8px;width:2px;height:auto;transform-origin:center top}
+  .step{padding-top:0}
+  .step .dot{left:-44px;top:6px}
+  .step h3{font-size:2.1rem}
+}
+
+/* guests */
+.guests{padding:clamp(4.5rem,10vw,8rem) 0;background:var(--stone)}
+.g-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.6rem}
+.rate{display:flex;align-items:center;gap:1rem;background:var(--white);padding:.9rem 1.3rem;border-radius:20px;box-shadow:0 20px 40px -30px rgba(18,56,58,.5)}
+.rate strong{font-family:var(--serif);font-size:2.6rem;line-height:1;font-weight:500}
+.rate .stars{display:flex;gap:2px;color:var(--clay)}
+.rate .stars svg{width:15px;height:15px;fill:currentColor}
+.rate small{display:block;font-size:.74rem;color:var(--ink-3)}
+.themes{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-top:2.6rem}
+.theme{grid-column:span 2;background:rgba(255,253,248,.7);border:1px solid rgba(18,56,58,.08);border-radius:22px;padding:1.5rem 1.4rem}
+.theme:nth-child(4),.theme:nth-child(5){grid-column:span 3}
+.theme h3{font-size:1.9rem;font-style:italic;font-weight:400;margin-bottom:.4rem}
+.theme p{font-size:.92rem;color:var(--ink-2)}
+.theme .tag{display:inline-block;margin-bottom:.8rem;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--ink-3)}
+.g-note{margin-top:1.4rem;font-size:.78rem;color:var(--ink-3)}
+@media (max-width:860px){.themes{grid-template-columns:1fr}.theme,.theme:nth-child(4),.theme:nth-child(5){grid-column:auto}}
+
+/* booking */
+.book{padding:clamp(4.5rem,10vw,8rem) 0;background:linear-gradient(180deg,var(--stone),var(--celadon))}
+.book-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,5vw,4.5rem);margin-top:2.6rem;align-items:start}
+.book-aside{position:sticky;top:96px}
+.aside-photo{aspect-ratio:4/5;border-radius:200px 200px 24px 24px;overflow:hidden;background:linear-gradient(160deg,var(--sage),var(--sand));margin-bottom:1.4rem;max-width:360px}
+.aside-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.8)}
+.book-aside ul{list-style:none;display:grid;gap:.7rem;font-size:.92rem;color:var(--ink-2)}
+.book-aside li{display:flex;gap:.7rem;align-items:flex-start}
+.book-aside li svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.5;flex:none;margin-top:3px}
+.form-card{background:var(--white);border-radius:30px;padding:clamp(1.4rem,4vw,2.6rem);box-shadow:0 40px 70px -46px rgba(18,56,58,.6);border:1px solid rgba(18,56,58,.07);min-width:0}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem}
+.field{display:flex;flex-direction:column;gap:.4rem;min-width:0}
+.field.full{grid-column:1/-1}
+.field label,.field .lab{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink-3)}
+.field label small,.field .lab small{text-transform:none;letter-spacing:0;font-weight:500}
+.inp{width:100%;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:.85rem 1rem;font-size:1rem;transition:border-color .3s,box-shadow .3s,background .3s;appearance:none;-webkit-appearance:none;min-width:0}
+select.inp{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%2312383a' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.6rem}
+textarea.inp{min-height:88px;resize:vertical}
+.inp:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(181,200,174,.45);background:var(--white)}
+.inp.err{border-color:#a2452f;box-shadow:0 0 0 3px rgba(162,69,47,.14)}
+.field .msg{font-size:.74rem;color:#a2452f;min-height:0}
+.flash{animation:flash 1.6s var(--ease)}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(18,56,58,.5);background:var(--celadon)}100%{box-shadow:0 0 0 14px rgba(18,56,58,0)}}
+.slots{display:flex;flex-wrap:wrap;gap:.5rem}
+.slot{padding:.6rem .95rem;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-size:.86rem;font-weight:600;cursor:pointer;transition:background .35s,color .35s,border-color .35s,transform .4s var(--ease)}
+.slot[aria-checked=true]{background:var(--ink);color:var(--paper);border-color:var(--ink);transform:translateY(-2px)}
+.slot:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+@media (hover:hover) and (pointer:fine){.slot:not(:disabled):not([aria-checked=true]):hover{border-color:var(--ink)}}
+.slot-hint{font-size:.85rem;color:var(--ink-3);font-style:italic}
+.f-foot{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;margin-top:1.6rem}
+.f-foot small{font-size:.74rem;color:var(--ink-3);max-width:34ch;line-height:1.45}
+.success{display:none;text-align:center;padding:1.5rem .5rem}
+.success.show{display:block}
+.success svg{width:84px;height:84px;margin:0 auto 1rem;display:block}
+.success h3{font-size:2.6rem;margin-bottom:.6rem}
+.success p{color:var(--ink-2);max-width:40ch;margin:0 auto 1rem}
+.sum{display:inline-grid;text-align:left;gap:.25rem;background:var(--paper);border-radius:16px;padding:1rem 1.3rem;font-size:.9rem;margin:.6rem 0 1.4rem;min-width:min(100%,290px)}
+.sum span{color:var(--ink-3);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-top:.4rem}
+.sum span:first-child{margin-top:0}
+.okring{stroke-dasharray:260;stroke-dashoffset:260;animation:dash 1.2s var(--ease) .1s forwards}
+.okchk{stroke-dasharray:60;stroke-dashoffset:60;animation:dash .8s var(--ease) .8s forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+@media (max-width:860px){.book-grid{grid-template-columns:1fr}.book-aside{position:static;display:grid;grid-template-columns:1fr;order:2}.aside-photo{display:none}.f-grid{grid-template-columns:1fr}}
+
+/* visit */
+.visit{padding:clamp(4.5rem,10vw,8rem) 0;background:var(--celadon)}
+.visit-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(1.6rem,5vw,4rem);margin-top:2.6rem;align-items:stretch}
+.hours{list-style:none;margin:1.6rem 0;border-top:1px solid var(--line)}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.85rem .2rem;border-bottom:1px solid var(--line);font-size:.98rem}
+.hours li.today{font-weight:700}
+.hours li.today span:first-child::after{content:"Today";margin-left:.7rem;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:.2rem .5rem;border-radius:99px;vertical-align:middle}
+.addr{font-style:normal;color:var(--ink-2);line-height:1.5}
+.addr b{font-family:var(--serif);font-size:1.7rem;font-weight:500;color:var(--ink);display:block;margin-bottom:.2rem}
+.call-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+.map-frame{position:relative;border-radius:28px;overflow:hidden;min-height:380px;background:linear-gradient(140deg,var(--sage),var(--sand));box-shadow:0 34px 60px -40px rgba(18,56,58,.6);border:6px solid var(--white)}
+.map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.78) sepia(.12) contrast(.96)}
+@media (max-width:860px){.visit-grid{grid-template-columns:1fr}.map-frame{min-height:320px}}
+
+/* footer */
+footer{background:var(--ink);color:rgba(248,245,238,.85);padding:clamp(3rem,7vw,5rem) 0 2rem}
+.f-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem}
+.f-word{font-family:var(--serif);font-size:clamp(3rem,10vw,6.4rem);line-height:.9;font-weight:400;color:var(--paper)}
+.f-word em{color:var(--sage)}
+.f-cols{display:grid;gap:.4rem;font-size:.9rem;min-width:220px}
+.f-cols a{text-decoration:none}
+.f-cols b{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:.3rem;display:block}
+@media (hover:hover) and (pointer:fine){.f-cols a:hover{text-decoration:underline}}
+.f-bot{margin-top:3rem;padding-top:1.4rem;border-top:1px solid rgba(248,245,238,.18);font-size:.76rem;color:rgba(248,245,238,.62);display:grid;gap:.4rem}
+
+/* reveal (only when gsap is present) */
+.js [data-reveal]{opacity:0;transform:translateY(30px)}
+.js .ln>span{transform:translateY(112%)}
+.js [data-hero]{opacity:0;transform:translateY(24px)}
+.js .hero-art{opacity:0}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.ring{display:none}}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Lucky Foot Spa, home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#12383a" stroke-width="1"/><ellipse cx="20" cy="27" rx="10" ry="3.6" fill="#12383a"/><ellipse cx="20.6" cy="20.6" rx="7.4" ry="2.9" fill="#6f8f8c"/><ellipse cx="19.6" cy="14.6" rx="4.8" ry="2.2" fill="#b5c8ae"/></svg>
+      <b>Lucky <i>Foot</i> Spa</b>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#map">Foot map</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#ritual">Ritual</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn sm" href="#book">Book now</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Mobile menu">
+  <a class="big" href="#map">Foot <em>map</em></a>
+  <a class="big" href="#services">Services</a>
+  <a class="big" href="#ritual">The <em>ritual</em></a>
+  <a class="big" href="#book">Book <em>now</em></a>
+  <a class="big" href="#visit">Visit</a>
+  <p class="m-foot">2622 Rhawn St, Philadelphia &middot; <a href="tel:+12678860588">(267) 886-0588</a></p>
+</nav>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero" id="hero" aria-label="Welcome">
+  <div class="ripples" id="ripples" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="kicker" data-hero>Foot reflexology &amp; massage &middot; Northeast Philly</div>
+      <h1 aria-label="Find your still water.">
+        <span class="ln" aria-hidden="true"><span>Find your</span></span>
+        <span class="ln" aria-hidden="true"><span><em>still</em> water.</span></span>
+      </h1>
+      <p class="hero-sub" data-hero>A quiet room, warm light and unhurried hands. Foot reflexology and therapeutic massage on Rhawn Street.</p>
+      <div class="hero-actions" data-hero>
+        <a class="btn" href="#book">Book a visit <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h13M9 3l5 5-5 5"/></svg></a>
+        <a class="btn ghost" href="#map">Explore the foot map</a>
+      </div>
+      <div class="hero-meta" data-hero>
+        <span><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2.1 4.6 5 .6-3.7 3.4 1 5L8 12l-4.4 2.6 1-5L.9 6.2l5-.6z"/></svg><b>4.7</b> on Google (211 reviews)</span>
+        <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.5"/><path d="M8 4v4l2.6 1.6"/></svg><b id="todayHours">Mon&ndash;Sat 10am&ndash;9pm</b></span>
+      </div>
+    </div>
+    <div class="hero-art" id="heroArt">
+      <div class="arch"><img id="parA" src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=1200&q=75" alt="Feet resting with flowers in a spa setting" onerror="imgFail(this)"></div>
+      <div class="orb"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=75" alt="Smooth stones and greenery in soft light" onerror="imgFail(this)"></div>
+      <div class="badge"><strong>4.7</strong>Google rating<br><small>211 reviews</small></div>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">Scroll<i></i></div>
+</section>
+
+<!-- QUIET / PEBBLES -->
+<section class="quiet" id="about" aria-label="About">
+  <div class="wrap">
+    <div class="pebbles" id="pebbles">
+      <svg viewBox="0 0 240 310" role="img" aria-label="A balanced stack of five smooth pebbles">
+        <ellipse class="pebble-ring" cx="120" cy="276" rx="90" ry="14"/>
+        <ellipse class="pebble-ring" cx="120" cy="276" rx="90" ry="14"/>
+        <ellipse class="pebble-ring" cx="120" cy="276" rx="90" ry="14"/>
+        <ellipse cx="122" cy="282" rx="80" ry="9" fill="rgba(18,56,58,.14)"/>
+        <g class="pebble"><ellipse cx="120" cy="258" rx="88" ry="30" fill="#a8b8a0"/><ellipse cx="98" cy="248" rx="34" ry="8" fill="#c3d0bb" opacity=".7"/></g>
+        <g class="pebble"><ellipse cx="126" cy="218" rx="68" ry="25" fill="#c9bba5"/><ellipse cx="108" cy="210" rx="26" ry="6" fill="#ddd2c0" opacity=".75"/></g>
+        <g class="pebble"><ellipse cx="116" cy="184" rx="52" ry="20" fill="#6f8f8c"/><ellipse cx="102" cy="177" rx="20" ry="5" fill="#93aeab" opacity=".7"/></g>
+        <g class="pebble"><ellipse cx="121" cy="156" rx="38" ry="16" fill="#e0d6c4"/><ellipse cx="111" cy="151" rx="14" ry="4" fill="#f0e9db" opacity=".8"/></g>
+        <g class="pebble"><ellipse cx="119" cy="134" rx="25" ry="12" fill="#2d5557"/><ellipse cx="112" cy="130" rx="9" ry="3" fill="#5b7a78" opacity=".8"/></g>
+      </svg>
+    </div>
+    <div class="quiet-copy">
+      <span class="kicker" data-reveal>Quiet by design</span>
+      <blockquote data-reveal style="margin-top:1rem">&ldquo;Philadelphia&rsquo;s go-to destination for <em>massage</em> since 2018.&rdquo;
+        <cite>Lucky Foot Spa&rsquo;s own words, per the owner&rsquo;s page.</cite>
+      </blockquote>
+      <div class="facts" data-reveal>
+        <div><strong>4.7</strong><span>Google rating &middot; 211 reviews</span></div>
+        <div><strong>6</strong><span>massage styles</span></div>
+        <div><strong>1</strong><span>private room, plus shared chairs</span></div>
+      </div>
+      <div class="strip-photo" data-reveal><img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=1200&q=75" alt="Folded towels and a candle in a softly lit spa" loading="lazy" onerror="imgFail(this)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOT MAP -->
+<section class="map-sec" id="map" aria-label="Reflexology foot map">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker" data-reveal>The reflexology map</span>
+      <h2 data-reveal>Where does your <em>day</em> live in your feet?</h2>
+      <p class="lede" data-reveal>Reflexology traditions map areas of the foot to parts of the body. Tap a zone to see what it is traditionally associated with, then choose a focus for your visit.</p>
+    </div>
+    <div class="map-grid">
+      <div class="foot-stage" data-reveal>
+        <svg viewBox="0 0 300 600" id="footSvg" role="group" aria-label="Interactive foot map, five zones">
+          <defs>
+            <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6efe2"/><stop offset="1" stop-color="#e2d5bd"/></linearGradient>
+            <clipPath id="footClip">
+              <path d="M92 250C70 275 78 330 92 380C104 420 100 450 98 490C96 545 120 585 158 585C200 585 222 545 218 495C214 450 222 410 232 360C242 310 248 265 232 235C215 205 120 205 92 250Z"/>
+              <ellipse cx="98" cy="188" rx="31" ry="40"/><ellipse cx="148" cy="160" rx="19" ry="29"/><ellipse cx="182" cy="170" rx="17" ry="26"/><ellipse cx="212" cy="185" rx="15" ry="23"/><ellipse cx="235" cy="208" rx="13" ry="19"/>
+            </clipPath>
+            <g id="footShape">
+              <path d="M92 250C70 275 78 330 92 380C104 420 100 450 98 490C96 545 120 585 158 585C200 585 222 545 218 495C214 450 222 410 232 360C242 310 248 265 232 235C215 205 120 205 92 250Z"/>
+              <ellipse cx="98" cy="188" rx="31" ry="40"/><ellipse cx="148" cy="160" rx="19" ry="29"/><ellipse cx="182" cy="170" rx="17" ry="26"/><ellipse cx="212" cy="185" rx="15" ry="23"/><ellipse cx="235" cy="208" rx="13" ry="19"/>
+            </g>
+          </defs>
+          <use href="#footShape" fill="none" stroke="#12383a" stroke-width="5" stroke-linejoin="round"/>
+          <use href="#footShape" fill="url(#skin)"/>
+          <g clip-path="url(#footClip)">
+            <rect class="zone" data-zone="toes" x="0" y="100" width="300" height="118" tabindex="0" role="button" aria-label="Toes, head and mind"/>
+            <ellipse class="zone" data-zone="ball" cx="160" cy="278" rx="120" ry="62" tabindex="0" role="button" aria-label="Ball of the foot, chest and shoulders"/>
+            <ellipse class="zone" data-zone="arch" cx="160" cy="402" rx="76" ry="54" tabindex="0" role="button" aria-label="Arch, digestion and center"/>
+            <ellipse class="zone" data-zone="heel" cx="158" cy="528" rx="80" ry="68" tabindex="0" role="button" aria-label="Heel, lower back and hips"/>
+            <path class="zone stroke" data-zone="spine" d="M96 250C84 320 108 400 104 470" tabindex="0" role="button" aria-label="Inner edge, back and spine"/>
+          </g>
+          <g pointer-events="none">
+            <g class="zlbl"><circle class="p" cx="150" cy="150" r="11"/><circle class="n" cx="150" cy="150" r="11"/><text x="150" y="150.5">1</text></g>
+            <g class="zlbl"><circle class="p" cx="170" cy="278" r="11"/><circle class="n" cx="170" cy="278" r="11"/><text x="170" y="278.5">2</text></g>
+            <g class="zlbl"><circle class="p" cx="170" cy="402" r="11"/><circle class="n" cx="170" cy="402" r="11"/><text x="170" y="402.5">3</text></g>
+            <g class="zlbl"><circle class="p" cx="97" cy="358" r="11"/><circle class="n" cx="97" cy="358" r="11"/><text x="97" y="358.5">4</text></g>
+            <g class="zlbl"><circle class="p" cx="158" cy="528" r="11"/><circle class="n" cx="158" cy="528" r="11"/><text x="158" y="528.5">5</text></g>
+          </g>
+        </svg>
+      </div>
+      <div class="map-side" data-reveal>
+        <div class="pills" id="pills" role="tablist" aria-label="Foot zones"></div>
+        <div class="zcard" id="zcard" aria-live="polite">
+          <div class="zn" id="zN">Start here</div>
+          <h3 id="zT">Tap a <em>numbered</em> zone.</h3>
+          <p id="zD">Each area of the foot is traditionally linked to a part of the body. Pick one that matches how you feel today and we will pass it to your booking.</p>
+          <div class="feel" id="zF" hidden></div>
+          <button class="btn" id="zBook" type="button" hidden>Book this focus <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h13M9 3l5 5-5 5"/></svg></button>
+        </div>
+        <p class="disclaim">Reflexology is a relaxation practice based on tradition. It is not a medical treatment and does not diagnose, treat or cure any condition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services" aria-label="Services">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker" data-reveal>Services</span>
+      <h2 data-reveal>Six ways to <em>slow down.</em></h2>
+      <p class="lede" data-reveal>Every service is about unhurried, comfortable pressure. Prices are shared when you book, and will appear here once the owner confirms them.</p>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+    <p class="room-note" data-reveal><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12M9 21v-7h6v7"/></svg>A private room is available, alongside shared reflexology chairs. Ask for the room when you book, and the team will confirm.</p>
+  </div>
+</section>
+
+<!-- RITUAL -->
+<section class="ritual" id="ritual" aria-label="The ritual">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker" data-reveal>The ritual</span>
+      <h2 data-reveal>Four <em>quiet</em> movements.</h2>
+      <p class="lede" data-reveal>A visit is meant to feel like a slow exhale, from the door to the last few minutes of rest.</p>
+    </div>
+    <div class="tl" id="tl">
+      <div class="tl-track" aria-hidden="true"></div>
+      <div class="tl-fill" id="tlFill" aria-hidden="true"></div>
+      <article class="step"><i class="dot"></i><div class="sn">i.</div><h3>Arrive</h3><p>Step in from Rhawn Street to warm lighting, soft music and a friendly hello.</p></article>
+      <article class="step"><i class="dot"></i><div class="sn">ii.</div><h3>Soak</h3><p>Settle in and let the feet warm and soften before the work begins.</p></article>
+      <article class="step"><i class="dot"></i><div class="sn">iii.</div><h3>Reflexology</h3><p>Steady, thoughtful pressure across the zones of the foot, at a level you choose.</p></article>
+      <article class="step"><i class="dot"></i><div class="sn">iv.</div><h3>Rest</h3><p>A few still minutes before you go. Sip water, breathe, step back out lighter.</p></article>
+    </div>
+    <p class="fine" data-reveal>Illustrative flow. The exact steps for each service are confirmed by the spa at booking.</p>
+  </div>
+</section>
+
+<!-- GUESTS -->
+<section class="guests" id="guests" aria-label="What guests say">
+  <div class="wrap">
+    <div class="g-top">
+      <div class="head">
+        <span class="kicker" data-reveal>What guests say</span>
+        <h2 data-reveal>The same <em>five things,</em> again and again.</h2>
+      </div>
+      <div class="rate" data-reveal>
+        <strong>4.7</strong>
+        <div><div class="stars" aria-label="4.7 out of 5 stars"><svg viewBox="0 0 16 16"><path d="M8 1l2.1 4.6 5 .6-3.7 3.4 1 5L8 12l-4.4 2.6 1-5L.9 6.2l5-.6z"/></svg><svg viewBox="0 0 16 16"><path d="M8 1l2.1 4.6 5 .6-3.7 3.4 1 5L8 12l-4.4 2.6 1-5L.9 6.2l5-.6z"/></svg><svg viewBox="0 0 16 16"><path d="M8 1l2.1 4.6 5 .6-3.7 3.4 1 5L8 12l-4.4 2.6 1-5L.9 6.2l5-.6z"/></svg><svg viewBox="0 0 16 16"><path d="M8 1l2.1 4.6 5 .6-3.7 3.4 1 5L8 12l-4.4 2.6 1-5L.9 6.2l5-.6z"/></svg><svg viewBox="0 0 16 16"><path d="M8 1l2.1 4.6 5 .6-3.7 3.4 1 5L8 12l-4.4 2.6 1-5L.9 6.2l5-.6z"/></svg></div><small>Google &middot; 211 reviews</small></div>
+      </div>
+    </div>
+    <div class="themes">
+      <div class="theme" data-reveal><span class="tag">Theme 01</span><h3>Clean &amp; calm</h3><p>Guests often describe the space as spotless and relaxing.</p></div>
+      <div class="theme" data-reveal><span class="tag">Theme 02</span><h3>Peaceful atmosphere</h3><p>A quiet, unhurried room that helps the day fall away.</p></div>
+      <div class="theme" data-reveal><span class="tag">Theme 03</span><h3>Welcoming staff</h3><p>Reviews regularly mention a warm, friendly welcome.</p></div>
+      <div class="theme" data-reveal><span class="tag">Theme 04</span><h3>Warm light, soft music</h3><p>Soothing music and warm lighting set the mood from the door.</p></div>
+      <div class="theme" data-reveal><span class="tag">Theme 05</span><h3>Affordable prices</h3><p>Guests call the prices affordable for the care they receive.</p></div>
+    </div>
+    <p class="g-note">Themes summarized from public Google and Yelp reviews. No individual quotes are shown.</p>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="book" id="book" aria-label="Book a visit">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker" data-reveal>Book a visit</span>
+      <h2 data-reveal>Pick a <em>moment.</em></h2>
+      <p class="lede" data-reveal>Send a request and the spa will confirm your time by phone or text.</p>
+    </div>
+    <div class="book-grid">
+      <aside class="book-aside" data-reveal>
+        <div class="aside-photo"><img src="https://images.unsplash.com/photo-1675159364615-38e1f6b62282?auto=format&fit=crop&w=1200&q=75" alt="Hands giving a foot massage with oil on a white towel" loading="lazy" onerror="imgFail(this)"></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mon&ndash;Sat 10am&ndash;9pm &middot; Sun 2pm&ndash;8pm</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>Prefer to talk? <a href="tel:+12678860588">(267) 886-0588</a></li>
+          <li><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>2622 Rhawn St, Philadelphia, PA 19152</li>
+        </ul>
+      </aside>
+      <div class="form-card" data-reveal>
+        <form id="bookForm" novalidate>
+          <div class="f-grid">
+            <div class="field"><label for="fName">Name</label><input class="inp" id="fName" name="name" autocomplete="name" required><span class="msg" data-for="fName"></span></div>
+            <div class="field"><label for="fPhone">Phone</label><input class="inp" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(215) 555-0123" required><span class="msg" data-for="fPhone"></span></div>
+            <div class="field"><label for="fService">Service</label><select class="inp" id="fService" name="service" required></select><span class="msg" data-for="fService"></span></div>
+            <div class="field"><label for="fFocus">Focus area <small>(optional, from the foot map)</small></label><select class="inp" id="fFocus" name="focus"></select></div>
+            <div class="field"><label for="fDate">Date</label><input class="inp" id="fDate" name="date" type="date" required><span class="msg" data-for="fDate"></span></div>
+            <div class="field"><label for="fParty">Party size</label><select class="inp" id="fParty" name="party"></select></div>
+            <div class="field full"><span class="lab" id="slotLab">Time <small id="slotNote">(choose a date first)</small></span>
+              <div class="slots" id="slots" role="radiogroup" aria-labelledby="slotLab"><span class="slot-hint">Pick a date to see open times.</span></div>
+              <span class="msg" id="slotMsg"></span></div>
+            <div class="field full"><label for="fNotes">Notes <small>(optional: pressure, private room, allergies to oils...)</small></label><textarea class="inp" id="fNotes" name="notes" rows="3"></textarea></div>
+          </div>
+          <div class="f-foot">
+            <small>This is a demo request form. Your details are stored only in this browser.</small>
+            <button class="btn" type="submit">Request booking <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h13M9 3l5 5-5 5"/></svg></button>
+          </div>
+        </form>
+        <div class="success" id="success" role="status" aria-live="polite">
+          <svg viewBox="0 0 84 84" aria-hidden="true"><circle class="okring" cx="42" cy="42" r="40" fill="none" stroke="#12383a" stroke-width="1.5"/><path class="okchk" d="M26 43l11 11 21-24" fill="none" stroke="#12383a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Request <em>received.</em></h3>
+          <p>Thank you, <b id="sName"></b>. The spa will reach out to confirm your time.</p>
+          <div class="sum" id="sSum"></div><br>
+          <button class="btn ghost" type="button" id="again">Book another</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit" id="visit" aria-label="Hours and location">
+  <div class="wrap">
+    <span class="kicker" data-reveal>Visit</span>
+    <h2 data-reveal>Come as <em>you are.</em></h2>
+    <div class="visit-grid">
+      <div data-reveal>
+        <address class="addr"><b>Lucky Foot Spa</b>2622 Rhawn St<br>Philadelphia, PA 19152</address>
+        <ul class="hours" id="hours">
+          <li data-d="1,2,3,4,5,6"><span>Monday &ndash; Saturday</span><span>10:00 am &ndash; 9:00 pm</span></li>
+          <li data-d="0"><span>Sunday</span><span>2:00 pm &ndash; 8:00 pm</span></li>
+        </ul>
+        <div class="call-row">
+          <a class="btn" href="tel:+12678860588"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>Call (267) 886-0588</a>
+          <a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=2622+Rhawn+St+Philadelphia+PA+19152" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </div>
+      <div class="map-frame" data-reveal>
+        <iframe title="Map to Lucky Foot Spa, 2622 Rhawn St, Philadelphia" src="https://www.google.com/maps?q=2622+Rhawn+St+Philadelphia+PA+19152&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-word">Lucky <em>Foot</em><br>Spa.</div>
+      <div class="f-cols">
+        <b>Find us</b>
+        <span>2622 Rhawn St, Philadelphia, PA 19152</span>
+        <a href="tel:+12678860588">(267) 886-0588</a>
+        <span>Mon&ndash;Sat 10am&ndash;9pm &middot; Sun 2pm&ndash;8pm</span>
+        <a href="#book">Book a visit</a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>Photos are stock placeholders until we shoot your spa.</span>
+      <span>Website concept shown for review. Service prices, the private-room details and the &ldquo;since 2018&rdquo; line are to be confirmed by the owner.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function imgFail(el){ try{ el.onerror=null; el.style.display='none'; }catch(e){} }
+
+/* ---------- storage ---------- */
+var KEY='lucky-foot-spa_bookings', mem=[];
+function loadB(){ try{ var r=localStorage.getItem(KEY); var a=r?JSON.parse(r):[]; return Array.isArray(a)?a:[]; }catch(e){ return mem.slice(); } }
+function saveB(a){ mem=a.slice(); try{ localStorage.setItem(KEY,JSON.stringify(a)); }catch(e){} }
+
+/* ---------- data ---------- */
+var ZONES={
+  toes:{n:1,t:'Toes',short:'Head & mind',d:'The toes are traditionally associated with the head, the sinuses and a busy mind.',f:'For when your thoughts will not settle.',focus:'Toes: head & mind'},
+  ball:{n:2,t:'Ball of the foot',short:'Chest & shoulders',d:'This padded area is traditionally associated with the chest, the breath and the shoulders.',f:'For tight shoulders and shallow breathing after a long day.',focus:'Ball of foot: chest & shoulders'},
+  arch:{n:3,t:'Arch',short:'Digestion & center',d:'The arch is traditionally associated with the middle of the body and the digestive area.',f:'For a settled, grounded center.',focus:'Arch: digestion & center'},
+  spine:{n:4,t:'Inner edge',short:'Back & spine',d:'Tradition maps the inner edge of the foot, from big toe to heel, to the spine.',f:'For backs that carry the day: desks, driving, standing.',focus:'Inner edge: back & spine'},
+  heel:{n:5,t:'Heel',short:'Lower back & hips',d:'The heel is traditionally associated with the lower back, the hips and a feeling of being grounded.',f:'For a low, heavy ache after time on your feet.',focus:'Heel: lower back & hips'}
+};
+var ORDER=['toes','ball','arch','spine','heel'];
+var SERVICES=[
+ {id:'Foot reflexology',d:'Our signature. Slow, thoughtful pressure across the whole foot, following the reflexology map.',sig:1,ic:'<path d="M14 6c-4 2-6 8-5 14s0 14 6 16 12-2 12-8-2-8-1-14-8-10-12-8z"/><circle cx="12" cy="33" r="0.6"/>'},
+ {id:'Body massage',d:'Flowing, medium-pressure relaxation for the back, shoulders, arms and legs.',ic:'<path d="M6 30c6-8 10-8 16 0s10 8 16 0"/><path d="M6 20c6-8 10-8 16 0s10 8 16 0"/>'},
+ {id:'Deep tissue',d:'Slower, firmer work for areas that hold tension. Tell us your pressure and we adjust.',ic:'<circle cx="22" cy="22" r="14"/><circle cx="22" cy="22" r="8"/><circle cx="22" cy="22" r="2.5"/>'},
+ {id:'Hot stone',d:'Warm, smooth stones rest and glide to help the body let go of tension.',ic:'<ellipse cx="22" cy="32" rx="14" ry="5"/><ellipse cx="23" cy="24" rx="10" ry="4"/><ellipse cx="21" cy="17" rx="6" ry="3"/>'},
+ {id:'Couples massage',d:'Share a calm hour side by side. Ask about the private room when booking.',ic:'<circle cx="15" cy="22" r="10"/><circle cx="29" cy="22" r="10"/>'},
+ {id:'Combo massage',d:'Foot reflexology and body massage together in one unhurried visit.',ic:'<path d="M8 32c4-14 12-22 28-22-2 16-10 24-28 22z"/><path d="M8 32L26 16"/>'}
+];
+var SLOTS_ALL=[10,11,12,13,14,15,16,17,18,19,20], SLOTS_SUN=[14,15,16,17,18,19];
+function lbl(h){ var s=h>=12?'PM':'AM', hh=h%12===0?12:h%12; return hh+':00 '+s; }
+
+/* ---------- build UI ---------- */
+(function build(){
+  var g=document.getElementById('svcGrid'), html='';
+  SERVICES.forEach(function(s,i){
+    html+='<article class="svc'+(s.sig?' sig':'')+'" data-reveal><span class="num">0'+(i+1)+'</span><svg class="ic" viewBox="0 0 44 44" aria-hidden="true">'+s.ic+'</svg><h3>'+s.id+'</h3><p>'+s.d+'</p><div class="foot-row"><span>Price shared at booking</span><button type="button" class="pick" data-svc="'+s.id+'">Choose</button></div></article>';
+  });
+  g.innerHTML=html;
+  var sel=document.getElementById('fService'); sel.innerHTML='<option value="">Choose a service</option>'+SERVICES.map(function(s){return '<option>'+s.id+'</option>'}).join('');
+  var fo=document.getElementById('fFocus'); fo.innerHTML='<option value="">No particular focus</option>'+ORDER.map(function(k){return '<option>'+ZONES[k].focus+'</option>'}).join('');
+  var p=document.getElementById('fParty'); p.innerHTML=[1,2,3,4,5,6].map(function(n){return '<option value="'+n+'">'+n+(n===1?' person':' people')+'</option>'}).join('');
+  var pills=document.getElementById('pills'); pills.innerHTML=ORDER.map(function(k){return '<button type="button" class="pill" role="tab" aria-selected="false" data-zone="'+k+'"><i>'+ZONES[k].n+'</i>'+ZONES[k].short+'</button>'}).join('');
+  /* today hours */
+  var d=new Date().getDay(), th=document.getElementById('todayHours');
+  th.textContent = d===0 ? 'Today 2pm–8pm' : 'Today 10am–9pm';
+  document.querySelectorAll('#hours li').forEach(function(li){ if(li.getAttribute('data-d').split(',').indexOf(String(d))>-1) li.classList.add('today'); });
+  var dt=document.getElementById('fDate'), t=new Date(); t.setMinutes(t.getMinutes()-t.getTimezoneOffset()); dt.min=t.toISOString().slice(0,10);
+})();
+
+/* ---------- foot map ---------- */
+var curZone=null;
+function selectZone(k,silent){
+  var z=ZONES[k]; if(!z) return; curZone=k;
+  document.querySelectorAll('#footSvg .zone').forEach(function(el){ el.classList.toggle('on',el.getAttribute('data-zone')===k); });
+  document.querySelectorAll('#pills .pill').forEach(function(el){ var on=el.getAttribute('data-zone')===k; el.classList.toggle('on',on); el.setAttribute('aria-selected',on); });
+  var card=document.getElementById('zcard');
+  var apply=function(){
+    document.getElementById('zN').textContent='Zone '+z.n+' of 5';
+    document.getElementById('zT').innerHTML=z.t+' <em>&middot; '+z.short+'</em>';
+    document.getElementById('zD').textContent=z.d;
+    var f=document.getElementById('zF'); f.hidden=false; f.textContent='“'+z.f+'”';
+    document.getElementById('zBook').hidden=false;
+  };
+  if(window.gsap && document.documentElement.classList.contains('js') && !silent){
+    gsap.to(card,{opacity:0,y:8,duration:.18,ease:'power3.out',onComplete:function(){ apply(); gsap.to(card,{opacity:1,y:0,duration:.6,ease:'expo.out'}); }});
+  } else apply();
+}
+document.getElementById('footSvg').addEventListener('click',function(e){ var z=e.target.closest('.zone'); if(z) selectZone(z.getAttribute('data-zone')); });
+document.getElementById('footSvg').addEventListener('keydown',function(e){ if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('zone')){ e.preventDefault(); selectZone(e.target.getAttribute('data-zone')); } });
+document.getElementById('pills').addEventListener('click',function(e){ var b=e.target.closest('.pill'); if(b) selectZone(b.getAttribute('data-zone')); });
+
+var lenis=null;
+function goTo(sel){
+  var el=document.querySelector(sel); if(!el) return;
+  if(lenis) lenis.scrollTo(el,{offset:-64,duration:1.4}); else el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function flash(el){ el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+document.getElementById('zBook').addEventListener('click',function(){
+  if(!curZone) return;
+  var fo=document.getElementById('fFocus'); fo.value=ZONES[curZone].focus;
+  var sv=document.getElementById('fService'); if(!sv.value) sv.value='Foot reflexology';
+  goTo('#book'); setTimeout(function(){ flash(fo); },900);
+});
+document.getElementById('svcGrid').addEventListener('click',function(e){
+  var b=e.target.closest('.pick'); if(!b) return;
+  var sv=document.getElementById('fService'); sv.value=b.getAttribute('data-svc'); goTo('#book'); setTimeout(function(){ flash(sv); },900);
+});
+
+/* ---------- booking form ---------- */
+var chosenTime='';
+function isoLocalParts(v){ var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v); return m?new Date(+m[1],+m[2]-1,+m[3]):null; }
+function buildSlots(){
+  var wrap=document.getElementById('slots'), note=document.getElementById('slotNote'), v=document.getElementById('fDate').value, dd=isoLocalParts(v);
+  chosenTime=''; document.getElementById('slotMsg').textContent='';
+  if(!dd){ wrap.innerHTML='<span class="slot-hint">Pick a date to see open times.</span>'; note.textContent='(choose a date first)'; return; }
+  var sun=dd.getDay()===0, list=sun?SLOTS_SUN:SLOTS_ALL, now=new Date(), same=dd.toDateString()===now.toDateString();
+  note.textContent=sun?'(Sunday: 2pm–8pm)':'(Mon–Sat: 10am–9pm)';
+  wrap.innerHTML=list.map(function(h){ var past=same&&h<=now.getHours(); return '<button type="button" class="slot" role="radio" aria-checked="false" data-t="'+lbl(h)+'"'+(past?' disabled':'')+'>'+lbl(h)+'</button>'; }).join('');
+}
+document.getElementById('fDate').addEventListener('change',buildSlots);
+document.getElementById('slots').addEventListener('click',function(e){
+  var b=e.target.closest('.slot'); if(!b||b.disabled) return;
+  chosenTime=b.getAttribute('data-t');
+  document.querySelectorAll('#slots .slot').forEach(function(s){ s.setAttribute('aria-checked',s===b?'true':'false'); });
+  document.getElementById('slotMsg').textContent='';
+});
+document.getElementById('fPhone').addEventListener('input',function(e){
+  var d=e.target.value.replace(/\D/g,'').slice(0,10), o=d;
+  if(d.length>6) o='('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6); else if(d.length>3) o='('+d.slice(0,3)+') '+d.slice(3); else if(d.length>0) o='('+d;
+  e.target.value=o;
+});
+function setErr(id,m){ var el=document.getElementById(id), msg=document.querySelector('.msg[data-for="'+id+'"]'); el.classList.toggle('err',!!m); if(msg) msg.textContent=m||''; return !m; }
+document.getElementById('bookForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=e.target, v=function(n){return (f.elements[n].value||'').trim();};
+  var ok=true;
+  ok=setErr('fName',v('name').length<2?'Please add your name.':'')&&ok;
+  ok=setErr('fPhone',v('phone').replace(/\D/g,'').length<10?'Please add a 10-digit phone number.':'')&&ok;
+  ok=setErr('fService',!v('service')?'Please choose a service.':'')&&ok;
+  ok=setErr('fDate',!v('date')?'Please choose a date.':'')&&ok;
+  if(!chosenTime){ document.getElementById('slotMsg').textContent=v('date')?'Please choose a time.':'Choose a date, then a time.'; ok=false; }
+  if(!ok){ var first=f.querySelector('.err'); if(first) first.focus(); return; }
+  var rec={id:'b'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),name:v('name'),phone:v('phone'),service:v('service'),focus:v('focus'),date:v('date'),time:chosenTime,party:parseInt(v('party'),10)||1,notes:v('notes'),created:new Date().toISOString(),status:'New'};
+  var all=loadB(); all.push(rec); saveB(all);
+  showSuccess(rec);
+});
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+function showSuccess(r){
+  var dd=isoLocalParts(r.date), ds=dd?dd.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}):r.date;
+  document.getElementById('sName').textContent=r.name.split(' ')[0];
+  document.getElementById('sSum').innerHTML='<span>Service</span>'+esc(r.service)+(r.focus?'<span>Focus</span>'+esc(r.focus):'')+'<span>When</span>'+esc(ds)+' at '+esc(r.time)+'<span>Party</span>'+r.party;
+  document.getElementById('bookForm').style.display='none';
+  var s=document.getElementById('success'); s.classList.add('show');
+  if(window.gsap&&document.documentElement.classList.contains('js')) gsap.fromTo(s,{opacity:0,y:20},{opacity:1,y:0,duration:.9,ease:'expo.out'});
+  goTo('#book');
+}
+document.getElementById('again').addEventListener('click',function(){
+  var f=document.getElementById('bookForm'); f.reset(); f.style.display=''; document.getElementById('success').classList.remove('show'); buildSlots();
+  document.querySelectorAll('.inp.err').forEach(function(x){x.classList.remove('err')});
+});
+
+/* ---------- menu ---------- */
+var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+function setMenu(o){ burger.setAttribute('aria-expanded',o); burger.setAttribute('aria-label',o?'Close menu':'Open menu'); menu.classList.toggle('open',o); if(lenis){ o?lenis.stop():lenis.start(); } document.documentElement.style.overflow=o&&!lenis?'hidden':''; }
+burger.addEventListener('click',function(){ setMenu(burger.getAttribute('aria-expanded')!=='true'); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') setMenu(false); });
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[href^="#"]'); if(!a) return;
+  var h=a.getAttribute('href'); if(h.length<2){ return; }
+  e.preventDefault(); setMenu(false); goTo(h);
+});
+window.addEventListener('scroll',function(){ document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20); },{passive:true});
+setInterval(function(){ var n=document.getElementById('nav'); if(n) n.classList.toggle('scrolled',(window.scrollY||document.documentElement.scrollTop)>20); },150);
+
+/* ---------- hero ripples (CSS-driven, works without GSAP) ---------- */
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var box=document.getElementById('ripples'), hero=document.getElementById('hero'); if(!box||reduce) return;
+  var visible=true, last=0, lx=-99, ly=-99;
+  function drop(x,y,size){
+    if(box.children.length>36) return;
+    [0,.45,.9].forEach(function(d,i){
+      var r=document.createElement('span'); r.className='ring';
+      r.style.left=x+'px'; r.style.top=y+'px'; r.style.setProperty('--s',(size*(1+i*.28))+'px'); r.style.setProperty('--d',d+'s');
+      r.addEventListener('animationend',function(){ r.remove(); }); box.appendChild(r);
+    });
+  }
+  function pos(e){ var b=hero.getBoundingClientRect(); return [e.clientX-b.left,e.clientY-b.top]; }
+  hero.addEventListener('pointerdown',function(e){ if(e.target.closest('a,button')) return; var p=pos(e); drop(p[0],p[1],340); });
+  hero.addEventListener('pointermove',function(e){
+    if(e.pointerType==='touch') return;
+    var n=performance.now(), p=pos(e); if(n-last<420||Math.hypot(p[0]-lx,p[1]-ly)<90) return;
+    last=n; lx=p[0]; ly=p[1]; drop(p[0],p[1],220);
+  });
+  if('IntersectionObserver' in window) new IntersectionObserver(function(en){ visible=en[0].isIntersecting; }).observe(hero);
+  function idle(){
+    if(visible&&!document.hidden){ var b=hero.getBoundingClientRect(); drop(b.width*(.15+Math.random()*.7),b.height*(.2+Math.random()*.6),260+Math.random()*180); }
+    setTimeout(idle,2600+Math.random()*1800);
+  }
+  setTimeout(function(){ var b=hero.getBoundingClientRect(); drop(b.width*.7,b.height*.45,380); idle(); },500);
+})();
+
+/* ---------- motion ---------- */
+(function(){
+  var root=document.documentElement;
+  if(!root.classList.contains('js')) return;
+  try{
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.defaults({ease:'power3.out'});
+    if(window.Lenis){
+      lenis=new Lenis({lerp:.09,wheelMultiplier:.95});
+      lenis.on('scroll',ScrollTrigger.update);
+      gsap.ticker.add(function(t){ lenis.raf(t*1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+    /* hero intro */
+    var tl=gsap.timeline({defaults:{ease:'expo.out'}});
+    tl.to('.hero h1 .ln>span',{y:0,opacity:1,duration:1.5,stagger:.14},.1)
+      .to('[data-hero]',{opacity:1,y:0,duration:1.1,stagger:.1},.5)
+      .to('.hero-art',{opacity:1,duration:1.2},.2)
+      .from('.arch',{clipPath:'inset(100% 0 0 0 round 999px 999px 26px 26px)',duration:1.6},.2)
+      .from('.orb',{scale:.4,opacity:0,duration:1.3},.9)
+      .from('.badge',{y:30,opacity:0,duration:1.1},1.1);
+    gsap.set('.hero-art',{opacity:1}); /* keep arch clip-path reveal visible */
+    var mm=gsap.matchMedia();
+    mm.add({desk:'(min-width:861px)',mob:'(max-width:860px)'},function(ctx){
+      var desk=ctx.conditions.desk;
+      /* parallax */
+      if(desk){
+        gsap.to('#parA',{yPercent:-9,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+        gsap.to('.orb',{y:-40,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+      }
+      /* reveals */
+      gsap.utils.toArray('[data-reveal]').forEach(function(el,i){
+        gsap.to(el,{opacity:1,y:0,duration:1.2,ease:'expo.out',delay:desk?0:0,scrollTrigger:{trigger:el,start:'top 90%',once:true}});
+      });
+      /* pebbles assemble */
+      var pebs=gsap.utils.toArray('.pebble');
+      gsap.set(pebs,{y:-260,opacity:0});
+      var pt=gsap.timeline({scrollTrigger:{trigger:'#pebbles',start:'top 75%',once:true}});
+      pt.to(pebs.slice().reverse(),{y:0,opacity:1,duration:1.3,ease:'expo.out',stagger:.22});
+      /* ritual timeline draws */
+      var fill=document.getElementById('tlFill'), steps=gsap.utils.toArray('.step');
+      if(desk){ gsap.set(fill,{scaleX:0,scaleY:1}); gsap.to(fill,{scaleX:1,ease:'none',scrollTrigger:{trigger:'#tl',start:'top 78%',end:'bottom 60%',scrub:.6}}); }
+      else { gsap.set(fill,{scaleY:0,scaleX:1}); gsap.to(fill,{scaleY:1,ease:'none',scrollTrigger:{trigger:'#tl',start:'top 78%',end:'bottom 70%',scrub:.6}}); }
+      steps.forEach(function(s,i){
+        gsap.to(s,{opacity:1,y:0,duration:1.1,ease:'expo.out',delay:desk?i*.12:0,scrollTrigger:{trigger:desk?'#tl':s,start:desk?'top 80%':'top 88%',once:true}});
+      });
+    });
+    setTimeout(function(){ ScrollTrigger.refresh(); },1200);
+    window.addEventListener('load',function(){ ScrollTrigger.refresh(); });
+  }catch(err){
+    root.classList.remove('js'); if(lenis){ try{lenis.destroy()}catch(e){} lenis=null; }
+    console.warn('Motion disabled:',err);
+  }
+})();
+/* failsafe: if anything is still hidden after 6s, show it */
+setTimeout(function(){
+  if(!document.documentElement.classList.contains('js')) return;
+  document.querySelectorAll('[data-reveal],.step,[data-hero],.pebble').forEach(function(el){ if(getComputedStyle(el).opacity==='0' && el.getBoundingClientRect().top<innerHeight*1.2){ el.style.opacity=1; el.style.transform='none'; } });
+},6000);
+</script>
+</body>
+</html>
