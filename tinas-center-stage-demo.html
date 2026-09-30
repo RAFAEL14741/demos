@@ -15,10 +15,10 @@ DEMO CONCEPT NOTES - facts marked [CONFIRM] with the owner (shown on the page on
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tina's Center Stage Studio of Dance | Kids &amp; family dance in Mayfair, Philadelphia</title>
 <meta name="description" content="Tina's Center Stage Studio of Dance at 3401 Friendship St in Mayfair, Northeast Philadelphia. Weekly combination dance classes for ages 3 and up, themed birthday parties and summer camps. 5.0 stars on Google. Register online.">
-<meta name="theme-color" content="#faf6ef">
+<meta name="theme-color" content="#fff8f1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Fredoka:wght@400;500;600&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"DanceSchool","name":"Tina's Center Stage Studio of Dance","address":{"@type":"PostalAddress","streetAddress":"3401 Friendship St","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19149","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"10"},"sameAs":["https://www.instagram.com/tinascstagedance/"]}
 </script>
@@ -319,20 +319,201 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
 .credit{padding-top:28px;font-size:.78rem;color:rgba(250,246,239,.55);letter-spacing:.03em}
 #cf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:150;display:none}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}.bulbs i{animation:none;opacity:.8}}
+
+/* ===================== CUTE LAYER (pastel, round, playful) ===================== */
+:root{--cream:#fff8f1;--cream2:#fdeee2;--blush:#fbd3da;--pink:#f6a8b8;--peach:#ffd9bf;--butter:#fff0b3;--butter-l:#fff6d8;--sky:#d3ebf6;
+  --rose:#f0a0b2;--rose-d:#b8455f;--mu:#4e5877;--rln:rgba(240,160,178,.75);
+  --round:'Fredoka','Baloo 2','Nunito','Trebuchet MS',sans-serif;
+  --serif:'Fraunces','Cormorant Garamond',Georgia,'Times New Roman',serif}
+body{font-weight:400}
+.serif,.h1 .l2,.h2,.tk h3,.sched h3,.ok h3,.vc .v,.logo span,.drawer .big,.bignum,.ft .t,.tk-stub a{font-variation-settings:"SOFT" 100,"WONK" 1}
+.serif{font-weight:600;line-height:1.05;letter-spacing:-.01em}
+.h2{font-size:clamp(2.4rem,5.4vw,4.7rem)}
+.h1 .l2{font-weight:600;font-size:clamp(2.3rem,4.7vw,4.5rem);letter-spacing:-.015em}
+.h1 .l3{font-family:var(--round);font-weight:500;letter-spacing:.34em;color:var(--rose-d);font-size:clamp(.66rem,1vw,.82rem)}
+.logo span{font-weight:700;font-size:1.22rem}
+.logo svg{width:34px;height:34px}
+.logo small,.eb,.links a,.tk-top,.call small,.f label,.f legend,.vc small,.tag,.ph,.tk-stub .tu,.srow.hd,.hintd,.drawer .dn,.demo,.stockn{font-family:var(--round)}
+.eb{font-weight:500;letter-spacing:.2em;font-size:.78rem;gap:12px}
+.eb::before{width:16px;height:16px;background:var(--pink);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.scrap-h .eb::before{display:block}
+.links a{font-weight:500;letter-spacing:.1em;font-size:.82rem}
+.links a::after{height:3px;border-radius:3px;bottom:2px;background:var(--pink)}
+nav.top.solid{background:rgba(255,248,241,.92);box-shadow:0 6px 0 -3px var(--blush)}
+.burger{border-color:rgba(17,26,53,.25);background:#fff}
+.drawer{background:var(--navy)}
+.drawer .big{font-weight:600}
+
+/* pill buttons */
+.btn{font-family:var(--round);font-weight:500;letter-spacing:.06em;text-transform:none;font-size:1rem;min-height:54px;padding:12px 32px;box-shadow:0 5px 0 rgba(17,26,53,.16)}
+.btn.sm{font-size:.9rem;min-height:46px;padding:9px 22px;box-shadow:0 4px 0 rgba(17,26,53,.14)}
+.btn.rose{background:var(--pink);border-color:var(--pink);color:var(--navy)}
+.btn.ghost{background:#fff;border:2px solid var(--navy);box-shadow:0 5px 0 rgba(17,26,53,.12)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{background:var(--rose-d);border-color:var(--rose-d);color:#fff}
+  .btn.ghost:hover{background:var(--pink);color:var(--navy);border-color:var(--navy)}
+}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(17,26,53,.16)}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.dark :focus-visible,footer :focus-visible,.drawer :focus-visible{outline-color:var(--pink)}
+.line{stroke:var(--pink);stroke-width:2}
+
+/* doodles */
+.dd{position:absolute;width:var(--w,48px);pointer-events:none;z-index:0}
+.dd svg{display:block;width:100%;height:auto;aspect-ratio:1;overflow:visible;transform:rotate(var(--r,0deg));animation-duration:var(--t,7.5s);animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-delay:calc(var(--d,0)*1s)}
+.dd svg.fl{animation-name:fl}.dd svg.wg{animation-name:wg;animation-duration:calc(var(--t,7.5s)*.85)}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-10px) rotate(calc(var(--r,0deg) + 3deg))}}
+@keyframes wg{0%,100%{transform:rotate(calc(var(--r,0deg) - 6deg))}50%{transform:rotate(calc(var(--r,0deg) + 6deg))}}
+.wrap{z-index:1}
+@media(max-width:820px){.dd{width:calc(var(--w,48px)*.66)}}
+
+/* pre-loader: pastel curtain */
+.pre{background:#fff1ea}
+.pre-spot{background:radial-gradient(circle,rgba(246,168,184,.42),rgba(255,201,163,.16) 42%,transparent 66%)}
+.pre-word{color:var(--navy);font-weight:600;font-variation-settings:"SOFT" 100,"WONK" 1}
+.pre-word i{color:var(--rose-d)}
+.pre-word small{font-family:var(--round);color:rgba(17,26,53,.7)}
+.pre-floor{background:linear-gradient(90deg,transparent,var(--pink),transparent);height:3px;border-radius:3px}
+.drape{background:linear-gradient(90deg,rgba(184,69,95,.22),transparent 8%,transparent 92%,rgba(184,69,95,.22)),repeating-linear-gradient(90deg,#f7b3c2 0,#fbc7d0 26px,#f39fb4 58px,#f9bccb 84px,#f7b3c2 112px);box-shadow:0 0 50px rgba(184,69,95,.3)}
+.drape::after{background:#fff;opacity:.8;width:3px}
+.valance{background:linear-gradient(#f28aa5,#f7a9bc);border-bottom:0;box-shadow:0 10px 30px rgba(184,69,95,.3)}
+.valance::after{background:radial-gradient(circle at 50% 0,#f7a9bc 0 15px,transparent 16px) 0 0/40px 16px repeat-x;filter:none;height:16px}
+.tug b{color:#fff;text-shadow:0 3px 0 rgba(184,69,95,.55)}
+.tug span{font-family:var(--round);color:var(--navy);opacity:.75}
+
+.spot{background:radial-gradient(circle,rgba(246,168,184,.34),rgba(255,201,163,.14) 42%,transparent 66%)}
+
+/* hero */
+.sign{border:3px dashed var(--pink);border-radius:52px;background:rgba(255,255,255,.72);box-shadow:0 0 0 8px rgba(251,211,218,.55),0 30px 50px -30px rgba(184,69,95,.35);margin-bottom:22px}
+.bulbs i{width:9px;height:9px;margin:-4.5px 0 0 -4.5px;background:var(--pink);box-shadow:0 0 0 2px #fff,0 0 8px 2px rgba(246,168,184,.5)}
+.bulbs i:nth-child(4n+2){background:#ffc9a3;box-shadow:0 0 0 2px #fff,0 0 8px 2px rgba(255,201,163,.6)}
+.bulbs i:nth-child(4n+3){background:#ffd95e;box-shadow:0 0 0 2px #fff,0 0 8px 2px rgba(255,217,94,.6)}
+.bulbs i:nth-child(4n){background:#9fd3ea;box-shadow:0 0 0 2px #fff,0 0 8px 2px rgba(159,211,234,.6)}
+.tagline{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px;font-family:var(--round);font-weight:500;font-size:1.02rem;letter-spacing:.06em;color:var(--rose-d)}
+.tagline span{background:var(--butter);border-radius:40px;padding:4px 16px;color:var(--navy);box-shadow:0 3px 0 rgba(17,26,53,.1)}
+.tagline span:nth-of-type(2){background:var(--blush)}.tagline span:nth-of-type(3){background:var(--peach)}
+.tagline svg{width:24px;height:24px;overflow:visible}
+.hero-lead{color:var(--mu)}
+.arch{background:linear-gradient(165deg,#fbd3da,#ffd9bf 60%,#fff0b3);border:5px solid #fff;box-shadow:0 30px 60px -30px rgba(184,69,95,.5)}
+.arch-frame{border:3px dashed var(--pink)}
+.dance-w{color:#fff;text-shadow:0 3px 0 rgba(184,69,95,.5),0 2px 24px rgba(17,26,53,.35)}
+
+/* stickers */
+.stk{position:absolute;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:var(--round);color:var(--navy);border:5px solid #fff;box-shadow:0 0 0 1.5px rgba(17,26,53,.1),0 16px 26px -10px rgba(17,26,53,.4);cursor:pointer;-webkit-tap-highlight-color:transparent;line-height:1.05}
+.stk.s-g{left:-6%;bottom:8%;width:124px;height:124px;border-radius:50%;background:var(--butter)}
+.stk.s-g b{font-size:2.2rem;font-weight:600}.stk.s-g span{color:#e09a00;font-size:.72rem;letter-spacing:.1em;margin:2px 0}.stk.s-g small{font-size:.72rem;font-weight:500}
+.stk.s-age{left:-7%;top:5%;width:108px;height:108px;border-radius:50%;background:var(--pink);z-index:5}
+.stk.s-age small{font-size:.86rem;font-weight:500}.stk.s-age b{font-size:1.5rem;font-weight:600}
+.stk.s-tina{right:-4%;bottom:22%;padding:8px 22px 4px;border-radius:44px;background:var(--sky)}
+.stk.s-tina .sc{font-size:2rem;color:var(--navy);padding:.05em .1em}
+@media (hover:hover) and (pointer:fine){.stk{transition:box-shadow .7s}.stk:hover{box-shadow:0 0 0 1.5px rgba(17,26,53,.1),0 22px 30px -10px rgba(17,26,53,.45)}}
+@media(max-width:960px){.stk.s-g{left:-2px;width:104px;height:104px}.stk.s-g b{font-size:1.8rem}.stk.s-age{left:-2px;width:92px;height:92px}.stk.s-age b{font-size:1.25rem}.stk.s-tina{right:-4px}.stk.s-tina .sc{font-size:1.7rem}}
+
+/* intro */
+.pic{border:5px solid #fff}
+.intro-img .pic{background:linear-gradient(180deg,#fbd3da,#ffd9bf);box-shadow:0 30px 60px -30px rgba(184,69,95,.45)}
+.intro-img::before{border:3px dashed var(--pink)}
+.intro-img .wr{color:#fff;text-shadow:0 3px 0 rgba(184,69,95,.5),0 2px 22px rgba(17,26,53,.35)}
+.calls{border-top:0;gap:22px}
+.call{border-radius:38px;padding:clamp(26px,3vw,40px) 20px clamp(22px,2.6vw,32px);box-shadow:0 8px 0 rgba(17,26,53,.07)}
+.call+.call{border-left:0}
+.call.c1{background:var(--blush);transform:rotate(-1.5deg)}.call.c2{background:var(--butter);transform:rotate(1deg)}.call.c3{background:var(--peach);transform:rotate(-1deg)}
+.call small{font-weight:500;letter-spacing:.14em;color:var(--navy);opacity:.78}
+@media(max-width:820px){.call+.call{border-top:0}.call{padding:26px 20px}}
+
+/* tickets */
+.tk-in{border-radius:32px}
+.t1 .tk-in{background:#fdd9df}.t2 .tk-in{background:#ffe6d2}.t3 .tk-in{background:#fff3c4}
+.tk{filter:drop-shadow(0 0 1px rgba(17,26,53,.55)) drop-shadow(0 22px 26px rgba(184,69,95,.16))}
+.tk-top{font-weight:500;letter-spacing:.16em}
+.tk-ico{width:66px;height:66px;background:#fff;border-radius:50%;padding:13px;box-shadow:0 4px 0 rgba(17,26,53,.08)}
+.tk-stub{border-top:3px dotted #fff}
+.tk h3{font-weight:600}
+.tk p{color:var(--mu)}
+.tk-age{font-size:2.1rem}
+.ph{font-weight:500;background:#fff;border:2px dashed var(--pink);letter-spacing:.02em}
+.tk-stub .tu{letter-spacing:.06em;text-transform:none;font-size:.86rem;font-weight:500}
+.sched{border:3px dashed var(--pink);border-radius:44px;background:#fff}
+.sched h3{font-weight:600}
+.srow i{background:linear-gradient(90deg,var(--blush),var(--peach));height:12px}
+.srow.hd{letter-spacing:.14em;font-weight:500}
+
+/* scalloped dividers */
+.rate,.reg{overflow:visible}
+.rate{background:var(--blush);--sc:var(--cream);--me:var(--blush)}
+.reg{background:var(--peach);color:var(--navy);--sc:var(--butter-l);--me:var(--peach)}
+.scrap{background:var(--butter-l)}
+footer{--sc:var(--cream)}
+.rate::before,.reg::before,footer::before{content:"";position:absolute;left:0;right:0;top:-1px;height:24px;background:radial-gradient(circle at 50% 0,var(--sc) 0 19px,transparent 20px) 0 0/46px 24px repeat-x;z-index:3;pointer-events:none}
+.rate::after,.reg::after{content:"";position:absolute;left:0;right:0;top:calc(100% - 1px);height:24px;background:radial-gradient(circle at 50% 0,var(--me) 0 19px,transparent 20px) 0 0/46px 24px repeat-x;z-index:3;pointer-events:none}
+
+/* reviews */
+.bignum{font-style:italic;font-weight:700;color:var(--rose-d);text-shadow:0 6px 0 rgba(255,255,255,.75)}
+.stars svg{width:38px;height:38px;overflow:visible}
+.rate p{color:var(--navy);opacity:.8}
+
+/* scrapbook */
+.pol{border-radius:22px;padding:12px 12px 18px;box-shadow:0 0 0 1px rgba(17,26,53,.06),0 26px 40px -24px rgba(184,69,95,.5)}
+.pol:nth-child(1),.pol:nth-child(4){background:#fff}.pol:nth-child(2){background:#ffe9ef}.pol:nth-child(3){background:#fff}.pol:nth-child(5){background:#e8f5fb}.pol:nth-child(6){background:#fff}
+.pol figure{border-radius:14px;background:linear-gradient(160deg,var(--blush),var(--peach))}
+.pol figcaption{color:var(--rose-d)}
+.hintd{letter-spacing:.14em}
+
+/* register */
+.reg .eb{color:var(--rose-d)}
+.reg .h2 em,.reg .h2 .sc{color:var(--rose-d)}
+.reg-l p{color:var(--navy);opacity:.85}
+.steps div{border-top:2px dotted rgba(17,26,53,.25);font-size:1.02rem}
+.steps div:last-child{border-bottom:2px dotted rgba(17,26,53,.25)}
+.steps div::before{font-family:var(--round);font-style:normal;font-weight:600;font-size:1.2rem;color:var(--navy);background:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 3px 0 rgba(17,26,53,.12)}
+.tina .sc{color:var(--rose-d)}
+.card{border-radius:44px;background:#fff;box-shadow:0 30px 60px -30px rgba(184,69,95,.55),0 8px 0 rgba(17,26,53,.07)}
+.card::before{border:3px dashed var(--pink);border-radius:34px}
+.f label,.f legend{font-weight:500;letter-spacing:.12em;font-size:.78rem}
+.f input[type=text],.f input[type=number],.f input[type=tel]{border:2px solid rgba(17,26,53,.16);border-radius:22px;background:var(--cream);font-weight:400}
+.f input:focus{border-color:var(--pink);box-shadow:0 0 0 5px rgba(246,168,184,.35)}
+.chips span{font-family:var(--round);font-weight:500;border:2px solid rgba(17,26,53,.18);background:var(--cream)}
+.chips input:checked+span{background:var(--pink);color:var(--navy);border-color:var(--navy);box-shadow:0 3px 0 rgba(17,26,53,.15)}
+.chips input:focus-visible+span{outline:3px solid var(--navy)}
+.ok svg{stroke:var(--rose-d);stroke-width:2.5}
+.recap{border-top:2px dotted var(--rln);border-bottom:2px dotted var(--rln)}
+
+/* visit + footer */
+.vc{border-top:2px dotted var(--rln)}.vc:last-child{border-bottom:2px dotted var(--rln)}
+.vc .v{font-weight:600}
+.tag{border:2px dashed var(--pink);font-weight:500}
+.map{border-radius:44px;border:6px solid #fff;box-shadow:0 0 0 2px var(--rln),0 24px 50px -30px rgba(184,69,95,.5)}
+footer{padding-top:clamp(90px,10vw,130px)}
+footer .t .sc{color:var(--pink)}
+.ft .t{font-weight:600}
+.ft address a{border-bottom:2px solid var(--pink)}
+@media (prefers-reduced-motion:reduce){.dd svg{animation:none}}
+
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="d-star" viewBox="0 0 48 48"><g fill="var(--f,#ffd95e)" stroke="var(--o,#111a35)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 4.5l5.4 12.3 13.3 1.3-10 8.9 2.9 13.1L24 33.1 12.4 40.1l2.9-13.1-10-8.9 13.3-1.3z"/></g></symbol>
+<symbol id="d-heart" viewBox="0 0 48 48"><g fill="var(--f,#f6a8b8)" stroke="var(--o,#111a35)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 41.5C8 30.5 4.5 20 9 13.8c4.3-5.6 12-4.6 15 2.4 3-7 10.7-8 15-2.4 4.5 6.2 1 16.7-15 27.7z"/><path d="M13 16c1.5-2 4-2.6 6-1.8" fill="none"/></g></symbol>
+<symbol id="d-bow" viewBox="0 0 48 48"><g fill="var(--f,#f6a8b8)" stroke="var(--o,#111a35)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 22C15 8 4 10 5.5 22c1.2 11 11 13 18.5 2z"/><path d="M24 22C33 8 44 10 42.5 22c-1.2 11-11 13-18.5 2z"/><path d="M22 27l-6 14 5-2 3 3M26 27l6 14-5-2-3 3" fill="var(--f2,#ffd9bf)"/><circle cx="24" cy="23.5" r="4.5"/></g></symbol>
+<symbol id="d-slipper" viewBox="0 0 48 48"><g fill="var(--f,#f6a8b8)" stroke="var(--o,#111a35)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M5 33c1-7 7-12 14-10 4 1 6 4 10 6 5 3 13 3 14 8 .5 4-3 5-8 5H11c-5 0-7-4-6-9z"/><path d="M14 26c4 2 7 5 8 10M20 24c3 3 6 6 6 12" fill="none" stroke-width="1.6"/><path d="M19 23C16 15 20 9 28 6c-1 6-2 11 1 20" fill="none"/><path d="M8 41h32" fill="none" stroke-width="1.6"/></g></symbol>
+<symbol id="d-tutu" viewBox="0 0 48 48"><g fill="var(--f,#f6a8b8)" stroke="var(--o,#111a35)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M18 5h12l-2 13H20z"/><path d="M20 18C10 20 4 27 3 37c5 3 10 1 14 3 4 2 10 2 14 0 4-2 9 0 14-3-1-10-7-17-17-19z" fill="var(--f2,#ffd9bf)"/><path d="M15 27c2 4 2 8 1 12M24 21v20M33 27c-2 4-2 8-1 12" fill="none" stroke-width="1.5"/></g></symbol>
+<symbol id="d-note" viewBox="0 0 48 48"><g fill="var(--f,#d3ebf6)" stroke="var(--o,#111a35)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M17 36V10l22-5v26" fill="none"/><ellipse cx="12" cy="36" rx="6" ry="4.8"/><ellipse cx="34" cy="31" rx="6" ry="4.8"/><path d="M17 16l22-5" /></g></symbol>
+<symbol id="d-cloud" viewBox="0 0 48 48"><g fill="var(--f,#d3ebf6)" stroke="var(--o,#111a35)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 37c-6 0-9-4-8-9 1-5 6-7 10-6 1-7 8-11 15-8 5 2 7 6 7 9 6 0 10 4 9 9-1 4-4 5-8 5z"/><path d="M15 30c1-2 3-3 5-3" fill="none" stroke-width="1.6"/></g></symbol>
+<symbol id="d-spark" viewBox="0 0 48 48"><g fill="var(--f,#fff0b3)" stroke="var(--o,#111a35)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 3c1.5 11 8 19 21 21-13 2-19.5 10-21 21-1.5-11-8-19-21-21C16 22 22.5 14 24 3z"/></g></symbol>
+<symbol id="d-dancer" viewBox="0 0 48 48"><g fill="none" stroke="var(--o,#111a35)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><circle cx="24" cy="8.5" r="4.5" fill="var(--f,#ffd9bf)"/><path d="M24 13.5v11M24 17l-10-7M24 17l10-9M22 30l-6 12M27 30l9 10"/><path d="M24 22l-8 8h16z" fill="var(--f2,#f6a8b8)"/></g></symbol>
+</defs></svg>
 
 <div class="pre" id="pre" aria-hidden="true">
   <div class="pre-stage"><div class="pre-spot" id="preSpot"></div><div class="pre-word" id="preWord"><i>Tina&rsquo;s</i>Center Stage<small>Studio of Dance</small></div><div class="pre-floor" id="preFloor"></div></div>
   <div class="drape l" id="drL"></div><div class="drape r" id="drR"></div>
   <div class="valance" id="valance"></div>
-  <div class="tug" id="tug"><b>welcome</b><span>the show begins</span></div>
+  <div class="tug" id="tug"><b>welcome</b><span>let&rsquo;s dance</span></div>
 </div>
 
 <nav class="top" id="nav">
   <a href="#top" class="logo" aria-label="Tina's Center Stage Studio of Dance, home">
-    <svg viewBox="0 0 40 40" aria-hidden="true"><path class="line" d="M20 3c1 9 8 16 17 17-9 1-16 8-17 17-1-9-8-16-17-17 9-1 16-8 17-17z" style="stroke-width:1.4"/></svg>
+    <svg viewBox="0 0 48 48" aria-hidden="true"><use href="#d-heart" style="--f:#f6a8b8"/></svg>
     <span>Tina&rsquo;s Center Stage<small>Studio of Dance</small></span>
   </a>
   <div class="links"><a href="#about">About</a><a href="#programs">Programs</a><a href="#scrapbook">Photos</a><a href="#register">Register</a><a href="#visit">Visit</a></div>
@@ -344,11 +525,13 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
   <div class="spot" id="spot" aria-hidden="true"></div>
 
   <header class="hero" id="top">
-    <span class="deco" style="right:1%;bottom:3%;width:150px" data-s="-60" aria-hidden="true"><svg viewBox="0 0 160 100"><g class="line" style="stroke-width:1.2"><path d="M14 72C40 82 90 82 132 62"/><path d="M132 62C149 55 152 39 140 33 128 27 112 36 100 42"/><path d="M100 42C84 49 66 52 52 44"/><path d="M14 72C8 58 14 40 26 32 36 26 46 30 52 44"/><path d="M26 32C30 23 42 23 47 32"/><path d="M28 36C16 14 58-2 74 14 88 26 98 6 110 3"/><path d="M36 38C42 60 62 72 76 88"/></g></svg></span>
-    <span class="deco hm" style="left:47%;top:11%;width:34px" data-s="-110" aria-hidden="true"><svg viewBox="0 0 40 40"><path class="line" d="M20 2c1 10 8 17 18 18-10 1-17 8-18 18-1-10-8-17-18-18 10-1 17-8 18-18z"/></svg></span>
-    <span class="deco hm" style="right:3.5%;top:13%;width:20px" data-s="-80" aria-hidden="true"><svg viewBox="0 0 40 40"><path class="line" d="M20 2c1 10 8 17 18 18-10 1-17 8-18 18-1-10-8-17-18-18 10-1 17-8 18-18z"/></svg></span>
-    <span class="deco" style="left:46%;bottom:7%;width:190px" data-s="-40" aria-hidden="true"><svg viewBox="0 0 180 50"><path class="line" d="M2 34C30 -6 60 60 96 22S150 6 178 30"/><path class="line" d="M2 40C30 0 60 66 96 28S150 12 178 36" style="opacity:.5"/></svg></span>
-    <span class="deco" style="left:3%;bottom:8%;width:24px" data-s="-130" aria-hidden="true"><svg viewBox="0 0 40 40"><path class="line" d="M20 2c1 10 8 17 18 18-10 1-17 8-18 18-1-10-8-17-18-18 10-1 17-8 18-18z"/></svg></span>
+<span class="dd deco hm" style="left:46%;top:9%;--w:96px;--r:0deg;--d:-1" aria-hidden="true"><svg class="fl" style="--f:#bfe3f2"><use href="#d-cloud"/></svg></span>
+    <span class="dd deco" style="left:3%;bottom:9%;--w:40px;--r:-10deg;--d:-3" aria-hidden="true"><svg class="wg" style="--f:#ffd95e"><use href="#d-star"/></svg></span>
+    <span class="dd deco hm" style="right:3%;top:12%;--w:38px;--r:10deg;--d:-2" aria-hidden="true"><svg class="fl" style="--f:#f6a8b8"><use href="#d-heart"/></svg></span>
+    <span class="dd deco hm" style="left:2%;top:24%;--w:50px;--r:-12deg;--d:-4" aria-hidden="true"><svg class="wg" style="--f:#f6a8b8"><use href="#d-bow"/></svg></span>
+    <span class="dd deco" style="right:1.5%;bottom:5%;--w:54px;--r:8deg;--d:-1" aria-hidden="true"><svg class="fl" style="--f:#bfe3f2"><use href="#d-note"/></svg></span>
+    <span class="dd deco hm" style="left:44%;bottom:5%;--w:60px;--r:0deg;--d:-2" aria-hidden="true"><svg class="wg" style="--f:#ffc9a3;--f2:#f6a8b8"><use href="#d-dancer"/></svg></span>
+    <span class="dd deco hm" style="left:38%;top:5%;--w:30px;--r:0deg;--d:-5" aria-hidden="true"><svg class="fl" style="--f:#fff0b3"><use href="#d-spark"/></svg></span>
     <div class="wrap">
       <div class="hero-l">
         <div class="eb hi">Mayfair &middot; Northeast Philadelphia</div>
@@ -356,25 +539,30 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
           <div class="bulbs" id="bulbs" aria-hidden="true"></div>
           <h1 class="h1" id="h1"><span class="l1"><span class="wr" id="l1w">Tina&rsquo;s</span></span><span class="l2">Center Stage</span><span class="l3">Studio of Dance</span></h1>
         </div>
+        <div class="tagline hi" aria-label="Twirl, giggle, shine"><span>Twirl</span><svg><use href="#d-heart" style="--f:#f6a8b8"/></svg><span>giggle</span><svg><use href="#d-star" style="--f:#ffd95e"/></svg><span>shine</span></div>
         <p class="hero-lead hi">A warm first stage for little dancers. Weekly <b>combination dance classes for ages 3 and up</b>, themed birthday parties and summer camps, run by <span class="sc">Miss Tina</span> right here in Mayfair.</p>
-        <div class="hero-cta hi"><a href="#register" class="btn">Register your dancer</a><a href="#programs" class="btn ghost">See the programs</a></div>
+        <div class="hero-cta hi"><a href="#register" class="btn">Let&rsquo;s dance! Register</a><a href="#programs" class="btn ghost">See the programs</a></div>
       </div>
       <div class="hero-r">
         <div class="arch-wrap">
           <div class="arch-frame" aria-hidden="true"></div>
           <div class="arch hi" id="arch"><img src="https://images.unsplash.com/photo-1779617926288-fde3f7fb7b5d?auto=format&fit=crop&w=1000&q=75" data-fb="1758671916868-b853bc18d031" data-w="1000" alt="Bright ballet studio with soft pink curtains and a wooden barre" fetchpriority="high" onerror="imgFb(this)"></div>
           <span class="dance-w sc wr" id="danceW" aria-hidden="true">dance</span>
-          <div class="seal hi" role="img" aria-label="5.0 stars from 10 Google reviews"><b>5.0</b><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>10 Google reviews</small></div>
-          <div class="note-h hi" aria-hidden="true"><span class="sc wr" id="ageW">Ages 3 and up</span><svg class="draw" viewBox="0 0 110 56"><path class="line" pathLength="1" d="M6 6C40 0 84 10 92 44"/><path class="line" pathLength="1" d="M80 36l12 10 6-15"/></svg></div>
+          <button class="stk s-g hi" data-r="-8" type="button" aria-label="5.0 stars from 10 Google reviews. Tap for confetti"><b>5.0</b><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span><small>on Google</small></button>
+          <button class="stk s-age hi" data-r="7" type="button" aria-label="Ages 3 and up. Tap for confetti"><small>Ages</small><b>3 &amp; up!</b></button>
+          <button class="stk s-tina hi" data-r="-5" type="button" aria-label="Miss Tina. Tap for confetti"><span class="sc">Miss Tina</span></button>
         </div>
       </div>
     </div>
   </header>
 
   <section class="sec intro" id="about">
+  <span class="dd fx " style="right:4%;top:7%;--w:78px;--r:12deg;--d:-2" aria-hidden="true"><svg class="wg" style="--f:#f6a8b8;--f2:#ffc9a3"><use href="#d-slipper"/></svg></span>
+  <span class="dd fx hm" style="left:2%;bottom:34%;--w:70px;--r:-8deg;--d:-4" aria-hidden="true"><svg class="fl" style="--f:#f6a8b8;--f2:#ffc9a3"><use href="#d-tutu"/></svg></span>
+  <span class="dd fx " style="left:44%;top:6%;--w:34px;--r:0deg;--d:-1" aria-hidden="true"><svg class="fl" style="--f:#fff0b3"><use href="#d-spark"/></svg></span>
     <div class="wrap">
       <div>
-        <div class="eb">A first stage</div>
+        <div class="eb">Tiny dancers welcome</div>
         <h2 class="serif h2 bl">A first stage for <em>little dancers.</em></h2>
         <p class="lede fx">Every dancer begins somewhere. At Tina&rsquo;s Center Stage in Mayfair, that first stage is a friendly neighborhood studio, run by Miss Tina, with weekly combination classes for dancers ages 3 and up.</p>
         <p class="lede fx">Whether your child is stepping into a first class, celebrating with a themed birthday party, or spending part of the summer at camp, this is a place to move, play and shine.</p>
@@ -385,14 +573,17 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
         <span class="sc wr" id="fsW" aria-hidden="true">first steps</span>
       </div>
       <div class="calls">
-        <div class="call fx"><span class="sc">Ages 3 and up</span><small>Weekly combination classes</small></div>
-        <div class="call fx"><span class="sc">Miss Tina</span><small>Runs the studio</small></div>
-        <div class="call fx"><span class="sc">5.0 on Google</span><small>From 10 reviews</small></div>
+        <div class="call c1 fx"><span class="sc">Ages 3 and up</span><small>Weekly combination classes</small></div>
+        <div class="call c2 fx"><span class="sc">Miss Tina</span><small>Runs the studio</small></div>
+        <div class="call c3 fx"><span class="sc">5.0 on Google</span><small>From 10 reviews</small></div>
       </div>
     </div>
   </section>
 
   <section class="sec programs" id="programs">
+  <span class="dd fx hm" style="left:1%;top:5%;--w:100px;--r:0deg;--d:-2" aria-hidden="true"><svg class="fl" style="--f:#bfe3f2"><use href="#d-cloud"/></svg></span>
+  <span class="dd fx hm" style="right:4%;top:9%;--w:42px;--r:12deg;--d:-3" aria-hidden="true"><svg class="wg" style="--f:#ffd95e"><use href="#d-star"/></svg></span>
+  <span class="dd fx hm" style="left:5%;bottom:5%;--w:44px;--r:-10deg;--d:-1" aria-hidden="true"><svg class="fl" style="--f:#f6a8b8"><use href="#d-heart"/></svg></span>
     <div class="wrap">
       <div class="sec-h">
         <div><div class="eb">Now playing</div><h2 class="serif h2 bl">Pick your <em>show.</em></h2></div>
@@ -452,18 +643,21 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
   </section>
 </div>
 
-<section class="rate sec" id="reviews" style="padding-top:clamp(80px,10vw,140px);padding-bottom:clamp(80px,10vw,140px)">
+<section class="rate sec" id="reviews" style="padding-top:clamp(90px,10vw,150px);padding-bottom:clamp(90px,10vw,150px)">
+  <span class="dd fx hm" style="left:6%;top:16%;--w:44px;--r:-10deg;--d:-1" aria-hidden="true"><svg class="fl" style="--f:#fff"><use href="#d-heart"/></svg></span>
+  <span class="dd fx " style="right:6%;top:14%;--w:60px;--r:10deg;--d:-3" aria-hidden="true"><svg class="wg" style="--f:#fff;--f2:#ffc9a3"><use href="#d-bow"/></svg></span>
+  <span class="dd fx hm" style="right:22%;bottom:12%;--w:36px;--r:0deg;--d:-2" aria-hidden="true"><svg class="fl" style="--f:#fff0b3"><use href="#d-spark"/></svg></span>
   <div class="wrap">
     <div class="bignum rt" id="big" aria-label="5.0"><span id="rN">5.0</span></div>
     <div class="rt">
       <div class="stars" aria-hidden="true">
-        <svg viewBox="0 0 40 40"><path d="M20 3c1 9 8 16 17 17-9 1-16 8-17 17-1-9-8-16-17-17 9-1 16-8 17-17z" fill="#c98f7d"/></svg>
-        <svg viewBox="0 0 40 40"><path d="M20 3c1 9 8 16 17 17-9 1-16 8-17 17-1-9-8-16-17-17 9-1 16-8 17-17z" fill="#c98f7d"/></svg>
-        <svg viewBox="0 0 40 40"><path d="M20 3c1 9 8 16 17 17-9 1-16 8-17 17-1-9-8-16-17-17 9-1 16-8 17-17z" fill="#c98f7d"/></svg>
-        <svg viewBox="0 0 40 40"><path d="M20 3c1 9 8 16 17 17-9 1-16 8-17 17-1-9-8-16-17-17 9-1 16-8 17-17z" fill="#c98f7d"/></svg>
-        <svg viewBox="0 0 40 40"><path d="M20 3c1 9 8 16 17 17-9 1-16 8-17 17-1-9-8-16-17-17 9-1 16-8 17-17z" fill="#c98f7d"/></svg>
+        <svg viewBox="0 0 48 48"><use href="#d-star" style="--f:#ffd95e"/></svg>
+        <svg viewBox="0 0 48 48"><use href="#d-star" style="--f:#ffd95e"/></svg>
+        <svg viewBox="0 0 48 48"><use href="#d-star" style="--f:#ffd95e"/></svg>
+        <svg viewBox="0 0 48 48"><use href="#d-star" style="--f:#ffd95e"/></svg>
+        <svg viewBox="0 0 48 48"><use href="#d-star" style="--f:#ffd95e"/></svg>
       </div>
-      <h2 class="serif">A perfect five on Google.</h2>
+      <h2 class="serif">A perfect five on Google!</h2>
       <p>Rated 5.0 out of 5 from 10 reviews on Google.</p>
       <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Tina%27s+Center+Stage+Studio+of+Dance+3401+Friendship+St+Philadelphia+PA+19149">Read reviews on Google</a>
     </div>
@@ -471,9 +665,13 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
 </section>
 
 <section class="sec scrap" id="scrapbook">
+  <span class="dd fx hm" style="left:4%;top:9%;--w:56px;--r:-8deg;--d:-2" aria-hidden="true"><svg class="fl" style="--f:#bfe3f2"><use href="#d-note"/></svg></span>
+  <span class="dd fx " style="right:4%;top:8%;--w:72px;--r:9deg;--d:-3" aria-hidden="true"><svg class="wg" style="--f:#f6a8b8;--f2:#ffc9a3"><use href="#d-tutu"/></svg></span>
+  <span class="dd fx hm" style="left:8%;bottom:9%;--w:40px;--r:8deg;--d:-1" aria-hidden="true"><svg class="wg" style="--f:#ffd95e"><use href="#d-star"/></svg></span>
+  <span class="dd fx hm" style="right:7%;bottom:7%;--w:60px;--r:0deg;--d:-2" aria-hidden="true"><svg class="wg" style="--f:#ffc9a3;--f2:#f6a8b8"><use href="#d-dancer"/></svg></span>
   <div class="wrap">
     <div class="scrap-h">
-      <div class="eb">The scrapbook</div>
+      <div class="eb">Twirl, giggle, shine</div>
       <h2 class="serif h2 bl">Little <em>moments.</em></h2>
       <span class="hintd" aria-hidden="true"><span class="hd-d">Drag the prints to rearrange</span><span class="hd-m">Swipe the prints &rarr;</span></span>
     </div>
@@ -489,7 +687,11 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
   </div>
 </section>
 
-<section class="sec reg dark" id="register">
+<section class="sec reg" id="register">
+  <span class="dd fx hm" style="left:3%;top:9%;--w:46px;--r:-8deg;--d:-2" aria-hidden="true"><svg class="fl" style="--f:#f6a8b8;--o:#111a35"><use href="#d-heart"/></svg></span>
+  <span class="dd fx " style="right:5%;top:8%;--w:44px;--r:10deg;--d:-1" aria-hidden="true"><svg class="wg" style="--f:#ffd95e"><use href="#d-star"/></svg></span>
+  <span class="dd fx hm" style="right:4%;bottom:6%;--w:62px;--r:-8deg;--d:-3" aria-hidden="true"><svg class="fl" style="--f:#f6a8b8;--f2:#fff"><use href="#d-bow"/></svg></span>
+  <span class="dd fx hm" style="left:5%;bottom:5%;--w:90px;--r:0deg;--d:-1" aria-hidden="true"><svg class="fl" style="--f:#fff"><use href="#d-cloud"/></svg></span>
   <div class="wrap">
     <div class="reg-l">
       <div class="eb">Get on the list</div>
@@ -519,13 +721,13 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
           </fieldset>
           <div class="f"><label for="fTime">Best time to reach you</label><input id="fTime" name="contactTime" type="text" autocomplete="off" placeholder="e.g. weekdays after 4pm"></div>
           <div class="err" id="err" role="alert"></div>
-          <button class="btn sub" type="submit">Send to Miss Tina</button>
+          <button class="btn sub" type="submit">Send to Miss Tina &#9829;</button>
         </div>
         <div class="demo">Demo site &mdash; requests are saved on this device only.</div>
       </form>
       <div class="ok" id="ok" aria-live="polite">
         <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="45"/><path d="M28 52l15 15 30-34"/></svg>
-        <h3>Thank you! Miss Tina&rsquo;s studio will reach out.</h3>
+        <h3>Yay, thank you! Miss Tina&rsquo;s studio will reach out.</h3>
         <p id="okP"></p>
         <div class="recap" id="recap"></div><br>
         <button class="btn ghost sm" id="again" type="button">Add another dancer</button>
@@ -535,8 +737,10 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
 </section>
 
 <section class="sec" id="visit">
+  <span class="dd fx hm" style="right:5%;top:8%;--w:70px;--r:-10deg;--d:-2" aria-hidden="true"><svg class="wg" style="--f:#f6a8b8;--f2:#ffc9a3"><use href="#d-slipper"/></svg></span>
+  <span class="dd fx hm" style="left:3%;bottom:6%;--w:88px;--r:0deg;--d:-1" aria-hidden="true"><svg class="fl" style="--f:#bfe3f2"><use href="#d-cloud"/></svg></span>
   <div class="wrap">
-    <div class="eb">Find the stage</div><h2 class="serif h2 bl">Visit us in <em>Mayfair.</em></h2>
+    <div class="eb">Come say hi</div><h2 class="serif h2 bl">Visit us in <em>Mayfair.</em></h2>
     <div class="vg">
       <div class="vi">
         <div class="vc fx"><small>Address</small><div class="v">3401 Friendship St<br>Philadelphia, PA 19149</div><div class="soc"><a class="btn sm ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=3401+Friendship+St+Philadelphia+PA+19149">Get directions</a></div></div>
@@ -550,6 +754,9 @@ footer{background:var(--navy2);color:var(--cream);padding:clamp(70px,9vw,120px) 
 </section>
 
 <footer>
+  <span class="dd fx hm" style="left:5%;top:22%;--w:36px;--r:-8deg;--d:-1" aria-hidden="true"><svg class="wg" style="--f:#ffd95e;--o:#fff8f1"><use href="#d-star"/></svg></span>
+  <span class="dd fx " style="right:7%;top:16%;--w:40px;--r:10deg;--d:-3" aria-hidden="true"><svg class="fl" style="--f:#f6a8b8;--o:#fff8f1"><use href="#d-heart"/></svg></span>
+  <span class="dd fx hm" style="right:26%;bottom:20%;--w:30px;--r:0deg;--d:-2" aria-hidden="true"><svg class="fl" style="--f:#fff0b3;--o:#fff8f1"><use href="#d-spark"/></svg></span>
   <div class="wrap">
     <div class="ft">
       <div class="t"><span class="sc">Tina&rsquo;s</span>Center Stage</div>
@@ -577,6 +784,10 @@ var CLIP0='inset(-25% 100% -35% -6%)',CLIP1='inset(-25% -10% -35% -6%)';
 var lenis=null;
 if(anim&&window.Lenis){lenis=new Lenis({duration:1.4,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
 function goTo(sel){var el=$(sel);if(!el)return;if(lenis)lenis.scrollTo(el,{offset:sel==='#top'?0:-10,duration:1.6});else el.scrollIntoView({behavior:reduce?'auto':'smooth'})}
+
+/* ---------- stickers ---------- */
+$$('.stk').forEach(function(b){b.style.transform='rotate('+(b.dataset.r||0)+'deg)';if(anim)gsap.set(b,{rotation:parseFloat(b.dataset.r||0)});
+  b.addEventListener('click',function(){var r=b.getBoundingClientRect();confetti(r.left+r.width/2,r.top+r.height/2,18);if(anim)gsap.fromTo(b,{scale:.88},{scale:1,duration:.8,ease:'back.out(2)'})})});
 
 /* ---------- nav / drawer ---------- */
 var drawer=$('#drawer'),burger=$('#burger'),nav=$('#nav');
@@ -651,13 +862,11 @@ function heroIn(){
    .fromTo('#bulbs',{opacity:0},{opacity:1,duration:1.4,ease:'power2.inOut'},.5)
    .fromTo('#h1 .ch',{y:60,opacity:0},{y:0,opacity:1,duration:1.1,stagger:.02,ease:'power3.out'},.35)
    .fromTo('#l1w',{clipPath:CLIP0},{clipPath:CLIP1,duration:1.5,ease:'power2.inOut'},.2)
-   .fromTo('.hero-lead,.hero-cta',{y:26,opacity:0},{y:0,opacity:1,duration:1.1,stagger:.16,ease:'power3.out'},.9)
+   .fromTo('.tagline,.hero-lead,.hero-cta',{y:26,opacity:0},{y:0,opacity:1,duration:1.1,stagger:.16,ease:'power3.out'},.9)
    .fromTo('#arch',{y:60,opacity:0},{y:0,opacity:1,duration:1.4,ease:'expo.out'},.3)
-   .fromTo('.seal',{scale:.85,opacity:0},{scale:1,opacity:1,duration:1.1,ease:'power3.out'},1.1)
+   .fromTo('.stk',{scale:.5,opacity:0},{scale:1,opacity:1,duration:.8,stagger:.2,ease:'back.out(1.6)'},1.1)
    .fromTo('#danceW',{clipPath:CLIP0},{clipPath:CLIP1,duration:1.4,ease:'power2.inOut'},1.2)
-   .fromTo('.note-h',{opacity:0,y:12},{opacity:1,y:0,duration:1,ease:'power3.out'},1.4)
-   .fromTo('#ageW',{clipPath:CLIP0},{clipPath:CLIP1,duration:1.3,ease:'power2.inOut'},1.5)
-   .fromTo('.note-h .draw path',{strokeDashoffset:1},{strokeDashoffset:0,duration:1.2,stagger:.5,ease:'power2.inOut'},2.3)
+   .add(function(){var r=$('#arch').getBoundingClientRect();confetti(r.left+r.width/2,r.top+r.height*.55,22)},1.5)
    .fromTo('.deco',{opacity:0,scale:.9},{opacity:1,scale:1,duration:1.2,stagger:.12,ease:'power3.out'},.8);
   setTimeout(function(){if(!scrollSet)setupScroll()},5200);
 }
@@ -678,7 +887,7 @@ function setupScroll(){
   $$('.fx').forEach(function(el){gsap.fromTo(el,{y:44,opacity:0},{y:0,opacity:1,duration:1.3,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}})});
   /* script words that "write" themselves, and hand-drawn strokes */
   $$('.wr').forEach(function(el){if(el.id==='l1w'||el.id==='danceW'||el.id==='ageW')return;gsap.fromTo(el,{clipPath:CLIP0},{clipPath:CLIP1,duration:1.5,ease:'power2.inOut',scrollTrigger:{trigger:el,start:'top 88%',once:true}})});
-  $$('.draw').forEach(function(sv){if(sv.closest('.note-h'))return;gsap.fromTo($$('path',sv),{strokeDashoffset:1},{strokeDashoffset:0,duration:1.6,stagger:.3,ease:'power2.inOut',scrollTrigger:{trigger:sv,start:'top 92%',once:true}})});
+  $$('.draw').forEach(function(sv){gsap.fromTo($$('path',sv),{strokeDashoffset:1},{strokeDashoffset:0,duration:1.6,stagger:.3,ease:'power2.inOut',scrollTrigger:{trigger:sv,start:'top 92%',once:true}})});
   /* ticket stubs: soft slide in */
   $$('.tk').forEach(function(el){var r=parseFloat(el.dataset.rot),d=parseFloat(el.dataset.dir);
     gsap.fromTo(el,{x:d*50,y:50,rotation:r+d*2,opacity:0},{x:0,y:0,rotation:r,opacity:1,duration:1.4,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}})});
@@ -718,21 +927,24 @@ function setupScroll(){
 addEventListener('load',function(){if(hasG&&scrollSet)ScrollTrigger.refresh();buildBulbs()});
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){buildBulbs();if(hasG&&scrollSet)ScrollTrigger.refresh()});
 
-/* ---------- confetti: small, gold-blush, rare (form success only) ---------- */
-function confetti(ox,oy){
-  if(reduce)return;
+/* ---------- confetti: pastel hearts, stars and bows (form success, hero load, sticker taps) ---------- */
+function confetti(ox,oy,n){
+  if(reduce)return;n=n||46;
   var c=$('#cf'),ctx=c.getContext('2d'),dpr=Math.min(devicePixelRatio||1,2);
   c.width=innerWidth*dpr;c.height=innerHeight*dpr;c.style.display='block';ctx.setTransform(dpr,0,0,dpr,0,0);
-  var cols=['#c98f7d','#e3b9aa','#f1dfd6','#d9b38f','#faf6ef'],ps=[],i;
-  for(i=0;i<46;i++){var a=-Math.PI/2+(Math.random()-.5)*1.9,sp=5+Math.random()*8;
-    ps.push({x:ox,y:oy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,w:4+Math.random()*4,h:3+Math.random()*3,r:Math.random()*6,vr:(Math.random()-.5)*.25,c:cols[i%cols.length],circ:Math.random()<.4,life:0})}
+  var cols=['#f6a8b8','#ffc9a3','#ffd95e','#bfe3f2','#fbd3da','#ffffff'],ps=[],i;
+  for(i=0;i<n;i++){var a=-Math.PI/2+(Math.random()-.5)*2.2,sp=4+Math.random()*(n>30?8:6);
+    ps.push({x:ox,y:oy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,s:15+Math.random()*13,r:(Math.random()-.5)*.8,vr:(Math.random()-.5)*.14,c:cols[i%cols.length],k:i%3,life:0})}
+  function heart(s){ctx.beginPath();ctx.moveTo(0,s*.35);ctx.bezierCurveTo(-s*.9,-s*.1,-s*.5,-s*.75,0,-s*.3);ctx.bezierCurveTo(s*.5,-s*.75,s*.9,-.1*s,0,s*.35);ctx.fill();ctx.stroke()}
+  function star(s){ctx.beginPath();for(var j=0;j<10;j++){var rr=j%2?s*.24:s*.55,an=-Math.PI/2+j*Math.PI/5;ctx.lineTo(Math.cos(an)*rr,Math.sin(an)*rr)}ctx.closePath();ctx.fill();ctx.stroke()}
+  function bow(s){ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-s*.6,-s*.35);ctx.lineTo(-s*.6,s*.35);ctx.closePath();ctx.moveTo(0,0);ctx.lineTo(s*.6,-s*.35);ctx.lineTo(s*.6,s*.35);ctx.closePath();ctx.fill();ctx.stroke();ctx.beginPath();ctx.arc(0,0,s*.14,0,6.3);ctx.fill();ctx.stroke()}
   var start=performance.now();
   (function step(now){
     ctx.clearRect(0,0,innerWidth,innerHeight);var alive=0;
-    ps.forEach(function(p){p.vy+=.16;p.vx*=.985;p.vy*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life++;
-      if(p.y<innerHeight+30&&p.life<300){alive++;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.globalAlpha=Math.max(0,1-p.life/300);
-        if(p.circ){ctx.beginPath();ctx.arc(0,0,p.w/2.2,0,6.3);ctx.fill()}else ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore()}});
-    if(alive&&now-start<5500)requestAnimationFrame(step);else{ctx.clearRect(0,0,innerWidth,innerHeight);c.style.display='none'}
+    ps.forEach(function(p){p.vy+=.15;p.vx*=.985;p.vy*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life++;
+      if(p.y<innerHeight+30&&p.life<280){alive++;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.strokeStyle='rgba(17,26,53,.55)';ctx.lineWidth=1;ctx.globalAlpha=Math.max(0,1-p.life/280);
+        (p.k===0?heart:p.k===1?star:bow)(p.s);ctx.restore()}});
+    if(alive&&now-start<5000)requestAnimationFrame(step);else{ctx.clearRect(0,0,innerWidth,innerHeight);c.style.display='none'}
   })(start);
 }
 
@@ -758,7 +970,7 @@ form.addEventListener('submit',function(e){
   $('#recap').innerHTML='<b>Dancer:</b> '+esc(dancer)+', age '+age+'<br><b>Parent:</b> '+esc(parent)+' &middot; '+esc(phoneRaw)+'<br><b>Interested in:</b> '+esc(interest)+(time?'<br><b>Best time:</b> '+esc(time):'');
   if(anim)gsap.fromTo(ok.children,{y:22,opacity:0},{y:0,opacity:1,duration:1,stagger:.1,ease:'power3.out'});
   var r=$('#card').getBoundingClientRect();
-  confetti(Math.min(innerWidth-20,Math.max(20,r.left+r.width/2)),Math.min(innerHeight*.7,Math.max(120,r.top+r.height*.35)));
+  confetti(Math.min(innerWidth-20,Math.max(20,r.left+r.width/2)),Math.min(innerHeight*.7,Math.max(120,r.top+r.height*.35)),80);
 });
 $('#again').addEventListener('click',function(){form.reset();ageCheck();form.style.display='';$('#ok').classList.remove('on','go');if(anim)gsap.fromTo(form,{y:18,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out'})});
 })();
