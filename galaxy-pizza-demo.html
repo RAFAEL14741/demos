@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  DEMO CONCEPT for Galaxy Pizza - built by Rafael's web agency. Not affiliated with Galaxy Pizza.
+  [CONFIRM] items (shown on the site as honest placeholders):
+   - Days open (only "11:00 AM - 10:45 PM" is known; source: their menu page; Google says opens 11 AM)
+   - All menu prices are single-source (their Slice ordering page): extra cheese hand-tossed $9.00, wings platter $12.00, cheesesteak $9.60, jumbo fried shrimp platter $14.34
+   - Full item lists for every category other than the four priced items above
+   - Delivery availability / fees / area
+   - Phone: (215) 725-1005 agrees on Google + Bing. Their Slice page shows a different number, (210) 806-7723 - UNCONFIRMED, not used.
+  CONFIRMED: name, address, phone (215) 725-1005, Google 4.4 stars / 400 reviews, tagline "Philadelphia Pizza & Seafood Place. 100% Beef Products."
+  No Instagram/Facebook found - none linked. Third-party app ratings intentionally not shown.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galaxy Pizza - Pizza &amp; Seafood on Cottman Ave, Philadelphia</title>
+<meta name="description" content="Galaxy Pizza, 1239 Cottman Ave, Philadelphia PA 19111. Philadelphia Pizza &amp; Seafood Place. 100% Beef Products. Hand-tossed pizza, cheesesteaks, wings, calzones and fried seafood platters. 4.4 stars on Google.">
+<meta name="theme-color" content="#0C0A26">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Galaxy Pizza","servesCuisine":["Pizza","Seafood","Cheesesteak"],"telephone":"+1-215-725-1005","address":{"@type":"PostalAddress","streetAddress":"1239 Cottman Ave #1","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19111","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.4","reviewCount":"400"}}
+</script>
+<style>
+:root{
+  --ink:#0C0A26;--ink2:#171445;--ink3:#231F5C;
+  --tom:#FF4D2E;--chz:#FFC93C;--cream:#FFF4DC;--white:#fff;
+  --mu:rgba(255,244,220,.72);--ln:rgba(255,244,220,.18);
+  --disp:'Unbounded','Arial Black',system-ui,sans-serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --wrap:min(1240px,calc(100% - 40px));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-x:clip;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--ink);color:var(--cream);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img,svg,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul{list-style:none}
+:focus-visible{outline:3px solid var(--chz);outline-offset:3px;border-radius:6px}
+.wrap{width:var(--wrap);margin:0 auto;position:relative}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.eb{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--chz);margin-bottom:22px}
+.eb::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--tom);flex:none}
+.h2{font-family:var(--disp);font-weight:800;font-size:clamp(2rem,5vw,4.4rem);line-height:1.02;letter-spacing:-.03em;text-transform:uppercase}
+.h2 .tom{color:var(--tom)}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:.08em 0;margin:-.08em 0}
+.wi{display:inline-block}
+.sec{position:relative;padding:120px 0}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,footer,header.hero{position:relative;z-index:1}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 28px;border-radius:999px;background:var(--tom);color:var(--ink);font-family:var(--disp);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;border:2px solid var(--tom);transition:transform .35s,background .3s,color .3s,border-color .3s}
+.btn svg{width:16px;height:16px;flex:none}
+.btn.ghost{background:transparent;color:var(--cream);border-color:var(--cream)}
+.btn.chz{background:var(--chz);border-color:var(--chz)}
+.btn.ink{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.btn.sm{min-height:44px;padding:0 20px;font-size:.7rem}
+
+/* preloader */
+.pre{position:fixed;inset:0;z-index:300;background:var(--ink);display:grid;place-items:center;border-bottom:10px solid var(--tom);border-radius:0 0 50% 50%/0 0 9vh 9vh;overflow:hidden}
+.pre-in{text-align:center;display:grid;gap:18px;justify-items:center}
+.pre-pl{width:120px;height:120px;position:relative}
+.pre-pl svg{width:100%;height:100%}
+.pre-w{font-family:var(--disp);font-weight:900;font-size:clamp(1.6rem,5vw,3rem);letter-spacing:-.02em;text-transform:uppercase}
+.pre-w span{color:var(--tom)}
+.pre-bar{width:min(260px,60vw);height:4px;background:var(--ln);border-radius:4px;overflow:hidden}
+.pre-bar i{display:block;height:100%;background:var(--chz);transform:scaleX(0);transform-origin:left}
+.pre-n{font-family:var(--mono);font-size:.74rem;letter-spacing:.2em;color:var(--mu)}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px max(20px,3.4vw);transition:background .4s,padding .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(12,10,38,.9);backdrop-filter:blur(12px);padding-block:10px;border-color:var(--ln)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:1.05rem;letter-spacing:-.02em;text-transform:uppercase;line-height:1}
+.logo svg{width:34px;height:34px;flex:none}
+.logo b{color:var(--tom);font-weight:900}
+.links{display:flex;gap:30px;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.links a{position:relative;padding:8px 0}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:var(--tom);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.nr{display:flex;align-items:center;gap:12px}
+.burger{display:none;width:48px;height:48px;border-radius:50%;border:2px solid var(--cream);position:relative;z-index:130;flex:none}
+.burger span{position:absolute;left:12px;right:12px;height:2px;background:var(--cream);transition:transform .35s,top .35s}
+.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:27px}
+.burger.x span:nth-child(1){top:22px;transform:rotate(45deg)}
+.burger.x span:nth-child(2){top:22px;transform:rotate(-45deg)}
+.scrim{position:fixed;inset:0;z-index:110;background:rgba(6,5,24,.6);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.scrim.on{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,88vw);z-index:120;background:var(--ink2);border-left:6px solid var(--tom);padding:110px 32px 40px;display:flex;flex-direction:column;gap:6px;transform:translateX(105%);transition:transform .6s cubic-bezier(.7,0,.2,1);visibility:hidden}
+.drawer.on{transform:none;visibility:visible}
+.drawer a.big{font-family:var(--disp);font-weight:800;font-size:1.6rem;letter-spacing:-.03em;text-transform:uppercase;padding:10px 0;border-bottom:1px solid var(--ln);min-height:52px;display:flex;align-items:center;justify-content:space-between}
+.drawer a.big span{font-family:var(--mono);font-size:.7rem;color:var(--tom)}
+.drawer .btn{margin-top:22px}
+.drawer small{margin-top:auto;color:var(--mu);font-size:.85rem;line-height:1.5}
+
+/* hero */
+.hero{min-height:100svh;padding:110px 0 70px;display:flex;align-items:center;position:relative;overflow:clip}
+.hero::before{content:"";position:absolute;right:-8%;top:50%;width:70vw;height:70vw;max-width:1000px;max-height:1000px;transform:translateY(-50%);border-radius:50%;background:radial-gradient(circle,#2A2570 0%,rgba(42,37,112,.55) 34%,transparent 66%);pointer-events:none}
+.hero-g{display:grid;grid-template-columns:1.02fr .98fr;gap:2vw;align-items:center;position:relative}
+.hero-t{position:relative;z-index:5}
+.hero .kick{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--ln);font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--chz);flex:none}
+.h1{font-family:var(--disp);font-weight:900;font-size:clamp(3rem,6.6vw,6.6rem);line-height:.98;letter-spacing:-.045em;text-transform:uppercase}
+.h1 .tom{color:var(--tom)}
+.lead{font-size:clamp(1.1rem,1.5vw,1.3rem);color:var(--cream);max-width:34ch;margin:26px 0 8px;font-weight:400;line-height:1.45}
+.lead b{font-weight:600;color:var(--chz);display:block}
+.sub{color:var(--mu);max-width:44ch;margin-bottom:34px}
+.ctas{display:flex;gap:14px;flex-wrap:wrap}
+.cue{display:flex;align-items:center;gap:12px;margin-top:44px;color:var(--mu)}
+.cue i{width:1px;height:38px;background:var(--cream);opacity:.5;display:block}
+
+.stage{--S:min(46vw,600px,calc(100svh - 140px));position:relative;width:var(--S);height:var(--S);margin-inline:auto}
+.stage .path{position:absolute;inset:0;overflow:visible;pointer-events:none}
+.planet-in{position:absolute;left:18%;top:18%;width:64%;height:64%;z-index:3}
+.planet-scrub,.planet-spin{width:100%;height:100%}
+.planet{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 40% 35%,#FF7A54,var(--tom) 55%,#C8341A);border:10px solid var(--cream);box-shadow:0 0 0 6px var(--ink),0 30px 80px rgba(0,0,0,.45)}
+.planet img,.planet video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.planet video{opacity:0;transition:opacity 1s}
+.planet.vid-on video{opacity:1}
+.ringwrap{position:absolute;inset:8%;z-index:2;pointer-events:none}
+.ringwrap svg{width:100%;height:100%;overflow:visible}
+.orbit-layer{position:absolute;inset:0;z-index:4}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--cream);color:var(--ink);border:2px solid var(--cream);font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;transition:background .3s,color .3s,border-color .3s}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--tom);flex:none}
+.chip.on{background:var(--tom);border-color:var(--tom)}
+.chip.on i{background:var(--ink)}
+.orbit-on .chip{position:absolute;left:0;top:0;will-change:transform}
+.stage:not(.orbit-on) .orbit-layer{position:absolute;top:calc(100% + 6px);bottom:auto;right:auto;left:calc(50% - 50vw);width:100vw;display:flex;gap:10px;overflow-x:auto;padding:8px 20px 12px;scrollbar-width:none}
+.stage:not(.orbit-on) .orbit-layer::-webkit-scrollbar{display:none}
+.stage:not(.orbit-on) .chip{flex:none}
+.badge-rot{position:absolute;left:-1%;bottom:2%;width:27%;aspect-ratio:1;z-index:9}
+.badge-rot .spin,.badge-rot svg{width:100%;height:100%}
+.badge-rot .spin,.rot-lg .spin{position:relative;z-index:1}
+.badge-rot .core{position:absolute;inset:26%;border-radius:50%;background:var(--chz);display:grid;place-items:center}
+.badge-rot .core svg{width:56%;height:56%}
+.badge-rot .disc{position:absolute;inset:0;border-radius:50%;background:var(--tom)}
+.fb{position:absolute;z-index:9;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.02em;white-space:nowrap;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.fb svg{width:16px;height:16px;flex:none}
+.fb.g{background:var(--chz);color:var(--ink);right:0;top:9%}
+.fb.r{background:var(--cream);color:var(--ink);left:-2%;top:16%}
+.fb.o{background:var(--tom);color:var(--ink);right:3%;bottom:9%}
+
+/* marquee */
+.mq{background:var(--tom);color:var(--ink);overflow:hidden;white-space:nowrap;padding:22px 0;position:relative;z-index:2;border-block:3px solid var(--ink)}
+.mq .tr{display:flex;width:max-content;will-change:transform}
+.mq .g{display:flex;align-items:center;flex:none}
+.mq span{font-family:var(--disp);font-weight:800;font-size:clamp(1.3rem,3vw,2.4rem);letter-spacing:-.02em;text-transform:uppercase;padding:0 .6em;display:inline-flex;align-items:center;gap:1.2em}
+.mq span::after{content:"";width:.5em;height:.5em;background:var(--ink);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+
+/* arc dividers */
+.arc{position:relative;height:clamp(46px,7vw,110px);background:var(--a);margin-bottom:-1px;z-index:2}
+.arc svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+
+/* menu */
+.menu{padding-top:60px}
+.menu-h{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:46px}
+.menu-h p{max-width:36ch;color:var(--mu)}
+.om{display:grid;grid-template-columns:1.02fr .98fr;gap:3vw;align-items:center}
+.om>*,.ord-g>*,.vg>*,.hero-g>*,.gg-g>*{min-width:0}
+.om-stage{--S:min(560px,44vw);position:relative;width:var(--S);height:var(--S);margin-inline:auto}
+.om-ring{position:absolute;inset:0;overflow:visible;pointer-events:none}
+.om-planet{position:absolute;left:21%;top:21%;width:58%;height:58%;z-index:3}
+.om-planet .planet{border-width:8px}
+.om-planet .planet img{opacity:0;transition:opacity .7s}
+.om-planet .planet img.on{opacity:1}
+.om-planet .planet .fallback{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);font-weight:900;font-size:3rem;color:var(--ink)}
+.om-chips{position:absolute;inset:0;z-index:4}
+.om-stage.ring-on .chip{position:absolute;left:0;top:0;background:var(--ink);color:var(--cream);border-color:var(--ln)}
+.om-stage.ring-on .chip.on{background:var(--tom);color:var(--ink);border-color:var(--tom)}
+.om-stage.ring-on .chip i{background:var(--chz)}
+.om-stage.ring-on .chip.on i{background:var(--ink)}
+.om-dock{position:absolute;z-index:2;right:-9%;top:50%;width:14%;height:0;border-top:2px dashed var(--tom);pointer-events:none}
+.panel{background:var(--cream);color:var(--ink);border-radius:32px;padding:clamp(24px,3vw,44px);position:relative;min-height:440px;display:flex;flex-direction:column}
+.panel::before{content:"";position:absolute;left:-14px;top:50%;width:28px;height:28px;background:var(--cream);transform:translateY(-50%) rotate(45deg);border-radius:6px}
+.panel-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.panel-top .idx{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;color:rgba(12,10,38,.6)}
+.tagpop{display:inline-flex;align-items:center;gap:8px;background:var(--chz);color:var(--ink);font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px;font-weight:500}
+.panel h3{font-family:var(--disp);font-weight:800;font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.02;letter-spacing:-.035em;text-transform:uppercase;margin-bottom:24px;min-height:2.1em}
+.items{position:relative;flex:1}
+.it{display:flex;align-items:baseline;gap:14px;padding:18px 0;border-top:2px solid var(--ink)}
+.it:last-child{border-bottom:2px solid var(--ink)}
+.it.off{display:none}
+.it .nm{font-family:var(--disp);font-weight:700;font-size:clamp(.95rem,1.3vw,1.1rem);letter-spacing:-.02em;line-height:1.25}
+.it .ds{flex:1;border-bottom:2px dotted rgba(12,10,38,.35);transform:translateY(-4px);min-width:20px}
+.it .pr{font-family:var(--disp);font-weight:900;font-size:clamp(1.3rem,2vw,1.8rem);color:var(--tom);letter-spacing:-.03em;white-space:nowrap}
+.it .pr.ask{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(12,10,38,.7)}
+.panel .foot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px}
+.panel .foot small{font-size:.82rem;color:rgba(12,10,38,.68);max-width:30ch;line-height:1.4}
+
+/* popular */
+.pop{background:var(--cream);color:var(--ink);padding-top:70px;position:relative;z-index:2}
+.pop .eb{color:var(--tom)}
+.pop .eb::before{background:var(--ink)}
+.pop-h{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.pop-h p{max-width:34ch;color:rgba(12,10,38,.72)}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:60px;align-items:start}
+.pc{position:relative;background:var(--ink);color:var(--cream);border-radius:200px 200px 28px 28px;overflow:hidden;display:flex;flex-direction:column}
+.pc:nth-child(even){margin-top:56px}
+.pc figure{aspect-ratio:1/1.05;position:relative;background:var(--tom);overflow:hidden}
+.pc figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.pc .no{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:2;background:var(--chz);color:var(--ink);font-family:var(--disp);font-weight:800;font-size:.7rem;padding:6px 12px;border-radius:999px}
+.pc .bd{padding:22px 22px 26px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pc h3{font-family:var(--disp);font-weight:800;font-size:1.25rem;letter-spacing:-.03em;text-transform:uppercase;line-height:1.05}
+.pc p{color:var(--mu);font-size:.95rem;line-height:1.45}
+.pc .row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:14px}
+.pc .price{font-family:var(--disp);font-weight:900;font-size:1.35rem;color:var(--chz);letter-spacing:-.03em}
+.pc .price.ask{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pc .add{width:46px;height:46px;border-radius:50%;background:var(--tom);color:var(--ink);display:grid;place-items:center;flex:none;transition:transform .3s}
+.pc .add svg{width:18px;height:18px}
+.pop-note{margin-top:38px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(12,10,38,.62)}
+
+/* oversized */
+.bigsec{background:var(--tom);color:var(--ink);padding:90px 0 110px;overflow:clip;position:relative;z-index:2}
+.bigtxt{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.05em;word-spacing:.1em;font-size:var(--bfs,12.5vw);white-space:nowrap;text-align:center}
+.bigtxt .l1,.bigtxt .l2{display:block;will-change:transform}
+.bigtxt .l1{color:var(--cream)}
+.bigtxt .moon{display:inline-block;width:.76em;height:.76em;border-radius:50%;overflow:hidden;vertical-align:-.06em;border:.05em solid var(--ink);margin-left:.12em;background:var(--chz);position:relative}
+.bigtxt .moon img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bigtxt .l2 .ww{display:inline}
+.big-b{display:flex;justify-content:space-between;align-items:center;gap:30px;margin-top:56px;flex-wrap:wrap}
+.big-b p{font-size:clamp(1.05rem,1.6vw,1.35rem);max-width:38ch;font-weight:500;line-height:1.45}
+.big-b p b{font-weight:700}
+.rot-lg{width:160px;height:160px;position:relative;flex:none}
+.rot-lg .spin,.rot-lg svg{width:100%;height:100%}
+.rot-lg .core{position:absolute;inset:30%;border-radius:50%;background:var(--ink);display:grid;place-items:center}
+.rot-lg .core svg{width:54%;height:54%}
+
+/* order */
+.ord-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:5vw;align-items:start}
+.ord-l p{color:var(--mu);max-width:40ch;margin:24px 0 32px}
+.steps{display:grid;gap:14px;counter-reset:s}
+.steps li{display:flex;align-items:center;gap:16px;font-weight:500;counter-increment:s}
+.steps li::before{content:counter(s);width:44px;height:44px;border-radius:50%;border:2px solid var(--chz);color:var(--chz);display:grid;place-items:center;font-family:var(--disp);font-weight:800;flex:none}
+.moon-o{width:150px;height:150px;border-radius:50%;overflow:hidden;margin-top:38px;border:8px solid var(--cream);position:relative;background:var(--tom)}
+.moon-o img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.form{background:var(--cream);color:var(--ink);border-radius:32px;padding:clamp(24px,3.4vw,46px);position:relative}
+.form h3{font-family:var(--disp);font-weight:800;font-size:1.5rem;letter-spacing:-.03em;text-transform:uppercase;line-height:1.05}
+.form .dm{font-size:.9rem;color:rgba(12,10,38,.7);margin:8px 0 22px}
+.fld{display:grid;gap:8px;margin-bottom:16px}
+.fld label,.fld .lb{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(12,10,38,.75)}
+.fld input,.fld textarea,.fld select{width:100%;background:var(--white);border:2px solid var(--ink);border-radius:14px;padding:14px 16px;font:inherit;font-size:1rem;color:var(--ink);min-height:52px;outline:0;transition:border-color .25s,box-shadow .25s;appearance:none;-webkit-appearance:none}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 22px) 50%,calc(100% - 16px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:44px}
+.fld textarea{resize:vertical;min-height:110px}
+.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:var(--tom);box-shadow:0 0 0 4px rgba(255,77,46,.22)}
+.fld ::placeholder{color:rgba(12,10,38,.45)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;border-radius:14px;border:2px solid var(--ink);background:var(--white);font-family:var(--disp);font-weight:700;font-size:.78rem;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s;color:var(--ink)}
+.seg label svg{width:20px;height:20px}
+.seg input:checked+label{background:var(--ink);color:var(--cream)}
+.seg input:focus-visible+label{outline:3px solid var(--tom);outline-offset:3px}
+.addr{overflow:hidden}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.err{color:#C41E00;font-size:.9rem;font-weight:500;min-height:1.4em;margin:2px 0 10px}
+.form .btn{width:100%;min-height:58px;font-size:.86rem}
+.fnote{margin-top:14px;font-size:.78rem;color:rgba(12,10,38,.66);text-align:center;line-height:1.4}
+.done{display:none;text-align:center;padding:14px 0 6px}
+.done.on{display:block}
+.done svg{width:96px;height:96px;margin:0 auto 14px}
+.done circle{fill:var(--chz);stroke:var(--ink);stroke-width:3}
+.done path{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.done h3{font-size:1.6rem}
+.done p{margin:12px auto 22px;max-width:36ch;color:rgba(12,10,38,.8)}
+.done .badge-demo{display:inline-block;background:var(--tom);color:var(--ink);font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:14px;font-weight:500}
+.toast{position:fixed;left:50%;bottom:90px;z-index:150;transform:translate(-50%,30px);background:var(--chz);color:var(--ink);padding:12px 20px;border-radius:999px;font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;opacity:0;pointer-events:none;box-shadow:0 12px 30px rgba(0,0,0,.4);white-space:nowrap}
+
+/* google */
+.gg{background:var(--chz);color:var(--ink);padding:100px 0;position:relative;z-index:2;overflow:clip}
+.gg .eb{color:var(--ink)}
+.gg .eb::before{background:var(--tom)}
+.gg-g{display:grid;grid-template-columns:auto 1fr;gap:5vw;align-items:center}
+.gnum{font-family:var(--disp);font-weight:900;font-size:clamp(7rem,21vw,17rem);line-height:.8;letter-spacing:-.07em}
+.gnum sup{font-size:.2em;letter-spacing:0;vertical-align:top;margin-left:.1em;position:relative;top:.7em}
+.gr{display:grid;gap:22px;justify-items:start}
+.gstars{position:relative;width:min(260px,70vw);aspect-ratio:5/1}
+.gstars svg{width:100%;height:100%}
+.gstars .fg{position:absolute;inset:0 auto 0 0;overflow:hidden;width:88%}
+.gstars .fg svg{width:min(260px,70vw);max-width:none}
+.gr .ct{font-family:var(--disp);font-weight:800;font-size:clamp(1.4rem,2.6vw,2.2rem);letter-spacing:-.03em;text-transform:uppercase;line-height:1.05}
+.gr p{max-width:38ch;font-weight:500}
+
+/* visit */
+.vg{display:grid;grid-template-columns:.9fr 1.1fr;gap:4vw;margin-top:48px;align-items:stretch}
+.vi{display:grid;gap:16px;align-content:start}
+.vc{border:2px solid var(--ln);border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.vc small{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--chz)}
+.vc .v{font-family:var(--disp);font-weight:700;font-size:clamp(1.15rem,1.9vw,1.55rem);letter-spacing:-.03em;line-height:1.2}
+.vc .v a{border-bottom:3px solid var(--tom)}
+.vc .n{color:var(--mu);font-size:.9rem}
+.vc .lnk{align-self:flex-start;margin-top:10px}
+.map{border-radius:32px;overflow:hidden;min-height:460px;position:relative;background:var(--ink2);border:2px solid var(--ln)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05) brightness(.92)}
+
+footer{background:#080620;padding:0 0 40px;overflow:clip;position:relative;z-index:2}
+footer .ft{font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:-.05em;line-height:.9;font-size:10.4vw;text-align:center;color:var(--cream);white-space:nowrap;margin:44px 0 28px}
+footer .ft b{color:var(--tom)}
+.fcols{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;color:var(--mu);font-size:.95rem;line-height:1.7;padding-top:26px;border-top:1px solid var(--ln)}
+.fcols strong{color:var(--cream);font-weight:600}
+.fcols a{border-bottom:1px solid var(--tom)}
+.demo-line{margin-top:30px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:rgba(255,244,220,.55);line-height:1.6}
+
+.dock{display:none}
+@media(hover:hover) and (pointer:fine){
+  .links a:hover::after{transform:scaleX(1)}
+  .btn:hover{transform:translateY(-3px)}
+  .btn:not(.ghost):not(.ink):hover{background:var(--chz);border-color:var(--chz)}
+  .btn.ghost:hover{background:var(--cream);color:var(--ink)}
+  .chip:hover{background:var(--chz);border-color:var(--chz);color:var(--ink)}
+  .pc:hover figure img{transform:scale(1.08)}
+  .pc:hover .add{transform:rotate(90deg) scale(1.08)}
+  .drawer a.big:hover{color:var(--tom)}
+}
+@media(max-width:1100px){
+  .pg{grid-template-columns:repeat(2,1fr)}
+  .pc:nth-child(even){margin-top:0}
+  .pc:nth-child(2),.pc:nth-child(4){margin-top:40px}
+}
+@media(max-width:900px){
+  body{font-size:16px}
+  .links,.nr .btn{display:none}
+  .burger{display:block}
+  .sec{padding:80px 0}
+  .hero{padding:96px 0 50px;align-items:flex-start}
+  .hero-g{grid-template-columns:1fr;gap:34px}
+  .h1{font-size:clamp(3.1rem,15.5vw,5.5rem)}
+  .lead{max-width:none}
+  .stage{--S:min(84vw,430px);margin-top:0;margin-bottom:84px}
+  .sub{display:none}
+  .hero::before{top:auto;bottom:0;right:-40%;width:130vw;height:130vw;transform:none}
+  .hero .kick{margin-bottom:18px}
+  .lead{margin-top:20px;margin-bottom:26px}
+  .badge-rot{width:30%}
+  .fb{font-size:.62rem;padding:8px 12px}
+  .cue{display:none}
+  .om{grid-template-columns:minmax(0,1fr);gap:28px}
+  .om-stage{--S:min(300px,74vw);height:auto;display:flex;flex-direction:column;align-items:center;gap:20px;width:100%}
+  .om-planet{position:relative;left:auto;top:auto;width:var(--S);height:var(--S)}
+  .om-ring,.om-dock{display:none}
+  .om-chips{position:relative;inset:auto;display:flex;gap:10px;overflow-x:auto;width:100%;padding:6px 20px 12px;margin:0 -20px;scroll-snap-type:x proximity;scrollbar-width:none;width:calc(100% + 40px)}
+  .om-chips::-webkit-scrollbar{display:none}
+  .om-chips .chip{flex:none;scroll-snap-align:center;background:var(--ink2);color:var(--cream);border-color:var(--ln)}
+  .om-chips .chip.on{background:var(--tom);color:var(--ink);border-color:var(--tom)}
+  .om-chips .chip i{background:var(--chz)}
+  .om-chips .chip.on i{background:var(--ink)}
+  .panel{min-height:0;border-radius:26px}
+  .panel h3{min-height:0}
+  .it{flex-wrap:wrap;gap:6px 14px}
+  .it .ds{display:none}
+  .it .nm{flex:1 1 60%}
+  .it .pr{margin-left:auto}
+  .it .pr.ask{flex-basis:100%;margin-left:0}
+  .panel::before{display:none}
+  .pg{grid-template-columns:1fr;gap:26px;max-width:420px;margin-inline:auto}
+  .pc:nth-child(n){margin-top:0}
+  .pc figure{aspect-ratio:4/3}
+  .bigsec{padding:70px 0 80px}
+  .bigtxt{font-size:var(--bfsm,16vw);line-height:.92}
+  .bigtxt .l2 .ww{display:block}
+  .big-b{margin-top:34px}
+  .rot-lg{width:120px;height:120px}
+  .ord-g,.vg,.gg-g{grid-template-columns:1fr;gap:34px}
+  .moon-o{display:none}
+  .frow{grid-template-columns:1fr}
+  .gnum{font-size:clamp(7rem,38vw,12rem)}
+  .map{min-height:340px}
+  .dock{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:grid;grid-template-columns:1fr 1.3fr;gap:10px;transform:translateY(140%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+  .dock.on{transform:none}
+  .dock a{min-height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--disp);font-weight:800;font-size:.74rem;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  .dock a:first-child{background:var(--cream);color:var(--ink)}
+  .dock a:last-child{background:var(--tom);color:var(--ink)}
+  .dock svg{width:18px;height:18px}
+  .toast{bottom:100px}
+  footer{padding-bottom:110px}
+  body{padding-bottom:0}
+  footer .ft{font-size:16.4vw;line-height:.9;white-space:normal;text-align:left;padding-left:20px}
+  footer .ft b{display:block}
+}
+@media(max-width:420px){
+  .fb.r{left:-4%}
+  .btn{padding:0 22px}
+  .ctas .btn{flex:1 1 100%}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg id="stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pre-in">
+    <div class="pre-pl"><svg viewBox="0 0 120 120"><ellipse cx="60" cy="60" rx="56" ry="20" fill="none" stroke="#FFF4DC" stroke-opacity=".45" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" transform="rotate(-18 60 60)"/><circle cx="60" cy="60" r="30" fill="#FF4D2E" stroke="#FFF4DC" stroke-width="5"/><circle cx="50" cy="52" r="4.5" fill="#0C0A26"/><circle cx="69" cy="58" r="4.5" fill="#0C0A26"/><circle cx="58" cy="70" r="4.5" fill="#0C0A26"/><g id="preMoon"><circle cx="112" cy="40" r="6" fill="#FFC93C"/></g></svg></div>
+    <div class="pre-w">Galaxy <span>Pizza</span></div>
+    <div class="pre-bar"><i id="preBar"></i></div>
+    <div class="pre-n" id="preN">0%</div>
+  </div>
+</div>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <a href="#top" class="logo" aria-label="Galaxy Pizza home">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="19" ry="7" fill="none" stroke="#FFC93C" stroke-width="1.6" stroke-dasharray="1 3.4" stroke-linecap="round" transform="rotate(-20 20 20)"/><circle cx="20" cy="20" r="11" fill="#FF4D2E" stroke="#FFF4DC" stroke-width="2.4"/><circle cx="17" cy="17" r="1.8" fill="#0C0A26"/><circle cx="23.5" cy="20" r="1.8" fill="#0C0A26"/><circle cx="18.5" cy="24" r="1.8" fill="#0C0A26"/></svg>
+    <span>Galaxy <b>Pizza</b></span>
+  </a>
+  <div class="links"><a href="#menu">Menu</a><a href="#popular">Favorites</a><a href="#order">Order</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></div>
+  <div class="nr"><a class="btn sm" href="#order">Order request</a><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button></div>
+</nav>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <a class="big" href="#menu">Menu <span>01</span></a>
+  <a class="big" href="#popular">Favorites <span>02</span></a>
+  <a class="big" href="#order">Order <span>03</span></a>
+  <a class="big" href="#reviews">Reviews <span>04</span></a>
+  <a class="big" href="#visit">Visit <span>05</span></a>
+  <a class="btn" href="tel:+12157251005">Call (215) 725-1005</a>
+  <small>1239 Cottman Ave #1<br>Philadelphia, PA 19111</small>
+</aside>
+
+<header class="hero" id="top">
+  <div class="wrap hero-g">
+    <div class="hero-t">
+      <div class="kick"><span class="pill"><i></i>1239 Cottman Ave &middot; Philadelphia</span><span class="pill" id="hrsPill"><i></i>Open 11 AM - 10:45 PM</span></div>
+      <h1 class="h1" id="h1"><span class="w"><span class="wi">Galaxy</span></span><br><span class="w"><span class="wi tom">Pizza</span></span></h1>
+      <p class="lead" id="lead">Philadelphia Pizza &amp; Seafood Place. <b>100% Beef Products.</b></p>
+      <p class="sub" id="sub">Hand-tossed pizza, cheesesteaks, wings, calzones and fried seafood platters, straight off Cottman Ave.</p>
+      <div class="ctas" id="ctas"><a class="btn" href="#order">Start an order request <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a><a class="btn ghost" href="#menu">Explore the menu</a></div>
+      <div class="cue mono"><i></i>Scroll to orbit</div>
+    </div>
+
+    <div class="stage" id="heroStage">
+      <svg class="path" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="50" rx="50" ry="34" fill="none" stroke="#FFF4DC" stroke-opacity=".28" stroke-width=".35" stroke-dasharray="1.2 1.6"/></svg>
+      <div class="ringwrap spin" data-dur="90" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="49" fill="none" stroke="#FFF4DC" stroke-opacity=".55" stroke-width=".7" stroke-dasharray=".1 2.2" stroke-linecap="round"/><circle cx="50" cy="1" r="2.6" fill="#FFC93C"/><circle cx="96" cy="70" r="1.6" fill="#FF4D2E"/><circle cx="8" cy="72" r="1.2" fill="#FFF4DC"/></svg></div>
+      <div class="planet-in" id="planetIn"><div class="planet-scrub" id="planetScrub"><div class="planet-spin" id="planetSpin">
+        <div class="planet" id="planet">
+          <img src="https://images.unsplash.com/photo-1613564834361-9436948817d1?auto=format&fit=crop&w=1000&q=75" data-fb="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=75" alt="A whole hand-tossed pizza on a round wooden tray" fetchpriority="high" onerror="imgFail(this)">
+          <video id="heroVid" muted loop playsinline preload="auto" poster="https://images.unsplash.com/photo-1613564834361-9436948817d1?auto=format&fit=crop&w=800&q=75" aria-hidden="true"><source src="https://videos.pexels.com/video-files/17512966/17512966-sd_540_960_25fps.mp4" type="video/mp4"></video>
+        </div>
+      </div></div></div>
+      <div class="orbit-layer" id="heroOrbit">
+        <button class="chip" data-cat="pizza"><i></i>Pizza</button>
+        <button class="chip" data-cat="wings"><i></i>Wings</button>
+        <button class="chip" data-cat="cheesesteak"><i></i>Cheesesteak</button>
+        <button class="chip" data-cat="calzones"><i></i>Calzones</button>
+        <button class="chip" data-cat="seafood"><i></i>Seafood</button>
+        <button class="chip" data-cat="hoagies"><i></i>Hoagies</button>
+      </div>
+      <div class="badge-rot" aria-hidden="true"><div class="disc"></div><div class="spin" data-dur="20"><svg viewBox="0 0 200 200"><defs><path id="cp1" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs><text font-family="Unbounded,Arial Black,sans-serif" font-weight="800" font-size="17" fill="#0C0A26"><textPath href="#cp1" textLength="455" lengthAdjust="spacing">PIZZA • SEAFOOD • COTTMAN AVE •</textPath></text></svg></div><div class="core"><svg viewBox="0 0 24 24"><path d="M12 1l2.7 7.3L22 11l-7.3 2.7L12 21l-2.7-7.3L2 11l7.3-2.7z" fill="#0C0A26"/></svg></div></div>
+      <div class="fb g" data-fl><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 20.9l1.6-7L2 9.2l7.1-.6z" fill="#0C0A26"/></svg>4.4 on Google</div>
+      <div class="fb r" data-fl>400 reviews</div>
+      <a class="fb o" data-fl href="#order">Order direct <svg viewBox="0 0 16 16" fill="none" stroke="#0C0A26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="mq" aria-label="Galaxy Pizza, Pizza and Seafood, Cottman Ave, 100 percent beef products"><div class="tr" id="mq">
+  <div class="g"><span>Galaxy Pizza</span><span>Pizza &amp; Seafood</span><span>Cottman Ave</span><span>100% Beef Products</span><span>Galaxy Pizza</span><span>Pizza &amp; Seafood</span><span>Cottman Ave</span><span>100% Beef Products</span></div>
+  <div class="g" aria-hidden="true"><span>Galaxy Pizza</span><span>Pizza &amp; Seafood</span><span>Cottman Ave</span><span>100% Beef Products</span><span>Galaxy Pizza</span><span>Pizza &amp; Seafood</span><span>Cottman Ave</span><span>100% Beef Products</span></div>
+</div></div>
+
+<section class="sec menu" id="menu">
+  <div class="wrap">
+    <div class="menu-h">
+      <div><div class="eb">The orbit menu</div><h2 class="h2 sp">Pick a <span class="tom">planet.</span></h2></div>
+      <p>Tap a category and the ring swings it into place. Prices from their current online menu &mdash; owner confirms.</p>
+    </div>
+    <div class="om">
+      <div class="om-stage" id="omStage">
+        <svg class="om-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="43" fill="none" stroke="#FFF4DC" stroke-opacity=".3" stroke-width=".35" stroke-dasharray="1.2 1.6"/></svg>
+        <div class="om-dock" aria-hidden="true"></div>
+        <div class="om-planet" id="omPlanetIn"><div class="planet" id="omPlanet"></div></div>
+        <div class="om-chips" id="omChips" role="tablist" aria-label="Menu categories"></div>
+      </div>
+      <div class="panel" id="panel" aria-live="polite">
+        <div class="panel-top"><span class="idx" id="pIdx">01 / 12</span><span class="tagpop" id="pPop" style="display:none">Popular per reviews</span></div>
+        <h3 id="pTitle">Hand-tossed pizza</h3>
+        <ul class="items" id="items"></ul>
+        <div class="foot"><small>Prices from their current online menu &mdash; owner confirms.</small><button class="btn sm" id="pAdd" type="button">Add to my request <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="arc" style="--a:transparent"><svg viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 Q720 -40 1440 100 V101 H0Z" fill="#FFF4DC"/><path d="M0 100 Q720 -40 1440 100" fill="none" stroke="#FF4D2E" stroke-width="10" vector-effect="non-scaling-stroke"/></svg></div>
+
+<section class="sec pop" id="popular">
+  <div class="wrap">
+    <div class="pop-h"><div><div class="eb">Fan favorites</div><h2 class="h2 sp">The heavy <span class="tom">hitters.</span></h2></div><p>These four keep coming up in reviews. Tap the plus to drop one into your order request.</p></div>
+    <div class="pg">
+      <article class="pc"><figure><img loading="lazy" src="https://images.unsplash.com/photo-1778449736460-9a8f2117571a?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1749513762144-8991c898d95c?auto=format&fit=crop&w=800&q=75" alt="A cheesesteak sandwich" onerror="imgFail(this)"><span class="no">01</span></figure><div class="bd"><h3>Cheesesteak</h3><p>The Philly classic, made on Cottman Ave.</p><div class="row"><span class="price">$9.60</span><button class="add" data-add="Cheesesteak" aria-label="Add cheesesteak to my order request"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></button></div></div></article>
+      <article class="pc"><figure><img loading="lazy" src="https://images.unsplash.com/photo-1727280376746-b89107a5b0df?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=75" alt="A tray of chicken wings with dipping sauce" onerror="imgFail(this)"><span class="no">02</span></figure><div class="bd"><h3>Wings platter</h3><p>Wings by the platter, ready for the whole table.</p><div class="row"><span class="price">$12.00</span><button class="add" data-add="Wings platter" aria-label="Add wings platter to my order request"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></button></div></div></article>
+      <article class="pc"><figure><img loading="lazy" src="https://images.unsplash.com/photo-1753656681797-3234c89d6d4d?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=75" alt="A baked calzone on a wooden board" onerror="imgFail(this)"><span class="no">03</span></figure><div class="bd"><h3>Calzone</h3><p>Folded, baked and stuffed. A reviewer favorite.</p><div class="row"><span class="price ask">Price: owner confirms</span><button class="add" data-add="Calzone" aria-label="Add calzone to my order request"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></button></div></div></article>
+      <article class="pc"><figure><img loading="lazy" src="https://images.unsplash.com/photo-1761344788266-5f6957aeea33?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1676976198546-18595f0796f0?auto=format&fit=crop&w=800&q=75" alt="Toasted garlic bread with melted cheese and herbs" onerror="imgFail(this)"><span class="no">04</span></figure><div class="bd"><h3>Garlic knots</h3><p>The side people keep mentioning. Stock photo shown.</p><div class="row"><span class="price ask">Price: owner confirms</span><button class="add" data-add="Garlic knots" aria-label="Add garlic knots to my order request"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></button></div></div></article>
+    </div>
+    <div class="pop-note">Popular per reviews &middot; prices from their current online menu, owner confirms &middot; stock photos</div>
+  </div>
+</section>
+
+<div class="arc" style="--a:#FFF4DC"><svg viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 Q720 -40 1440 100 V101 H0Z" fill="#FF4D2E"/></svg></div>
+
+<section class="bigsec" id="orbitbig" aria-label="Out of this world">
+  <div class="bigtxt" id="bigtxt">
+    <span class="l1" id="bl1">Out of <span class="moon"><img loading="lazy" src="https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=600&q=75" data-fb="https://images.unsplash.com/photo-1672856398893-2fb52d807874?auto=format&fit=crop&w=600&q=75" alt="A pizza baking in a wood-fired oven" onerror="imgFail(this)"></span></span>
+    <span class="l2" id="bl2"><span class="ww">This</span> <span class="ww">World</span></span>
+  </div>
+  <div class="wrap big-b">
+    <p><b>Pizza, cheesesteaks, wings and seafood platters</b> from the corner of Cottman Ave. Come in, or start a request online.</p>
+    <div class="rot-lg" aria-hidden="true"><div class="spin" data-dur="26" data-rev="1"><svg viewBox="0 0 200 200"><defs><path id="cp2" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs><text font-family="Unbounded,Arial Black,sans-serif" font-weight="800" font-size="17" fill="#0C0A26"><textPath href="#cp2" textLength="468" lengthAdjust="spacing">PIZZA • SEAFOOD • COTTMAN AVE •</textPath></text></svg></div><div class="core"><svg viewBox="0 0 24 24"><path d="M12 1l2.7 7.3L22 11l-7.3 2.7L12 21l-2.7-7.3L2 11l7.3-2.7z" fill="#FFC93C"/></svg></div></div>
+  </div>
+</section>
+
+<div class="arc" style="--a:#FF4D2E"><svg viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 Q720 -40 1440 100 V101 H0Z" fill="#0C0A26"/><path d="M0 100 Q720 -40 1440 100" fill="none" stroke="#FFC93C" stroke-width="10" vector-effect="non-scaling-stroke"/></svg></div>
+
+<section class="sec" id="order">
+  <div class="wrap ord-g">
+    <div class="ord-l">
+      <div class="eb">Order request</div>
+      <h2 class="h2 sp">Start an <span class="tom">order</span> request</h2>
+      <p>Pickup or delivery: tell us what you're craving and when. This is a demo, so the owner confirms every request by phone.</p>
+      <ol class="steps"><li>Send your request</li><li>The owner confirms by phone</li><li>Pick it up, or get it delivered</li></ol>
+      <div class="moon-o" aria-hidden="true"><img loading="lazy" src="https://images.unsplash.com/photo-1555072956-7758afb20e8f?auto=format&fit=crop&w=500&q=75" data-fb="https://images.unsplash.com/photo-1672856398893-2fb52d807874?auto=format&fit=crop&w=500&q=75" alt="" onerror="imgFail(this)"></div>
+    </div>
+    <div class="form" id="form">
+      <form id="ordForm" novalidate>
+        <h3>Your request</h3>
+        <p class="dm">Demo request &mdash; the owner confirms by phone.</p>
+        <div class="frow">
+          <div class="fld"><label for="fName">Name</label><input id="fName" name="name" autocomplete="name" placeholder="Your name" required></div>
+          <div class="fld"><label for="fPhone">Phone</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(215) 555-0100" required></div>
+        </div>
+        <div class="fld"><span class="lb" id="lbType">Pickup or delivery</span>
+          <div class="seg" role="radiogroup" aria-labelledby="lbType">
+            <input type="radio" name="method" id="mPick" value="pickup" checked><label for="mPick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11H6.2z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>Pickup</label>
+            <input type="radio" name="method" id="mDel" value="delivery"><label for="mDel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6l-3-8h-3M13 9h4l1 8"/></svg>Delivery</label>
+          </div>
+        </div>
+        <div class="addr" id="addrWrap" style="height:0;opacity:0"><div class="fld"><label for="fAddr">Delivery address</label><input id="fAddr" name="address" autocomplete="street-address" placeholder="Street, apt, city"><span style="font-size:.8rem;color:rgba(12,10,38,.66)">Delivery availability and fees: owner confirms.</span></div></div>
+        <div class="fld"><label for="fItems">Items / notes</label><textarea id="fItems" name="items" placeholder="e.g. 1 cheesesteak, wings platter, garlic knots..."></textarea></div>
+        <div class="fld"><label for="fTime">Preferred time</label><select id="fTime" name="time"></select></div>
+        <div class="err" id="err" role="alert"></div>
+        <button class="btn" type="submit">Send request <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
+        <div class="fnote">Demo only. Nothing is sent to Galaxy Pizza; the request is saved on this device.</div>
+      </form>
+      <div class="done" id="done">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="45"/><path d="M28 52l15 15 30-34"/></svg>
+        <span class="badge-demo">Demo request</span>
+        <h3 id="dT">Request received</h3>
+        <p id="dP"></p>
+        <button class="btn ink sm" id="again" type="button">Send another</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="arc" style="--a:transparent"><svg viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 Q720 -40 1440 100 V101 H0Z" fill="#FFC93C"/><path d="M0 100 Q720 -40 1440 100" fill="none" stroke="#FF4D2E" stroke-width="10" vector-effect="non-scaling-stroke"/></svg></div>
+
+<section class="gg" id="reviews">
+  <div class="wrap gg-g">
+    <div class="gnum" id="gnum" aria-label="4.4 out of 5">4.4</div>
+    <div class="gr">
+      <div class="eb">Google rating</div>
+      <div class="gstars" role="img" aria-label="4.4 out of 5 stars">
+        <svg viewBox="0 0 130 26" aria-hidden="true"><g fill="none" stroke="#0C0A26" stroke-width="1.6" stroke-opacity=".35" stroke-linejoin="round"><path id="st" d="M13 2l3.2 7.2 7.8.7-5.9 5.2 1.8 7.7L13 18.7l-6.9 4.1 1.8-7.7L2 9.9l7.8-.7z"/><use href="#st" x="26"/><use href="#st" x="52"/><use href="#st" x="78"/><use href="#st" x="104"/></g></svg>
+        <div class="fg"><svg viewBox="0 0 130 26" aria-hidden="true"><g fill="#0C0A26"><use href="#st"/><use href="#st" x="26"/><use href="#st" x="52"/><use href="#st" x="78"/><use href="#st" x="104"/></g></svg></div>
+      </div>
+      <div class="ct">400 Google reviews</div>
+      <p>See what customers on Cottman Ave are saying, straight from Google.</p>
+      <a class="btn ink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Galaxy+Pizza+1239+Cottman+Ave+Philadelphia+PA+19111">Read reviews on Google <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12L12 4M5 4h7v7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<div class="arc" style="--a:#FFC93C"><svg viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 Q720 -40 1440 100 V101 H0Z" fill="#0C0A26"/><path d="M0 100 Q720 -40 1440 100" fill="none" stroke="#FF4D2E" stroke-width="10" vector-effect="non-scaling-stroke"/></svg></div>
+
+<section class="sec" id="visit" style="padding-top:70px">
+  <div class="wrap">
+    <div class="eb">Land here</div>
+    <h2 class="h2 sp">Cottman <span class="tom">Ave.</span></h2>
+    <div class="vg">
+      <div class="vi">
+        <div class="vc"><small>Address</small><div class="v">1239 Cottman Ave #1<br>Philadelphia, PA 19111</div><a class="btn ghost sm lnk" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=1239+Cottman+Ave+Philadelphia+PA+19111">Get directions</a></div>
+        <!-- Phone (215) 725-1005 agrees on Google + Bing. Slice page shows (210) 806-7723 - UNCONFIRMED, not used. -->
+        <div class="vc"><small>Call</small><div class="v"><a href="tel:+12157251005">(215) 725-1005</a></div><div class="n">Tap to call.</div></div>
+        <div class="vc"><small>Hours</small><div class="v">Open 11 AM - 10:45 PM</div><div class="n">Days open: owner confirms.</div></div>
+      </div>
+      <div class="map"><iframe title="Map to Galaxy Pizza, 1239 Cottman Ave, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=1239+Cottman+Ave+%231%2C+Philadelphia%2C+PA+19111&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="arc" style="--a:#0C0A26;margin-bottom:0"><svg viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 100 Q720 -40 1440 100 V101 H0Z" fill="#080620"/><path d="M0 100 Q720 -40 1440 100" fill="none" stroke="#FF4D2E" stroke-width="10" vector-effect="non-scaling-stroke"/></svg></div>
+  <div class="ft" aria-hidden="true">Galaxy <b>Pizza</b></div>
+  <div class="wrap">
+    <div class="fcols">
+      <div><strong>Galaxy Pizza</strong><br>1239 Cottman Ave #1<br>Philadelphia, PA 19111</div>
+      <div><strong>Call</strong><br><a href="tel:+12157251005">(215) 725-1005</a><br>Open 11 AM - 10:45 PM (days: owner confirms)</div>
+      <div><strong>Philadelphia Pizza &amp; Seafood Place.</strong><br>100% Beef Products.</div>
+    </div>
+    <div class="demo-line">Demo concept by Rafael's web agency &mdash; not affiliated with Galaxy Pizza. Menu prices are from their current online menu; the owner confirms. Photos are stock.</div>
+  </div>
+</footer>
+
+<div class="dock" id="dock"><a href="tel:+12157251005"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>Call</a><a href="#order">Order request</a></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+function imgFail(im){im.onerror=null;var f=im.getAttribute('data-fb');if(f&&im.src!==f){im.onerror=function(){im.onerror=null;im.style.display='none'};im.src=f}else{im.style.display='none'}}
+(function(){
+'use strict';
+var SLUG='galaxy-pizza';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),hasFlip=!!(hasG&&window.Flip);
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+if(hasG){document.documentElement.classList.add('js');gsap.registerPlugin(ScrollTrigger);if(hasFlip)gsap.registerPlugin(Flip)}
+var PI2=Math.PI*2;
+
+/* ---------- stars (light inline SVG) ---------- */
+(function(){var svg=$('#stars'),s=11,NS='http://www.w3.org/2000/svg',h='';
+  function r(){s=(s*16807)%2147483647;return s/2147483647}
+  for(var i=0;i<120;i++){var x=(r()*1440).toFixed(1),y=(r()*900).toFixed(1),rad=(.5+r()*1.3).toFixed(2),o=(.25+r()*.65).toFixed(2);
+    h+='<circle class="'+(i%9===0?'tw':'')+'" cx="'+x+'" cy="'+y+'" r="'+rad+'" fill="#fff" opacity="'+o+'"/>'}
+  for(var j=0;j<9;j++){var sx=(r()*1440).toFixed(0),sy=(r()*900).toFixed(0),z=3+r()*4;
+    h+='<path class="tw" transform="translate('+sx+' '+sy+') scale('+z.toFixed(2)+')" d="M0-1L.22-.22 1 0 .22.22 0 1-.22.22-1 0-.22-.22z" fill="'+(j%2?'#FFC93C':'#fff')+'" opacity=".8"/>'}
+  svg.innerHTML=h;
+  if(anim)gsap.to('#stars .tw',{opacity:.12,duration:2.4,ease:'power2.inOut',yoyo:true,repeat:-1,stagger:{each:.35,from:'random'}});
+})();
+
+/* ---------- hours pill ---------- */
+$('#hrsPill').lastChild.textContent='Open 11 AM - 10:45 PM';
+
+/* ---------- lenis ---------- */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.1,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0);lenis.stop()}
+function goTo(sel){var el=$(sel);if(!el)return;if(lenis)lenis.scrollTo(el,{offset:sel==='#top'?0:-10,duration:1.5});else el.scrollIntoView({behavior:reduce?'auto':'smooth'})}
+var drawer=$('#drawer'),burger=$('#burger'),scrim=$('#scrim');
+function drawerSet(on){drawer.classList.toggle('on',on);scrim.classList.toggle('on',on);burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on);burger.setAttribute('aria-label',on?'Close menu':'Open menu');if(lenis){on?lenis.stop():lenis.start()}dockUpd()}
+burger.addEventListener('click',function(){drawerSet(!drawer.classList.contains('on'))});
+scrim.addEventListener('click',function(){drawerSet(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')drawerSet(false)});
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();var was=drawer.classList.contains('on');if(was){drawerSet(false)}setTimeout(function(){goTo(h)},was?60:0)}})});
+var nav=$('#nav'),dock=$('#dock');
+function dockUpd(){dock.classList.toggle('on',scrollY>innerHeight*.8&&!drawer.classList.contains('on')&&!nearOrder())}
+function nearOrder(){var f=$('#form');if(!f)return false;var r=f.getBoundingClientRect();return r.top<innerHeight*.75&&r.bottom>innerHeight*.2}
+function ns(){nav.classList.toggle('solid',scrollY>40);dockUpd()}
+addEventListener('scroll',ns,{passive:true});ns();
+
+/* ---------- data ---------- */
+var IMG=function(id,w){return 'https://images.unsplash.com/photo-'+id+'?auto=format&fit=crop&w='+w+'&q=75'};
+var CATS=[
+ {k:'pizza',s:'Pizza',n:'Hand-tossed pizza',ph:['1593504049359-74330189a345','1513104890138-7c749659a591'],alt:'Close-up of a cheese pizza',items:[['Hand-tossed pizza, extra cheese','$9.00'],['More hand-tossed pizzas',null]]},
+ {k:'specialty',s:'Specialty',n:'Specialty pizza',ph:['1628840042765-356cda07504e','1574071318508-1cdbab80d002'],alt:'A sliced pepperoni and ham pizza on a dark table',items:[['Specialty pizzas',null]]},
+ {k:'breakfast',s:'Breakfast',n:'Breakfast',ph:['1629212274717-59f76381b00b','1749513762144-8991c898d95c'],alt:'A stack of toasted breakfast sandwiches with egg and cheese',items:[['Breakfast menu',null]]},
+ {k:'salads',s:'Salads',n:'Salads',ph:['1646487793655-bbf280273d2f','1752095809096-f09d22c466c5'],alt:'A fresh salad bowl',items:[['Salads',null]]},
+ {k:'wings',s:'Wings',n:'Wings',pop:1,ph:['1567620832903-9fc6debc209f','1734987942068-a1a459d65d3d'],alt:'Buffalo chicken wings with green onions and ranch',items:[['Wings platter','$12.00'],['More wing options',null]]},
+ {k:'cheesesteak',s:'Cheesesteak',n:'Cheesesteak',pop:1,ph:['1778449736460-9a8f2117571a','1749513762144-8991c898d95c'],alt:'A cheesesteak sandwich on a dark background',items:[['Cheesesteak','$9.60'],['More steaks and toppings',null]]},
+ {k:'hoagies',s:'Hoagies',n:'Hoagies',ph:['1753798130695-3c060be80e83','1749513762144-8991c898d95c'],alt:'A baguette sandwich with melted cheese and ham',items:[['Hoagies',null]]},
+ {k:'wraps',s:'Wraps',n:'Wraps',ph:['1752095809096-f09d22c466c5','1749513762144-8991c898d95c'],alt:'A wrap served with salad on a white plate',items:[['Wraps',null]]},
+ {k:'calzones',s:'Calzones',n:'Calzones',pop:1,ph:['1753656681797-3234c89d6d4d','1761344788266-5f6957aeea33'],alt:'A baked calzone on a wooden board',items:[['Calzones',null]]},
+ {k:'strombolis',s:'Strombolis',n:'Strombolis',ph:['1753656681797-3234c89d6d4d','1761344788266-5f6957aeea33'],flip:1,alt:'A baked, stuffed pizza roll on a wooden board',items:[['Strombolis',null]]},
+ {k:'seafood',s:'Seafood',n:'Seafood platters',ph:['1553557202-e8e60357f061','1736379270654-dee0d35186e0'],alt:'A tray of fried shrimp',items:[['Jumbo fried shrimp platter','$14.34'],['More seafood platters',null]]},
+ {k:'desserts',s:'Desserts',n:'Desserts',ph:['1746457454153-d6c60c7b04f9','1761344788266-5f6957aeea33'],alt:'Two cannoli in a box',items:[['Desserts',null]]}
+];
+var N=CATS.length,cur=0,base=0;
+
+/* ---------- orbit menu build ---------- */
+var omChips=$('#omChips'),omPlanet=$('#omPlanet'),items=$('#items'),omStage=$('#omStage');
+CATS.forEach(function(c,i){
+  var b=document.createElement('button');b.className='chip'+(i===0?' on':'');b.dataset.i=i;b.setAttribute('role','tab');b.setAttribute('aria-selected',i===0);b.innerHTML='<i></i>'+c.s;b.setAttribute('aria-label',c.n);omChips.appendChild(b);
+  var im=document.createElement('img');im.alt=c.alt;im.dataset.src=IMG(c.ph[0],800);im.dataset.fb=IMG(c.ph[1],800);if(c.flip)im.style.transform='scaleX(-1)';im.setAttribute('onerror','imgFail(this)');im.dataset.i=i;omPlanet.appendChild(im);
+  c.items.forEach(function(it){var li=document.createElement('li');li.className='it'+(i===0?'':' off');li.dataset.i=i;li.innerHTML='<span class="nm">'+it[0]+'</span><span class="ds"></span>'+(it[1]?'<span class="pr">'+it[1]+'</span>':'<span class="pr ask">See full menu &mdash; owner confirms</span>');items.appendChild(li)});
+});
+var omImgs=$$('img',omPlanet);
+function loadOm(i){var im=omImgs[i];if(im&&!im.src&&im.dataset.src){im.src=im.dataset.src}}
+loadOm(0);
+var omLoadedAll=false;function loadAllOm(){if(omLoadedAll)return;omLoadedAll=true;omImgs.forEach(function(im,i){setTimeout(function(){loadOm(i)},i*120)})}
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){loadAllOm();io.disconnect()}},{rootMargin:'600px 0px'});io.observe($('#menu'))}else loadAllOm();
+omImgs[0].classList.add('on');
+var isDesk=function(){return matchMedia('(min-width:901px)').matches};
+
+function omPos(){
+  if(!omStage.classList.contains('ring-on'))return;
+  var S=omStage.offsetWidth,r=S*.43,cs=$$('.chip',omChips);
+  cs.forEach(function(c,i){var a=(i*360/N+base)*Math.PI/180,x=S/2+Math.cos(a)*r,y=S/2+Math.sin(a)*r;
+    c.style.transform='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%)'})
+}
+function ringSet(){var on=isDesk();omStage.classList.toggle('ring-on',on);if(on){omChips.style.transform='';$$('.chip',omChips).forEach(function(c){c.style.left=0;c.style.top=0});base=-cur*360/N;omPos()}else{$$('.chip',omChips).forEach(function(c){c.style.transform='';c.style.left='';c.style.top=''})}}
+ringSet();addEventListener('resize',function(){ringSet();heroSet()});
+
+function setPanel(i,animate){
+  var c=CATS[i];
+  $('#pIdx').textContent=(i<9?'0':'')+(i+1)+' / '+N;
+  $('#pPop').style.display=c.pop?'inline-flex':'none';
+  var t=$('#pTitle');
+  var rows=$$('.it',items),h=items.offsetHeight;
+  var state=(animate&&hasFlip&&anim)?Flip.getState(rows):null;
+  rows.forEach(function(r){r.classList.toggle('off',+r.dataset.i!==i)});
+  t.textContent=c.n;
+  if(animate&&anim){
+    gsap.fromTo(t,{yPercent:40,opacity:0,clipPath:'inset(0 0 100% 0)'},{yPercent:0,opacity:1,clipPath:'inset(0 0 0% 0)',duration:.8,ease:'power3.out',clearProps:'clipPath,transform'});
+    if(state){items.style.minHeight=h+'px';Flip.from(state,{duration:.8,ease:'power3.inOut',absolute:true,onEnter:function(els){return gsap.fromTo(els,{opacity:0,y:34,scale:.96},{opacity:1,y:0,scale:1,duration:.75,stagger:.1,ease:'power3.out',delay:.15})},onLeave:function(els){return gsap.to(els,{opacity:0,scale:.92,duration:.35,ease:'power2.inOut'})},onComplete:function(){items.style.minHeight=''}})}
+    else gsap.fromTo($$('.it:not(.off)',items),{opacity:0,y:30},{opacity:1,y:0,duration:.7,stagger:.1,ease:'power3.out'});
+  }
+}
+function setCat(i,fromHero){
+  if(i===cur&&!fromHero)return;
+  var prev=cur;cur=i;var animate=prev!==i;
+  $$('.chip',omChips).forEach(function(c,k){c.classList.toggle('on',k===i);c.setAttribute('aria-selected',k===i)});
+  loadOm(i);
+  omImgs.forEach(function(im,k){im.classList.toggle('on',k===i)});
+  if(omStage.classList.contains('ring-on')){
+    var target=-i*360/N,d=((target-base+540)%360)-180,end=base+d;
+    if(anim){var o={v:base};gsap.to(o,{v:end,duration:1.1,ease:'power3.inOut',onUpdate:function(){base=o.v;omPos()},onComplete:function(){base=end}})}else{base=end;omPos()}
+  }else{var ch=$$('.chip',omChips)[i];if(ch){omChips.scrollTo({left:ch.offsetLeft-(omChips.clientWidth-ch.offsetWidth)/2,behavior:anim?'smooth':'auto'})}}
+  if(anim&&animate)gsap.fromTo('#omPlanetIn',{rotation:-40,scale:.82},{rotation:0,scale:1,duration:1,ease:'expo.out'});
+  setPanel(i,animate&&anim);
+}
+omChips.addEventListener('click',function(e){var b=e.target.closest('.chip');if(b)setCat(+b.dataset.i)});
+omChips.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowDown'){setCat((cur+1)%N);e.preventDefault();$$('.chip',omChips)[cur].focus()}if(e.key==='ArrowLeft'||e.key==='ArrowUp'){setCat((cur+N-1)%N);e.preventDefault();$$('.chip',omChips)[cur].focus()}});
+
+/* ---------- order form + add buttons ---------- */
+var toastT;function toast(m){var t=$('#toast');t.textContent=m;if(anim){gsap.killTweensOf(t);gsap.timeline().to(t,{opacity:1,y:0,duration:.5,ease:'power3.out'}).to(t,{opacity:0,y:20,duration:.5,ease:'power2.inOut'},'+=1.6')}else{t.style.opacity=1;t.style.transform='translate(-50%,0)';clearTimeout(toastT);toastT=setTimeout(function(){t.style.opacity=0},2200)}}
+function addItem(txt,go){var ta=$('#fItems');var v=ta.value.trim();if(v.toLowerCase().indexOf(txt.toLowerCase())===-1)ta.value=v?v+'\n'+txt:txt;toast('Added: '+txt);if(go)setTimeout(function(){goTo('#order')},250)}
+$$('[data-add]').forEach(function(b){b.addEventListener('click',function(){addItem(b.dataset.add,false)})});
+$('#pAdd').addEventListener('click',function(){var c=CATS[cur];addItem(c.items[0][1]?c.items[0][0]:c.n,false)});
+$$('#heroOrbit .chip').forEach(function(b){b.addEventListener('click',function(){var i=CATS.findIndex(function(c){return c.k===b.dataset.cat});if(i>-1){setCat(i,true);goTo('#menu')}})});
+
+var sel=$('#fTime');
+(function(){var o=['<option value="">As soon as possible</option>'];for(var m=11*60;m<=22*60+30;m+=30){var h=Math.floor(m/60),mm=m%60,ap=h>=12?'PM':'AM',hh=h%12||12,l=hh+':'+(mm?'30':'00')+' '+ap;o.push('<option value="'+l+'">'+l+'</option>')}sel.innerHTML=o.join('')})();
+var addr=$('#addrWrap'),delOn=false;
+function setMethod(){var d=$('#mDel').checked;if(d===delOn)return;delOn=d;
+  if(anim){if(d){gsap.set(addr,{height:'auto'});var hh=addr.offsetHeight;gsap.fromTo(addr,{height:0,opacity:0},{height:hh,opacity:1,duration:.6,ease:'power3.out',onComplete:function(){addr.style.height='auto'}})}else gsap.to(addr,{height:0,opacity:0,duration:.5,ease:'power2.inOut'})}
+  else{addr.style.height=d?'auto':'0';addr.style.opacity=d?1:0}}
+$$('input[name=method]').forEach(function(r){r.addEventListener('change',setMethod)});
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+$('#ordForm').addEventListener('submit',function(e){e.preventDefault();
+  var name=$('#fName').value.trim(),ph=$('#fPhone').value.trim(),method=$('#mDel').checked?'delivery':'pickup',ad=$('#fAddr').value.trim(),it=$('#fItems').value.trim(),err=$('#err');
+  if(!name)return err.textContent='Add your name so the owner knows who to ask for.';
+  if(ph.replace(/\D/g,'').length<10)return err.textContent='Add a 10-digit phone number so the owner can call to confirm.';
+  if(method==='delivery'&&!ad)return err.textContent='Add a delivery address.';
+  if(!it)return err.textContent='Tell us what you would like (items or notes).';
+  err.textContent='';
+  var rec={id:'G'+Date.now().toString(36).toUpperCase(),created:new Date().toISOString(),status:'new',name:name,phone:ph,method:method,address:method==='delivery'?ad:'',items:it,time:sel.value||'As soon as possible'};
+  try{var a=getB();a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+  $('#dT').textContent='Request received, '+name.split(' ')[0]+'.';
+  $('#dP').textContent='This is a demo request, so nothing was sent. In the live version the owner would call '+ph+' to confirm your '+method+' order'+(sel.value?' for '+sel.value:'')+'.';
+  $('#ordForm').style.display='none';var dn=$('#done');dn.classList.add('on');
+  if(anim)gsap.from(dn.children,{y:24,opacity:0,duration:.7,stagger:.1,ease:'power3.out',clearProps:'all'});
+  this.reset();delOn=false;addr.style.height='0';addr.style.opacity=0;
+  if(lenis)lenis.resize();
+});
+$('#again').addEventListener('click',function(){$('#done').classList.remove('on');$('#ordForm').style.display='';if(lenis)lenis.resize()});
+
+/* ---------- hero orbit ---------- */
+var heroStage=$('#heroStage'),heroChips=$$('#heroOrbit .chip'),hA=0.6,hSpeed=.16,hTarget=.16,heroTick=null;
+function heroPlace(){
+  if(!heroStage.classList.contains('orbit-on'))return;
+  var S=heroStage.offsetWidth,rx=S*(innerWidth<1240?.43:.5),ry=S*.34;
+  heroChips.forEach(function(c,i){var a=hA+i*PI2/heroChips.length,sn=Math.sin(a),x=S/2+Math.cos(a)*rx,y=S/2+sn*ry,d=(sn+1)/2,sc=.86+.18*d;
+    c.style.transform='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%) scale('+sc.toFixed(3)+')';c.style.zIndex=sn>0?6:1;c.style.opacity=sn>0?1:.9})
+}
+function heroSet(){var on=isDesk();heroStage.classList.toggle('orbit-on',on);
+  if(!on){heroChips.forEach(function(c){c.style.transform='';c.style.zIndex='';c.style.opacity=''})}else heroPlace()}
+heroSet();
+$('#heroOrbit').addEventListener('mouseenter',function(){hTarget=0});
+$('#heroOrbit').addEventListener('mouseleave',function(){hTarget=.16});
+heroChips.forEach(function(c){c.addEventListener('focus',function(){hTarget=0});c.addEventListener('blur',function(){hTarget=.16})});
+heroStage.addEventListener('mouseleave',function(){hTarget=.16});
+function heroTicker(t,dt){if(!heroStage.classList.contains('orbit-on'))return;dt=Math.min(dt,60);hSpeed+=(hTarget-hSpeed)*Math.min(1,dt*.006);hA+=hSpeed*dt/1000;heroPlace()}
+if(anim){gsap.ticker.add(function(t,dt){heroTicker(t,dt)})}
+
+/* ---------- hero video ---------- */
+(function(){var v=$('#heroVid'),p=$('#planet');if(!v)return;
+  var sd=navigator.connection&&navigator.connection.saveData;
+  function drop(){try{v.pause()}catch(e){}v.removeAttribute('src');$$('source',v).forEach(function(s){s.remove()});v.load&&v.load();v.style.display='none'}
+  if(reduce||sd){drop();return}
+  v.addEventListener('playing',function(){p.classList.add('vid-on')});
+  v.addEventListener('error',drop);
+  var s=$('source',v);if(s)s.addEventListener('error',drop);
+  v.addEventListener('stalled',function(){setTimeout(function(){if(v.readyState<3&&!p.classList.contains('vid-on'))drop()},5000)});
+  setTimeout(function(){if(!p.classList.contains('vid-on')&&v.readyState<2)drop()},9000);
+  var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});
+})();
+
+/* ---------- words split ---------- */
+function splitWords(el){if(el.dataset.sp)return;el.dataset.sp=1;
+  var walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;while((n=walk.nextNode()))ns.push(n);
+  ns.forEach(function(t){var f=document.createDocumentFragment();t.nodeValue.split(/(\s+)/).forEach(function(p){if(!p)return;if(/^\s+$/.test(p)){f.appendChild(document.createTextNode(' '));return}var w=document.createElement('span');w.className='w';var i=document.createElement('span');i.className='wi';i.textContent=p;w.appendChild(i);f.appendChild(w)});t.parentNode.replaceChild(f,t)})}
+$$('.sp').forEach(splitWords);
+
+/* ---------- spin ---------- */
+function startSpins(){if(!anim)return;$$('.spin').forEach(function(s){gsap.to(s,{rotation:s.dataset.rev?-360:360,duration:+s.dataset.dur||30,ease:'none',repeat:-1,transformOrigin:'50% 50%'})});
+  gsap.to('#planetSpin',{rotation:360,duration:140,ease:'none',repeat:-1,transformOrigin:'50% 50%'});
+  gsap.to('[data-fl]',{y:-12,duration:2.1,ease:'sine.inOut',yoyo:true,repeat:-1,stagger:.45});
+  gsap.to('#omPlanet',{rotation:360,duration:220,ease:'none',repeat:-1,transformOrigin:'50% 50%'});}
+
+/* ---------- intro ---------- */
+var introDone=false,scrollSet=false;
+function finishIntro(){if(introDone)return;introDone=true;var p=$('#pre');if(p)p.remove();if(lenis)lenis.start();setupScroll()}
+function intro(){
+  var pre=$('#pre');
+  if(!anim){if(pre)pre.remove();return}
+  var bar={v:0},started=false,loaded=false;
+  addEventListener('load',function(){loaded=true});
+  gsap.to('#preMoon',{rotation:360,duration:2.4,ease:'none',repeat:-1,transformOrigin:'60px 60px'});
+  var tl=gsap.timeline();
+  tl.to(bar,{v:100,duration:1.5,ease:'power2.inOut',onUpdate:function(){$('#preN').textContent=Math.round(bar.v)+'%';$('#preBar').style.transform='scaleX('+bar.v/100+')'}});
+  tl.add(function(){ // wait for load up to ~2.5s more
+    var t0=performance.now();(function w(){if(loaded||performance.now()-t0>2500||document.readyState==='complete'){go()}else requestAnimationFrame(w)})()
+  });
+  function go(){if(started)return;started=true;
+    var t2=gsap.timeline({onComplete:finishIntro});
+    t2.to('#pre',{yPercent:-110,duration:1.1,ease:'expo.inOut'},0)
+      .from('#h1 .wi',{yPercent:115,duration:1,stagger:.18,ease:'power3.out'},.55)
+      .from('.hero .kick .pill',{y:20,opacity:0,duration:.7,stagger:.1,ease:'power3.out'},.5)
+      .from('#lead,#sub',{y:24,opacity:0,duration:.8,stagger:.12,ease:'power3.out'},1.05)
+      .from('#ctas .btn',{y:24,opacity:0,duration:.7,stagger:.12,ease:'power3.out'},1.3)
+      .from('.cue',{opacity:0,duration:.6,ease:'power3.out'},1.7)
+      .from('#planetIn',{scale:.5,opacity:0,duration:1.5,ease:'expo.out'},.4)
+      .from('.ringwrap',{scale:.6,opacity:0,duration:1.4,ease:'expo.out'},.5)
+      .from('.stage .path',{opacity:0,duration:1,ease:'power3.out'},.8)
+      .from('#heroOrbit',{opacity:0,duration:1,ease:'power3.out'},1.0)
+      .from('.badge-rot',{scale:0,opacity:0,duration:.8,ease:'back.out(1.6)'},1.3)
+      .from('.fb',{scale:.6,opacity:0,duration:.7,stagger:.14,ease:'back.out(1.6)'},1.4)
+      .from('.nav',{y:-40,opacity:0,duration:.7,ease:'power3.out'},1.0);
+    startSpins();
+  }
+  setTimeout(function(){if(!started){go()}},6500);
+  setTimeout(finishIntro,9500);
+}
+intro();
+
+/* ---------- scroll ---------- */
+function setupScroll(){
+  if(scrollSet||!anim)return;scrollSet=true;
+  // scroll progress bar
+  var pb=document.createElement('div');pb.style.cssText='position:fixed;left:0;top:0;right:0;height:3px;background:#FF4D2E;transform:scaleX(0);transform-origin:left;z-index:250;pointer-events:none';document.body.appendChild(pb);
+  gsap.to(pb,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.3}});
+  // marquee
+  gsap.to('#mq',{xPercent:-50,duration:32,ease:'none',repeat:-1});
+  // headings + eyebrows
+  $$('.sp').forEach(function(h){gsap.from($$('.wi',h),{yPercent:115,duration:.95,stagger:.07,ease:'power3.out',scrollTrigger:{trigger:h,start:'top 88%',once:true}})});
+  $$('.eb').forEach(function(el){gsap.from(el,{x:-24,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}})});
+  gsap.from('.menu-h p,.pop-h p',{y:26,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.menu-h',start:'top 85%',once:true}});
+  gsap.from('.om-stage',{scale:.85,opacity:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'.om',start:'top 82%',once:true}});
+  gsap.from('.panel',{y:60,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.om',start:'top 78%',once:true},clearProps:'transform,opacity'});
+  gsap.from('.pc',{y:70,opacity:0,duration:1,stagger:.14,ease:'power3.out',scrollTrigger:{trigger:'.pg',start:'top 85%',once:true},clearProps:'transform,opacity'});
+  gsap.from('.big-b > *',{y:40,opacity:0,duration:.9,stagger:.15,ease:'power3.out',scrollTrigger:{trigger:'.big-b',start:'top 90%',once:true}});
+  gsap.from('.ord-l > *',{y:34,opacity:0,duration:.9,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.ord-g',start:'top 82%',once:true},clearProps:'transform,opacity'});
+  gsap.from('.form',{y:60,opacity:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:'.form',start:'top 90%',once:true},clearProps:'transform,opacity'});
+  gsap.from('.vc',{y:40,opacity:0,duration:.8,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'.vi',start:'top 88%',once:true},clearProps:'transform,opacity'});
+  gsap.from('.map',{y:50,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.map',start:'top 92%',once:true},clearProps:'transform,opacity'});
+  // google count-up
+  ScrollTrigger.create({trigger:'#gnum',start:'top 85%',once:true,onEnter:function(){var c={v:0};gsap.to(c,{v:4.4,duration:1.8,ease:'power2.out',onUpdate:function(){$('#gnum').textContent=c.v.toFixed(1)}});gsap.from('.gstars .fg',{width:0,duration:1.8,ease:'power2.out',clearProps:'width'});gsap.from('.gr > *',{y:26,opacity:0,duration:.8,stagger:.1,ease:'power3.out',clearProps:'transform,opacity'})}});
+  // footer word
+  gsap.from('footer .ft',{yPercent:40,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:'footer',start:'top 80%',once:true}});
+
+  var mm=gsap.matchMedia();
+  mm.add('(min-width:901px)',function(){
+    // hero planet scroll scrub (rotation + scale)
+    gsap.fromTo('#planetScrub',{rotation:0,scale:1,y:0},{rotation:150,scale:1.32,y:70,ease:'power2.inOut',immediateRender:false,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+    gsap.fromTo('.hero-t',{y:0,opacity:1},{y:-70,opacity:.15,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom 20%',scrub:true}});
+    gsap.fromTo('.ringwrap',{scale:1},{scale:1.25,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    // oversized headline drift
+    gsap.fromTo('#bl1',{x:'-7vw'},{x:'7vw',ease:'none',immediateRender:false,scrollTrigger:{trigger:'.bigsec',start:'top bottom',end:'bottom top',scrub:1}});
+    gsap.fromTo('#bl2',{x:'7vw'},{x:'-7vw',ease:'none',immediateRender:false,scrollTrigger:{trigger:'.bigsec',start:'top bottom',end:'bottom top',scrub:1}});
+    gsap.fromTo('#bl1 .moon',{rotation:-120},{rotation:120,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.bigsec',start:'top bottom',end:'bottom top',scrub:1}});
+    // photo parallax on cards
+    $$('.pc figure img').forEach(function(im){gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',immediateRender:false,scrollTrigger:{trigger:im.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+  });
+  mm.add('(max-width:900px)',function(){
+    // mobile: gentle drift only
+    gsap.fromTo('#planetScrub',{rotation:0,scale:1},{rotation:70,scale:1.08,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+    gsap.fromTo('#bl1',{x:'-2vw'},{x:'2vw',ease:'none',immediateRender:false,scrollTrigger:{trigger:'.bigsec',start:'top bottom',end:'bottom top',scrub:1}});
+    gsap.fromTo('#bl2',{x:'2vw'},{x:'-2vw',ease:'none',immediateRender:false,scrollTrigger:{trigger:'.bigsec',start:'top bottom',end:'bottom top',scrub:1}});
+  });
+  ScrollTrigger.refresh();
+}
+addEventListener('load',function(){if(hasG&&scrollSet){ScrollTrigger.refresh()}});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(hasG&&scrollSet)ScrollTrigger.refresh();omPos();heroPlace()});
+})();
+</script>
+</body>
+</html>

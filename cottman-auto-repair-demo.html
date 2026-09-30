@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<!--
+DEMO CONCEPT — facts flagged for owner confirmation:
+[CONFIRM] Hours: Yelp, MapQuest and the inspection directory agree on Mon–Sat 9:30 AM–6:00 PM, closed Sunday. One other site says 9–4. Site shows 9:30–6 (owner to confirm).
+[CONFIRM] Years in business (Google snippet says "5+", single source) — omitted.
+[CONFIRM] State inspection service — omitted.
+[CONFIRM] Diagnostic price (a directory mentions ~$95, unconfirmed) — NO prices shown; copy says "Ask for today's diagnostic price".
+[CONFIRM] Full list of repair types (Yelp lists 15+ more) — site says "and more".
+Confirmed: name, address, phone (215) 941-6133, Google 4.1 stars / 120 reviews, Yelp services list.
+Not linked: thin Facebook page. Not affiliated with the Cottman Transmission franchise.
+-->
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cottman Auto Repair Center — Fox Chase, Philadelphia</title>
+<meta name="description" content="Cottman Auto Repair Center, 1201 Cottman Ave, Philadelphia PA 19111. Brakes, diagnostics, oil changes, electrical, engine and commercial truck repair. 4.1 stars from 120 Google reviews. Mon–Sat 9:30–6, closed Sunday.">
+<meta name="theme-color" content="#121212">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Cottman Auto Repair Center","telephone":"+1-215-941-6133","address":{"@type":"PostalAddress","streetAddress":"1201 Cottman Ave","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19111"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:30","closes":"18:00"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.1","reviewCount":"120"}}</script>
+<style>
+:root{--c1:#DEDBD3;--c2:#CFCBC1;--ink:#121212;--y:#FFD200;--red:#D63A1F;--paper:#FAF9F5;--mut:#5b5850;
+--fd:'Barlow Condensed','Arial Narrow','Liberation Sans Narrow','DejaVu Sans Condensed',Impact,sans-serif;--fb:'Barlow',system-ui,sans-serif;--fm:'IBM Plex Mono',ui-monospace,monospace;
+--haz:repeating-linear-gradient(-45deg,#FFD200 0 14px,#121212 14px 28px)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:clip}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--c1);color:var(--ink);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+:focus-visible{outline:3px solid var(--y);outline-offset:3px;box-shadow:0 0 0 6px var(--ink)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--fm)}
+.lbl{font-family:var(--fm);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.d{font-family:var(--fd);font-weight:800;text-transform:uppercase;line-height:.88;letter-spacing:-.01em}
+.hl{background:linear-gradient(transparent 12%,var(--y) 12%,var(--y) 90%,transparent 90%);padding:0 .08em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.haz{height:16px;background:var(--haz)}
+/* perforation */
+.perf{height:0;border-top:3px dotted currentColor;opacity:.5;margin:0}
+.notch{position:relative}
+.notch::before,.notch::after{content:"";position:absolute;top:-11px;width:22px;height:22px;border-radius:50%;background:var(--c1)}
+.notch::before{left:-11px}.notch::after{right:-11px}
+/* progress */
+#prog{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--y);transform-origin:0 50%;transform:scaleX(0);z-index:200}
+/* preloader */
+#pre{position:fixed;inset:0;z-index:300;display:none;background:var(--ink);color:var(--paper);align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:20px}
+.js #pre{display:flex}
+#pre .tk{background:var(--paper);color:var(--ink);width:min(88vw,380px);padding:22px 22px 26px;position:relative;transform:rotate(-2deg)}
+#pre .tk .top{background:var(--y);margin:-22px -22px 16px;padding:10px 22px;display:flex;justify-content:space-between}
+#pre .ln{font-family:var(--fm);font-size:.78rem;display:flex;justify-content:space-between;border-bottom:1px dotted #999;padding:5px 0;opacity:0}
+#pre .no{font-size:5rem;text-align:center;margin:8px 0 0}
+#pre .bar{height:6px;background:var(--haz);width:min(88vw,380px);transform-origin:0 50%;transform:scaleX(0)}
+/* nav */
+nav.top{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ink);color:var(--paper);border-bottom:4px solid var(--y)}
+nav.top .in{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{width:38px;height:38px;background:var(--y);color:var(--ink);display:grid;place-items:center;font-family:var(--fd);font-size:1.7rem;font-weight:800;transform:rotate(-4deg)}
+.logo span{font-family:var(--fd);font-weight:700;text-transform:uppercase;letter-spacing:.02em;font-size:1.15rem;line-height:1}
+.logo small{display:block;font-family:var(--fm);font-size:.58rem;letter-spacing:.16em;color:var(--y);margin-top:3px;font-weight:500}
+.links{display:flex;gap:26px;align-items:center}
+.links a{font-family:var(--fm);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:8px 0}
+.stat{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.3);padding:6px 10px;border-radius:30px}
+.stat i{width:8px;height:8px;border-radius:50%;background:#888}
+.stat.on i{background:#3ddc84}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;font-family:var(--fd);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:1.15rem;text-decoration:none;border:3px solid var(--ink);background:var(--y);color:var(--ink);box-shadow:5px 5px 0 var(--ink);transition:transform .2s,box-shadow .2s}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor;box-shadow:none}
+.btn.dk{background:var(--ink);color:var(--y);box-shadow:5px 5px 0 var(--y);border-color:var(--ink)}
+#burger{display:none;width:48px;height:48px;border:2px solid var(--y);position:relative;z-index:120}
+#burger i{position:absolute;left:11px;right:11px;height:3px;background:var(--y);transition:.3s}
+#burger i:nth-child(1){top:15px}#burger i:nth-child(2){top:22px}#burger i:nth-child(3){top:29px}
+#burger.x i:nth-child(1){top:22px;transform:rotate(45deg)}#burger.x i:nth-child(2){opacity:0}#burger.x i:nth-child(3){top:22px;transform:rotate(-45deg)}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(86vw,360px);background:var(--y);color:var(--ink);z-index:95;transform:translateX(105%);transition:transform .5s cubic-bezier(.16,1,.3,1);padding:96px 28px 28px;display:flex;flex-direction:column;gap:6px;border-left:6px solid var(--ink)}
+#drawer.on{transform:none}
+#drawer a.l{font-family:var(--fd);font-weight:800;text-transform:uppercase;font-size:2.6rem;line-height:1.1;text-decoration:none;border-bottom:3px dotted var(--ink);padding:8px 0;min-height:56px}
+#drawer .ft{margin-top:auto;font-family:var(--fm);font-size:.8rem}
+/* hero */
+.hero-wrap{position:relative;height:230vh}
+.hero{position:sticky;top:0;height:100vh;min-height:640px;overflow:hidden;background:var(--ink);color:var(--paper);display:flex;align-items:center;padding-top:70px}
+.hero .bg{position:absolute;inset:0}
+.hero .bg img,.hero .bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .bg video{filter:grayscale(.55) contrast(1.05)}
+.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,18,18,.92) 0%,rgba(18,18,18,.7) 55%,rgba(18,18,18,.55) 100%)}
+.hero .grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;width:100%}
+.hero .tag{display:inline-flex;gap:10px;align-items:center;background:var(--y);color:var(--ink);padding:7px 14px;transform:rotate(-1.5deg);margin-bottom:22px}
+.hero h1{font-size:clamp(4rem,min(9vw,15vh),9.5rem);margin-bottom:24px}
+.hero h1 .ln{display:block;white-space:nowrap;overflow:hidden;padding:.04em 0}
+.hero h1 .ln>span{display:inline-block}
+.hero h1 .hl{color:var(--ink)}
+.hero p.sub{max-width:520px;font-size:1.15rem;color:#e4e1d8;margin-bottom:30px}
+.hero .cta{display:flex;gap:16px;flex-wrap:wrap}
+.hero .btn.ghost{color:var(--paper)}
+.odo-col{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.plate{background:var(--ink);border:3px solid var(--y);padding:14px 20px 8px;position:relative;box-shadow:10px 10px 0 rgba(255,210,0,.22)}
+.plate .lbl{color:var(--y);display:flex;justify-content:space-between;gap:24px;margin-bottom:2px}
+.odo{display:flex;height:1em;font-size:clamp(7rem,21vh,13rem);font-family:var(--fd);font-weight:800;line-height:1;overflow:hidden;color:var(--y);position:relative}
+.odo::after{content:"";position:absolute;inset:0;background:linear-gradient(#121212 0,transparent 22%,transparent 78%,#121212 100%);pointer-events:none}
+.odo .col{width:.58em;height:1em;overflow:hidden;border-left:2px solid rgba(255,210,0,.25);text-align:center}
+.odo .col:first-child{border-left:0}
+.odo .strip{display:block;will-change:transform}
+.odo .strip span{display:block;height:1em;line-height:1}
+.plate .cap{font-family:var(--fm);font-size:.7rem;letter-spacing:.14em;color:#bdb9ad;text-transform:uppercase;padding-top:6px;border-top:1px dotted rgba(255,255,255,.3);display:flex;justify-content:space-between;gap:16px}
+.ro{background:var(--paper);color:var(--ink);width:min(100%,380px);padding:0 0 16px;transform:rotate(3deg);position:relative;margin-right:20px;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.ro .rot{background:var(--y);display:flex;justify-content:space-between;align-items:baseline;padding:10px 16px;transform-origin:0 0}
+.ro .rot b{font-family:var(--fd);font-size:2.2rem;font-weight:800;line-height:1}
+.ro dl{padding:10px 16px 0;font-family:var(--fm);font-size:.72rem;display:grid;grid-template-columns:78px 1fr;gap:5px 8px}
+.ro dt{color:var(--mut);letter-spacing:.1em}.ro dd{font-weight:600}
+.stamp{position:absolute;font-family:var(--fd);font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--red);border:4px solid var(--red);padding:2px 12px;border-radius:5px;line-height:1.05;mix-blend-mode:multiply;pointer-events:none;background:rgba(214,58,31,.04);
+ -webkit-mask-image:radial-gradient(circle at 20% 30%,#000 60%,rgba(0,0,0,.7) 100%);}
+.ro .stamp{right:-14px;bottom:-16px;font-size:2.1rem;transform:rotate(-12deg)}
+.badge{position:absolute;z-index:3;font-family:var(--fd);font-weight:800;text-transform:uppercase;text-align:center;line-height:.95;display:grid;place-items:center}
+.b1{right:36%;top:13%;width:112px;height:112px;background:var(--y);color:var(--ink);border-radius:50%;border:4px solid var(--ink);font-size:2.6rem;transform:rotate(-8deg)}
+.b1 small{font-family:var(--fm);font-size:.55rem;letter-spacing:.1em;display:block;font-weight:600;margin-top:2px}
+.b2{left:50%;bottom:11%;background:var(--paper);color:var(--ink);padding:10px 16px;font-size:1.35rem;border:3px solid var(--ink);transform:rotate(4deg)}
+.b3{left:59%;bottom:5%;color:var(--red);background:var(--paper);border:3px dashed var(--red);padding:8px 14px;font-size:1.1rem;transform:rotate(-5deg)}
+.scrollhint{position:absolute;right:32px;bottom:22px;z-index:3;font-family:var(--fm);font-size:.7rem;letter-spacing:.16em;color:var(--y);text-transform:uppercase;display:flex;gap:10px;align-items:center}
+.scrollhint i{width:2px;height:34px;background:var(--y);display:block}
+/* marquee */
+.mq{background:var(--y);color:var(--ink);border-top:6px solid var(--ink);border-bottom:6px solid var(--ink);overflow:hidden;position:relative}
+.mq::before,.mq::after{content:"";position:absolute;left:0;right:0;height:9px;background:var(--haz);z-index:1}
+.mq::before{top:0}.mq::after{bottom:0}
+.mq .tr{display:flex;width:max-content;white-space:nowrap;padding:22px 0 20px}
+.mq span{font-family:var(--fd);font-weight:800;text-transform:uppercase;font-size:clamp(1.8rem,3.4vw,3rem);letter-spacing:.02em;padding:0 22px;line-height:1}
+.mq span.dot{padding:0;color:var(--red)}
+/* lift */
+.lift-wrap{position:relative;height:420vh;background:var(--c1)}
+.lift{position:sticky;top:0;height:100vh;min-height:640px;padding:84px 0 24px;display:flex;align-items:center;overflow:hidden}
+.lift .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;width:100%}
+.stage{position:relative;background:var(--c2);border:4px solid var(--ink);aspect-ratio:600/380;box-shadow:12px 12px 0 var(--ink);overflow:hidden}
+.stage svg{display:block;width:100%;height:100%}
+.stage .cap{position:absolute;left:12px;top:10px;font-family:var(--fm);font-size:.66rem;letter-spacing:.14em;background:var(--ink);color:var(--y);padding:4px 8px;text-transform:uppercase}
+.wo{background:var(--paper);border:3px solid var(--ink);position:relative;box-shadow:12px 12px 0 rgba(18,18,18,.9)}
+.wo .hd{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:3px solid var(--ink);background:var(--y)}
+.wo .hd .d{font-size:1.9rem}
+.stp{display:grid;grid-template-columns:54px 1fr;gap:6px 16px;padding:20px 22px;border-bottom:2px dotted #8b877c;position:relative;transition:opacity .4s,background .4s}
+.stp:last-child{border-bottom:0}
+.stp .n{font-family:var(--fd);font-weight:800;font-size:3.2rem;line-height:.9;color:var(--ink)}
+.stp h3{font-family:var(--fd);font-weight:800;text-transform:uppercase;font-size:2rem;line-height:1}
+.stp p{color:var(--mut);font-size:.98rem;max-width:44ch;margin-top:4px}
+.stp .stamp{right:16px;top:14px;font-size:1.4rem;transform:rotate(-8deg) scale(1)}
+.ck{display:inline-block;width:20px;height:20px;border:3px solid var(--ink);margin-right:8px;vertical-align:-3px;position:relative}
+.js .lift .stp{opacity:.38}
+.js .lift .stp.act{opacity:1;background:linear-gradient(90deg,rgba(255,210,0,.35),transparent)}
+.js .lift .stp.done{opacity:.8}
+.js .stp .stamp{opacity:0;transform:rotate(-8deg) scale(2.2);transition:opacity .25s,transform .4s cubic-bezier(.2,1.4,.4,1)}
+.js .stp.done .stamp{opacity:.95;transform:rotate(-8deg) scale(1)}
+.stp.act .ck::after,.stp.done .ck::after{content:"";position:absolute;left:3px;top:-6px;width:8px;height:15px;border:solid var(--ink);border-width:0 4px 4px 0;transform:rotate(40deg)}
+.lprog{height:8px;background:var(--c2);position:relative}
+.lprog i{position:absolute;inset:0;background:var(--haz);transform-origin:0 50%;transform:scaleX(0)}
+/* fixed right */
+.big{background:var(--ink);color:var(--paper);padding:110px 0 120px;position:relative;overflow:hidden}
+.big .huge{font-size:clamp(6rem,24vw,25rem);white-space:nowrap;line-height:.8;letter-spacing:-.02em;display:block}
+.big .r1{color:var(--paper)}
+.big .r2{color:var(--ink);margin-top:.03em;padding-left:6vw}
+.big .r2 .hl{padding:0 .1em}
+.big .pin{margin:44px auto 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;align-items:start;max-width:1320px;padding:0 32px}
+.big .tp{position:relative;background:var(--paper);padding:10px 10px 34px;color:var(--ink);transform:rotate(-2.5deg)}
+.big .tp:nth-child(2){transform:rotate(2deg);margin-top:36px}
+.big .tp:nth-child(3){transform:rotate(-1deg)}
+.big .tp::before{content:"";position:absolute;top:-14px;left:50%;width:110px;height:28px;margin-left:-55px;background:rgba(255,210,0,.85);transform:rotate(-3deg);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.big .tp img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(.3) contrast(1.05)}
+.big .tp .lbl{position:absolute;bottom:9px;left:12px;color:var(--ink)}
+.big .note{max-width:1320px;margin:60px auto 0;padding:0 32px;display:flex;gap:30px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap}
+.big .note p{font-size:1.25rem;max-width:560px;color:#d8d5cb}
+/* services */
+.sv{padding:120px 0;position:relative;background:var(--c1);
+ background-image:linear-gradient(rgba(18,18,18,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(18,18,18,.06) 1px,transparent 1px);background-size:44px 44px}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:48px}
+.sec-h h2{font-size:clamp(3.4rem,7vw,7rem)}
+.sec-h p{max-width:420px;color:var(--mut)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.pc{background:var(--paper);border:3px solid var(--ink);position:relative;display:flex;flex-direction:column;box-shadow:6px 6px 0 var(--ink);transition:transform .25s,box-shadow .25s}
+.pc .ph{height:150px;position:relative;overflow:hidden;background:var(--c2);border-bottom:3px solid var(--ink)}
+.pc .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(.35) contrast(1.05)}
+.pc .ph.ic{display:grid;place-items:center;background:repeating-linear-gradient(45deg,var(--c2) 0 10px,#d6d2c8 10px 20px)}
+.pc .ph.ic svg{width:78px;height:78px}
+.pc .tp{display:flex;justify-content:space-between;padding:10px 16px 0;font-family:var(--fm);font-size:.66rem;letter-spacing:.12em;color:var(--mut)}
+.pc h3{font-family:var(--fd);font-weight:800;text-transform:uppercase;font-size:2.1rem;line-height:.95;padding:6px 16px 0}
+.pc p{padding:8px 16px;color:var(--mut);font-size:.95rem;flex:1}
+.pc .ft{margin:0 16px;border-top:3px dotted #8b877c;padding:11px 0 14px;font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between}
+.pc .ft b{background:var(--y);padding:1px 7px;font-weight:600}
+.pc.dk{background:var(--ink);color:var(--paper)}.pc.dk p,.pc.dk .tp{color:#bdb9ad}.pc.dk .ph.ic{background:repeating-linear-gradient(45deg,#1c1c1c 0 10px,#232323 10px 20px)}
+.pc.yy{background:var(--y)}.pc.yy p,.pc.yy .tp{color:#3a3300}
+.pc.yy .ph.ic{background:var(--haz)}
+/* book */
+.bk{background:var(--ink);color:var(--paper);padding:120px 0 130px;position:relative}
+.bk .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+.bk h2{font-size:clamp(3.6rem,7vw,7.4rem);margin-bottom:24px}
+.bk .info{color:#d0ccc0;max-width:420px}
+.bk .info li{list-style:none;padding:12px 0;border-bottom:1px dotted rgba(255,255,255,.3);display:flex;gap:14px;font-size:1rem}
+.bk .info li b{font-family:var(--fm);font-size:.7rem;letter-spacing:.14em;color:var(--y);min-width:74px;padding-top:4px;font-weight:500}
+.form{background:var(--paper);color:var(--ink);border:4px solid var(--y);position:relative;transform:rotate(.6deg)}
+.form .hd{display:flex;justify-content:space-between;align-items:center;background:var(--y);padding:12px 24px;border-bottom:3px solid var(--ink)}
+.form .hd .d{font-size:2rem}
+.form form{padding:26px 24px 24px;display:grid;grid-template-columns:1fr 1fr;gap:20px 20px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}.f.w{grid-column:1/-1}
+.f label,.f .fl{font-family:var(--fm);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--mut)}
+.f input,.f select,.f textarea{font:inherit;font-size:1rem;background:transparent;border:0;border-bottom:3px solid var(--ink);padding:10px 2px;color:var(--ink);border-radius:0;width:100%;min-height:46px;font-family:var(--fm);font-weight:500;appearance:none;-webkit-appearance:none}
+.f select{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10'%3E%3Cpath d='M1 1l7 7 7-7' fill='none' stroke='%23121212' stroke-width='3'/%3E%3C/svg%3E") no-repeat right 4px center;padding-right:28px}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;background:rgba(255,210,0,.35)}
+.f textarea{resize:vertical;min-height:80px;border:3px solid var(--ink);padding:10px}
+.veh{display:grid;grid-template-columns:.7fr 1fr 1fr;gap:12px}
+.win{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.win input{position:absolute;opacity:0;pointer-events:none}
+.win label{border:3px solid var(--ink);padding:11px 8px;text-align:center;font-family:var(--fm);font-size:.78rem;letter-spacing:.02em;text-transform:none;color:var(--ink);cursor:pointer;min-height:48px;display:flex;align-items:center;justify-content:center;font-weight:600}
+.win input:checked+label{background:var(--y);box-shadow:4px 4px 0 var(--ink)}
+.win input:focus-visible+label{outline:3px solid var(--ink);outline-offset:2px}
+.err{grid-column:1/-1;color:var(--red);font-family:var(--fm);font-size:.8rem;min-height:1.2em;font-weight:600}
+.form .go{grid-column:1/-1;width:100%;min-height:58px;font-size:1.5rem}
+.form .fine{grid-column:1/-1;font-family:var(--fm);font-size:.68rem;color:var(--mut);text-align:center}
+.okt{display:none;padding:34px 26px 30px;text-align:left;position:relative}
+.okt.on{display:block}
+.okt .stamp{position:relative;display:inline-block;font-size:clamp(2.4rem,5vw,3.6rem);transform:rotate(-5deg);margin:6px 0 20px}
+.okt dl{display:grid;grid-template-columns:110px 1fr;gap:8px 12px;font-family:var(--fm);font-size:.85rem;border-top:3px dotted #8b877c;padding-top:16px;margin-bottom:18px}
+.okt dt{color:var(--mut);letter-spacing:.1em;font-size:.7rem;padding-top:3px}.okt dd{font-weight:600}
+.okt .demo{font-family:var(--fm);font-size:.72rem;background:var(--ink);color:var(--y);display:inline-block;padding:4px 10px;letter-spacing:.08em}
+/* rating */
+.rt{background:var(--y);padding:110px 0;position:relative;overflow:hidden}
+.rt .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.rt .num{font-size:clamp(9rem,24vw,22rem);line-height:.78;position:relative;display:inline-block}
+.stars{display:flex;gap:6px;margin:22px 0 10px}
+.stars svg{width:48px;height:48px}
+.rt h2{font-size:clamp(3rem,6vw,6rem);margin-bottom:18px}
+.rt .card{background:var(--paper);border:4px solid var(--ink);box-shadow:12px 12px 0 var(--ink);padding:30px 30px 26px;transform:rotate(1.5deg);position:relative}
+.rt .card .row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px dotted #8b877c;padding:14px 0;font-family:var(--fm);font-size:.85rem;gap:12px}
+.rt .card .row b{font-family:var(--fd);font-size:2.6rem;font-weight:800;line-height:1}
+.rt .card .btn{margin-top:26px;width:100%}
+.rt .card .stamp{right:-18px;top:-28px;font-size:1.6rem;transform:rotate(9deg);background:var(--paper)}
+/* visit */
+.vi{background:var(--c1);padding:120px 0}
+.vi .grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:stretch}
+.vi h2{font-size:clamp(3.4rem,7vw,7rem);margin-bottom:26px}
+.vi .addr{font-family:var(--fd);font-weight:700;text-transform:uppercase;font-size:2.3rem;line-height:1.05;margin-bottom:6px}
+.vi .tel{display:inline-flex;font-family:var(--fd);font-weight:800;font-size:clamp(2.6rem,5vw,3.8rem);text-decoration:none;background:var(--ink);color:var(--y);padding:6px 20px 4px;margin:14px 0 24px;transform:rotate(-1.5deg);min-height:56px;align-items:center}
+.hrs{background:var(--paper);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
+.hrs .r{display:flex;justify-content:space-between;padding:11px 18px;border-bottom:2px dotted #8b877c;font-family:var(--fm);font-size:.9rem;gap:12px}
+.hrs .r:last-child{border:0}
+.hrs .r.td{background:var(--y);font-weight:600}
+.hrs .r.cl span:last-child{color:var(--red);font-weight:600}
+.hrs .note{padding:10px 18px;font-family:var(--fm);font-size:.66rem;color:var(--mut);border-top:3px solid var(--ink);letter-spacing:.06em}
+.mapw{border:4px solid var(--ink);box-shadow:12px 12px 0 var(--ink);position:relative;min-height:440px;background:var(--c2)}
+.mapw iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) brightness(.98)}
+.mapw .pin{position:absolute;left:12px;top:12px;z-index:2;background:var(--y);border:3px solid var(--ink);padding:5px 12px;font-family:var(--fd);font-weight:800;text-transform:uppercase;font-size:1.1rem;transform:rotate(-2deg)}
+/* footer */
+footer{background:var(--ink);color:var(--paper)}
+footer .in{padding:60px 32px 110px;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+footer .big2{font-size:clamp(3rem,6vw,5.4rem);color:var(--y)}
+footer small,footer li{font-family:var(--fm);font-size:.78rem;color:#bdb9ad;list-style:none;line-height:2}
+footer h4{font-family:var(--fm);font-size:.7rem;letter-spacing:.16em;color:var(--y);margin-bottom:8px;font-weight:500}
+footer a{text-decoration:none}
+footer .cr{grid-column:1/-1;border-top:2px dotted rgba(255,255,255,.3);padding-top:20px;font-family:var(--fm);font-size:.74rem;color:#bdb9ad}
+.stk{display:none}
+/* hidden initial states (only when gsap present) */
+.js .hero h1 .ln>span{transform:translateY(110%)}
+.js .hero .tag,.js .hero p.sub,.js .hero .cta,.js .plate,.js .ro,.js .badge,.js .scrollhint{opacity:0}
+.js .ro .rot{opacity:0}
+.js .ro .stamp{opacity:0}
+.js .rv{opacity:0;transform:translateY(40px)}
+@media (hover:hover) and (pointer:fine){
+ .btn:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink)}
+ .btn.dk:hover{box-shadow:8px 8px 0 var(--y)}
+ .btn.ghost:hover{background:var(--y);color:var(--ink);border-color:var(--y)}
+ .links a:hover{color:var(--y)}
+ .pc:hover{transform:translate(-4px,-10px) rotate(-.8deg);box-shadow:12px 16px 0 var(--ink)}
+ .tel:hover{background:var(--y);color:var(--ink)}
+}
+@media (max-width:1100px){.pgrid{grid-template-columns:repeat(2,1fr)}.links a{display:none}.links .stat{display:none}}
+@media (max-width:960px){
+ body{font-size:16px}
+ .wrap{padding:0 20px}
+ #burger{display:block}
+ nav.top .in{height:62px}.links{display:none}
+ .logo span{font-size:1rem}
+ .hero-wrap{height:auto}
+ .hero{position:relative;height:auto;min-height:0;padding:96px 0 60px;display:block}
+ .hero .grid{grid-template-columns:1fr;gap:34px}
+ .hero h1{font-size:clamp(3.6rem,17vw,6rem)}
+ .odo-col{align-items:stretch}
+ .plate{align-self:flex-start}
+ .odo{font-size:6.6rem}
+ .ro{margin-right:0;width:100%;max-width:none;transform:rotate(1.2deg)}
+ .badge{position:relative;inset:auto;display:inline-grid;margin:26px 0 0 20px;vertical-align:middle}
+ .vi .tel{font-size:2.5rem;white-space:nowrap}
+ .form .go{font-size:1.3rem}
+ .b1{width:90px;height:90px;font-size:2.1rem}.b2{font-size:1.1rem;padding:8px 12px}.b3{font-size:.95rem;padding:7px 10px}
+ .scrollhint{display:none}
+ .lift-wrap{height:auto}
+ .lift{position:relative;height:auto;min-height:0;padding:80px 0 70px;display:block}
+ .lift .grid{grid-template-columns:1fr;gap:30px}
+ .stage{box-shadow:6px 6px 0 var(--ink)}
+ .wo{box-shadow:6px 6px 0 var(--ink)}
+ .js .lift .stp{opacity:1}
+ .js .lift .stp.act{background:none}
+ .stp{grid-template-columns:44px 1fr;padding:18px 16px}
+ .stp .n{font-size:2.6rem}.stp h3{font-size:1.7rem}
+ .stp .stamp{font-size:1.1rem;right:10px;top:auto;bottom:12px}
+ .big{padding:70px 0 80px}
+ .big .pin{grid-template-columns:1fr 1fr;gap:26px 18px;padding:0 20px}
+ .big .tp:nth-child(3){grid-column:1/-1}
+ .big .tp:nth-child(2){margin-top:20px}
+ .big .note{padding:0 20px;margin-top:44px}
+ .sv,.bk,.rt,.vi{padding:80px 0}
+ .pgrid{gap:22px}
+ .bk .grid,.rt .grid,.vi .grid{grid-template-columns:1fr;gap:40px}
+ .form{transform:none}
+ .form form{padding:22px 16px}
+ footer .in{grid-template-columns:1fr;padding:50px 20px 110px}
+ .rt .card{transform:none}
+ .rt .card .stamp{right:6px}
+ .mapw{min-height:340px}
+ .stk{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:90;background:var(--y);color:var(--ink);border-top:4px solid var(--ink);min-height:56px;align-items:center;justify-content:center;gap:12px;font-family:var(--fd);font-weight:800;font-size:1.4rem;text-transform:uppercase;text-decoration:none;letter-spacing:.03em}
+ .js .rv{transform:translateY(24px)}
+}
+@media (max-width:560px){
+ .pgrid{grid-template-columns:1fr}
+ .form form{grid-template-columns:1fr}
+ .veh{grid-template-columns:.8fr 1fr 1fr}
+ .win{grid-template-columns:1fr}
+ .big .pin{grid-template-columns:1fr}
+ .big .tp:nth-child(2){margin-top:0}
+ .vi .addr{font-size:1.9rem}
+ .odo{font-size:5.6rem}
+}
+.nomo .hero-wrap,.nomo .lift-wrap{height:auto}.nomo .hero{position:relative;height:auto;min-height:0;padding:100px 0 70px}.nomo .lift{position:relative;height:auto;min-height:0;padding:80px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+<div id="prog"></div>
+<div id="pre" aria-hidden="true"><div class="tk"><div class="top"><span class="lbl">Repair order</span><span class="lbl">Fox Chase, PA</span></div>
+<div class="ln"><span>SHOP</span><span>COTTMAN AUTO REPAIR</span></div><div class="ln"><span>BAY</span><span>OPEN</span></div><div class="ln"><span>WRITE-UP</span><span>IN PROGRESS…</span></div>
+<div class="d no" id="preNo">RO #000</div></div><div class="bar" id="preBar"></div></div>
+
+<nav class="top" id="nav"><div class="wrap in">
+ <a href="#top" class="logo" aria-label="Cottman Auto Repair Center home"><b>C</b><span>Cottman Auto Repair<small>CENTER · FOX CHASE</small></span></a>
+ <div class="links"><a href="#process">Process</a><a href="#services">Services</a><a href="#book">Book</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a><span class="stat" id="status"><i></i><span>Hours</span></span><a class="btn" href="#book" style="min-height:42px;padding:0 16px;font-size:1rem;box-shadow:none;color:var(--ink)">Book a visit</a></div>
+ <button id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</div></nav>
+<div id="drawer" aria-hidden="true"><a class="l" href="#process">Process</a><a class="l" href="#services">Services</a><a class="l" href="#book">Book a visit</a><a class="l" href="#reviews">Reviews</a><a class="l" href="#visit">Visit</a>
+<div class="ft">1201 Cottman Ave<br>Mon–Sat 9:30–6 · Closed Sunday<br><a href="tel:+12159416133" style="font-weight:600">(215) 941-6133</a></div></div>
+
+<main id="top">
+<div class="hero-wrap" id="heroWrap"><header class="hero" id="hero">
+ <div class="bg">
+  <img src="https://images.unsplash.com/photo-1767681092416-bccf9410bda4?auto=format&fit=crop&w=1600&q=75" alt="Cars being repaired in a busy auto repair workshop" fetchpriority="high" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}">
+  <video id="hv" autoplay muted loop playsinline preload="auto" poster="https://images.pexels.com/videos/8986894/auto-automobile-automotive-car-8986894.jpeg" aria-hidden="true"><source src="https://videos.pexels.com/video-files/8986894/8986894-hd_1280_720_30fps.mp4" type="video/mp4"></video>
+ </div>
+ <div class="wrap grid">
+  <div>
+   <div class="tag lbl">Independent auto repair · 1201 Cottman Ave</div>
+   <h1 class="d" id="h1"><span class="ln"><span>Your car.</span></span><span class="ln"><span class="hl">Back on</span></span><span class="ln"><span>the road.</span></span></h1>
+   <p class="sub">Brakes, diagnostics, oil changes, electrical, engine and commercial truck repair — written up, quoted and fixed in Fox Chase.</p>
+   <div class="cta"><a class="btn" href="#book">Book a repair visit →</a><a class="btn ghost" href="tel:+12159416133">Call (215) 941-6133</a></div>
+  </div>
+  <div class="odo-col">
+   <div class="plate" role="img" aria-label="Odometer counting up to 120 Google reviews">
+    <div class="lbl"><span>Google reviews</span><span>★ 4.1</span></div>
+    <div class="odo" id="odo"></div>
+    <div class="cap"><span>Odometer</span><span>Reviews logged</span></div>
+   </div>
+   <div class="ro" id="ro">
+    <div class="rot"><span class="lbl">Repair order</span><b id="roNo">RO # 0120</b></div>
+    <dl><dt>SHOP</dt><dd>Cottman Auto Repair Center</dd><dt>ADDR</dt><dd>1201 Cottman Ave, 19111</dd><dt>HOURS</dt><dd>Mon–Sat 9:30–6 · Closed Sun</dd><dt>TASK</dt><dd>Get you rolling again</dd></dl>
+    <div class="stamp">Approved</div>
+   </div>
+  </div>
+ </div>
+ <div class="badge b1" id="b1">4.1<small>GOOGLE ★</small></div>
+ <div class="badge b2" id="b2">120 reviews</div>
+ <div class="badge b3" id="b3">Closed Sundays</div>
+ <div class="scrollhint"><i></i>Scroll to roll the odometer</div>
+</header></div>
+
+<div class="mq" aria-hidden="true"><div class="tr" id="mq1"></div></div>
+
+<section class="lift-wrap" id="process"><div class="lift" id="lift"><div class="wrap grid">
+ <div class="stage" aria-label="Illustration of a car rising on a garage lift">
+  <span class="cap">Bay 1 · Lift view</span>
+  <svg viewBox="0 0 600 380" role="img" aria-label="Car on a two-post lift">
+   <defs><pattern id="hz" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="14" height="28" fill="#FFD200"/><rect x="14" width="14" height="28" fill="#121212"/></pattern></defs>
+   <rect x="0" y="330" width="600" height="50" fill="#b9b5aa"/><rect x="0" y="330" width="600" height="10" fill="url(#hz)"/>
+   <g fill="#121212"><rect x="52" y="34" width="30" height="296"/><rect x="518" y="34" width="30" height="296"/><rect x="44" y="322" width="46" height="10"/><rect x="510" y="322" width="46" height="10"/><rect x="52" y="24" width="496" height="14"/></g>
+   <g fill="#FFD200" stroke="#121212" stroke-width="3"><rect x="56" y="60" width="22" height="18"/><rect x="522" y="60" width="22" height="18"/></g>
+   <g id="carG">
+    <g id="liftArms"><rect x="60" y="284" width="480" height="12" fill="#FFD200" stroke="#121212" stroke-width="4"/><rect x="150" y="274" width="44" height="10" fill="#121212"/><rect x="410" y="274" width="44" height="10" fill="#121212"/><rect x="60" y="272" width="24" height="24" fill="#121212"/><rect x="516" y="272" width="24" height="24" fill="#121212"/></g>
+    <path d="M92 266 L92 236 Q92 218 112 214 L170 204 L214 160 Q224 150 244 150 L372 150 Q394 150 410 168 L440 204 L496 214 Q518 218 518 238 L518 266 Z" fill="#FAF9F5" stroke="#121212" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M226 166 L252 162 L252 204 L190 204 Z M266 162 L366 162 Q380 162 390 174 L410 204 L266 204 Z" fill="#DEDBD3" stroke="#121212" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="98" y="232" width="20" height="12" fill="#FFD200" stroke="#121212" stroke-width="3"/><rect x="492" y="228" width="20" height="12" fill="#D63A1F" stroke="#121212" stroke-width="3"/>
+    <path d="M110 250 H500" stroke="#121212" stroke-width="3" stroke-dasharray="6 8"/>
+    <g id="whA"><circle cx="170" cy="266" r="36" fill="#121212"/><g class="sp"><circle cx="170" cy="266" r="16" fill="#FFD200" stroke="#FAF9F5" stroke-width="3"/><path d="M170 250v32M154 266h32M159 255l22 22M181 255l-22 22" stroke="#121212" stroke-width="3"/></g></g>
+    <g id="whB"><circle cx="440" cy="266" r="36" fill="#121212"/><g class="sp"><circle cx="440" cy="266" r="16" fill="#FFD200" stroke="#FAF9F5" stroke-width="3"/><path d="M440 250v32M424 266h32M429 255l22 22M451 255l-22 22" stroke="#121212" stroke-width="3"/></g></g>
+    <g id="scan" opacity="0"><rect x="88" y="146" width="4" height="130" fill="#FFD200"/><rect x="88" y="146" width="26" height="130" fill="#FFD200" opacity=".25"/></g>
+    <g id="tag" opacity="0"><g transform="translate(290 168) rotate(-4)"><rect width="76" height="34" fill="#FFD200" stroke="#121212" stroke-width="4"/><text x="38" y="24" text-anchor="middle" font-family="Barlow Condensed,Impact,sans-serif" font-weight="800" font-size="22" fill="#121212">QUOTE</text></g></g>
+    <g id="sparks" opacity="0" stroke="#FFD200" stroke-width="4" stroke-linecap="round"><path d="M146 232l-16-14M156 226l-6-20M170 224v-22M184 226l6-20"/></g>
+   </g>
+  </svg>
+ </div>
+ <div class="wo"><div class="hd"><span class="d">Work order</span><span class="lbl">4 steps · no surprises</span></div>
+  <div class="stp" data-i="0"><div class="n">01</div><div><h3><span class="ck"></span>Diagnose</h3><p>Bring it in with the noise, the warning light or the “something feels off.” We look it over properly before anyone picks up a wrench.</p></div><div class="stamp">Checked</div></div>
+  <div class="stp" data-i="1"><div class="n">02</div><div><h3><span class="ck"></span>Quote</h3><p>You hear what it needs and what it costs before work starts. Ask for today’s diagnostic price.</p></div><div class="stamp">Approved</div></div>
+  <div class="stp" data-i="2"><div class="n">03</div><div><h3><span class="ck"></span>Fix</h3><p>Brakes, battery and electrical, engine, fluids and filters — done in the bay, by people who do this every day.</p></div><div class="stamp">Fixed</div></div>
+  <div class="stp" data-i="3"><div class="n">04</div><div><h3><span class="ck"></span>Back on the road</h3><p>Keys in your hand, questions answered, and you’re rolling again. That’s the whole point of the visit.</p></div><div class="stamp">Done</div></div>
+  <div class="lprog"><i id="lprog"></i></div>
+ </div>
+</div></div></section>
+
+<section class="big" aria-label="Fixed right">
+ <span class="d huge r1" id="r1">Fixed</span>
+ <span class="d huge r2" id="r2"><span class="hl">Right.</span></span>
+ <div class="pin">
+  <figure class="tp rv"><img src="https://images.unsplash.com/photo-1702146713858-8e7d1cc29fe8?auto=format&fit=crop&w=900&q=75" alt="Mechanic working under a car raised on a lift" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}"><span class="lbl">BAY 1 · UNDERCAR</span></figure>
+  <figure class="tp rv"><img src="https://images.unsplash.com/photo-1702146713922-613313be011d?auto=format&fit=crop&w=900&q=75" alt="A tire with a wrench next to it" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}"><span class="lbl">WHEELS OFF</span></figure>
+  <figure class="tp rv"><img src="https://images.unsplash.com/photo-1747330038945-fb39f6e4b73c?auto=format&fit=crop&w=900&q=75" alt="Close-up of a car wheel with brake disc and caliper" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}"><span class="lbl">BRAKE CHECK</span></figure>
+ </div>
+ <div class="note"><p class="rv">An independent shop on Cottman Ave. Straight talk about what your car needs, fair quotes, and a fast turnaround as the goal.</p><a class="btn rv" href="#book">Start a work order →</a></div>
+</section>
+
+<section class="sv" id="services"><div class="wrap">
+ <div class="sec-h"><h2 class="d rv">The parts<br>counter</h2><p class="rv">Pick a ticket. If your problem isn’t on the wall, ask — the shop handles more than what’s listed here.</p></div>
+ <div class="pgrid" id="pgrid">
+  <article class="pc rv"><div class="ph"><img src="https://images.unsplash.com/photo-1696494561430-de087dd0bd69?auto=format&fit=crop&w=700&q=75" alt="Close-up of a brake on a vehicle" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}"></div><div class="tp"><span>TICKET 01</span><span>BAY</span></div><h3>Brakes</h3><p>Squeal, grind or a soft pedal — get it checked before it gets worse.</p><div class="ft"><span>Ask for a quote</span><b>Book</b></div></article>
+  <article class="pc rv"><div class="ph"><img src="https://images.unsplash.com/photo-1676337167752-2062c6ca7366?auto=format&fit=crop&w=700&q=75" alt="Car battery with red and green terminals and pliers" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}"></div><div class="tp"><span>TICKET 02</span><span>BAY</span></div><h3>Battery &amp; electrical</h3><p>Slow starts, dead batteries, lights and wiring gremlins.</p><div class="ft"><span>Ask for a quote</span><b>Book</b></div></article>
+  <article class="pc rv"><div class="ph"><img src="https://images.unsplash.com/photo-1632733711679-529326f6db12?auto=format&fit=crop&w=700&q=75" alt="Mechanic working on a car engine" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}"></div><div class="tp"><span>TICKET 03</span><span>BAY</span></div><h3>Engine</h3><p>Rough idle, warning lights, leaks — engine repair done in-house.</p><div class="ft"><span>Ask for a quote</span><b>Book</b></div></article>
+  <article class="pc rv"><div class="ph"><img src="https://images.unsplash.com/photo-1771340742493-52fbd5476ccb?auto=format&fit=crop&w=700&q=75" alt="Mechanic pouring oil into a car engine" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1610092708835-af669294f3f3?auto=format&fit=crop&w=800&q=75';this.onerror=function(){this.style.display='none'}"></div><div class="tp"><span>TICKET 04</span><span>QUICK</span></div><h3>Oil change</h3><p>Fresh oil, the right filter, and one less thing to think about.</p><div class="ft"><span>Ask for a quote</span><b>Book</b></div></article>
+  <article class="pc rv"><div class="ph ic"><svg viewBox="0 0 80 80" fill="none" stroke="#121212" stroke-width="4" stroke-linejoin="round"><path d="M40 8c10 14 20 24 20 36a20 20 0 0 1-40 0C20 32 30 22 40 8z" fill="#FFD200"/><path d="M30 46a10 10 0 0 0 10 10"/></svg></div><div class="tp"><span>TICKET 05</span><span>BAY</span></div><h3>Fluids &amp; filters</h3><p>Top-offs, flushes and filter swaps to keep everything running clean.</p><div class="ft"><span>Ask for a quote</span><b>Book</b></div></article>
+  <article class="pc rv"><div class="ph ic"><svg viewBox="0 0 80 80" fill="none" stroke="#121212" stroke-width="4" stroke-linejoin="round"><rect x="8" y="20" width="64" height="40" fill="#FAF9F5"/><path d="M16 42h12l5-12 8 22 6-14h17" stroke-linecap="round"/><path d="M8 68h64" /></svg></div><div class="tp"><span>TICKET 06</span><span>BAY</span></div><h3>General diagnosis</h3><p>Not sure what’s wrong? Start here. Ask for today’s diagnostic price.</p><div class="ft"><span>Price: ask us</span><b>Book</b></div></article>
+  <article class="pc dk rv"><div class="ph ic"><svg viewBox="0 0 90 80" fill="none" stroke="#FFD200" stroke-width="4" stroke-linejoin="round"><path d="M6 60V26h44v34M50 36h22l12 14v10H50" /><circle cx="24" cy="62" r="8" fill="#121212"/><circle cx="68" cy="62" r="8" fill="#121212"/></svg></div><div class="tp"><span>TICKET 07</span><span>HEAVY</span></div><h3>Commercial truck repair</h3><p>Work trucks earn money on the road, not in the shop. Ask about your fleet.</p><div class="ft"><span>Call to discuss</span><b>Call</b></div></article>
+  <article class="pc yy rv"><div class="ph ic"><svg viewBox="0 0 80 80" fill="none" stroke="#121212" stroke-width="5" stroke-linecap="round"><path d="M40 16v48M16 40h48"/></svg></div><div class="tp"><span>TICKET 08</span><span>+</span></div><h3>…and more</h3><p>Plenty of other repair types are done here. Tell us what your car is doing.</p><div class="ft"><span>Just ask</span><b>Ask</b></div></article>
+ </div>
+</div></section>
+
+<div class="haz"></div>
+<section class="bk" id="book"><div class="wrap grid">
+ <div>
+  <div class="lbl" style="color:var(--y);margin-bottom:14px">Book a repair visit</div>
+  <h2 class="d rv">Fill in<br>the <span class="hl" style="color:var(--ink)">ticket.</span></h2>
+  <ul class="info rv"><li><b>HOURS</b>Mon–Sat 9:30–6:00. Closed Sunday.</li><li><b>PRICE</b>Ask for today’s diagnostic price.</li><li><b>PHONE</b><a href="tel:+12159416133" style="font-weight:600">(215) 941-6133</a></li><li><b>NEXT</b>The shop reviews your request and gets back to you to confirm.</li></ul>
+ </div>
+ <div class="form rv" id="formBox">
+  <div class="hd"><span class="d">Repair request</span><span class="lbl" id="formNo">Work order · draft</span></div>
+  <form id="bf" novalidate>
+   <div class="f"><label for="fName">Name</label><input id="fName" name="name" autocomplete="name" placeholder="Your name"></div>
+   <div class="f"><label for="fPhone">Phone</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(215) 555-0123"></div>
+   <div class="f w"><span class="fl">Vehicle · year / make / model</span><div class="veh"><input id="fYear" aria-label="Year" inputmode="numeric" maxlength="4" placeholder="2015"><input id="fMake" aria-label="Make" placeholder="Honda"><input id="fModel" aria-label="Model" placeholder="Accord"></div></div>
+   <div class="f w"><label for="fSvc">Service needed</label><select id="fSvc"><option value="">Choose one…</option><option>Brakes</option><option>Battery &amp; electrical</option><option>Engine</option><option>Fluids &amp; filters</option><option>General diagnosis</option><option>Oil change</option><option>Commercial truck repair</option><option>Something else</option></select></div>
+   <div class="f"><label for="fDay">Preferred day <span style="text-transform:none;letter-spacing:0">(Mon–Sat)</span></label><input id="fDay" type="date"></div>
+   <div class="f"><span class="fl">Drop-off window</span><div class="win" role="radiogroup" aria-label="Drop-off window"><input type="radio" name="win" id="w1" value="9:30 AM – 12 PM" checked><label for="w1">9:30–12</label><input type="radio" name="win" id="w2" value="12 – 3 PM"><label for="w2">12–3</label><input type="radio" name="win" id="w3" value="3 – 6 PM"><label for="w3">3–6</label></div></div>
+   <div class="f w"><label for="fNote">Notes</label><textarea id="fNote" placeholder="Noises, warning lights, what happened…"></textarea></div>
+   <div class="err" id="err" role="alert"></div>
+   <button class="btn dk go" type="submit">Stamp &amp; send request</button>
+   <div class="fine">Demo form — saved in this browser only, nothing is sent to the shop.</div>
+  </form>
+  <div class="okt" id="done" aria-live="polite">
+   <div class="stamp">Request received</div>
+   <dl id="doneDl"></dl>
+   <span class="demo">DEMO · RO NUMBER IS NOT REAL</span>
+   <p style="margin-top:14px;color:var(--mut)">On the live site, the shop would call to confirm your drop-off window. Sundays are closed.</p>
+   <button class="btn ghost" id="again" style="margin-top:16px;color:var(--ink)">Write another ticket</button>
+  </div>
+ </div>
+</div></section>
+
+<section class="rt" id="reviews"><div class="wrap grid">
+ <div>
+  <div class="lbl rv">Google rating</div>
+  <div class="d num rv" id="rnum">4.1</div>
+  <div class="stars rv" id="stars" aria-label="4.1 out of 5 stars"></div>
+ </div>
+ <div>
+  <h2 class="d rv">120 drivers<br>left a rating.</h2>
+  <div class="card rv"><div class="stamp">Public</div>
+   <div class="row"><span>GOOGLE RATING</span><b>4.1 / 5</b></div><div class="row"><span>REVIEWS ON GOOGLE</span><b>120</b></div>
+   <a class="btn dk" href="https://www.google.com/maps/search/?api=1&query=Cottman+Auto+Repair+Center+1201+Cottman+Ave+Philadelphia+PA+19111" target="_blank" rel="noopener">Read reviews on Google ↗</a></div>
+ </div>
+</div></section>
+<div class="haz"></div>
+
+<section class="vi" id="visit"><div class="wrap grid">
+ <div>
+  <div class="lbl rv" style="margin-bottom:10px">Visit the shop</div>
+  <h2 class="d rv">Find us on<br>Cottman.</h2>
+  <div class="addr rv">1201 Cottman Ave<br>Philadelphia, PA 19111</div>
+  <a class="tel rv d" href="tel:+12159416133" style="line-height:1">(215) 941-6133</a>
+  <div class="hrs rv" id="hrs"></div>
+ </div>
+ <div class="mapw rv"><span class="pin">1201 Cottman Ave</span><iframe title="Map of 1201 Cottman Ave, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=1201%20Cottman%20Ave%2C%20Philadelphia%2C%20PA%2019111&output=embed"></iframe></div>
+</div></section>
+</main>
+
+<footer><div class="haz"></div><div class="in">
+ <div><div class="d big2">Cottman Auto<br>Repair Center</div><small>1201 Cottman Ave · Philadelphia, PA 19111</small></div>
+ <div><h4>SHOP</h4><ul><li>Mon–Sat 9:30 AM – 6:00 PM</li><li>Closed Sunday</li><li><a href="tel:+12159416133">(215) 941-6133</a></li></ul></div>
+ <div><h4>JUMP TO</h4><ul><li><a href="#process">Process</a></li><li><a href="#services">Services</a></li><li><a href="#book">Book a visit</a></li></ul></div>
+ <div class="cr">Demo concept by Rafael's web agency — not affiliated with Cottman Auto Repair Center.</div>
+</div></footer>
+<a class="stk" href="tel:+12159416133">Call (215) 941-6133</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var SLUG='cottman-auto-repair';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+document.documentElement.classList.add(anim?'js':'nomo');
+if(hasG)gsap.registerPlugin(ScrollTrigger);
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* ---- marquee content ---- */
+(function(){var w=['COTTMAN AUTO REPAIR CENTER','FOX CHASE','BRAKES','DIAGNOSTICS','OIL CHANGE','ELECTRICAL'],h='';for(var r=0;r<4;r++)w.forEach(function(x){h+='<span>'+x+'</span><span class="dot">●</span>'});$('#mq1').innerHTML=h})();
+
+/* ---- stars ---- */
+(function(){var h='',p='M12 2l3 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.7 5.7 21.4l1.5-7.1L1.8 9.4 9 8.6z';for(var i=0;i<5;i++){var f=i<4?1:.1;h+='<svg viewBox="0 0 24 24"><defs><clipPath id="sc'+i+'"><rect width="'+(24*f)+'" height="24"/></clipPath></defs><path d="'+p+'" fill="#FAF9F5" stroke="#121212" stroke-width="1.6" stroke-linejoin="round"/><path d="'+p+'" fill="#121212" clip-path="url(#sc'+i+')"/></svg>'}$('#stars').innerHTML=h})();
+
+/* ---- hours / status ---- */
+var H={1:[9.5,18],2:[9.5,18],3:[9.5,18],4:[9.5,18],5:[9.5,18],6:[9.5,18]};
+function ny(){try{var o={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'long',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});return{d:DAYS.indexOf(o.weekday),h:(+o.hour%24)+(+o.minute)/60}}catch(e){var n=new Date();return{d:n.getDay(),h:n.getHours()+n.getMinutes()/60}}}
+function status(){var n=ny(),h=H[n.d],el=$('#status'),on=h&&n.h>=h[0]&&n.h<h[1];el.classList.toggle('on',!!on);
+ var t;if(on)t='Open · until 6 PM';else{var nx=null,add=0;for(var i=0;i<7;i++){var d=(n.d+i)%7;if(H[d]&&(i>0||n.h<H[d][0])){nx=d;add=i;break}}t='Closed · opens '+(add===0?'today':add===1?'tomorrow':DAYS[nx].slice(0,3))+' 9:30'}
+ $('span',el).textContent=t;
+ var box=$('#hrs'),html='';[1,2,3,4,5,6,0].forEach(function(d){html+='<div class="r'+(d===n.d?' td':'')+(d===0?' cl':'')+'"><span>'+DAYS[d]+'</span><span>'+(H[d]?'9:30 AM – 6:00 PM':'Closed')+'</span></div>'});
+ html+='<div class="note">HOURS FROM PUBLIC LISTINGS — SHOP TO CONFIRM.</div>';box.innerHTML=html}
+status();setInterval(status,60000);
+
+/* ---- lenis / nav ---- */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.15,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+function goTo(sel){var el=$(sel);if(!el)return;var off=sel==='#top'?0:-70;if(lenis)lenis.scrollTo(el,{offset:off,duration:1.4});else{var y=el.getBoundingClientRect().top+scrollY+off;scrollTo({top:y,behavior:'smooth'})}}
+var drawer=$('#drawer'),burger=$('#burger');
+function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');drawer.setAttribute('aria-hidden','true');if(lenis)lenis.start()}
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on);drawer.setAttribute('aria-hidden',!on);if(lenis){on?lenis.stop():lenis.start()}});
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();closeDrawer();goTo(h)}})});
+addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer()});
+addEventListener('scroll',function(){var m=document.documentElement.scrollHeight-innerHeight;$('#prog').style.transform='scaleX('+(m>0?scrollY/m:0)+')'},{passive:true});
+
+/* ---- hero video fallback ---- */
+(function(){var v=$('#hv');if(!v)return;var dead=function(){v.style.display='none'};v.addEventListener('error',dead);var s=$('source',v);if(s)s.addEventListener('error',dead);v.addEventListener('stalled',function(){setTimeout(function(){if(v.readyState<3)dead()},6000)});
+ var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});})();
+
+/* ---- odometer ---- */
+var TARGET=[1,2,0],SPIN=[0,10,20],odoCols=[],op={intro:0,scroll:0,cur:-1};
+(function(){var odo=$('#odo'),seq='';for(var k=0;k<3;k++)for(var d=0;d<10;d++)seq+='<span>'+d+'</span>';
+ for(var i=0;i<3;i++){var c=document.createElement('div');c.className='col';c.innerHTML='<div class="strip">'+seq+'</div>';odo.appendChild(c);odoCols.push($('.strip',c))}})();
+function odoSet(p){p=Math.max(0,Math.min(1,p));for(var i=0;i<3;i++){var idx=(TARGET[i]+SPIN[i])*p;odoCols[i].style.transform='translateY('+(-idx*100/30)+'%)'}
+ var v=Math.round(120*p),s=('000'+v).slice(-4);$('#roNo').textContent='RO # '+s}
+function odoRender(){var p=Math.max(op.intro,op.scroll);if(p!==op.cur){op.cur=p;odoSet(p)}}
+odoSet(0);
+if(!anim){odoSet(1)}
+
+/* ---- preloader ---- */
+var introDone=false,scrollSet=false,stampOn=false,stampTl=null;
+function intro(){
+ if(introDone)return;introDone=true;var pre=$('#pre');
+ if(!anim){if(pre)pre.remove();odoSet(1);return}
+ var mob=matchMedia('(max-width:960px)').matches;
+ var tl=gsap.timeline();
+ var no={v:0};
+ tl.set('#pre .ln',{opacity:1,stagger:.18},0)
+   .to('#preBar',{scaleX:1,duration:1.1,ease:'power2.inOut'},0)
+   .to(no,{v:120,duration:1.1,ease:'power2.inOut',onUpdate:function(){$('#preNo').textContent='RO #'+('000'+Math.round(no.v)).slice(-3)}},0)
+   .to('#pre',{yPercent:-100,duration:.9,ease:'expo.inOut'},1.35)
+   .set('#pre',{display:'none'})
+   .to('#h1 .ln>span',{y:0,yPercent:0,duration:1,stagger:.15,ease:'power3.out'},'-=.35')
+   .to('.hero .tag,.hero p.sub,.hero .cta',{opacity:1,y:0,duration:.8,stagger:.14,ease:'power3.out'},'-=.6')
+   .to('.plate',{opacity:1,duration:.8,ease:'power3.out'},'-=.6')
+   .to(op,{intro:mob?1:.3,duration:mob?2.6:1.8,ease:'power2.out',onUpdate:odoRender},'-=.5')
+   .to('.ro .rot',{opacity:1,duration:.3},'-=.2')
+   .fromTo('.ro',{opacity:0,y:-60,rotation:-8},{opacity:1,y:0,rotation:mob?1.2:3,duration:.8,ease:'expo.out'},'-=1')
+   .to('.badge,.scrollhint',{opacity:1,duration:.7,stagger:.15,ease:'power3.out'},'-=.4');
+ if(mob)tl.call(function(){stampIn(true)},null,'-=.2');
+ tl.eventCallback('onComplete',function(){setupScroll()});
+ setTimeout(setupScroll,5500);
+}
+function stampIn(on){var s=$('.ro .stamp');if(!s)return;if(stampTl)stampTl.kill();
+ if(on){stampOn=true;stampTl=gsap.fromTo(s,{opacity:0,scale:2.4,rotation:-30},{opacity:1,scale:1,rotation:-12,duration:.5,ease:'expo.out'});gsap.fromTo('.ro',{y:0},{y:5,duration:.08,yoyo:true,repeat:1,ease:'power2.inOut',clearProps:'y',overwrite:false})}
+ else{stampOn=false;stampTl=gsap.to(s,{opacity:0,duration:.25})}}
+addEventListener('load',function(){setTimeout(intro,anim?500:0)});
+setTimeout(intro,3000);
+
+function setupScroll(){
+ if(scrollSet||!anim)return;scrollSet=true;
+ /* generic reveals */
+ $$('.rv').forEach(function(el){gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%',once:true}})});
+ /* marquee */
+ gsap.to('#mq1',{xPercent:-50,duration:34,ease:'none',repeat:-1});
+ /* floating badges */
+ $$('.badge').forEach(function(b,i){gsap.to(b,{y:-12,duration:2+i*.3,repeat:-1,yoyo:true,ease:'sine.inOut',delay:i*.4})});
+ var mm=ScrollTrigger.matchMedia?null:null;
+ var m=gsap.matchMedia();
+ m.add('(min-width:961px)',function(){
+  /* hero: odometer scrub + stamp */
+  ScrollTrigger.create({trigger:'#heroWrap',start:'top top',end:'bottom bottom',scrub:.6,onUpdate:function(s){
+    op.scroll=Math.min(1,s.progress/0.62);odoRender();
+    if(s.progress>.68&&!stampOn)stampIn(true);else if(s.progress<.6&&stampOn)stampIn(false)}});
+  gsap.to('.hero .grid > div:first-child',{y:-40,ease:'none',scrollTrigger:{trigger:'#heroWrap',start:'top top',end:'bottom bottom',scrub:true}});
+  /* lift sequence */
+  var steps=$$('.stp'),carY={y:0},tl=gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{trigger:'.lift-wrap',start:'top top',end:'bottom bottom',scrub:.8,onUpdate:function(s){
+     var p=s.progress,i=Math.min(3,Math.floor(p*4));
+     steps.forEach(function(e,k){e.classList.toggle('act',k===i);e.classList.toggle('done',k<i||(k===3&&p>.955)||(k===2&&p>.7)||(k===1&&p>.46)||(k===0&&p>.22))});
+     $('#lprog').style.transform='scaleX('+p+')'}}});
+  gsap.set('#carG',{y:0,x:0});
+  tl.fromTo('#carG',{y:0},{y:-100,duration:1,immediateRender:false},0)
+    .fromTo('#scan',{x:0,opacity:0},{x:420,opacity:1,duration:.7,immediateRender:false},.25)
+    .to('#scan',{opacity:0,duration:.1},.98)
+    .fromTo('#tag',{opacity:0,y:-30},{opacity:1,y:0,duration:.6,ease:'power3.out',immediateRender:false},1.1)
+    .to('#tag',{y:0,duration:.3},1.9)
+    .fromTo('#sparks',{opacity:0},{opacity:1,duration:.15},2.1)
+    .to('#whA .sp,#whB .sp',{rotation:720,svgOrigin:function(i,t){return t.parentNode.id==='whA'?'170 266':'440 266'},duration:1,ease:'none'},2)
+    .to('#sparks',{opacity:0,duration:.15},2.95)
+    .to('#tag',{opacity:0,duration:.2},2.95)
+    .to('#carG',{y:0,duration:.55},3.05)
+    .to('#carG',{x:560,duration:.45,ease:'power2.in'},3.6)
+    .to('#whA .sp,#whB .sp',{rotation:'+=720',svgOrigin:function(i,t){return t.parentNode.id==='whA'?'170 266':'440 266'},duration:.45,ease:'none'},3.6);
+  return function(){steps.forEach(function(e){e.classList.remove('act','done')});gsap.set('#carG,#scan,#tag,#sparks,#whA .sp,#whB .sp',{clearProps:'all'})}
+ });
+ m.add('(max-width:960px)',function(){
+  $$('.stp').forEach(function(e){ScrollTrigger.create({trigger:e,start:'top 75%',once:true,onEnter:function(){e.classList.add('done')}})});
+  gsap.set('#tag',{opacity:1});
+ });
+ /* fixed right: horizontal drift */
+ gsap.fromTo('#r1',{xPercent:-8},{xPercent:8,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.big',start:'top bottom',end:'bottom top',scrub:true}});
+ gsap.fromTo('#r2',{xPercent:10},{xPercent:-10,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.big',start:'top bottom',end:'bottom top',scrub:true}});
+ /* service cards */
+ gsap.utils.toArray('.pc').forEach(function(c,i){gsap.set(c,{opacity:0,y:50});gsap.to(c,{opacity:1,y:0,duration:.9,ease:'power3.out',delay:(i%4)*.09,scrollTrigger:{trigger:c,start:'top 92%',once:true}})});
+ ScrollTrigger.refresh();
+}
+addEventListener('load',function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+
+/* ---- form ---- */
+var fDay=$('#fDay');
+(function(){var d=new Date();var iso=function(dt){return new Date(dt.getTime()-dt.getTimezoneOffset()*60000).toISOString().slice(0,10)};fDay.min=iso(d);var m=new Date(d.getTime()+120*864e5);fDay.max=iso(m)})();
+function isSun(v){if(!v)return false;return new Date(v+'T12:00:00').getDay()===0}
+fDay.addEventListener('change',function(){if(isSun(fDay.value)){$('#err').textContent='We’re closed Sundays — pick Monday to Saturday.';fDay.value=''}else $('#err').textContent=''});
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function catOf(s){s=s.toLowerCase();if(s.indexOf('brake')>-1)return'brakes';if(s.indexOf('oil')>-1||s.indexOf('diagnos')>-1)return'oil & diagnostics';return'other'}
+$('#bf').addEventListener('submit',function(e){e.preventDefault();var er=function(m){$('#err').textContent=m};
+ var nm=$('#fName').value.trim(),ph=$('#fPhone').value.replace(/\D/g,''),yr=$('#fYear').value.trim(),mk=$('#fMake').value.trim(),md=$('#fModel').value.trim(),sv=$('#fSvc').value,dy=fDay.value;
+ if(!nm)return er('Add your name.');if(ph.length<10)return er('Add a 10-digit phone number.');if(!mk||!md)return er('Add your vehicle make and model.');
+ if(yr&&!/^(19|20)\d\d$/.test(yr))return er('Year should be 4 digits, like 2015.');
+ if(!sv)return er('Choose the service you need.');if(!dy)return er('Pick a day (Mon–Sat).');if(isSun(dy))return er('We’re closed Sundays — pick Monday to Saturday.');
+ var win=($('input[name=win]:checked')||{}).value||'';
+ var rec={id:'WO'+Date.now().toString(36).toUpperCase(),created:new Date().toISOString(),status:'new',name:nm,phone:$('#fPhone').value.trim(),year:yr,make:mk,model:md,vehicle:[yr,mk,md].filter(Boolean).join(' '),service:sv,cat:catOf(sv),date:dy,window:win,notes:$('#fNote').value.trim()};
+ try{var a=getB();a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+ var dd=new Date(dy+'T12:00:00'),ro='DEMO-'+String(Math.floor(1000+Math.random()*9000));
+ $('#doneDl').innerHTML='<dt>RO NUMBER</dt><dd>'+ro+' (demo)</dd><dt>NAME</dt><dd>'+esc(nm)+'</dd><dt>VEHICLE</dd><dd>'+esc(rec.vehicle)+'</dd><dt>SERVICE</dt><dd>'+esc(sv)+'</dd><dt>DROP-OFF</dt><dd>'+DAYS[dd.getDay()]+' '+MN[dd.getMonth()]+' '+dd.getDate()+' · '+esc(win)+'</dd>';
+ $('#bf').style.display='none';var dn=$('#done');dn.classList.add('on');$('#formNo').textContent='Work order · '+ro;
+ if(anim){var s=$('.stamp',dn);gsap.fromTo(s,{opacity:0,scale:2.6,rotation:-25},{opacity:1,scale:1,rotation:-5,duration:.6,ease:'expo.out'});gsap.from('#doneDl > *',{opacity:0,y:14,duration:.5,stagger:.04,ease:'power3.out',delay:.3,clearProps:'all'})}
+ if(lenis)lenis.scrollTo('#formBox',{offset:-90});
+});
+$('#again').addEventListener('click',function(){$('#done').classList.remove('on');$('#bf').style.display='grid';$('#bf').reset();$('#err').textContent='';$('#formNo').textContent='Work order · draft'});
+})();
+</script>
+</body>
+</html>

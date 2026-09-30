@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<!--
+DEMO CONCEPT for Matz Jewelers. Facts that are [CONFIRM] / unknown (shown as honest placeholders on the page):
+ - Full weekly hours [CONFIRM] (only "typically opens 10 AM" shown)
+ - Typical repair turnaround (~2 days per customers) [CONFIRM] shown as "often about 2 days, owner confirms"
+ - Quotes/pricing model: "Quotes after a free consult" [CONFIRM]; NO prices anywhere
+ - "How a custom piece could work" process is a typical outline [CONFIRM]
+ - Years in business: UNKNOWN, not stated. No owner full name. No Instagram/Facebook found, none linked.
+ - Confirmed: address, phone, 4.8 stars / 71 Google reviews, the 5 services, family-owned.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matz Jewelers | Custom &amp; Engagement Jewelry, Oxford Circle Philadelphia</title>
+<meta name="description" content="Matz Jewelers is a family-owned custom and engagement jeweler at 6520 Castor Ave, Philadelphia. Custom design, engagement rings, wedding ring refinishing and sizing, chain and jewelry repair, name plates. 4.8 stars on Google.">
+<meta name="theme-color" content="#EDEFF3">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"JewelryStore","name":"Matz Jewelers","telephone":"+1-215-744-6520","address":{"@type":"PostalAddress","streetAddress":"6520 Castor Ave","addressLocality":"Philadelphia","addressRegion":"PA","postalCode":"19149","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"71"}}</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--paper:#EDEFF3;--paper2:#E2E6EE;--ink:#0B1533;--sap:#2A4BD7;--sap2:#1D37A8;--ice:#CFE0FF;--ln:rgba(11,21,51,.14);--mu:rgba(11,21,51,.66);--white:#F8F9FC;
+--f1:'Bodoni Moda','Didot','Bodoni 72',Georgia,serif;--f2:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;--g:clamp(18px,4vw,56px)}
+html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
+body{font-family:var(--f2);background:var(--paper);color:var(--ink);line-height:1.6;font-size:1.02rem;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--sap);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1280px,100% - 2*var(--g));margin-inline:auto}
+.cap{font-family:var(--f2);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--sap)}
+.cap.dark{color:var(--ink)}
+em,.it{font-style:italic;font-weight:400}
+h1,h2,h3,.disp{font-family:var(--f1);font-weight:400;letter-spacing:-.02em;line-height:1.02}
+.sec{padding:clamp(84px,11vw,158px) 0;position:relative}
+.rule{border-top:1px solid var(--ln)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;font-weight:600;font-size:.95rem;letter-spacing:.02em;transition:background .35s,color .35s,border-color .35s,transform .35s}
+.btn.p{background:var(--sap);color:#fff}.btn.g{border:1px solid var(--ink);color:var(--ink)}
+.btn svg{width:16px;height:16px}
+@media (hover:hover) and (pointer:fine){.btn.p:hover{background:var(--ink)}.btn.g:hover{background:var(--ink);color:var(--paper)}
+.svc:hover .ph img{transform:scale(1.05)}.nav-links a:hover{color:var(--sap)}.stone-btn:hover,.metal-btn:hover,.sty-btn:hover{border-color:var(--sap)}}
+/* progress + preloader */
+#prog{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--sap);transform:scaleX(0);transform-origin:0 50%;z-index:120}
+#pre{display:none}
+.js #pre{position:fixed;inset:0;z-index:200;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+#pre svg{width:92px;height:auto;overflow:visible}
+#pre .pw{font-family:var(--f1);font-style:italic;font-size:2rem;letter-spacing:.04em}
+#pre .pn{font-size:.72rem;letter-spacing:.3em;font-weight:600;color:var(--sap)}
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:101;padding:20px 0;transition:background .4s,padding .4s,box-shadow .4s}
+.nav.solid{background:rgba(237,239,243,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:12px 0;box-shadow:0 1px 0 var(--ln)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:baseline;gap:9px;min-height:44px;align-items:center}
+.logo b{font-family:var(--f1);font-style:italic;font-weight:500;font-size:1.7rem;letter-spacing:-.01em}
+.logo span{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--sap)}
+.nav-links{display:flex;gap:34px;align-items:center;font-size:.9rem;font-weight:500}
+.nav-links a{transition:color .3s;min-height:44px;display:inline-flex;align-items:center}
+.nav .btn{min-height:44px;padding:0 22px;font-size:.88rem}
+.burger{display:none;width:48px;height:48px;border-radius:50%;border:1px solid var(--ln);position:relative;z-index:110;background:rgba(237,239,243,.6)}
+.burger i{position:absolute;left:14px;right:14px;height:1.5px;background:var(--ink);transition:transform .4s,top .4s,opacity .3s}
+.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:28px}
+.burger.x i:nth-child(1){top:23.5px;transform:rotate(45deg)}.burger.x i:nth-child(2){top:23.5px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0 0 0 auto;width:min(420px,100%);background:var(--ink);color:var(--paper);z-index:100;transform:translateX(102%);transition:transform .7s cubic-bezier(.16,1,.3,1);padding:110px 32px 40px;display:flex;flex-direction:column;visibility:hidden}
+.drawer.on{transform:none;visibility:visible}
+.drawer a.l{font-family:var(--f1);font-size:2.3rem;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;align-items:center;min-height:64px}
+.drawer a.l small{font-family:var(--f2);font-size:.7rem;letter-spacing:.2em;color:var(--ice)}
+.drawer .dn{margin-top:auto;font-size:.9rem;color:rgba(248,249,252,.7)}
+.drawer .dn a{color:var(--ice);font-size:1.3rem;font-family:var(--f1);display:inline-block;min-height:44px}
+.menu .nav{background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.menu .logo b{color:var(--paper)}.menu .burger{border-color:rgba(255,255,255,.3);background:transparent}.menu .burger i{background:var(--paper)}
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;padding:clamp(104px,13vh,150px) 0 0;display:flex;flex-direction:column;background:radial-gradient(90% 70% at 78% 40%,#F7F9FF 0%,rgba(237,239,243,0) 62%),var(--paper)}
+.hero-grid{flex:1;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:20px;position:relative;z-index:2}
+.hero h1{font-size:clamp(3rem,6.1vw,6.6rem);margin:18px 0 26px}
+.hero h1 .ln{display:block;overflow:hidden;padding:.03em .08em .1em 0;margin-bottom:-.1em}
+.hero h1 .ln>span{display:block}
+.hero h1 em{color:var(--sap);font-weight:400}
+.lede{max-width:34rem;font-size:1.08rem;color:var(--mu)}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.gem-stage{position:relative;justify-self:center;width:min(600px,100%);aspect-ratio:600/560}
+.gem-stage::before{content:"";position:absolute;inset:6% 4% 2%;border-radius:50%;background:radial-gradient(closest-side,rgba(207,224,255,.95),rgba(207,224,255,0));}
+.gem{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.badge{position:absolute;z-index:3;display:flex;flex-direction:column;padding:12px 20px;border-radius:999px;background:rgba(248,249,252,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--ln);box-shadow:0 12px 30px -14px rgba(11,21,51,.35);line-height:1.15}
+.badge b{font-family:var(--f1);font-size:1.5rem;font-weight:500}.badge small{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--mu)}
+.badge.b1{top:6%;left:-2%;background:var(--sap);color:#fff;border-color:transparent}.badge.b1 small{color:var(--ice)}
+.badge.b2{top:38%;right:-3%}.badge.b3{bottom:6%;left:4%;flex-direction:row;gap:9px;align-items:center;padding:11px 20px}
+.badge.b3 svg{width:20px;height:20px;flex:none}.badge.b3 b{font-size:1.02rem;font-style:italic}
+.wm{position:absolute;left:-1.5vw;bottom:-.3em;z-index:1;font-family:var(--f1);font-weight:500;font-size:clamp(9rem,31vw,32rem);line-height:.8;letter-spacing:-.045em;color:transparent;-webkit-text-stroke:1px rgba(42,75,215,.2);white-space:nowrap;user-select:none;pointer-events:none;background:linear-gradient(180deg,rgba(207,224,255,.45),rgba(207,224,255,0) 75%);-webkit-background-clip:text;background-clip:text}
+.hero-foot{position:relative;z-index:2;border-top:1px solid var(--ln);background:rgba(237,239,243,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hero-foot .wrap{display:flex;justify-content:space-between;gap:16px;padding:16px 0;font-size:.86rem;flex-wrap:wrap}
+.hero-foot a{min-height:24px;display:inline-block}
+/* marquee */
+.mq{background:var(--sap);color:#fff;overflow:hidden;padding:22px 0;position:relative;z-index:3}
+.mq-t{display:flex;width:max-content;white-space:nowrap;will-change:transform}
+.mq-t span{font-family:var(--f1);font-style:italic;font-size:clamp(1.5rem,3vw,2.6rem);padding:0 .5em;display:inline-flex;align-items:center;gap:1em;letter-spacing:-.01em}
+.mq-t span i{font-style:normal;font-size:.5em;color:var(--ice)}
+/* statement */
+.stmt{overflow:hidden;padding-bottom:clamp(50px,7vw,90px)}
+.stmt h2{font-size:clamp(3.6rem,15.5vw,15rem);line-height:.92;letter-spacing:-.04em}
+.stmt h2 .r{display:block;white-space:nowrap}
+.stmt h2 .r2{padding-left:clamp(0px,7vw,120px)}
+.stmt h2 em{color:var(--sap)}
+.stmt-cap{display:flex;justify-content:space-between;margin-bottom:26px;gap:20px;flex-wrap:wrap}
+.macro{position:relative;margin-top:clamp(40px,6vw,80px);height:clamp(230px,34vw,470px);overflow:hidden;background:linear-gradient(120deg,var(--ice),#9DB8F5 60%,var(--paper2))}
+.macro img{position:absolute;left:0;top:-14%;width:100%;height:128%;object-fit:cover}
+.macro::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px var(--ln);pointer-events:none}
+.about{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,110px);margin-top:clamp(50px,7vw,100px);align-items:start}
+.about p{font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.5;font-family:var(--f1);letter-spacing:-.01em}
+.about p+p{font-family:var(--f2);font-size:1rem;color:var(--mu);margin-top:20px;letter-spacing:0;max-width:34rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(50px,7vw,90px);border-top:1px solid var(--ln)}
+.st{padding:28px 0 0;border-right:1px solid var(--ln);padding-left:clamp(14px,2.5vw,36px)}.st:first-child{padding-left:0}.st:last-child{border:0}
+.st b{display:block;font-family:var(--f1);font-weight:400;font-size:clamp(3.2rem,8.4vw,8rem);line-height:.95;letter-spacing:-.04em;color:var(--ink)}
+.st b sup{font-size:.34em;color:var(--sap);font-style:italic;vertical-align:top;position:relative;top:.35em;margin-left:4px}
+.st span{display:block;margin-top:10px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--mu)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,28px);margin-top:clamp(40px,5vw,70px)}
+.ph{position:relative;overflow:hidden;background:linear-gradient(140deg,var(--ice),#AEC5F7 55%,var(--paper2));isolation:isolate}
+.ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.28) 0 1px,transparent 1px 26px);z-index:0}
+.ph img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.ph.noimg img{display:none}
+.duo .ph{aspect-ratio:4/5}.duo .ph:nth-child(2){margin-top:clamp(30px,6vw,90px)}
+.duo .cp,.svc .cp{position:absolute;left:14px;bottom:12px;z-index:2;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#fff;background:rgba(11,21,51,.55);padding:5px 10px;border-radius:99px;backdrop-filter:blur(6px)}
+/* bench */
+.bench{background:var(--paper2);position:relative}
+.bench-pin{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,9vh,110px) 0 40px;overflow:hidden}
+.bench-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(20px,4vh,44px)}
+.bench-head h2{font-size:clamp(2.6rem,5.4vw,5.2rem)}.bench-head h2 em{color:var(--sap)}
+.bench-head p{max-width:22rem;color:var(--mu);font-size:.95rem}
+.track{display:flex;gap:clamp(20px,2.4vw,40px);padding:0 var(--g);width:max-content;align-items:stretch}
+.svc{width:min(38vw,520px);flex:none;display:flex;flex-direction:column;position:relative}
+.svc:nth-child(even){margin-top:clamp(20px,5vh,54px)}
+.svc .num{font-family:var(--f1);font-size:clamp(5rem,10vw,9.4rem);line-height:.82;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px var(--sap);display:block;margin-bottom:-.08em;position:relative;z-index:2}
+.svc .ph{height:clamp(200px,38vh,380px)}
+.svc h3{font-size:clamp(1.6rem,2.3vw,2.3rem);margin:18px 0 8px}
+.svc p{color:var(--mu);font-size:.96rem;max-width:30rem}
+.svc .tag{display:inline-block;margin-top:12px;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--sap);border:1px solid rgba(42,75,215,.4);padding:5px 11px;border-radius:99px;align-self:flex-start}
+.svc.end{width:min(24vw,340px);justify-content:center;border-left:1px solid var(--ln);padding-left:clamp(20px,2.4vw,40px)}
+.svc.end h3{font-size:clamp(2rem,3vw,3rem)}
+.bprog{height:1px;background:var(--ln);margin:clamp(20px,4vh,40px) var(--g) 0;position:relative}
+.bprog i{position:absolute;left:0;top:-1px;height:3px;width:100%;background:var(--sap);transform:scaleX(0);transform-origin:0 50%}
+/* builder */
+.build h2{font-size:clamp(2.6rem,5.6vw,5.6rem);max-width:12em}.build h2 em{color:var(--sap)}
+.build .sub{max-width:36rem;color:var(--mu);margin-top:18px}
+.bgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,80px);margin-top:clamp(36px,5vw,64px);align-items:start}
+.bleft{position:sticky;top:96px}
+.stage{position:relative;max-height:min(50vh,520px);width:min(100%,520px);background:radial-gradient(70% 60% at 50% 38%,#1B2E78 0%,var(--ink) 72%);border-radius:28px;aspect-ratio:1/1;max-height:640px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(11,21,51,.6)}
+.stage::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(207,224,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(207,224,255,.07) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 50% 45%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(circle at 50% 45%,#000 20%,transparent 75%)}
+.stage svg{position:absolute;left:0;top:0;width:100%;height:calc(100% - 46px)}
+.stage .chip{position:absolute;left:18px;bottom:18px;right:18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;color:var(--ice);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.stage .chip b{background:rgba(207,224,255,.14);border:1px solid rgba(207,224,255,.3);padding:8px 14px;border-radius:99px;color:#fff;letter-spacing:.08em;font-size:.78rem}
+.ctrl{margin-top:22px;display:grid;gap:22px}
+.ctrl h4{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--mu);margin-bottom:10px;display:flex;justify-content:space-between}
+.ctrl h4 span{color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.metal-btn{width:52px;height:52px;border-radius:50%;border:2px solid var(--ln);padding:4px;transition:border-color .3s}
+.metal-btn i{display:block;width:100%;height:100%;border-radius:50%}
+.metal-btn[aria-checked=true]{border-color:var(--sap)}
+.stone-btn,.sty-btn{border:1px solid var(--ln);border-radius:14px;min-height:64px;min-width:64px;padding:8px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:.72rem;font-weight:600;letter-spacing:.06em;transition:border-color .3s,background .3s,color .3s;background:rgba(248,249,252,.6)}
+.stone-btn svg{width:28px;height:28px}
+.stone-btn[aria-checked=true],.sty-btn[aria-checked=true]{border-color:var(--sap);background:var(--sap);color:#fff}
+.stone-btn[aria-checked=true] path{stroke:#fff}
+.sty-btn{padding:0 20px;min-height:48px;flex-direction:row}
+.note{font-size:.76rem;color:var(--mu);margin-top:4px}
+.form{background:var(--white);border:1px solid var(--ln);border-radius:28px;padding:clamp(24px,3.4vw,44px);position:relative;overflow:hidden}
+.form h3{font-size:clamp(1.9rem,2.8vw,2.7rem);margin:8px 0 6px}
+.form .fs{color:var(--mu);font-size:.92rem;margin-bottom:22px}
+.fld{display:block;margin-bottom:16px}
+.fld span{display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--mu);margin-bottom:6px}
+.fld input,.fld select,.fld textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid rgba(11,21,51,.3);padding:10px 0;min-height:46px;border-radius:0;outline:0;transition:border-color .3s;appearance:none;-webkit-appearance:none}
+.fld select{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%232A4BD7' stroke-width='1.6'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 2px center}
+.fld textarea{min-height:84px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--sap);box-shadow:0 1px 0 var(--sap)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.ringchip{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px dashed rgba(42,75,215,.5);border-radius:16px;padding:12px 14px;margin:6px 0 18px;font-size:.88rem}
+.ringchip svg{width:40px;height:40px;flex:none}.ringchip b{display:block;font-weight:600}.ringchip small{color:var(--mu);font-size:.74rem;line-height:1.3;display:block}
+.ringchip label{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.78rem;min-height:44px;cursor:pointer}
+.ringchip input{width:20px;height:20px;accent-color:var(--sap)}
+.err{color:#B3261E;font-size:.85rem;min-height:1.3em;margin-bottom:6px}
+.fine{font-size:.74rem;color:var(--mu);margin-top:14px;line-height:1.5}
+.done{position:absolute;inset:0;background:var(--sap);color:#fff;padding:clamp(24px,4vw,50px);display:none;flex-direction:column;justify-content:center;align-items:flex-start;gap:14px}
+.done.on{display:flex}.done svg{width:74px;height:74px}
+.done h3{font-size:clamp(2rem,3.2vw,3.1rem);color:#fff}.done p{max-width:28rem;color:var(--ice)}
+.done .btn{background:#fff;color:var(--sap);margin-top:8px}
+/* process */
+.proc{background:var(--ink);color:var(--paper)}
+.proc .cap{color:var(--ice)}
+.proc h2{font-size:clamp(2.6rem,5.4vw,5.4rem);max-width:11em}.proc h2 em{color:var(--ice)}
+.proc .lab{display:inline-block;margin-top:18px;border:1px solid rgba(207,224,255,.4);border-radius:99px;padding:5px 12px;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--ice)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(44px,6vw,84px);border-top:1px solid rgba(207,224,255,.24)}
+.step{padding:30px clamp(14px,2vw,30px) 0;border-right:1px solid rgba(207,224,255,.24)}.step:first-child{padding-left:0}.step:last-child{border:0}
+.step .n{font-family:var(--f1);font-size:clamp(3.4rem,6vw,6rem);line-height:.9;color:transparent;-webkit-text-stroke:1px var(--ice);letter-spacing:-.04em;display:block;margin-bottom:22px}
+.step h3{font-size:1.6rem;margin-bottom:10px}.step p{color:rgba(237,239,243,.72);font-size:.95rem}
+.proc .gemline{display:flex;gap:16px;align-items:center;margin-top:clamp(44px,6vw,80px);font-size:.95rem;color:rgba(237,239,243,.8)}
+.proc .gemline i{flex:none;width:8px;height:8px;background:var(--ice);transform:rotate(45deg)}
+/* reviews */
+.rev{background:var(--sap);color:#fff;overflow:hidden;position:relative}
+.rev .cap{color:var(--ice)}
+.rev-in{display:grid;grid-template-columns:auto 1fr;gap:clamp(26px,6vw,110px);align-items:end;position:relative;z-index:2}
+.rev .big{font-family:var(--f1);font-size:clamp(9rem,26vw,25rem);line-height:.78;letter-spacing:-.06em;font-weight:400}
+.rev .stars{display:flex;gap:6px;margin:0 0 18px}.rev .stars svg{width:30px;height:30px}
+.rev h2{font-size:clamp(2rem,3.6vw,3.6rem);max-width:12em}.rev h2 em{color:var(--ice)}
+.rev p{margin:16px 0 28px;color:var(--ice);max-width:30rem}
+.rev .btn{background:#fff;color:var(--sap)}
+@media (hover:hover) and (pointer:fine){.rev .btn:hover{background:var(--ink);color:#fff}}
+.rev-bg{position:absolute;inset:0;opacity:.14;mix-blend-mode:luminosity}.rev-bg img{width:100%;height:100%;object-fit:cover}
+/* visit */
+.visit-g{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,80px);align-items:stretch}
+.visit h2{font-size:clamp(2.6rem,5vw,5rem)}.visit h2 em{color:var(--sap)}
+.facts{margin-top:30px;border-top:1px solid var(--ln)}
+.fact{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--ln);align-items:start}
+.fact dt{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--sap);padding-top:5px}
+.fact dd{font-size:1.05rem}
+.fact dd a{font-family:var(--f1);font-size:1.7rem;letter-spacing:-.01em;display:inline-block;min-height:44px}
+.pl{display:inline-block;margin-top:8px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border:1px dashed rgba(42,75,215,.55);color:var(--sap);padding:5px 11px;border-radius:99px}
+.map{position:relative;border-radius:28px;overflow:hidden;min-height:440px;background:var(--paper2);border:1px solid var(--ln)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.45) contrast(1.05) brightness(1.03)}
+.foot{background:var(--ink);color:var(--paper);padding:clamp(60px,8vw,110px) 0 30px;overflow:hidden;position:relative}
+.foot .fw{font-family:var(--f1);font-style:italic;font-size:clamp(9rem,45vw,52rem);line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(207,224,255,.35);white-space:nowrap;margin:0 0 30px -1vw}
+.foot-row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:.9rem;color:rgba(237,239,243,.75);border-top:1px solid rgba(207,224,255,.2);padding-top:26px}
+.foot-row a{color:var(--ice);min-height:44px;display:inline-flex;align-items:center}
+.demo-line{margin-top:10px;font-size:.78rem;color:rgba(237,239,243,.55)}
+/* reveal */
+.js .rv{opacity:0;transform:translateY(34px)}
+.js.reveal-all .rv{opacity:1!important;transform:none!important}
+@media (max-width:960px){
+.nav-links,.nav .btn.hide-m{display:none}.burger{display:block}
+.hero{padding-top:104px}
+.hero-grid{grid-template-columns:1fr;gap:12px;padding-bottom:20px}
+.hero h1{font-size:clamp(2.9rem,13.4vw,5.2rem)}
+.gem-stage{width:min(480px,92%)}
+.badge{padding:9px 15px}.badge b{font-size:1.15rem}.badge.b1{left:0}.badge.b2{right:0}
+.hero-foot .wrap{font-size:.8rem;padding:12px 0}
+.about,.bgrid,.visit-g,.rev-in{grid-template-columns:1fr}
+.bleft{position:relative;top:0}
+.stats{grid-template-columns:1fr}.st{border-right:0;border-bottom:1px solid var(--ln);padding:22px 0;display:flex;align-items:baseline;justify-content:space-between;gap:16px}.st span{margin:0;text-align:right}
+.steps{grid-template-columns:1fr 1fr}.step{border-bottom:1px solid rgba(207,224,255,.24);padding:26px 16px 30px 0}.step:nth-child(even){border-right:0;padding-left:16px}
+.bench-pin{min-height:0;padding:clamp(70px,11vw,110px) 0}
+.bench-head{flex-direction:column;align-items:flex-start}
+.track{display:grid;grid-template-columns:1fr;width:auto;gap:44px;padding:0 var(--g)}
+.svc,.svc.end{width:auto;margin-top:0!important}
+.svc .num{font-size:5.6rem}.svc .ph{height:auto;aspect-ratio:16/11}
+.svc.end{border:0;padding:0}.bprog{display:none}
+.rev-in{align-items:start}.rev .big{font-size:clamp(9rem,44vw,16rem)}
+.stmt h2{font-size:clamp(3.2rem,14vw,8rem)}.stmt h2 .r1{white-space:nowrap}.stmt h2 .r2{white-space:normal}.stmt h2 .r2{padding-left:0}
+.duo{gap:12px}
+}
+@media (max-width:560px){
+.two{grid-template-columns:1fr}
+.fact{grid-template-columns:1fr;gap:4px}
+.duo{grid-template-columns:1fr 1fr}
+.ringchip{flex-wrap:wrap}.ringchip label{margin-left:0}
+.badge.b2{top:44%}.cta .btn{flex:1 1 100%}
+.steps{grid-template-columns:1fr}.step{border-right:0!important;padding-left:0!important}
+.stage .chip{font-size:.62rem}
+}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div id="pre" aria-hidden="true">
+  <svg viewBox="0 0 120 108" fill="none" stroke="#2A4BD7" stroke-width="1.6" stroke-linejoin="round"><path class="pd" d="M30 6h60l28 30-58 68L2 36z"/><path class="pd" d="M2 36h116M30 6l30 30 30-30M60 36l-58 0M60 36l58 0M60 104 30 36M60 104l30-68"/></svg>
+  <div class="pw">Matz</div><div class="pn">JEWELERS</div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Matz Jewelers home"><b>Matz</b><span>Jewelers</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#services">Services</a><a href="#builder">Ring builder</a><a href="#process">Process</a><a href="#visit">Visit</a>
+      <a class="btn p" href="#builder">Free consult</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><i></i><i></i></button>
+  </div>
+</header>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <a class="l" href="#services">Services <small>01</small></a>
+  <a class="l" href="#builder">Ring builder <small>02</small></a>
+  <a class="l" href="#process">Process <small>03</small></a>
+  <a class="l" href="#visit">Visit <small>04</small></a>
+  <div class="dn">6520 Castor Ave, Philadelphia<br><a href="tel:+12157446520">(215) 744-6520</a></div>
+</aside>
+
+<main id="top">
+<section class="hero" aria-label="Matz Jewelers">
+  <div class="wm" id="wm" aria-hidden="true">MATZ</div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="cap" id="hk">Family-owned &middot; Oxford Circle, Philadelphia</div>
+      <h1 id="h1"><span class="ln"><span>Custom &amp;</span></span><span class="ln"><span>engagement</span></span><span class="ln"><span>jewelry, <em>cut</em></span></span><span class="ln"><span>to fit you.</span></span></h1>
+      <p class="lede" id="hl">Design a ring, resize a wedding band, mend a chain. A family-owned jeweler on Castor Avenue in Oxford Circle, with the bench now online.</p>
+      <div class="cta" id="hc"><a class="btn p" href="#builder">Design a ring idea <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 3l5 5-5 5"/></svg></a><a class="btn g" href="tel:+12157446520">Call (215) 744-6520</a></div>
+    </div>
+    <div class="gem-stage" id="gemStage">
+      <svg class="gem" id="gem" viewBox="0 0 600 560" role="img" aria-label="A faceted diamond assembling itself">
+        <defs>
+          <clipPath id="gemClip"><polygon points="200,100 400,100 540,215 300,510 60,215"/></clipPath>
+          <linearGradient id="sheen" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFE0FF"/></linearGradient>
+          <linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9DB8FF"/><stop offset="1" stop-color="#4E70EA"/></linearGradient>
+          <linearGradient id="gC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A4BD7"/><stop offset="1" stop-color="#14237A"/></linearGradient>
+          <linearGradient id="gD" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5B7CF0"/><stop offset="1" stop-color="#1B2E9C"/></linearGradient>
+          <filter id="gsh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="30" stdDeviation="26" flood-color="#2A4BD7" flood-opacity=".28"/></filter>
+        </defs>
+        <g filter="url(#gsh)" id="facets" stroke="rgba(255,255,255,.75)" stroke-width="1.2" stroke-linejoin="round">
+          <polygon class="fc" data-l="1" points="200,100 400,100 350,160 250,160" fill="url(#gA)"/>
+          <polygon class="fc" data-l="1" points="200,100 250,160 170,215" fill="#E6EFFF"/>
+          <polygon class="fc" data-l="0" points="60,215 200,100 170,215" fill="url(#gB)"/>
+          <polygon class="fc" data-l="1" points="250,160 300,215 170,215" fill="#F6F9FF"/>
+          <polygon class="fc" data-l="1" points="250,160 350,160 300,215" fill="#BFD3FF"/>
+          <polygon class="fc" data-l="0" points="350,160 430,215 300,215" fill="#8FADFA"/>
+          <polygon class="fc" data-l="1" points="400,100 430,215 350,160" fill="#DCE8FF"/>
+          <polygon class="fc" data-l="0" points="400,100 540,215 430,215" fill="url(#gB)"/>
+          <polygon class="fc" data-l="0" points="60,215 170,215 300,510" fill="url(#gD)"/>
+          <polygon class="fc" data-l="1" points="170,215 300,215 300,510" fill="#7C9AF6"/>
+          <polygon class="fc" data-l="0" points="300,215 430,215 300,510" fill="url(#gC)"/>
+          <polygon class="fc" data-l="0" points="430,215 540,215 300,510" fill="#2340BD"/>
+        </g>
+        <g clip-path="url(#gemClip)" style="pointer-events:none"><rect id="shine" x="-200" y="60" width="120" height="480" fill="url(#sheen)" transform="skewX(-22)" opacity="0"/></g>
+        <g id="spk" fill="#fff"><path class="sp" d="M120 120l5 15 15 5-15 5-5 15-5-15-15-5 15-5z"/><path class="sp" d="M500 150l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/><path class="sp" d="M470 420l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></g>
+      </svg>
+      <div class="badge b1"><b>4.8 &#9733;</b><small>on Google</small></div>
+      <div class="badge b2"><b>71</b><small>Google reviews</small></div>
+      <div class="badge b3"><svg viewBox="0 0 20 20" fill="none" stroke="#2A4BD7" stroke-width="1.5"><path d="M10 17s-6.5-4.2-6.5-8.6A3.6 3.6 0 0110 6.3a3.6 3.6 0 016.5 2.1C16.5 12.8 10 17 10 17z"/></svg><b>Family-owned</b></div>
+    </div>
+  </div>
+  <div class="hero-foot"><div class="wrap"><span>6520 Castor Ave, Philadelphia, PA 19149</span><span>Typically opens 10 AM</span><a href="tel:+12157446520">(215) 744-6520</a></div></div>
+</section>
+
+<div class="mq" aria-hidden="true"><div class="mq-t" id="mq"></div></div>
+
+<section class="sec stmt" id="about">
+  <div class="wrap">
+    <div class="stmt-cap rv"><span class="cap">About the shop</span><span class="cap dark">Castor Ave &middot; Oxford Circle</span></div>
+    <h2 id="stmt"><span class="r r1">Family-owned.</span><span class="r r2">Made to fit <em>you.</em></span></h2>
+  </div>
+  <div class="macro" id="macro"><img src="https://images.unsplash.com/photo-1750767323919-b47d474898fb?auto=format&fit=crop&w=1600&q=75" data-fb="photo-1679526287084-a9e3935d18f5" alt="Cut diamonds resting on a rustic wooden surface" loading="lazy" onerror="mzfb(this)"></div>
+  <div class="wrap">
+    <div class="about">
+      <div class="rv"><span class="cap">Who we are</span></div>
+      <div class="rv">
+        <p>Matz Jewelers is a family-owned custom and engagement jeweler on Castor Avenue in Oxford Circle, Northeast Philadelphia.</p>
+        <p>Custom jewelry design, engagement rings, wedding ring refinishing, sizing and cleaning, chain and jewelry repair, and name plates. Come in, bring the idea, and talk it through in person.</p>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="st rv"><b data-n="4.8" data-d="1">4.8</b><span>Google rating</span></div>
+      <div class="st rv"><b data-n="71" data-d="0">71</b><span>Google reviews</span></div>
+      <div class="st rv"><b data-n="5" data-d="0">5</b><span>Services on the bench</span></div>
+    </div>
+    <div class="duo">
+      <div class="ph rv"><img src="https://images.unsplash.com/photo-1786840320410-a7bec09c393c?auto=format&fit=crop&w=900&q=75" data-fb="photo-1655111379423-b85edc4da9ac" alt="Jeweler using a jeweler's saw on a ring at a workbench" loading="lazy" onerror="mzfb(this)"><span class="cp">At the bench</span></div>
+      <div class="ph rv"><img src="https://images.unsplash.com/photo-1758802491819-ba62694aead6?auto=format&fit=crop&w=900&q=75" data-fb="photo-1600143674013-a690b5d25104" alt="Close-up of a diamond ring on a finger" loading="lazy" onerror="mzfb(this)"><span class="cp">On the hand</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="bench" id="services" aria-label="Services">
+  <div class="bench-pin" id="benchPin">
+    <div class="wrap bench-head"><h2 class="rv">Five things<br>on the <em>bench.</em></h2><p class="rv">Scroll sideways through everything Matz Jewelers does. Quotes after a free consult (owner confirms).</p></div>
+    <div class="track" id="track">
+      <article class="svc"><span class="num">01</span><div class="ph"><img src="https://images.unsplash.com/photo-1655111396188-8dd88ceb8b4d?auto=format&fit=crop&w=900&q=75" data-fb="photo-1655111379423-b85edc4da9ac" alt="Jewelry being made in a workshop" loading="lazy" onerror="mzfb(this)"></div><h3>Custom jewelry design</h3><p>Start from an idea, a sketch or a picture and shape it into a piece that is yours alone.</p></article>
+      <article class="svc"><span class="num">02</span><div class="ph"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=900&q=75" data-fb="photo-1607703829739-c05b7beddf60" alt="Silver diamond ring resting on a black ring box" loading="lazy" onerror="mzfb(this)"></div><h3>Engagement rings</h3><p>Pick the shape, the metal and the setting. Try it out in the ring builder below, then finalize in person.</p></article>
+      <article class="svc"><span class="num">03</span><div class="ph"><img src="https://images.unsplash.com/photo-1598560917807-1bae44bd2be8?auto=format&fit=crop&w=900&q=75" data-fb="photo-1543294001-f7cd5d7fb516" alt="Gold ring on a white surface" loading="lazy" onerror="mzfb(this)"></div><h3>Wedding ring refinishing, sizing &amp; cleaning</h3><p>Scratched, dull or a little too snug. Bring your band back to how it felt on day one.</p></article>
+      <article class="svc"><span class="num">04</span><div class="ph"><img src="https://images.unsplash.com/photo-1709033404514-c3953af680b4?auto=format&fit=crop&w=900&q=75" data-fb="photo-1625908733875-efa9c75c084d" alt="Gold chain" loading="lazy" onerror="mzfb(this)"></div><h3>Chain &amp; jewelry repair</h3><p>Broken chains and worn pieces, mended with care.</p><span class="tag">Often about 2 days &middot; owner confirms</span></article>
+      <article class="svc"><span class="num">05</span><div class="ph"><img src="https://images.unsplash.com/photo-1758995115659-06a6cb5787eb?auto=format&fit=crop&w=900&q=75" data-fb="photo-1740004571000-18b8fcf4aa6f" alt="Gold filigree necklace on black velvet display" loading="lazy" onerror="mzfb(this)"></div><h3>Name plates</h3><p>Your name, or someone else's, worn close.</p></article>
+      <article class="svc end"><span class="cap">Next</span><h3 style="margin-top:14px">Try a ring <em>idea</em> &rarr;</h3><p style="margin-top:10px"><a href="#builder" class="btn p" style="margin-top:6px">Open builder</a></p></article>
+    </div>
+    <div class="bprog"><i id="bprog"></i></div>
+  </div>
+</section>
+
+<section class="sec build" id="builder">
+  <div class="wrap">
+    <div class="cap rv">Ring builder</div>
+    <h2 class="rv" style="margin-top:14px">Sketch a ring in <em>daylight.</em></h2>
+    <p class="sub rv">Choose a metal, a stone shape and a style. It redraws live, and your idea travels with your request. It is a design idea only; the final design comes after a free consult.</p>
+    <div class="bgrid">
+      <div class="bleft rv">
+        <div class="stage" id="stage">
+          <svg viewBox="0 0 400 400" role="img" aria-label="Live ring preview" id="ring">
+            <defs>
+              <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop id="mg0" offset="0" stop-color="#F6E2A6"/><stop id="mg1" offset=".5" stop-color="#D9B25F"/><stop id="mg2" offset="1" stop-color="#9C7A2E"/></linearGradient>
+              <linearGradient id="mgr" x1="1" y1="0" x2="0" y2="1"><stop id="mr0" offset="0" stop-color="#9C7A2E"/><stop id="mr1" offset=".5" stop-color="#D9B25F"/><stop id="mr2" offset="1" stop-color="#F6E2A6"/></linearGradient>
+              <radialGradient id="gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#2A4BD7" stop-opacity=".55"/><stop offset="1" stop-color="#2A4BD7" stop-opacity="0"/></radialGradient>
+              <linearGradient id="stT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#DCE8FF"/></linearGradient>
+            </defs>
+            <ellipse cx="200" cy="200" rx="190" ry="170" fill="url(#gl)"/>
+            <ellipse cx="200" cy="372" rx="118" ry="9" fill="#000" opacity=".28"/>
+            <path id="band" fill-rule="evenodd" d="M200 158a112 112 0 1 0 .01 0zM200 180a90 90 0 1 1-.01 0z" fill="url(#mg)"/>
+            <path d="M118 210a112 112 0 0 1 40-42" stroke="#fff" stroke-opacity=".55" stroke-width="3" fill="none" stroke-linecap="round" transform="translate(0 0)"/>
+            <circle cx="200" cy="270" r="90" fill="none" stroke="url(#mgr)" stroke-width="2" opacity=".6"/>
+            <g id="shoulders"><path d="M170 176l60 0-6 22h-48z" fill="url(#mg)" opacity="0"/></g>
+            <path id="head" d="M172 150h56l-10 30h-36z" fill="url(#mgr)"/>
+            <g id="sideL" transform="translate(124 154) scale(.55)"></g>
+            <g id="sideR" transform="translate(276 154) scale(.55)"></g>
+            <g id="halo"></g>
+            <g id="main" transform="translate(200 114)"></g>
+            <g id="prongs"></g>
+            <g id="stars" fill="#fff"><path class="sp" d="M78 76l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" d="M330 60l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path class="sp" d="M310 200l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></g>
+          </svg>
+          <div class="chip"><span>Design idea</span><b id="chipTxt">Yellow gold &middot; Oval &middot; Solitaire</b></div>
+        </div>
+        <div class="ctrl">
+          <div><h4>Metal <span id="mLab">Yellow gold</span></h4><div class="row" role="radiogroup" aria-label="Metal" id="metals"></div></div>
+          <div><h4>Stone shape <span id="sLab">Oval</span></h4><div class="row" role="radiogroup" aria-label="Stone shape" id="stones"></div></div>
+          <div><h4>Style <span id="yLab">Solitaire</span></h4><div class="row" role="radiogroup" aria-label="Style" id="styles"></div></div>
+          <div class="note">Design idea only. Final design after a free consult.</div>
+        </div>
+      </div>
+
+      <form class="form rv" id="form" novalidate>
+        <div class="cap">Free consult request</div>
+        <h3>Tell us what you're <em>picturing.</em></h3>
+        <p class="fs">Pick a preferred day and we confirm by phone. Quotes after a free consult (owner confirms).</p>
+        <div class="ringchip" id="rchip"><svg viewBox="0 0 40 40" fill="none" stroke="#2A4BD7" stroke-width="1.6"><circle cx="20" cy="26" r="10"/><path d="M14 13l3-5h6l3 5-6 6z"/></svg><div><b id="rcT">Yellow gold &middot; Oval &middot; Solitaire</b><small>Your ring idea. Design idea only, final design after a free consult.</small></div><label><input type="checkbox" id="incRing" checked> Include</label></div>
+        <input type="hidden" name="ring_metal" id="hMetal"><input type="hidden" name="ring_shape" id="hShape"><input type="hidden" name="ring_style" id="hStyle">
+        <div class="two"><label class="fld"><span>Name</span><input id="fName" name="name" autocomplete="name" required></label><label class="fld"><span>Phone</span><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label></div>
+        <div class="two"><label class="fld"><span>Interested in</span><select id="fInt" name="interest"><option>Engagement ring</option><option>Custom design</option><option>Ring refinishing</option><option>Ring sizing</option><option>Chain or jewelry repair</option><option>Name plate</option><option>Other</option></select></label>
+        <label class="fld"><span>Preferred day</span><select id="fDay" name="day"><option>No preference</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select></label></div>
+        <label class="fld"><span>Message</span><textarea id="fMsg" name="message" placeholder="An idea, an occasion, or what needs fixing"></textarea></label>
+        <div class="err" id="err" role="alert"></div>
+        <button class="btn p" type="submit" style="width:100%">Request a free consult</button>
+        <p class="fine">Demo: this request is saved in your browser only, and appears on the shop's admin page.</p>
+        <div class="done" id="done" role="status"><svg viewBox="0 0 74 74" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M37 6l24 0 12 14-36 48L1 20 13 6z" transform="translate(0 0) scale(.98)"/><path id="ck" d="M24 34l9 9 18-20" stroke="#CFE0FF" stroke-width="3" stroke-linecap="round"/></svg><h3 id="dT">Thank you.</h3><p id="dP"></p><button class="btn" type="button" id="dAgain">Send another idea</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="sec proc" id="process">
+  <div class="wrap">
+    <div class="cap rv">How a custom piece could work</div>
+    <h2 class="rv" style="margin-top:14px">From a first idea to <em>something you wear.</em></h2>
+    <span class="lab rv">Typical process &middot; owner confirms</span>
+    <div class="steps">
+      <div class="step rv"><span class="n">01</span><h3>Talk it through</h3><p>Come in or call. Share the idea, the occasion and what it needs to be.</p></div>
+      <div class="step rv"><span class="n">02</span><h3>Design &amp; choose</h3><p>Settle the metal, the stone and the style, starting from your ring idea.</p></div>
+      <div class="step rv"><span class="n">03</span><h3>Make it</h3><p>The piece is crafted and checked against what was agreed.</p></div>
+      <div class="step rv"><span class="n">04</span><h3>Fit &amp; finish</h3><p>Try it on, adjust the fit, and take it home.</p></div>
+    </div>
+    <div class="gemline rv"><i></i><span>Quotes after a free consult. Repairs are often about 2 days; the shop confirms for each job.</span></div>
+  </div>
+</section>
+
+<section class="sec rev" id="reviews">
+  <div class="rev-bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1605821771565-35e0d046a2fb?auto=format&fit=crop&w=1200&q=70" data-fb="photo-1613843351058-1dd06fda7c02" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+  <div class="wrap rev-in">
+    <div class="big" id="bigN" aria-label="4.8">4.8</div>
+    <div>
+      <div class="stars" aria-label="4.8 out of 5 stars"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 7 7 .6-5.4 4.7 1.7 7.2L12 17.8 5.7 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 7 7 .6-5.4 4.7 1.7 7.2L12 17.8 5.7 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 7 7 .6-5.4 4.7 1.7 7.2L12 17.8 5.7 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 7 7 .6-5.4 4.7 1.7 7.2L12 17.8 5.7 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3 7 7 .6-5.4 4.7 1.7 7.2L12 17.8 5.7 21.5l1.7-7.2L2 9.6 9 9z"/></svg></div>
+      <h2>Rated <em>4.8</em> across <span id="revN">71</span> Google reviews.</h2>
+      <p>See what customers say, in their own words, on Google.</p>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Matz%20Jewelers%206520%20Castor%20Ave%20Philadelphia" target="_blank" rel="noopener">Read reviews on Google <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 3l5 5-5 5"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec visit" id="visit">
+  <div class="wrap visit-g">
+    <div class="rv">
+      <div class="cap">Visit the bench</div>
+      <h2 style="margin-top:14px">Find us on <em>Castor Ave.</em></h2>
+      <dl class="facts">
+        <div class="fact"><dt>Address</dt><dd>6520 Castor Ave<br>Philadelphia, PA 19149<br><a href="https://www.google.com/maps/dir/?api=1&destination=6520%20Castor%20Ave%20Philadelphia%20PA%2019149" target="_blank" rel="noopener" style="font-family:var(--f2);font-size:.9rem;color:var(--sap);font-weight:600;min-height:44px;display:inline-flex;align-items:center">Get directions &rarr;</a></dd></div>
+        <div class="fact"><dt>Phone</dt><dd><a href="tel:+12157446520">(215) 744-6520</a></dd></div>
+        <div class="fact"><dt>Hours</dt><dd>Typically opens 10 AM<br><span class="pl">Full weekly hours: owner confirms</span></dd></div>
+      </dl>
+    </div>
+    <div class="map rv"><iframe title="Map of Matz Jewelers, 6520 Castor Ave, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=6520%20Castor%20Ave%2C%20Philadelphia%2C%20PA%2019149&output=embed"></iframe></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="fw" aria-hidden="true">Matz</div>
+    <div class="foot-row"><span>Matz Jewelers &middot; 6520 Castor Ave, Philadelphia, PA 19149</span><a href="tel:+12157446520">(215) 744-6520</a></div>
+    <p class="demo-line">Demo concept by Rafael's web agency &mdash; not affiliated with Matz Jewelers.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var SLUG='matz-jewelers';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+if(hasG){document.documentElement.classList.add('js');gsap.registerPlugin(ScrollTrigger)}
+window.mzfb=function(im){var f=im.getAttribute('data-fb');if(f&&!im.dataset.tried){im.dataset.tried=1;im.src='https://images.unsplash.com/'+f+'?auto=format&fit=crop&w=900&q=75'}else{im.parentNode.classList.add('noimg')}};
+var NS='http://www.w3.org/2000/svg';
+function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+
+/* marquee content */
+(function(){var w=['MATZ JEWELERS','CUSTOM','ENGAGEMENT','REFINISHING','SIZING','OXFORD CIRCLE'],h='';for(var r=0;r<4;r++)w.forEach(function(x){h+='<span>'+x+' <i>&#9670;</i></span>'});$('#mq').innerHTML=h})();
+
+/* nav / lenis */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.15,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+function goTo(sel){var e=$(sel);if(!e)return;if(lenis)lenis.scrollTo(e,{offset:sel==='#top'?0:-10,duration:1.4});else e.scrollIntoView({behavior:'smooth'})}
+var drawer=$('#drawer'),burger=$('#burger');
+function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');if(lenis)lenis.start();document.body.style.overflow='';document.documentElement.classList.remove('menu')}
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on);if(lenis){on?lenis.stop():lenis.start()}document.body.style.overflow=on?'hidden':'';document.documentElement.classList.toggle('menu',on)});
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();closeDrawer();goTo(h)}})});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer()});
+var nav=$('#nav');function ns(){nav.classList.toggle('solid',scrollY>innerHeight*.5)}addEventListener('scroll',ns,{passive:true});ns();
+var pg=$('#prog');function pgu(){var m=document.documentElement.scrollHeight-innerHeight;pg.style.transform='scaleX('+(m>0?Math.min(1,scrollY/m):0)+')'}addEventListener('scroll',pgu,{passive:true});pgu();
+
+/* ================= RING BUILDER ================= */
+var METALS={yellow:{n:'Yellow gold',c:['#F6E2A6','#D9B25F','#9C7A2E']},white:{n:'White gold',c:['#FFFFFF','#E6E8EC','#9AA2B2']},rose:{n:'Rose gold',c:['#F7D6CA','#D9A08E','#A06A59']}};
+var SHAPES={round:{n:'Round',a:46,b:46,p:2},oval:{n:'Oval',a:36,b:52,p:2},emerald:{n:'Emerald',a:36,b:50,p:5.5},pear:{n:'Pear',a:40,b:52,p:2,pear:1},cushion:{n:'Cushion',a:45,b:45,p:3.3}};
+var STYLES={solitaire:'Solitaire',halo:'Halo',three:'Three-stone'};
+var S={metal:'yellow',shape:'oval',style:'solitaire'};
+function pt(k,th,sc){var sh=SHAPES[k],c=Math.cos(th),s=Math.sin(th),e=2/sh.p,x=sh.a*Math.sign(c)*Math.pow(Math.abs(c),e),y=sh.b*Math.sign(s)*Math.pow(Math.abs(s),e);
+  if(sh.pear){var t=(y/sh.b+1)/2;x*=.3+.7*Math.pow(t,.8)}
+  sc=sc||1;return[x*sc,y*sc]}
+function mix(a,b,t){var pa=[1,3,5].map(function(i){return parseInt(a.substr(i,2),16)}),pb=[1,3,5].map(function(i){return parseInt(b.substr(i,2),16)});return'#'+pa.map(function(v,i){return('0'+Math.round(v+(pb[i]-v)*t).toString(16)).slice(-2)}).join('')}
+function shapeG(k,parent){
+  var g=el('g',{'data-s':k,class:'shp'},parent),N=16,P=[],T=[],i;
+  for(i=0;i<N;i++)P.push(pt(k,i*2*Math.PI/N));
+  for(i=0;i<8;i++)T.push(pt(k,i*2*Math.PI/8,.5));
+  if(SHAPES[k].pear)T=T.map(function(p){return[p[0],p[1]+3]});
+  function poly(pts,fill){return el('polygon',{points:pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' '),fill:fill,stroke:'rgba(255,255,255,.85)','stroke-width':.7,'stroke-linejoin':'round'},g)}
+  function shade(pts){var cx=0,cy=0;pts.forEach(function(p){cx+=p[0];cy+=p[1]});cx/=pts.length;cy/=pts.length;var ang=Math.atan2(cy,cx),t=(Math.cos(ang+2.4)+1)/2;return mix('#FFFFFF','#8FAEF2',Math.pow(1-t,1.1)*.9)}
+  for(var j=0;j<8;j++){var Tj=T[j],Tn=T[(j+1)%8],a=P[2*j],b=P[(2*j+1)%N],c=P[(2*j+2)%N];
+    var f1=[Tj,a,b],f2=[Tj,Tn,b],f3=[Tn,b,c];[f1,f2,f3].forEach(function(f){poly(f,shade(f))})}
+  poly(T,'url(#stT)');
+  return g}
+function buildStones(){['#main','#sideL','#sideR'].forEach(function(id){var p=$(id,$('#ring'));Object.keys(SHAPES).forEach(function(k){shapeG(k,p)})})}
+buildStones();
+var halo=$('#halo'),HN=20,haloDots=[],prongs=[];
+for(var hi=0;hi<HN;hi++)haloDots.push(el('circle',{r:3.1,fill:'url(#stT)',stroke:'url(#mg)','stroke-width':1.2,cx:200,cy:114},halo));
+for(var pi=0;pi<4;pi++)prongs.push(el('circle',{r:4.2,fill:'url(#mg)',cx:200,cy:114},$('#prongs')));
+function place(dur,first){
+  var k=S.shape;
+  haloDots.forEach(function(d,i){var q=pt(k,i*2*Math.PI/HN,1.17),ext=SHAPES[k].pear?0:0,tx=200+q[0],ty=114+q[1]+(SHAPES[k].pear?1:0);
+    if(first||!anim){d.setAttribute('cx',tx);d.setAttribute('cy',ty)}else gsap.to(d,{attr:{cx:tx,cy:ty},duration:dur,ease:'power3.out'})});
+  [.125,.375,.625,.875].forEach(function(f,i){var q=pt(k,f*2*Math.PI),tx=200+q[0]*1.0,ty=114+q[1]*1.0;
+    if(first||!anim){prongs[i].setAttribute('cx',tx);prongs[i].setAttribute('cy',ty)}else gsap.to(prongs[i],{attr:{cx:tx,cy:ty},duration:dur,ease:'power3.out'})})}
+function showShape(first){
+  $$('.shp',$('#ring')).forEach(function(g){var on=g.getAttribute('data-s')===S.shape;
+    if(first||!anim){g.style.opacity=on?1:0;g.style.transform=on?'':'scale(.6)';return}
+    if(on){gsap.fromTo(g,{opacity:0,scale:.55,rotation:-14,transformOrigin:'50% 50%'},{opacity:1,scale:1,rotation:0,duration:.9,ease:'expo.out',overwrite:true})}
+    else gsap.to(g,{opacity:0,scale:.6,rotation:12,duration:.45,ease:'power2.inOut',overwrite:true})})}
+function showStyle(first){
+  var h=S.style==='halo',t=S.style==='three';
+  var set=function(t_,o,s){if(first||!anim){gsap.set?0:0;t_.style.opacity=o;return}gsap.to(t_,{opacity:o,duration:.7,ease:'power3.out',overwrite:'auto'})};
+  if(anim){gsap.to(halo,{opacity:h?1:0,duration:.7,ease:'power3.out',overwrite:'auto'});gsap.to(['#sideL','#sideR'],{opacity:t?1:0,duration:.7,ease:'power3.out',overwrite:'auto'});gsap.to('#prongs',{opacity:h?.0:1,duration:.5,ease:'power3.out',overwrite:'auto'});
+    if(h)gsap.fromTo(haloDots,{scale:.2,transformOrigin:'50% 50%'},{scale:1,duration:.8,stagger:.02,ease:'power3.out',overwrite:'auto'})}
+  else{halo.style.opacity=h?1:0;$('#sideL').style.opacity=$('#sideR').style.opacity=t?1:0;$('#prongs').style.opacity=h?0:1}}
+function showMetal(first){var c=METALS[S.metal].c;
+  var st=[['#mg0','#mr2'],['#mg1','#mr1'],['#mg2','#mr0']];
+  c.forEach(function(col,i){st[i].forEach(function(id){var e=$(id);if(first||!anim)e.setAttribute('stop-color',col);else gsap.to(e,{attr:{'stop-color':col},duration:.8,ease:'power2.inOut',overwrite:'auto'})})})}
+function label(){return METALS[S.metal].n+' · '+SHAPES[S.shape].n+' · '+STYLES[S.style]}
+function sync(){var t=label();$('#chipTxt').textContent=t;$('#rcT').textContent=t;$('#mLab').textContent=METALS[S.metal].n;$('#sLab').textContent=SHAPES[S.shape].n;$('#yLab').textContent=STYLES[S.style];$('#hMetal').value=METALS[S.metal].n;$('#hShape').value=SHAPES[S.shape].n;$('#hStyle').value=STYLES[S.style]}
+function radio(box,btn){$$('button',box).forEach(function(b){b.setAttribute('aria-checked',b===btn)})}
+(function(){
+  var mb=$('#metals'),sb=$('#stones'),yb=$('#styles');
+  Object.keys(METALS).forEach(function(k){var b=document.createElement('button');b.type='button';b.className='metal-btn';b.setAttribute('role','radio');b.setAttribute('aria-label',METALS[k].n);b.setAttribute('aria-checked',k===S.metal);b.innerHTML='<i style="background:linear-gradient(135deg,'+METALS[k].c[0]+','+METALS[k].c[1]+' 50%,'+METALS[k].c[2]+')"></i>';b.onclick=function(){S.metal=k;radio(mb,b);showMetal();sync()};mb.appendChild(b)});
+  Object.keys(SHAPES).forEach(function(k){var b=document.createElement('button');b.type='button';b.className='stone-btn';b.setAttribute('role','radio');b.setAttribute('aria-checked',k===S.shape);
+    var d=[];for(var i=0;i<=48;i++){var q=pt(k,i*2*Math.PI/48,.26);d.push((i?'L':'M')+(14+q[0]).toFixed(1)+' '+(14+q[1]).toFixed(1))}
+    b.innerHTML='<svg viewBox="0 0 28 28" fill="none"><path d="'+d.join('')+'Z" stroke="#0B1533" stroke-width="1.5" stroke-linejoin="round"/></svg>'+SHAPES[k].n;
+    b.onclick=function(){S.shape=k;radio(sb,b);showShape();place(.8);sync()};sb.appendChild(b)});
+  Object.keys(STYLES).forEach(function(k){var b=document.createElement('button');b.type='button';b.className='sty-btn';b.setAttribute('role','radio');b.setAttribute('aria-checked',k===S.style);b.textContent=STYLES[k];b.onclick=function(){S.style=k;radio(yb,b);showStyle();sync()};yb.appendChild(b)});
+  showMetal(true);showShape(true);place(0,true);showStyle(true);sync();
+})();
+if(anim){gsap.to('.sp',{scale:1.5,opacity:.25,duration:1.6,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:{each:.5,from:'random'},transformOrigin:'50% 50%'})}
+
+/* ================= FORM ================= */
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+var GROUP={'Engagement ring':'engagement','Custom design':'custom','Name plate':'custom','Ring refinishing':'repair','Ring sizing':'repair','Chain or jewelry repair':'repair','Other':'other'};
+function err(m){$('#err').textContent=m}
+$('#form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var nm=$('#fName').value.trim(),ph=$('#fPhone').value.replace(/\D/g,'');
+  if(!nm)return err('Please add your name.');if(ph.length<10)return err('Please add a 10-digit phone number.');err('');
+  var inc=$('#incRing').checked,intr=$('#fInt').value;
+  var rec={id:'M'+Date.now().toString(36).toUpperCase(),created:new Date().toISOString(),status:'new',name:nm,phone:$('#fPhone').value.trim(),interest:intr,group:GROUP[intr]||'other',day:$('#fDay').value,message:$('#fMsg').value.trim(),
+    ring_metal:inc?$('#hMetal').value:'',ring_shape:inc?$('#hShape').value:'',ring_style:inc?$('#hStyle').value:'',ring:inc?label():''};
+  try{var a=getB();a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+  $('#dT').textContent='Thank you, '+nm.split(' ')[0]+'.';
+  $('#dP').textContent='Your request for '+intr.toLowerCase()+(rec.day!=='No preference'?' (preferred day: '+rec.day+')':'')+' is in'+(inc?', with your ring idea: '+rec.ring:'')+'. We will confirm by phone at '+rec.phone+'. (Demo: saved in this browser.)';
+  var d=$('#done');d.classList.add('on');
+  if(anim){gsap.fromTo(d,{opacity:0},{opacity:1,duration:.7,ease:'power3.out'});var ck=$('#ck');try{var L=ck.getTotalLength();gsap.fromTo(ck,{strokeDasharray:L,strokeDashoffset:L},{strokeDashoffset:0,duration:.9,delay:.3,ease:'power2.inOut'})}catch(x){}}
+});
+$('#dAgain').addEventListener('click',function(){$('#done').classList.remove('on');$('#form').reset();$('#incRing').checked=true});
+
+/* ================= INTRO + SCROLL ================= */
+var facets=$$('#facets .fc'),off=[];
+if(anim){facets.forEach(function(f){var b=f.getBBox(),cx=b.x+b.width/2-300,cy=b.y+b.height/2-290,r=Math.random;var ox=cx*1.9+(r()-.5)*90,oy=cy*1.9+(r()-.5)*90-30;off.push([ox,oy]);gsap.set(f,{x:ox,y:oy,rotation:(r()-.5)*90,opacity:0,transformOrigin:'50% 50%'})});
+  gsap.set(['#hk','#hl','#hc','.badge'],{opacity:0});gsap.set('#h1 .ln>span',{yPercent:110})}
+var introDone=false,scrollSet=false;
+function intro(){
+  if(introDone)return;introDone=true;var pre=$('#pre');
+  if(!anim){if(pre)pre.remove();return}
+  var pd=$$('#pre .pd');pd.forEach(function(p){try{var L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L}catch(e){}});
+  var tl=gsap.timeline();
+  tl.to(pd,{strokeDashoffset:0,duration:.9,ease:'power2.inOut',stagger:.05},0)
+    .fromTo('#pre .pw,#pre .pn',{opacity:0,y:10},{opacity:1,y:0,duration:.6,stagger:.1,ease:'power3.out'},.2)
+    .to(pre,{yPercent:-100,duration:1,ease:'expo.inOut'},1.15).set(pre,{display:'none'})
+    .to('#hk',{opacity:1,duration:.7,ease:'power3.out'},1.55)
+    .to('#h1 .ln>span',{yPercent:0,duration:.95,stagger:.18,ease:'power3.out'},1.6)
+    .to(facets,{x:0,y:0,rotation:0,opacity:1,duration:1.5,stagger:{each:.08,from:'random'},ease:'power3.out'},1.4)
+    .to('#hl',{opacity:1,duration:.7,ease:'power3.out'},'>-.6')
+    .to('#hc',{opacity:1,duration:.6,ease:'power3.out'},'>-.3')
+    .to('.badge',{opacity:1,scale:1,duration:.7,stagger:.14,ease:'back.out(1.6)',startAt:{scale:.6}},'>-.8')
+    .from('#nav',{y:-40,opacity:0,duration:.7,ease:'power3.out'},'<');
+  tl.eventCallback('onComplete',function(){setupHero();setupScroll()});
+  setTimeout(function(){if(!scrollSet){gsap.set(facets,{x:0,y:0,rotation:0,opacity:1});gsap.set(['#hk','#hl','#hc','.badge','#pre'],{opacity:1});$('#pre').style.display='none';gsap.set('#h1 .ln>span',{yPercent:0});setupHero();setupScroll()}},6500);
+}
+if(anim){setTimeout(intro,300)}else{var pp=$('#pre');if(pp)pp.remove()}
+var heroSet=false;
+function setupHero(){
+  if(heroSet||!anim)return;heroSet=true;
+  gsap.to('.badge',{y:-12,duration:2.2,repeat:-1,yoyo:true,ease:'sine.inOut',stagger:.5});
+  gsap.to('#shine',{attr:{x:700},duration:2.2,repeat:-1,repeatDelay:3.2,ease:'power2.inOut',startAt:{attr:{x:-200},opacity:1}});
+  gsap.set('#shine',{opacity:1});
+  gsap.to($$('#facets .fc[data-l="1"]'),{opacity:.82,duration:1.8,yoyo:true,repeat:-1,stagger:{each:.35,from:'random'},ease:'sine.inOut'});
+  ScrollTrigger.matchMedia({'(min-width:961px)':function(){
+    facets.forEach(function(f,i){gsap.to(f,{x:off[i][0]*.22,y:off[i][1]*.22,rotation:(i%2?4:-4),ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}})});
+    gsap.to('#gemStage',{yPercent:-6,scale:1.05,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+    gsap.to('#wm',{xPercent:-7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+  },'(max-width:960px)':function(){gsap.to('#wm',{xPercent:-5,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}})}});
+}
+function setupScroll(){
+  if(scrollSet||!anim)return;scrollSet=true;window.__mzReady=1;
+  gsap.to('#mq',{xPercent:-50,duration:32,ease:'none',repeat:-1});
+  $$('.rv').forEach(function(e){gsap.to(e,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:e,start:'top 90%',once:true}})});
+  ScrollTrigger.create({trigger:'.build',start:'top 90%',once:true,onEnter:function(){}});
+  gsap.to('.macro img',{yPercent:-9,ease:'none',scrollTrigger:{trigger:'#macro',start:'top bottom',end:'bottom top',scrub:true}});
+  $$('.duo .ph img').forEach(function(im){gsap.fromTo(im,{yPercent:-5},{yPercent:5,ease:'none',immediateRender:false,scrollTrigger:{trigger:im.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+  ScrollTrigger.matchMedia({
+    '(min-width:961px)':function(){
+      gsap.fromTo('.stmt .r1',{xPercent:6},{xPercent:-6,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.stmt',start:'top bottom',end:'bottom top',scrub:1}});
+      gsap.fromTo('.stmt .r2',{xPercent:-8},{xPercent:5,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.stmt',start:'top bottom',end:'bottom top',scrub:1}});
+      var tr=$('#track'),dist=function(){return Math.max(0,tr.scrollWidth-innerWidth+40)};
+      gsap.to(tr,{x:function(){return -dist()},ease:'none',scrollTrigger:{trigger:'#benchPin',start:'top top',end:function(){return '+='+dist()},pin:true,scrub:1,anticipatePin:1,invalidateOnRefresh:true,onUpdate:function(s){gsap.set('#bprog',{scaleX:s.progress})}}});
+    },
+    '(max-width:960px)':function(){
+      $$('.svc').forEach(function(c){gsap.from(c,{y:40,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 88%',once:true}})});
+    }});
+  $$('.step').forEach(function(s,i){gsap.from(s.querySelector('.n'),{yPercent:30,duration:1,ease:'power3.out',scrollTrigger:{trigger:s,start:'top 88%',once:true}})});
+  $$('.st b').forEach(function(b){var n=+b.dataset.n,d=+b.dataset.d,o={v:0};ScrollTrigger.create({trigger:b,start:'top 88%',once:true,onEnter:function(){gsap.fromTo(o,{v:0},{v:n,duration:1.6,ease:'power2.out',onUpdate:function(){b.textContent=o.v.toFixed(d)}})}})});
+  ScrollTrigger.create({trigger:'.rev',start:'top 75%',once:true,onEnter:function(){var o={v:0},o2={v:0};gsap.to(o,{v:4.8,duration:1.8,ease:'power2.out',onUpdate:function(){$('#bigN').textContent=o.v.toFixed(1)}});gsap.to(o2,{v:71,duration:1.8,ease:'power2.out',onUpdate:function(){$('#revN').textContent=Math.round(o2.v)}})}});
+  gsap.from('.foot .fw',{yPercent:30,opacity:0,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'.foot',start:'top 85%',once:true}});
+  ScrollTrigger.refresh();
+}
+setTimeout(function(){if(hasG&&!window.__mzReady&&!anim){}else if(hasG&&!window.__mzReady){document.documentElement.classList.add('reveal-all')}},9000);
+addEventListener('load',function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(hasG&&scrollSet)ScrollTrigger.refresh()});
+})();
+</script>
+</body>
+</html>
