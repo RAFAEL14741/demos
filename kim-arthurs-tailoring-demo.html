@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<!--
+DEMO CONCEPT — Kim & Arthurs Dry Cleaner Custom Tailoring (built 2026-09-30)
+CONFIRMED: name, address 6415 Oxford Ave Philadelphia PA 19111, Google 4.5 stars / 106 reviews, services list, tailor "Moon" named in reviews, cards/debit/NFC accepted.
+[CONFIRM] Phone: Google lists (267) 844-6077, Yelp lists (215) 745-0450 -> site shows the Google number, owner must confirm which is right.
+[CONFIRM] Hours (Mon-Fri 8-6, Sat 8-5, Sun closed) are Google-only -> shown as "per Google listing - owner confirms".
+[CONFIRM] Prices: none published -> every price shows a "added once owner confirms" placeholder. Rush fees and turnaround: unknown.
+DEMO-PROPOSAL (owner must agree before going live): "Quote before we start" steps and the "Drop off by" date helper. Both carry visible chips.
+Fit slider = illustration using stock photo; not a real customer job. No testimonials, years in business, staff names other than "Moon", or socials are claimed.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kim &amp; Arthurs Custom Tailoring — Oxford Circle, Philadelphia</title>
+<meta name="description" content="Dry cleaning, alterations and custom tailoring at 6415 Oxford Ave, Philadelphia. Request a drop-off or fitting and tell us your event date. Concept demo.">
+<meta name="theme-color" content="#14202B">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--paper:#DCE6EC;--paper2:#CBD9E2;--chalk:#F7F9FA;--tape:#F2C230;--ink:#14202B;--ink2:#2A3B4A;--mu:#4C5F70;--red:#B4433B;--line:rgba(20,32,43,.22);
+--f1:'Space Grotesk',system-ui,sans-serif;--f2:'Newsreader',Georgia,serif;--f3:'JetBrains Mono',ui-monospace,monospace;--pad:clamp(20px,5vw,72px);--rh:26px}
+html{scroll-behavior:auto}
+html,body{overflow-x:clip}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:hidden}
+body{font-family:var(--f1);color:var(--ink);background-color:var(--paper);
+background-image:linear-gradient(rgba(20,32,43,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(20,32,43,.07) 1px,transparent 1px),linear-gradient(rgba(20,32,43,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(20,32,43,.045) 1px,transparent 1px);
+background-size:120px 120px,120px 120px,24px 24px,24px 24px;-webkit-font-smoothing:antialiased;line-height:1.5;padding-top:calc(var(--rh) + 64px)}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:2px}
+.mono{font-family:var(--f3);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.it{font-family:var(--f2);font-style:italic;font-weight:400}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.skip{position:absolute;left:8px;top:-60px;background:var(--tape);padding:10px 14px;z-index:200;font-weight:600}.skip:focus{top:calc(var(--rh) + 8px)}
+
+/* hidden initial states only when gsap loaded */
+.js .rv{opacity:0;transform:translateY(28px)}
+.js .ln>span{transform:translateY(112%)}
+.js .hero-fade{opacity:0}
+
+/* preloader */
+.pre{position:fixed;inset:0;z-index:300;background:var(--ink);display:grid;place-items:center;animation:preOut .6s ease 5.5s forwards}
+@keyframes preOut{to{opacity:0;visibility:hidden}}
+.pre .sheet{position:absolute;inset:0;background:var(--chalk)}
+.pre .box{position:relative;width:min(560px,86vw);text-align:center}
+.pre .nm{font-weight:700;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.02em;color:var(--ink)}
+.pre .nm i{font-family:var(--f2);font-weight:400}
+.pre .tp{height:38px;margin-top:22px;background:var(--tape);position:relative;transform-origin:left center;border-radius:2px;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.tick{position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,var(--ink) 0 1.5px,transparent 1.5px 10px),repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 50px);background-size:100% 30%,100% 55%;background-repeat:no-repeat;background-position:0 0,0 0}
+.pre .pct{margin-top:10px;font-family:var(--f3);font-size:.75rem;letter-spacing:.14em;color:var(--mu)}
+
+/* ruler progress */
+.ruler{position:fixed;top:0;left:0;right:0;height:var(--rh);z-index:120;background:var(--chalk);border-bottom:1px solid var(--ink);overflow:hidden}
+.ruler .fill{position:absolute;inset:0;background:var(--tape);transform-origin:left;transform:scaleX(0)}
+.ruler .tick{background-size:100% 34%,100% 62%;background-position:0 100%,0 100%;background-image:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 8px),repeating-linear-gradient(90deg,var(--ink) 0 1.5px,transparent 1.5px 40px)}
+.ruler .rn{position:absolute;right:var(--pad);top:3px;font-family:var(--f3);font-size:.65rem;letter-spacing:.08em;background:var(--ink);color:var(--tape);padding:1px 7px;border-radius:2px}
+.ruler .rl{position:absolute;left:var(--pad);top:3px;background:var(--chalk);padding:1px 6px;font-family:var(--f3);font-size:.65rem;letter-spacing:.1em;color:var(--ink)}
+
+/* nav */
+nav.top{position:fixed;top:var(--rh);left:0;right:0;z-index:110;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);background:rgba(220,230,236,.86);backdrop-filter:blur(8px);border-bottom:1px dashed var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:-.01em;line-height:1.05}
+.brand svg{width:34px;height:34px;flex:none}
+.brand small{display:block;font-family:var(--f3);font-weight:400;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
+.links{display:flex;gap:26px;align-items:center}
+.links a{text-decoration:none;font-size:.9rem;font-weight:500;padding:10px 0;position:relative}
+.links a.cta{background:var(--ink);color:var(--chalk);padding:11px 18px;border-radius:2px;font-weight:600}
+.burger{display:none;width:48px;height:48px;align-items:center;justify-content:center;flex-direction:column;gap:6px;margin-right:-8px}
+.burger i{display:block;width:26px;height:2px;background:var(--ink);transition:transform .4s,opacity .3s}
+.burger.x i:nth-child(1){transform:translateY(8px) rotate(45deg)}.burger.x i:nth-child(2){opacity:0}.burger.x i:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.drawer{position:fixed;inset:calc(var(--rh) + 64px) 0 0 0;z-index:105;background:var(--chalk);padding:28px var(--pad);display:flex;flex-direction:column;gap:4px;transform:translateY(-8px);opacity:0;visibility:hidden;transition:.35s}
+.drawer.on{opacity:1;visibility:visible;transform:none}
+.drawer a{font-size:2rem;font-weight:600;letter-spacing:-.02em;text-decoration:none;padding:12px 0;border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.drawer a span{font-family:var(--f3);font-size:.7rem;color:var(--mu)}
+
+/* layout */
+main{position:relative}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--pad)}
+section{position:relative;padding:clamp(56px,7vw,100px) 0}
+.eyb{display:flex;align-items:center;gap:12px;font-family:var(--f3);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:18px}
+.eyb b{background:var(--ink);color:var(--tape);padding:3px 8px;font-weight:500;border-radius:2px}
+.eyb::after{content:"";flex:1;height:0;border-top:1.5px dashed var(--line);max-width:200px}
+h2{font-size:clamp(2.1rem,5.2vw,4rem);line-height:1;letter-spacing:-.035em;font-weight:600;max-width:15ch}
+h2 em{font-family:var(--f2);font-weight:400;letter-spacing:-.02em}
+.lede{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--ink2);max-width:52ch;margin-top:18px}
+.stitchline{border:0;border-top:2px dashed var(--ink);opacity:.55;margin:0}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--f3);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;background:var(--chalk);border:1px dashed var(--red);color:var(--red);padding:4px 9px;border-radius:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;background:var(--tape);color:var(--ink);font-weight:700;letter-spacing:-.005em;text-decoration:none;border:2px solid var(--ink);border-radius:2px;box-shadow:4px 4px 0 var(--ink);transition:transform .25s,box-shadow .25s}
+.btn.dark{background:var(--ink);color:var(--chalk);box-shadow:4px 4px 0 var(--tape)}
+.btn.ghost{background:transparent;box-shadow:none}
+@media(hover:hover) and (pointer:fine){.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}.btn.dark:hover{box-shadow:6px 6px 0 var(--tape)}.btn.ghost:hover{background:var(--chalk);transform:none;box-shadow:none}.links a:not(.cta):hover::after{transform:scaleX(1)}.svc:hover{transform:translateY(-6px)}.gp:hover{border-color:var(--ink)}.gp:hover svg{transform:rotate(-2deg) scale(1.03)}}
+.links a:not(.cta)::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:2px;background:var(--tape);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+
+.cut{position:relative;height:0;border-top:2px dashed var(--ink);margin:0 var(--pad);opacity:.7}
+.cut span{position:absolute;right:0;top:-13px;background:var(--paper);padding:0 10px;font-family:var(--f3);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.cut svg{width:26px;height:16px}
+/* thread */
+.thread{position:absolute;left:0;top:0;width:60px;height:100%;pointer-events:none;z-index:6;overflow:visible}
+.thread .base{fill:none;stroke:rgba(20,32,43,.25);stroke-width:1.5;stroke-dasharray:2 8}
+.thread .st{fill:none;stroke:var(--red);stroke-width:2.6;stroke-dasharray:9 7;stroke-linecap:round}
+
+/* hero */
+.hero{padding:clamp(28px,5vw,60px) 0 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,64px);align-items:center}
+.hero h1{font-size:clamp(3rem,6.8vw,6.4rem);line-height:.92;letter-spacing:-.045em;font-weight:700}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.hero h1 .ln>span{display:block}
+.hero h1 em{font-family:var(--f2);font-weight:400;letter-spacing:-.03em;color:var(--red)}
+.hero .sub{font-size:clamp(1.05rem,1.6vw,1.3rem);max-width:44ch;margin:28px 0 30px;color:var(--ink2)}
+.hero .acts{display:flex;gap:14px;flex-wrap:wrap}
+.facts{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:34px}
+.facts div{font-family:var(--f3);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;border-left:2px solid var(--tape);padding-left:10px;line-height:1.35}
+.facts b{display:block;font-family:var(--f1);font-size:1.5rem;letter-spacing:-.02em;text-transform:none;font-weight:700}
+.hero-art{position:relative;aspect-ratio:4/5;max-height:640px}
+.hero-art .ph{position:absolute;inset:8% 6% 6% 14%;clip-path:polygon(0 8%,12% 0,88% 0,100% 8%,100% 100%,0 100%);background:var(--paper2);overflow:hidden;border:0}
+.hero-art .ph img{width:100%;height:118%;object-fit:cover;filter:saturate(.75) contrast(1.04)}
+.hero-art .pat{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pat path,.pat line,.pat polyline{vector-effect:non-scaling-stroke}
+.tagc{position:absolute;background:var(--chalk);border:1.5px solid var(--ink);padding:8px 12px;font-family:var(--f3);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.35;box-shadow:3px 3px 0 var(--tape)}
+.tagc b{display:block;font-family:var(--f1);font-size:1rem;letter-spacing:-.01em;text-transform:none}
+.hero-tape{position:relative;margin-top:clamp(40px,6vw,80px);height:54px;background:var(--tape);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);transform-origin:left;overflow:hidden}
+.hero-tape .tick{background-image:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 10px),repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 50px);background-size:100% 26%,100% 46%;background-position:0 0,0 0}
+.hero-tape .nums{position:absolute;left:0;right:0;bottom:4px;display:flex;font-family:var(--f3);font-size:.75rem;font-weight:500}
+.hero-tape .nums span{flex:none;width:100px;padding-left:4px}
+
+/* services */
+.svcgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}
+.svc{position:relative;background:var(--chalk);border:1.5px solid var(--ink);padding:22px 20px 20px;min-height:250px;display:flex;flex-direction:column;transition:transform .4s;
+clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,0 100%)}
+.svc::before{content:"";position:absolute;inset:8px;border:1.5px dashed rgba(20,32,43,.28);pointer-events:none;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%)}
+.svc .no{font-family:var(--f3);font-size:.68rem;letter-spacing:.1em;color:var(--mu)}
+.svc h3{font-size:1.4rem;letter-spacing:-.02em;line-height:1.08;margin:12px 0 8px;font-weight:600}
+.svc p{font-size:.92rem;color:var(--ink2)}
+.svc .dim{margin-top:auto;padding-top:18px;display:flex;align-items:center;gap:8px;font-family:var(--f3);font-size:.66rem;color:var(--red);letter-spacing:.04em}
+.svc .dim::before,.svc .dim::after{content:"";height:1px;background:var(--red);flex:1;opacity:.6}
+.svc.wide{grid-column:span 2;background:var(--ink);color:var(--chalk)}.svc.wide p,.svc.wide .no{color:#B9C7D2}.svc.wide::before{border-color:rgba(255,255,255,.25)}.svc.wide .dim{color:var(--tape)}.svc.wide .dim::before,.svc.wide .dim::after{background:var(--tape)}
+.svc.wide h3{font-size:1.9rem}
+
+/* picker */
+.picker{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);margin-top:48px;align-items:start}
+.gpick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gp{background:var(--chalk);border:1.5px solid var(--line);padding:16px 8px 14px;min-height:172px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:8px;transition:border-color .3s,background .3s,transform .3s;text-align:center;border-radius:2px}
+.gp svg{width:78px;height:92px;transition:transform .4s}
+.gp span{font-weight:600;font-size:.95rem;line-height:1.15}
+.gp[aria-pressed=true]{background:var(--tape);border-color:var(--ink);box-shadow:4px 4px 0 var(--ink);transform:translate(-2px,-2px)}
+.gp.tw{grid-column:span 1}
+.pcard{background:var(--chalk);border:1.5px solid var(--ink);padding:clamp(22px,3vw,34px);position:sticky;top:120px;box-shadow:8px 8px 0 var(--paper2)}
+.pcard .big{width:100%;height:170px;margin-bottom:12px}
+.pcard h3{font-size:1.8rem;letter-spacing:-.03em;line-height:1.05}
+.pcard ul{list-style:none;margin:16px 0 22px;border-top:1.5px dashed var(--line)}
+.pcard li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1.5px dashed var(--line);font-size:.95rem}
+.pcard li span:last-child{font-family:var(--f3);font-size:.68rem;color:var(--red);text-transform:uppercase;letter-spacing:.04em;text-align:right;align-self:center}
+.pcard .note{font-size:.82rem;color:var(--mu);margin-bottom:16px}
+
+/* fit */
+.fit{background:var(--ink);color:var(--chalk);overflow:hidden}
+.fit .eyb{color:#9DB1C0}.fit .eyb::after{border-color:rgba(255,255,255,.3)}.fit h2 em{color:var(--tape)}.fit .lede{color:#C4D2DC}
+.fit-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,5vw,72px);align-items:center}
+.stage{position:relative;aspect-ratio:4/3.2;overflow:hidden;touch-action:pan-y;user-select:none;border:2px solid var(--tape);background:#0d161e;--p:50%}
+.stage img,.stage .lay{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stage .bef{clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.stage .bef img{filter:grayscale(1) contrast(.9) brightness(.85)}
+.stage svg.ov{position:absolute;inset:0;width:100%;height:100%}
+.stage .lb{position:absolute;bottom:14px;font-family:var(--f3);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--chalk);padding:5px 9px;z-index:3}
+.stage .lb.l{left:14px}.stage .lb.r{right:14px;background:var(--tape);color:var(--ink)}
+.stage .hd{position:absolute;top:0;bottom:0;left:var(--p);width:0;z-index:4;border-left:2px dashed var(--tape)}
+.stage .kn{position:absolute;top:50%;left:-24px;width:48px;height:48px;margin-top:-24px;background:var(--tape);color:var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--f3);font-weight:500;font-size:.8rem;border:2px solid var(--ink)}
+.fit input[type=range]{width:100%;margin-top:16px;accent-color:var(--tape);height:44px;background:transparent}
+.fit .cap{font-family:var(--f3);font-size:.68rem;letter-spacing:.06em;color:#9DB1C0;text-transform:uppercase;margin-top:6px}
+
+/* moon */
+.moon-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,72px);align-items:center}
+.ask{font-size:clamp(3rem,9vw,8rem);line-height:.86;letter-spacing:-.05em;font-weight:700}
+.ask em{font-family:var(--f2);font-weight:400;color:var(--red);letter-spacing:-.03em}
+.rate{background:var(--chalk);border:1.5px solid var(--ink);padding:clamp(22px,3vw,34px);box-shadow:8px 8px 0 var(--tape);position:relative}
+.rate .n{font-size:clamp(4rem,9vw,6.5rem);font-weight:700;letter-spacing:-.05em;line-height:.9}
+.rate .st{display:flex;gap:4px;margin:10px 0;color:var(--ink)}
+.rate .st svg{width:26px;height:26px}
+.rate p{color:var(--ink2);margin-bottom:18px}
+.rate a.btn{width:100%}
+.threeph{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:clamp(48px,7vw,90px)}
+.threeph figure{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--paper2);border:1.5px solid var(--ink)}
+.threeph figure:nth-child(2){margin-top:40px}
+.threeph img{width:100%;height:116%;object-fit:cover;filter:saturate(.8) contrast(1.03)}
+.threeph figcaption{position:absolute;left:0;bottom:0;right:0;background:var(--chalk);border-top:1.5px solid var(--ink);padding:8px 12px;font-family:var(--f3);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase}
+
+/* quote steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border:1.5px solid var(--ink);background:var(--chalk)}
+.stp{padding:clamp(22px,3vw,34px);position:relative}
+.stp+.stp{border-left:2px dashed var(--ink)}
+.stp .k{font-family:var(--f3);font-size:.7rem;color:var(--mu);letter-spacing:.1em}
+.stp h3{font-size:1.5rem;letter-spacing:-.025em;margin:34px 0 8px;line-height:1.1}
+.stp .num{position:absolute;top:14px;right:18px;font-size:4.4rem;font-weight:700;letter-spacing:-.06em;color:var(--tape);-webkit-text-stroke:1.5px var(--ink);line-height:1}
+.stp p{color:var(--ink2);font-size:.95rem}
+
+/* prices */
+.pl{margin-top:44px;background:var(--chalk);border:1.5px solid var(--ink);max-width:880px}
+.pl .hd,.pl .r{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;padding:16px clamp(16px,3vw,28px);align-items:baseline}
+.pl .hd{background:var(--ink);color:var(--tape);font-family:var(--f3);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+.pl .r{border-top:1.5px dashed var(--line);font-weight:500}
+.pl .r span:not(:first-child){font-family:var(--f3);font-size:.7rem;color:var(--red);text-transform:uppercase;letter-spacing:.04em}
+.pl .ft{padding:16px clamp(16px,3vw,28px);background:var(--paper2);font-size:.9rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-top:1.5px solid var(--ink)}
+
+/* form */
+.formwrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,5vw,72px);align-items:start}
+.formcard{background:var(--chalk);border:2px solid var(--ink);padding:clamp(22px,3.4vw,40px);box-shadow:10px 10px 0 var(--tape);position:relative;overflow:hidden}
+.fld{margin-bottom:18px}
+.fld label,.fld .lab{display:block;font-family:var(--f3);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:6px}
+.fld input,.fld select,.fld textarea{width:100%;min-height:52px;padding:12px 14px;background:var(--paper);border:1.5px solid var(--ink);border-radius:2px;font-size:1rem}
+.fld textarea{min-height:96px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fld label.rush{font-family:var(--f1);font-size:1rem;letter-spacing:0;text-transform:none;color:var(--ink);margin:0;display:flex;align-items:center;gap:14px;background:var(--paper);border:1.5px dashed var(--ink);padding:12px 14px;min-height:56px;cursor:pointer}
+.rush input{width:26px;height:24px;min-height:0;accent-color:var(--red);flex:none}
+.rush b{display:block;font-weight:600;line-height:1.2}.rush small{color:var(--mu);font-size:.85rem}
+.helper{margin-top:10px;background:var(--ink);color:var(--chalk);padding:12px 14px;font-size:.92rem;display:none;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.helper.on{display:flex}.helper b{color:var(--tape)}.helper .chip{background:transparent;border-color:var(--tape);color:var(--tape)}
+.err{color:var(--red);font-weight:600;min-height:22px;margin-bottom:8px;font-size:.92rem}
+.done{display:none;text-align:left}.done.on{display:block}
+.done svg{width:90px;height:90px;margin-bottom:12px}
+.done h3{font-size:2rem;letter-spacing:-.03em;line-height:1.05}
+.done p{margin-top:10px;color:var(--ink2)}
+.done .sum{margin:18px 0;border-top:1.5px dashed var(--ink)}
+.done .sum div{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1.5px dashed var(--ink);font-size:.95rem}
+.done .sum span:first-child{font-family:var(--f3);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);align-self:center}
+.done .sum span:last-child{text-align:right}
+
+/* visit */
+.visit{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,5vw,72px);align-items:stretch}
+.vlist{margin-top:28px;border-top:1.5px solid var(--ink)}
+.vlist div{padding:14px 0;border-bottom:1.5px dashed var(--line);display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline}
+.vlist dt{font-family:var(--f3);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.vlist dd{font-weight:500}
+.vlist a{text-decoration:none;border-bottom:2px solid var(--tape)}
+.vlist small{display:block;color:var(--mu);font-weight:400;font-size:.8rem;margin-top:2px}
+.map{position:relative;min-height:420px;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);background:var(--paper2)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) brightness(1.02)}
+
+footer{background:var(--ink);color:#B9C7D2;padding:48px 0 96px;font-size:.9rem}
+footer .row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+footer .big{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;letter-spacing:-.03em;color:var(--chalk);line-height:1}
+footer .big i{font-family:var(--f2);font-weight:400;color:var(--tape)}
+footer .cr{margin-top:34px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.25);font-family:var(--f3);font-size:.7rem;letter-spacing:.05em}
+.stk{display:none}
+
+@media(max-width:1020px){
+.hero-grid,.picker,.fit-grid,.moon-grid,.formwrap,.visit{grid-template-columns:1fr}
+.svcgrid{grid-template-columns:1fr 1fr}
+.hero-art{max-width:520px;width:100%;margin:0 auto;aspect-ratio:1/1}
+.pcard{position:static}
+}
+@media(max-width:860px){
+.links{display:none}.burger{display:flex}
+}
+@media(max-width:640px){
+:root{--rh:22px}
+body{padding-top:calc(var(--rh) + 64px)}
+.svcgrid{grid-template-columns:1fr}.svc.wide{grid-column:auto}.svc{min-height:0}
+.gpick{grid-template-columns:repeat(2,1fr)}.gp{min-height:132px}
+.steps{grid-template-columns:1fr}.stp+.stp{border-left:0;border-top:2px dashed var(--ink)}
+.threeph{grid-template-columns:1fr 1fr}.threeph figure:nth-child(2){margin-top:0}.threeph figure:nth-child(3){grid-column:span 2;aspect-ratio:16/10}
+.two{grid-template-columns:1fr}
+.pl .hd,.pl .r{grid-template-columns:1.3fr 1fr}.pl .hd span:nth-child(3),.pl .r span:nth-child(3){display:none}
+.vlist div{grid-template-columns:1fr;gap:2px}
+.ruler .rl{display:none}
+.hero-tape{height:44px}
+.stk{display:flex;position:fixed;left:16px;right:16px;bottom:14px;z-index:90;min-height:52px;background:var(--ink);color:var(--chalk);align-items:center;justify-content:center;gap:10px;font-weight:700;text-decoration:none;border:2px solid var(--tape);box-shadow:4px 4px 0 var(--tape);transition:transform .4s}
+.stk.hide{transform:translateY(140%)}
+.pcard .big{height:140px}
+.thread{width:24px}
+.hero h1{font-size:clamp(2.9rem,15vw,4.4rem)}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+<script>function fb(im){if(im.dataset.done){im.style.visibility='hidden';im.parentNode.style.background='repeating-linear-gradient(45deg,#CBD9E2 0 12px,#DCE6EC 12px 24px)';return}im.dataset.done=1;if(im.dataset.fb){im.src=im.dataset.fb}else{im.onerror=null;im.style.visibility='hidden';im.parentNode.style.background='repeating-linear-gradient(45deg,#CBD9E2 0 12px,#DCE6EC 12px 24px)'}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="pre" id="pre" aria-hidden="true"><div class="sheet"></div><div class="box"><div class="nm">Kim &amp; Arthurs <i>Tailoring</i></div><div class="tp" id="preTp"><div class="tick"></div></div><div class="pct" id="prePct">0 cm</div></div></div>
+
+<div class="ruler" aria-hidden="true"><div class="fill" id="rfill"></div><div class="tick"></div><span class="rl">TAPE · SCROLL = MEASURE</span><span class="rn" id="rnum">0 cm</span></div>
+
+<nav class="top" id="nav" aria-label="Main">
+  <a class="brand" href="#top" aria-label="Kim &amp; Arthurs Tailoring, top">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" fill="#F2C230" stroke="#14202B" stroke-width="2"/><path d="M8 30 L8 10 M8 20 L18 10 M8 20 L18 30" stroke="#14202B" stroke-width="3" fill="none"/><path d="M24 30 L28 10 L32 30 M25.6 23 H30.4" stroke="#14202B" stroke-width="3" fill="none"/></svg>
+    <span>Kim &amp; Arthurs<small>Custom Tailoring</small></span>
+  </a>
+  <div class="links">
+    <a href="#services">Services</a><a href="#picker">Which alteration?</a><a href="#fit">Fit</a><a href="#prices">Prices</a><a href="#visit">Visit</a>
+    <a class="cta" href="#request">Request a drop-off</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><i></i><i></i><i></i></button>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="#services">Services <span>01</span></a><a href="#picker">Which alteration? <span>02</span></a><a href="#fit">Fit <span>03</span></a><a href="#prices">Prices <span>04</span></a><a href="#request">Request drop-off <span>05</span></a><a href="#visit">Visit <span>06</span></a>
+</div>
+
+<main id="main">
+<svg class="thread" id="thread" aria-hidden="true" preserveAspectRatio="none"><defs><clipPath id="thClip"><rect id="thRect" x="-40" y="0" width="200" height="0"/></clipPath></defs><path class="base" id="thBase"/><path class="st" id="thSt" clip-path="url(#thClip)"/><g id="needle"><line x1="-2" y1="-22" x2="2" y2="22" stroke="#14202B" stroke-width="3" stroke-linecap="round"/><ellipse cx="-1.4" cy="-15" rx="1.3" ry="4" fill="#F7F9FA" stroke="#14202B" stroke-width="1"/></g></svg>
+
+<!-- HERO -->
+<section class="hero" id="top" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyb hero-fade"><b>6415 Oxford Ave</b> Oxford Circle · Philadelphia</div>
+        <h1 aria-label="Fitted to you, for your date.">
+          <span class="ln"><span>Fitted</span></span>
+          <span class="ln"><span>to you,</span></span>
+          <span class="ln"><span><em>for your</em> date.</span></span>
+        </h1>
+        <p class="sub hero-fade">Dry cleaning, alterations and custom tailoring — with a request form that starts with the one thing that matters: <strong>when do you need it?</strong></p>
+        <div class="acts hero-fade">
+          <a class="btn" href="#request">Request a drop-off →</a>
+          <a class="btn ghost" href="#picker">Which alteration do I need?</a>
+        </div>
+        <div class="facts hero-fade">
+          <div><b>4.5 ★</b>Google · 106 reviews</div>
+          <div><b>Ask for Moon</b>Named in Google reviews</div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="ph"><img id="heroImg" src="https://images.unsplash.com/photo-1592343516109-362f7bd871aa?auto=format&fit=crop&w=1000&q=75" alt="Black suit jacket hanging on a white hanger, ready for fitting" data-fb="https://images.unsplash.com/photo-1585412459272-762fb93357c3?auto=format&fit=crop&w=1000&q=75" onerror="fb(this)"></div>
+        <svg class="pat" viewBox="0 0 400 500" fill="none" aria-hidden="true">
+          <path id="patMain" d="M60 70 L150 50 Q200 78 250 50 L340 70 L350 130 L322 160 L330 440 L70 440 L78 160 L50 130 Z" stroke="#14202B" stroke-width="2.4" stroke-dasharray="1 0"/>
+          <path id="patIn" d="M74 84 L152 66 Q200 92 248 66 L326 84 L334 124 L310 150 L316 426 L84 426 L90 150 L66 124 Z" stroke="#B4433B" stroke-width="1.6" stroke-dasharray="6 6"/>
+          <path d="M200 92 L200 430" stroke="#14202B" stroke-width="1.2" stroke-dasharray="3 5"/><path d="M152 62 L200 210 M248 62 L200 210" stroke="#14202B" stroke-width="1.6"/><path d="M238 320 h52" stroke="#14202B" stroke-width="2.4"/><path d="M110 250 q-14 40 -8 92" stroke="#B4433B" stroke-width="1.4" stroke-dasharray="4 4"/><path d="M290 250 q14 40 8 92" stroke="#B4433B" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <g id="grain"><line x1="120" y1="200" x2="120" y2="380" stroke="#14202B" stroke-width="1.6"/><path d="M120 196 l-6 14 h12z M120 384 l-6 -14 h12z" fill="#14202B"/></g>
+          <g stroke="#14202B" stroke-width="2.4"><path d="M150 50 l0 -9"/><path d="M250 50 l0 -9"/><path d="M78 160 l-9 0"/><path d="M322 160 l9 0"/></g>
+          <g id="dimH" stroke="#B4433B" stroke-width="1.4"><line x1="70" y1="470" x2="330" y2="470"/><path d="M70 462 v16 M330 462 v16"/><path d="M70 470 l10 -5 v10z M330 470 l-10 -5 v10z" fill="#B4433B"/></g>
+          <text x="200" y="492" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#B4433B" letter-spacing="1">↔ WIDTH AT HEM · MEASURED TWICE</text>
+          <text x="126" y="290" font-family="JetBrains Mono,monospace" font-size="11" fill="#14202B" letter-spacing="1" transform="rotate(-90 126 290)" text-anchor="middle" >GRAINLINE</text>
+        </svg>
+        <div class="tagc hero-fade" style="right:-2%;top:4%">Pattern piece<b>Jacket front · cut 2</b></div>
+        <div class="tagc hero-fade" style="left:0;bottom:8%">Notch marks<b>Dashed = stitch line</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-tape" id="htape" aria-hidden="true"><div class="tick"></div><div class="nums" id="hnums"></div></div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="eyb rv"><b>01</b> The cutting list</div>
+    <h2 class="rv">Everything on <em>one</em> counter.</h2>
+    <p class="lede rv">Seven kinds of work, one shop on Oxford Avenue. Each piece below is a job we list for you to request — prices added once the owner confirms them.</p>
+    <div class="svcgrid" id="svcgrid">
+      <article class="svc rv wide"><span class="no">PIECE 01</span><h3>Alterations &amp; mending</h3><p>Hems, taking in, letting out, repairs. Bring it in and say what you want changed.</p><div class="dim">Price — added once owner confirms</div></article>
+      <article class="svc rv"><span class="no">PIECE 02</span><h3>Dress alterations</h3><p>Wedding, bridesmaid and prom dresses.</p><div class="dim">Price — owner confirms</div></article>
+      <article class="svc rv"><span class="no">PIECE 03</span><h3>Custom tailoring</h3><p>Made or reworked to your measurements.</p><div class="dim">Price — owner confirms</div></article>
+      <article class="svc rv"><span class="no">PIECE 04</span><h3>Prom suit fitting</h3><p>Sleeves, trousers and jacket fit before the big night.</p><div class="dim">Price — owner confirms</div></article>
+      <article class="svc rv"><span class="no">PIECE 05</span><h3>Jacket work</h3><p>Sleeves, sides and shoulders on jackets and blazers.</p><div class="dim">Price — owner confirms</div></article>
+      <article class="svc rv wide"><span class="no">PIECE 06 · 07</span><h3>Dry cleaning &amp; pressing</h3><p>The everyday part of the shop: clean it, press it, hang it.</p><div class="dim">Price — added once owner confirms</div></article>
+    </div>
+  </div>
+</section>
+
+<div class="cut" aria-hidden="true"><span><svg viewBox="0 0 26 16" fill="none" stroke="#14202B" stroke-width="1.6"><circle cx="5" cy="4" r="3"/><circle cx="5" cy="12" r="3"/><path d="M8 5 L25 12 M8 11 L25 4"/></svg>cut along dashed line</span></div>
+<!-- PICKER -->
+<section id="picker">
+  <div class="wrap">
+    <div class="eyb rv"><b>02</b> Pick a pattern</div>
+    <h2 class="rv">Which <em>alteration</em> is it?</h2>
+    <p class="lede rv">Tap what you're bringing. We'll list common jobs and start your request for you.</p>
+    <div class="picker">
+      <div class="gpick rv" id="gpick" role="group" aria-label="Choose a garment"></div>
+      <div class="pcard rv" id="pcard" aria-live="polite">
+        <svg class="big" id="pbig" viewBox="0 0 200 170" fill="none" aria-hidden="true"></svg>
+        <span class="mono" style="color:var(--mu)" id="pno">PATTERN 01</span>
+        <h3 id="pname">Dress</h3>
+        <ul id="plist"></ul>
+        <p class="note">Common jobs are examples. Final list and pricing come from the shop.</p>
+        <a class="btn" href="#request" id="pgo">Start a request with this →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIT -->
+<section class="fit" id="fit">
+  <div class="wrap">
+    <div class="fit-grid">
+      <div>
+        <div class="eyb rv"><b>03</b> Fit check</div>
+        <h2 class="rv">Loose <em>to</em> fitted.</h2>
+        <p class="lede rv">Drag the seam. On the left, a jacket as it comes off the rack. On the right, the line a tailor would chalk for a closer fit.</p>
+        <p class="cap rv" style="margin-top:22px"><span class="chip" style="border-color:var(--tape);color:var(--tape);background:transparent">Illustration · not a real customer job</span></p>
+      </div>
+      <div class="rv">
+        <div class="stage" id="stage">
+          <img id="fitImg" src="https://images.unsplash.com/photo-1585412459272-762fb93357c3?auto=format&fit=crop&w=1000&q=75" alt="Black suit jacket on a white hanger" data-fb="https://images.unsplash.com/photo-1592343516109-362f7bd871aa?auto=format&fit=crop&w=1000&q=75" loading="lazy" onerror="fb(this)">
+          <svg class="ov" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
+            <g stroke="#F2C230" stroke-width="2.2" stroke-dasharray="7 6" id="fitAfter"><path d="M140 70 Q200 96 260 70"/><path d="M128 84 C150 140 150 190 138 262"/><path d="M272 84 C250 140 250 190 262 262"/></g>
+            <g fill="#F2C230" font-family="JetBrains Mono,monospace" font-size="11"><text x="282" y="150">↔ closer here</text></g>
+          </svg>
+          <div class="lay bef" id="bef"><img src="https://images.unsplash.com/photo-1585412459272-762fb93357c3?auto=format&fit=crop&w=1000&q=75" alt="" aria-hidden="true" loading="lazy" onerror="this.style.opacity=0">
+            <svg class="ov" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true"><g stroke="#B4433B" stroke-width="2.4" stroke-linecap="round"><path d="M96 92 l16 16 m0 -16 l-16 16"/><path d="M96 220 l16 16 m0 -16 l-16 16"/><path d="M300 92 l16 16 m0 -16 l-16 16"/></g><text x="96" y="256" font-family="JetBrains Mono,monospace" font-size="11" fill="#F7F9FA">↔ loose here</text></svg></div>
+          <span class="lb l">Before · off the rack</span><span class="lb r">After · chalked fit</span>
+          <div class="hd" id="hd"><div class="kn" aria-hidden="true">↔</div></div>
+        </div>
+        <label class="sr" for="fitRange">Compare loose and fitted</label>
+        <input type="range" id="fitRange" min="4" max="96" value="50">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cut" aria-hidden="true"><span><svg viewBox="0 0 26 16" fill="none" stroke="#14202B" stroke-width="1.6"><circle cx="5" cy="4" r="3"/><circle cx="5" cy="12" r="3"/><path d="M8 5 L25 12 M8 11 L25 4"/></svg>cut along dashed line</span></div>
+<!-- MOON -->
+<section id="moon">
+  <div class="wrap">
+    <div class="moon-grid">
+      <div>
+        <div class="eyb rv"><b>04</b> The person at the table</div>
+        <div class="ask rv" role="heading" aria-level="2">Ask for <em>Moon.</em></div>
+        <p class="lede rv">Moon is the tailor customers name in Google reviews for careful, quick dress alterations — including wedding gowns and dresses that needed letting out.</p>
+      </div>
+      <div class="rate rv">
+        <span class="mono" style="color:var(--mu)">Google rating</span>
+        <div class="n"><span id="rN">4.5</span><span style="font-size:.4em;letter-spacing:0">/5</span></div>
+        <div class="st" aria-label="4.5 out of 5 stars"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 7 7 .6-5.3 4.7 1.7 7.2L12 17.8 5.6 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 7 7 .6-5.3 4.7 1.7 7.2L12 17.8 5.6 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 7 7 .6-5.3 4.7 1.7 7.2L12 17.8 5.6 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3 7 7 .6-5.3 4.7 1.7 7.2L12 17.8 5.6 21.5l1.7-7.2L2 9.6 9 9z"/></svg><svg viewBox="0 0 24 24"><defs><clipPath id="half"><rect width="12" height="24"/></clipPath></defs><path fill="none" stroke="currentColor" stroke-width="1.5" d="M12 2l3 7 7 .6-5.3 4.7 1.7 7.2L12 17.8 5.6 21.5l1.7-7.2L2 9.6 9 9z"/><path fill="currentColor" clip-path="url(#half)" d="M12 2l3 7 7 .6-5.3 4.7 1.7 7.2L12 17.8 5.6 21.5l1.7-7.2L2 9.6 9 9z"/></svg></div>
+        <p><strong>106 reviews</strong> on Google. Read what customers say, in their own words.</p>
+        <a class="btn dark" href="https://www.google.com/maps?q=Kim+%26+Arthurs+Dry+Cleaner+Custom+Tailoring+6415+Oxford+Ave+Philadelphia+PA+19111" target="_blank" rel="noopener">Read reviews on Google ↗</a>
+      </div>
+    </div>
+    <div class="threeph">
+      <figure class="rv"><img src="https://images.unsplash.com/photo-1569164284350-f532229718ee?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1539073884828-cffff4ec108a?auto=format&fit=crop&w=800&q=75" alt="White lace wedding dresses hanging against a grey wall" loading="lazy" onerror="fb(this)"><figcaption>Wedding &amp; bridal</figcaption></figure>
+      <figure class="rv"><img src="https://images.unsplash.com/photo-1625479142928-c2f2914318f2?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1610048170798-85c540492ce4?auto=format&fit=crop&w=800&q=75" alt="Close-up of a vintage blue and silver sewing machine" loading="lazy" onerror="fb(this)"><figcaption>The sewing table</figcaption></figure>
+      <figure class="rv"><img src="https://images.unsplash.com/photo-1718184021018-d2158af6b321?auto=format&fit=crop&w=800&q=75" data-fb="https://images.unsplash.com/photo-1705248382842-e5c7fddde756?auto=format&fit=crop&w=800&q=75" alt="A tailor cutting cloth for a suit with shears" loading="lazy" onerror="fb(this)"><figcaption>Cut once, carefully</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section id="quote" style="background:rgba(247,249,250,.55);border-top:2px dashed var(--ink);border-bottom:2px dashed var(--ink)">
+  <div class="wrap">
+    <div class="eyb rv"><b>05</b> How a drop-off could work</div>
+    <h2 class="rv">No surprises <em>at pickup.</em></h2>
+    <p class="lede rv">A simple three-step flow built around two questions customers always have: what will it cost, and will it be ready for my date? <span class="chip" style="margin-left:4px">Proposed policy — owner confirms</span></p>
+    <div class="steps rv">
+      <div class="stp"><span class="num">1</span><span class="k">STEP 01</span><h3>Tell us the date</h3><p>Send the request with your garment and your event date. Tick “rush” if it's tight.</p></div>
+      <div class="stp"><span class="num">2</span><span class="k">STEP 02</span><h3>Quote before we start</h3><p>Your quote is confirmed with you before any work begins.</p></div>
+      <div class="stp"><span class="num">3</span><span class="k">STEP 03</span><h3>Pick up on schedule</h3><p>You get a ready-by date up front, so there's nothing to guess.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cut" aria-hidden="true"><span><svg viewBox="0 0 26 16" fill="none" stroke="#14202B" stroke-width="1.6"><circle cx="5" cy="4" r="3"/><circle cx="5" cy="12" r="3"/><path d="M8 5 L25 12 M8 11 L25 4"/></svg>cut along dashed line</span></div>
+<!-- PRICES -->
+<section id="prices">
+  <div class="wrap">
+    <div class="eyb rv"><b>06</b> Price list</div>
+    <h2 class="rv">Prices, <em>posted.</em></h2>
+    <p class="lede rv">A clear price and rush-fee list means no cost surprises. The shop hasn't published prices, so this is the layout — numbers arrive once the owner confirms them.</p>
+    <div class="pl rv" role="table" aria-label="Price list placeholder">
+      <div class="hd" role="row"><span>Service</span><span>Price</span><span>Rush fee</span></div>
+      <div class="r" role="row"><span>Hem / take in / let out</span><span>Added once owner confirms</span><span>Owner confirms</span></div>
+      <div class="r" role="row"><span>Wedding, bridesmaid &amp; prom dress alterations</span><span>Added once owner confirms</span><span>Owner confirms</span></div>
+      <div class="r" role="row"><span>Suit &amp; jacket work</span><span>Added once owner confirms</span><span>Owner confirms</span></div>
+      <div class="r" role="row"><span>Custom tailoring</span><span>Added once owner confirms</span><span>Owner confirms</span></div>
+      <div class="r" role="row"><span>Dry cleaning &amp; pressing</span><span>Added once owner confirms</span><span>Owner confirms</span></div>
+      <div class="ft"><span class="chip">Demo layout</span> Turnaround times get listed here too, per service.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUEST -->
+<section id="request" style="background:rgba(203,217,226,.55);border-top:2px dashed var(--ink)">
+  <div class="wrap">
+    <div class="formwrap">
+      <div>
+        <div class="eyb rv"><b>07</b> Drop-off / fitting request</div>
+        <h2 class="rv">Start with <em>your date.</em></h2>
+        <p class="lede rv">Send the details and the shop follows up to confirm. This is a demo form: it saves on this device and appears in the admin page.</p>
+        <p class="rv" style="margin-top:22px"><span class="mono" style="color:var(--mu)">Prefer to talk? Call <a href="tel:+12678446077" style="border-bottom:2px solid var(--tape);text-decoration:none">(267) 844-6077</a></span></p>
+      </div>
+      <div class="formcard rv" id="fcard">
+        <form id="form" novalidate>
+          <div class="fld"><label for="fName">Your name</label><input id="fName" name="name" autocomplete="name" required></div>
+          <div class="two">
+            <div class="fld"><label for="fPhone">Phone</label><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(215) 555-0100" required></div>
+            <div class="fld"><label for="fGar">Garment</label><select id="fGar" name="garment" required><option value="">Choose one</option><option>Dress</option><option>Suit jacket</option><option>Pants</option><option>Prom outfit</option><option>Zipper / repair</option><option>Dry cleaning</option><option>Something else</option></select></div>
+          </div>
+          <div class="fld"><label for="fDate">Event date <span style="text-transform:none;letter-spacing:0">(if any)</span></label><input id="fDate" name="eventDate" type="date"><div class="helper" id="helper" aria-live="polite"></div></div>
+          <div class="fld"><label class="rush" for="fRush"><input type="checkbox" id="fRush" name="rush"><span><b>Rush? Tell us your date.</b><small>Tick this if your event is soon.</small></span></label></div>
+          <div class="fld"><label for="fNote">What needs doing?</label><textarea id="fNote" name="notes" placeholder="e.g. hem 2 inches, take in the waist, replace zipper"></textarea></div>
+          <div class="err" id="err" role="alert"></div>
+          <button class="btn" type="submit" style="width:100%">Send request →</button>
+        </form>
+        <div class="done" id="done" aria-live="polite">
+          <svg viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="40" stroke="#14202B" stroke-width="3" stroke-dasharray="8 6"/><path id="okp" d="M26 47 L40 60 L66 30" stroke="#B4433B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3 id="dT">Request sent.</h3>
+          <p id="dP"></p>
+          <div class="sum" id="dS"></div>
+          <button class="btn ghost" id="again" type="button">Send another</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cut" aria-hidden="true"><span><svg viewBox="0 0 26 16" fill="none" stroke="#14202B" stroke-width="1.6"><circle cx="5" cy="4" r="3"/><circle cx="5" cy="12" r="3"/><path d="M8 5 L25 12 M8 11 L25 4"/></svg>cut along dashed line</span></div>
+<!-- VISIT -->
+<section id="visit">
+  <div class="wrap">
+    <div class="visit">
+      <div>
+        <div class="eyb rv"><b>08</b> Find the shop</div>
+        <h2 class="rv">Oxford <em>Circle.</em></h2>
+        <dl class="vlist rv">
+          <div><dt>Address</dt><dd>6415 Oxford Ave<br>Philadelphia, PA 19111</dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+12678446077">(267) 844-6077</a></dd></div>
+          <div><dt>Hours</dt><dd>Mon–Fri 8 AM – 6 PM<br>Sat 8 AM – 5 PM · Sun closed<small>Per Google listing — owner confirms</small></dd></div>
+          <div><dt>Payment</dt><dd>Credit, debit and mobile pay (NFC)</dd></div>
+        </dl>
+        <p class="rv" style="margin-top:26px"><a class="btn dark" href="https://www.google.com/maps/dir/?api=1&destination=6415+Oxford+Ave+Philadelphia+PA+19111" target="_blank" rel="noopener">Get directions ↗</a></p>
+      </div>
+      <div class="map rv"><iframe title="Map: 6415 Oxford Ave, Philadelphia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=6415%20Oxford%20Ave%2C%20Philadelphia%2C%20PA%2019111&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div class="big">Measured twice.<br><i>Stitched once.</i></div>
+      <div>6415 Oxford Ave<br>Philadelphia, PA 19111<br><a href="tel:+12678446077">(267) 844-6077</a></div>
+    </div>
+    <div class="cr">Demo concept by Rafael's web agency — not affiliated with Kim &amp; Arthurs Dry Cleaner Custom Tailoring.</div>
+  </div>
+</footer>
+<a class="stk" id="stk" href="#request">Request a drop-off →</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+var SLUG='kim-arthurs-tailoring';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var hasG=!!(window.gsap&&window.ScrollTrigger),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,anim=hasG&&!reduce;
+if(hasG)document.documentElement.classList.add('js');
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+/* ---- tape numbers ---- */
+function tapeNums(){var el=$('#hnums'),n=Math.ceil(innerWidth/100)+1,h='';for(var i=0;i<n;i++)h+='<span>'+i*10+'</span>';el.innerHTML=h}
+tapeNums();addEventListener('resize',tapeNums);
+
+/* ---- lenis / nav ---- */
+var lenis=null;
+if(anim&&window.Lenis){lenis=new Lenis({duration:1.1,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+var HDR=90;
+function goTo(sel){var el=$(sel);if(!el)return;if(lenis)lenis.scrollTo(el,{offset:sel==='#top'?0:-HDR+2,duration:1.3});else{var y=el.getBoundingClientRect().top+scrollY-(sel==='#top'?0:HDR-2);scrollTo({top:y,behavior:'smooth'})}}
+var drawer=$('#drawer'),burger=$('#burger');
+function closeDrawer(){drawer.classList.remove('on');burger.classList.remove('x');burger.setAttribute('aria-expanded','false');if(lenis)lenis.start()}
+burger.addEventListener('click',function(){var on=drawer.classList.toggle('on');burger.classList.toggle('x',on);burger.setAttribute('aria-expanded',on);if(lenis){on?lenis.stop():lenis.start()}});
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h.length>1&&$(h)){e.preventDefault();closeDrawer();goTo(h)}})});
+addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer()});
+
+/* ---- ruler progress ---- */
+var rf=$('#rfill'),rn=$('#rnum'),stk=$('#stk');
+function prog(){var m=document.documentElement.scrollHeight-innerHeight,p=m>0?Math.min(1,scrollY/m):0;rf.style.transform='scaleX('+p+')';rn.textContent=Math.round(p*100)+' cm';if(stk)stk.classList.toggle('hide',!!(document.querySelector('#request')&&(function(){var r=$('#request').getBoundingClientRect();return r.top<innerHeight*.8&&r.bottom>0})()))}
+addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);prog();
+
+/* ---- garment picker ---- */
+var GAR=[
+ {k:'Dress',n:'Dress',jobs:['Hem shortened or lengthened','Take in / let out sides','Straps & bust adjustments'],
+  svg:'<path d="M60 8 L90 8 L96 44 L112 160 L38 160 L54 44 Z" /><path d="M64 14 L86 14 L91 44 L104 152 L46 152 L59 44 Z" stroke-dasharray="4 4" class="in"/><path d="M75 40 V150" stroke-dasharray="2 4"/>'},
+ {k:'Suit jacket',n:'Suit jacket',jobs:['Sleeve length','Take in the sides','Shoulder & collar fit'],
+  svg:'<path d="M30 20 L58 10 Q75 26 92 10 L120 20 L126 56 L112 66 L114 150 L36 150 L38 66 L24 56 Z"/><path d="M40 26 L60 18 Q75 32 90 18 L110 26 L114 52 L104 60 L106 140 L44 140 L46 60 L36 52 Z" stroke-dasharray="4 4" class="in"/><path d="M75 30 V148" stroke-dasharray="2 4"/>'},
+ {k:'Pants',n:'Pants',jobs:['Hem to your shoes','Waist take in / let out','Taper the leg'],
+  svg:'<path d="M42 10 L108 10 L114 160 L84 160 L75 60 L66 160 L36 160 Z"/><path d="M48 18 L102 18 L107 152 L88 152 L75 50 L62 152 L43 152 Z" stroke-dasharray="4 4" class="in"/>'},
+ {k:'Prom outfit',n:'Prom outfit',jobs:['Gown hem for heels','Fit at bodice & waist','Suit sleeves & trouser break'],
+  svg:'<path d="M58 8 Q75 30 92 8 L96 50 L138 160 L12 160 L54 50 Z"/><path d="M62 16 Q75 34 88 16 L91 50 L128 152 L22 152 L59 50 Z" stroke-dasharray="4 4" class="in"/><path d="M75 44 V150" stroke-dasharray="2 4"/>'},
+ {k:'Dry cleaning',n:'Dry cleaning & pressing',jobs:['Dry cleaning','Pressing','Ready to hang'],
+  svg:'<path d="M75 6 q7 0 7 7 q0 5 -7 8 M75 21 L28 44 L122 44 Z"/><path d="M50 60 L64 52 L75 64 L86 52 L100 60 L124 88 L110 100 L102 92 L102 158 L48 158 L48 92 L40 100 L26 88 Z"/><path d="M75 64 V158" stroke-dasharray="2 4"/><path d="M54 98 L96 98" stroke-dasharray="4 4" class="in"/>'},
+ {k:'Zipper / repair',n:'Zipper / repair',jobs:['Replace a broken zipper','Mend a seam or tear','Reattach buttons & hooks'],
+  svg:'<path d="M50 8 H100 V160 H50 Z"/><path d="M75 8 V160" stroke-width="2"/><g stroke-width="2.4" class="z"><path d="M66 20 h9 M75 28 h9 M66 36 h9 M75 44 h9 M66 52 h9 M75 60 h9 M66 68 h9 M75 76 h9 M66 84 h9 M75 92 h9 M66 100 h9 M75 108 h9"/></g><rect x="68" y="112" width="14" height="26" rx="3" fill="#F2C230"/>'}
+];
+var gp=$('#gpick');
+function icon(g){return '<svg viewBox="0 0 150 170" fill="none" stroke="#14202B" stroke-width="2.4" aria-hidden="true">'+g.svg.replace(/class="in"/g,'stroke="#B4433B" stroke-width="1.6"')+'</svg>'}
+GAR.forEach(function(g,i){var b=document.createElement('button');b.className='gp';b.type='button';b.setAttribute('aria-pressed',i===0);b.innerHTML=icon(g)+'<span>'+esc(g.n)+'</span>';b.addEventListener('click',function(){pick(i,true)});gp.appendChild(b)});
+var cur=0;
+function pick(i,fromUser){cur=i;var g=GAR[i];$$('.gp').forEach(function(b,j){b.setAttribute('aria-pressed',j===i)});
+ var upd=function(){$('#pbig').innerHTML=g.svg.replace(/class="in"/g,'stroke="#B4433B" stroke-width="1.6"');$('#pbig').setAttribute('viewBox','-10 0 170 170');$('#pbig').setAttribute('stroke','#14202B');$('#pbig').setAttribute('stroke-width','2.4');
+  $('#pno').textContent='PATTERN 0'+(i+1);$('#pname').textContent=g.n;$('#plist').innerHTML=g.jobs.map(function(j){return '<li><span>'+esc(j)+'</span><span>Price: owner confirms</span></li>'}).join('')};
+ if(anim&&fromUser){gsap.to('#pcard > *:not(a)',{opacity:0,y:8,duration:.2,ease:'power2.in',onComplete:function(){upd();gsap.to('#pcard > *:not(a)',{opacity:1,y:0,duration:.6,stagger:.06,ease:'power3.out'})}})}else upd();
+ var sel=$('#fGar');for(var k=0;k<sel.options.length;k++){if(sel.options[k].text===g.k)sel.selectedIndex=k}}
+pick(0,false);
+
+/* ---- fit slider ---- */
+var stage=$('#stage'),rng=$('#fitRange'),drag=false;
+function setP(v){v=Math.max(4,Math.min(96,v));stage.style.setProperty('--p',v+'%');rng.value=v}
+function pxp(e){var r=stage.getBoundingClientRect();return((e.clientX-r.left)/r.width)*100}
+stage.addEventListener('pointerdown',function(e){drag=true;stage.setPointerCapture&&stage.setPointerCapture(e.pointerId);setP(pxp(e))});
+stage.addEventListener('pointermove',function(e){if(drag)setP(pxp(e))});
+['pointerup','pointercancel'].forEach(function(t){stage.addEventListener(t,function(){drag=false})});
+rng.addEventListener('input',function(){setP(+rng.value)});
+setP(50);
+
+/* ---- form ---- */
+var fDate=$('#fDate'),helper=$('#helper');
+(function(){var t=new Date();fDate.min=new Date(t.getTime()-t.getTimezoneOffset()*60000).toISOString().slice(0,10)})();
+function dropBy(iso){var d=new Date(iso+'T12:00:00'),t=new Date();t.setHours(12,0,0,0);var b=new Date(d.getTime()-7*864e5);
+ if(b<=t){return {tight:true,txt:'That date is close. Tick “Rush” and add a note — the shop will tell you what’s possible.'}}
+ return {tight:false,txt:'Drop off by <b>'+DAYS[b.getDay()]+', '+MN[b.getMonth()]+' '+b.getDate()+'</b> to be safe.',iso:new Date(b.getTime()-b.getTimezoneOffset()*60000).toISOString().slice(0,10)}}
+fDate.addEventListener('change',function(){if(!fDate.value){helper.classList.remove('on');return}var r=dropBy(fDate.value);helper.innerHTML=r.txt+' <span class="chip">Demo helper only</span>';helper.classList.add('on');if(r.tight)$('#fRush').checked=true});
+function getB(){try{return JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(e){return[]}}
+function fmtLong(iso){var d=new Date(iso+'T12:00:00');return DAYS[d.getDay()]+', '+MN[d.getMonth()]+' '+d.getDate()}
+$('#form').addEventListener('submit',function(e){e.preventDefault();
+ var nm=$('#fName').value.trim(),ph=$('#fPhone').value.replace(/\D/g,''),gar=$('#fGar').value,err=$('#err');
+ if(!nm){err.textContent='Add your name.';$('#fName').focus();return}
+ if(ph.length<10){err.textContent='Add a 10-digit phone number.';$('#fPhone').focus();return}
+ if(!gar){err.textContent='Choose a garment.';$('#fGar').focus();return}
+ err.textContent='';
+ var rush=$('#fRush').checked,ev=fDate.value,db=ev?dropBy(ev):null;
+ var rec={id:'KA'+Date.now().toString(36).toUpperCase(),created:new Date().toISOString(),status:'new',kind:rush?'rush':'standard',name:nm,phone:$('#fPhone').value.trim(),garment:gar,eventDate:ev,rush:rush,dropBy:(db&&db.iso)||'',notes:$('#fNote').value.trim()};
+ try{var a=getB();a.unshift(rec);localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+ $('#dT').textContent='Request sent, '+nm.split(' ')[0]+'.';
+ $('#dP').textContent='The shop will call '+rec.phone+' to confirm your quote and ready-by date.';
+ $('#dS').innerHTML=[['Garment',gar],['Event date',ev?fmtLong(ev):'No date given'],['Rush',rush?'Yes — flagged':'No'],['Drop off by',db&&db.iso?fmtLong(db.iso)+' (demo)':'—']].map(function(r){return '<div><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('');
+ $('#form').style.display='none';var dn=$('#done');dn.classList.add('on');
+ if(anim){var p=$('#okp'),L=p.getTotalLength();gsap.fromTo(p,{strokeDasharray:L,strokeDashoffset:L},{strokeDashoffset:0,duration:.9,ease:'power2.inOut'});gsap.fromTo(dn.children,{opacity:0,y:16},{opacity:1,y:0,duration:.7,stagger:.1,ease:'power3.out'})}
+ ScrollTrigger&&hasG&&setTimeout(function(){ScrollTrigger.refresh()},300);
+});
+$('#again').addEventListener('click',function(){$('#form').reset();helper.classList.remove('on');$('#done').classList.remove('on');$('#form').style.display='';pick(cur,false)});
+
+/* ---- thread (stitch line) ---- */
+var thread=$('#thread'),thSt=$('#thSt'),thBase=$('#thBase'),thRect=$('#thRect'),needle=$('#needle'),tLen=0,tH=0;
+function buildThread(){var m=$('#main'),H=m.offsetHeight,mob=innerWidth<=640,x=mob?8:30,amp=mob?3:12,step=mob?300:340;tH=H;
+ thread.setAttribute('viewBox','0 0 '+(mob?24:60)+' '+H);thread.style.height=H+'px';
+ var d='M'+x+' 0',y=0,s=1;while(y<H){var ny=Math.min(H,y+step);d+=' C'+(x+amp*s)+' '+(y+step*.33)+' '+(x-amp*s)+' '+(y+step*.66)+' '+x+' '+ny;y=ny;s=-s}
+ thBase.setAttribute('d',d);thSt.setAttribute('d',d);tLen=thSt.getTotalLength();updThread()}
+function updThread(){var p=Math.min(1,Math.max(0,scrollY/Math.max(1,tH-innerHeight*.35)));
+ var y=Math.max(0,Math.min(tH,scrollY+innerHeight*.42-$('#main').getBoundingClientRect().top-scrollY));
+ y=Math.min(tH,Math.max(0,-$('#main').getBoundingClientRect().top+innerHeight*.5));
+ thRect.setAttribute('height',y);
+ var pt=thSt.getPointAtLength(tLen*(y/tH));needle.setAttribute('transform','translate('+pt.x+' '+pt.y+') rotate(18)')}
+addEventListener('scroll',updThread,{passive:true});
+buildThread();
+var rzT;addEventListener('resize',function(){clearTimeout(rzT);rzT=setTimeout(function(){buildThread();hasG&&ScrollTrigger.refresh()},250)});
+
+/* ---- intro ---- */
+var introDone=false,scrollSet=false;
+function intro(){
+ if(introDone)return;introDone=true;var pre=$('#pre');
+ if(!anim){pre.remove();return}
+ pre.style.animation='none';
+ var c={v:0},tl=gsap.timeline();
+ tl.fromTo('#preTp',{scaleX:0},{scaleX:1,duration:1.3,ease:'power2.inOut'},0)
+   .to(c,{v:100,duration:1.3,ease:'power2.inOut',onUpdate:function(){$('#prePct').textContent=Math.round(c.v)+' cm'}},0)
+   .to('.pre .box',{opacity:0,y:-20,duration:.5,ease:'power2.in'},1.5)
+   .to('.pre .sheet',{yPercent:-100,duration:1,ease:'expo.inOut'},1.65)
+   .set(pre,{display:'none'})
+   .fromTo('#htape',{scaleX:0},{scaleX:1,duration:1.4,ease:'expo.out'},1.9)
+   .fromTo('#heroImg',{scale:1.25},{scale:1,duration:2,ease:'expo.out'},1.75)
+   .to('.hero h1 .ln>span',{yPercent:0,y:0,duration:1.1,stagger:.12,ease:'expo.out'},1.95)
+   .fromTo('.hero-fade',{y:22},{y:0,opacity:1,duration:.9,stagger:.1,ease:'power3.out'},2.3)
+   .fromTo('#patMain,#patIn',{strokeDashoffset:1},{strokeDashoffset:0,duration:.01},0);
+ tl.eventCallback('onComplete',setupScroll);
+ setTimeout(setupScroll,5200);
+}
+function drawPattern(){var m=$('#patMain'),n=$('#patIn');[m,n].forEach(function(p,i){var L=p.getTotalLength();gsap.fromTo(p,{strokeDasharray:i?'6 6':L,strokeDashoffset:i?0:L,opacity:i?0:1},{strokeDashoffset:0,opacity:1,duration:2,ease:'power2.inOut',delay:i?1.4:0})});
+ gsap.fromTo('#grain,#dimH',{opacity:0},{opacity:1,duration:.9,delay:1.6,stagger:.2,ease:'power3.out'})}
+if(anim){setTimeout(intro,500);setTimeout(intro,3500);if(document.readyState!=='complete')addEventListener('load',function(){},{once:true});setTimeout(drawPattern,2200)}else{var pp=$('#pre');if(pp)pp.remove()}
+
+function setupScroll(){
+ if(scrollSet||!anim)return;scrollSet=true;
+ gsap.set('.hero h1 .ln>span,.hero-fade',{clearProps:'none'});
+ ScrollTrigger.batch('.rv',{start:'top 90%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,stagger:.12,ease:'power3.out',clearProps:'transform'})}});
+ /* rating counter */
+ ScrollTrigger.create({trigger:'.rate',start:'top 85%',once:true,onEnter:function(){var c={v:0};gsap.to(c,{v:4.5,duration:1.6,ease:'power2.out',onUpdate:function(){$('#rN').textContent=c.v.toFixed(1)}})}});
+ var mm=ScrollTrigger.matchMedia?ScrollTrigger:null;
+ ScrollTrigger.matchMedia({
+  '(min-width:1021px)':function(){
+   $$('.threeph img').forEach(function(im){gsap.fromTo(im,{yPercent:-7},{yPercent:0,ease:'none',immediateRender:false,scrollTrigger:{trigger:im.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+   gsap.fromTo('.hero-art .ph img',{yPercent:0},{yPercent:-8,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+   gsap.fromTo('.ask',{x:0},{x:-30,ease:'none',immediateRender:false,scrollTrigger:{trigger:'#moon',start:'top bottom',end:'bottom top',scrub:true}});
+  },
+  '(max-width:1020px)':function(){
+   $$('.threeph img').forEach(function(im){gsap.fromTo(im,{yPercent:-4},{yPercent:0,ease:'none',immediateRender:false,scrollTrigger:{trigger:im.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+  }
+ });
+ /* fit stage intro sweep */
+ ScrollTrigger.create({trigger:'#stage',start:'top 75%',once:true,onEnter:function(){var o={v:50};gsap.to(o,{v:28,duration:.9,ease:'power2.inOut',onUpdate:function(){if(!drag)setP(o.v)},onComplete:function(){gsap.to(o,{v:66,duration:1.2,ease:'power2.inOut',onUpdate:function(){if(!drag)setP(o.v)},onComplete:function(){gsap.to(o,{v:50,duration:.9,ease:'power2.inOut',onUpdate:function(){if(!drag)setP(o.v)}})}})}})}});
+ buildThread();ScrollTrigger.refresh();
+}
+addEventListener('load',function(){buildThread();if(hasG&&scrollSet)ScrollTrigger.refresh();setTimeout(function(){buildThread()},1200)});
+if(hasG)setTimeout(function(){$$('.rv').forEach(function(e){if(getComputedStyle(e).opacity==='0'&&e.getBoundingClientRect().top<innerHeight)gsap.to(e,{opacity:1,y:0,duration:.6})})},9000);
+})();
+</script>
+</body>
+</html>
