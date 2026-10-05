@@ -1,0 +1,284 @@
+<!doctype html>
+<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with Sky Line Hair Salon. [CONFIRM] items: prices, service menu (Fresha listing), hours (directories), years open (about 2014, one source), who cuts women's hair, languages, owner name -->
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sky Line Hair Salon | Bustleton Ave, Philadelphia (demo)</title>
+<meta name="description" content="Demo website concept for Sky Line Hair Salon on Bustleton Ave in Philadelphia.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF1F5;--ink:#0F172A;--mut:#566074;--acc:#2255E0;--onacc:#fff;--line:rgba(15,23,42,.14);--navbg:rgba(238,241,245,.93);--f1:'Bricolage Grotesque',sans-serif;--f2:'Manrope',sans-serif;--r:8px;--r2:10px;--fw:700;--drawer:#EEF1F5;--ls:-.025em}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{scroll-behavior:auto}
+body{font:400 16px/1.65 var(--f2);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:100%;width:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{width:min(1240px,92vw);margin-inline:auto}
+section{padding:clamp(88px,11vw,152px) 0;position:relative}
+.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:1.1rem}
+h1,h2,h3{font-family:var(--f1);font-weight:var(--fw,500);line-height:1.02;letter-spacing:var(--ls,-.01em)}
+h2{font-size:clamp(2.2rem,5vw,4.2rem)}
+p.lead{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--mut);max-width:34em;margin-top:1.2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.7rem;border-radius:var(--r,999px);background:var(--acc);color:var(--onacc,#fff);font:600 .95rem var(--f2);border:1px solid var(--acc);cursor:pointer;min-height:50px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px)}.btn.ghost:hover{background:var(--ink);color:var(--bg)}}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}
+.ln>span{display:block}
+.js .ln>span{transform:translateY(112%)}
+.js [data-r],.js [data-hero]{opacity:0;transform:translateY(34px)}
+.js [data-wipe]{clip-path:inset(0 0 100% 0)}
+.nojsfix [data-r],.nojsfix [data-hero]{opacity:1!important;transform:none!important}
+.nojsfix .ln>span{transform:none!important}
+.nojsfix [data-wipe]{clip-path:none!important}
+.img{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.img.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--acc),var(--ink))}
+header.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:16px 4vw;transition:background .4s,box-shadow .4s,padding .4s;color:var(--navink,var(--ink))}
+header.nav.solid{background:var(--navbg);box-shadow:0 1px 0 var(--line);padding:11px 4vw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--navink2,var(--ink))}
+.brand{font:var(--brandw,600) 1.25rem var(--f1);letter-spacing:var(--brandls,0);white-space:nowrap}
+.nav nav{display:flex;gap:2rem;align-items:center}
+.nav nav a{font:500 .88rem var(--f2);opacity:.85;position:relative}
+@media (hover:hover) and (pointer:fine){.nav nav a:not(.btn):hover{opacity:1}}
+.nav .btn{padding:.7rem 1.2rem;min-height:44px;font-size:.85rem}
+.burger{display:none;width:46px;height:46px;border:0;background:transparent;cursor:pointer;color:inherit;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:2px;background:currentColor;transition:transform .35s,top .35s}
+.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:26px}
+body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:55;background:var(--drawer,var(--bg));color:var(--drawerink,var(--ink));display:flex;flex-direction:column;justify-content:center;gap:1.4rem;padding:0 8vw;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+body.menu .drawer{transform:none}
+.drawer a{font:var(--fw,500) clamp(2rem,9vw,3rem)/1.1 var(--f1)}
+@media (max-width:900px){.nav nav{display:none}.burger{display:block}}
+.form{display:block}
+.form-intro{color:var(--mut);margin-bottom:1.4rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem;margin-bottom:1.4rem}
+.fld{display:flex;flex-direction:column;gap:.4rem}
+.fld.wide{grid-column:1/-1}
+.fld span{font:600 .72rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.fld input,.fld select,.fld textarea{background:var(--field,transparent);border:0;border-bottom:1px solid var(--line2,var(--line));padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
+.fld textarea{min-height:92px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--acc)}
+.fld .bad,.fld input.bad,.fld select.bad{border-color:#c0392b}
+.fld option{color:#111}
+.err{color:#c0392b;font-size:.9rem;margin-bottom:1rem}
+.okbox{padding:2rem;border:1px solid var(--line2,var(--line));border-radius:var(--r2,6px)}
+.okbox h3{font-size:1.8rem;margin-bottom:.5rem}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.hours li span:first-child{color:var(--mut)}
+.map{border-radius:var(--r2,6px);overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) brightness(.98)}
+footer.foot{padding:48px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem}
+footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1fr;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .82rem var(--f2);letter-spacing:.06em;text-transform:uppercase;color:var(--navink2,var(--ink))}
+.mbar a:last-child{background:var(--acc);color:var(--onacc,#fff)}
+@media (max-width:900px){.mbar{display:grid}}
+@media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}}
+.faq{padding-block:clamp(56px,9vw,120px)}
+.faq-g{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw}
+.faq-l details{border-top:1px solid color-mix(in srgb,currentColor 22%,transparent);padding:1.15rem 0}
+.faq-l details:last-child{border-bottom:1px solid color-mix(in srgb,currentColor 22%,transparent)}
+.faq-l summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;font-weight:600;font-size:1.08rem}
+.faq-l summary::-webkit-details-marker{display:none}
+.faq-l summary::after{content:"+";font-size:1.5rem;line-height:1;transition:transform .25s}
+.faq-l details[open] summary::after{transform:rotate(45deg)}
+.faq-l p{margin-top:.7rem;opacity:.82;line-height:1.65;max-width:56ch}
+@media (max-width:900px){.faq-g{grid-template-columns:1fr;gap:1.6rem}}
+
+body::before{content:"";position:fixed;inset:0;z-index:45;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.w>span{display:inline-block}
+.img img{transition:filter .6s}
+.marq{overflow:hidden;white-space:nowrap;padding:clamp(18px,2.4vw,30px) 0;border-block:1px solid var(--line);background:var(--mqbg,transparent);color:var(--mqink,var(--ink))}
+.marq .mt{display:inline-flex;align-items:center;gap:clamp(18px,3vw,40px);padding-right:clamp(18px,3vw,40px);will-change:transform}
+.marq span{font:var(--mqw,500) clamp(2rem,5.2vw,4.6rem)/1 var(--f1);text-transform:var(--mqtt,none);letter-spacing:var(--mqls,0)}
+.marq i{font-style:normal;color:var(--acc);font-size:clamp(1.1rem,2.4vw,2rem)}
+.marq.out span{color:transparent;-webkit-text-stroke:1.5px var(--acc)}
+.band{position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#111;padding:0}
+.band-img{position:absolute;inset:-12% 0;will-change:transform}
+.band-img img{width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.05) 35%,rgba(0,0,0,.72))}
+.band-in{position:relative;z-index:2;padding-block:clamp(40px,6vw,80px)}
+.bt{color:#fff;font-size:clamp(3rem,10.5vw,10rem);line-height:.92;text-transform:var(--btt,none)}
+.bl{display:block;overflow:hidden;padding-bottom:.06em}
+.bl>span{display:block}
+.bs{max-width:30em;margin-top:1.2rem;font-size:clamp(1rem,1.4vw,1.2rem);opacity:.92}
+.hs{padding:0;overflow:hidden}
+.hs-in{min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,3.5vw,48px);padding:clamp(70px,9vw,120px) 0}
+.hs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.hs-note{max-width:22em}
+.hs-track{display:flex;gap:clamp(14px,2vw,26px);padding-left:max(4vw,calc((100vw - 1240px)/2));padding-right:4vw;will-change:transform}
+.hs-c{flex:0 0 auto;width:clamp(260px,29vw,430px);margin:0}
+.hs-c .img,.hs-c>div{aspect-ratio:4/5;overflow:hidden;border-radius:var(--hsr,10px);position:relative;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.hs-c:nth-child(even){margin-top:clamp(20px,4vw,56px)}
+.hs-c img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover) and (pointer:fine){.hs-c:hover img{transform:scale(1.06)}}
+.hs-c figcaption{font:600 .72rem var(--f2);letter-spacing:.16em;text-transform:uppercase;margin-top:.8rem;color:var(--mut)}
+@media (max-width:900px){
+ .hs-in{min-height:0;padding:clamp(70px,12vw,110px) 0}
+ .hs-track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+ .hs-c{width:72vw;scroll-snap-align:center}
+ .hs-c:nth-child(even){margin-top:0}
+}
+.cnts{padding:clamp(34px,5vw,60px) 0;background:var(--cnbg,var(--ink));color:var(--cnink,#fff)}
+.cnts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem}
+.cnts b{display:block;font:var(--cnw,500) clamp(2.4rem,5vw,4.2rem)/1 var(--f1);color:var(--cnnum,inherit)}
+.cnts div>span{display:block;margin-top:.5rem;font-size:.82rem;letter-spacing:.06em;opacity:.75}
+@media (max-width:700px){.cnts .wrap{grid-template-columns:1fr 1fr;row-gap:2rem}}
+.badge{position:absolute;width:clamp(96px,11vw,150px);aspect-ratio:1;border-radius:50%;background:var(--bdbg,var(--acc));color:var(--bdink,#fff);display:grid;place-items:center;z-index:3;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.badge text{font:600 15px var(--f2);letter-spacing:.14em;text-transform:uppercase;fill:currentColor}
+.badge b{font:500 clamp(1.5rem,2.6vw,2.2rem)/1 var(--f1);position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.badge svg{animation:none}}
+
+
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.fine{font-size:.82rem;color:var(--mut);margin-top:.9rem}
+.facts{border-block:1px solid var(--line);padding:22px 0}
+.facts .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.4rem}
+.facts b{display:block;font:var(--fw,500) 1.5rem var(--f1)}
+.facts span{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.rows{margin-top:2.6rem}
+.big{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:clamp(1.1rem,2.2vw,1.8rem) 0;border-top:1px solid var(--line);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.big:last-child{border-bottom:1px solid var(--line)}
+.big h3{font-size:clamp(1.8rem,4.6vw,3.6rem);line-height:1}
+.big span{font:600 .74rem var(--f2);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:right;max-width:18em}
+@media (hover:hover) and (pointer:fine){.big:hover{transform:translateX(12px)}}
+.visit-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw}
+.addr{margin:1.2rem 0 1.4rem;line-height:1.7}
+.addr a{border-bottom:1px solid var(--acc)}
+.card{border:1px solid var(--line);padding:clamp(1.4rem,3vw,2.4rem);border-radius:var(--r2,6px);background:var(--cardbg,transparent)}
+@media (max-width:900px){.visit-g{grid-template-columns:1fr}}
+
+header.nav{background:var(--navbg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.hero{min-height:100svh;display:grid;grid-template-columns:1.05fr .95fr;padding:0}
+.hero-t{display:flex;flex-direction:column;justify-content:center;padding:clamp(110px,12vw,150px) 5vw clamp(50px,7vw,90px) max(4vw,calc((100vw - 1240px)/2))}
+.hero h1{font-size:clamp(3rem,min(8vw,13vh),7.6rem);line-height:.92;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .sub{color:var(--mut);max-width:25em;margin-top:1.4rem;font-size:1.08rem}
+.hero-p{position:relative;min-height:60vh}
+.hero-p .img{position:absolute;inset:0}
+.hero-p .img img{filter:grayscale(.2) contrast(1.05)}
+.hero-p .badge{left:-60px;bottom:9%;--bdbg:#0F172A}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.hero-p{min-height:62vw;order:-1;margin-top:64px}.hero-p .badge{left:auto;right:4%;bottom:-40px}.hero-t{padding:70px 4vw 60px}}
+.cnts{--cnbg:#2255E0;--cnink:#fff}
+.cnts .wrap{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.marq{--mqbg:#0F172A;--mqink:#EEF1F5;--mqtt:uppercase;--mqw:800}
+.marq i{color:#6C93FF}
+.band{--btt:uppercase}
+.hs{--hsr:8px;background:#E2E7EF}
+.alt{background:#E2E7EF}
+.fine a{border-bottom:1px solid var(--acc)}
+
+</style>
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top">SKY LINE</a><nav><a href="#services">Services</a><a href="#gallery">The chair</a><a href="#visit">Visit</a><a class="btn" href="#visit">Request a time</a></nav><button class="burger" aria-label="Menu"><i></i><i></i></button></header><div class="drawer"><a href="#services">Services</a><a href="#gallery">The chair</a><a href="#visit">Visit</a><a href="#visit">Request a time</a></div><section class="hero" id="top"><div class="hero-t"><span class="eyebrow" data-hero>Hair salon &amp; barbering &middot; Bustleton Ave</span><h1><span class="ln"><span>Walk in.</span></span><span class="ln"><span><em>Walk out</em></span></span><span class="ln"><span><em>sharp.</em></span></span></h1><p class="sub" data-hero>Haircuts, head shaves and barbering on Bustleton Ave. Walk-ins and appointments are both welcome.</p><div class="cta" data-hero><a class="btn" href="#visit">Request a time</a><a class="btn ghost" href="tel:+12153422952">(215) 342-2952</a></div></div><div class="hero-p"><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1702865272115-5afdbae975af?auto=format&fit=crop&w=1400&q=75" alt="A barbershop chair (stock photo)" width="1400" height="1050" data-fb="1592647420148-bfcc177e2117" fetchpriority="high" onerror="fb(this)" ></div><div class="badge " aria-hidden="true"><svg viewBox="0 0 200 200"><defs><path id="bcirc" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#bcirc" textLength="498" lengthAdjust="spacing">WALK-INS WELCOME &middot; BUSTLETON AVE &middot; </textPath></text></svg><b>&#9986;</b></div></div></section><div class="cnts "><div class="wrap"><div><b><span class="cnt" data-to="4.2" data-dec="1" data-suf="">4.2</span></b><span>Google rating</span></div><div><b><span class="cnt" data-to="265" data-dec="0" data-suf="">265</span></b><span>Google reviews</span></div><div><b><span class="cnt" data-to="7" data-dec="0" data-suf="">7</span></b><span>Days a week open (per listings)</span></div></div></div><div class="marq " aria-hidden="true"><div class="mt"><span>Men&rsquo;s haircut</span><i>&#10022;</i><span>Head shave</span><i>&#10022;</i><span>Barbering</span><i>&#10022;</i><span>Hair &amp; styling</span><i>&#10022;</i><span>Walk-ins welcome</span><i>&#10022;</i><span>Men&rsquo;s haircut</span><i>&#10022;</i><span>Head shave</span><i>&#10022;</i><span>Barbering</span><i>&#10022;</i><span>Hair &amp; styling</span><i>&#10022;</i><span>Walk-ins welcome</span><i>&#10022;</i><span>Men&rsquo;s haircut</span><i>&#10022;</i><span>Head shave</span><i>&#10022;</i><span>Barbering</span><i>&#10022;</i><span>Hair &amp; styling</span><i>&#10022;</i><span>Walk-ins welcome</span><i>&#10022;</i><span>Men&rsquo;s haircut</span><i>&#10022;</i><span>Head shave</span><i>&#10022;</i><span>Barbering</span><i>&#10022;</i><span>Hair &amp; styling</span><i>&#10022;</i><span>Walk-ins welcome</span><i>&#10022;</i></div></div><section class="" id="services"><div class="wrap"><span class="eyebrow">Services</span><h2>A short menu.</h2><div class="rows"><div class="big" data-r><h3>Men&rsquo;s haircut</h3><span>Price added once owner confirms</span></div><div class="big" data-r><h3>Head shave</h3><span>Price added once owner confirms</span></div><div class="big" data-r><h3>Barbering</h3><span>Price added once owner confirms</span></div><div class="big" data-r><h3>Hair &amp; styling</h3><span>Price added once owner confirms</span></div></div><p class="fine">Services follow a directory listing (Fresha). The owner confirms the real menu and prices before launch.</p></div></section><section class="band "><div class="band-img"><img src="https://images.unsplash.com/photo-1635273051839-003bf06a8751?auto=format&fit=crop&w=1600&q=75" alt="Salon chairs facing round mirrors (stock photo)" width="1600" height="1200" data-fb="1702865272115-5afdbae975af" fetchpriority="high" onerror="fb(this)" ></div><div class="band-in wrap"><h2 class="bt"><span class="bl"><span>Fast cuts.</span></span><span class="bl"><span>Fair prices.</span></span></h2><p class="bs">Two things Google reviewers keep mentioning.</p></div></section><section class="hs " id="gallery"><div class="hs-in"><div class="wrap hs-head"><div><span class="eyebrow">The chair</span><h2>Fresh from the chair.</h2></div><p class="fine hs-note">Stock photos stand in until the shop&rsquo;s own work is approved.</p></div><div class="hs-track"><figure class="hs-c"><img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?auto=format&fit=crop&w=700&q=75" alt="A fade haircut (stock photo)" width="700" height="525" data-fb="1635273051839-003bf06a8751" loading="eager" onerror="fb(this)" ><figcaption>Stock photo</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1635273051839-003bf06a8751?auto=format&fit=crop&w=700&q=75" alt="A barber at work (stock photo)" width="700" height="525" data-fb="1567894340315-735d7c361db0" loading="eager" onerror="fb(this)" ><figcaption>Stock photo</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1592647420148-bfcc177e2117?auto=format&fit=crop&w=700&q=75" alt="A vintage barber chair (stock photo)" width="700" height="525" data-fb="1702865272115-5afdbae975af" loading="eager" onerror="fb(this)" ><figcaption>Stock photo</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1599011176306-4a96f1516d4d?auto=format&fit=crop&w=700&q=75" alt="A beard trim (stock photo)" width="700" height="525" data-fb="1567894340315-735d7c361db0" loading="eager" onerror="fb(this)" ><figcaption>Stock photo</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1702865272115-5afdbae975af?auto=format&fit=crop&w=700&q=75" alt="A barbershop chair (stock photo)" width="700" height="525" data-fb="1592647420148-bfcc177e2117" loading="eager" onerror="fb(this)" ><figcaption>Stock photo</figcaption></figure></div></div></section><section class="faq alt"><div class="wrap faq-g"><div><span class="eyebrow">Quick answers</span><h2>Before you come in.</h2></div><div class="faq-l"><details><summary>Do I need an appointment?</summary><p>A long-time customer says walk-ins and appointments are both welcome. The owner confirms.</p></details><details><summary>What are the hours?</summary><p>Directory listings show Mon–Fri 9:30 AM to 7 PM, Sat 9:30 to 5, Sun 9:30 to 4. The owner confirms before launch.</p></details><details><summary>What does a cut cost?</summary><p>The price list is added once the owner confirms. Reviewers mention fair prices.</p></details><details><summary>Where are you?</summary><p>8308 Bustleton Ave, Philadelphia, PA 19152. Call (215) 342-2952.</p></details></div></div></section><section id="visit"><div class="wrap visit-g"><div><span class="eyebrow">Visit</span><h2>Get in the chair.</h2><p class="addr">8308 Bustleton Ave<br>Philadelphia, PA 19152<br><a href="tel:+12153422952">(215) 342-2952</a></p><ul class="hours"><li><span>Mon – Fri</span><span>9:30 AM – 7 PM</span></li><li><span>Saturday</span><span>9:30 AM – 5 PM</span></li><li><span>Sunday</span><span>9:30 AM – 4 PM</span></li></ul><p class="fine">Hours from directory listings, confirmed by the owner before launch. Their Facebook page is the only web page we found.</p><div style="margin-top:1.6rem"><div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=8308%20Bustleton%20Ave%2C%20Philadelphia%2C%20PA%2019152&output=embed"></iframe></div></div></div><div class="card"><form id="bk" class="form" novalidate><p class="form-intro">Pick a day and we pass it to the shop. This is a demo, nothing is sent.</p><div class="fgrid"><label class="fld"><span>Your name *</span><input name="name" type="text" placeholder="" required></label><label class="fld"><span>Phone *</span><input name="phone" type="tel" placeholder="" required></label><label class="fld"><span>Service *</span><select name="service" required><option value="">Choose</option><option>Men&#x27;s haircut</option><option>Head shave</option><option>Barbering</option><option>Hair &amp; styling</option></select></label><label class="fld"><span>Preferred day</span><input name="day" type="date" placeholder=""></label><label class="fld"><span>Time of day</span><select name="time"><option value="">Choose</option><option>Morning</option><option>Afternoon</option><option>Evening</option><option>Walk in when I can</option></select></label><label class="fld wide"><span>Notes</span><textarea name="note" rows="3" placeholder="Anything the barber should know"></textarea></label></div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Request a time</button></form><div id="ok" class="okbox" hidden><h3>Request saved</h3><p>Demo only: your request was saved in this browser and shows on the admin page.</p></div></div></div></section><footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with Sky Line Hair Salon. Photos are stock images.</span></div></footer><div class="mbar"><a href="tel:+12153422952">Call</a><a href="https://www.google.com/maps/dir//8308%20Bustleton%20Ave%2C%20Philadelphia%2C%20PA%2019152" target="_blank" rel="noopener">Directions</a><a href="#visit">Book</a></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');var SLUG="sky-line-hair-salon";</script>
+<script>
+window.SITE=function(mm){
+ mm.add('(min-width:901px)',function(){
+  gsap.fromTo('.hero-p img',{yPercent:-4},{yPercent:6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+ });
+};
+</script>
+<script>
+function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=900&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}
+(function(){
+var nav=document.querySelector('header.nav');
+function sc(){if(nav)nav.classList.toggle('solid',window.scrollY>40)}
+window.addEventListener('scroll',sc,{passive:true});sc();
+var bg=document.querySelector('.burger');
+if(bg)bg.addEventListener('click',function(){document.body.classList.toggle('menu')});
+document.querySelectorAll('.drawer a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu')})});
+var f=document.getElementById('bk');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(f).forEach(function(v,k){d[k]=v});
+ var ok=true;f.querySelectorAll('[required]').forEach(function(x){if(!String(x.value).trim()){x.classList.add('bad');ok=false}else x.classList.remove('bad')});
+ var er=f.querySelector('.err');if(!ok){er.hidden=false;return}er.hidden=true;
+ d.id='bk_'+Date.now();d.created=new Date().toISOString();d.status='new';
+ if(window.EXTRA_FIELDS){var ex=window.EXTRA_FIELDS();Object.keys(ex).forEach(function(k){d[k]=ex[k]})}
+ var a=[];try{a=JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(x){}
+ a.unshift(d);try{localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+ f.hidden=true;var ob=document.getElementById('ok');ob.hidden=false;
+ if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+window.addEventListener('load',function(){
+ var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!window.gsap||!window.ScrollTrigger){window.__ok=1;return}
+ gsap.registerPlugin(ScrollTrigger);
+ var lenis=null;
+ if(window.Lenis&&!rm){lenis=new Lenis({lerp:.1,smoothWheel:true});window.lenis=lenis;lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();if(lenis)lenis.scrollTo(t,{offset:-64,duration:1.3});else t.scrollIntoView({behavior:'smooth'})})});
+ gsap.to('.ln>span',{y:0,duration:1.15,ease:'expo.out',stagger:.12,delay:.15});
+ gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.1,delay:.55});
+ ScrollTrigger.batch('[data-r]',{start:'top 91%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1})}});
+ document.querySelectorAll('[data-wipe]').forEach(function(el){
+  var tr={trigger:el,start:'top 90%',once:true};
+  gsap.fromTo(el,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'expo.out',scrollTrigger:tr});
+  var im=el.querySelector('img');if(im)gsap.fromTo(im,{scale:1.25},{scale:1,duration:1.7,ease:'expo.out',scrollTrigger:tr})});
+ document.querySelectorAll('[data-par]').forEach(function(el){gsap.to(el,{yPercent:parseFloat(el.dataset.par),ease:'none',scrollTrigger:{trigger:el.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+ var mm=gsap.matchMedia();
+ if(window.SITE)window.SITE(mm,lenis);
+ window.addEventListener('resize',function(){ScrollTrigger.refresh()});
+ setTimeout(function(){ScrollTrigger.refresh()},600);
+ window.__ok=1;
+});
+setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script><script>
+(function(){
+ function go(){
+  if(!window.gsap||!window.ScrollTrigger||!document.documentElement.classList.contains('js'))return;
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* split headings */
+  document.querySelectorAll('h2:not(.bt)').forEach(function(h){
+   if(h.dataset.sp||h.children.length)return;h.dataset.sp=1;
+   var words=h.textContent.trim().split(/\s+/);
+   h.innerHTML=words.map(function(w){return '<span class="w"><span>'+w.replace(/&/g,'&amp;')+'</span></span>'}).join(' ');
+   if(!rm)gsap.from(h.querySelectorAll('.w>span'),{yPercent:115,duration:1,ease:'expo.out',stagger:.06,scrollTrigger:{trigger:h,start:'top 88%',once:true}});
+  });
+  /* marquee */
+  if(!rm)document.querySelectorAll('.marq').forEach(function(m){
+   var t=m.querySelector('.mt');if(!t)return;
+   var tw=gsap.to(t,{xPercent:-25,repeat:-1,ease:'none',duration:26});
+   ScrollTrigger.create({trigger:m,start:'top bottom',end:'bottom top',onUpdate:function(s){var v=1+Math.min(5,Math.abs(s.getVelocity())/350);gsap.to(tw,{timeScale:(s.direction<0?-1:1)*v,duration:.5,overwrite:true})}});
+  });
+  /* band parallax + text */
+  document.querySelectorAll('.band').forEach(function(b){
+   var im=b.querySelector('.band-img');
+   if(!rm&&im)gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:true}});
+   if(!rm)gsap.from(b.querySelectorAll('.bl>span'),{yPercent:110,duration:1.1,ease:'expo.out',stagger:.14,scrollTrigger:{trigger:b,start:'top 60%',once:true}});
+  });
+  /* counters */
+  document.querySelectorAll('.cnt').forEach(function(c){
+   var to=parseFloat(c.dataset.to),dec=parseInt(c.dataset.dec||'0',10),suf=c.dataset.suf||'';
+   if(rm)return;var o={v:0};
+   ScrollTrigger.create({trigger:c,start:'top 92%',once:true,onEnter:function(){gsap.to(o,{v:to,duration:1.8,ease:'power2.out',onUpdate:function(){c.textContent=o.v.toFixed(dec)+suf}})}});
+  });
+  /* pinned horizontal gallery */
+  var mm=gsap.matchMedia();
+  mm.add('(min-width:901px)',function(){
+   document.querySelectorAll('.hs').forEach(function(s){
+    var tr=s.querySelector('.hs-track');if(!tr)return;
+    var dist=function(){return Math.max(0,tr.scrollWidth-window.innerWidth)};
+    gsap.to(tr,{x:function(){return -dist()},ease:'none',scrollTrigger:{trigger:s,start:'top top',end:function(){return '+='+dist()},pin:true,scrub:.7,invalidateOnRefresh:true,anticipatePin:1}});
+   });
+  });
+  setTimeout(function(){ScrollTrigger.refresh()},900);
+ }
+ window.addEventListener('load',function(){setTimeout(go,30)});
+})();
+</script>
+</body>
+</html>
