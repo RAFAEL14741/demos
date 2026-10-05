@@ -1,0 +1,415 @@
+<!doctype html>
+<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with Skintastic Spa Boutique. [CONFIRM] items: weekend hours, prices, aesthetician names, years open, product brands, treatment details/menu, any packages. Photos are stock images. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skintastic Spa Boutique | Facials and massage on Castor Ave, Philadelphia (demo)</title>
+<meta name="description" content="Demo website concept for Skintastic Spa Boutique, a day spa on Castor Ave in Northeast Philadelphia offering facials, massage, body wraps, lash and waxing services.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=900&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}
+</script>
+<style>
+:root{--bg:#FAF6F1;--bg2:#F3E9E4;--ink:#2A1B28;--mut:#6B5A68;--acc:#8A5A78;--accl:#C9A3BB;--onacc:#fff;--line:rgba(42,27,40,.14);--navbg:rgba(250,246,241,.94);--f1:'Instrument Serif',Georgia,serif;--f2:'DM Sans',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{scroll-behavior:auto}
+body{font:400 16px/1.65 var(--f2);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:100%;width:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.wrap{width:min(1240px,92vw);margin-inline:auto}
+section{padding:clamp(88px,11vw,152px) 0;position:relative}
+.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:1.2rem}
+h1,h2,h3{font-family:var(--f1);font-weight:400;line-height:1.02;letter-spacing:-.005em}
+h2{font-size:clamp(2.6rem,5.6vw,4.9rem)}
+h2 em,h1 em{font-style:italic;color:var(--acc)}
+p.lead{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--mut);max-width:34em;margin-top:1.2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.8rem;border-radius:999px;background:var(--acc);color:var(--onacc);font:500 .95rem var(--f2);border:1px solid var(--acc);cursor:pointer;min-height:50px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s,border-color .3s}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-2px);background:var(--ink);border-color:var(--ink)}.btn.ghost:hover{background:#fff;color:var(--ink);border-color:#fff}.card .btn:hover{background:var(--ink)}}
+.ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.ln>span{display:block}
+.js .ln>span{transform:translateY(112%)}
+.js [data-r],.js [data-hero]{opacity:0;transform:translateY(30px)}
+.js [data-wipe]{clip-path:inset(0 0 100% 0)}
+.nojsfix [data-r],.nojsfix [data-hero]{opacity:1!important;transform:none!important}
+.nojsfix .ln>span{transform:none!important}
+.nojsfix [data-wipe]{clip-path:none!important}
+.img,.pic{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--accl),var(--ink))}
+.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--accl),var(--acc) 55%,var(--ink))}
+
+/* header */
+header.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:16px 4vw;transition:background .4s,box-shadow .4s,padding .4s,color .4s;color:#fff}
+header.nav.solid{background:var(--navbg);box-shadow:0 1px 0 var(--line);padding:10px 4vw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink)}
+body.menu header.nav{color:var(--ink);background:transparent;box-shadow:none}
+.brand{font:400 1.55rem/1 var(--f1);white-space:nowrap;letter-spacing:.005em}
+.brand small{font:500 .62rem/1 var(--f2);letter-spacing:.24em;text-transform:uppercase;display:block;margin-top:.3rem;opacity:.85}
+.nav nav{display:flex;gap:2.2rem;align-items:center}
+.nav nav a{font:500 .88rem var(--f2);opacity:.9;position:relative}
+.nav nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s}
+@media (hover:hover) and (pointer:fine){.nav nav a:not(.btn):hover::after{transform:scaleX(1)}}
+.nav .btn{padding:.7rem 1.3rem;min-height:44px;font-size:.85rem;background:transparent;border-color:currentColor;color:inherit}
+@media (hover:hover) and (pointer:fine){.nav .btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}}
+.burger{display:none;width:46px;height:46px;border:0;background:transparent;cursor:pointer;color:inherit;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:1.5px;background:currentColor;transition:transform .35s,top .35s}
+.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:26px}
+body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;justify-content:center;gap:1.1rem;padding:0 8vw;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1);visibility:hidden}
+body.menu .drawer{transform:none;visibility:visible}
+.drawer a{font:400 clamp(2.3rem,10vw,3.4rem)/1.1 var(--f1);display:block;padding:.15rem 0}
+.drawer a.sm{font:500 .95rem var(--f2);color:var(--acc);margin-top:1rem}
+@media (max-width:900px){.nav nav{display:none}.burger{display:block}}
+
+/* hero */
+.hero{padding:0;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;color:#fff;background:#2A1B28;overflow:hidden}
+.hero-media{position:absolute;inset:0;overflow:hidden}
+.hero-par{position:absolute;inset:-8% 0 -8%;will-change:transform}
+.hero-par img,.hero-par video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:60% 40%}
+.hero-par video{z-index:1}
+.hero-media::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(34,20,32,.82) 0%,rgba(34,20,32,.55) 42%,rgba(34,20,32,.08) 85%),linear-gradient(0deg,rgba(34,20,32,.55),transparent 38%)}
+.hero-in{position:relative;z-index:3;padding-block:clamp(110px,16vh,180px) clamp(44px,8vh,84px);width:min(1240px,92vw);margin-inline:auto}
+.hero .eyebrow{color:#E6CFDD}
+.hero h1{font-size:clamp(3.2rem,min(9vw,15vh),9rem);line-height:.95;max-width:9em;color:#fff}
+.hero h1 em{color:#E6CFDD}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:clamp(1.4rem,3vh,2.4rem)}
+.hero p.lead{color:rgba(255,255,255,.92);margin-top:0;max-width:26em}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.4rem}
+.hero .btn{background:#fff;color:var(--ink);border-color:#fff}
+.hero .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+@media (hover:hover) and (pointer:fine){.hero .btn:hover{background:#E6CFDD;border-color:#E6CFDD;color:var(--ink)}.hero .btn.ghost:hover{background:#fff;color:var(--ink)}}
+.hero-fact{font:500 .8rem/1.6 var(--f2);letter-spacing:.06em;color:rgba(255,255,255,.88);text-align:right}
+.hero-fact b{display:block;font:400 2.2rem/1 var(--f1);letter-spacing:0;color:#fff}
+@media (max-width:700px){.hero-fact{text-align:left}.hero-in{padding-bottom:96px}.hero h1{font-size:clamp(3.4rem,15vw,4.4rem)}}
+
+/* facts */
+.facts{border-bottom:1px solid var(--line);padding:30px 0;background:var(--bg)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem}
+.facts b{display:block;font:400 1.7rem/1.15 var(--f1)}
+.facts span,.facts a{font-size:.82rem;color:var(--mut);display:block;margin-top:.2rem}
+.facts a{border-bottom:1px solid var(--accl);display:inline-block;color:var(--acc)}
+@media (max-width:900px){.facts .wrap{grid-template-columns:1fr 1fr;row-gap:1.8rem}}
+
+/* intro line */
+.intro{padding-bottom:clamp(40px,5vw,70px)}
+.intro p{font:400 clamp(1.9rem,4vw,3.5rem)/1.12 var(--f1);max-width:19em;text-wrap:balance}
+.intro p em{color:var(--acc)}
+
+/* picker */
+.pick-sec{padding:0;background:var(--bg)}
+.pick{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(84px,10vh,110px) 0 clamp(32px,5vh,56px)}
+.pick-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:clamp(18px,3.4vh,40px)}
+.pick-head h2{font-size:clamp(2.4rem,min(5vw,9vh),4.4rem)}
+.pick-head .note-s{max-width:20em;text-align:right}
+.note-s{font-size:.82rem;color:var(--mut)}
+.pick-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw;align-items:stretch}
+.tlist{list-style:none;position:relative;padding-left:22px;align-self:center}
+.tlist::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line)}
+.prog{position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--acc);transform-origin:top;transform:scaleY(.14)}
+.tr{border-bottom:1px solid var(--line)}
+.tr:first-child{border-top:1px solid var(--line)}
+.tr-b{width:100%;display:flex;align-items:baseline;gap:1.2rem;padding:clamp(.7rem,1.9vh,1.15rem) 0;background:none;border:0;text-align:left;cursor:pointer;min-height:44px;color:var(--ink);transition:color .4s,padding .5s cubic-bezier(.2,.7,.2,1)}
+.tr-b .n{font:500 .72rem var(--f2);letter-spacing:.16em;color:var(--mut);width:2rem;transition:color .4s}
+.tr h3{font-size:clamp(1.8rem,min(3.2vw,5.6vh),2.9rem);color:inherit;opacity:.56;transition:opacity .4s}
+.tr.on .tr-b{color:var(--acc);padding-left:14px}
+.tr.on .n{color:var(--acc)}
+.tr.on h3{opacity:1}
+@media (hover:hover) and (pointer:fine){.tr:not(.on) .tr-b:hover h3{opacity:.8}}
+.stage{position:relative;height:min(66vh,620px)}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;gap:1.1rem;opacity:0;visibility:hidden}
+.ph:first-child{opacity:1;visibility:visible}
+.ph .pic{flex:1;min-height:0}
+.ph .pic img{transform-origin:50% 50%}
+.stk{position:absolute;left:12px;bottom:12px;font:600 .62rem/1 var(--f2);letter-spacing:.16em;text-transform:uppercase;background:rgba(250,246,241,.9);color:var(--ink);padding:.45rem .6rem}
+.txt{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"c h" "c p" "c n";column-gap:1.4rem;align-items:baseline;min-height:112px}
+.txt .cnt{grid-area:c;font:500 .72rem var(--f2);letter-spacing:.16em;color:var(--acc)}
+.txt h3{grid-area:h;font-size:2rem}
+.txt p{grid-area:p;color:var(--mut);max-width:34em;margin-top:.3rem;font-size:.98rem;line-height:1.55}
+.txt .pn{grid-area:n;margin-top:.2rem}
+.pn{font:500 .72rem var(--f2)!important;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)!important}
+.m-ph{display:none}
+@media (max-width:900px){
+ .pick{min-height:0;display:block;padding:clamp(84px,14vw,120px) 0}
+ .pick-head{flex-direction:column;align-items:flex-start;gap:.8rem}
+ .pick-head .note-s{text-align:left}
+ .pick-g{display:block}
+ .stage{display:none}
+ .tlist{padding-left:0}
+ .tlist::before,.prog{display:none}
+ .tr{padding:1.3rem 0 1.7rem}
+ .tr-b{cursor:default;pointer-events:none;padding:.3rem 0;color:var(--ink)!important}
+ .tr h3{opacity:1;font-size:2.3rem}
+ .m-ph{display:block;margin-top:.9rem}
+ .m-ph .pic{aspect-ratio:4/3}
+ .m-ph p{color:var(--mut);margin-top:.9rem;font-size:.98rem}
+ .m-ph .pn{margin-top:.5rem}
+}
+
+/* band */
+.band{position:relative;min-height:min(80vh,720px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#2A1B28;padding:0}
+.band-img{position:absolute;inset:-12% 0;will-change:transform}
+.band-img img{width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,20,32,.35),rgba(34,20,32,.1) 40%,rgba(34,20,32,.75))}
+.band-in{position:relative;z-index:2;padding-block:clamp(40px,6vw,80px)}
+.bt{color:#fff;font-size:clamp(3rem,min(10vw,16vh),9rem);line-height:.94}
+.bl{display:block;overflow:hidden;padding-bottom:.08em}
+.bl>span{display:block}
+.bs{max-width:30em;margin-top:1.2rem;font-size:clamp(1rem,1.4vw,1.15rem);color:rgba(255,255,255,.92)}
+.band .stk{left:auto;right:12px;bottom:12px;z-index:3}
+
+/* why */
+.why-g{display:grid;grid-template-columns:.85fr 1.15fr;gap:8vw;align-items:center}
+.why-ph{aspect-ratio:4/5;position:relative}
+.why-ph .stk{z-index:2}
+.why h2{margin-bottom:2.2rem}
+.pt{display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.5rem 0;border-top:1px solid var(--line)}
+.pt:last-of-type{border-bottom:1px solid var(--line)}
+.pt .n{font:500 .72rem var(--f2);letter-spacing:.16em;color:var(--acc);padding-top:.55rem}
+.pt h3{font-size:1.9rem;margin-bottom:.4rem}
+.pt p{color:var(--mut);max-width:30em}
+@media (max-width:900px){.why-g{grid-template-columns:1fr;gap:3rem}.why-ph{aspect-ratio:4/3}}
+
+/* visit */
+.book{background:var(--bg2)}
+.bk-g{display:grid;grid-template-columns:.95fr 1.05fr;gap:6vw;align-items:start}
+.addr{margin:1.2rem 0 1.6rem;line-height:1.8;font-size:1.05rem}
+.addr a{border-bottom:1px solid var(--acc)}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--line)}
+.hours li:first-child{border-top:1px solid var(--line)}
+.hours li span:first-child{color:var(--mut)}
+.fine{font-size:.82rem;color:var(--mut);margin-top:.9rem}
+.map{border:1px solid var(--line);aspect-ratio:16/10;overflow:hidden;margin-top:1.8rem;background:var(--bg)}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.6) contrast(1.05) brightness(.99)}
+.card{border:1px solid var(--line);background:var(--bg);padding:clamp(1.5rem,3.2vw,2.8rem)}
+.card h3{font-size:2.2rem;margin-bottom:.4rem}
+.form-intro{color:var(--mut);margin-bottom:1.6rem;font-size:.95rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.4rem;margin-bottom:1.5rem}
+.fld{display:flex;flex-direction:column;gap:.3rem}
+.fld.wide{grid-column:1/-1}
+.fld span{font:600 .7rem var(--f2);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.fld input,.fld select,.fld textarea{background:transparent;border:0;border-bottom:1px solid rgba(42,27,40,.3);padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
+.fld textarea{min-height:92px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--acc)}
+.fld .bad{border-color:#B0372B}
+.err{color:#B0372B;font-size:.9rem;margin-bottom:1rem}
+.okbox{padding:clamp(1.2rem,3vw,2rem) 0;text-align:left}
+.okbox svg{width:54px;height:54px;margin-bottom:1.2rem}
+.okbox svg circle{stroke:var(--acc);fill:none;stroke-width:1.2}
+.okbox svg path{stroke:var(--acc);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.okbox h3{font-size:2.4rem;margin-bottom:.6rem}
+.okbox p{color:var(--mut);max-width:30em}
+.okbox dl{margin:1.4rem 0;border-top:1px solid var(--line)}
+.okbox dl div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.okbox dt{color:var(--mut)}
+.okbox button{margin-top:.6rem}
+@media (max-width:900px){.bk-g{grid-template-columns:1fr;gap:3rem}}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+
+footer.foot{padding:48px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem}
+footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1.2fr;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .78rem var(--f2);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.mbar a:last-child{background:var(--acc);color:#fff}
+@media (max-width:900px){.mbar{display:grid}}
+@media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.w>span{display:inline-block}
+</style>
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top">Skintastic<small>Spa Boutique</small></a><nav><a href="#treatments">Treatments</a><a href="#why">The spa</a><a href="#visit">Visit</a><a class="btn" href="#request">Request a visit</a></nav><button class="burger" aria-label="Menu"><i></i><i></i></button></header>
+<div class="drawer" aria-label="Menu"><a href="#treatments">Treatments</a><a href="#why">The spa</a><a href="#visit">Visit</a><a href="#request">Request a visit</a><a class="sm" href="tel:+12157580610">(215) 758-0610</a></div>
+
+<section class="hero" id="top">
+ <div class="hero-media" data-hmedia><div class="hero-par" data-hpar><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=75" alt="A calm facial treatment in a spa (stock photo)" width="1600" height="2000" data-fb="1731514771613-991a02407132" loading="eager" fetchpriority="high" onerror="fb(this)"></div></div>
+ <div class="hero-in">
+  <span class="eyebrow" data-hero>Castor Ave &middot; Northeast Philadelphia</span>
+  <h1><span class="ln"><span>A quiet hour</span></span><span class="ln"><span>for your <em>skin.</em></span></span></h1>
+  <div class="hero-row">
+   <div><p class="lead" data-hero>Facials, massage, body wraps, lash and waxing services at a boutique spa on Castor Avenue.</p>
+   <div class="cta" data-hero><a class="btn" href="#request">Request a visit</a><a class="btn ghost" href="tel:+12157580610">(215) 758-0610</a></div></div>
+   <div class="hero-fact" data-hero><b>Mon&ndash;Fri</b>10 AM &ndash; 6 PM</div>
+  </div>
+ </div>
+</section>
+
+<div class="facts"><div class="wrap">
+ <div><b>4.6 / 5</b><span>Yelp rating, 16 reviews</span><a href="https://www.yelp.com/search?find_desc=Skintastic+Spa+Boutique&amp;find_loc=Philadelphia%2C+PA" target="_blank" rel="noopener">Read reviews on Yelp</a></div>
+ <div><b>10 AM &ndash; 6 PM</b><span>Monday to Friday</span></div>
+ <div><b>8012 Castor Ave</b><span>Suite A, Philadelphia 19152</span></div>
+ <div><b>Call to book</b><span>(215) 758-0610</span></div>
+</div></div>
+
+<section class="intro"><div class="wrap"><p data-r>Seven ways to slow down, <em>one</em> small spa on Castor Avenue.</p></div></section>
+
+<section class="pick-sec" id="treatments"><div class="pick" data-pick><div class="wrap">
+ <div class="pick-head"><div><span class="eyebrow">Treatments</span><h2>Choose your <em>time.</em></h2></div><p class="note-s">The list follows the spa&rsquo;s services. Details and prices added once the spa confirms.</p></div>
+ <div class="pick-g">
+  <ul class="tlist" id="tlist"><span class="prog" data-prog></span><li class="tr" data-i="0"><button type="button" class="tr-b" aria-controls="stage"><span class="n">01</span><h3>Facials</h3></button><div class="m-ph"><div class="pic"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=75" alt="A facial treatment with cream applied to the face (stock photo)" width="800" height="1000" data-fb="1731514771613-991a02407132" loading="lazy" onerror="fb(this)"></div><p>Cleansing, relaxing face care in a quiet room. Ask the spa which facial fits you.</p><p class="pn">Price added once spa confirms</p></div></li><li class="tr" data-i="1"><button type="button" class="tr-b" aria-controls="stage"><span class="n">02</span><h3>Microdermabrasion</h3></button><div class="m-ph"><div class="pic"><img src="https://images.unsplash.com/photo-1761718209708-9ab9ba1c7252?auto=format&fit=crop&w=800&q=75" alt="Cleansing foam during a facial treatment (stock photo)" width="800" height="1000" data-fb="1761718209835-c8586b7dcac0" loading="lazy" onerror="fb(this)"></div><p>A gentle exfoliating treatment for the face. The spa can explain what a visit involves.</p><p class="pn">Price added once spa confirms</p></div></li><li class="tr" data-i="2"><button type="button" class="tr-b" aria-controls="stage"><span class="n">03</span><h3>Chemical peels</h3></button><div class="m-ph"><div class="pic"><img src="https://images.unsplash.com/photo-1761718209835-c8586b7dcac0?auto=format&fit=crop&w=800&q=75" alt="A brush applying a facial treatment (stock photo)" width="800" height="1000" data-fb="1761718210055-e83ca7e2c9ad" loading="lazy" onerror="fb(this)"></div><p>Peel treatments are on the spa's menu. Options and details added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></div></li><li class="tr" data-i="3"><button type="button" class="tr-b" aria-controls="stage"><span class="n">04</span><h3>Massage</h3></button><div class="m-ph"><div class="pic"><img src="https://images.unsplash.com/photo-1639162906614-0603b0ae95fd?auto=format&fit=crop&w=800&q=75" alt="A back massage at a spa (stock photo)" width="800" height="1000" data-fb="1741522509438-a120c0bb5e88" loading="lazy" onerror="fb(this)"></div><p>Time to slow down and unwind. Types and lengths added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></div></li><li class="tr" data-i="4"><button type="button" class="tr-b" aria-controls="stage"><span class="n">05</span><h3>Body wraps</h3></button><div class="m-ph"><div class="pic"><img src="https://images.unsplash.com/photo-1712638932314-e2b185ca0930?auto=format&fit=crop&w=800&q=75" alt="A person resting wrapped in a towel (stock photo)" width="800" height="1000" data-fb="1696841212541-449ca29397cc" loading="lazy" onerror="fb(this)"></div><p>A body treatment from the spa's service list. Details added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></div></li><li class="tr" data-i="5"><button type="button" class="tr-b" aria-controls="stage"><span class="n">06</span><h3>Lash services</h3></button><div class="m-ph"><div class="pic"><img src="https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&fit=crop&w=800&q=75" alt="Lash extensions being applied with tweezers (stock photo)" width="800" height="1000" data-fb="1639629509821-c54cdd984227" loading="lazy" onerror="fb(this)"></div><p>Lash care and services. Specific options added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></div></li><li class="tr" data-i="6"><button type="button" class="tr-b" aria-controls="stage"><span class="n">07</span><h3>Waxing</h3></button><div class="m-ph"><div class="pic"><img src="https://images.unsplash.com/photo-1696192410531-dc179772a0e8?auto=format&fit=crop&w=800&q=75" alt="A jar of sugar wax with a spoon (stock photo)" width="800" height="1000" data-fb="1739979701278-a1a39e16da5a" loading="lazy" onerror="fb(this)"></div><p>Waxing services for a clean finish. Areas and options added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></div></li></ul>
+  <div class="stage" id="stage" aria-live="polite"><figure class="ph" data-i="0"><div class="pic"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=1000&q=75" alt="A facial treatment with cream applied to the face (stock photo)" width="1000" height="1250" data-fb="1731514771613-991a02407132" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div><figcaption class="txt"><span class="cnt">01 / 07</span><h3>Facials</h3><p>Cleansing, relaxing face care in a quiet room. Ask the spa which facial fits you.</p><p class="pn">Price added once spa confirms</p></figcaption></figure><figure class="ph" data-i="1"><div class="pic"><img src="https://images.unsplash.com/photo-1761718209708-9ab9ba1c7252?auto=format&fit=crop&w=1000&q=75" alt="Cleansing foam during a facial treatment (stock photo)" width="1000" height="1250" data-fb="1761718209835-c8586b7dcac0" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div><figcaption class="txt"><span class="cnt">02 / 07</span><h3>Microdermabrasion</h3><p>A gentle exfoliating treatment for the face. The spa can explain what a visit involves.</p><p class="pn">Price added once spa confirms</p></figcaption></figure><figure class="ph" data-i="2"><div class="pic"><img src="https://images.unsplash.com/photo-1761718209835-c8586b7dcac0?auto=format&fit=crop&w=1000&q=75" alt="A brush applying a facial treatment (stock photo)" width="1000" height="1250" data-fb="1761718210055-e83ca7e2c9ad" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div><figcaption class="txt"><span class="cnt">03 / 07</span><h3>Chemical peels</h3><p>Peel treatments are on the spa's menu. Options and details added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></figcaption></figure><figure class="ph" data-i="3"><div class="pic"><img src="https://images.unsplash.com/photo-1639162906614-0603b0ae95fd?auto=format&fit=crop&w=1000&q=75" alt="A back massage at a spa (stock photo)" width="1000" height="1250" data-fb="1741522509438-a120c0bb5e88" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div><figcaption class="txt"><span class="cnt">04 / 07</span><h3>Massage</h3><p>Time to slow down and unwind. Types and lengths added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></figcaption></figure><figure class="ph" data-i="4"><div class="pic"><img src="https://images.unsplash.com/photo-1712638932314-e2b185ca0930?auto=format&fit=crop&w=1000&q=75" alt="A person resting wrapped in a towel (stock photo)" width="1000" height="1250" data-fb="1696841212541-449ca29397cc" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div><figcaption class="txt"><span class="cnt">05 / 07</span><h3>Body wraps</h3><p>A body treatment from the spa's service list. Details added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></figcaption></figure><figure class="ph" data-i="5"><div class="pic"><img src="https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&fit=crop&w=1000&q=75" alt="Lash extensions being applied with tweezers (stock photo)" width="1000" height="1250" data-fb="1639629509821-c54cdd984227" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div><figcaption class="txt"><span class="cnt">06 / 07</span><h3>Lash services</h3><p>Lash care and services. Specific options added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></figcaption></figure><figure class="ph" data-i="6"><div class="pic"><img src="https://images.unsplash.com/photo-1696192410531-dc179772a0e8?auto=format&fit=crop&w=1000&q=75" alt="A jar of sugar wax with a spoon (stock photo)" width="1000" height="1250" data-fb="1739979701278-a1a39e16da5a" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div><figcaption class="txt"><span class="cnt">07 / 07</span><h3>Waxing</h3><p>Waxing services for a clean finish. Areas and options added once the spa confirms.</p><p class="pn">Price added once spa confirms</p></figcaption></figure></div>
+ </div>
+</div></div></section>
+
+<section class="band" aria-label="Take the hour">
+ <div class="band-img"><img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=1600&q=75" alt="Skincare products with smooth river stones (stock photo)" width="1600" height="2000" data-fb="1598440947619-2c35fc9aa908" loading="lazy" onerror="fb(this)"></div><span class="stk">Stock photo</span>
+ <div class="band-in wrap"><h2 class="bt"><span class="bl"><span>Take</span></span><span class="bl"><span>the hour.</span></span></h2><p class="bs">Packages are sold through Groupon. Ask the spa what is available.</p></div>
+</section>
+
+<section class="why" id="why"><div class="wrap why-g">
+ <div class="why-ph" data-wipe><img src="https://images.unsplash.com/photo-1531299244174-d247dd4e5a66?auto=format&fit=crop&w=900&q=75" alt="A person relaxing with cucumber slices over the eyes (stock photo)" width="900" height="1125" data-fb="1787651343496-35b3666dd7d2" loading="lazy" onerror="fb(this)"><span class="stk">Stock photo</span></div>
+ <div><span class="eyebrow">Why a boutique spa</span><h2>Small, calm, <em>close</em> to home.</h2>
+  <div class="pt" data-r><span class="n">01</span><div><h3>Ask before you book</h3><p>Not sure which treatment suits you? Call the spa and talk it through before you choose.</p></div></div>
+  <div class="pt" data-r><span class="n">02</span><div><h3>Everything under one roof</h3><p>Facials, microdermabrasion, chemical peels, massage, body wraps, lash and waxing services in one place.</p></div></div>
+  <div class="pt" data-r><span class="n">03</span><div><h3>On Castor Avenue</h3><p>A neighborhood spa in Northeast Philadelphia, open Monday to Friday, 10 AM to 6 PM.</p></div></div>
+ </div>
+</div></section>
+
+<section class="book" id="visit"><div class="wrap bk-g">
+ <div id="visitinfo"><span class="eyebrow">Hours &amp; visit</span><h2>Come <em>by.</em></h2>
+  <p class="addr">Skintastic Spa Boutique<br>8012 Castor Ave, Ste A<br>Philadelphia, PA 19152<br><a href="tel:+12157580610">(215) 758-0610</a></p>
+  <ul class="hours"><li><span>Monday &ndash; Friday</span><span>10 AM &ndash; 6 PM</span></li><li><span>Weekends</span><span>Confirm with the spa</span></li></ul>
+  <p class="fine">Prices, aesthetician names and treatment menu are added once the spa confirms.</p>
+  <div class="map"><iframe title="Map to Skintastic Spa Boutique" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=8012%20Castor%20Ave%20Ste%20A%2C%20Philadelphia%2C%20PA%2019152&output=embed"></iframe></div>
+ </div>
+ <div class="card" id="request">
+  <form id="bk" class="form" novalidate>
+   <h3>Request a visit</h3>
+   <p class="form-intro">Tell us what you would like. This is a demo, nothing is sent to the spa.</p>
+   <div class="fgrid">
+    <label class="fld"><span>Your name *</span><input name="name" type="text" autocomplete="name" required></label>
+    <label class="fld"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
+    <label class="fld wide"><span>Treatment *</span><select name="treatment" required><option value="">Choose</option><option>Facials</option><option>Microdermabrasion</option><option>Chemical peels</option><option>Massage</option><option>Body wraps</option><option>Lash services</option><option>Waxing</option><option>Not sure yet</option></select></label>
+    <label class="fld"><span>Preferred day</span><select name="day"><option value="">Choose</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Flexible</option></select></label>
+    <label class="fld"><span>Preferred time</span><select name="time"><option value="">Choose</option><option>Morning (10 to 12)</option><option>Afternoon (12 to 3)</option><option>Late afternoon (3 to 6)</option><option>Flexible</option></select></label>
+    <label class="fld wide"><span>Note</span><textarea name="note" rows="3" placeholder="Anything the spa should know"></textarea></label>
+   </div>
+   <p class="err" hidden>Please fill the starred fields.</p>
+   <button class="btn" type="submit">Request a visit</button>
+  </form>
+  <div id="ok" class="okbox" hidden><svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25"/><path d="M16 28l8 8 14-17"/></svg><h3>Request received</h3><p>Demo only: your request was saved in this browser and shows on the admin page. A real spa would call you back to confirm.</p><dl id="okd"></dl><button class="btn ghost" type="button" id="again" style="color:var(--ink)">Send another</button></div>
+ </div>
+</div></section>
+
+<footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with Skintastic Spa Boutique. Photos are stock images.</span></div></footer>
+<div class="mbar"><a href="tel:+12157580610">Call</a><a href="https://www.google.com/maps/dir//8012%20Castor%20Ave%20Ste%20A%2C%20Philadelphia%2C%20PA%2019152" target="_blank" rel="noopener">Directions</a><a href="#request">Request a visit</a></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');var SLUG="skintastic-spa";var VIDEO_URL="https://videos.pexels.com/video-files/9335765/9335765-hd_1280_720_25fps.mp4";</script>
+<script>
+(function(){
+var nav=document.querySelector('header.nav');
+function sc(){if(nav)nav.classList.toggle('solid',window.scrollY>40)}
+window.addEventListener('scroll',sc,{passive:true});sc();
+var bg=document.querySelector('.burger');
+if(bg)bg.addEventListener('click',function(){document.body.classList.toggle('menu')});
+document.querySelectorAll('.drawer a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu')})});
+/* hero video slot */
+if(VIDEO_URL){var hp=document.querySelector('[data-hpar]');var v=document.createElement('video');v.muted=true;v.defaultMuted=true;v.autoplay=true;v.loop=true;v.playsInline=true;v.setAttribute('muted','');v.setAttribute('playsinline','');var im=hp.querySelector('img');if(im&&im.src)v.poster=im.src;var s=document.createElement('source');s.src=VIDEO_URL;v.appendChild(s);hp.appendChild(v);v.play&&v.play().catch(function(){})}
+/* form */
+var f=document.getElementById('bk');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(f).forEach(function(v,k){d[k]=v});
+ var ok=true;f.querySelectorAll('[required]').forEach(function(x){if(!String(x.value).trim()){x.classList.add('bad');ok=false}else x.classList.remove('bad')});
+ var er=f.querySelector('.err');if(!ok){er.hidden=false;return}er.hidden=true;
+ d.id='bk_'+Date.now();d.created=new Date().toISOString();d.status='new';
+ var a=[];try{a=JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(x){}
+ a.unshift(d);try{localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+ var dl=document.getElementById('okd');dl.innerHTML='';
+ [['Name',d.name],['Treatment',d.treatment],['Day',d.day||'Flexible'],['Time',d.time||'Flexible']].forEach(function(r){var di=document.createElement('div');var dt=document.createElement('dt');var dd=document.createElement('dd');dt.textContent=r[0];dd.textContent=r[1];di.appendChild(dt);di.appendChild(dd);dl.appendChild(di)});
+ f.hidden=true;document.getElementById('ok').hidden=false;
+ if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+var ag=document.getElementById('again');
+if(ag)ag.addEventListener('click',function(){f.reset();f.hidden=false;document.getElementById('ok').hidden=true;if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+
+window.addEventListener('load',function(){
+ var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!window.gsap||!window.ScrollTrigger){window.__ok=1;return}
+ gsap.registerPlugin(ScrollTrigger);
+ var lenis=null;
+ if(window.Lenis&&!rm){lenis=new Lenis({lerp:.1,smoothWheel:true});window.lenis=lenis;lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();if(lenis)lenis.scrollTo(t,{offset:-64,duration:1.3});else t.scrollIntoView({behavior:'smooth'})})});
+
+ /* HERO: wipe + scale 1.2->1 then slow drift; line-by-line headline */
+ var hm=document.querySelector('[data-hmedia]'),hi=document.querySelector('[data-hpar] img'),hv=document.querySelector('[data-hpar] video');
+ var tgt=[hi,hv].filter(Boolean);
+ if(!rm){
+  gsap.fromTo(hm,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.5,ease:'expo.out'});
+  var tl=gsap.timeline();
+  tl.fromTo(tgt,{scale:1.2},{scale:1.02,duration:2.6,ease:'expo.out'}).to(tgt,{scale:1.09,duration:22,ease:'sine.inOut',yoyo:true,repeat:-1});
+  gsap.to('[data-hpar]',{yPercent:9,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.ln>span',{y:0,yPercent:0,duration:1.3,ease:'expo.out',stagger:.14,delay:.35});
+ }else{gsap.set(hm,{clipPath:'none'});gsap.set('.ln>span',{y:0,yPercent:0})}
+ gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.1,delay:rm?0:.8});
+ ScrollTrigger.batch('[data-r]',{start:'top 91%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.12})}});
+ document.querySelectorAll('[data-wipe]').forEach(function(el){
+  var tr={trigger:el,start:'top 88%',once:true};
+  gsap.fromTo(el,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.4,ease:'expo.out',scrollTrigger:tr});
+  var im=el.querySelector('img');if(im&&!rm)gsap.fromTo(im,{scale:1.25},{scale:1,duration:1.8,ease:'expo.out',scrollTrigger:tr})});
+
+ /* split h2 */
+ document.querySelectorAll('h2:not(.bt)').forEach(function(h){
+  if(h.dataset.sp)return;h.dataset.sp=1;
+  function wrap(node){Array.prototype.slice.call(node.childNodes).forEach(function(c){
+   if(c.nodeType===3){var parts=c.textContent.split(/(\s+)/);var fr=document.createDocumentFragment();parts.forEach(function(p){if(!p)return;if(/^\s+$/.test(p)){fr.appendChild(document.createTextNode(' '));return}var w=document.createElement('span');w.className='w';var s=document.createElement('span');s.textContent=p;w.appendChild(s);fr.appendChild(w)});node.replaceChild(fr,c)}
+   else if(c.nodeType===1){wrap(c)}})}
+  wrap(h);
+  if(!rm)gsap.fromTo(h.querySelectorAll('.w>span'),{yPercent:115},{yPercent:0,duration:1.1,ease:'expo.out',stagger:.07,scrollTrigger:{trigger:h,start:'top 88%',once:true}});
+ });
+
+ /* band */
+ document.querySelectorAll('.band').forEach(function(b){
+  var im=b.querySelector('.band-img');
+  if(!rm&&im)gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:true}});
+  if(!rm)gsap.from(b.querySelectorAll('.bl>span'),{yPercent:110,duration:1.2,ease:'expo.out',stagger:.14,scrollTrigger:{trigger:b,start:'top 60%',once:true}});
+ });
+
+ /* SIGNATURE: treatment picker */
+ var mm=gsap.matchMedia();
+ mm.add('(min-width:901px)',function(){
+  var rows=[].slice.call(document.querySelectorAll('.tr')),ph=[].slice.call(document.querySelectorAll('.stage .ph')),prog=document.querySelector('[data-prog]');
+  if(!rows.length)return;
+  var n=rows.length,cur=0,scIdx=0,st=null;
+  gsap.set(ph,{opacity:0,visibility:'hidden'});gsap.set(ph[0],{opacity:1,visibility:'visible'});rows[0].classList.add('on');
+  function set(i,instant){
+   i=Math.max(0,Math.min(n-1,i));if(i===cur)return;var prev=cur;cur=i;
+   rows.forEach(function(r,k){r.classList.toggle('on',k===i)});
+   var d=instant||rm?0:.7;
+   gsap.to(ph[prev],{opacity:0,duration:d,ease:'power2.out',overwrite:true,onComplete:function(){if(cur!==prev)gsap.set(ph[prev],{visibility:'hidden'})}});
+   gsap.set(ph[i],{visibility:'visible'});
+   gsap.to(ph[i],{opacity:1,duration:d,ease:'power2.out',overwrite:true});
+   if(!rm){var im=ph[i].querySelector('img'),tx=ph[i].querySelectorAll('.txt>*');gsap.fromTo(im,{scale:1.12},{scale:1,duration:1.6,ease:'expo.out',overwrite:true});gsap.fromTo(tx,{opacity:0,y:14},{opacity:1,y:0,duration:.8,ease:'power3.out',stagger:.07,overwrite:true})}
+   if(prog)gsap.to(prog,{scaleY:(i+1)/n,duration:.6,ease:'power2.out',overwrite:true});
+  }
+  if(prog)gsap.set(prog,{scaleY:1/n});
+  if(!rm){
+   st=ScrollTrigger.create({trigger:'[data-pick]',start:'top top',end:function(){return '+='+Math.round(window.innerHeight*0.5*n)},pin:true,anticipatePin:1,invalidateOnRefresh:true,onUpdate:function(s){var i=Math.min(n-1,Math.floor(s.progress*n));if(i!==scIdx){scIdx=i;set(i)}}});
+  }
+  var hov=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  rows.forEach(function(r,k){
+   var b=r.querySelector('.tr-b');
+   if(hov)r.addEventListener('mouseenter',function(){set(k)});
+   b.addEventListener('focus',function(){set(k)});
+   b.addEventListener('click',function(){
+    set(k);
+    if(st&&lenis){var y=st.start+((k+.5)/n)*(st.end-st.start);lenis.scrollTo(y,{duration:1.2})}
+    else if(st){window.scrollTo({top:st.start+((k+.5)/n)*(st.end-st.start),behavior:'smooth'})}
+   });
+  });
+ });
+
+ window.addEventListener('resize',function(){ScrollTrigger.refresh()});
+ setTimeout(function(){ScrollTrigger.refresh()},700);
+ setTimeout(function(){ScrollTrigger.refresh()},1800);
+ window.__ok=1;
+});
+setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script>
+</body>
+</html>

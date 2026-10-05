@@ -1,0 +1,371 @@
+<!doctype html>
+<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with China King.
+CONFIRMED: 1301 Cottman Ave #3, Philadelphia PA 19111; (215) 722-3800; classic American-Chinese takeout; no current website.
+[CONFIRM] with owner (shown as placeholders, never as fact): opening hours, full menu + prices, delivery / online ordering, owner names, years in business, cash-only, which generic items below actually exist.
+Star ratings intentionally not shown. Photos are Unsplash stock. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>China King | Chinese takeout on Cottman Ave, Philadelphia (demo)</title>
+<meta name="description" content="Demo website concept for China King, classic American-Chinese takeout at 1301 Cottman Ave in Northeast Philadelphia.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#121110;--bg2:#1A1815;--bg3:#221F1B;--cream:#F1E8D8;--mut:#A79D8C;--acc:#C2301D;--acct:#E5503A;--line:rgba(241,232,216,.14);--line2:rgba(241,232,216,.28);--f1:'Fraunces',serif;--f2:'Bricolage Grotesque',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{scroll-behavior:auto;background:var(--bg)}
+body{font:400 16px/1.65 var(--f2);background:var(--bg);color:var(--cream);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acct);outline-offset:3px}
+.wrap{width:min(1240px,92vw);margin-inline:auto}
+section{padding:clamp(88px,11vw,152px) 0;position:relative}
+.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--acct);display:block;margin-bottom:1.1rem}
+h1,h2,h3{font-weight:500;line-height:1.02}
+h2{font:600 clamp(2.2rem,5vw,4.2rem)/1.02 var(--f2);letter-spacing:-.03em}
+p.lead{font-size:clamp(1.05rem,1.4vw,1.22rem);color:var(--mut);max-width:34em;margin-top:1.2rem}
+.fine{font-size:.82rem;color:var(--mut);margin-top:.9rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.7rem;border-radius:999px;background:var(--acc);color:#fff;font:600 .95rem var(--f2);border:1px solid var(--acc);cursor:pointer;min-height:50px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s,border-color .3s}
+.btn.ghost{background:transparent;color:var(--cream);border-color:var(--line2)}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px)}.btn.ghost:hover{background:var(--cream);color:var(--bg);border-color:var(--cream)}}
+.ln{display:block;overflow:hidden;padding-bottom:.1em}
+.ln>span{display:block}
+.js .ln>span{transform:translateY(112%)}
+.js [data-r],.js [data-hero]{opacity:0;transform:translateY(30px)}
+.js [data-wipe]{clip-path:inset(0 0 100% 0)}
+.nojsfix [data-r],.nojsfix [data-hero]{opacity:1!important;transform:none!important}
+.nojsfix .ln>span{transform:none!important}
+.nojsfix [data-wipe]{clip-path:none!important}
+.img{position:relative;overflow:hidden;background:linear-gradient(135deg,#3a1510,var(--bg2))}
+.img.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#3a1510,var(--bg2))}
+/* nav */
+header.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:18px 4vw;transition:background .4s,box-shadow .4s,padding .4s}
+header.nav.solid{background:rgba(18,17,16,.9);box-shadow:0 1px 0 var(--line);padding:11px 4vw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.brand{font:700 1.2rem var(--f2);letter-spacing:-.02em;white-space:nowrap;display:flex;align-items:center;gap:.6rem}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--acc);display:inline-block}
+.nav nav{display:flex;gap:2rem;align-items:center}
+.nav nav a{font:500 .88rem var(--f2);opacity:.82}
+@media (hover:hover) and (pointer:fine){.nav nav a:not(.btn):hover{opacity:1}}
+.nav .btn{padding:.7rem 1.2rem;min-height:44px;font-size:.85rem;opacity:1}
+.burger{display:none;width:46px;height:46px;border:0;background:transparent;cursor:pointer;color:inherit;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:2px;background:currentColor;transition:transform .35s,top .35s}
+.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:26px}
+body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:55;background:var(--bg);color:var(--cream);display:flex;flex-direction:column;justify-content:center;gap:1.3rem;padding:0 8vw;transform:translateY(-100%);visibility:hidden;transition:transform .6s cubic-bezier(.7,0,.2,1),visibility 0s .6s}
+body.menu .drawer{transform:none;visibility:visible;transition:transform .6s cubic-bezier(.7,0,.2,1),visibility 0s}
+.drawer a{font:600 clamp(2rem,9vw,3rem)/1.1 var(--f2);letter-spacing:-.03em}
+.drawer .dc{font:500 1rem var(--f2);color:var(--mut);margin-top:1rem}
+@media (max-width:900px){.nav nav{display:none}.burger{display:block}}
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#0c0b0a;padding:0}
+.hero .bg{position:absolute;inset:0;will-change:transform}
+.hero .bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,10,.9),rgba(12,11,10,.6) 52%,rgba(12,11,10,.2)),linear-gradient(180deg,rgba(12,11,10,.5),rgba(12,11,10,0) 28%,rgba(12,11,10,.85))}
+.hero-in{position:relative;z-index:2;width:min(1240px,92vw);margin:0 auto;padding:0 0 clamp(150px,15vw,190px)}
+.hero h1{font:300 clamp(3.1rem,min(8.6vw,14vh),8.4rem)/.94 var(--f1);letter-spacing:-.035em;font-variation-settings:'opsz' 144}
+.hero h1 em{font-style:italic;color:var(--acct)}
+.hero p.sub{max-width:29em;margin-top:1.4rem;font-size:clamp(1.05rem,1.45vw,1.25rem);color:#DDD3C2}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.9rem}
+.info{position:absolute;left:0;right:0;bottom:0;z-index:2;border-top:1px solid var(--line2);background:rgba(12,11,10,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.info .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;padding:18px 0}
+.info small{display:block;font:600 .68rem var(--f2);letter-spacing:.18em;text-transform:uppercase;color:var(--acct);margin-bottom:.2rem}
+.info b{font:500 .98rem var(--f2)}
+@media (max-width:700px){.info{display:none}.hero-in{padding-bottom:96px}.hero .eyebrow{line-height:1.5}}
+/* intro */
+.intro-g{display:grid;grid-template-columns:1fr .9fr;gap:7vw;align-items:center}
+.intro-g .img{aspect-ratio:4/5;border-radius:6px}
+.intro-g p{color:var(--mut);margin-top:1.1rem;max-width:32em}
+@media (max-width:900px){.intro-g{grid-template-columns:1fr}.intro-g .img{aspect-ratio:5/4}}
+/* wok pinned */
+.wok{padding:0;background:var(--bg2);border-block:1px solid var(--line)}
+.wok-pin{padding:clamp(88px,11vw,140px) 0}
+.wok-g{display:grid;grid-template-columns:1fr 1fr;gap:7vw;align-items:center}
+.wk-steps{list-style:none;margin-top:2.4rem;border-top:1px solid var(--line)}
+.wk-step{padding:1.5rem 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:3.2rem 1fr;gap:0 .8rem;transition:opacity .5s}
+.wk-step .n{font:500 .85rem var(--f2);color:var(--acct);letter-spacing:.1em;padding-top:.55rem}
+.wk-step h3{font:600 clamp(1.6rem,2.8vw,2.3rem)/1.1 var(--f2);letter-spacing:-.025em}
+.wk-step p{grid-column:2;color:var(--mut);margin-top:.5rem;max-width:30em}
+.wk-step .stepimg{display:none;grid-column:1/-1;margin-top:1.2rem;aspect-ratio:16/10;border-radius:6px;overflow:hidden}
+.stage{position:relative;aspect-ratio:4/5;max-height:min(78vh,720px);width:100%;border-radius:6px;overflow:hidden;background:linear-gradient(135deg,#3a1510,var(--bg2));margin-inline:auto}
+.stage img{position:absolute;inset:0}
+.stage img:nth-child(1){z-index:3}.stage img:nth-child(2){z-index:2}.stage img:nth-child(3){z-index:1}
+.js .stage img:nth-child(n+2){opacity:0}
+.stage .cap{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:1.2rem 1.4rem;background:linear-gradient(0deg,rgba(12,11,10,.85),transparent);font:600 .72rem var(--f2);letter-spacing:.18em;text-transform:uppercase;display:flex;justify-content:space-between}
+.stage .cap b{font-weight:600}
+.wk-prog{height:2px;background:var(--line);margin-top:1.8rem;position:relative}
+.wk-prog i{position:absolute;inset:0;background:var(--acct);transform-origin:left;transform:scaleX(0)}
+@media (max-width:900px){.wok-g{grid-template-columns:1fr}.stage,.wk-prog{display:none}.wk-step .stepimg{display:block}}
+.rm .stage,.rm .wk-prog{display:none}.rm .wk-step .stepimg{display:block}.rm .wok-g{grid-template-columns:1fr}
+/* build */
+.build{background:var(--bg)}
+.bd-g{display:grid;grid-template-columns:1.1fr .9fr;gap:5vw;margin-top:2.6rem;align-items:start}
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+.tab{border:1px solid var(--line2);background:transparent;padding:.65rem 1.1rem;border-radius:999px;cursor:pointer;min-height:44px;font:600 .88rem var(--f2);color:var(--mut);transition:background .3s,color .3s,border-color .3s}
+.tab[aria-selected="true"]{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+@media (hover:hover) and (pointer:fine){.tab:hover{border-color:var(--cream);color:var(--cream)}.tab[aria-selected="true"]:hover{color:var(--bg)}}
+.items{border-top:1px solid var(--line)}
+.it{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);min-height:68px;padding:.5rem 0}
+.tick{flex:1;display:flex;align-items:center;gap:1rem;background:transparent;border:0;cursor:pointer;text-align:left;min-height:56px;font:500 1.12rem var(--f2)}
+.tick .bx{flex:0 0 auto;width:26px;height:26px;border:1px solid var(--line2);border-radius:5px;display:grid;place-items:center;transition:background .25s,border-color .25s}
+.tick .bx svg{width:15px;height:15px;opacity:0;transition:opacity .2s}
+.it.on .bx{background:var(--acc);border-color:var(--acc)}.it.on .bx svg{opacity:1}
+.qty{display:flex;align-items:center;gap:.2rem;visibility:hidden}
+.it.on .qty{visibility:visible}
+.qty button{width:44px;height:44px;border:1px solid var(--line2);border-radius:50%;background:transparent;cursor:pointer;font-size:1.2rem;line-height:1}
+.qty b{min-width:1.6rem;text-align:center;font-weight:600}
+.panelfade{animation:pf .3s ease both}
+@keyframes pf{from{opacity:0}to{opacity:1}}
+.sumcard{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:clamp(1.4rem,3vw,2.2rem);position:sticky;top:90px}
+.sumcard .yo{font:600 .72rem var(--f2);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.sumlist{list-style:none;margin:.9rem 0 .4rem;min-height:3.2rem}
+.sumlist li{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px solid var(--line);font:500 1.02rem var(--f2)}
+.sumlist li.empty{color:var(--mut);border:0;padding:.2rem 0}
+.sumcard .note{font-size:.84rem;color:var(--mut);margin:.6rem 0 1.4rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem;margin-bottom:1.4rem}
+.fld{display:flex;flex-direction:column;gap:.4rem}
+.fld.wide{grid-column:1/-1}
+.fld span{font:600 .72rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.fld input,.fld select,.fld textarea{background:transparent;border:0;border-bottom:1px solid var(--line2);padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
+.fld textarea{min-height:92px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--acct)}
+.fld input.bad,.fld select.bad{border-color:#ff7a66}
+.fld option{color:#111}
+.err{color:#ff8a78;font-size:.9rem;margin-bottom:1rem}
+.okbox{padding:1.4rem 0}
+.okbox h3{font:300 2rem/1.1 var(--f1);margin-bottom:.6rem}
+.okbox p{color:var(--mut);margin-bottom:1rem}
+.okbox .ok-sum{border-top:1px solid var(--line);margin:1rem 0;padding-top:.8rem;font-size:.95rem}
+@media (max-width:900px){.bd-g{grid-template-columns:1fr}.sumcard{position:static}}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+/* menu */
+.menu-g{display:grid;grid-template-columns:1fr 1fr;gap:7vw;align-items:center}
+.cats{margin-top:2rem;border-top:1px solid var(--line)}
+.cats div{display:flex;justify-content:space-between;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line);font:500 1.1rem var(--f2)}
+.cats span{color:var(--mut);font-size:.85rem;text-align:right}.cats span:first-child{color:var(--cream);font-size:inherit;text-align:left}
+.menu-g .img{aspect-ratio:4/5;border-radius:6px}
+@media (max-width:700px){.cats span:last-child{display:none}}
+@media (max-width:900px){.menu-g{grid-template-columns:1fr}.menu-g .img{aspect-ratio:5/4}}
+/* band */
+.band{position:relative;min-height:min(80vh,700px);display:flex;align-items:center;overflow:hidden;background:#0c0b0a;padding:0}
+.band-img{position:absolute;inset:-12% 0;will-change:transform}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,10,.88),rgba(12,11,10,.45))}
+.band-in{position:relative;z-index:2;padding-block:clamp(60px,8vw,110px)}
+.bt{font:300 clamp(2.8rem,8vw,7rem)/.96 var(--f1);letter-spacing:-.03em}
+.bl{display:block;overflow:hidden;padding-bottom:.08em}.bl>span{display:block}
+/* visit */
+.visit-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw}
+.addr{margin:1.2rem 0 1.4rem;line-height:1.7;font-size:1.1rem}
+.addr a{border-bottom:1px solid var(--acct)}
+.hrs{margin-top:1.6rem;border-top:1px solid var(--line)}
+.hrs div{display:flex;justify-content:space-between;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.hrs span:first-child{color:var(--mut)}
+.map{border-radius:6px;overflow:hidden;aspect-ratio:16/11;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(1) contrast(1.05) brightness(.9)}
+.qa{margin-top:2rem}
+.qa details{border-top:1px solid var(--line);padding:1.1rem 0}
+.qa details:last-child{border-bottom:1px solid var(--line)}
+.qa summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;font-weight:600;min-height:44px;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-size:1.5rem;line-height:1;transition:transform .25s}
+.qa details[open] summary::after{transform:rotate(45deg)}
+.qa p{color:var(--mut);margin-top:.4rem;max-width:44ch}
+@media (max-width:900px){.visit-g{grid-template-columns:1fr}}
+footer.foot{padding:48px 0 120px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem}
+footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1fr;background:rgba(18,17,16,.96);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .82rem var(--f2);letter-spacing:.06em;text-transform:uppercase}
+.mbar a:last-child{background:var(--acc);color:#fff}
+@media (max-width:900px){.mbar{display:grid}}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.w>span{display:inline-block}
+@media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}.panelfade{animation:none}}
+</style>
+<script>function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=900&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}</script>
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top"><i></i>China King</a><nav><a href="#order">Build an order</a><a href="#wok">How it works</a><a href="#menu">Menu</a><a href="#visit">Visit</a><a class="btn" href="tel:+12157223800">Call to order</a></nav><button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button></header>
+<div class="drawer" aria-hidden="true"><a href="#order">Build an order</a><a href="#wok">How it works</a><a href="#menu">Menu</a><a href="#visit">Visit</a><a href="tel:+12157223800">Call to order</a><span class="dc">1301 Cottman Ave #3 &middot; (215) 722-3800</span></div>
+
+<section class="hero" id="top">
+ <div class="bg" id="herobg"><img src="https://images.unsplash.com/photo-1789999375808-db7192b683b0?auto=format&fit=crop&w=1600&q=75" alt="A wok over a bright gas flame tossing vegetable fried rice (stock photo)" width="1600" height="1067" data-fb="1681889870636-3f58e5288e03" fetchpriority="high" onerror="fb(this)"></div>
+ <div class="shade"></div>
+ <div class="hero-in">
+  <span class="eyebrow" data-hero>Cottman Ave &middot; Northeast Philadelphia</span>
+  <h1><span class="ln"><span>Hot off the wok,</span></span><span class="ln"><span>boxed fast,</span></span><span class="ln"><span><em>ready when you are.</em></span></span></h1>
+  <p class="sub" data-hero>Classic American-Chinese takeout at 1301 Cottman Ave. Call it in, or send a request and pick it up.</p>
+  <div class="cta" data-hero><a class="btn" href="tel:+12157223800">Call to order</a><a class="btn ghost" href="#order">Start an order request</a></div>
+ </div>
+ <div class="info"><div class="wrap"><div><small>Call</small><b>(215) 722-3800</b></div><div><small>Find us</small><b>1301 Cottman Ave #3</b></div><div><small>Hours</small><b>Added once owner confirms</b></div></div></div>
+</section>
+
+<section id="about"><div class="wrap intro-g"><div><span class="eyebrow">The neighborhood takeout</span><h2>Chinese takeout, the way you know it.</h2><p data-r>China King is a classic American-Chinese takeout spot on Cottman Ave. The kind of place you call on the way home and pick up hot.</p><p data-r>This is a concept for a simple site: one tap to call, one place to build your order, and clear directions.</p><p class="fine" data-r>Stock photos stand in for the restaurant&rsquo;s own.</p></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=1000&q=75" alt="Stir-fried noodles with vegetables on a wooden platter (stock photo)" width="1000" height="1250" data-fb="1692815153957-fefd061f078d" loading="lazy" onerror="fb(this)"></div></div></section>
+
+<section class="wok" id="wok"><div class="wok-pin"><div class="wrap wok-g">
+ <div class="wok-l"><span class="eyebrow">Wok to your hands</span><h2>Order. Wok. Pickup.</h2>
+  <ol class="wk-steps">
+   <li class="wk-step"><span class="n">01</span><h3>Order</h3><p>Call the shop, or build a request here and say when you will stop by.</p><figure class="stepimg"><img src="https://images.unsplash.com/photo-1634864572865-1cf8ff8bd23d?auto=format&fit=crop&w=900&q=75" alt="A plate of noodles with broccoli and vegetables (stock photo)" width="900" height="560" data-fb="1692815153957-fefd061f078d" loading="lazy" onerror="fb(this)"></figure></li>
+   <li class="wk-step"><span class="n">02</span><h3>Wok</h3><p>Your food goes into a hot wok, tossed fast over high heat.</p><figure class="stepimg"><img src="https://images.unsplash.com/photo-1681889870636-3f58e5288e03?auto=format&fit=crop&w=900&q=75" alt="Cooking in a wok over an open flame (stock photo)" width="900" height="560" data-fb="1789999375808-db7192b683b0" loading="lazy" onerror="fb(this)"></figure></li>
+   <li class="wk-step"><span class="n">03</span><h3>Pickup</h3><p>Grab it at 1301 Cottman Ave, boxed and ready to go.</p><figure class="stepimg"><img src="https://images.unsplash.com/photo-1575833947349-69324d765146?auto=format&fit=crop&w=900&q=75" alt="A small paper takeout box with a handle (stock photo)" width="900" height="560" data-fb="1692815153957-fefd061f078d" loading="lazy" onerror="fb(this)"></figure></li>
+  </ol>
+  <div class="wk-prog"><i></i></div>
+ </div>
+ <div class="stage" aria-hidden="true">
+  <img src="https://images.unsplash.com/photo-1634864572865-1cf8ff8bd23d?auto=format&fit=crop&w=900&q=75" alt="" width="900" height="1125" data-fb="1692815153957-fefd061f078d" loading="lazy" onerror="fb(this)">
+  <img src="https://images.unsplash.com/photo-1681889870636-3f58e5288e03?auto=format&fit=crop&w=900&q=75" alt="" width="900" height="1125" data-fb="1789999375808-db7192b683b0" loading="lazy" onerror="fb(this)">
+  <img src="https://images.unsplash.com/photo-1575833947349-69324d765146?auto=format&fit=crop&w=900&q=75" alt="" width="900" height="1125" data-fb="1692815153957-fefd061f078d" loading="lazy" onerror="fb(this)">
+  <div class="cap"><b id="stcap">01 Order</b><span>Stock photos</span></div>
+ </div>
+</div></div></section>
+
+<section class="build" id="order"><div class="wrap"><span class="eyebrow">Build your order</span><h2>Start an order request.</h2><p class="lead">Pick a category, tick what you want. Dish names and prices are added once the owner confirms the menu, so use the notes to say exactly what you like.</p>
+ <div class="bd-g">
+  <div><div class="tabs" role="tablist" aria-label="Menu categories" id="tabs"></div><div class="items" id="items" role="tabpanel"></div></div>
+  <div class="sumcard" id="book"><div class="yo">Your order note</div>
+   <ul class="sumlist" id="sum"></ul>
+   <div class="note">Prices after owner confirms. This is a demo: nothing is sent to the restaurant, so for a real order please call (215) 722-3800.</div>
+   <form id="bk" novalidate><div class="fgrid">
+    <label class="fld"><span>Name *</span><input name="name" type="text" autocomplete="name" required></label>
+    <label class="fld"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
+    <label class="fld wide"><span>Pickup time *</span><select name="pickup" required><option value="">Choose</option><option>As soon as possible</option><option>In about 30 minutes</option><option>In about 1 hour</option><option>Later today (say when in notes)</option></select></label>
+    <label class="fld wide"><span>Order notes</span><textarea name="note" rows="3" placeholder="Which dishes, spice level, no onions..."></textarea></label>
+   </div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Send order request</button></form>
+   <div id="ok" class="okbox" hidden><h3>Request saved</h3><p>Demo only: your request was saved in this browser and shows on the admin page. To order for real, call (215) 722-3800.</p><div class="ok-sum" id="oksum"></div><button class="btn ghost" type="button" id="again">Start another</button></div>
+  </div>
+ </div></div></section>
+
+<section class="menu" id="menu" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap menu-g"><div><span class="eyebrow">Menu</span><h2>What to expect.</h2><p class="lead">Classic American-Chinese categories. The full menu and prices are added once the owner confirms.</p>
+ <div class="cats"><div data-r><span>Appetizers</span><span>Full menu added once owner confirms</span></div><div data-r><span>Soups</span><span>Full menu added once owner confirms</span></div><div data-r><span>Chicken</span><span>Full menu added once owner confirms</span></div><div data-r><span>Pork</span><span>Full menu added once owner confirms</span></div><div data-r><span>Beef</span><span>Full menu added once owner confirms</span></div><div data-r><span>Seafood</span><span>Full menu added once owner confirms</span></div><div data-r><span>Lo Mein &amp; Fried Rice</span><span>Full menu added once owner confirms</span></div><div data-r><span>Combos</span><span>Full menu added once owner confirms</span></div><p class="fine">Full menu added once owner confirms.</p>
+ </div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1692815153957-fefd061f078d?auto=format&fit=crop&w=1000&q=75" alt="A plate of noodles with mushrooms and peppers (stock photo)" width="1000" height="1250" data-fb="1707056503922-91c9ebaf0774" loading="lazy" onerror="fb(this)"></div></div></section>
+
+<section class="band"><div class="band-img"><img src="https://images.unsplash.com/photo-1760537480386-f69d20aa4e84?auto=format&fit=crop&w=1600&q=75" alt="A cook working over a steaming pan in a kitchen (stock photo)" width="1600" height="1067" data-fb="1771013151504-10519ebdb8cd" loading="lazy" onerror="fb(this)"></div><div class="band-in wrap"><h2 class="bt"><span class="bl"><span>Hungry?</span></span><span class="bl"><span>Call it in.</span></span></h2><div class="cta" data-r><a class="btn" href="tel:+12157223800">(215) 722-3800</a><a class="btn ghost" href="#order">Start an order request</a></div></div></section>
+
+<section id="visit"><div class="wrap visit-g"><div><span class="eyebrow">Visit</span><h2>Find us on Cottman.</h2><p class="addr">1301 Cottman Ave #3<br>Philadelphia, PA 19111<br><a href="tel:+12157223800">(215) 722-3800</a></p><div class="cta" style="margin-top:0"><a class="btn ghost" href="https://www.google.com/maps/dir//1301%20Cottman%20Ave%2C%20Philadelphia%2C%20PA%2019111" target="_blank" rel="noopener">Get directions</a></div>
+ <div class="hrs"><div><span>Hours</span><span>Hours added once owner confirms</span></div></div>
+ <div class="qa"><details><summary>Do you deliver?</summary><p>Delivery and online ordering are added once the owner confirms. For now, call the shop.</p></details><details><summary>How do I order?</summary><p>Call (215) 722-3800, or use Build your order to send a pickup request.</p></details><details><summary>Where is the full menu?</summary><p>Added once the owner confirms it.</p></details></div>
+ </div>
+ <div><div class="map"><iframe title="Map to China King, 1301 Cottman Ave" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=1301%20Cottman%20Ave%2C%20Philadelphia%2C%20PA%2019111&output=embed"></iframe></div></div></div></section>
+
+<footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with China King. Photos are stock images.</span><span>1301 Cottman Ave #3, Philadelphia, PA 19111</span></div></footer>
+<div class="mbar"><a href="tel:+12157223800">Call</a><a href="https://www.google.com/maps/dir//1301%20Cottman%20Ave%2C%20Philadelphia%2C%20PA%2019111" target="_blank" rel="noopener">Directions</a><a href="#order">Request</a></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+var VIDEO_URL="https://videos.pexels.com/video-files/2882115/2882115-hd_1280_720_24fps.mp4";
+var SLUG='china-king';
+if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('rm');
+/* hero video slot: only attached when VIDEO_URL is set */
+(function(){if(!VIDEO_URL)return;var bg=document.getElementById('herobg'),im=bg.querySelector('img');
+ var v=document.createElement('video');v.muted=true;v.defaultMuted=true;v.autoplay=true;v.loop=true;v.playsInline=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.poster=im.currentSrc||im.src;
+ var s=document.createElement('source');s.src=VIDEO_URL;s.type='video/mp4';v.appendChild(s);bg.appendChild(v);
+ v.addEventListener('error',function(){v.remove()},true);v.play&&v.play().catch(function(){});})();
+/* ---------- order builder ---------- */
+var CATS=[
+ ['Appetizers',['Fried appetizer','Steamed appetizer','Appetizer to share']],
+ ['Soups',['Hot soup','Soup for the table']],
+ ['Chicken',['Chicken entree','Chicken with rice','Spicy chicken']],
+ ['Pork',['Pork entree','Pork with rice']],
+ ['Beef',['Beef entree','Beef with rice']],
+ ['Seafood',['Shrimp entree','Seafood entree']],
+ ['Lo Mein & Fried Rice',['Lo mein','Fried rice','Lo mein or fried rice, side']],
+ ['Combos',['Combo plate','Combo, ask the shop']]
+];
+var ORDER={},curCat=0,DKEY=SLUG+'_draft';
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function orderLines(){return Object.keys(ORDER).filter(function(k){return ORDER[k]>0}).map(function(k){return {name:k,qty:ORDER[k]}})}
+function orderText(){return orderLines().map(function(l){return l.qty+' x '+l.name}).join(', ')}
+function saveDraft(){var f=document.getElementById('bk');var d={order:ORDER};if(f){d.name=f.name.value;d.phone=f.phone.value}lsSet(DKEY,JSON.stringify(d))}
+function renderTabs(){var t=document.getElementById('tabs');t.innerHTML=CATS.map(function(c,i){return '<button class="tab" type="button" role="tab" aria-selected="'+(i===curCat)+'" data-i="'+i+'">'+esc(c[0])+'</button>'}).join('')}
+function renderItems(fade){var w=document.getElementById('items');w.innerHTML=CATS[curCat][1].map(function(n){var q=ORDER[n]||0;return '<div class="it'+(q?' on':'')+'" data-n="'+esc(n)+'"><button class="tick" type="button" role="checkbox" aria-checked="'+(q>0)+'"><span class="bx"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>'+esc(n)+'</button><div class="qty"><button type="button" data-d="-1" aria-label="Less">&minus;</button><b>'+(q||1)+'</b><button type="button" data-d="1" aria-label="More">+</button></div></div>'}).join('');if(fade){w.classList.remove('panelfade');void w.offsetWidth;w.classList.add('panelfade')}}
+function renderSum(){var l=orderLines(),u=document.getElementById('sum');u.innerHTML=l.length?l.map(function(x){return '<li><span>'+esc(x.name)+'</span><span>x '+x.qty+'</span></li>'}).join(''):'<li class="empty">Nothing ticked yet. Pick items, or just call.</li>'}
+document.getElementById('tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;curCat=+b.dataset.i;renderTabs();renderItems(true)});
+document.getElementById('items').addEventListener('click',function(e){var row=e.target.closest('.it');if(!row)return;var n=row.dataset.n;
+ var q=e.target.closest('.qty button');
+ if(q){var v=(ORDER[n]||1)+(+q.dataset.d);if(v<1){delete ORDER[n]}else ORDER[n]=Math.min(v,20)}
+ else if(e.target.closest('.tick')){if(ORDER[n])delete ORDER[n];else ORDER[n]=1}else return;
+ renderItems();renderSum();saveDraft();
+ var f=row.querySelector('button');});
+(function(){var d=null;try{d=JSON.parse(lsGet(DKEY)||'null')}catch(e){}
+ if(d&&d.order)ORDER=d.order;var f=document.getElementById('bk');if(d&&f){if(d.name)f.name.value=d.name;if(d.phone)f.phone.value=d.phone}
+ renderTabs();renderItems();renderSum();
+ f.addEventListener('input',saveDraft);
+ f.addEventListener('submit',function(e){e.preventDefault();
+  var ok=true;f.querySelectorAll('[required]').forEach(function(x){if(!String(x.value).trim()){x.classList.add('bad');ok=false}else x.classList.remove('bad')});
+  var er=f.querySelector('.err');if(!ok){er.hidden=false;return}er.hidden=true;
+  var rec={id:'bk_'+Date.now(),created:new Date().toISOString(),status:'new',name:f.name.value.trim(),phone:f.phone.value.trim(),order:orderText(),items:orderLines(),pickup:f.pickup.value,note:f.note.value.trim()};
+  var a=[];try{a=JSON.parse(lsGet(SLUG+'_bookings')||'[]')}catch(x){}
+  a.unshift(rec);lsSet(SLUG+'_bookings',JSON.stringify(a));
+  document.getElementById('oksum').innerHTML='<b>'+esc(rec.name)+'</b> &middot; pickup: '+esc(rec.pickup)+'<br>'+(rec.order?esc(rec.order):'No items ticked, notes only.');
+  f.hidden=true;document.getElementById('sum').parentNode.querySelector('.note').hidden=true;document.getElementById('ok').hidden=false;
+  ORDER={};lsSet(DKEY,'{}');renderItems();renderSum();
+  if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+ document.getElementById('again').addEventListener('click',function(){f.reset();f.hidden=false;document.getElementById('ok').hidden=true;document.querySelector('#book .note').hidden=false;if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+})();
+/* ---------- nav + motion ---------- */
+(function(){
+var nav=document.querySelector('header.nav');
+function sc(){nav.classList.toggle('solid',window.scrollY>40)}
+window.addEventListener('scroll',sc,{passive:true});sc();
+var bg=document.querySelector('.burger'),dr=document.querySelector('.drawer');
+bg.addEventListener('click',function(){var o=document.body.classList.toggle('menu');bg.setAttribute('aria-expanded',o);dr.setAttribute('aria-hidden',!o)});
+document.querySelectorAll('.drawer a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu');bg.setAttribute('aria-expanded',false);dr.setAttribute('aria-hidden',true)})});
+window.addEventListener('load',function(){
+ var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!window.gsap||!window.ScrollTrigger){window.__ok=1;return}
+ gsap.registerPlugin(ScrollTrigger);
+ var lenis=null;
+ if(window.Lenis&&!rm){lenis=new Lenis({lerp:.1,smoothWheel:true});window.lenis=lenis;lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();if(lenis)lenis.scrollTo(t,{offset:-64,duration:1.3});else t.scrollIntoView({behavior:'smooth'})})});
+ /* hero: clip wipe + scale 1.2->1 + staggered lines */
+ gsap.fromTo('.hero .bg',{scale:1.2},{scale:1,duration:2.4,ease:'power2.out'});
+ gsap.fromTo('.hero .shade',{opacity:0},{opacity:1,duration:1.4,ease:'power2.out'});
+ gsap.to('.hero .ln>span',{y:0,duration:1.2,ease:'expo.out',stagger:.14,delay:.25});
+ gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.12,delay:.7});
+ if(!rm)gsap.to('.hero .bg',{yPercent:8,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+ ScrollTrigger.batch('[data-r]',{start:'top 91%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1})}});
+ document.querySelectorAll('[data-wipe]').forEach(function(el){var tr={trigger:el,start:'top 90%',once:true};
+  gsap.fromTo(el,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'expo.out',scrollTrigger:tr});
+  var im=el.querySelector('img');if(im)gsap.fromTo(im,{scale:1.25},{scale:1,duration:1.7,ease:'expo.out',scrollTrigger:tr})});
+ /* split h2 */
+ document.querySelectorAll('h2:not(.bt)').forEach(function(h){if(h.children.length)return;
+  var words=h.textContent.trim().split(/\s+/);h.innerHTML=words.map(function(w){return '<span class="w"><span>'+w.replace(/&/g,'&amp;')+'</span></span>'}).join(' ');
+  if(!rm)gsap.from(h.querySelectorAll('.w>span'),{yPercent:115,duration:1,ease:'expo.out',stagger:.06,scrollTrigger:{trigger:h,start:'top 88%',once:true}})});
+ /* band */
+ document.querySelectorAll('.band').forEach(function(b){var im=b.querySelector('.band-img');
+  if(!rm&&im)gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:true}});
+  if(!rm)gsap.from(b.querySelectorAll('.bl>span'),{yPercent:110,duration:1.1,ease:'expo.out',stagger:.14,scrollTrigger:{trigger:b,start:'top 60%',once:true}})});
+ /* SIGNATURE 2: pinned wok-to-pickup crossfade (desktop only) */
+ var mm=gsap.matchMedia();
+ mm.add('(min-width:901px) and (prefers-reduced-motion: no-preference)',function(){
+  var sec=document.querySelector('#wok'),pin=sec.querySelector('.wok-pin');
+  var im=sec.querySelectorAll('.stage img'),st=sec.querySelectorAll('.wk-step'),pr=sec.querySelector('.wk-prog i'),cap=document.getElementById('stcap');
+  var names=['01 Order','02 Wok','03 Pickup'];
+  gsap.set(st,{opacity:.5});gsap.set(st[0],{opacity:1});gsap.set(im[0],{opacity:1});
+  var tl=gsap.timeline({defaults:{ease:'power2.inOut'},scrollTrigger:{trigger:pin,start:'top top',end:'+=220%',pin:true,scrub:.6,anticipatePin:1,invalidateOnRefresh:true,
+   onUpdate:function(s){var i=s.progress<.33?0:(s.progress<.66?1:2);if(cap&&cap.dataset.i!=i){cap.dataset.i=i;cap.textContent=names[i]}}}});
+  tl.fromTo(pr,{scaleX:0},{scaleX:1,ease:'none',duration:3},0);
+  tl.fromTo(im[1],{opacity:0,scale:1.12},{opacity:1,scale:1,duration:.7},.9);
+  tl.to(st[0],{opacity:.5,duration:.4},.9).to(st[1],{opacity:1,duration:.4},.9);
+  tl.fromTo(im[2],{opacity:0,scale:1.12},{opacity:1,scale:1,duration:.7},1.9);
+  tl.to(st[1],{opacity:.5,duration:.4},1.9).to(st[2],{opacity:1,duration:.4},1.9);
+  tl.to({},{duration:.3},3);
+  return function(){gsap.set(st,{clearProps:'opacity'});};
+ });
+ window.addEventListener('resize',function(){ScrollTrigger.refresh()});
+ setTimeout(function(){ScrollTrigger.refresh()},700);
+ window.__ok=1;
+});
+setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script>
+</body>
+</html>
