@@ -83,6 +83,53 @@ footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:
 @media (max-width:900px){.mbar{display:grid}}
 @media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}}
 
+body::before{content:"";position:fixed;inset:0;z-index:45;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.w>span{display:inline-block}
+.img img{transition:filter .6s}
+.marq{overflow:hidden;white-space:nowrap;padding:clamp(18px,2.4vw,30px) 0;border-block:1px solid var(--line);background:var(--mqbg,transparent);color:var(--mqink,var(--ink))}
+.marq .mt{display:inline-flex;align-items:center;gap:clamp(18px,3vw,40px);padding-right:clamp(18px,3vw,40px);will-change:transform}
+.marq span{font:var(--mqw,500) clamp(2rem,5.2vw,4.6rem)/1 var(--f1);text-transform:var(--mqtt,none);letter-spacing:var(--mqls,0)}
+.marq i{font-style:normal;color:var(--acc);font-size:clamp(1.1rem,2.4vw,2rem)}
+.marq.out span{color:transparent;-webkit-text-stroke:1.5px currentColor}
+.band{position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#111;padding:0}
+.band-img{position:absolute;inset:-12% 0;will-change:transform}
+.band-img img{width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.05) 35%,rgba(0,0,0,.72))}
+.band-in{position:relative;z-index:2;padding-block:clamp(40px,6vw,80px)}
+.bt{color:#fff;font-size:clamp(3rem,10.5vw,10rem);line-height:.92;text-transform:var(--btt,none)}
+.bl{display:block;overflow:hidden;padding-bottom:.06em}
+.bl>span{display:block}
+.bs{max-width:30em;margin-top:1.2rem;font-size:clamp(1rem,1.4vw,1.2rem);opacity:.92}
+.hs{padding:0;overflow:hidden}
+.hs-in{min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,3.5vw,48px);padding:clamp(70px,9vw,120px) 0}
+.hs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.hs-note{max-width:22em}
+.hs-track{display:flex;gap:clamp(14px,2vw,26px);padding-left:max(4vw,calc((100vw - 1240px)/2));padding-right:4vw;will-change:transform}
+.hs-c{flex:0 0 auto;width:clamp(260px,29vw,430px);margin:0}
+.hs-c .img,.hs-c>div{aspect-ratio:4/5;overflow:hidden;border-radius:var(--hsr,10px);position:relative;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.hs-c:nth-child(even){margin-top:clamp(20px,4vw,56px)}
+.hs-c img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover) and (pointer:fine){.hs-c:hover img{transform:scale(1.06)}}
+.hs-c figcaption{font:600 .72rem var(--f2);letter-spacing:.16em;text-transform:uppercase;margin-top:.8rem;color:var(--mut)}
+@media (max-width:900px){
+ .hs-in{min-height:0;padding:clamp(70px,12vw,110px) 0}
+ .hs-track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+ .hs-c{width:72vw;scroll-snap-align:center}
+ .hs-c:nth-child(even){margin-top:0}
+}
+.cnts{padding:clamp(34px,5vw,60px) 0;background:var(--cnbg,var(--ink));color:var(--cnink,#fff)}
+.cnts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem}
+.cnts b{display:block;font:var(--cnw,500) clamp(2.4rem,5vw,4.2rem)/1 var(--f1);color:var(--cnnum,inherit)}
+.cnts div>span{display:block;margin-top:.5rem;font-size:.82rem;letter-spacing:.06em;opacity:.75}
+@media (max-width:700px){.cnts .wrap{grid-template-columns:1fr 1fr;row-gap:2rem}}
+.badge{position:absolute;width:clamp(96px,11vw,150px);aspect-ratio:1;border-radius:50%;background:var(--bdbg,var(--acc));color:var(--bdink,#fff);display:grid;place-items:center;z-index:3;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.badge text{font:600 15px var(--f2);letter-spacing:.14em;text-transform:uppercase;fill:currentColor}
+.badge b{font:500 clamp(1.5rem,2.6vw,2.2rem)/1 var(--f1);position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.badge svg{animation:none}}
+
 
 h1,h2,h3{text-transform:uppercase}
 .btn{letter-spacing:.06em;text-transform:uppercase;font-weight:600}
@@ -132,6 +179,9 @@ h1,h2,h3{text-transform:uppercase}
 .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:2.6rem}
 .gal .img{aspect-ratio:4/3;border-radius:4px}
 @media (max-width:700px){.gal{grid-template-columns:1fr 1fr}.gal .img:last-child{display:none}}
+.hero .badge{right:6%;top:24%}
+.marq{--mqbg:#12161B;--mqink:#EEF0F2;--mqtt:uppercase;--mqw:700;border-color:rgba(255,255,255,.1)}
+.band h2{text-transform:uppercase}
 .visit-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw}
 .addr{margin:1.2rem 0 1.4rem;line-height:1.7}
 .addr a{border-bottom:1px solid var(--acc)}
@@ -142,7 +192,7 @@ h1,h2,h3{text-transform:uppercase}
 </style>
 </head>
 <body>
-<header class="nav"><a class="brand" href="#top">K &amp; A AUTO BODY</a><nav><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a><a class="btn" href="tel:+12157087932">(215) 708-7932</a></nav><button class="burger" aria-label="Menu"><i></i><i></i></button></header><div class="drawer"><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a><a href="tel:+12157087932">(215) 708-7932</a></div><section class="hero" id="top"><div class="bg"><img src="https://images.unsplash.com/photo-1618312980096-873bd19759a0?auto=format&fit=crop&w=1600&q=75" alt="Cars on lifts in an auto repair workshop (stock photo)" width="1600" height="1200" data-fb="1631972241361-330c704b90f1" fetchpriority="high" onerror="fb(this)" ></div><div class="hero-in"><span class="eyebrow" data-hero>Auto body &middot; Van Kirk St &middot; Philadelphia</span><h1><span class="ln"><span>Frame.</span></span><span class="ln"><span>Paint.</span></span><span class="ln"><span>Finished.</span></span></h1><p class="sub" data-hero>A neighborhood auto body shop that lists frame and paint as its specialty. Call for an estimate.</p><div class="cta" data-hero><a class="btn" href="#estimate">Get an estimate</a><a class="btn ghost" href="tel:+12157087932">(215) 708-7932</a></div></div><div class="trust"><div class="wrap"><div><b>4.5 / 5</b><span>Google, 31 reviews</span></div><div><b>Frame &amp; paint</b><span>Specialty, per the shop</span></div><div><b>Opens 9 AM</b><span>Per Google</span></div><div><b>(215) 708-7932</b><span>Call for an estimate</span></div></div></div></section><section class="light svc" id="services"><div class="wrap svc-g"><div><span class="eyebrow">Services</span><h2>What we fix.</h2><p class="lead">The shop calls itself a frame and paint specialist. The full list is confirmed with the owner before launch.</p></div><div><div class="srow" data-r><i>01</i><div><h3>Frame repair</h3><p>Listed by the shop as a specialty: frame work for cars that took a hit.</p></div></div><div class="srow" data-r><i>02</i><div><h3>Painting & refinishing</h3><p>Paint is the other half of the shop's specialty. Color match details added once owner confirms.</p></div></div><div class="srow" data-r><i>03</i><div><h3>Body & collision repair</h3><p>Panels, bumpers and body work. Exact list added once owner confirms.</p></div></div></div></div></section><section class="proc" id="process"><div class="wrap pc-in"><div class="pc-top"><div><span class="eyebrow">How a repair goes</span><h2>From dent to done.</h2></div><p class="fine" style="max-width:22em">A typical sequence. The shop confirms its own steps before we publish.</p></div><div class="bar"><i></i></div><div class="steps"><div class="st"><b>01</b><h3>Estimate</h3><p>Call or send your details. The shop looks at the damage and tells you the plan.</p></div><div class="st"><b>02</b><h3>Frame & body</h3><p>Frame and body work comes first so everything lines up.</p></div><div class="st"><b>03</b><h3>Paint</h3><p>Prep and refinish the repaired panels.</p></div><div class="st"><b>04</b><h3>Final check</h3><p>A last look before the keys go back to you.</p></div></div></div></section><section id="work" style="padding-top:0"><div class="wrap"><span class="eyebrow">In the shop</span><h2>The work.</h2><p class="lead">Stock photos stand in until the shop&rsquo;s own photos are approved.</p><div class="gal"><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1767681092416-bccf9410bda4?auto=format&fit=crop&w=800&q=75" alt="Damaged cars in an auto body workshop (stock photo)" width="800" height="600" data-fb="1631972241361-330c704b90f1" loading="lazy" onerror="fb(this)" ></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1786489785101-df56fc2ad30c?auto=format&fit=crop&w=800&q=75" alt="A person repairing a car bumper in a workshop (stock photo)" width="800" height="600" data-fb="1661920574428-1f0f60cda474" loading="lazy" onerror="fb(this)" ></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1631972241361-330c704b90f1?auto=format&fit=crop&w=800&q=75" alt="A car in a repair shop (stock photo)" width="800" height="600" data-fb="1767681092416-bccf9410bda4" loading="lazy" onerror="fb(this)" ></div></div></div></section><section id="estimate"><div class="wrap visit-g"><div><span class="eyebrow">Estimate</span><h2>Tell us about the damage.</h2><p class="addr">4824 Van Kirk St<br>Philadelphia, PA 19135<br><a href="tel:+12157087932">(215) 708-7932</a></p><ul class="hours"><li><span>Opens</span><span>9 AM (per Google)</span></li><li><span>Other hours</span><span>Added once owner confirms</span></li></ul><p class="fine">Address, phone and opening time from Google.</p><div style="margin-top:1.6rem"><div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=4824%20Van%20Kirk%20St%2C%20Philadelphia%2C%20PA%2019135&output=embed"></iframe></div></div></div><div class="card"><form id="bk" class="form" novalidate><p class="form-intro">Share the basics. This is a demo, nothing is sent to the shop.</p><div class="fgrid"><label class="fld"><span>Your name *</span><input name="name" type="text" placeholder="" required></label><label class="fld"><span>Phone *</span><input name="phone" type="tel" placeholder="" required></label><label class="fld wide"><span>Vehicle (year, make, model) *</span><input name="vehicle" type="text" placeholder="" required></label><label class="fld"><span>What happened *</span><select name="issue" required><option value="">Choose</option><option>Collision damage</option><option>Dent or scratch</option><option>Paint or color</option><option>Frame damage</option><option>Not sure</option></select></label><label class="fld"><span>Best day to look at it</span><input name="day" type="date" placeholder=""></label><label class="fld wide"><span>Details</span><textarea name="note" rows="3" placeholder="Where the damage is, when it happened"></textarea></label></div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Request estimate</button></form><div id="ok" class="okbox" hidden><h3>Request saved</h3><p>Demo only: your request was saved in this browser and shows on the admin page.</p></div></div></div></section><footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with K & A Auto Body Repair. Photos are stock images.</span></div></footer><div class="mbar"><a href="tel:+12157087932">Call</a><a href="https://www.google.com/maps/dir//4824%20Van%20Kirk%20St%2C%20Philadelphia%2C%20PA%2019135" target="_blank" rel="noopener">Directions</a><a href="#estimate">Estimate</a></div>
+<header class="nav"><a class="brand" href="#top">K &amp; A AUTO BODY</a><nav><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a><a class="btn" href="tel:+12157087932">(215) 708-7932</a></nav><button class="burger" aria-label="Menu"><i></i><i></i></button></header><div class="drawer"><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a><a href="tel:+12157087932">(215) 708-7932</a></div><section class="hero" id="top"><div class="bg"><img src="https://images.unsplash.com/photo-1618312980096-873bd19759a0?auto=format&fit=crop&w=1600&q=75" alt="Cars on lifts in an auto repair workshop (stock photo)" width="1600" height="1200" data-fb="1631972241361-330c704b90f1" fetchpriority="high" onerror="fb(this)" ></div><div class="hero-in"><span class="eyebrow" data-hero>Auto body &middot; Van Kirk St &middot; Philadelphia</span><h1><span class="ln"><span>Frame.</span></span><span class="ln"><span>Paint.</span></span><span class="ln"><span>Finished.</span></span></h1><p class="sub" data-hero>A neighborhood auto body shop that lists frame and paint as its specialty. Call for an estimate.</p><div class="cta" data-hero><a class="btn" href="#estimate">Get an estimate</a><a class="btn ghost" href="tel:+12157087932">(215) 708-7932</a></div></div><div class="badge " aria-hidden="true"><svg viewBox="0 0 200 200"><defs><path id="bcirc" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#bcirc" textLength="498" lengthAdjust="spacing">Frame and paint specialist &middot; Van Kirk St &middot; </textPath></text></svg><b>4.5</b></div><div class="trust"><div class="wrap"><div><b>4.5 / 5</b><span>Google, 31 reviews</span></div><div><b>Frame &amp; paint</b><span>Specialty, per the shop</span></div><div><b>Opens 9 AM</b><span>Per Google</span></div><div><b>(215) 708-7932</b><span>Call for an estimate</span></div></div></div></section><div class="marq out" aria-hidden="true"><div class="mt"><span>Frame repair</span><i>&#10022;</i><span>Paint</span><i>&#10022;</i><span>Body work</span><i>&#10022;</i><span>Estimates</span><i>&#10022;</i><span>Frame repair</span><i>&#10022;</i><span>Paint</span><i>&#10022;</i><span>Body work</span><i>&#10022;</i><span>Estimates</span><i>&#10022;</i><span>Frame repair</span><i>&#10022;</i><span>Paint</span><i>&#10022;</i><span>Body work</span><i>&#10022;</i><span>Estimates</span><i>&#10022;</i><span>Frame repair</span><i>&#10022;</i><span>Paint</span><i>&#10022;</i><span>Body work</span><i>&#10022;</i><span>Estimates</span><i>&#10022;</i></div></div><section class="light svc" id="services"><div class="wrap svc-g"><div><span class="eyebrow">Services</span><h2>What we fix.</h2><p class="lead">The shop calls itself a frame and paint specialist. The full list is confirmed with the owner before launch.</p></div><div><div class="srow" data-r><i>01</i><div><h3>Frame repair</h3><p>Listed by the shop as a specialty: frame work for cars that took a hit.</p></div></div><div class="srow" data-r><i>02</i><div><h3>Painting & refinishing</h3><p>Paint is the other half of the shop's specialty. Color match details added once owner confirms.</p></div></div><div class="srow" data-r><i>03</i><div><h3>Body & collision repair</h3><p>Panels, bumpers and body work. Exact list added once owner confirms.</p></div></div></div></div></section><section class="band "><div class="band-img"><img src="https://images.unsplash.com/photo-1631972241361-330c704b90f1?auto=format&fit=crop&w=1600&q=75" alt="A car repair workshop (stock photo)" width="1600" height="1200" data-fb="1618312980096-873bd19759a0" loading="eager" onerror="fb(this)" ></div><div class="band-in wrap"><h2 class="bt"><span class="bl"><span>From dent</span></span><span class="bl"><span>to done.</span></span></h2><p class="bs">Frame and paint work from a neighborhood shop.</p></div></section><section class="proc" id="process"><div class="wrap pc-in"><div class="pc-top"><div><span class="eyebrow">How a repair goes</span><h2>From dent to done.</h2></div><p class="fine" style="max-width:22em">A typical sequence. The shop confirms its own steps before we publish.</p></div><div class="bar"><i></i></div><div class="steps"><div class="st"><b>01</b><h3>Estimate</h3><p>Call or send your details. The shop looks at the damage and tells you the plan.</p></div><div class="st"><b>02</b><h3>Frame & body</h3><p>Frame and body work comes first so everything lines up.</p></div><div class="st"><b>03</b><h3>Paint</h3><p>Prep and refinish the repaired panels.</p></div><div class="st"><b>04</b><h3>Final check</h3><p>A last look before the keys go back to you.</p></div></div></div></section><section id="estimate"><div class="wrap visit-g"><div><span class="eyebrow">Estimate</span><h2>Tell us about the damage.</h2><p class="addr">4824 Van Kirk St<br>Philadelphia, PA 19135<br><a href="tel:+12157087932">(215) 708-7932</a></p><ul class="hours"><li><span>Opens</span><span>9 AM (per Google)</span></li><li><span>Other hours</span><span>Added once owner confirms</span></li></ul><p class="fine">Address, phone and opening time from Google.</p><div style="margin-top:1.6rem"><div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=4824%20Van%20Kirk%20St%2C%20Philadelphia%2C%20PA%2019135&output=embed"></iframe></div></div></div><div class="card"><form id="bk" class="form" novalidate><p class="form-intro">Share the basics. This is a demo, nothing is sent to the shop.</p><div class="fgrid"><label class="fld"><span>Your name *</span><input name="name" type="text" placeholder="" required></label><label class="fld"><span>Phone *</span><input name="phone" type="tel" placeholder="" required></label><label class="fld wide"><span>Vehicle (year, make, model) *</span><input name="vehicle" type="text" placeholder="" required></label><label class="fld"><span>What happened *</span><select name="issue" required><option value="">Choose</option><option>Collision damage</option><option>Dent or scratch</option><option>Paint or color</option><option>Frame damage</option><option>Not sure</option></select></label><label class="fld"><span>Best day to look at it</span><input name="day" type="date" placeholder=""></label><label class="fld wide"><span>Details</span><textarea name="note" rows="3" placeholder="Where the damage is, when it happened"></textarea></label></div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Request estimate</button></form><div id="ok" class="okbox" hidden><h3>Request saved</h3><p>Demo only: your request was saved in this browser and shows on the admin page.</p></div></div></div></section><footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with K & A Auto Body Repair. Photos are stock images.</span></div></footer><div class="mbar"><a href="tel:+12157087932">Call</a><a href="https://www.google.com/maps/dir//4824%20Van%20Kirk%20St%2C%20Philadelphia%2C%20PA%2019135" target="_blank" rel="noopener">Directions</a><a href="#estimate">Estimate</a></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
@@ -201,6 +251,49 @@ window.addEventListener('load',function(){
  window.__ok=1;
 });
 setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script><script>
+(function(){
+ function go(){
+  if(!window.gsap||!window.ScrollTrigger||!document.documentElement.classList.contains('js'))return;
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* split headings */
+  document.querySelectorAll('h2:not(.bt)').forEach(function(h){
+   if(h.dataset.sp||h.children.length)return;h.dataset.sp=1;
+   var words=h.textContent.trim().split(/\s+/);
+   h.innerHTML=words.map(function(w){return '<span class="w"><span>'+w.replace(/&/g,'&amp;')+'</span></span>'}).join(' ');
+   if(!rm)gsap.from(h.querySelectorAll('.w>span'),{yPercent:115,duration:1,ease:'expo.out',stagger:.06,scrollTrigger:{trigger:h,start:'top 88%',once:true}});
+  });
+  /* marquee */
+  if(!rm)document.querySelectorAll('.marq').forEach(function(m){
+   var t=m.querySelector('.mt');if(!t)return;
+   var tw=gsap.to(t,{xPercent:-25,repeat:-1,ease:'none',duration:26});
+   ScrollTrigger.create({trigger:m,start:'top bottom',end:'bottom top',onUpdate:function(s){var v=1+Math.min(5,Math.abs(s.getVelocity())/350);gsap.to(tw,{timeScale:(s.direction<0?-1:1)*v,duration:.5,overwrite:true})}});
+  });
+  /* band parallax + text */
+  document.querySelectorAll('.band').forEach(function(b){
+   var im=b.querySelector('.band-img');
+   if(!rm&&im)gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:true}});
+   if(!rm)gsap.from(b.querySelectorAll('.bl>span'),{yPercent:110,duration:1.1,ease:'expo.out',stagger:.14,scrollTrigger:{trigger:b,start:'top 60%',once:true}});
+  });
+  /* counters */
+  document.querySelectorAll('.cnt').forEach(function(c){
+   var to=parseFloat(c.dataset.to),dec=parseInt(c.dataset.dec||'0',10),suf=c.dataset.suf||'';
+   if(rm)return;var o={v:0};
+   ScrollTrigger.create({trigger:c,start:'top 92%',once:true,onEnter:function(){gsap.to(o,{v:to,duration:1.8,ease:'power2.out',onUpdate:function(){c.textContent=o.v.toFixed(dec)+suf}})}});
+  });
+  /* pinned horizontal gallery */
+  var mm=gsap.matchMedia();
+  mm.add('(min-width:901px)',function(){
+   document.querySelectorAll('.hs').forEach(function(s){
+    var tr=s.querySelector('.hs-track');if(!tr)return;
+    var dist=function(){return Math.max(0,tr.scrollWidth-window.innerWidth)};
+    gsap.to(tr,{x:function(){return -dist()},ease:'none',scrollTrigger:{trigger:s,start:'top top',end:function(){return '+='+dist()},pin:true,scrub:.7,invalidateOnRefresh:true,anticipatePin:1}});
+   });
+  });
+  setTimeout(function(){ScrollTrigger.refresh()},900);
+ }
+ window.addEventListener('load',function(){setTimeout(go,30)});
 })();
 </script>
 </body>
