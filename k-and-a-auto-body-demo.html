@@ -1,0 +1,207 @@
+<!doctype html>
+<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with K & A Auto Body Repair. [CONFIRM] items: full hours, full service list, insurance work, rental or towing, years open, owner name, repair steps wording -->
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K & A Auto Body Repair | Van Kirk St, Philadelphia (demo)</title>
+<meta name="description" content="Demo website concept for K & A Auto Body Repair, a frame and paint auto body shop on Van Kirk St in Philadelphia.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#12161B;--ink:#EEF0F2;--mut:#98A2AD;--acc:#E8641B;--onacc:#101317;--line:rgba(255,255,255,.12);--navbg:rgba(18,22,27,.94);--f1:'Barlow Condensed',sans-serif;--f2:'Barlow',sans-serif;--r:2px;--r2:4px;--navink:#EEF0F2;--navink2:#EEF0F2;--drawer:#12161B;--drawerink:#EEF0F2;--fw:700;--ls:0}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{scroll-behavior:auto}
+body{font:400 16px/1.65 var(--f2);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:100%;width:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{width:min(1240px,92vw);margin-inline:auto}
+section{padding:clamp(88px,11vw,152px) 0;position:relative}
+.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:1.1rem}
+h1,h2,h3{font-family:var(--f1);font-weight:var(--fw,500);line-height:1.02;letter-spacing:var(--ls,-.01em)}
+h2{font-size:clamp(2.2rem,5vw,4.2rem)}
+p.lead{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--mut);max-width:34em;margin-top:1.2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.7rem;border-radius:var(--r,999px);background:var(--acc);color:var(--onacc,#fff);font:600 .95rem var(--f2);border:1px solid var(--acc);cursor:pointer;min-height:50px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px)}.btn.ghost:hover{background:var(--ink);color:var(--bg)}}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}
+.ln>span{display:block}
+.js .ln>span{transform:translateY(112%)}
+.js [data-r],.js [data-hero]{opacity:0;transform:translateY(34px)}
+.js [data-wipe]{clip-path:inset(0 0 100% 0)}
+.nojsfix [data-r],.nojsfix [data-hero]{opacity:1!important;transform:none!important}
+.nojsfix .ln>span{transform:none!important}
+.nojsfix [data-wipe]{clip-path:none!important}
+.img{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.img.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--acc),var(--ink))}
+header.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:16px 4vw;transition:background .4s,box-shadow .4s,padding .4s;color:var(--navink,var(--ink))}
+header.nav.solid{background:var(--navbg);box-shadow:0 1px 0 var(--line);padding:11px 4vw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--navink2,var(--ink))}
+.brand{font:var(--brandw,600) 1.25rem var(--f1);letter-spacing:var(--brandls,0);white-space:nowrap}
+.nav nav{display:flex;gap:2rem;align-items:center}
+.nav nav a{font:500 .88rem var(--f2);opacity:.85;position:relative}
+@media (hover:hover) and (pointer:fine){.nav nav a:not(.btn):hover{opacity:1}}
+.nav .btn{padding:.7rem 1.2rem;min-height:44px;font-size:.85rem}
+.burger{display:none;width:46px;height:46px;border:0;background:transparent;cursor:pointer;color:inherit;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:2px;background:currentColor;transition:transform .35s,top .35s}
+.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:26px}
+body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:55;background:var(--drawer,var(--bg));color:var(--drawerink,var(--ink));display:flex;flex-direction:column;justify-content:center;gap:1.4rem;padding:0 8vw;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+body.menu .drawer{transform:none}
+.drawer a{font:var(--fw,500) clamp(2rem,9vw,3rem)/1.1 var(--f1)}
+@media (max-width:900px){.nav nav{display:none}.burger{display:block}}
+.form{display:block}
+.form-intro{color:var(--mut);margin-bottom:1.4rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem;margin-bottom:1.4rem}
+.fld{display:flex;flex-direction:column;gap:.4rem}
+.fld.wide{grid-column:1/-1}
+.fld span{font:600 .72rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.fld input,.fld select,.fld textarea{background:var(--field,transparent);border:0;border-bottom:1px solid var(--line2,var(--line));padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
+.fld textarea{min-height:92px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--acc)}
+.fld .bad,.fld input.bad,.fld select.bad{border-color:#c0392b}
+.fld option{color:#111}
+.err{color:#c0392b;font-size:.9rem;margin-bottom:1rem}
+.okbox{padding:2rem;border:1px solid var(--line2,var(--line));border-radius:var(--r2,6px)}
+.okbox h3{font-size:1.8rem;margin-bottom:.5rem}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.hours li span:first-child{color:var(--mut)}
+.map{border-radius:var(--r2,6px);overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) brightness(.98)}
+footer.foot{padding:48px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem}
+footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1fr;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .82rem var(--f2);letter-spacing:.06em;text-transform:uppercase;color:var(--navink2,var(--ink))}
+.mbar a:last-child{background:var(--acc);color:var(--onacc,#fff)}
+@media (max-width:900px){.mbar{display:grid}}
+@media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}}
+
+
+h1,h2,h3{text-transform:uppercase}
+.btn{letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.hero .bg{position:absolute;inset:0}
+.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,22,27,.92) 0%,rgba(18,22,27,.6) 45%,rgba(18,22,27,.25) 100%)}
+.hero-in{position:relative;z-index:2;width:min(1240px,92vw);margin:0 auto;padding:0 0 clamp(190px,18vw,230px)}
+.hero h1{font-size:clamp(3.8rem,min(10.5vw,13vh),10rem);line-height:.88}
+.hero h1 .ln:last-child span{color:var(--acc)}
+.hero p.sub{max-width:28em;margin-top:1.3rem;font-size:clamp(1.05rem,1.5vw,1.3rem);color:#D4D9DF}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.btn.ghost{color:#fff}
+@media (hover:hover) and (pointer:fine){.btn.ghost:hover{background:#fff;color:#101317}}
+.trust{position:absolute;left:0;right:0;bottom:0;z-index:3;background:#1B2128;border-top:3px solid var(--acc)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:20px 0}
+.trust b{display:block;font:700 clamp(1.5rem,2.4vw,2.1rem)/1 var(--f1);text-transform:uppercase}
+.trust span{font-size:.8rem;color:var(--mut)}
+@media (max-width:760px){.trust .wrap{grid-template-columns:1fr 1fr}.trust .wrap div:nth-child(n+3){display:none}.hero-in{padding-bottom:230px}}
+.light{background:#EEF0F2;color:#101317;--mut:#5E6772;--line:rgba(16,19,23,.14);--ink:#101317}
+.light .eyebrow{color:#B84A0A}
+.svc-g{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw;align-items:start}
+.svc .lead{margin-top:1rem}
+.srow{display:grid;grid-template-columns:70px 1fr;gap:1rem;padding:1.5rem 0;border-top:1px solid var(--line)}
+.srow:last-child{border-bottom:1px solid var(--line)}
+.srow i{font:700 1.2rem var(--f1);color:#B84A0A;font-style:normal}
+.srow h3{font-size:clamp(1.9rem,3vw,2.6rem)}
+.srow p{color:var(--mut);margin-top:.3rem}
+@media (max-width:900px){.svc-g{grid-template-columns:1fr}}
+.proc{padding:0;background:var(--bg)}
+.pc-in{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:90px 0}
+.pc-top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.bar{height:3px;background:var(--line);margin:2.4rem 0 2.6rem;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--acc);transform-origin:left;transform:scaleX(.25)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.st{opacity:.4;transition:opacity .4s}
+.st.on{opacity:1}
+.st b{font:700 3.2rem/1 var(--f1);color:var(--acc)}
+.st h3{font-size:1.8rem;margin:.5rem 0 .4rem}
+.st p{color:var(--mut);font-size:.95rem}
+@media (max-width:900px){
+ .proc{padding:clamp(80px,12vw,120px) 0}
+ .pc-in{min-height:0;padding:0}
+ .steps{grid-template-columns:1fr}
+ .st{opacity:1}
+ .bar{display:none}
+}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:2.6rem}
+.gal .img{aspect-ratio:4/3;border-radius:4px}
+@media (max-width:700px){.gal{grid-template-columns:1fr 1fr}.gal .img:last-child{display:none}}
+.visit-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw}
+.addr{margin:1.2rem 0 1.4rem;line-height:1.7}
+.addr a{border-bottom:1px solid var(--acc)}
+.fine{font-size:.82rem;color:var(--mut);margin-top:.9rem}
+.card{background:#1B2128;border:1px solid var(--line);padding:clamp(1.4rem,3vw,2.4rem);border-radius:4px}
+@media (max-width:900px){.visit-g{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top">K &amp; A AUTO BODY</a><nav><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a><a class="btn" href="tel:+12157087932">(215) 708-7932</a></nav><button class="burger" aria-label="Menu"><i></i><i></i></button></header><div class="drawer"><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a><a href="tel:+12157087932">(215) 708-7932</a></div><section class="hero" id="top"><div class="bg"><img src="https://images.unsplash.com/photo-1618312980096-873bd19759a0?auto=format&fit=crop&w=1600&q=75" alt="Cars on lifts in an auto repair workshop (stock photo)" width="1600" height="1200" data-fb="1631972241361-330c704b90f1" fetchpriority="high" onerror="fb(this)" ></div><div class="hero-in"><span class="eyebrow" data-hero>Auto body &middot; Van Kirk St &middot; Philadelphia</span><h1><span class="ln"><span>Frame.</span></span><span class="ln"><span>Paint.</span></span><span class="ln"><span>Finished.</span></span></h1><p class="sub" data-hero>A neighborhood auto body shop that lists frame and paint as its specialty. Call for an estimate.</p><div class="cta" data-hero><a class="btn" href="#estimate">Get an estimate</a><a class="btn ghost" href="tel:+12157087932">(215) 708-7932</a></div></div><div class="trust"><div class="wrap"><div><b>4.5 / 5</b><span>Google, 31 reviews</span></div><div><b>Frame &amp; paint</b><span>Specialty, per the shop</span></div><div><b>Opens 9 AM</b><span>Per Google</span></div><div><b>(215) 708-7932</b><span>Call for an estimate</span></div></div></div></section><section class="light svc" id="services"><div class="wrap svc-g"><div><span class="eyebrow">Services</span><h2>What we fix.</h2><p class="lead">The shop calls itself a frame and paint specialist. The full list is confirmed with the owner before launch.</p></div><div><div class="srow" data-r><i>01</i><div><h3>Frame repair</h3><p>Listed by the shop as a specialty: frame work for cars that took a hit.</p></div></div><div class="srow" data-r><i>02</i><div><h3>Painting & refinishing</h3><p>Paint is the other half of the shop's specialty. Color match details added once owner confirms.</p></div></div><div class="srow" data-r><i>03</i><div><h3>Body & collision repair</h3><p>Panels, bumpers and body work. Exact list added once owner confirms.</p></div></div></div></div></section><section class="proc" id="process"><div class="wrap pc-in"><div class="pc-top"><div><span class="eyebrow">How a repair goes</span><h2>From dent to done.</h2></div><p class="fine" style="max-width:22em">A typical sequence. The shop confirms its own steps before we publish.</p></div><div class="bar"><i></i></div><div class="steps"><div class="st"><b>01</b><h3>Estimate</h3><p>Call or send your details. The shop looks at the damage and tells you the plan.</p></div><div class="st"><b>02</b><h3>Frame & body</h3><p>Frame and body work comes first so everything lines up.</p></div><div class="st"><b>03</b><h3>Paint</h3><p>Prep and refinish the repaired panels.</p></div><div class="st"><b>04</b><h3>Final check</h3><p>A last look before the keys go back to you.</p></div></div></div></section><section id="work" style="padding-top:0"><div class="wrap"><span class="eyebrow">In the shop</span><h2>The work.</h2><p class="lead">Stock photos stand in until the shop&rsquo;s own photos are approved.</p><div class="gal"><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1767681092416-bccf9410bda4?auto=format&fit=crop&w=800&q=75" alt="Damaged cars in an auto body workshop (stock photo)" width="800" height="600" data-fb="1631972241361-330c704b90f1" loading="lazy" onerror="fb(this)" ></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1786489785101-df56fc2ad30c?auto=format&fit=crop&w=800&q=75" alt="A person repairing a car bumper in a workshop (stock photo)" width="800" height="600" data-fb="1661920574428-1f0f60cda474" loading="lazy" onerror="fb(this)" ></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1631972241361-330c704b90f1?auto=format&fit=crop&w=800&q=75" alt="A car in a repair shop (stock photo)" width="800" height="600" data-fb="1767681092416-bccf9410bda4" loading="lazy" onerror="fb(this)" ></div></div></div></section><section id="estimate"><div class="wrap visit-g"><div><span class="eyebrow">Estimate</span><h2>Tell us about the damage.</h2><p class="addr">4824 Van Kirk St<br>Philadelphia, PA 19135<br><a href="tel:+12157087932">(215) 708-7932</a></p><ul class="hours"><li><span>Opens</span><span>9 AM (per Google)</span></li><li><span>Other hours</span><span>Added once owner confirms</span></li></ul><p class="fine">Address, phone and opening time from Google.</p><div style="margin-top:1.6rem"><div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=4824%20Van%20Kirk%20St%2C%20Philadelphia%2C%20PA%2019135&output=embed"></iframe></div></div></div><div class="card"><form id="bk" class="form" novalidate><p class="form-intro">Share the basics. This is a demo, nothing is sent to the shop.</p><div class="fgrid"><label class="fld"><span>Your name *</span><input name="name" type="text" placeholder="" required></label><label class="fld"><span>Phone *</span><input name="phone" type="tel" placeholder="" required></label><label class="fld wide"><span>Vehicle (year, make, model) *</span><input name="vehicle" type="text" placeholder="" required></label><label class="fld"><span>What happened *</span><select name="issue" required><option value="">Choose</option><option>Collision damage</option><option>Dent or scratch</option><option>Paint or color</option><option>Frame damage</option><option>Not sure</option></select></label><label class="fld"><span>Best day to look at it</span><input name="day" type="date" placeholder=""></label><label class="fld wide"><span>Details</span><textarea name="note" rows="3" placeholder="Where the damage is, when it happened"></textarea></label></div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Request estimate</button></form><div id="ok" class="okbox" hidden><h3>Request saved</h3><p>Demo only: your request was saved in this browser and shows on the admin page.</p></div></div></div></section><footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with K & A Auto Body Repair. Photos are stock images.</span></div></footer><div class="mbar"><a href="tel:+12157087932">Call</a><a href="https://www.google.com/maps/dir//4824%20Van%20Kirk%20St%2C%20Philadelphia%2C%20PA%2019135" target="_blank" rel="noopener">Directions</a><a href="#estimate">Estimate</a></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');var SLUG="k-and-a-auto-body";</script>
+<script>
+window.SITE=function(mm){
+ gsap.fromTo(".hero .bg",{scale:1.1},{scale:1,duration:2.6,ease:"power2.out"});
+ mm.add('(min-width:901px)',function(){
+  var st=document.querySelectorAll('.st'),bar=document.querySelector('.bar i');
+  if(!st.length)return;
+  var cur=-1;
+  function set(i){if(i===cur)return;cur=i;st.forEach(function(el,k){el.classList.toggle('on',k<=i)})}
+  set(0);
+  ScrollTrigger.create({trigger:'.proc',start:'top top',end:'+=1600',pin:true,scrub:true,onUpdate:function(s){set(Math.min(st.length-1,Math.floor(s.progress*st.length)));gsap.set(bar,{scaleX:.25+.75*s.progress})}});
+ });
+};
+</script>
+<script>
+function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=900&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}
+(function(){
+var nav=document.querySelector('header.nav');
+function sc(){if(nav)nav.classList.toggle('solid',window.scrollY>40)}
+window.addEventListener('scroll',sc,{passive:true});sc();
+var bg=document.querySelector('.burger');
+if(bg)bg.addEventListener('click',function(){document.body.classList.toggle('menu')});
+document.querySelectorAll('.drawer a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu')})});
+var f=document.getElementById('bk');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(f).forEach(function(v,k){d[k]=v});
+ var ok=true;f.querySelectorAll('[required]').forEach(function(x){if(!String(x.value).trim()){x.classList.add('bad');ok=false}else x.classList.remove('bad')});
+ var er=f.querySelector('.err');if(!ok){er.hidden=false;return}er.hidden=true;
+ d.id='bk_'+Date.now();d.created=new Date().toISOString();d.status='new';
+ if(window.EXTRA_FIELDS){var ex=window.EXTRA_FIELDS();Object.keys(ex).forEach(function(k){d[k]=ex[k]})}
+ var a=[];try{a=JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(x){}
+ a.unshift(d);try{localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+ f.hidden=true;var ob=document.getElementById('ok');ob.hidden=false;
+ if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+window.addEventListener('load',function(){
+ var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!window.gsap||!window.ScrollTrigger){window.__ok=1;return}
+ gsap.registerPlugin(ScrollTrigger);
+ var lenis=null;
+ if(window.Lenis&&!rm){lenis=new Lenis({lerp:.1,smoothWheel:true});window.lenis=lenis;lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();if(lenis)lenis.scrollTo(t,{offset:-64,duration:1.3});else t.scrollIntoView({behavior:'smooth'})})});
+ gsap.to('.ln>span',{y:0,duration:1.15,ease:'expo.out',stagger:.12,delay:.15});
+ gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.1,delay:.55});
+ ScrollTrigger.batch('[data-r]',{start:'top 91%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1})}});
+ document.querySelectorAll('[data-wipe]').forEach(function(el){
+  var tr={trigger:el,start:'top 90%',once:true};
+  gsap.fromTo(el,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'expo.out',scrollTrigger:tr});
+  var im=el.querySelector('img');if(im)gsap.fromTo(im,{scale:1.25},{scale:1,duration:1.7,ease:'expo.out',scrollTrigger:tr})});
+ document.querySelectorAll('[data-par]').forEach(function(el){gsap.to(el,{yPercent:parseFloat(el.dataset.par),ease:'none',scrollTrigger:{trigger:el.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+ var mm=gsap.matchMedia();
+ if(window.SITE)window.SITE(mm,lenis);
+ window.addEventListener('resize',function(){ScrollTrigger.refresh()});
+ setTimeout(function(){ScrollTrigger.refresh()},600);
+ window.__ok=1;
+});
+setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script>
+</body>
+</html>

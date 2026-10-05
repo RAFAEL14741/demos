@@ -1,0 +1,201 @@
+<!doctype html>
+<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with Frozen Wonders Cafe. [CONFIRM] items: hours (Yelp only, Wednesday closed), menu items and flavors, owner name, years open, party offers -->
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frozen Wonders Cafe | Mayfair ice cream, Philadelphia (demo)</title>
+<meta name="description" content="Demo website concept for Frozen Wonders Cafe, an independent ice cream shop on Robbins St in Mayfair, Philadelphia.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F3EC;--bg2:#FFE9DA;--ink:#1B1A2E;--mut:#5E5B70;--acc:#13806F;--onacc:#fff;--line:rgba(27,26,46,.14);--navbg:rgba(248,243,236,.92);--f1:'Fraunces',serif;--f2:'DM Sans',sans-serif;--r:999px;--r2:12px;--navink:#1B1A2E;--drawer:#F8F3EC}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{scroll-behavior:auto}
+body{font:400 16px/1.65 var(--f2);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:100%;width:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{width:min(1240px,92vw);margin-inline:auto}
+section{padding:clamp(88px,11vw,152px) 0;position:relative}
+.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:1.1rem}
+h1,h2,h3{font-family:var(--f1);font-weight:var(--fw,500);line-height:1.02;letter-spacing:var(--ls,-.01em)}
+h2{font-size:clamp(2.2rem,5vw,4.2rem)}
+p.lead{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--mut);max-width:34em;margin-top:1.2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.7rem;border-radius:var(--r,999px);background:var(--acc);color:var(--onacc,#fff);font:600 .95rem var(--f2);border:1px solid var(--acc);cursor:pointer;min-height:50px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px)}.btn.ghost:hover{background:var(--ink);color:var(--bg)}}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}
+.ln>span{display:block}
+.js .ln>span{transform:translateY(112%)}
+.js [data-r],.js [data-hero]{opacity:0;transform:translateY(34px)}
+.js [data-wipe]{clip-path:inset(0 0 100% 0)}
+.nojsfix [data-r],.nojsfix [data-hero]{opacity:1!important;transform:none!important}
+.nojsfix .ln>span{transform:none!important}
+.nojsfix [data-wipe]{clip-path:none!important}
+.img{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.img.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--acc),var(--ink))}
+header.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:16px 4vw;transition:background .4s,box-shadow .4s,padding .4s;color:var(--navink,var(--ink))}
+header.nav.solid{background:var(--navbg);box-shadow:0 1px 0 var(--line);padding:11px 4vw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--navink2,var(--ink))}
+.brand{font:var(--brandw,600) 1.25rem var(--f1);letter-spacing:var(--brandls,0);white-space:nowrap}
+.nav nav{display:flex;gap:2rem;align-items:center}
+.nav nav a{font:500 .88rem var(--f2);opacity:.85;position:relative}
+@media (hover:hover) and (pointer:fine){.nav nav a:not(.btn):hover{opacity:1}}
+.nav .btn{padding:.7rem 1.2rem;min-height:44px;font-size:.85rem}
+.burger{display:none;width:46px;height:46px;border:0;background:transparent;cursor:pointer;color:inherit;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:2px;background:currentColor;transition:transform .35s,top .35s}
+.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:26px}
+body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:55;background:var(--drawer,var(--bg));color:var(--drawerink,var(--ink));display:flex;flex-direction:column;justify-content:center;gap:1.4rem;padding:0 8vw;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+body.menu .drawer{transform:none}
+.drawer a{font:var(--fw,500) clamp(2rem,9vw,3rem)/1.1 var(--f1)}
+@media (max-width:900px){.nav nav{display:none}.burger{display:block}}
+.form{display:block}
+.form-intro{color:var(--mut);margin-bottom:1.4rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem;margin-bottom:1.4rem}
+.fld{display:flex;flex-direction:column;gap:.4rem}
+.fld.wide{grid-column:1/-1}
+.fld span{font:600 .72rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.fld input,.fld select,.fld textarea{background:var(--field,transparent);border:0;border-bottom:1px solid var(--line2,var(--line));padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
+.fld textarea{min-height:92px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--acc)}
+.fld .bad,.fld input.bad,.fld select.bad{border-color:#c0392b}
+.fld option{color:#111}
+.err{color:#c0392b;font-size:.9rem;margin-bottom:1rem}
+.okbox{padding:2rem;border:1px solid var(--line2,var(--line));border-radius:var(--r2,6px)}
+.okbox h3{font-size:1.8rem;margin-bottom:.5rem}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.hours li span:first-child{color:var(--mut)}
+.map{border-radius:var(--r2,6px);overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) brightness(.98)}
+footer.foot{padding:48px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem}
+footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1fr;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .82rem var(--f2);letter-spacing:.06em;text-transform:uppercase;color:var(--navink2,var(--ink))}
+.mbar a:last-child{background:var(--acc);color:var(--onacc,#fff)}
+@media (max-width:900px){.mbar{display:grid}}
+@media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}}
+
+
+.hero{min-height:100svh;padding:clamp(112px,13vw,170px) 0 clamp(60px,8vw,110px);display:flex;align-items:center}
+.hero-g{display:grid;grid-template-columns:1.05fr .95fr;gap:5vw;align-items:center}
+.hero h1{font-size:clamp(3.2rem,8vw,7.4rem);line-height:.95}
+.hero h1 em{font-style:italic;color:var(--acc)}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.chip{display:inline-flex;align-items:baseline;gap:.7rem;margin-top:2.2rem;padding:.7rem 1.2rem;border:1px solid var(--line);border-radius:999px;background:#fff}
+.chip b{font:500 1.7rem var(--f1)}
+.chip span{font-size:.88rem;color:var(--mut)}
+.hero-p{position:relative}
+.arch{aspect-ratio:4/5;border-radius:999px 999px 28px 28px}
+.round{position:absolute;left:-9%;bottom:-5%;width:36%;aspect-ratio:1;border-radius:50%;border:9px solid var(--bg)}
+@media (max-width:900px){.hero-g{grid-template-columns:1fr}.hero-p{order:-1;max-width:420px;margin-inline:auto;width:100%}.round{left:-3%}.hero{min-height:0}}
+.strip{background:var(--ink);color:#F8F3EC;padding:34px 0}
+.strip .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.6rem}
+.strip div b{display:block;font:500 1.9rem var(--f1);color:#fff}
+.strip div span{font-size:.82rem;opacity:.7;letter-spacing:.04em}
+.picker{padding:0}
+.pk-g{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center;padding:90px 0}
+.pk-item{padding:1.2rem 0;border-top:1px solid var(--line);opacity:.38;transition:opacity .4s}
+.pk-item:last-child{border-bottom:1px solid var(--line)}
+.pk-item.on{opacity:1}
+.pk-item h3{font-size:clamp(1.8rem,3.4vw,2.8rem)}
+.pk-item p{color:var(--mut);max-width:30em;margin-top:.5rem}
+.pk-item small{display:block;margin-top:.6rem;font-size:.78rem;color:var(--acc)}
+.pk-m{display:none}
+.pk-right{position:relative}
+.pk-ph{position:absolute;inset:0;opacity:0}
+.pk-ph:first-child{opacity:1}
+.pk-arch{aspect-ratio:4/5;border-radius:999px 999px 28px 28px;max-width:470px;margin-left:auto;position:relative}
+.pk-ph{border-radius:inherit;overflow:hidden}
+@media (max-width:900px){
+ .picker{padding:clamp(80px,12vw,120px) 0}
+ .pk-g{grid-template-columns:1fr;min-height:0;padding:0}
+ .pk-right{display:none}
+ .pk-item{opacity:1;padding:1.6rem 0}
+ .pk-m{display:block;aspect-ratio:4/3;border-radius:16px;margin-top:1rem}
+}
+.about{background:var(--bg2)}
+.ab-g{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
+.ab-g .img{aspect-ratio:4/5;border-radius:12px}
+.ab-g p{color:var(--mut);margin-top:1.2rem;max-width:32em}
+@media (max-width:900px){.ab-g{grid-template-columns:1fr}}
+.visit-g{display:grid;grid-template-columns:1fr 1.1fr;gap:6vw}
+.visit-g h2{margin-bottom:1.4rem}
+.addr{margin:1.4rem 0 1.6rem;line-height:1.7}
+.addr a{border-bottom:1px solid var(--acc)}
+.fine{font-size:.82rem;color:var(--mut);margin-top:.9rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:clamp(1.4rem,3vw,2.4rem)}
+@media (max-width:900px){.visit-g{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top">Frozen Wonders</a><nav><a href="#treats">Treats</a><a href="#about">The shop</a><a href="#visit">Visit</a><a class="btn" href="#book">Plan a visit</a></nav><button class="burger" aria-label="Menu"><i></i><i></i></button></header><div class="drawer"><a href="#treats">Treats</a><a href="#about">The shop</a><a href="#visit">Visit</a><a href="#book">Plan a visit</a></div><section class="hero" id="top"><div class="wrap hero-g"><div class="hero-t"><span class="eyebrow" data-hero>Mayfair, Philadelphia &middot; Independent ice cream shop</span><h1><span class="ln"><span>Cold treats,</span></span><span class="ln"><span><em>warm</em> welcome.</span></span></h1><p class="lead" data-hero>Cones, milkshakes and unique cold treats, steps from Chickie &amp; Pete&rsquo;s on Robbins Street.</p><div class="cta" data-hero><a class="btn" href="#visit">Plan your visit</a><a class="btn ghost" href="tel:+12154377760">(215) 437-7760</a></div><div class="chip" data-hero><b>4.7</b><span>on Google &middot; 102 reviews</span></div></div><div class="hero-p"><div class="arch img" data-wipe><img src="https://images.unsplash.com/photo-1663721206074-02fb7b026da8?auto=format&fit=crop&w=1000&q=75" alt="A colorful ice cream cone (stock photo)" width="1000" height="750" data-fb="1636564499112-6113e73c504a" fetchpriority="high" onerror="fb(this)" ></div><div class="round img" data-r data-par="-8"><img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=500&q=75" alt="A strawberry milkshake (stock photo)" width="500" height="375" data-fb="1572490122747-3968b75cc699" loading="lazy" onerror="fb(this)" ></div></div></div></section><div class="strip"><div class="wrap"><div><b>4.7 / 5</b><span>Google rating, 102 reviews</span></div><div><b>Open 6 days</b><span>Afternoons and evenings, per Yelp</span></div><div><b>Robbins St</b><span>Steps from Chickie &amp; Pete&rsquo;s, Mayfair</span></div><div><b>Independent</b><span>Locally owned ice cream shop</span></div></div></div><section class="picker" id="treats"><div class="wrap pk-g"><div class="pk-left"><span class="eyebrow">The treats</span><h2 style="margin-bottom:1.6rem">Pick your cold treat.</h2><div class="pk-item" data-r><h3>Ice cream & cones</h3><p>The classic cone stop, scoops and soft serve for a walk down Robbins Street.</p><small>Stock photo, stand-in</small><div class="pk-m img"><img src="https://images.unsplash.com/photo-1663721206074-02fb7b026da8?auto=format&fit=crop&w=900&q=75" alt="Ice cream &amp; cones (stock photo)" width="900" height="675" data-fb="1636564499112-6113e73c504a" loading="lazy" onerror="fb(this)" ></div></div><div class="pk-item" data-r><h3>Milkshakes</h3><p>Thick, cold and made for sharing with friends after school or after dinner.</p><small>Stock photo, stand-in</small><div class="pk-m img"><img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=900&q=75" alt="Milkshakes (stock photo)" width="900" height="675" data-fb="1572490122747-3968b75cc699" loading="lazy" onerror="fb(this)" ></div></div><div class="pk-item" data-r><h3>Bubble waffles</h3><p>Warm egg waffles with cold toppings, listed on the shop's Yelp page.</p><small>Stock photo, stand-in. Menu and flavors added once owner confirms</small><div class="pk-m img"><img src="https://images.unsplash.com/photo-1633981806729-973c239476c3?auto=format&fit=crop&w=900&q=75" alt="Bubble waffles (stock photo)" width="900" height="675" data-fb="1695886855588-47117bca2fe6" loading="lazy" onerror="fb(this)" ></div></div><div class="pk-item" data-r><h3>Water ice</h3><p>A light, icy option for hot days. Flavors added once owner confirms.</p><small>Stock photo, stand-in</small><div class="pk-m img"><img src="https://images.unsplash.com/photo-1768204042188-f5a337e61ca5?auto=format&fit=crop&w=900&q=75" alt="Water ice (stock photo)" width="900" height="675" data-fb="1636696301991-3e176a6b77dc" loading="lazy" onerror="fb(this)" ></div></div></div><div class="pk-right"><div class="pk-arch"><div class="pk-ph img"><img src="https://images.unsplash.com/photo-1663721206074-02fb7b026da8?auto=format&fit=crop&w=900&q=75" alt="Ice cream &amp; cones (stock photo)" width="900" height="675" data-fb="1636564499112-6113e73c504a" loading="lazy" onerror="fb(this)" ></div><div class="pk-ph img"><img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=900&q=75" alt="Milkshakes (stock photo)" width="900" height="675" data-fb="1572490122747-3968b75cc699" loading="lazy" onerror="fb(this)" ></div><div class="pk-ph img"><img src="https://images.unsplash.com/photo-1633981806729-973c239476c3?auto=format&fit=crop&w=900&q=75" alt="Bubble waffles (stock photo)" width="900" height="675" data-fb="1695886855588-47117bca2fe6" loading="lazy" onerror="fb(this)" ></div><div class="pk-ph img"><img src="https://images.unsplash.com/photo-1768204042188-f5a337e61ca5?auto=format&fit=crop&w=900&q=75" alt="Water ice (stock photo)" width="900" height="675" data-fb="1636696301991-3e176a6b77dc" loading="lazy" onerror="fb(this)" ></div></div></div></div></section><section class="about" id="about"><div class="wrap ab-g"><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1695886855588-47117bca2fe6?auto=format&fit=crop&w=900&q=75" alt="An ice cream sundae (stock photo)" width="900" height="675" data-fb="1636696301991-3e176a6b77dc" loading="lazy" onerror="fb(this)" ></div><div><span class="eyebrow">The shop</span><h2>The neighborhood&rsquo;s place for a cone.</h2><p data-r>Frozen Wonders is an independent ice cream shop in the Mayfair section, a short walk from Chickie &amp; Pete&rsquo;s. The owners describe it as the spot where locals meet friends for a cone, a milkshake or one of their unique cold treats.</p><p data-r>Follow the shop on <a href="https://www.instagram.com/frozenwonderscafe" target="_blank" rel="noopener" style="border-bottom:1px solid var(--acc)">Instagram</a> for what&rsquo;s new.</p><p class="fine" data-r>Stock photos are stand-ins until the shop&rsquo;s own photos are approved.</p></div></div></section><section id="visit"><div class="wrap visit-g"><div><span class="eyebrow">Visit</span><h2>Come by.</h2><p class="addr">4100 Robbins St<br>Philadelphia, PA 19135<br><a href="tel:+12154377760">(215) 437-7760</a></p><ul class="hours"><li><span>Monday</span><span>3 PM - 9 PM</span></li><li><span>Tuesday</span><span>3 PM - 9 PM</span></li><li><span>Wednesday</span><span>Closed</span></li><li><span>Thursday</span><span>3 PM - 9 PM</span></li><li><span>Friday</span><span>3 PM - 10 PM</span></li><li><span>Saturday</span><span>3 PM - 10 PM</span></li><li><span>Sunday</span><span>3 PM - 9 PM</span></li></ul><p class="fine">Hours listed on Yelp. The owner confirms before we publish.</p></div><div><div class="card" id="book"><form id="bk" class="form" novalidate><p class="form-intro">Send the shop a message. This is a demo, nothing is sent to the owner.</p><div class="fgrid"><label class="fld"><span>Your name *</span><input name="name" type="text" placeholder="" required></label><label class="fld"><span>Phone *</span><input name="phone" type="tel" placeholder="" required></label><label class="fld"><span>What is this about *</span><select name="reason" required><option value="">Choose</option><option>Question about flavors</option><option>Order ahead or pickup</option><option>Group or party treats</option><option>Something else</option></select></label><label class="fld"><span>Day you plan to come</span><input name="date" type="date" placeholder=""></label><label class="fld wide"><span>Message</span><textarea name="note" rows="3" placeholder="Anything the shop should know"></textarea></label></div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Send message</button></form><div id="ok" class="okbox" hidden><h3>Message saved</h3><p>Demo only: your message was saved in this browser and shows on the admin page.</p></div></div><div style="margin-top:1.4rem"><div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=4100%20Robbins%20St%2C%20Philadelphia%2C%20PA%2019135&output=embed"></iframe></div></div></div></div></section><footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with Frozen Wonders Cafe. Photos are stock images.</span></div></footer><div class="mbar"><a href="tel:+12154377760">Call</a><a href="https://www.google.com/maps/dir//4100%20Robbins%20St%2C%20Philadelphia%2C%20PA%2019135" target="_blank" rel="noopener">Directions</a><a href="#book">Message</a></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');var SLUG="frozen-wonders-cafe";</script>
+<script>
+window.SITE=function(mm){
+ mm.add('(min-width:901px)',function(){
+  var items=document.querySelectorAll('.pk-item'),ph=document.querySelectorAll('.pk-ph');
+  if(!items.length)return;
+  var cur=-1;
+  function set(i){if(i===cur)return;cur=i;items.forEach(function(el,k){el.classList.toggle('on',k===i)});ph.forEach(function(el,k){gsap.to(el,{opacity:k===i?1:0,duration:.6,ease:'power2.out',overwrite:true})})}
+  set(0);
+  ScrollTrigger.create({trigger:'.picker',start:'top top',end:'+=1800',pin:true,scrub:true,onUpdate:function(s){set(Math.min(items.length-1,Math.floor(s.progress*items.length)))}});
+ });
+};
+</script>
+<script>
+function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=900&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}
+(function(){
+var nav=document.querySelector('header.nav');
+function sc(){if(nav)nav.classList.toggle('solid',window.scrollY>40)}
+window.addEventListener('scroll',sc,{passive:true});sc();
+var bg=document.querySelector('.burger');
+if(bg)bg.addEventListener('click',function(){document.body.classList.toggle('menu')});
+document.querySelectorAll('.drawer a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu')})});
+var f=document.getElementById('bk');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(f).forEach(function(v,k){d[k]=v});
+ var ok=true;f.querySelectorAll('[required]').forEach(function(x){if(!String(x.value).trim()){x.classList.add('bad');ok=false}else x.classList.remove('bad')});
+ var er=f.querySelector('.err');if(!ok){er.hidden=false;return}er.hidden=true;
+ d.id='bk_'+Date.now();d.created=new Date().toISOString();d.status='new';
+ if(window.EXTRA_FIELDS){var ex=window.EXTRA_FIELDS();Object.keys(ex).forEach(function(k){d[k]=ex[k]})}
+ var a=[];try{a=JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(x){}
+ a.unshift(d);try{localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+ f.hidden=true;var ob=document.getElementById('ok');ob.hidden=false;
+ if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+window.addEventListener('load',function(){
+ var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!window.gsap||!window.ScrollTrigger){window.__ok=1;return}
+ gsap.registerPlugin(ScrollTrigger);
+ var lenis=null;
+ if(window.Lenis&&!rm){lenis=new Lenis({lerp:.1,smoothWheel:true});window.lenis=lenis;lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();if(lenis)lenis.scrollTo(t,{offset:-64,duration:1.3});else t.scrollIntoView({behavior:'smooth'})})});
+ gsap.to('.ln>span',{y:0,duration:1.15,ease:'expo.out',stagger:.12,delay:.15});
+ gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.1,delay:.55});
+ ScrollTrigger.batch('[data-r]',{start:'top 91%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1})}});
+ document.querySelectorAll('[data-wipe]').forEach(function(el){
+  var tr={trigger:el,start:'top 90%',once:true};
+  gsap.fromTo(el,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'expo.out',scrollTrigger:tr});
+  var im=el.querySelector('img');if(im)gsap.fromTo(im,{scale:1.25},{scale:1,duration:1.7,ease:'expo.out',scrollTrigger:tr})});
+ document.querySelectorAll('[data-par]').forEach(function(el){gsap.to(el,{yPercent:parseFloat(el.dataset.par),ease:'none',scrollTrigger:{trigger:el.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+ var mm=gsap.matchMedia();
+ if(window.SITE)window.SITE(mm,lenis);
+ window.addEventListener('resize',function(){ScrollTrigger.refresh()});
+ setTimeout(function(){ScrollTrigger.refresh()},600);
+ window.__ok=1;
+});
+setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script>
+</body>
+</html>

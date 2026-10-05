@@ -1,0 +1,200 @@
+<!doctype html>
+<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with Joanie's Deli. [CONFIRM] items: prices, which sizes exist per kind, owner name, years open, ratings, delivery or online ordering -->
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Joanie's Deli | Hoagies on Robbins St, Philadelphia (demo)</title>
+<meta name="description" content="Demo website concept for Joanie's Deli, a local hoagie shop on Robbins St in Tacony, Philadelphia.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6EFE3;--ink:#1E1712;--mut:#6F6355;--acc:#B8321F;--onacc:#fff;--line:rgba(30,23,18,.14);--navbg:rgba(246,239,227,.94);--f1:'DM Serif Display',serif;--f2:'Manrope',sans-serif;--r:6px;--r2:8px;--navink:#fff;--navink2:#1E1712;--drawer:#2F3A2A;--drawerink:#F6EFE3;--fw:400}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip}
+html{scroll-behavior:auto}
+body{font:400 16px/1.65 var(--f2);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:100%;width:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{width:min(1240px,92vw);margin-inline:auto}
+section{padding:clamp(88px,11vw,152px) 0;position:relative}
+.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:1.1rem}
+h1,h2,h3{font-family:var(--f1);font-weight:var(--fw,500);line-height:1.02;letter-spacing:var(--ls,-.01em)}
+h2{font-size:clamp(2.2rem,5vw,4.2rem)}
+p.lead{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--mut);max-width:34em;margin-top:1.2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.7rem;border-radius:var(--r,999px);background:var(--acc);color:var(--onacc,#fff);font:600 .95rem var(--f2);border:1px solid var(--acc);cursor:pointer;min-height:50px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px)}.btn.ghost:hover{background:var(--ink);color:var(--bg)}}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}
+.ln>span{display:block}
+.js .ln>span{transform:translateY(112%)}
+.js [data-r],.js [data-hero]{opacity:0;transform:translateY(34px)}
+.js [data-wipe]{clip-path:inset(0 0 100% 0)}
+.nojsfix [data-r],.nojsfix [data-hero]{opacity:1!important;transform:none!important}
+.nojsfix .ln>span{transform:none!important}
+.nojsfix [data-wipe]{clip-path:none!important}
+.img{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.img.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--acc),var(--ink))}
+header.nav{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:16px 4vw;transition:background .4s,box-shadow .4s,padding .4s;color:var(--navink,var(--ink))}
+header.nav.solid{background:var(--navbg);box-shadow:0 1px 0 var(--line);padding:11px 4vw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--navink2,var(--ink))}
+.brand{font:var(--brandw,600) 1.25rem var(--f1);letter-spacing:var(--brandls,0);white-space:nowrap}
+.nav nav{display:flex;gap:2rem;align-items:center}
+.nav nav a{font:500 .88rem var(--f2);opacity:.85;position:relative}
+@media (hover:hover) and (pointer:fine){.nav nav a:not(.btn):hover{opacity:1}}
+.nav .btn{padding:.7rem 1.2rem;min-height:44px;font-size:.85rem}
+.burger{display:none;width:46px;height:46px;border:0;background:transparent;cursor:pointer;color:inherit;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:2px;background:currentColor;transition:transform .35s,top .35s}
+.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:26px}
+body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:55;background:var(--drawer,var(--bg));color:var(--drawerink,var(--ink));display:flex;flex-direction:column;justify-content:center;gap:1.4rem;padding:0 8vw;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+body.menu .drawer{transform:none}
+.drawer a{font:var(--fw,500) clamp(2rem,9vw,3rem)/1.1 var(--f1)}
+@media (max-width:900px){.nav nav{display:none}.burger{display:block}}
+.form{display:block}
+.form-intro{color:var(--mut);margin-bottom:1.4rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem;margin-bottom:1.4rem}
+.fld{display:flex;flex-direction:column;gap:.4rem}
+.fld.wide{grid-column:1/-1}
+.fld span{font:600 .72rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.fld input,.fld select,.fld textarea{background:var(--field,transparent);border:0;border-bottom:1px solid var(--line2,var(--line));padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
+.fld textarea{min-height:92px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--acc)}
+.fld .bad,.fld input.bad,.fld select.bad{border-color:#c0392b}
+.fld option{color:#111}
+.err{color:#c0392b;font-size:.9rem;margin-bottom:1rem}
+.okbox{padding:2rem;border:1px solid var(--line2,var(--line));border-radius:var(--r2,6px)}
+.okbox h3{font-size:1.8rem;margin-bottom:.5rem}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.hours li span:first-child{color:var(--mut)}
+.map{border-radius:var(--r2,6px);overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) brightness(.98)}
+footer.foot{padding:48px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem}
+footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1fr;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .82rem var(--f2);letter-spacing:.06em;text-transform:uppercase;color:var(--navink2,var(--ink))}
+.mbar a:last-child{background:var(--acc);color:var(--onacc,#fff)}
+@media (max-width:900px){.mbar{display:grid}}
+@media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}}
+
+
+.hero{position:relative;min-height:100svh;color:#fff;display:flex;align-items:flex-end;overflow:hidden;background:#1E1712}
+.hero .bg{position:absolute;inset:0}
+.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,12,8,.82),rgba(18,12,8,.5) 55%,rgba(18,12,8,.2)),linear-gradient(180deg,rgba(18,12,8,.35),rgba(18,12,8,0) 30%,rgba(18,12,8,.8))}
+.hero-in{position:relative;z-index:2;width:min(1240px,92vw);margin:0 auto;padding:0 0 clamp(170px,17vw,210px)}
+.hero h1{font-size:clamp(3.4rem,min(9.4vw,15vh),9rem);line-height:.92;color:#fff}
+.hero .eyebrow{color:#F3C9A0}
+.hero p.sub{max-width:30em;margin-top:1.3rem;font-size:clamp(1.05rem,1.5vw,1.3rem);opacity:.92}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero .btn.ghost{color:#fff}
+@media (hover:hover) and (pointer:fine){.hero .btn.ghost:hover{background:#fff;color:#1E1712}}
+.info{position:absolute;left:0;right:0;bottom:0;z-index:2;border-top:1px solid rgba(255,255,255,.28);background:rgba(18,12,8,.58);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.info .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;padding:20px 0}
+.info small{display:block;font:600 .68rem var(--f2);letter-spacing:.18em;text-transform:uppercase;color:#F3C9A0;margin-bottom:.2rem}
+.info b{font:500 1rem var(--f2)}
+@media (max-width:700px){.info .wrap{grid-template-columns:1fr 1fr}.info .wrap div:nth-child(3){display:none}.hero-in{padding-bottom:210px}}
+.promise{background:var(--bg)}
+.pr-g{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
+.pr-g .img{aspect-ratio:5/4;border-radius:10px}
+.pr-g p{color:var(--mut);margin-top:1.1rem;max-width:32em}
+@media (max-width:900px){.pr-g{grid-template-columns:1fr}}
+.build{background:#2F3A2A;color:#F6EFE3;--mut:#C8C2B0;--line:rgba(246,239,227,.2)}
+.build .eyebrow{color:#F3C9A0}
+.bd-g{display:grid;grid-template-columns:1.15fr .85fr;gap:5vw;margin-top:2.6rem;align-items:start}
+.step{margin-bottom:2rem}
+.step h3{font:600 .78rem var(--f2);letter-spacing:.16em;text-transform:uppercase;color:#F3C9A0;margin-bottom:.9rem}
+.opts{display:flex;flex-wrap:wrap;gap:.7rem}
+.opt{border:1px solid rgba(246,239,227,.3);background:transparent;color:#F6EFE3;padding:.9rem 1.3rem;border-radius:8px;cursor:pointer;min-height:52px;font:600 .98rem var(--f2);transition:background .3s,color .3s,border-color .3s}
+.opt.on{background:#F6EFE3;color:#1E1712;border-color:#F6EFE3}
+@media (hover:hover) and (pointer:fine){.opt:hover{border-color:#F6EFE3}}
+.sumcard{background:#FCF8F1;color:#1E1712;border-radius:12px;padding:clamp(1.4rem,3vw,2.2rem);--mut:#6F6355;--line:rgba(30,23,18,.18)}
+.sumcard .yo{font:500 .72rem var(--f2);letter-spacing:.16em;text-transform:uppercase;color:#6F6355}
+.sumcard .sum{font:400 clamp(1.7rem,3vw,2.3rem)/1.1 var(--f1);margin:.4rem 0 .4rem}
+.sumcard .note{font-size:.84rem;color:#6F6355;margin-bottom:1.4rem}
+.sumcard .fld span{color:#6F6355}
+.sumcard .okbox{border-color:rgba(30,23,18,.2)}
+@media (max-width:900px){.bd-g{grid-template-columns:1fr}}
+.menu .rows{margin-top:2.2rem}
+.menu .rw{display:flex;justify-content:space-between;gap:1rem;padding:1.05rem 0;border-top:1px solid var(--line);font:500 1.05rem var(--f2)}
+.menu .rw:last-child{border-bottom:1px solid var(--line)}
+.menu .rw span:last-child{color:var(--mut);font-size:.9rem}
+.menu-g{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw}
+.menu-g .lead{margin-top:1rem}
+@media (max-width:900px){.menu-g{grid-template-columns:1fr}}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:3rem}
+.gal .img{aspect-ratio:4/5;border-radius:8px}
+@media (max-width:700px){.gal{grid-template-columns:1fr 1fr}.gal .img:last-child{display:none}}
+.visit-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw}
+.addr{margin:1.2rem 0 1.4rem;line-height:1.7}
+.addr a{border-bottom:1px solid var(--acc)}
+.fine{font-size:.82rem;color:var(--mut);margin-top:.9rem}
+@media (max-width:900px){.visit-g{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top">Joanie&rsquo;s Deli</a><nav><a href="#about">About</a><a href="#build">Build</a><a href="#menu">Menu</a><a href="#visit">Visit</a><a class="btn" href="#build">Order pickup</a></nav><button class="burger" aria-label="Menu"><i></i><i></i></button></header><div class="drawer"><a href="#about">About</a><a href="#build">Build</a><a href="#menu">Menu</a><a href="#visit">Visit</a><a href="#build">Order pickup</a></div><section class="hero" id="top"><div class="bg"><img src="https://images.unsplash.com/photo-1749513762144-8991c898d95c?auto=format&fit=crop&w=1600&q=75" alt="A hoagie sandwich on a wooden board (stock photo)" width="1600" height="1200" data-fb="1676300187140-00828e014d2a" fetchpriority="high" onerror="fb(this)" ></div><div class="hero-in"><span class="eyebrow" data-hero>Robbins St &middot; Tacony, Philadelphia</span><h1><span class="ln"><span>Local hoagie,</span></span><span class="ln"><span>done right.</span></span></h1><p class="sub" data-hero>Fresh meat, fresh bread, built the way you ordered it. Breakfast to early dinner, seven days a week.</p><div class="cta" data-hero><a class="btn" href="#build">Build your hoagie</a><a class="btn ghost" href="tel:+12157088779">(215) 708-8779</a></div></div><div class="info"><div class="wrap"><div><small>Today</small><b>Open 7 AM - 7 PM weekdays</b></div><div><small>Call</small><b>(215) 708-8779</b></div><div><small>Find us</small><b>4155 Robbins St</b></div></div></div></section><section class="promise" id="about"><div class="wrap pr-g"><div><span class="eyebrow">The promise</span><h2>If it&rsquo;s not right, it doesn&rsquo;t go out.</h2><p data-r>Joanie&rsquo;s says it takes pride in the quality of the meat on every hoagie, and that an order that isn&rsquo;t just the way you asked for it won&rsquo;t be sent out.</p><p data-r>The menu runs from old-school hoagies to custom builds, with sides on the side.</p><p class="fine" data-r>Based on the shop&rsquo;s current page. Stock photos stand in for the shop&rsquo;s own.</p></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1639667911189-700bd2029f5b?auto=format&fit=crop&w=1000&q=75" alt="A sandwich with meat, cheese and lettuce (stock photo)" width="1000" height="750" data-fb="1728155734335-f262972ed44f" loading="lazy" onerror="fb(this)" ></div></div></section><section class="build" id="build"><div class="wrap"><span class="eyebrow">Build your hoagie</span><h2>Start your order.</h2><div class="bd-g"><div><div class="step"><h3>1. Size</h3><div class="opts"><button class="opt on" data-size="Large" type="button">Large</button><button class="opt" data-size="Small" type="button">Small</button></div></div><div class="step"><h3>2. Kind</h3><div class="opts"><button class="opt" data-kind="Italian" type="button">Italian</button><button class="opt" data-kind="American" type="button">American</button><button class="opt" data-kind="Chicken salad" type="button">Chicken salad</button><button class="opt" data-kind="Tuna" type="button">Tuna</button><button class="opt" data-kind="Seafood salad" type="button">Seafood salad</button><button class="opt" data-kind="Custom hoagie" type="button">Custom hoagie</button></div></div><p class="fine" style="color:#C8C2B0">Sizes and kinds follow the shop&rsquo;s current menu page. Prices added once owner confirms.</p></div><div class="sumcard" id="book"><div class="yo">Your pickup order</div><div class="sum" id="sum">Large hoagie</div><div class="note">Pick up at 4155 Robbins St. This is a demo: nothing is sent to the shop.</div><form id="bk" class="form" novalidate><div class="fgrid"><label class="fld"><span>Name *</span><input name="name" type="text" placeholder="" required></label><label class="fld"><span>Phone *</span><input name="phone" type="tel" placeholder="" required></label><label class="fld"><span>Pickup time *</span><select name="pickup" required><option value="">Choose</option><option>As soon as possible</option><option>11:30 AM</option><option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option><option>Later today</option></select></label><label class="fld wide"><span>Notes for the shop</span><textarea name="note" rows="3" placeholder="Toppings, no onions, extra bread..."></textarea></label></div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Place pickup request</button></form><div id="ok" class="okbox" hidden><h3>Order saved</h3><p>Demo only: your order was saved in this browser and shows on the admin page.</p></div></div></div></div></section><section class="menu" id="menu"><div class="wrap menu-g"><div><span class="eyebrow">Menu</span><h2>What&rsquo;s on the board.</h2><p class="lead">The shop&rsquo;s current page lists these hoagies. Prices added once owner confirms.</p></div><div class="rows"><div class="rw" data-r><span>Large Italian</span><span>Price added once owner confirms</span></div><div class="rw" data-r><span>Large American</span><span>Price added once owner confirms</span></div><div class="rw" data-r><span>Large hoagie / Small hoagie</span><span>Price added once owner confirms</span></div><div class="rw" data-r><span>Chicken salad hoagie (large or small)</span><span>Price added once owner confirms</span></div><div class="rw" data-r><span>Tuna hoagie (large or small)</span><span>Price added once owner confirms</span></div><div class="rw" data-r><span>Seafood salad hoagie (large)</span><span>Price added once owner confirms</span></div></div></div><div class="wrap gal"><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1778362561139-84fc85c97fe0?auto=format&fit=crop&w=700&q=75" alt="A sandwich with melted cheese (stock photo)" width="700" height="525" data-fb="1676300187140-00828e014d2a" loading="lazy" onerror="fb(this)" ></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1732565432275-dfa8df7e3170?auto=format&fit=crop&w=700&q=75" alt="A large sandwich (stock photo)" width="700" height="525" data-fb="1639667911189-700bd2029f5b" loading="lazy" onerror="fb(this)" ></div><div class="img" data-wipe><img src="https://images.unsplash.com/photo-1775210603688-6355e3aabc87?auto=format&fit=crop&w=700&q=75" alt="Several large sandwiches stacked (stock photo)" width="700" height="525" data-fb="1778362561139-84fc85c97fe0" loading="lazy" onerror="fb(this)" ></div></div></section><section id="visit"><div class="wrap visit-g"><div><span class="eyebrow">Visit</span><h2>Come hungry.</h2><p class="addr">4155 Robbins St<br>Philadelphia, PA 19135<br><a href="tel:+12157088779">(215) 708-8779</a></p><ul class="hours"><li><span>Monday - Friday</span><span>7 AM - 7 PM</span></li><li><span>Saturday</span><span>8 AM - 7 PM</span></li><li><span>Sunday</span><span>9 AM - 4 PM</span></li></ul><p class="fine">Hours from the shop&rsquo;s current page. Owner confirms before we publish.</p></div><div><div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=4155%20Robbins%20St%2C%20Philadelphia%2C%20PA%2019135&output=embed"></iframe></div></div></div></section><footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with Joanie's Deli. Photos are stock images.</span></div></footer><div class="mbar"><a href="tel:+12157088779">Call</a><a href="https://www.google.com/maps/dir//4155%20Robbins%20St%2C%20Philadelphia%2C%20PA%2019135" target="_blank" rel="noopener">Directions</a><a href="#build">Order</a></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');var SLUG="joanies-deli";</script>
+<script>
+window.SITE=function(){gsap.fromTo(".hero .bg",{scale:1.14},{scale:1,duration:2.6,ease:"power2.out"})};
+var ORDER={size:'Large',kind:''};
+function upd(){var el=document.getElementById('sum');if(el)el.textContent=ORDER.size+' '+(ORDER.kind||'hoagie, pick a kind')}
+window.EXTRA_FIELDS=function(){return {order:ORDER.size+' '+(ORDER.kind||'(kind not chosen)')}};
+document.querySelectorAll('[data-size]').forEach(function(b){b.addEventListener('click',function(){ORDER.size=b.dataset.size;document.querySelectorAll('[data-size]').forEach(function(x){x.classList.toggle('on',x===b)});upd()})});
+document.querySelectorAll('[data-kind]').forEach(function(b){b.addEventListener('click',function(){ORDER.kind=b.dataset.kind;document.querySelectorAll('[data-kind]').forEach(function(x){x.classList.toggle('on',x===b)});upd()})});
+upd();
+</script>
+<script>
+function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=900&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}
+(function(){
+var nav=document.querySelector('header.nav');
+function sc(){if(nav)nav.classList.toggle('solid',window.scrollY>40)}
+window.addEventListener('scroll',sc,{passive:true});sc();
+var bg=document.querySelector('.burger');
+if(bg)bg.addEventListener('click',function(){document.body.classList.toggle('menu')});
+document.querySelectorAll('.drawer a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu')})});
+var f=document.getElementById('bk');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(f).forEach(function(v,k){d[k]=v});
+ var ok=true;f.querySelectorAll('[required]').forEach(function(x){if(!String(x.value).trim()){x.classList.add('bad');ok=false}else x.classList.remove('bad')});
+ var er=f.querySelector('.err');if(!ok){er.hidden=false;return}er.hidden=true;
+ d.id='bk_'+Date.now();d.created=new Date().toISOString();d.status='new';
+ if(window.EXTRA_FIELDS){var ex=window.EXTRA_FIELDS();Object.keys(ex).forEach(function(k){d[k]=ex[k]})}
+ var a=[];try{a=JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(x){}
+ a.unshift(d);try{localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
+ f.hidden=true;var ob=document.getElementById('ok');ob.hidden=false;
+ if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
+window.addEventListener('load',function(){
+ var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(!window.gsap||!window.ScrollTrigger){window.__ok=1;return}
+ gsap.registerPlugin(ScrollTrigger);
+ var lenis=null;
+ if(window.Lenis&&!rm){lenis=new Lenis({lerp:.1,smoothWheel:true});window.lenis=lenis;lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();if(lenis)lenis.scrollTo(t,{offset:-64,duration:1.3});else t.scrollIntoView({behavior:'smooth'})})});
+ gsap.to('.ln>span',{y:0,duration:1.15,ease:'expo.out',stagger:.12,delay:.15});
+ gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.1,delay:.55});
+ ScrollTrigger.batch('[data-r]',{start:'top 91%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1})}});
+ document.querySelectorAll('[data-wipe]').forEach(function(el){
+  var tr={trigger:el,start:'top 90%',once:true};
+  gsap.fromTo(el,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'expo.out',scrollTrigger:tr});
+  var im=el.querySelector('img');if(im)gsap.fromTo(im,{scale:1.25},{scale:1,duration:1.7,ease:'expo.out',scrollTrigger:tr})});
+ document.querySelectorAll('[data-par]').forEach(function(el){gsap.to(el,{yPercent:parseFloat(el.dataset.par),ease:'none',scrollTrigger:{trigger:el.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+ var mm=gsap.matchMedia();
+ if(window.SITE)window.SITE(mm,lenis);
+ window.addEventListener('resize',function(){ScrollTrigger.refresh()});
+ setTimeout(function(){ScrollTrigger.refresh()},600);
+ window.__ok=1;
+});
+setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script>
+</body>
+</html>
