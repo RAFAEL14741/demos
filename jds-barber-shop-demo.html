@@ -404,12 +404,12 @@ window.SITE=function(mm,lenis){FM(mm,lenis);
  var wk=$('.week',B),bar=$('.bar',B),sl=$('.slots',B),sv=$('.svc',B);
  wk.innerHTML=DAYS.map(function(d,i){var cl=cfg.closed.indexOf(d.getDay())>-1;return '<button type="button" data-i="'+i+'"'+(cl?' disabled':'')+'>'+WK[d.getDay()]+'<b>'+d.getDate()+'</b></button>'}).join('');
  bar.innerHTML=cfg.barbers.map(function(n,i){return '<button type="button" data-i="'+i+'"><i>'+n.charAt(0)+'</i>'+n+'</button>'}).join('');
- sv.innerHTML=cfg.services.map(function(s,i){return '<button type="button" data-i="'+i+'">'+s[0]+' <small>$'+s[1]+'</small></button>'}).join('');
+ sv.innerHTML=cfg.services.map(function(s,i){return '<button type="button" data-i="'+i+'">'+s[0]+' <small>'+(/^\d/.test(s[1])?'$':'')+s[1]+'</small></button>'}).join('');
  function slots(){var d=DAYS[S.d];sl.innerHTML=cfg.slots.map(function(t,i){var tk=hsh(d.getDate()*31+S.b*17+i*7+d.getMonth())<34;return '<button type="button" data-i="'+i+'" style="animation-delay:'+(i*28)+'ms"'+(tk?' disabled':'')+'>'+t+'</button>'}).join('');S.t=-1;sum()}
  function sum(){var d=DAYS[S.d],s=cfg.services[S.s],R=$('.rcpt',B);
   R.querySelector('[data-r=d]').textContent=d?WK[d.getDay()]+' '+MO[d.getMonth()]+' '+d.getDate():'-';
   R.querySelector('[data-r=t]').textContent=S.t>-1?cfg.slots[S.t]:'pick a time';
-  R.querySelector('[data-r=b]').textContent=cfg.barbers[S.b];R.querySelector('[data-r=s]').textContent=s[0];R.querySelector('[data-r=p]').textContent='$'+s[1];
+  R.querySelector('[data-r=b]').textContent=cfg.barbers[S.b];R.querySelector('[data-r=s]').textContent=s[0];R.querySelector('[data-r=p]').textContent=(/^\d/.test(s[1])?'$':'')+s[1];
   var ok=S.t>-1;R.querySelector('.btn').setAttribute('aria-disabled',ok?'false':'true')}
  function pick(box,sel,fn){$$(sel,box).forEach(function(b){b.addEventListener('click',function(){if(b.disabled)return;$$(sel,box).forEach(function(x){x.classList.remove('on')});b.classList.add('on');fn(+b.dataset.i)})})}
  function bindSlots(){$$('button',sl).forEach(function(b){b.addEventListener('click',function(){if(b.disabled)return;$$('button',sl).forEach(function(x){x.classList.remove('on')});b.classList.add('on');S.t=+b.dataset.i;sum()})})}
