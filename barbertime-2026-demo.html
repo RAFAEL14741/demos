@@ -349,6 +349,13 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
 .rev .num{margin-bottom:26px}
 @media(max-width:700px){.ph.b{order:-1}}
 .ticket .row{display:flex;flex-wrap:wrap;gap:10px}
+
+/* v6 weekly hours */
+.wk{list-style:none;margin-top:16px;border-top:1px solid var(--line)}
+.wk li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);color:var(--mute);font-size:.96rem}
+.wk li.today{color:var(--text);font-weight:700}
+.wk li.today span:first-child:after{content:" (today)";color:var(--orange);font-weight:600}
+.shop .stat2{display:inline-flex;align-items:center;gap:8px;font-weight:700;margin-top:12px}
 </style>
 </head>
 <body>
@@ -598,7 +605,7 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
         <div class="in">
           <h3>Castor &amp; Princeton</h3>
           <address>7065 Castor Ave, Philadelphia, PA 19149</address>
-          <p class="hrs">Sun and Mon 10 AM to 8 PM<br>Tue to Sat 10 AM to 9 PM <span class="tag">Owner confirms</span></p>
+          <div class="stat2" data-live><i class="dot"></i><span data-livetxt>Checking hours</span></div><ul class="wk" aria-label="Weekly hours"></ul><p class="note" style="margin-top:10px">Hours <span class="tag">Owner confirms</span></p>
           <div class="acts"><a class="btn" href="tel:+12157228463">(215) 722-8463</a><a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=7065+Castor+Ave+Philadelphia+PA+19149">Directions</a></div>
         </div>
       </article>
@@ -607,7 +614,7 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
         <div class="in">
           <h3>Frankford &amp; Rhawn</h3>
           <address>7941 Frankford Ave, Philadelphia, PA 19136</address>
-          <p class="hrs">Sun and Mon 10 AM to 8 PM<br>Tue to Sat 10 AM to 9 PM <span class="tag">Owner confirms</span></p>
+          <div class="stat2" data-live><i class="dot"></i><span data-livetxt>Checking hours</span></div><ul class="wk" aria-label="Weekly hours"></ul><p class="note" style="margin-top:10px">Hours <span class="tag">Owner confirms</span></p>
           <div class="acts"><a class="btn" href="tel:+12676866593">(267) 686-6593</a><a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=7941+Frankford+Ave+Philadelphia+PA+19136">Directions</a></div>
         </div>
       </article>
@@ -846,6 +853,13 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
       if(cf){ScrollTrigger.create({trigger:cf,start:'top 85%',once:true,onEnter:function(){gsap.to(cf,{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'expo.out'})}});
         gsap.to('#craftfig img',{yPercent:-8,ease:'none',scrollTrigger:{trigger:cf,start:'top bottom',end:'bottom top',scrub:true}})}
     }
+
+    // weekly hours
+    var tw=ny().wd,names=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    $$('.wk').forEach(function(ul){
+      [1,2,3,4,5,6,0].forEach(function(d){var r=HOURS[d],li=document.createElement('li');if(d===tw)li.className='today';
+        li.innerHTML='<span>'+names[d]+'</span><span>'+f12h(r[0])+' to '+f12h(r[1])+'</span>';ul.appendChild(li)});
+    });
     // spotlight
     $$('.pcard').forEach(function(c){c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')})});
     // magnet
