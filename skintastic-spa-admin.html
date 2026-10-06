@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Skintastic Spa Boutique Admin (demo)</title><meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--abg:#FAF6F1;--aink:#2A1B28;--amut:#6B5A68;--aline:rgba(42,27,40,.14);--apanel:#F3E9E4;--acc:#8A5A78;--onacc:#fff;--f1:'Instrument Serif',Georgia,serif;--f2:'DM Sans',system-ui,sans-serif;--fw:400}
+:root{--abg:#F7F3EA;--aink:#2B2A24;--amut:#6B675A;--aline:rgba(43,42,36,.16);--apanel:#FFFDF8;--acc:#7F9374;--onacc:#ffffff;--f1:'Cormorant Garamond',serif;--f2:'Jost',sans-serif;--fw:400}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font:400 15px/1.55 var(--f2);background:var(--abg);color:var(--aink);min-height:100vh}
 .gate{position:fixed;inset:0;background:var(--abg);display:flex;align-items:center;justify-content:center;z-index:9}
@@ -44,16 +44,16 @@ select.st option{color:#111}
 </style></head><body>
 <div class="gate" id="gate"><form id="pf"><h1>Skintastic Spa Boutique</h1><p>Admin demo. Enter the PIN to continue.</p><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="PIN"><button type="submit">Open dashboard</button><div class="bad" id="pbad"></div></form></div>
 <div class="app" id="app" hidden>
-<div class="top"><div><small>Skintastic Spa Boutique &middot; Visit requests</small><h1>Skintastic Spa Boutique</h1></div><div><a href="skintastic-spa-demo.html">View demo site</a> <button id="clr">Clear requests</button></div></div>
+<div class="top"><div><small>Skintastic Spa Boutique &middot; Requests</small><h1>Skintastic Spa Boutique</h1></div><div><a href="skintastic-spa-demo.html">View demo site</a> <button id="clr">Clear requests</button></div></div>
 <div class="banner" id="bn" hidden>Sample data. Submit a request on the demo site and it appears here live.</div>
-<div class="kpis"><div class="k"><span>Requests</span><b id="k1">0</b></div><div class="k"><span>New</span><b id="k2">0</b></div><div class="k"><span>This week</span><b id="k3">0</b></div><div class="k"><span>Top treatment</span><b id="k4">0</b></div></div>
-<div class="tabs"><button class="on" data-t="req">Requests</button><button data-t="svc">Treatments</button><button data-t="hrs">Hours</button></div>
+<div class="kpis"><div class="k"><span>Requests</span><b id="k1">0</b></div><div class="k"><span>New</span><b id="k2">0</b></div><div class="k"><span>This week</span><b id="k3">0</b></div><div class="k"><span>Top item</span><b id="k4">0</b></div></div>
+<div class="tabs"><button class="on" data-t="req">Requests</button><button data-t="svc">Services</button><button data-t="hrs">Hours</button></div>
 <div class="panel" id="p-req"><table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table></div>
 <div class="panel list" id="p-svc" hidden><ul id="sv"></ul></div>
 <div class="panel list" id="p-hrs" hidden><ul id="hr"></ul></div>
 </div>
 <script>
-var CFG={"slug": "skintastic-spa", "cols": [["name", "Name"], ["phone", "Phone"], ["treatment", "Treatment"], ["day", "Day"], ["time", "Time"], ["note", "Note"]], "seed": [{"name": "Sample: Dana R.", "phone": "(215) 555-0132", "treatment": "Facials", "day": "Tuesday", "time": "Morning (10 to 12)", "note": "Sample row.", "status": "new"}, {"name": "Sample: Priya K.", "phone": "(215) 555-0178", "treatment": "Massage", "day": "Thursday", "time": "Late afternoon (3 to 6)", "note": "Sample row.", "status": "confirmed"}, {"name": "Sample: Lena M.", "phone": "(215) 555-0149", "treatment": "Waxing", "day": "Friday", "time": "Afternoon (12 to 3)", "note": "Sample row.", "status": "done"}], "kseed": ["18", "5", "9", "Facials"], "svc": [["Facials", "Price added once spa confirms"], ["Microdermabrasion", "Price added once spa confirms"], ["Chemical peels", "Price added once spa confirms"], ["Massage", "Price added once spa confirms"], ["Body wraps", "Price added once spa confirms"], ["Lash services", "Price added once spa confirms"], ["Waxing", "Price added once spa confirms"]], "hours": [["Monday - Friday", "10 AM - 6 PM"], ["Weekends", "Confirm with the spa"]],"k4":function(r){var c={},b='',n=0;r.forEach(function(x){var k=x.treatment||'';c[k]=(c[k]||0)+1;if(c[k]>n){n=c[k];b=k}});return b||'-'}};
+var CFG={"slug": "skintastic-spa", "cols": [["name", "Name"], ["phone", "Phone"], ["treatment", "Treatment"], ["day", "Day"], ["time", "Time"], ["note", "Notes"]], "seed": [{"name": "Sample: Alex R.", "phone": "(215) 555-0110", "treatment": "Facials", "day": "Friday", "time": "Morning (10 to 12)", "note": "Sample row.", "status": "new"}, {"name": "Sample: Sam K.", "phone": "(215) 555-0127", "treatment": "Microdermabrasion", "day": "Saturday", "time": "Afternoon (12 to 3)", "note": "Sample row.", "status": "confirmed"}, {"name": "Sample: Jo M.", "phone": "(215) 555-0144", "treatment": "Chemical peels", "day": "Thursday", "time": "Late afternoon (3 to 6)", "note": "Sample row.", "status": "done"}], "kseed": ["31", "5", "11", "Facials"], "svc": [["Facials", "Price added once owner confirms"], ["Microdermabrasion", "Price added once owner confirms"], ["Chemical peels", "Price added once owner confirms"], ["Massage", "Price added once owner confirms"], ["Body wraps", "Price added once owner confirms"], ["Lash services", "Price added once owner confirms"], ["Waxing", "Price added once owner confirms"]], "hours": [["Mon\u2013Fri", "10 AM \u2013 6 PM"], ["Weekends", "[CONFIRM]"]],"k4":function(r){var c={},b='',n=0;r.forEach(function(x){var k=x.treatment||'';c[k]=(c[k]||0)+1;if(c[k]>n){n=c[k];b=k}});return b||'-'}};
 var KEY=CFG.slug+'_bookings';
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
 function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}

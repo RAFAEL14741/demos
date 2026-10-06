@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Fidelity Drive In Cleaners Admin (demo)</title><meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--abg:#F7FAFC;--aink:#0F2233;--amut:#51657A;--aline:rgba(15,34,51,.13);--apanel:#fff;--acc:#173F6B;--onacc:#fff;--f1:'Fraunces',Georgia,serif;--f2:'Manrope',system-ui,sans-serif;--fw:400}
+:root{--abg:#F7F9FC;--aink:#0E2240;--amut:#52627C;--aline:rgba(14,34,64,.16);--apanel:#FFFFFF;--acc:#F26A21;--onacc:#0E2240;--f1:'Barlow Condensed',sans-serif;--f2:'Barlow',sans-serif;--fw:700}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font:400 15px/1.55 var(--f2);background:var(--abg);color:var(--aink);min-height:100vh}
 .gate{position:fixed;inset:0;background:var(--abg);display:flex;align-items:center;justify-content:center;z-index:9}
@@ -44,16 +44,16 @@ select.st option{color:#111}
 </style></head><body>
 <div class="gate" id="gate"><form id="pf"><h1>Fidelity Drive In Cleaners</h1><p>Admin demo. Enter the PIN to continue.</p><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="PIN"><button type="submit">Open dashboard</button><div class="bad" id="pbad"></div></form></div>
 <div class="app" id="app" hidden>
-<div class="top"><div><small>Fidelity Drive In Cleaners &middot; Pickup requests</small><h1>Fidelity Drive In Cleaners</h1></div><div><a href="fidelity-cleaners-demo.html">View demo site</a> <button id="clr">Clear requests</button></div></div>
-<div class="banner" id="bn" hidden>Sample data — submit a request on the demo site and it appears here live.</div>
-<div class="kpis"><div class="k"><span>Requests</span><b id="k1">0</b></div><div class="k"><span>New</span><b id="k2">0</b></div><div class="k"><span>This week</span><b id="k3">0</b></div><div class="k"><span>Top item type</span><b id="k4">0</b></div></div>
-<div class="tabs"><button class="on" data-t="req">Upcoming requests</button><button data-t="svc">Services</button><button data-t="hrs">Hours</button></div>
+<div class="top"><div><small>Fidelity Drive In Cleaners &middot; Requests</small><h1>Fidelity Drive In Cleaners</h1></div><div><a href="fidelity-cleaners-demo.html">View demo site</a> <button id="clr">Clear requests</button></div></div>
+<div class="banner" id="bn" hidden>Sample data. Submit a request on the demo site and it appears here live.</div>
+<div class="kpis"><div class="k"><span>Requests</span><b id="k1">0</b></div><div class="k"><span>New</span><b id="k2">0</b></div><div class="k"><span>This week</span><b id="k3">0</b></div><div class="k"><span>Top item</span><b id="k4">0</b></div></div>
+<div class="tabs"><button class="on" data-t="req">Requests</button><button data-t="svc">Services</button><button data-t="hrs">Hours</button></div>
 <div class="panel" id="p-req"><table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table></div>
 <div class="panel list" id="p-svc" hidden><ul id="sv"></ul></div>
 <div class="panel list" id="p-hrs" hidden><ul id="hr"></ul></div>
 </div>
 <script>
-var CFG={"slug":"fidelity-cleaners","cols":[["name","Name"],["phone","Phone"],["items","Items"],["day","Drop-off day"],["note","Note"]],"seed":[{"name":"Sample: Maria D.","phone":"(215) 555-0142","items":"Shirts","day":"Monday","note":"Sample row.","status":"new"},{"name":"Sample: Tom R.","phone":"(215) 555-0177","items":"Suits & jackets","day":"Wednesday","note":"Sample row. Needed by Friday.","status":"confirmed"},{"name":"Sample: Lena K.","phone":"(215) 555-0109","items":"A mix of things","day":"Saturday","note":"Sample row.","status":"done"}],"kseed":["18","4","9","Shirts"],"svc":[["Dry cleaning","Details added once owner confirms"],["Shirts & pressing","Details added once owner confirms"],["Prices","Added once owner confirms"]],"hours":[["Hours","Added once owner confirms"],["Phone","(215) 745-1111"],["Address","1620 Cottman Ave, Philadelphia, PA 19111"]],"k4":function(r){var c={},b='',n=0;r.forEach(function(x){var k=x.items||'';c[k]=(c[k]||0)+1;if(c[k]>n){n=c[k];b=k}});return b||'-'}};
+var CFG={"slug": "fidelity-cleaners", "cols": [["name", "Name"], ["phone", "Phone"], ["items", "What are you bringing"], ["day", "Day"], ["time", "Time"], ["note", "Notes"]], "seed": [{"name": "Sample: Alex R.", "phone": "(215) 555-0110", "items": "Dry cleaning", "day": "Friday", "time": "Morning", "note": "Sample row.", "status": "new"}, {"name": "Sample: Sam K.", "phone": "(215) 555-0127", "items": "Shirts & pressing", "day": "Saturday", "time": "Midday", "note": "Sample row.", "status": "confirmed"}, {"name": "Sample: Jo M.", "phone": "(215) 555-0144", "items": "Dry cleaning", "day": "Thursday", "time": "Afternoon", "note": "Sample row.", "status": "done"}], "kseed": ["31", "5", "11", "Dry cleaning"], "svc": [["Dry cleaning", "Price added once owner confirms"], ["Shirts & pressing", "Price added once owner confirms"]], "hours": [["Hours", "[CONFIRM] added once owner confirms"]],"k4":function(r){var c={},b='',n=0;r.forEach(function(x){var k=x.items||'';c[k]=(c[k]||0)+1;if(c[k]>n){n=c[k];b=k}});return b||'-'}};
 var KEY=CFG.slug+'_bookings';
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
 function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}

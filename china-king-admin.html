@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>China King Admin (demo)</title><meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Fraunces:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Hanken+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--abg:#121110;--aink:#F1E8D8;--amut:#A79D8C;--aline:rgba(241,232,216,.16);--apanel:#1A1815;--acc:#C2301D;--onacc:#fff;--f1:'Fraunces',serif;--f2:'Bricolage Grotesque',sans-serif;--fw:300}
+:root{--abg:#140B0A;--aink:#F5EAD6;--amut:#B9A98E;--aline:rgba(245,234,214,.16);--apanel:#1D1110;--acc:#C8141E;--onacc:#F5EAD6;--f1:'Rozha One',serif;--f2:'Hanken Grotesk',sans-serif;--fw:400}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font:400 15px/1.55 var(--f2);background:var(--abg);color:var(--aink);min-height:100vh}
 .gate{position:fixed;inset:0;background:var(--abg);display:flex;align-items:center;justify-content:center;z-index:9}
@@ -44,23 +44,16 @@ select.st option{color:#111}
 </style></head><body>
 <div class="gate" id="gate"><form id="pf"><h1>China King</h1><p>Admin demo. Enter the PIN to continue.</p><input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="PIN"><button type="submit">Open dashboard</button><div class="bad" id="pbad"></div></form></div>
 <div class="app" id="app" hidden>
-<div class="top"><div><small>China King &middot; Order requests</small><h1>China King</h1></div><div><a href="china-king-demo.html">View demo site</a> <button id="clr">Clear requests</button></div></div>
-<div class="banner" id="bn" hidden>Sample data. Submit an order request on the demo site and it appears here live.</div>
+<div class="top"><div><small>China King &middot; Requests</small><h1>China King</h1></div><div><a href="china-king-demo.html">View demo site</a> <button id="clr">Clear requests</button></div></div>
+<div class="banner" id="bn" hidden>Sample data. Submit a request on the demo site and it appears here live.</div>
 <div class="kpis"><div class="k"><span>Requests</span><b id="k1">0</b></div><div class="k"><span>New</span><b id="k2">0</b></div><div class="k"><span>This week</span><b id="k3">0</b></div><div class="k"><span>Top item</span><b id="k4">0</b></div></div>
-<div class="tabs"><button class="on" data-t="req">Requests</button><button data-t="svc">Menu categories</button><button data-t="hrs">Hours</button></div>
+<div class="tabs"><button class="on" data-t="req">Requests</button><button data-t="svc">Services</button><button data-t="hrs">Hours</button></div>
 <div class="panel" id="p-req"><table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table></div>
 <div class="panel list" id="p-svc" hidden><ul id="sv"></ul></div>
 <div class="panel list" id="p-hrs" hidden><ul id="hr"></ul></div>
 </div>
 <script>
-var CFG={"slug": "china-king", "cols": [["name", "Name"], ["phone", "Phone"], ["order", "Order"], ["pickup", "Pickup"], ["note", "Notes"]], "seed": [
-{"name": "Sample: Ana P.", "phone": "(215) 555-0124", "order": "2 x Chicken entree, 1 x Fried rice", "pickup": "In about 30 minutes", "note": "Sample row.", "status": "new", "items": [{"name":"Chicken entree","qty":2},{"name":"Fried rice","qty":1}]},
-{"name": "Sample: Kelly S.", "phone": "(215) 555-0156", "order": "1 x Combo plate, 1 x Hot soup", "pickup": "As soon as possible", "note": "Sample row.", "status": "confirmed", "items": [{"name":"Combo plate","qty":1},{"name":"Hot soup","qty":1}]},
-{"name": "Sample: Mia R.", "phone": "(215) 555-0183", "order": "1 x Lo mein, 2 x Fried appetizer", "pickup": "Later today", "note": "Sample row.", "status": "done", "items": [{"name":"Lo mein","qty":1},{"name":"Fried appetizer","qty":2}]}],
-"kseed": ["29", "6", "14", "Fried rice"],
-"svc": [["Appetizers", "Full menu added once owner confirms"], ["Soups", "Full menu added once owner confirms"], ["Chicken", "Full menu added once owner confirms"], ["Pork", "Full menu added once owner confirms"], ["Beef", "Full menu added once owner confirms"], ["Seafood", "Full menu added once owner confirms"], ["Lo Mein & Fried Rice", "Full menu added once owner confirms"], ["Combos", "Full menu added once owner confirms"]],
-"hours": [["Mon - Sun", "11 AM - 10 PM (sample, not confirmed)"], ["Note", "Real hours added once owner confirms"]],
-"k4":function(r){var c={},b='',n=0;r.forEach(function(x){(x.items||[]).forEach(function(it){c[it.name]=(c[it.name]||0)+it.qty;if(c[it.name]>n){n=c[it.name];b=it.name}})});return b||'-'}};
+var CFG={"slug": "china-king", "cols": [["name", "Name"], ["phone", "Phone"], ["order", "Menu category"], ["day", "Day"], ["time", "Time"], ["note", "Notes"]], "seed": [{"name": "Sample: Alex R.", "phone": "(215) 555-0110", "order": "Appetizers", "day": "Friday", "time": "As soon as possible", "note": "Sample row.", "status": "new"}, {"name": "Sample: Sam K.", "phone": "(215) 555-0127", "order": "Soups", "day": "Saturday", "time": "In about 30 minutes", "note": "Sample row.", "status": "confirmed"}, {"name": "Sample: Jo M.", "phone": "(215) 555-0144", "order": "Chicken", "day": "Thursday", "time": "In about 1 hour", "note": "Sample row.", "status": "done"}], "kseed": ["31", "5", "11", "Appetizers"], "svc": [["Appetizers", "Price added once owner confirms"], ["Soups", "Price added once owner confirms"], ["Chicken", "Price added once owner confirms"], ["Pork", "Price added once owner confirms"], ["Beef", "Price added once owner confirms"], ["Seafood", "Price added once owner confirms"], ["Lo Mein & Fried Rice", "Price added once owner confirms"], ["Combos", "Price added once owner confirms"]], "hours": [["Mon\u2013Sun", "[CONFIRM] hours to be confirmed by the owner"]],"k4":function(r){var c={},b='',n=0;r.forEach(function(x){var k=x.order||'';c[k]=(c[k]||0)+1;if(c[k]>n){n=c[k];b=k}});return b||'-'}};
 var KEY=CFG.slug+'_bookings';
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
 function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}

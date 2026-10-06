@@ -1,18 +1,18 @@
 <!doctype html>
-<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with Salerno's Ristorante & Pizzeria.
-[CONFIRM] items (NOT stated as fact on the page): BYOB, menu dishes and prices, owner/family names, delivery area and fees, catering minimums/pricing, exact meaning of "family-run since 1989" beyond "Serving Rising Sun Ave since 1989", review quotes.
-Confirmed and used: address, phone, hours, open since 1989, family-run, dine-in/takeout/delivery/catering, 3.7 on Restaurantji (117 ratings). All photos are Unsplash stock. -->
+<!-- DEMO CONCEPT built on spec by Rafael's web agency, not affiliated with Salerno's Ristorante &amp; Pizzeria. [CONFIRM] items: all facts in this file are sample placeholders -->
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Salerno's Ristorante &amp; Pizzeria | Rising Sun Ave, Philadelphia (demo)</title>
-<meta name="description" content="Demo website concept for Salerno's Ristorante &amp; Pizzeria, family-run on Rising Sun Ave in Northeast Philadelphia since 1989. Dine-in, takeout, delivery and catering.">
+<title>Salerno's Ristorante &amp; Pizzeria | Philadelphia, PA (sample concept)</title>
+<meta name="description" content="Sample website concept for Salerno's Ristorante &amp; Pizzeria.">
 <meta name="robots" content="noindex">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://images.unsplash.com"><link rel="preconnect" href="https://cdnjs.cloudflare.com"><link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F6EFE3;--paper:#FCF8F1;--ink:#1E1712;--mut:#665A4D;--acc:#B8321F;--onacc:#fff;--line:rgba(30,23,18,.16);--f1:'Fraunces',Georgia,serif;--f2:'Inter',system-ui,sans-serif;--hh:84px}
+:root{--bg:#2A0D12;--ink:#F6EAD3;--mut:#C7AE9A;--acc:#D4A64A;--onacc:#2A0D12;--alt:#38121A;--card:#43161F;--line:rgba(246,234,211,.16);--navbg:rgba(42,13,18,.93);--f1:'Cormorant Garamond',serif;--f2:'Work Sans',sans-serif;--r:4px;--nr:4px;--mkr:50%;--r2:10px;--fw:600;--drawer:#2A0D12;--chipbg:rgba(42,13,18,.96);--acc2:#8E2433;--ls:-.01em}
+
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow-x:clip}
 html{scroll-behavior:auto}
@@ -20,266 +20,451 @@ body{font:400 16px/1.65 var(--f2);background:var(--bg);color:var(--ink);-webkit-
 img{display:block;max-width:100%;height:100%;width:100%;object-fit:cover}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
-.wrap{width:min(1200px,90vw);margin-inline:auto}
+.wrap{width:min(1240px,92vw);margin-inline:auto}
 section{padding:clamp(88px,11vw,152px) 0;position:relative}
-.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.22em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:1.2rem}
-h1,h2,h3{font-family:var(--f1);font-weight:400;line-height:1.04;letter-spacing:-.015em;font-variation-settings:"opsz" 144}
-h2{font-size:clamp(2.2rem,4.6vw,3.9rem)}
-em{font-style:italic;font-weight:300}
-p.lead{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--mut);max-width:34em;margin-top:1.3rem}
-.fine{font-size:.84rem;color:var(--mut);margin-top:.9rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.8rem;border-radius:2px;background:var(--acc);color:var(--onacc);font:500 .92rem var(--f2);letter-spacing:.04em;border:1px solid var(--acc);cursor:pointer;min-height:52px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s,border-color .3s}
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
-@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-2px)}.btn.ghost:hover{background:var(--ink);color:var(--bg)}}
-.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
-.img{position:relative;overflow:hidden;background:linear-gradient(135deg,#c9a98a,#8c2d1d)}
-.img.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#c9a98a,#8c2d1d)}
-/* hidden states (only with gsap) */
-.js [data-r],.js [data-hero]{opacity:0;transform:translateY(28px)}
-.js [data-frame]{clip-path:inset(0 0 100% 0)}
+.eyebrow{font:600 .72rem/1 var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:1.1rem}
+h1,h2,h3{font-family:var(--f1);font-weight:var(--fw,500);line-height:1.02;letter-spacing:var(--ls,-.01em)}
+h2{font-size:clamp(2.2rem,5vw,4.2rem)}
+p.lead{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--mut);max-width:34em;margin-top:1.2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1rem 1.7rem;border-radius:var(--r,999px);background:var(--acc);color:var(--onacc,#fff);font:600 .95rem var(--f2);border:1px solid var(--acc);cursor:pointer;min-height:50px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+@media (hover:hover) and (pointer:fine){.btn:hover{transform:translateY(-3px)}.btn.ghost:hover{background:var(--ink);color:var(--bg)}}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}
+.ln>span{display:block}
+.js .ln>span{transform:translateY(112%)}
+.js [data-r],.js [data-hero]{opacity:0;transform:translateY(34px)}
+.js [data-wipe]{clip-path:inset(0 0 100% 0)}
 .nojsfix [data-r],.nojsfix [data-hero]{opacity:1!important;transform:none!important}
-.nojsfix [data-frame]{clip-path:none!important}
-/* header */
-header.nav{position:fixed;inset:0 0 auto 0;z-index:60;background:rgba(246,239,227,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:box-shadow .4s}
-.nav-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2rem;width:min(1320px,92vw);margin:0 auto;height:var(--hh);transition:height .4s}
-header.nav.solid .nav-in{height:68px}
-.nav-l,.nav-r{display:flex;align-items:center;gap:2.2rem}
-.nav-r{justify-content:flex-end}
-.nav a.l{font:500 .84rem var(--f2);letter-spacing:.06em;text-transform:uppercase;padding:.6rem 0}
-@media (hover:hover) and (pointer:fine){.nav a.l:hover{color:var(--acc)}}
-.brand{display:flex;flex-direction:column;align-items:center;line-height:1}
-.brand b{font:400 clamp(1.7rem,2.4vw,2.2rem) var(--f1);letter-spacing:-.015em;font-variation-settings:"opsz" 144}
-.brand small{font:600 .6rem var(--f2);letter-spacing:.34em;text-transform:uppercase;color:var(--acc);margin-top:.45rem;padding-left:.34em}
-.nav .btn{padding:.6rem 1.3rem;min-height:44px;font-size:.8rem;margin-left:.4rem}
-.burger{display:none;width:46px;height:46px;border:0;background:transparent;cursor:pointer;color:inherit;position:relative;justify-self:end}
-.burger i{position:absolute;left:11px;right:11px;height:1.5px;background:currentColor;transition:transform .35s,top .35s}
-.burger i:nth-child(1){top:19px}.burger i:nth-child(2){top:26px}
-body.menu .burger i:nth-child(1){top:22px;transform:rotate(45deg)}
-body.menu .burger i:nth-child(2){top:22px;transform:rotate(-45deg)}
-.drawer{position:fixed;inset:0;z-index:55;background:var(--bg);display:flex;flex-direction:column;justify-content:center;gap:1.1rem;padding:60px 9vw 0;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1);visibility:hidden}
-body.menu .drawer{transform:none;visibility:visible}
-.drawer a{font:300 clamp(2.1rem,9vw,3rem)/1.1 var(--f1);padding:.2rem 0}
-.drawer .dm{font:500 .8rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:1.4rem}
-@media (max-width:980px){:root{--hh:68px}.nav-l,.nav-r{display:none}.nav-in{grid-template-columns:1fr auto;gap:1rem}.brand{align-items:flex-start}.brand b{font-size:1.55rem}.burger{display:block}}
-/* hero split */
-.hero{padding:var(--hh) 0 0;min-height:100svh;display:grid;grid-template-columns:1fr 1fr}
-.hero-l{display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,6vw,90px) clamp(28px,5vw,84px) clamp(48px,6vw,90px) max(5vw,calc((100vw - 1320px)/2))}
-.hero h1{font-size:clamp(2.8rem,min(5.6vw,9.4vh),6rem);line-height:1;font-weight:350;letter-spacing:-.025em}
-.hero h1 em{color:var(--acc);font-weight:300}
-.hero p.sub{max-width:26em;margin-top:1.5rem;font-size:clamp(1.02rem,1.3vw,1.18rem);color:var(--mut)}
-.hours-line{margin-top:2.2rem;padding-top:1.1rem;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;font-size:.86rem;color:var(--mut)}
-.hours-line b{color:var(--ink);font-weight:600}
-.hero-r{padding:clamp(16px,2.4vw,36px) max(3vw,calc((100vw - 1320px)/2)) clamp(16px,2.4vw,36px) 0;display:flex}
-.frame{position:relative;flex:1;min-height:420px;border:1px solid var(--line);padding:clamp(8px,.9vw,14px);background:var(--paper)}
-.frame .in{position:absolute;inset:clamp(8px,.9vw,14px);overflow:hidden;background:linear-gradient(135deg,#c9a98a,#8c2d1d)}
-.media{position:absolute;left:0;right:0;top:-9%;height:118%;will-change:transform}
-.media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.frame figcaption{position:absolute;left:clamp(20px,1.8vw,30px);bottom:clamp(20px,1.8vw,30px);z-index:3;font:500 .68rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:rgba(252,248,241,.92);padding:.35rem .65rem}
-@media (max-width:980px){.hero{grid-template-columns:1fr;min-height:0}.hero-l{padding:40px 5vw 36px}.hero h1{font-size:clamp(2.7rem,12vw,4rem)}.hero-r{padding:0 5vw 40px}.frame{min-height:0;aspect-ratio:4/5;flex:none;width:100%}}
-/* story */
-.story-g{display:grid;grid-template-columns:1.05fr .95fr;gap:7vw;align-items:center}
-.numeral{font:300 clamp(7rem,19vw,16rem)/.9 var(--f1);letter-spacing:-.05em;color:#E7D8BF;font-variation-settings:"opsz" 144;user-select:none;margin-bottom:.08em;position:relative;z-index:0}
-.story-t{position:relative;z-index:1}
-.ways{display:flex;flex-wrap:wrap;gap:.5rem 2rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line)}
-.ways span{font:500 .76rem var(--f2);letter-spacing:.14em;text-transform:uppercase}
-.rate{margin-top:1.6rem;font-size:.92rem;color:var(--mut)}
-.rate a{border-bottom:1px solid var(--acc);color:var(--ink)}
-.collage{position:relative;aspect-ratio:4/5}
-.collage .img{position:absolute;border-radius:1px}
-.collage .a{inset:0 20% 16% 0}
-.collage .b{width:50%;aspect-ratio:1;right:0;bottom:0;border:8px solid var(--bg)}
-@media (max-width:900px){.story-g{grid-template-columns:1fr;gap:3rem}.numeral{font-size:clamp(6rem,30vw,10rem)}}
-/* menu board */
-.board{background:var(--paper);border-block:1px solid var(--line)}
-.board-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,64px)}
-.board-g{display:grid;grid-template-columns:1.5fr .85fr;gap:clamp(32px,5vw,80px);align-items:start}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(28px,4vw,56px)}
-.col>.cat{border-top:1px solid var(--ink);padding:1.4rem 0 2.2rem;cursor:pointer}
-.cat h3{font-size:clamp(1.6rem,2.4vw,2.1rem);font-weight:400;display:flex;align-items:baseline;gap:.8rem;transition:color .3s}
-.cat h3 small{font:600 .68rem var(--f2);letter-spacing:.16em;color:var(--acc)}
-.cat p{color:var(--mut);margin-top:.5rem;font-size:.96rem;max-width:24em}
-.rows{list-style:none;margin-top:1.1rem}
-.rows li{display:flex;align-items:baseline;gap:.6rem;padding:.55rem 0;color:var(--mut);font-size:.92rem}
-.rows li::after{content:"";order:1;flex:1;border-bottom:1px dotted rgba(30,23,18,.35);transform:translateY(-.25em)}
-.rows li span:first-child{order:0}
-.rows li span:last-child{order:2;color:var(--ink)}
-.cat .note{font:500 .74rem var(--f2);letter-spacing:.04em;color:var(--acc);margin-top:.8rem;display:block}
-.cat.on h3{color:var(--acc)}
-.side{position:sticky;top:96px}
-.side-f{position:relative;aspect-ratio:4/5;border:1px solid var(--line);padding:12px;background:var(--bg)}
-.side-f .in{position:absolute;inset:12px;overflow:hidden;background:linear-gradient(135deg,#c9a98a,#8c2d1d)}
-.side-f .sl{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
-.side-f .sl.on{opacity:1}
-.side-f .sl img{transform:scale(1.04);transition:transform 1.4s ease}
-.side-f .sl.on img{transform:scale(1)}
-.side-cap{display:flex;justify-content:space-between;font:500 .7rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:.8rem}
-.cat-img{display:none}
-@media (max-width:900px){.board-g{grid-template-columns:1fr}.side{display:none}.cols{grid-template-columns:1fr}.cat-img{display:block;aspect-ratio:16/10;margin-bottom:1.1rem}}
-/* catering card */
-.cater{padding-block:clamp(60px,8vw,110px)}
-.card{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);background:var(--paper);padding:clamp(10px,1.2vw,18px);gap:clamp(24px,4vw,64px);align-items:stretch}
-.card .img{min-height:380px}
-.card .img img{position:absolute;inset:0}
-.card-t{padding:clamp(18px,3vw,48px) clamp(8px,2vw,32px) clamp(18px,3vw,48px) 0;display:flex;flex-direction:column;justify-content:center}
-.card-t p{margin-top:1.2rem;max-width:30em;color:var(--mut)}
-@media (max-width:900px){.card{grid-template-columns:1fr}.card .img{min-height:0;aspect-ratio:4/3}.card-t{padding:4px 12px 22px}}
-/* visit */
-.visit-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw}
-.hours{list-style:none;margin-top:1.8rem}
-.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--line)}
-.hours li:first-child{border-top:1px solid var(--line)}
-.hours li span:first-child{color:var(--mut)}
-.hours li.today{font-weight:600}
-.hours li.today span:first-child{color:var(--acc)}
-.addr{margin:1.6rem 0 1.4rem;line-height:1.75;font-size:1.05rem}
-.addr a{border-bottom:1px solid var(--acc)}
-.map{overflow:hidden;aspect-ratio:4/3;border:1px solid var(--line);position:relative;padding:10px;background:var(--paper)}
-.map iframe{width:100%;height:100%;border:0;filter:grayscale(.6) contrast(1.05) brightness(.98)}
-.openstate{display:inline-flex;align-items:center;gap:.5rem;font:600 .74rem var(--f2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.2rem}
-.openstate::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--mut)}
-.openstate.on::before{background:#2e7d4f}
-@media (max-width:900px){.visit-g{grid-template-columns:1fr;gap:3rem}}
-/* request */
-.req{background:var(--paper);border-top:1px solid var(--line)}
-.req-g{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw}
-.kinds{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 1.6rem}
-.kind{border:1px solid var(--line);background:transparent;padding:.7rem 1.2rem;min-height:46px;cursor:pointer;font:500 .88rem var(--f2);border-radius:999px;transition:background .3s,color .3s,border-color .3s}
-.kind.on{background:var(--acc);color:#fff;border-color:var(--acc)}
-@media (hover:hover) and (pointer:fine){.kind:hover{border-color:var(--ink)}.kind.on:hover{border-color:var(--acc)}}
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 1.4rem;margin-bottom:1.6rem}
-.fld{display:flex;flex-direction:column;gap:.35rem}
+.nojsfix .ln>span{transform:none!important}
+.nojsfix [data-wipe]{clip-path:none!important}
+.img{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.img.nopic::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--acc),var(--ink))}
+header.nav{position:fixed;top:14px;left:0;right:0;margin-inline:auto;width:min(1240px,calc(100% - 28px));z-index:60;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:9px 9px 9px 14px;border-radius:var(--nr,999px);background:var(--navbg);border:1px solid var(--line);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);box-shadow:0 14px 44px -22px rgba(0,0,0,.45);color:var(--navink,var(--ink));transition:top .4s,box-shadow .4s}
+header.nav.solid{top:8px;box-shadow:0 18px 50px -18px rgba(0,0,0,.55)}
+.brand{display:flex;align-items:center;gap:.65rem;font:var(--brandw,700) 1.12rem var(--f1);letter-spacing:var(--brandls,0);white-space:nowrap}
+.brand .mk{display:grid;place-items:center;width:38px;height:38px;border-radius:var(--mkr,50%);background:var(--acc);color:var(--onacc,#fff);font:800 1rem var(--f1);letter-spacing:0;flex:none}
+.nav nav{display:flex;gap:.2rem;align-items:center}
+.nav nav a:not(.btn):not(.ph){font:500 .92rem var(--f2);padding:.55rem .9rem;position:relative;opacity:.88}
+.nav nav a:not(.btn):not(.ph)::after{content:"";position:absolute;left:.9rem;right:.9rem;bottom:.3rem;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover) and (pointer:fine){.nav nav a:not(.btn):not(.ph):hover{opacity:1}.nav nav a:not(.btn):not(.ph):hover::after{transform:scaleX(1)}.nav .btn:hover .ar{transform:translateX(4px)}}
+.nav .ph{display:flex;align-items:center;gap:.5rem;font:600 .9rem var(--f2);padding:.55rem .9rem;margin-left:.4rem;white-space:nowrap}
+.nav .ph i{width:8px;height:8px;border-radius:50%;background:#2EBD59;box-shadow:0 0 0 0 rgba(46,189,89,.6);animation:pdot 2s infinite}
+@keyframes pdot{70%{box-shadow:0 0 0 8px rgba(46,189,89,0)}100%{box-shadow:0 0 0 0 rgba(46,189,89,0)}}
+.nav .btn{padding:.7rem 1.25rem;min-height:46px;font-size:.9rem;display:inline-flex;align-items:center;gap:.5rem}
+.nav .btn .ar{transition:transform .3s}
+.burger{display:none;align-items:center;gap:.6rem;height:46px;padding:0 6px 0 16px;border:1px solid var(--line);border-radius:999px;background:transparent;cursor:pointer;color:inherit;font:600 .85rem var(--f2);letter-spacing:.04em}
+.burger b{position:relative;width:34px;height:34px;border-radius:50%;background:var(--acc);display:block}
+.burger i{position:absolute;left:9px;right:9px;height:2px;background:var(--onacc,#fff);transition:transform .35s,top .35s}
+.burger i:nth-child(1){top:12px}.burger i:nth-child(2){top:19px}
+body.menu .burger i:nth-child(1){top:16px;transform:rotate(45deg)}
+body.menu .burger i:nth-child(2){top:16px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:70;visibility:hidden;transition:visibility 0s .6s}
+body.menu .drawer{visibility:visible;transition-delay:0s}
+.dr-bg{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;transition:opacity .5s}
+body.menu .dr-bg{opacity:1}
+.dr-p{position:absolute;top:0;right:0;bottom:0;width:min(440px,90vw);background:var(--drawer,var(--bg));color:var(--drawerink,var(--ink));padding:22px 7vw 28px 28px;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .6s cubic-bezier(.7,0,.2,1);overflow:auto}
+body.menu .dr-p{transform:none}
+.dr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+.dr-x{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:inherit;font-size:1.3rem;cursor:pointer}
+.dr-l{display:flex;flex-direction:column}
+.dr-l a{display:flex;align-items:baseline;gap:1rem;padding:.95rem 0;border-top:1px solid var(--line);font:var(--fw,500) clamp(1.9rem,8vw,2.5rem)/1.05 var(--f1)}
+.dr-l a:last-child{border-bottom:1px solid var(--line)}
+.dr-l a small{font:600 .72rem var(--f2);letter-spacing:.12em;color:var(--acc)}
+.dr-cta{margin-top:1.6rem;justify-content:center;width:100%}
+.dr-info{margin-top:auto;padding-top:1.8rem;font-size:.92rem;line-height:1.7;color:var(--mut)}
+.dr-info a{color:inherit;border-bottom:1px solid var(--acc)}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:90;pointer-events:none}
+.prog i{display:block;height:100%;width:100%;background:var(--acc);transform:scaleX(0);transform-origin:left}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:59;height:34px;background:var(--ink);color:var(--bg);font:500 .74rem var(--f2);letter-spacing:.06em;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+.tb-in{height:100%;width:min(1240px,calc(100% - 28px));margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;white-space:nowrap}
+.tb-in span:first-child{font-weight:700}
+.tb-in a{text-decoration:underline;text-underline-offset:3px}
+body.scrolled .topbar{transform:translateY(-100%)}
+@media (max-width:700px){.tb-in span:nth-child(2){display:none}}
+header.nav{top:46px;transition:top .5s cubic-bezier(.7,0,.2,1),transform .5s cubic-bezier(.7,0,.2,1),box-shadow .4s}
+header.nav.solid{top:10px}
+body.scrolled.hide header.nav{transform:translateY(-160%)}
+body.menu header.nav{transform:none!important}
+.brand .mk{width:44px;height:44px;border-radius:0;background:none;display:block;flex:none;color:var(--onacc,#fff)}
+.brand .mk svg{width:100%;height:100%;display:block;overflow:visible}
+.brand .mk .mi{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--acc);font:800 1rem var(--f1)}
+.brand .bn{display:flex;flex-direction:column;line-height:1}
+.brand .bn b{font:var(--brandw,700) 1.12rem var(--f1);letter-spacing:var(--brandls,0)}
+.brand .bn em{font:600 .6rem var(--f2);font-style:normal;letter-spacing:.14em;text-transform:uppercase;opacity:.62;margin-top:.32rem}
+.brand:hover .mk svg{animation:wob .7s}
+@keyframes wob{30%{transform:rotate(-9deg) scale(1.08)}60%{transform:rotate(6deg)}}
+.io{opacity:0;transform:translateY(28px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.io.in{opacity:1;transform:none}
+.nojsfix .io{opacity:1!important;transform:none!important}
+.btn{will-change:transform}
+@media (max-width:1020px){header.nav{top:44px}header.nav.solid{top:8px}}
+@media (prefers-reduced-motion:reduce){.io{opacity:1;transform:none}.brand:hover .mk svg{animation:none}}
+@media (max-width:1020px){.nav nav{display:none}.burger{display:flex}header.nav{padding-left:12px}}
+.form{display:block}
+.form-intro{color:var(--mut);margin-bottom:1.4rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.2rem;margin-bottom:1.4rem}
+.fld{display:flex;flex-direction:column;gap:.4rem}
 .fld.wide{grid-column:1/-1}
-.fld span{font:600 .68rem var(--f2);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
-.fld input,.fld select,.fld textarea{background:transparent;border:0;border-bottom:1px solid rgba(30,23,18,.32);padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
+.fld span{font:600 .72rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.fld input,.fld select,.fld textarea{background:var(--field,transparent);border:0;border-bottom:1px solid var(--line2,var(--line));padding:.8rem .1rem;min-height:48px;border-radius:0;outline:none;transition:border-color .3s;width:100%}
 .fld textarea{min-height:92px;resize:vertical}
 .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--acc)}
-.fld input.bad,.fld select.bad{border-color:#c0392b}
-.err{color:#a92d1c;font-size:.9rem;margin-bottom:1rem}
-.okbox{padding:clamp(1.6rem,3vw,2.6rem);border:1px solid var(--ink);background:var(--bg)}
-.okbox h3{font-size:2rem;font-weight:300;margin-bottom:.6rem}
-@media (max-width:900px){.req-g{grid-template-columns:1fr;gap:2.4rem}}
+.fld .bad,.fld input.bad,.fld select.bad{border-color:#c0392b}
+.fld option{color:#111}
+.err{color:#c0392b;font-size:.9rem;margin-bottom:1rem}
+.okbox{padding:2rem;border:1px solid var(--line2,var(--line));border-radius:var(--r2,6px)}
+.okbox h3{font-size:1.8rem;margin-bottom:.5rem}
 @media (max-width:640px){.fgrid{grid-template-columns:1fr}}
-footer.foot{padding:56px 0 120px;border-top:1px solid var(--line);color:var(--mut);font-size:.86rem}
-footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.2rem}
-footer.foot b{font:400 1.5rem var(--f1);color:var(--ink);display:block;margin-bottom:.4rem}
-footer.foot p+p{margin-top:.3rem}
-.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1fr;background:rgba(246,239,227,.97);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .78rem var(--f2);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
-.mbar a:last-child{background:var(--acc);color:#fff}
-@media (max-width:980px){.mbar{display:grid}}
-@media (prefers-reduced-motion:reduce){.js [data-r],.js [data-hero]{transform:none!important;opacity:1!important}.js [data-frame]{clip-path:none!important}}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.hours li span:first-child{color:var(--mut)}
+.map{border-radius:var(--r2,6px);overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.55) contrast(1.05) brightness(.98)}
+footer.foot{padding:48px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.85rem}
+footer.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:58;display:none;grid-template-columns:1fr 1fr 1fr;background:var(--navbg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.mbar a{display:flex;align-items:center;justify-content:center;min-height:56px;font:600 .82rem var(--f2);letter-spacing:.06em;text-transform:uppercase;color:var(--navink2,var(--ink))}
+.mbar a:last-child{background:var(--acc);color:var(--onacc,#fff)}
+@media (max-width:900px){.mbar{display:grid}}
+@media (prefers-reduced-motion:reduce){.js .ln>span,.js [data-r],.js [data-hero],.js [data-wipe]{transform:none!important;opacity:1!important;clip-path:none!important}}
+.faq{padding-block:clamp(56px,9vw,120px)}
+.faq-g{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw}
+.faq-l details{border-top:1px solid color-mix(in srgb,currentColor 22%,transparent);padding:1.15rem 0}
+.faq-l details:last-child{border-bottom:1px solid color-mix(in srgb,currentColor 22%,transparent)}
+.faq-l summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem;font-weight:600;font-size:1.08rem}
+.faq-l summary::-webkit-details-marker{display:none}
+.faq-l summary::after{content:"+";font-size:1.5rem;line-height:1;transition:transform .25s}
+.faq-l details[open] summary::after{transform:rotate(45deg)}
+.faq-l p{margin-top:.7rem;opacity:.82;line-height:1.65;max-width:56ch}
+@media (max-width:900px){.faq-g{grid-template-columns:1fr;gap:1.6rem}}
+
+body::before{content:"";position:fixed;inset:0;z-index:45;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.w>span{display:inline-block}
+.img img{transition:filter .6s}
+.marq{overflow:hidden;white-space:nowrap;padding:clamp(18px,2.4vw,30px) 0;border-block:1px solid var(--line);background:var(--mqbg,transparent);color:var(--mqink,var(--ink))}
+.marq .mt{display:inline-flex;align-items:center;gap:clamp(18px,3vw,40px);padding-right:clamp(18px,3vw,40px);will-change:transform}
+.marq span{font:var(--mqw,500) clamp(2rem,5.2vw,4.6rem)/1 var(--f1);text-transform:var(--mqtt,none);letter-spacing:var(--mqls,0)}
+.marq i{font-style:normal;color:var(--acc);font-size:clamp(1.1rem,2.4vw,2rem)}
+.marq.out span{color:transparent;-webkit-text-stroke:1.5px var(--acc)}
+.band{position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#111;padding:0}
+.band-img{position:absolute;inset:-12% 0;will-change:transform}
+.band-img img{width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.05) 35%,rgba(0,0,0,.72))}
+.band-in{position:relative;z-index:2;padding-block:clamp(40px,6vw,80px)}
+.bt{color:#fff;font-size:clamp(3rem,10.5vw,10rem);line-height:.92;text-transform:var(--btt,none)}
+.bl{display:block;overflow:hidden;padding-bottom:.06em}
+.bl>span{display:block}
+.bs{max-width:30em;margin-top:1.2rem;font-size:clamp(1rem,1.4vw,1.2rem);opacity:.92}
+.hs{padding:0;overflow:hidden}
+.hs-in{min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,3.5vw,48px);padding:clamp(70px,9vw,120px) 0}
+.hs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.hs-note{max-width:22em}
+.hs-track{display:flex;gap:clamp(14px,2vw,26px);padding-left:max(4vw,calc((100vw - 1240px)/2));padding-right:4vw;will-change:transform}
+.hs-c{flex:0 0 auto;width:clamp(260px,29vw,430px);margin:0}
+.hs-c .img,.hs-c>div{aspect-ratio:4/5;overflow:hidden;border-radius:var(--hsr,10px);position:relative;background:linear-gradient(135deg,var(--acc),var(--ink))}
+.hs-c:nth-child(even){margin-top:clamp(20px,4vw,56px)}
+.hs-c img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover) and (pointer:fine){.hs-c:hover img{transform:scale(1.06)}}
+.hs-c figcaption{font:600 .72rem var(--f2);letter-spacing:.16em;text-transform:uppercase;margin-top:.8rem;color:var(--mut)}
+@media (max-width:900px){
+ .hs-in{min-height:0;padding:clamp(70px,12vw,110px) 0}
+ .hs-track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+ .hs-c{width:72vw;scroll-snap-align:center}
+ .hs-c:nth-child(even){margin-top:0}
+}
+.cnts{padding:clamp(34px,5vw,60px) 0;background:var(--cnbg,var(--ink));color:var(--cnink,#fff)}
+.cnts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem}
+.cnts b{display:block;font:var(--cnw,500) clamp(2.4rem,5vw,4.2rem)/1 var(--f1);color:var(--cnnum,inherit)}
+.cnts div>span{display:block;margin-top:.5rem;font-size:.82rem;letter-spacing:.06em;opacity:.75}
+@media (max-width:700px){.cnts .wrap{grid-template-columns:1fr 1fr;row-gap:2rem}}
+.badge{position:absolute;width:clamp(96px,11vw,150px);aspect-ratio:1;border-radius:50%;background:var(--bdbg,var(--acc));color:var(--bdink,#fff);display:grid;place-items:center;z-index:3;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.badge text{font:600 15px var(--f2);letter-spacing:.14em;text-transform:uppercase;fill:currentColor}
+.badge b{font:500 clamp(1.5rem,2.6vw,2.2rem)/1 var(--f1);position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.badge svg{animation:none}}
+
+
+.chip{position:absolute;z-index:3;display:flex;align-items:center;gap:.8rem;padding:.85rem 1.15rem;border-radius:var(--r2,10px);background:var(--chipbg,var(--bg));color:var(--chipink,var(--ink));border:1px solid var(--line);box-shadow:0 22px 44px -20px rgba(0,0,0,.55);animation:flt 7s ease-in-out infinite}
+.chip b{font:var(--fw,600) 1.9rem/1 var(--f1)}
+.chip span{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);line-height:1.35;max-width:9em}
+.chip.b2{animation-delay:-3s}
+@keyframes flt{50%{transform:translateY(-12px)}}
+@media (prefers-reduced-motion:reduce){.chip{animation:none}}
+.ico{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--acc);color:var(--onacc,#fff);margin-bottom:.5rem}
+.ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.svc-c .img{position:relative}
+.svc-c .tx{position:relative}
+.svc-c .ico{position:absolute;top:-23px;right:1.2rem;margin:0;box-shadow:0 10px 24px -10px rgba(0,0,0,.5);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover) and (pointer:fine){.svc-c:hover .ico{transform:rotate(-12deg) scale(1.12)}}
+.proc{margin-top:3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(1.4rem,3vw,3rem);position:relative}
+.ps{position:relative;padding-top:1.4rem}
+.ps::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.7,0,.2,1) var(--d,0s)}
+.ps.in::before{transform:scaleX(1)}
+.ps::after{content:"";position:absolute;left:0;top:-5px;width:12px;height:12px;border-radius:50%;background:var(--acc)}
+.ps .n{display:block;font:var(--fw,500) clamp(3.4rem,7vw,5.6rem)/1 var(--f1);color:transparent;-webkit-text-stroke:1.5px var(--acc);margin:.6rem 0 .4rem}
+.ps h3{font-size:clamp(1.4rem,2.2vw,1.9rem);margin-bottom:.5rem}
+.ps p{color:var(--mut);max-width:24em;line-height:1.6}
+.rvs{margin-top:2.8rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:1.2rem}
+.rv{position:relative;border:1px solid var(--line);border-radius:var(--r2,8px);padding:1.8rem 1.6rem 1.5rem;background:var(--cardbg,transparent);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.rv::before{content:"\201C";position:absolute;top:-.1em;right:1rem;font:700 6rem/1 var(--f1);color:var(--acc);opacity:.22}
+.rv .st{display:flex;gap:3px;color:var(--acc);margin-bottom:1rem}
+.rv .st svg{width:18px;height:18px;fill:currentColor}
+.rv h3{font-size:1.5rem;margin-bottom:.5rem}
+.rv p{color:var(--mut);line-height:1.6}
+.rv small{display:block;margin-top:1.1rem;font:600 .7rem var(--f2);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);opacity:.8}
+.rv-top{display:flex;align-items:center;gap:1rem;margin-top:1.4rem;flex-wrap:wrap}
+.rv-top b{font:var(--fw,500) 3.4rem/1 var(--f1)}
+.rv-top span{color:var(--mut);font-size:.9rem;line-height:1.4}
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr));gap:1.1rem;margin-top:2.8rem}
+.svc-c{border:1px solid var(--line);border-radius:var(--r2,8px);overflow:hidden;background:var(--cardbg,transparent);display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.svc-c .img{aspect-ratio:4/3}
+.svc-c .img img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.svc-c .tx{padding:1.3rem 1.4rem 1.6rem;display:flex;flex-direction:column;gap:.45rem;flex:1}
+.svc-c small{font:700 .74rem var(--f2);letter-spacing:.16em;color:var(--acc)}
+.svc-c h3{font-size:clamp(1.45rem,2vw,1.9rem);line-height:1.06}
+.svc-c p{color:var(--mut);font-size:.93rem;line-height:1.55}
+.svc-c .go{margin-top:auto;padding-top:.8rem;font:600 .85rem var(--f2);color:var(--acc)}
+@media (hover:hover) and (pointer:fine){.svc-c:hover{transform:translateY(-8px);box-shadow:0 28px 50px -28px rgba(0,0,0,.5)}.svc-c:hover .img img{transform:scale(1.07)}}
+
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.fine{font-size:.82rem;color:var(--mut);margin-top:.9rem}
+.facts{border-block:1px solid var(--line);padding:22px 0}
+.facts .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.4rem}
+.facts b{display:block;font:var(--fw,500) 1.5rem var(--f1)}
+.facts span{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.rows{margin-top:2.6rem}
+.big{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:clamp(1.1rem,2.2vw,1.8rem) 0;border-top:1px solid var(--line);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.big:last-child{border-bottom:1px solid var(--line)}
+.big h3{font-size:clamp(1.8rem,4.6vw,3.6rem);line-height:1}
+.big span{font:600 .74rem var(--f2);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:right;max-width:18em}
+@media (hover:hover) and (pointer:fine){.big:hover{transform:translateX(12px)}}
+.visit-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw}
+.addr{margin:1.2rem 0 1.4rem;line-height:1.7}
+.addr a{border-bottom:1px solid var(--acc)}
+.card{border:1px solid var(--line);padding:clamp(1.4rem,3vw,2.4rem);border-radius:var(--r2,6px);background:var(--cardbg,transparent)}
+@media (max-width:900px){.visit-g{grid-template-columns:1fr}}
+
+header.nav.hv-classic{top:34px;left:0;right:0;width:100%;margin:0;border-radius:0;border:0;border-bottom:3px double var(--ink);background:var(--navbg);padding:10px max(4vw,calc((100vw - 1240px)/2));display:grid;grid-template-columns:1fr auto 1fr;align-items:center;box-shadow:none}
+header.nav.hv-classic.solid{top:0;box-shadow:0 12px 30px -20px rgba(43,24,16,.5)}
+body.scrolled header.nav.hv-classic{top:0}
+.hv-classic .nl{display:flex;gap:2.2rem;justify-self:start}
+.hv-classic .nr{display:flex;gap:1rem;align-items:center;justify-self:end}
+.hv-classic nav a:not(.btn):not(.ph){font:400 1.12rem var(--f1);padding:.4rem 0}
+.hv-classic nav a:not(.btn):not(.ph)::after{left:0;right:0;bottom:0}
+.hv-classic .brand{justify-self:center;flex-direction:column;gap:.35rem;text-align:center}
+.hv-classic .brand .bn{align-items:center}
+.hv-classic .brand .bn b{font-size:1.5rem;letter-spacing:.02em}
+.hv-classic .brand .mk{width:46px;height:46px}
+@media (max-width:1020px){.hv-classic .nl,.hv-classic .nr{display:none}.hv-classic .burger{display:flex}header.nav.hv-classic{display:flex;justify-content:space-between;padding:8px 14px}.hv-classic .brand{flex-direction:row;text-align:left}.hv-classic .brand .bn{align-items:flex-start}.hv-classic .brand .bn b{font-size:1.15rem}.hv-classic .brand .mk{width:40px;height:40px}}
+.ging{height:30px;background-color:#F8EFE0;background-image:repeating-linear-gradient(0deg,rgba(181,58,34,.5) 0 10px,transparent 10px 20px),repeating-linear-gradient(90deg,rgba(181,58,34,.5) 0 10px,transparent 10px 20px)}
+.hero{position:relative;min-height:100svh;display:block;padding:clamp(150px,13vw,190px) 0 clamp(30px,4vw,60px);color:var(--ink);background:var(--bg);overflow:hidden}
+.hero::after{display:none}
+.hero-c{display:grid;grid-template-columns:1fr minmax(280px,min(42vw,60vh)) 1fr;gap:3vw;align-items:center;position:relative;z-index:2}
+.hero h1{grid-column:1/-1;text-align:center;font-size:clamp(2.8rem,min(7vw,11.5vh),7.6rem);line-height:.92;max-width:none;margin-bottom:clamp(.4rem,1.5vw,1.2rem)}
+.hero h1 em{color:var(--acc);font-style:italic}
+.hero .eyebrow{display:block;text-align:center;color:var(--acc);margin-bottom:1.4rem}
+.plate{position:relative;aspect-ratio:1}
+.plate .disc{position:absolute;inset:12%;border-radius:50%;overflow:hidden;box-shadow:0 40px 80px -30px rgba(43,24,16,.6)}
+.plate .disc img{filter:saturate(1.15) contrast(1.06)}
+.plate .ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 46s linear infinite}
+.plate .ring text{font:600 15.5px var(--f2);letter-spacing:.2em;fill:var(--ink);text-transform:uppercase}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hl{display:flex;flex-direction:column;gap:1.4rem;align-items:flex-start}
+.hl .sub{color:var(--mut);margin:0;font-size:1.1rem;max-width:20em}
+.hr{display:flex;flex-direction:column;gap:1.4rem;align-items:flex-end;text-align:right}
+.hr div b{display:block;font:var(--fw) clamp(2.6rem,4vw,3.8rem)/1 var(--f1);color:var(--acc)}
+.hr div span{font:600 .72rem var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.hero .btn.ghost{color:var(--ink);border-color:rgba(43,24,16,.4)}
+@media (max-width:900px){.hero-c{grid-template-columns:1fr}.plate{width:min(88vw,420px);margin:0 auto;order:2}.hl{align-items:center;text-align:center;order:3}.hr{order:4;flex-direction:row;justify-content:space-between;align-items:center;text-align:center;gap:1rem}.hero-c .hl .cta{justify-content:center}}
+@media (prefers-reduced-motion:reduce){.plate .ring{animation:none}}
+.mb{padding-block:clamp(70px,10vw,130px);background:var(--bg)}
+.mb-g{display:grid;grid-template-columns:1.1fr .9fr;gap:6vw;align-items:start}
+.mb-list{list-style:none;margin:2.4rem 0 0;padding:0}
+.mb-list li{padding:1.3rem 0 1.4rem;border-top:1px solid var(--line);cursor:pointer;transition:padding .4s,color .3s}
+.mb-list li:last-child{border-bottom:1px solid var(--line)}
+.mb-row{display:flex;align-items:baseline;gap:.8rem}
+.mb-row b{font:var(--fw) clamp(1.9rem,3.6vw,3rem)/1 var(--f1);transition:color .3s,transform .4s}
+.mb-row .dots{flex:1;border-bottom:2px dotted color-mix(in srgb,var(--ink) 35%,transparent);transform:translateY(-6px)}
+.mb-row span{font:600 .7rem var(--f2);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:right;max-width:12em}
+.mb-list li p{color:var(--mut);margin-top:.4rem;max-width:30em}
+.mb-list li.on .mb-row b{color:var(--acc);transform:translateX(10px)}
+.mb-r{position:sticky;top:130px}
+.mb-disc{position:relative;aspect-ratio:1;width:100%}
+.mb-disc .ph{position:absolute;inset:6%;border-radius:50%;overflow:hidden;opacity:0;transform:scale(.92) rotate(-6deg);transition:opacity .6s,transform .8s cubic-bezier(.2,.7,.2,1);box-shadow:0 40px 80px -30px rgba(43,24,16,.55)}
+.mb-disc .ph.on{opacity:1;transform:none}
+.mb-disc .ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 60s linear infinite reverse}
+.mb-disc .ring text{font:600 15px var(--f2);letter-spacing:.2em;fill:var(--acc);text-transform:uppercase}
+@media (max-width:900px){.mb-g{grid-template-columns:1fr}.mb-r{position:relative;top:0;order:-1;width:min(80vw,380px);margin:0 auto 1rem}}
+.tk-s{padding-block:clamp(70px,10vw,130px);background:#EBDFCB}
+.tk-g{display:grid;grid-template-columns:.9fr 1.1fr;gap:6vw;align-items:center}
+.ticket{position:relative;background:#FFFDF6;padding:clamp(1.6rem,3.5vw,2.8rem);transform:rotate(1.6deg);box-shadow:0 30px 60px -30px rgba(43,24,16,.5);font-family:ui-monospace,Menlo,Consolas,monospace;margin-bottom:12px}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:14px;background:linear-gradient(135deg,#FFFDF6 25%,transparent 25%) -7px 0,linear-gradient(225deg,#FFFDF6 25%,transparent 25%) -7px 0;background-size:14px 14px}
+.tk-h{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;border-bottom:2px dashed var(--ink);padding-bottom:1rem;margin-bottom:1.4rem;display:flex;justify-content:space-between;gap:1rem}
+.ticket ol{list-style:none;margin:0;padding:0;display:grid;gap:1.3rem}
+.ticket li{display:grid;grid-template-columns:2.4rem 1fr;gap:.9rem}
+.ticket li>b{font:700 1.3rem var(--f1);width:2.2rem;height:2.2rem;display:grid;place-items:center;border:2px solid var(--acc);border-radius:50%;color:var(--acc)}
+.ticket h3{font-size:1.5rem;margin-bottom:.2rem}
+.ticket p{color:var(--mut);font-size:.82rem;line-height:1.55}
+.tk-f{margin-top:1.6rem;border-top:2px dashed var(--ink);padding-top:1rem;display:flex;justify-content:space-between;gap:1rem;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase}
+.tk-f em{font-style:normal;color:var(--acc);font-weight:700}
+@media (max-width:900px){.tk-g{grid-template-columns:1fr}.ticket{transform:rotate(.6deg)}}
+.notes{margin-top:3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:2rem 1.6rem}
+.note{position:relative;background:#FFFCF3;padding:2rem 1.6rem 1.5rem;box-shadow:0 22px 40px -24px rgba(43,24,16,.5);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.note:nth-child(1){transform:rotate(-2deg)}.note:nth-child(2){transform:rotate(1.4deg) translateY(14px)}.note:nth-child(3){transform:rotate(-1deg)}
+.note.io.in:nth-child(1){transform:rotate(-2deg)}.note.io.in:nth-child(2){transform:rotate(1.4deg) translateY(14px)}.note.io.in:nth-child(3){transform:rotate(-1deg)}
+@media (hover:hover) and (pointer:fine){.note:hover{transform:rotate(0) translateY(-8px)!important}}
+.note::before{content:"";position:absolute;top:-13px;left:50%;width:84px;height:26px;margin-left:-42px;background:rgba(181,58,34,.28);transform:rotate(-3deg)}
+.note .st{display:flex;gap:3px;color:var(--acc);margin-bottom:.8rem}.note .st svg{width:17px;height:17px;fill:currentColor}
+.note h3{font-size:1.7rem;margin-bottom:.4rem}
+.note p{font:italic 1.12rem/1.45 var(--f1);color:var(--ink)}
+.note small{display:block;margin-top:1rem;font:600 .68rem var(--f2);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.nt-top{display:flex;align-items:center;gap:1rem;margin-top:1.2rem}
+.nt-top b{font:var(--fw) 3.4rem/1 var(--f1);color:var(--acc)}.nt-top span{color:var(--mut);line-height:1.4;font-size:.92rem}
+
+.ging{background-color:var(--alt);background-image:repeating-linear-gradient(0deg,color-mix(in srgb,var(--acc) 48%,transparent) 0 10px,transparent 10px 20px),repeating-linear-gradient(90deg,color-mix(in srgb,var(--acc) 48%,transparent) 0 10px,transparent 10px 20px)}
+.tk-s{background:var(--alt)}.ticket{background:var(--card)}.ticket::after{background:linear-gradient(135deg,var(--card) 25%,transparent 25%) -7px 0,linear-gradient(225deg,var(--card) 25%,transparent 25%) -7px 0;background-size:14px 14px}
+.note{background:var(--card)}.note::before{background:color-mix(in srgb,var(--acc) 30%,transparent)}
+.cnts{--cnbg:var(--acc);--cnink:var(--onacc)}.cnts .wrap{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.marq{--mqbg:var(--ink);--mqink:var(--bg);--mqw:400;border:0}
+.hs{--hsr:10px;background:var(--alt)}
+.hero .btn.ghost{color:var(--ink);border-color:color-mix(in srgb,var(--ink) 40%,transparent)}
+
+.cine{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate;background:#000}
+.cine-bg{position:absolute;inset:0;z-index:-2}
+.cine-bg img,.cine-bg video{width:100%;height:100%;object-fit:cover;display:block}
+.cine-bg img{animation:kb 22s ease-in-out infinite alternate}
+.cine-bg video{position:absolute;inset:0}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
+.cine-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.18) 32%,rgba(0,0,0,.78) 100%),linear-gradient(90deg,rgba(0,0,0,.6),transparent 62%)}
+.cine-in{position:relative;padding-block:clamp(110px,14vh,170px) clamp(46px,7vh,80px);display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:3vw;align-items:end}
+.cine h1{font-size:clamp(3rem,min(7.4vw,13vh),8rem);line-height:.92;color:#fff;max-width:11em}
+.cine .eyebrow{color:#fff;opacity:.88;display:flex;align-items:center;gap:.8rem;text-shadow:0 2px 14px rgba(0,0,0,.6)}.cine .eyebrow::before{content:'';width:34px;height:2px;background:var(--acc2,var(--acc));display:block}.cine-tr .eyebrow,.cine-cl .eyebrow{justify-content:center}
+.cine .sub{max-width:28em;font-size:1.12rem;color:rgba(255,255,255,.82);margin:1.6rem 0 2rem}
+.cine .cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.cine .btn.ghost{color:#fff}.cine .btn.ghost:hover{background:#fff;color:#111}
+.fc-stack{display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.fc{width:min(300px,100%);padding:1rem 1.15rem;border-radius:calc(var(--r2,12px) + 4px);background:rgba(18,18,18,.5);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid rgba(255,255,255,.2);color:#fff;box-shadow:0 18px 50px rgba(0,0,0,.35);animation:fcf 6s ease-in-out infinite}
+.fc:nth-child(2){animation-delay:-2s;margin-right:34px}.fc:nth-child(3){animation-delay:-4s}
+@keyframes fcf{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.fc .k{font:600 .64rem var(--f2);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:.5rem}
+.fc .t{font:600 1.18rem/1.2 var(--f1);margin-top:.35rem}
+.fc .s{font-size:.82rem;color:rgba(255,255,255,.7);margin-top:.15rem}
+.fc .dot{width:8px;height:8px;border-radius:50%;background:#35E08A;box-shadow:0 0 0 0 rgba(53,224,138,.6);animation:pl 1.8s infinite}
+@keyframes pl{70%{box-shadow:0 0 0 9px rgba(53,224,138,0)}100%{box-shadow:0 0 0 0 rgba(53,224,138,0)}}
+.fc .big{font:700 2.4rem/1 var(--f1);color:var(--acc2,var(--acc))}
+.fc .bar{height:5px;border-radius:5px;background:rgba(255,255,255,.18);margin-top:.7rem;overflow:hidden}
+.fc .bar i{display:block;height:100%;width:0;background:var(--acc2,var(--acc));border-radius:5px;transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+.fc .tk{transition:opacity .4s,transform .4s}.fc .tk.out{opacity:0;transform:translateY(6px)}
+.cine-foot{position:absolute;left:0;right:0;bottom:18px;display:flex;justify-content:center;pointer-events:none}
+.cine-foot span{font:600 .62rem var(--f2);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@media (max-width:900px){.cine-in{grid-template-columns:1fr}.fc-stack{align-items:flex-start;flex-direction:row;flex-wrap:wrap}.fc{width:calc(50% - 7px);min-width:150px}.fc:nth-child(2){margin-right:0}.fc:nth-child(3){display:none}.cine h1{font-size:clamp(2.8rem,14vw,5rem)}.cine .sub{font-size:1rem}}
+/* tool */
+.tool{padding-block:clamp(80px,10vw,140px);background:var(--alt)}
+.tool-g{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,4vw,64px);margin-top:3rem;align-items:start}
+.tool-st{margin-bottom:2rem}
+.tool-st h3{font:600 .72rem var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:.9rem}
+.tool-st h3 b{color:var(--acc);margin-right:.6rem}
+.opts{display:flex;flex-wrap:wrap;gap:.6rem}
+.opt{padding:.8rem 1.2rem;border-radius:var(--r2,10px);border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 .98rem var(--f2);cursor:pointer;display:flex;gap:.7rem;align-items:baseline;transition:transform .3s,background .25s,border-color .25s,color .25s}
+.opt small{opacity:.6;font-size:.8rem}
+.opt:hover{transform:translateY(-2px);border-color:var(--acc)}
+.opt.on{background:var(--acc);color:var(--onacc);border-color:var(--acc)}
+.opt.on small{opacity:.85}
+.tool-r{position:sticky;top:110px;padding:1.6rem;border-radius:calc(var(--r2,10px) + 6px);background:var(--card);border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.14)}
+.tool-r h4{font:600 .7rem var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:1rem}
+.tool-r ul{list-style:none;padding:0;margin:0 0 1rem;min-height:5.5rem}
+.tool-r li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px dashed var(--line);font-size:.96rem;animation:li .5s}
+@keyframes li{from{opacity:0;transform:translateX(-8px)}}
+.tool-r .em{color:var(--mut);font-size:.92rem;padding:.5rem 0}
+.tool-tot{display:flex;justify-content:space-between;align-items:baseline;margin:1.1rem 0 1.3rem}
+.tool-tot span{font:600 .7rem var(--f2);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.tool-tot b{font:700 2.6rem/1 var(--f1);color:var(--acc)}
+.tool-r .btn{width:100%}
+.tool-r .fine{margin-top:.8rem;font-size:.76rem}
+@media (max-width:900px){.tool-g{grid-template-columns:1fr}.tool-r{position:relative;top:auto}}
+.cine-tr .cine-in{grid-template-columns:1fr;justify-items:center;text-align:center;padding-top:clamp(120px,16vh,180px)}.cine-tr{align-items:center}.cine-tr h1{font-weight:700;max-width:10em;margin-inline:auto;text-shadow:0 4px 50px rgba(0,0,0,.4)}.cine-tr .cta{justify-content:center}.cine-tr .sub{margin-inline:auto}.cine-tr .fc-stack{flex-direction:row;align-items:stretch;margin-top:2.4rem}.cine-tr .fc:nth-child(2){margin-right:0}.cine-tr .cine-shade{background:linear-gradient(180deg,rgba(40,12,4,.62),rgba(20,8,4,.35) 40%,rgba(20,8,4,.85))}.cine-tr .fc{width:250px}
+.sw{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.sw>span{display:inline-block}
+.cur{position:fixed;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--acc);pointer-events:none;z-index:200;opacity:.85;transition:width .3s,height .3s,margin .3s,opacity .3s}
+.cur.big{width:56px;height:56px;margin:-28px 0 0 -28px;opacity:.22}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+@media (hover:none),(pointer:coarse){.cur{display:none}}
+
 </style>
 </head>
 <body>
-<header class="nav" id="nav"><div class="nav-in">
-<div class="nav-l"><a class="l" href="#about">Our table</a><a class="l" href="#menu">The menu</a></div>
-<a class="brand" href="#top" aria-label="Salerno's, since 1989"><b>Salerno&rsquo;s</b><small>since 1989</small></a>
-<div class="nav-r"><a class="l" href="#catering">Catering</a><a class="l" href="#visit">Visit</a><a class="btn" href="#request">Order</a></div>
-<button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button></div></header>
-<div class="drawer" aria-hidden="true"><a href="#about">Our table</a><a href="#menu">The menu</a><a href="#catering">Catering</a><a href="#visit">Visit</a><a href="#request">Order</a><span class="dm">(215) 745-9992</span></div>
-
-<main id="top">
-<section class="hero" style="padding-bottom:0">
-<div class="hero-l"><span class="eyebrow" data-hero>Family-run &middot; Rising Sun Ave</span>
-<h1 data-hero>Dinner the way it&rsquo;s been done on <em>Rising Sun</em> since 1989.</h1>
-<p class="sub" data-hero>Salerno&rsquo;s Ristorante &amp; Pizzeria. Sit down for dinner, take it home, have it delivered, or let us cater your table.</p>
-<div class="cta" data-hero><a class="btn" href="#request">Request an order</a><a class="btn ghost" href="tel:+12157459992">Call (215) 745-9992</a></div>
-<div class="hours-line" data-hero><span><b id="todayl">Today</b> <span id="todayh">Open daily</span></span><span>6500-02 Rising Sun Ave</span></div></div>
-<div class="hero-r"><figure class="frame" data-frame id="heroframe"><div class="in"><div class="media" id="herobg"><img src="https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=1400&q=75" data-fb="1693307089848-990642f46867" onerror="fb(this)" alt="Pizza baking in an oven, stock photo"></div></div><figcaption>Stock photo</figcaption></figure></div>
-</section>
-
-<section class="story" id="about"><div class="wrap story-g"><div class="story-t"><div class="numeral" aria-hidden="true" data-r>1989</div><span class="eyebrow" data-r>Our table</span><h2 data-r>A family room on Rising Sun, <em>set since 1989.</em></h2><p class="lead" data-r>Salerno&rsquo;s is a family-run Italian restaurant and pizzeria that has been serving Rising Sun Avenue since 1989. Come in and sit down, or call ahead and we&rsquo;ll have it ready.</p>
-<div class="ways" data-r><span>Dine-in</span><span>Takeout</span><span>Delivery</span><span>Catering</span></div>
-<p class="rate" data-r>3.7 on Restaurantji (117 ratings). <a href="https://www.yelp.com/search?find_desc=Salerno%27s+Ristorante+%26+Pizzeria&find_loc=Philadelphia%2C+PA" target="_blank" rel="noopener">Read reviews on Yelp</a></p></div>
-<div class="collage"><div class="img a" data-frame><img src="https://images.unsplash.com/photo-1632739148811-2b53d07be26f?auto=format&fit=crop&w=900&q=75" data-fb="1620475676913-9497df261cc3" onerror="fb(this)" loading="lazy" alt="Plate of pasta beside a glass of wine on a restaurant table, stock photo"></div><div class="img b" data-frame><img src="https://images.unsplash.com/photo-1583744513520-ba4682a40ede?auto=format&fit=crop&w=700&q=75" data-fb="1709429790175-b02bb1b19207" onerror="fb(this)" loading="lazy" alt="Bowl of pasta, stock photo"></div></div></div></section>
-
-<section class="board" id="menu"><div class="wrap">
-<div class="board-head"><div><span class="eyebrow" data-r>The menu board</span><h2 data-r>Four courses, <em>one table.</em></h2></div><p class="fine" data-r style="max-width:22em;margin:0">Hover or tap a course to see it. Stock photos shown.</p></div>
-<div class="board-g"><div class="cols">
-<div class="col">
-<article class="cat on" data-i="0" tabindex="0" data-r><div class="cat-img img"><img src="https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=900&q=75" data-fb="1769458313937-b5ad8f84942e" onerror="fb(this)" loading="lazy" alt="Burrata with tomatoes and prosciutto, stock photo"></div><h3><small>01</small>Antipasti</h3><p>Start small and share. Plates for the middle of the table.</p><ul class="rows" aria-hidden="true"><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li></ul><span class="note">Dishes and prices added once owner confirms.</span></article>
-<article class="cat" data-i="1" tabindex="0" data-r><div class="cat-img img"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=75" data-fb="1579751626657-72bc17010498" onerror="fb(this)" loading="lazy" alt="Sliced pizza with cherry tomatoes, stock photo"></div><h3><small>02</small>Pizza &amp; Pasta</h3><p>The heart of a neighborhood pizzeria. Pick one, or pass both around.</p><ul class="rows" aria-hidden="true"><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li></ul><span class="note">Dishes and prices added once owner confirms.</span></article></div>
-<div class="col">
-<article class="cat" data-i="2" tabindex="0" data-r><div class="cat-img img"><img src="https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=900&q=75" data-fb="1709429790175-b02bb1b19207" onerror="fb(this)" loading="lazy" alt="Baked lasagna with basil, stock photo"></div><h3><small>03</small>Entr&eacute;es &amp; Hoagies</h3><p>Hot plates for a sit-down dinner, and hoagies when you are taking it with you.</p><ul class="rows" aria-hidden="true"><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li></ul><span class="note">Dishes and prices added once owner confirms.</span></article>
-<article class="cat" data-i="3" tabindex="0" data-r><div class="cat-img img"><img src="https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=900&q=75" data-fb="1698688334089-c68105801d02" onerror="fb(this)" loading="lazy" alt="Tiramisu on a plate, stock photo"></div><h3><small>04</small>Dolci</h3><p>Something sweet to close the night.</p><ul class="rows" aria-hidden="true"><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li><li><span>Dish</span><span>&mdash;</span></li></ul><span class="note">Dishes and prices added once owner confirms.</span></article></div></div>
-<aside class="side" aria-hidden="true"><div class="side-f" data-frame><div class="in">
-<div class="sl on"><img src="https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=1000&q=75" data-fb="1769458313937-b5ad8f84942e" onerror="fb(this)" loading="lazy" alt=""></div>
-<div class="sl"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=75" data-fb="1579751626657-72bc17010498" onerror="fb(this)" loading="lazy" alt=""></div>
-<div class="sl"><img src="https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=1000&q=75" data-fb="1709429790175-b02bb1b19207" onerror="fb(this)" loading="lazy" alt=""></div>
-<div class="sl"><img src="https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=1000&q=75" data-fb="1698688334089-c68105801d02" onerror="fb(this)" loading="lazy" alt=""></div></div></div>
-<div class="side-cap"><span id="sidecap">01 Antipasti</span><span>Stock photo</span></div></aside></div></div></section>
-
-<section class="cater" id="catering"><div class="wrap"><div class="card" data-r><div class="img" data-frame><img src="https://images.unsplash.com/photo-1770678724766-08268bbc61e2?auto=format&fit=crop&w=1200&q=75" data-fb="1699394317015-04257e98757c" onerror="fb(this)" loading="lazy" alt="A table set with pizza, pasta and salad, stock photo"></div>
-<div class="card-t"><span class="eyebrow">Catering</span><h2>Bring Salerno&rsquo;s <em>to your table.</em></h2><p>Catering for family gatherings and parties. Tell us the date and how many are coming, and we will call you back.</p><p class="fine" style="margin-top:.8rem">Tray menu and pricing added once owner confirms.</p><div class="cta"><a class="btn" href="#request" data-kind="Catering">Request catering</a><a class="btn ghost" href="tel:+12157459992">Call (215) 745-9992</a></div></div></div></div></section>
-
-<section class="visit" id="visit"><div class="wrap visit-g"><div><span class="eyebrow" data-r>Visit</span><h2 data-r>Come hungry. <em>Park easy.</em></h2>
-<p class="addr" data-r>6500-02 Rising Sun Ave<br>Philadelphia, PA 19111<br><a href="tel:+12157459992">(215) 745-9992</a></p>
-<span class="openstate" id="ostate" data-r></span>
-<ul class="hours" id="hours" data-r><li data-d="1,2,3,4"><span>Monday &ndash; Thursday</span><span>11 am &ndash; 10 pm</span></li><li data-d="5,6"><span>Friday &ndash; Saturday</span><span>11 am &ndash; 11 pm</span></li><li data-d="0"><span>Sunday</span><span>3 pm &ndash; 10 pm</span></li></ul>
-<p class="fine" data-r>Delivery area and fees added once owner confirms.</p>
-<div class="cta" data-r><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=6500+Rising+Sun+Ave+Philadelphia+PA+19111" target="_blank" rel="noopener">Get directions</a></div></div>
-<div class="map" data-frame><iframe title="Map of Salerno's Ristorante and Pizzeria" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=6500+Rising+Sun+Ave+Philadelphia+PA+19111&output=embed"></iframe></div></div></section>
-
-<section class="req" id="request"><div class="wrap req-g"><div><span class="eyebrow" data-r>Order &amp; catering</span><h2 data-r>Order or <em>cater</em> a table.</h2><p class="lead" data-r>Send a request and the restaurant calls you back to confirm. Not an online order, just a head start.</p><p class="fine" data-r>Prefer to talk? <a href="tel:+12157459992" style="border-bottom:1px solid var(--acc)">(215) 745-9992</a></p></div>
-<div><form class="form" id="bk" novalidate><div class="kinds" role="group" aria-label="Request type"><button type="button" class="kind on" data-k="Pickup">Pickup</button><button type="button" class="kind" data-k="Delivery">Delivery</button><button type="button" class="kind" data-k="Catering">Catering</button><button type="button" class="kind" data-k="Party">Party</button></div>
-<div class="fgrid"><label class="fld"><span>Name</span><input name="name" required autocomplete="name"></label><label class="fld"><span>Phone</span><input name="phone" type="tel" required autocomplete="tel" inputmode="tel"></label>
-<label class="fld"><span>Request type</span><select name="type" id="ftype"><option>Pickup</option><option>Delivery</option><option>Catering</option><option>Party</option></select></label><label class="fld"><span>Date needed</span><input name="date" type="date" id="fdate" required></label>
-<label class="fld"><span>Party size</span><input name="size" type="number" min="1" max="500" inputmode="numeric" placeholder="e.g. 4" required></label><label class="fld wide"><span>Note</span><textarea name="note" placeholder="Anything we should know"></textarea></label></div>
-<p class="err" hidden>Please fill in name, phone, date and party size.</p><button class="btn" type="submit">Send request</button></form>
-<div class="okbox" id="ok" hidden><h3>Request sent.</h3><p id="oktxt">Thank you. The restaurant will call you to confirm.</p><p class="fine">Demo only: the request is saved in this browser and shows on the demo admin page.</p></div></div></div></section>
-</main>
-
-<footer class="foot"><div class="wrap"><div><b>Salerno&rsquo;s</b><p>Ristorante &amp; Pizzeria &middot; 6500-02 Rising Sun Ave, Philadelphia PA 19111 &middot; (215) 745-9992</p><p>Stock photos shown, not the restaurant&rsquo;s own.</p></div><p>Demo concept by Rafael&rsquo;s web agency, not affiliated with Salerno&rsquo;s Ristorante &amp; Pizzeria.</p></div></footer>
-<nav class="mbar" aria-label="Quick actions"><a href="tel:+12157459992">Call</a><a href="https://www.google.com/maps/dir/?api=1&destination=6500+Rising+Sun+Ave+Philadelphia+PA+19111" target="_blank" rel="noopener">Directions</a><a href="#request">Request</a></nav>
-
+<div class="prog"><i></i></div><div class="topbar"><div class="tb-in"><span>&#9733; 3.7 &middot; 117 reviews</span><span>6500-02 Rising Sun Ave</span><span>Call: <a href="tel:+12157459992">(215) 745-9992</a></span></div></div><header class="nav hv-classic"><nav class="nl"><a href="#menu">Menu</a><a href="#how">How it works</a><a href="#reviews">Reviews</a></nav><a class="brand" href="#top"><span class="mk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="var(--acc)"/><text x="24" y="31" text-anchor="middle" style="font-family:var(--f1)" font-weight="800" font-size="22" fill="var(--onacc)">S</text></svg></span><span class="bn"><b>Salerno's</b><em>Ristorante &amp; Pizzeria</em></span></a><nav class="nr"><a href="#gallery">Gallery</a><a href="#faq">FAQ</a><a class="ph" href="tel:+12157459992"><i></i>(215) 745-9992</a><a class="btn" href="#visit"><span>Request an order</span><span class="ar">&rarr;</span></a></nav><button class="burger" aria-label="Open menu">Menu<b><i></i><i></i></b></button></header><div class="drawer"><div class="dr-bg"></div><div class="dr-p"><div class="dr-top"><a class="brand" href="#top"><span class="mk"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="var(--acc)"/><text x="24" y="31" text-anchor="middle" style="font-family:var(--f1)" font-weight="800" font-size="22" fill="var(--onacc)">S</text></svg></span><span class="bn"><b>Salerno's</b><em>Ristorante &amp; Pizzeria</em></span></a><button class="dr-x" aria-label="Close menu">&times;</button></div><div class="dr-l"><a href="#menu"><small>01</small>Menu</a><a href="#how"><small>02</small>How it works</a><a href="#reviews"><small>03</small>Reviews</a><a href="#gallery"><small>04</small>Gallery</a><a href="#faq"><small>05</small>FAQ</a></div><a class="btn dr-cta" href="#visit">Request an order</a><div class="dr-info"><a href="tel:+12157459992">(215) 745-9992</a><br>6500-02 Rising Sun Ave<br>Philadelphia, PA 19111<br>Open daily, hours below</div></div></div><section class="cine cine-tr" id="top"><div class="cine-bg" data-par="-4"><img src="https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=1800&q=72" srcset="https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=800&q=72 800w, https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=1200&q=72 1200w, https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=1600&q=72 1600w, https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=1800&q=72 1800w" sizes="100vw" alt="Pizza baking in an oven, stock photo" width="1800" height="1350" data-fb="1767500537505-0978aff4ad05" fetchpriority="high" decoding="async" onerror="fb(this)" ></div><i class="cine-shade"></i><div class="wrap cine-in"><div><span class="eyebrow" data-hero>Family-run &middot; Rising Sun Ave &middot; Since 1989</span><h1><span class="ln"><span>Dinner by candlelight,</span></span><span class="ln"><span>family-run</span></span><span class="ln"><span>since 1989.</span></span></h1><p class="sub" data-hero>Open daily at 6500-02 Rising Sun Ave. Sit down, take it home, or call ahead. [CONFIRM] delivery and catering.</p><div class="cta" data-hero><a class="btn" href="#visit">Request an order</a><a class="btn ghost" href="tel:+12157459992">(215) 745-9992</a></div></div><div class="fc-stack" data-hero><div class="fc"><div class="k"><i class="dot"></i>Open daily</div><div class="t">Rising Sun Ave</div><div class="s tk" data-l="Mon&ndash;Thu 11am&ndash;10pm|Fri&ndash;Sat 11am&ndash;11pm|Sun 3pm&ndash;10pm">Mon&ndash;Thu 11am&ndash;10pm</div></div><div class="fc"><div class="k">Restaurantji</div><div class="big">3.7 ★</div><div class="s">117 ratings</div></div><div class="fc"><div class="k">Serving since</div><div class="t">1989</div><div class="bar"><i data-v="100"></i></div><div class="s">6500-02 Rising Sun Ave</div></div></div></div><div class="cine-foot"><span>Scroll</span></div></section><div class="ging"></div><div class="cnts "><div class="wrap"><div><b><span class="cnt" data-to="3.7" data-dec="1" data-suf="">3.7</span></b><span>Restaurantji rating</span></div><div><b><span class="cnt" data-to="117" data-dec="0" data-suf="">117</span></b><span>Ratings</span></div><div><b><span class="cnt" data-to="1989" data-dec="0" data-suf="">1989</span></b><span>Serving since</span></div><div><b><span class="cnt" data-to="4" data-dec="0" data-suf="">4</span></b><span>Ways to order</span></div></div></div><div class="marq " aria-hidden="true"><div class="mt"><span>Dine-in</span><i>&#10022;</i><span>Takeout</span><i>&#10022;</i><span>Delivery</span><i>&#10022;</i><span>Catering</span><i>&#10022;</i><span>Antipasti</span><i>&#10022;</i><span>Pizza &amp; Pasta</span><i>&#10022;</i><span>Entr&eacute;es</span><i>&#10022;</i><span>Dolci</span><i>&#10022;</i><span>Dine-in</span><i>&#10022;</i><span>Takeout</span><i>&#10022;</i><span>Delivery</span><i>&#10022;</i><span>Catering</span><i>&#10022;</i><span>Antipasti</span><i>&#10022;</i><span>Pizza &amp; Pasta</span><i>&#10022;</i><span>Entr&eacute;es</span><i>&#10022;</i><span>Dolci</span><i>&#10022;</i><span>Dine-in</span><i>&#10022;</i><span>Takeout</span><i>&#10022;</i><span>Delivery</span><i>&#10022;</i><span>Catering</span><i>&#10022;</i><span>Antipasti</span><i>&#10022;</i><span>Pizza &amp; Pasta</span><i>&#10022;</i><span>Entr&eacute;es</span><i>&#10022;</i><span>Dolci</span><i>&#10022;</i><span>Dine-in</span><i>&#10022;</i><span>Takeout</span><i>&#10022;</i><span>Delivery</span><i>&#10022;</i><span>Catering</span><i>&#10022;</i><span>Antipasti</span><i>&#10022;</i><span>Pizza &amp; Pasta</span><i>&#10022;</i><span>Entr&eacute;es</span><i>&#10022;</i><span>Dolci</span><i>&#10022;</i></div></div><section class="mb" id="menu"><div class="wrap mb-g"><div><span class="eyebrow">The menu board</span><h2 data-split>Four courses, one table.</h2><ul class="mb-list"><li data-i="0" class="on"><div class="mb-row"><b>Antipasti</b><i class="dots"></i><span>[CONFIRM]</span></div><p>Start small and share. Plates for the middle of the table.</p></li><li data-i="1"><div class="mb-row"><b>Pizza & Pasta</b><i class="dots"></i><span>[CONFIRM]</span></div><p>The heart of a neighborhood pizzeria. Pick one, or pass both around.</p></li><li data-i="2"><div class="mb-row"><b>Entrées & Hoagies</b><i class="dots"></i><span>[CONFIRM]</span></div><p>Hot plates for a sit-down dinner, and hoagies when you are taking it with you.</p></li><li data-i="3"><div class="mb-row"><b>Dolci</b><i class="dots"></i><span>[CONFIRM]</span></div><p>Something sweet to close the night.</p></li></ul><p class="fine">Dishes and prices: [CONFIRM] with the owner.</p></div><div class="mb-r"><div class="mb-disc"><div class="ph on" data-i="0"><img src="https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=800&q=72 800w, https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=900&q=72 900w" sizes="(max-width:700px) 100vw, 900px" alt="Burrata with tomatoes and prosciutto, stock photo" width="900" height="675" data-fb="1513104890138-7c749659a591" loading="lazy" decoding="async" onerror="fb(this)" ></div><div class="ph" data-i="1"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=72 800w, https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=72 900w" sizes="(max-width:700px) 100vw, 900px" alt="Sliced pizza with cherry tomatoes, stock photo" width="900" height="675" data-fb="1759409117421-1a64af35f118" loading="lazy" decoding="async" onerror="fb(this)" ></div><div class="ph" data-i="2"><img src="https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=800&q=72 800w, https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=900&q=72 900w" sizes="(max-width:700px) 100vw, 900px" alt="Baked lasagna with basil, stock photo" width="900" height="675" data-fb="1714385905983-6f8e06fffae1" loading="lazy" decoding="async" onerror="fb(this)" ></div><div class="ph" data-i="3"><img src="https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=800&q=72 800w, https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=900&q=72 900w" sizes="(max-width:700px) 100vw, 900px" alt="Tiramisu on a plate, stock photo" width="900" height="675" data-fb="1632739148811-2b53d07be26f" loading="lazy" decoding="async" onerror="fb(this)" ></div><svg class="ring2" viewBox="0 0 400 400" aria-hidden="true"><defs><path id="rgring2" d="M200,200 m-176,0 a176,176 0 1,1 352,0 a176,176 0 1,1 -352,0"/></defs><text><textPath href="#rgring2" textLength="1100" lengthAdjust="spacing">Since 1989 &middot; 6500-02 Rising Sun Ave &middot; Mon&ndash;Thu 11am&ndash;10pm &middot; Fri&ndash;Sat 11am&ndash;11pm &middot; Sun 3pm&ndash;10pm &middot; 3.7 on Restaurantji &middot; </textPath></text></svg></div></div></div></section><script>(function(){var l=document.querySelectorAll('.mb-list li'),p=document.querySelectorAll('.mb-disc .ph');function go(i){l.forEach(function(x,k){x.classList.toggle('on',k==i)});p.forEach(function(x,k){x.classList.toggle('on',k==i)})}l.forEach(function(x,i){x.addEventListener('mouseenter',function(){go(i)});x.addEventListener('click',function(){go(i)})});})();</script><section class="tool" id="build" data-cur=""><div class="wrap"><span class="eyebrow">Plan your request</span><h2 data-split>Build your table.</h2><div class="tool-g"><div><div class="tool-st" data-multi="0"><h3><b>01</b>Request type</h3><div class="opts"><button type="button" class="opt" data-n="Pickup" data-p="0">Pickup<small></small></button><button type="button" class="opt" data-n="Delivery" data-p="0">Delivery<small></small></button><button type="button" class="opt" data-n="Catering" data-p="0">Catering<small></small></button><button type="button" class="opt" data-n="Party" data-p="0">Party<small></small></button></div></div><div class="tool-st" data-multi="1"><h3><b>02</b>Courses</h3><div class="opts"><button type="button" class="opt" data-n="Antipasti" data-p="0">Antipasti<small></small></button><button type="button" class="opt" data-n="Pizza & Pasta" data-p="0">Pizza & Pasta<small></small></button><button type="button" class="opt" data-n="Entrées & Hoagies" data-p="0">Entrées & Hoagies<small></small></button><button type="button" class="opt" data-n="Dolci" data-p="0">Dolci<small></small></button></div></div></div><div class="tool-r"><h4>Your request</h4><ul></ul><div class="tool-tot"><span>Prices</span><b>0</b></div><a class="btn tool-go" href="#visit">Send this request</a><p class="fine">Prices: [CONFIRM] with the owner.</p></div></div></div></section><section class="band "><div class="band-img"><img src="https://images.unsplash.com/photo-1770678724766-08268bbc61e2?auto=format&fit=crop&w=1600&q=72" srcset="https://images.unsplash.com/photo-1770678724766-08268bbc61e2?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1770678724766-08268bbc61e2?auto=format&fit=crop&w=800&q=72 800w, https://images.unsplash.com/photo-1770678724766-08268bbc61e2?auto=format&fit=crop&w=1200&q=72 1200w, https://images.unsplash.com/photo-1770678724766-08268bbc61e2?auto=format&fit=crop&w=1600&q=72 1600w" sizes="100vw" alt="A table set with pizza and pasta, stock photo" width="1600" height="1200" data-fb="1583744513520-ba4682a40ede" loading="eager" decoding="async" onerror="fb(this)" ></div><div class="band-in wrap"><h2 class="bt"><span class="bl"><span>Bring Salerno's</span></span><span class="bl"><span>to your table.</span></span></h2><p class="bs">Catering for family gatherings and parties. Tell us the date and how many are coming.</p></div></section><section id="reviews" style="padding-block:clamp(70px,10vw,130px)"><div class="wrap"><span class="eyebrow">Reviews</span><h2 data-split>What people say.</h2><div class="nt-top"><b>3.7</b><span>on Google<br>117 reviews</span></div><div class="notes"><div class="note io" style="--d:0.0s"><div class="st"><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg></div><h3>[CONFIRM] Review theme</h3><p>[CONFIRM] Real review quotes added once confirmed.</p><small>Sample reviewer, paraphrased</small></div><div class="note io" style="--d:0.1s"><div class="st"><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg></div><h3>[CONFIRM] Review theme</h3><p>[CONFIRM] Real review quotes added once confirmed.</p><small>Sample reviewer, paraphrased</small></div><div class="note io" style="--d:0.3s"><div class="st"><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.8 5.6 21.6 7 14.5 1.7 9.5l7.2-.9z"/></svg></div><h3>[CONFIRM] Review theme</h3><p>[CONFIRM] Real review quotes added once confirmed.</p><small>Sample reviewer, paraphrased</small></div></div><p class="fine">Sample themes for this test concept.</p></div></section><section class="hs " id="gallery"><div class="hs-in"><div class="wrap hs-head"><div><span class="eyebrow">From the table</span><h2>A look inside.</h2></div><p class="fine hs-note">Stock photos stand in until the business approves its own.</p></div><div class="hs-track"><figure class="hs-c"><img src="https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=640&q=72" srcset="https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?auto=format&fit=crop&w=640&q=72 640w" sizes="(max-width:700px) 100vw, 640px" alt="Pizza baking in an oven, stock photo" width="640" height="480" data-fb="1767500537505-0978aff4ad05" loading="eager" decoding="async" onerror="fb(this)" ><figcaption>Pizza baking in an oven (stock photo)</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=640&q=72" srcset="https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1767500537505-0978aff4ad05?auto=format&fit=crop&w=640&q=72 640w" sizes="(max-width:700px) 100vw, 640px" alt="Burrata with tomatoes and prosciutto, stock photo" width="640" height="480" data-fb="1513104890138-7c749659a591" loading="eager" decoding="async" onerror="fb(this)" ><figcaption>Burrata with tomatoes and prosciutto (stock photo)</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=640&q=72" srcset="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=640&q=72 640w" sizes="(max-width:700px) 100vw, 640px" alt="Sliced pizza with cherry tomatoes, stock photo" width="640" height="480" data-fb="1759409117421-1a64af35f118" loading="eager" decoding="async" onerror="fb(this)" ><figcaption>Sliced pizza with cherry tomatoes (stock photo)</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=640&q=72" srcset="https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1759409117421-1a64af35f118?auto=format&fit=crop&w=640&q=72 640w" sizes="(max-width:700px) 100vw, 640px" alt="Baked lasagna with basil, stock photo" width="640" height="480" data-fb="1714385905983-6f8e06fffae1" loading="eager" decoding="async" onerror="fb(this)" ><figcaption>Baked lasagna with basil (stock photo)</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=640&q=72" srcset="https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?auto=format&fit=crop&w=640&q=72 640w" sizes="(max-width:700px) 100vw, 640px" alt="Tiramisu on a plate, stock photo" width="640" height="480" data-fb="1632739148811-2b53d07be26f" loading="eager" decoding="async" onerror="fb(this)" ><figcaption>Tiramisu on a plate (stock photo)</figcaption></figure><figure class="hs-c"><img src="https://images.unsplash.com/photo-1632739148811-2b53d07be26f?auto=format&fit=crop&w=640&q=72" srcset="https://images.unsplash.com/photo-1632739148811-2b53d07be26f?auto=format&fit=crop&w=480&q=72 480w, https://images.unsplash.com/photo-1632739148811-2b53d07be26f?auto=format&fit=crop&w=640&q=72 640w" sizes="(max-width:700px) 100vw, 640px" alt="Pasta beside a glass of wine, stock photo" width="640" height="480" data-fb="1770678724766-08268bbc61e2" loading="eager" decoding="async" onerror="fb(this)" ><figcaption>Pasta beside a glass of wine (stock photo)</figcaption></figure></div></div></section><section class="tk-s" id="how"><div class="wrap tk-g"><div><span class="eyebrow">How it works</span><h2 data-split>Order slip.</h2><p class="fine" style="font-size:1rem;max-width:26em">Three steps, no fuss.</p></div><div class="ticket io"><div class="tk-h"><span>TABLE 1</span><span>PICKUP</span></div><ol><li><b>1</b><div><h3>Send a request</h3><p>Pick pickup, delivery, catering or a party and tell us the date.</p></div></li><li><b>2</b><div><h3>We call you back</h3><p>The restaurant confirms the details with you by phone.</p></div></li><li><b>3</b><div><h3>Enjoy it your way</h3><p>Dine in, take it home, have it delivered, or serve it at your table.</p></div></li></ol><div class="tk-f"><span>Total</span><em>Added once owner confirms</em></div></div></div></section><section class="faq " id="faq"><div class="wrap faq-g"><div><span class="eyebrow">Quick answers</span><h2>Good to know.</h2></div><div class="faq-l"><details><summary>Do you take online orders?</summary><p>Not yet. Send a request here and the restaurant calls you back to confirm.</p></details><details><summary>Do you deliver?</summary><p>Yes, delivery is offered. Delivery area and fees: [CONFIRM].</p></details><details><summary>Do you do catering?</summary><p>Yes, for family gatherings and parties. Tray menu and pricing: [CONFIRM].</p></details><details><summary>Is it BYOB?</summary><p>[CONFIRM]</p></details></div></div></section><section id="visit"><div class="wrap visit-g"><div><span class="eyebrow">Visit</span><h2>Order or cater a table.</h2><p class="addr">6500-02 Rising Sun Ave<br>Philadelphia, PA 19111<br><a href="tel:+12157459992">(215) 745-9992</a></p><ul class="hours"><li><span>Mon–Thu</span><span>11am–10pm</span></li><li><span>Fri–Sat</span><span>11am–11pm</span></li><li><span>Sun</span><span>3pm–10pm</span></li></ul><p class="fine">Sample concept: facts are placeholders for this test.</p><div style="margin-top:1.6rem"><div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=6500-02%20Rising%20Sun%20Ave%2C%20Philadelphia%2C%20PA%2019111&output=embed"></iframe></div></div></div><div class="card"><form id="bk" class="form" novalidate><p class="form-intro">Send a request and the restaurant calls you back to confirm. This demo saves it so you can see the admin side.</p><div class="fgrid"><label class="fld"><span>Your name *</span><input name="name" type="text" placeholder="" required></label><label class="fld"><span>Phone *</span><input name="phone" type="tel" placeholder="" required></label><label class="fld"><span>Request type *</span><select name="type" required><option value="">Choose</option><option>Antipasti</option><option>Pizza &amp; Pasta</option><option>Entrées &amp; Hoagies</option><option>Dolci</option><option>Something else</option></select></label><label class="fld"><span>Date needed</span><input name="day" type="date" placeholder=""></label><label class="fld"><span>Time</span><select name="time"><option value="">Choose</option><option>Lunch</option><option>Early dinner</option><option>Dinner</option><option>Late</option></select></label><label class="fld wide"><span>Notes</span><textarea name="note" rows="3" placeholder="Party size, allergies, anything we should know"></textarea></label></div><p class="err" hidden>Please fill the starred fields.</p><button class="btn" type="submit">Send request</button></form><div id="ok" class="okbox" hidden><h3>Request saved</h3><p>Demo only: your request was saved in this browser and shows on the admin page.</p></div></div></div></section><footer class="foot"><div class="wrap"><span>Demo concept by Rafael's web agency, not affiliated with Salerno's Ristorante &amp; Pizzeria. Photos are stock images.</span></div></footer><div class="mbar"><a href="tel:+12157459992">Call</a><a href="https://www.google.com/maps/dir//6500-02%20Rising%20Sun%20Ave%2C%20Philadelphia%2C%20PA%2019111" target="_blank" rel="noopener">Directions</a><a href="#visit">Request</a></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-<script>if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');var SLUG="salernos-ristorante";var VIDEO_URL="https://videos.pexels.com/video-files/10802656/10802656-hd_1280_720_24fps.mp4";</script>
+<script>if(window.gsap&&window.ScrollTrigger)document.documentElement.classList.add('js');var SLUG="salernos-ristorante";</script>
 <script>
-function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=1000&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}
+window.FM=function(mm,lenis){
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){gsap.globalTimeline.timeScale(40);return}
+ document.querySelectorAll('[data-split]').forEach(function(h){
+  if(h.dataset.done)return;h.dataset.done=1;var t=h.textContent.trim();h.setAttribute('aria-label',t);
+  h.innerHTML=t.split(/\s+/).map(function(w){return '<span class="sw" aria-hidden="true"><span>'+w+'</span></span>'}).join(' ');
+  gsap.from(h.querySelectorAll('.sw>span'),{yPercent:118,duration:1.05,ease:'expo.out',stagger:.07,scrollTrigger:{trigger:h,start:'top 90%',once:true}});
+ });
+ document.querySelectorAll('[data-st]').forEach(function(el){
+  gsap.from(el.children,{y:48,opacity:0,duration:.95,ease:'power3.out',stagger:.13,scrollTrigger:{trigger:el,start:'top 86%',once:true}});
+ });
+ var mts=gsap.utils.toArray('.marq .mt'),tm;
+ if(mts.length)ScrollTrigger.create({onUpdate:function(s){gsap.to(mts,{skewX:gsap.utils.clamp(-9,9,s.getVelocity()/-240),duration:.5,overwrite:true});clearTimeout(tm);tm=setTimeout(function(){gsap.to(mts,{skewX:0,duration:.7})},140)}});
+ if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+  var c=document.createElement('div');c.className='cur';document.body.appendChild(c);
+  var x=gsap.quickTo(c,'x',{duration:.35,ease:'power3'}),y=gsap.quickTo(c,'y',{duration:.35,ease:'power3'});
+  addEventListener('mousemove',function(e){x(e.clientX);y(e.clientY)});
+  document.querySelectorAll('a,button,summary,[data-hov]').forEach(function(a){a.addEventListener('mouseenter',function(){c.classList.add('big')});a.addEventListener('mouseleave',function(){c.classList.remove('big')})});
+ }
+};
+
+window.FC=function(){
+ document.querySelectorAll('.fc .bar i').forEach(function(b){setTimeout(function(){b.style.width=b.dataset.v+'%'},900)});
+ var tk=document.querySelectorAll('.fc .tk');
+ tk.forEach(function(el){var L=(el.dataset.l||'').split('|').filter(Boolean);if(L.length<2)return;var i=0;setInterval(function(){el.classList.add('out');setTimeout(function(){i=(i+1)%L.length;el.textContent=L[i];el.classList.remove('out')},380)},3400)});
+ var T=document.querySelector('.tool');if(!T)return;
+ var cur=T.dataset.cur||'$',picks={},rows=T.querySelectorAll('.tool-st'),ul=T.querySelector('.tool-r ul'),tot=T.querySelector('.tool-tot b'),shown=0;
+ function render(){var sum=0,h='';rows.forEach(function(r,i){var m=picks[i];if(!m)return;m.forEach(function(o){sum+=o.p;h+='<li><span>'+o.n+'</span><span>'+(o.p?cur+o.p:'')+'</span></li>'})});
+  ul.innerHTML=h||'<li class="em" style="border:0">Pick an option to start.</li>';
+  var from=shown,to=sum,t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/450);tot.textContent=cur+Math.round(from+(to-from)*k);if(k<1)requestAnimationFrame(f)})(t0);shown=to;T._sum=sum}
+ rows.forEach(function(r,i){var multi=r.dataset.multi=='1';r.querySelectorAll('.opt').forEach(function(b){b.addEventListener('click',function(){
+   var o={n:b.dataset.n,p:+b.dataset.p};
+   if(multi){b.classList.toggle('on');picks[i]=[].slice.call(r.querySelectorAll('.opt.on')).map(function(x){return{n:x.dataset.n,p:+x.dataset.p}})}
+   else{r.querySelectorAll('.opt').forEach(function(x){x.classList.remove('on')});b.classList.add('on');picks[i]=[o]}
+   render()})})});
+ var go=T.querySelector('.tool-go');go.addEventListener('click',function(e){var txt=[];rows.forEach(function(r,i){(picks[i]||[]).forEach(function(o){txt.push(o.n)})});
+   var n=document.querySelector('#visit textarea[name=note]');if(n&&txt.length)n.value='Request: '+txt.join(', ')+(T._sum?' (about '+cur+T._sum+')':'')+'.'});
+ render();
+};
+window.SITE=function(mm,lenis){FM(mm,lenis);FC();mm.add('(min-width:901px)',function(){gsap.fromTo('.plate .disc img',{scale:1.15},{scale:1,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}})})};</script>
+<script>
+function fb(i){if(i.dataset.fb&&!i.dataset.t){i.dataset.t=1;i.removeAttribute('srcset');i.src='https://images.unsplash.com/photo-'+i.dataset.fb+'?auto=format&fit=crop&w=900&q=75';return}i.style.display='none';if(i.parentNode)i.parentNode.classList.add('nopic')}
 (function(){
-var nav=document.getElementById('nav');
-function sc(){nav.classList.toggle('solid',window.scrollY>40)}
+var nav=document.querySelector('header.nav');
+function sc(){if(nav)nav.classList.toggle('solid',window.scrollY>40)}
 window.addEventListener('scroll',sc,{passive:true});sc();
-/* hero video slot (inside the framed photo) */
-if(VIDEO_URL){var bgEl=document.getElementById('herobg');var im0=bgEl.querySelector('img');var v=document.createElement('video');v.muted=true;v.autoplay=true;v.loop=true;v.playsInline=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.preload='auto';v.style.opacity='0';v.style.transition='opacity .8s';if(im0)v.poster=im0.src;var s=document.createElement('source');s.src=VIDEO_URL;s.type='video/mp4';v.appendChild(s);v.addEventListener('playing',function(){v.style.opacity='1'});v.addEventListener('error',function(){v.remove()},true);bgEl.appendChild(v);var pr=v.play();if(pr&&pr.catch)pr.catch(function(){})}
-/* menu drawer */
-var bg=document.querySelector('.burger'),dr=document.querySelector('.drawer');
-function setMenu(o){document.body.classList.toggle('menu',o);bg.setAttribute('aria-expanded',o);dr.setAttribute('aria-hidden',!o)}
-bg.addEventListener('click',function(){setMenu(!document.body.classList.contains('menu'))});
-dr.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
-/* hours (America/New_York) */
-var SCH={0:[900,1320],1:[660,1320],2:[660,1320],3:[660,1320],4:[660,1320],5:[660,1380],6:[660,1380]};
-function fm(m){var h=Math.floor(m/60),ap=h>=12?'pm':'am';h=h%12||12;return h+(m%60?':'+('0'+m%60).slice(-2):'')+' '+ap}
-function ny(){try{var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()),o={};p.forEach(function(x){o[x.type]=x.value});var d={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[o.weekday];return {d:d,m:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10)}}catch(e){var n=new Date();return {d:n.getDay(),m:n.getHours()*60+n.getMinutes()}}}
-var n=ny(),t=SCH[n.d];
-document.getElementById('todayh').textContent=fm(t[0])+' – '+fm(t[1]);
-var os=document.getElementById('ostate'),open=n.m>=t[0]&&n.m<t[1];
-os.textContent=open?'Open now, until '+fm(t[1]):'Closed now, opens '+fm(t[0])+(n.m>=t[1]?' next open day':' today');
-if(!open&&n.m>=t[1]){var nd=(n.d+1)%7;os.textContent='Closed now, opens tomorrow at '+fm(SCH[nd][0])}
-os.classList.toggle('on',open);
-document.querySelectorAll('#hours li').forEach(function(li){if(li.dataset.d.split(',').indexOf(String(n.d))>-1)li.classList.add('today')});
-/* menu board: swap photo on hover / focus / tap */
-var cats=document.querySelectorAll('.cat'),sls=document.querySelectorAll('.side .sl'),cap=document.getElementById('sidecap');
-var NAMES=['01 Antipasti','02 Pizza & Pasta','03 Entrées & Hoagies','04 Dolci'];
-function setCat(i){cats.forEach(function(c){c.classList.toggle('on',+c.dataset.i===i)});sls.forEach(function(s,k){s.classList.toggle('on',k===i)});cap.textContent=NAMES[i]}
-cats.forEach(function(c){var i=+c.dataset.i;c.addEventListener('click',function(){setCat(i)});c.addEventListener('focus',function(){setCat(i)});if(matchMedia('(hover:hover) and (pointer:fine)').matches)c.addEventListener('mouseenter',function(){setCat(i)})});
-/* form */
-var f=document.getElementById('bk'),ft=document.getElementById('ftype'),fd=document.getElementById('fdate');
-try{var td=new Date();fd.min=td.getFullYear()+'-'+('0'+(td.getMonth()+1)).slice(-2)+'-'+('0'+td.getDate()).slice(-2)}catch(e){}
-function setKind(k){ft.value=k;document.querySelectorAll('.kind').forEach(function(b){b.classList.toggle('on',b.dataset.k===k)})}
-document.querySelectorAll('.kind').forEach(function(b){b.addEventListener('click',function(){setKind(b.dataset.k)})});
-ft.addEventListener('change',function(){setKind(ft.value)});
-document.querySelectorAll('[data-kind]').forEach(function(a){a.addEventListener('click',function(){setKind(a.dataset.kind)})});
-f.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(f).forEach(function(v,k){d[k]=v});
+var pr=document.querySelector('.prog i'),lastY=0;
+function pg(){var h=document.documentElement.scrollHeight-innerHeight;if(pr)pr.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';var y=scrollY;document.body.classList.toggle('scrolled',y>60);document.body.classList.toggle('hide',y>420&&y>lastY+4);if(y<lastY-4)document.body.classList.remove('hide');lastY=y}
+window.addEventListener('scroll',pg,{passive:true});pg();
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.18});document.querySelectorAll('.io').forEach(function(el){io.observe(el)})}else document.querySelectorAll('.io').forEach(function(el){el.classList.add('in')});
+if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+ document.querySelectorAll('.btn:not(.dr-cta)').forEach(function(b){b.addEventListener('mousemove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.28)+'px)'});b.addEventListener('mouseleave',function(){b.style.transform=''})});
+ document.querySelectorAll('.svc-c,.rv').forEach(function(c){c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(900px) rotateX('+(-y*5)+'deg) rotateY('+(x*6)+'deg) translateY(-6px)'});c.addEventListener('mouseleave',function(){c.style.transform=''})})}
+var bg=document.querySelector('.burger');
+if(bg)bg.addEventListener('click',function(){document.body.classList.toggle('menu')});
+document.querySelectorAll('.drawer a,.dr-x,.dr-bg').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu')})});
+var f=document.getElementById('bk');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(f).forEach(function(v,k){d[k]=v});
  var ok=true;f.querySelectorAll('[required]').forEach(function(x){if(!String(x.value).trim()){x.classList.add('bad');ok=false}else x.classList.remove('bad')});
  var er=f.querySelector('.err');if(!ok){er.hidden=false;return}er.hidden=true;
  d.id='bk_'+Date.now();d.created=new Date().toISOString();d.status='new';
+ if(window.EXTRA_FIELDS){var ex=window.EXTRA_FIELDS();Object.keys(ex).forEach(function(k){d[k]=ex[k]})}
  var a=[];try{a=JSON.parse(localStorage.getItem(SLUG+'_bookings')||'[]')}catch(x){}
  a.unshift(d);try{localStorage.setItem(SLUG+'_bookings',JSON.stringify(a))}catch(x){}
- f.hidden=true;document.getElementById('oktxt').textContent='Thank you, '+d.name.split(' ')[0]+'. Your '+d.type.toLowerCase()+' request for '+d.date+' (party of '+d.size+') is in. The restaurant will call '+d.phone+' to confirm.';document.getElementById('ok').hidden=false;
+ f.hidden=true;var ob=document.getElementById('ok');ob.hidden=false;
  if(window.ScrollTrigger)setTimeout(function(){ScrollTrigger.refresh()},100)});
 window.addEventListener('load',function(){
  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -287,23 +472,65 @@ window.addEventListener('load',function(){
  gsap.registerPlugin(ScrollTrigger);
  var lenis=null;
  if(window.Lenis&&!rm){lenis=new Lenis({lerp:.1,smoothWheel:true});window.lenis=lenis;lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000)});gsap.ticker.lagSmoothing(0)}
- document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var tg=document.querySelector(id);if(!tg)return;e.preventDefault();if(lenis)lenis.scrollTo(tg,{offset:id==='#top'?0:-50,duration:1.3});else tg.scrollIntoView({behavior:'smooth'})})});
- /* hero: frame reveal, fade-ups, slow parallax */
- var hf=document.getElementById('heroframe'),hm=document.getElementById('herobg');
- gsap.to(hf,{clipPath:'inset(0 0 0% 0)',duration:1.5,ease:'expo.out'});
- gsap.fromTo(hm,{scale:1.12},{scale:1,duration:2.4,ease:'power2.out'});
- gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.1,delay:.2});
- if(!rm)gsap.fromTo(hm,{yPercent:-4},{yPercent:5,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(!t)return;e.preventDefault();if(lenis)lenis.scrollTo(t,{offset:-64,duration:1.3});else t.scrollIntoView({behavior:'smooth'})})});
+ gsap.to('.ln>span',{y:0,duration:1.15,ease:'expo.out',stagger:.12,delay:.15});
+ gsap.to('[data-hero]',{opacity:1,y:0,duration:1,ease:'power3.out',stagger:.1,delay:.55});
  ScrollTrigger.batch('[data-r]',{start:'top 91%',once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1})}});
- document.querySelectorAll('[data-frame]:not(#heroframe)').forEach(function(el){
+ document.querySelectorAll('[data-wipe]').forEach(function(el){
   var tr={trigger:el,start:'top 90%',once:true};
   gsap.fromTo(el,{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.3,ease:'expo.out',scrollTrigger:tr});
-  var im=el.querySelector('img');if(im&&!rm)gsap.fromTo(im,{scale:1.2},{scale:1,duration:1.7,ease:'expo.out',scrollTrigger:tr})});
+  var im=el.querySelector('img');if(im)gsap.fromTo(im,{scale:1.25},{scale:1,duration:1.7,ease:'expo.out',scrollTrigger:tr})});
+ document.querySelectorAll('[data-par]').forEach(function(el){gsap.to(el,{yPercent:parseFloat(el.dataset.par),ease:'none',scrollTrigger:{trigger:el.parentNode,start:'top bottom',end:'bottom top',scrub:true}})});
+ var mm=gsap.matchMedia();
+ if(window.SITE)window.SITE(mm,lenis);
  window.addEventListener('resize',function(){ScrollTrigger.refresh()});
- setTimeout(function(){ScrollTrigger.refresh()},700);
+ setTimeout(function(){ScrollTrigger.refresh()},600);
  window.__ok=1;
 });
 setTimeout(function(){if(!window.__ok)document.documentElement.classList.add('nojsfix')},4500);
+})();
+</script><script>
+(function(){
+ function go(){
+  if(!window.gsap||!window.ScrollTrigger||!document.documentElement.classList.contains('js'))return;
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* split headings */
+  document.querySelectorAll('h2:not(.bt)').forEach(function(h){
+   if(h.dataset.sp||h.children.length)return;h.dataset.sp=1;
+   var words=h.textContent.trim().split(/\s+/);
+   h.innerHTML=words.map(function(w){return '<span class="w"><span>'+w.replace(/&/g,'&amp;')+'</span></span>'}).join(' ');
+   if(!rm)gsap.from(h.querySelectorAll('.w>span'),{yPercent:115,duration:1,ease:'expo.out',stagger:.06,scrollTrigger:{trigger:h,start:'top 88%',once:true}});
+  });
+  /* marquee */
+  if(!rm)document.querySelectorAll('.marq').forEach(function(m){
+   var t=m.querySelector('.mt');if(!t)return;
+   var tw=gsap.to(t,{xPercent:-25,repeat:-1,ease:'none',duration:26});
+   ScrollTrigger.create({trigger:m,start:'top bottom',end:'bottom top',onUpdate:function(s){var v=1+Math.min(5,Math.abs(s.getVelocity())/350);gsap.to(tw,{timeScale:(s.direction<0?-1:1)*v,duration:.5,overwrite:true})}});
+  });
+  /* band parallax + text */
+  document.querySelectorAll('.band').forEach(function(b){
+   var im=b.querySelector('.band-img');
+   if(!rm&&im)gsap.fromTo(im,{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:true}});
+   if(!rm)gsap.from(b.querySelectorAll('.bl>span'),{yPercent:110,duration:1.1,ease:'expo.out',stagger:.14,scrollTrigger:{trigger:b,start:'top 60%',once:true}});
+  });
+  /* counters */
+  document.querySelectorAll('.cnt').forEach(function(c){
+   var to=parseFloat(c.dataset.to),dec=parseInt(c.dataset.dec||'0',10),suf=c.dataset.suf||'';
+   if(rm)return;var o={v:0};
+   ScrollTrigger.create({trigger:c,start:'top 92%',once:true,onEnter:function(){gsap.to(o,{v:to,duration:1.8,ease:'power2.out',onUpdate:function(){c.textContent=o.v.toFixed(dec)+suf}})}});
+  });
+  /* pinned horizontal gallery */
+  var mm=gsap.matchMedia();
+  mm.add('(min-width:901px)',function(){
+   document.querySelectorAll('.hs').forEach(function(s){
+    var tr=s.querySelector('.hs-track');if(!tr)return;
+    var dist=function(){return Math.max(0,tr.scrollWidth-window.innerWidth)};
+    gsap.to(tr,{x:function(){return -dist()},ease:'none',scrollTrigger:{trigger:s,start:'top top',end:function(){return '+='+dist()},pin:true,scrub:.7,invalidateOnRefresh:true,anticipatePin:1}});
+   });
+  });
+  setTimeout(function(){ScrollTrigger.refresh()},900);
+ }
+ window.addEventListener('load',function(){setTimeout(go,30)});
 })();
 </script>
 </body>
