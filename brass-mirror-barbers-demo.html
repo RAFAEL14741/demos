@@ -366,6 +366,7 @@ window.SITE=function(mm,lenis){FM(mm,lenis);
  var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
  /* ===== fogged mirror ===== */
  var mir=$('.mir'),cv=$('canvas',mir),im=$('img',mir),hint=$('.hint'),lines=JSON.parse(mir.dataset.lines),ctx=cv.getContext('2d'),fog=document.createElement('canvas'),fx=fog.getContext('2d'),W,H,D,last=null,moved=0,tick=0,live=false;
+ if(matchMedia('(pointer:coarse)').matches&&hint)hint.textContent='Drag a finger across the mirror';
  function size(){D=Math.min(devicePixelRatio||1,2);W=cv.width=Math.round(mir.clientWidth*D);H=cv.height=Math.round(mir.clientHeight*D);fog.width=W;fog.height=H}
  function cover(c,img,w,h){var r=Math.max(w/img.naturalWidth,h/img.naturalHeight),iw=img.naturalWidth*r,ih=img.naturalHeight*r;c.drawImage(img,(w-iw)/2,(h-ih)/2,iw,ih)}
  function makeFog(){
