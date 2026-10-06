@@ -404,7 +404,7 @@ window.SITE=function(mm,lenis){FM(mm,lenis);
  function build(desk){
   gsap.set(sc,{xPercent:-50,yPercent:-50});gsap.set(pie,{xPercent:-50,yPercent:-50});gsap.set(lid,{transformOrigin:'50% 0%'});
   if(desk){gsap.set(ol,{opacity:0,x:function(i){return i<3?40:-40}});gsap.set(fn,{opacity:0})}
-  var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:st,start:'top top',end:desk?'+=190%':'+=150%',pin:true,scrub:.25,anticipatePin:1,invalidateOnRefresh:true}});
+  var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:st,start:'top top',end:desk?'+=120%':'+=100%',pin:true,scrub:.15,anticipatePin:1,invalidateOnRefresh:true}});
   tl.fromTo(lid,{rotateX:0},{rotateX:168,ease:'power1.inOut',duration:1.4},0)
     .fromTo(pie,{scale:.97},{scale:1.04,duration:1.4},0)
     .fromTo(cp,{opacity:1,y:0},{opacity:0,y:-50,duration:.6,ease:'power1.in'},.5)
