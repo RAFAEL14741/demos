@@ -225,6 +225,61 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
   .mbar a.go{background:var(--orange);border-color:var(--orange);color:#0C0C0D}
 }
 @media(prefers-reduced-motion:reduce){.is-open .dot{animation:none}}
+
+/* ===== v2 upgrade ===== */
+.mq{border-block:1px solid var(--line);background:var(--ink);overflow:hidden;padding:18px 0;will-change:transform}
+.mq .trk{display:flex;width:max-content;animation:mq 38s linear infinite}
+.mq span{font-family:'Big Shoulders Display';font-weight:900;text-transform:uppercase;font-size:clamp(2.4rem,6vw,4.6rem);line-height:1;padding:0 .5em;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(243,241,237,.55)}
+.mq span.f{color:var(--orange);-webkit-text-stroke:0}
+.mq i{font-style:normal;color:var(--orange);font-size:clamp(1.6rem,3.6vw,2.6rem);align-self:center}
+@keyframes mq{to{transform:translateX(-50%)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.stat{padding:clamp(28px,4vw,56px) var(--pad);border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:'Big Shoulders Display';font-weight:900;font-size:clamp(3.6rem,8vw,7rem);line-height:.9;color:var(--text)}
+.stat b sup{font-size:.45em;color:var(--orange);vertical-align:top;margin-left:.08em}
+.stat small{display:block;margin-top:10px;color:var(--mute);font-weight:600;letter-spacing:.03em}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.num{font-family:'Big Shoulders Display';font-weight:800;color:var(--orange);letter-spacing:.1em;font-size:1rem;display:block;margin-bottom:14px}
+/* services stage */
+.cuts2{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,5vw,80px);margin-top:clamp(36px,5vw,64px);align-items:start}
+.stage{position:sticky;top:104px;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:var(--panel2);max-height:calc(100svh - 140px);width:100%;justify-self:start}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity .6s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.stage img.on{opacity:1;transform:scale(1)}
+.stage .cap{position:absolute;left:16px;bottom:16px;right:16px;display:flex;justify-content:space-between;align-items:end;gap:10px;font-family:'Big Shoulders Display';font-weight:900;text-transform:uppercase;font-size:2.6rem;line-height:.9;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.stage .cap small{font-family:'Figtree';font-weight:600;font-size:.8rem;background:rgba(12,12,13,.75);padding:4px 11px;border-radius:999px;text-shadow:none;text-transform:none}
+.stage:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(12,12,13,.7),transparent 45%);pointer-events:none}
+.stage .cap{z-index:2}
+.menu li{cursor:default;transition:padding .35s,background .35s;position:relative}
+.menu li h3{transition:color .3s,transform .35s}
+.menu li .n{font-family:'Big Shoulders Display';font-weight:800;color:var(--steel);font-size:1rem;letter-spacing:.1em;grid-column:1/-1}
+.menu li.on h3{color:var(--orange);transform:translateX(10px)}
+.menu li.on .tag{border-color:var(--orange);color:var(--text)}
+.menu{margin-top:0}
+@media(max-width:860px){.cuts2{grid-template-columns:1fr}.stage{position:relative;top:0;aspect-ratio:4/3;order:-1}}
+/* work */
+.work{position:relative;overflow:clip}
+.work .ghost{position:absolute;left:-2%;top:42%;font-family:'Big Shoulders Display';font-weight:900;text-transform:uppercase;font-size:clamp(9rem,28vw,26rem);line-height:.8;color:transparent;-webkit-text-stroke:1.5px rgba(243,241,237,.1);white-space:nowrap;pointer-events:none;user-select:none}
+.work .wrap{position:relative}
+/* barbers spotlight */
+.pcard{position:relative;overflow:hidden;transition:border-color .3s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.pcard:before{content:"";position:absolute;inset:0;background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(255,90,54,.18),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
+@media (hover:hover) and (pointer:fine){.pcard:hover{border-color:rgba(255,90,54,.6)}.pcard:hover:before{opacity:1}}
+/* reviews marquee */
+.mq.slim{border:0;padding:10px 0;margin-top:clamp(40px,6vw,80px)}
+.mq.slim span{font-size:clamp(1.6rem,3.4vw,2.6rem)}
+.mq.slim .trk{animation-duration:46s;animation-direction:reverse}
+/* final CTA */
+.cta{position:relative;text-align:center;padding:clamp(100px,14vw,200px) 0;overflow:clip;border-top:1px solid var(--line)}
+.cta h2{font-size:clamp(3.6rem,13vw,12rem);line-height:.86}
+.cta h2 em{font-style:normal;color:var(--orange)}
+.cta p{color:var(--mute);margin:26px auto 36px;max-width:40ch}
+.cta .live{justify-content:center;margin-bottom:22px;font-size:1rem}
+.cta .acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta .btn{min-height:64px;padding:0 40px;font-size:1.15rem}
+.cta:before{content:"";position:absolute;left:50%;top:50%;width:70vw;height:70vw;max-width:900px;max-height:900px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,90,54,.16),transparent 62%);pointer-events:none}
+.cta .wrap{position:relative}
+@media(prefers-reduced-motion:reduce){.mq .trk{animation:none}}
 </style>
 </head>
 <body>
@@ -272,25 +327,37 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
   </div>
 </section>
 
+<div class="mq" id="mq1" aria-hidden="true"><div class="trk"><span>Since 2007</span><i>✂</i><span class="f">4.7 on Google</span><i>✂</i><span>Two shops</span><i>✂</i><span class="f">Walk-ins welcome</span><i>✂</i><span>Kids' cuts</span><i>✂</i><span>Since 2007</span><i>✂</i><span class="f">4.7 on Google</span><i>✂</i><span>Two shops</span><i>✂</i><span class="f">Walk-ins welcome</span><i>✂</i><span>Kids' cuts</span><i>✂</i></div></div>
+<div class="stats" id="stats">
+  <div class="stat"><b data-count="19" data-live-years>19<sup>+</sup></b><small>years cutting in Northeast Philly</small></div>
+  <div class="stat"><b data-count="2">2</b><small>shops, Castor and Frankford</small></div>
+  <div class="stat"><b data-count="4.7" data-dec="1">4.7</b><small>stars on Google</small></div>
+  <div class="stat"><b data-count="424">424</b><small>Google reviews, Castor Ave shop</small></div>
+</div>
+
 <!-- CUTS -->
 <section class="sec" id="cuts">
-  <div class="wrap head2">
-    <div>
-      <h2 class="rv">What we cut</h2>
-      <p class="sub rv">Every cut starts with a quick talk, so you leave with what you asked for.</p>
+  <div class="wrap">
+    <span class="num rv">01 / Cuts</span>
+    <h2 class="rv" style="font-size:clamp(2.8rem,6.4vw,5.6rem)">What we cut</h2>
+    <p class="rv" style="color:var(--mute);margin-top:18px;max-width:40ch">Every cut starts with a quick talk, so you leave with what you asked for.</p>
+    <div class="cuts2">
+      <div class="stage" id="stage" aria-hidden="true"><div class="cap"><span id="stCap">Haircut</span><small>Photos: the shop's own work</small></div></div>
+      <ul class="menu" id="menu">
+        <li class="on" data-img="0"><span class="n">01</span><h3>Haircut</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>Fades, tapers, waves and scissor cuts.</p></li>
+        <li data-img="1"><span class="n">02</span><h3>Haircut and shave</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>A full cut with a clean razor finish.</p></li>
+        <li data-img="1"><span class="n">03</span><h3>Shave only</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>Smooth, careful and comfortable.</p></li>
+        <li data-img="2"><span class="n">04</span><h3>Kids' cuts</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>Patient barbers who take their time with little ones.</p></li>
+      </ul>
     </div>
-    <ul class="menu" id="menu">
-      <li><h3>Haircut</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>Fades, tapers, waves and scissor cuts.</p></li>
-      <li><h3>Haircut and shave</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>A full cut with a clean razor finish.</p></li>
-      <li><h3>Shave only</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>Smooth, careful and comfortable.</p></li>
-      <li><h3>Kids' cuts</h3><span class="lead"></span><span class="tag">Price: owner confirms</span><p>Patient barbers who take their time with little ones.</p></li>
-    </ul>
   </div>
 </section>
 
 <!-- WORK -->
 <section class="sec work" id="work">
+  <div class="ghost" id="ghost" aria-hidden="true">Fresh cuts</div>
   <div class="wrap">
+    <span class="num rv">02 / Work</span>
     <div class="intro">
       <h2 class="rv">Fresh out of the chair</h2>
       <p class="rv">Fades, waves and kids' cuts from our shop floor.</p>
@@ -307,6 +374,7 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
 <!-- BARBERS -->
 <section class="sec" id="barbers">
   <div class="wrap bar-head">
+    <span class="num rv">03 / Barbers</span>
     <h2 class="rv">The barbers</h2>
     <div class="cols3">
       <article class="pcard rv">
@@ -408,6 +476,7 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
       <a class="btn ghost" style="margin-top:22px" href="https://www.google.com/maps/search/?api=1&query=BarberTime+Castor+%26+Princeton+7065+Castor+Ave+Philadelphia&query_place_id=ChIJY9ezcaK2xokRL9oCiWn3dZA">Read the reviews on Google</a>
     </div>
   </div>
+  <div class="mq slim" aria-hidden="true"><div class="trk"><span>Careful</span><i>✂</i><span class="f">Patient</span><i>✂</i><span>Great with kids</span><i>✂</i><span class="f">Sharp lineups</span><i>✂</i><span>Walk-ins</span><i>✂</i><span>Careful</span><i>✂</i><span class="f">Patient</span><i>✂</i><span>Great with kids</span><i>✂</i><span class="f">Sharp lineups</span><i>✂</i><span>Walk-ins</span><i>✂</i></div></div>
 </section>
 
 <!-- SHOPS -->
@@ -434,6 +503,16 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
         </div>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" aria-label="Book now">
+  <div class="wrap">
+    <div class="live" data-live><i class="dot"></i><span data-livetxt>Checking hours</span></div>
+    <h2 class="rv">Your chair<br>is <em>waiting.</em></h2>
+    <p class="rv">Pick a time in under a minute, or just walk in.</p>
+    <div class="acts rv"><a class="btn" href="#book" id="magnet">Pick a time</a><a class="btn ghost" href="tel:+12157228463">Call Castor Ave</a></div>
   </div>
 </section>
 </main>
@@ -589,6 +668,48 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
     ScrollTrigger.create({trigger:'#menu',start:'top 85%',once:true,onEnter:function(){gsap.to('.menu li',{opacity:1,y:0,duration:.8,stagger:.12,ease:'power3.out'})}});
   }
 
+
+  /* v2: marquee skew, counters, services stage, spotlight, magnet, ghost */
+  function v2(){
+    var yrs=ny().y-2007,yb=$('[data-live-years]');if(yb){yb.setAttribute('data-count',yrs);yb.innerHTML=yrs+'<sup>+</sup>'}
+    // stage images from gallery
+    var stage=$('#stage'),srcs=$$('.ph img').map(function(i){return i.getAttribute('src')}),imgs=[];
+    srcs.forEach(function(src,i){var im=document.createElement('img');im.src=src;im.alt='';if(i===0)im.className='on';stage.insertBefore(im,stage.firstChild);imgs[i]=im});
+    var lis=$$('#menu li'),cap=$('#stCap'),cur=-1;
+    function act(li){
+      if(li===cur)return;cur=li;
+      lis.forEach(function(l){l.classList.toggle('on',l===li)});
+      var k=+li.getAttribute('data-img');imgs.forEach(function(im,i){im.classList.toggle('on',i===k)});
+      cap.textContent=li.querySelector('h3').textContent;
+    }
+    cur=lis[0];
+    lis.forEach(function(li){li.addEventListener('mouseenter',function(){act(li)});li.addEventListener('click',function(){act(li)});li.setAttribute('tabindex','0');li.addEventListener('focus',function(){act(li)})});
+    if(hasG&&!still){
+      lis.forEach(function(li){ScrollTrigger.create({trigger:li,start:'top 55%',end:'bottom 55%',onToggle:function(self){if(self.isActive&&matchMedia('(max-width:860px)').matches)act(li)}})});
+      // counters
+      $$('[data-count]').forEach(function(b){
+        var end=parseFloat(b.getAttribute('data-count')),dec=+(b.getAttribute('data-dec')||0),sup=b.querySelector('sup'),o={v:0};
+        var render=function(){b.firstChild.nodeValue=o.v.toFixed(dec)};
+        if(!b.firstChild||b.firstChild.nodeType!==3)return;
+        ScrollTrigger.create({trigger:b,start:'top 90%',once:true,onEnter:function(){gsap.to(o,{v:end,duration:1.8,ease:'power3.out',onUpdate:render,onComplete:render})}});
+        b.firstChild.nodeValue='0';
+      });
+      // marquee skew by scroll velocity
+      var mqs=$$('.mq');
+      ScrollTrigger.create({onUpdate:function(self){var v=gsap.utils.clamp(-6,6,self.getVelocity()/-300);mqs.forEach(function(m){gsap.to(m,{skewX:v,duration:.4,overwrite:true,ease:'power3.out'})});}});
+      // ghost word drift
+      gsap.to('#ghost',{xPercent:-12,ease:'none',scrollTrigger:{trigger:'#work',start:'top bottom',end:'bottom top',scrub:true}});
+    }
+    // spotlight
+    $$('.pcard').forEach(function(c){c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')})});
+    // magnet
+    var mg=$('#magnet');
+    if(mg&&hasG&&!still&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+      mg.addEventListener('pointermove',function(e){var r=mg.getBoundingClientRect();gsap.to(mg,{x:(e.clientX-r.left-r.width/2)*.25,y:(e.clientY-r.top-r.height/2)*.35,duration:.3})});
+      mg.addEventListener('pointerleave',function(){gsap.to(mg,{x:0,y:0,duration:.6,ease:'elastic.out(1,.5)'})});
+    }
+  }
+
   /* booking */
   var mini=$('#mini'),M=buildClock(mini,{id:'m',nums:true,sec:false,label:false});
   var sel={date:null,time:null};
@@ -655,7 +776,7 @@ footer p{color:var(--mute);font-size:.9rem;max-width:62ch}
   $('#again').addEventListener('click',function(){form.reset();sel.time=null;buildDays();buildSlots();pick();ticket.classList.remove('show');form.style.display='grid'});
 
   /* start */
-  function start(){intro();reveals();if(hasG)addEventListener('load',function(){ScrollTrigger.refresh()})}
+  function start(){intro();reveals();v2();if(hasG)addEventListener('load',function(){ScrollTrigger.refresh()})}
   start();
 })();
 </script>
