@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VYRA — Built for Strength</title>
+<meta name="theme-color" content="#0b0b0c">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="assets/shop.css?v=1792979081" rel="stylesheet">
+<style>
+:root{--bg:#0b0b0c;--ink:#ece9e4;--mute:rgba(236,233,228,.55);--line:rgba(236,233,228,.14);--glow:58,58,64}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(16px,4vw,48px)}
+.nav img{height:22px;display:block}
+.nav .links{display:flex;gap:clamp(14px,2.6vw,34px);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:300}
+.nav .links a{opacity:.72;transition:opacity .2s}.nav .links a:hover{opacity:1}
+.bag{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.14em;border:1px solid var(--line);padding:9px 14px;border-radius:99px}
+@media(max-width:760px){.nav .links{display:none}}
+#hero{position:relative;height:100vh;height:100svh;overflow:hidden;isolation:isolate;
+  background:radial-gradient(ellipse 16% 3.2% at 50% 87%,rgba(255,240,225,.10),transparent 100%),
+    radial-gradient(ellipse 34% 52% at 50% 54%,rgba(var(--glow),.55),rgba(var(--glow),.12) 55%,transparent 75%),var(--bg)}
+#hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block}
+.word{position:absolute;left:0;right:0;top:50%;z-index:1;text-align:center;white-space:nowrap;pointer-events:none;
+  font-weight:200;text-transform:uppercase;letter-spacing:.04em;line-height:.8;font-size:min(16.5vw,30vh);
+  transform:translateY(calc(-50% + (1 - var(--v,0)) * 6vh));opacity:var(--v,0);filter:blur(calc((1 - var(--v,0)) * 14px));color:rgba(236,233,228,.9)}
+.word{clip-path:inset(-20% -5% 36% -5%)}          /* back copy = top 64% only */
+.word.front{z-index:3;clip-path:inset(64% -5% -20% -5%)}  /* front copy = bottom 36%; no overlap -> no seam */
+.word span{display:inline-block;transform:translateY(calc((1 - var(--v,0)) * var(--d,0) * 1vh))}
+.info{position:absolute;z-index:4;left:clamp(16px,4vw,48px);bottom:clamp(22px,6vh,56px);max-width:340px;
+  opacity:var(--v,0);transform:translateY(calc((1 - var(--v,0)) * 18px));pointer-events:none}
+.info.on{pointer-events:auto}
+.info .k{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.info h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1;margin:10px 0 10px}
+.info h2 i{font-style:italic}
+.info p{font-size:15px;line-height:1.45;color:var(--mute);font-weight:300}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:13px 20px;border-radius:99px;background:var(--ink);color:#111;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.cta:hover{background:#fff}
+.sw{position:absolute;z-index:5;right:clamp(16px,4vw,48px);bottom:clamp(30px,6.6vh,64px);display:flex;gap:16px;align-items:center}
+.sw::before{content:'Sets';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin-right:4px}
+.sw button{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.35);cursor:pointer;background:var(--c);outline-offset:4px;transition:transform .3s}
+.sw button.on{transform:scale(1.55);box-shadow:0 0 0 3px var(--bg),0 0 0 4px rgba(255,255,255,.6)}
+.logoTag{position:absolute;z-index:4;left:0;right:0;top:calc(50% + min(13vw,120px));text-align:center;font-size:12px;letter-spacing:.42em;color:var(--mute);opacity:var(--v,0)}
+.cue{position:absolute;z-index:4;left:50%;bottom:28px;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;color:var(--mute);opacity:var(--v,0)}
+.cue::after{content:'';display:block;width:1px;height:34px;background:linear-gradient(var(--ink),transparent);margin:10px auto 0;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:760px){#hero{background:radial-gradient(ellipse 30% 2.6% at 50% 74.6%,rgba(255,240,225,.10),transparent 100%),
+    radial-gradient(ellipse 50% 42% at 50% 45%,rgba(var(--glow),.55),rgba(var(--glow),.12) 55%,transparent 75%),var(--bg)}
+  .word{font-size:min(19vw,22vh);top:40%}.logoTag{top:calc(43% + 70px)}.info{max-width:none;right:16px;bottom:18px}.info p{display:none}.sw{top:auto;bottom:auto;top:90px;transform:none}}
+/* --- buy row --- */
+.buy{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+.buy .cta{margin:0;border:0;cursor:pointer;font-family:inherit}
+.price{font-size:26px;font-weight:300;letter-spacing:.02em}.price small{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-left:6px;vertical-align:middle}
+.link{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:2px}
+.bag.pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}@keyframes pop{40%{transform:scale(1.14);background:var(--ink);color:#111}}
+.toast{position:fixed;z-index:60;left:50%;bottom:26px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ink);color:#111;padding:12px 18px;border-radius:99px;font-size:13px;letter-spacing:.06em;transition:.35s cubic-bezier(.2,.8,.2,1)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+/* --- product chips pinned to the garment --- */
+.chip{position:absolute;z-index:4;width:0;height:0;pointer-events:none;
+  --o:clamp(0, calc((var(--v,0) - .55 - var(--i) * .14) * 5), 1);opacity:var(--o)}  /* clamp: opacity self-clamps, scaleX does NOT (line overshot 2x) */
+.chip i{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 4px rgba(236,233,228,.18);animation:ping 2.4s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(236,233,228,.45)}80%,100%{box-shadow:0 0 0 12px rgba(236,233,228,0)}}
+.chip b{position:absolute;top:-.5px;height:1px;width:clamp(48px,7vw,96px);background:linear-gradient(90deg,rgba(236,233,228,.7),rgba(236,233,228,.15));transform-origin:left;transform:scaleX(var(--o))}
+.chip span{position:absolute;top:-17px;white-space:nowrap;padding:9px 14px;border-radius:99px;font-size:12px;letter-spacing:.06em;
+  background:rgba(18,18,20,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(236,233,228,.16);animation:bob 4.6s ease-in-out infinite;animation-delay:calc(var(--i) * -1.7s)}
+@keyframes bob{50%{translate:0 -5px}}
+.chip.r b{left:6px}.chip.r span{left:calc(clamp(48px,7vw,96px) + 10px)}
+.chip.l b{right:6px;transform-origin:right;background:linear-gradient(270deg,rgba(236,233,228,.7),rgba(236,233,228,.15))}.chip.l span{right:calc(clamp(48px,7vw,96px) + 10px)}
+/* --- fun fact card --- */
+.fact{position:absolute;z-index:4;right:clamp(16px,4vw,48px);top:96px;width:min(300px,30vw);padding:16px 18px;border-radius:16px;
+  background:rgba(18,18,20,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(236,233,228,.12);
+  opacity:calc((var(--v,0) - .6) * 4);transform:translateY(calc((1 - var(--v,0)) * -14px))}
+.fact .fk{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
+.fact p{font-family:'Instrument Serif',serif;font-size:19px;line-height:1.25;margin:8px 0}
+.fact .best{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.fact .best span{font-size:11px;letter-spacing:.04em;padding:5px 10px;border-radius:99px;border:1px solid rgba(236,233,228,.18);color:rgba(236,233,228,.85)}
+.ff{display:none}
+@media(max-width:760px){.chip,.fact{display:none}  /* phone: fact moves into the info block so nothing covers the model */
+  .ff{display:block;font-family:'Instrument Serif',serif;font-size:14px;line-height:1.3;color:rgba(236,233,228,.78);margin-bottom:12px;padding-left:10px;border-left:1px solid var(--line)}
+  .buy{gap:10px;margin-top:12px}.price{font-size:22px}.link{display:none}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a href="#hero" aria-label="VYRA home"><img src="assets/logo.png" alt="VYRA"></a>
+  <nav class="links"><a href="#shop" data-go-shop="all">Shop</a><a href="#shop" data-go-shop="set">Sets</a><a href="#shop" data-go-shop="one">One-pieces</a><a href="#shop" data-go-shop="sg">Size guide</a></nav>
+  <a class="bag" href="#shop">BAG <span>0</span></a>
+</header>
+<section id="hero" aria-label="VYRA collections">
+  <div id="layers"></div>
+  <canvas id="gl"></canvas>
+  <div class="logoTag" data-s="0">STRENGTH. MOVEMENT. CONFIDENCE.</div>
+  <div class="cue" data-s="0">SCROLL</div>
+  <div class="sw" id="sw"></div>
+</section>
+<section id="shop" aria-label="Shop"></section>
+<script src="assets/shop.js?v=1792979081"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+// ---------- content (real VYRA captions; names describe the photo) ----------
+const STATES = [
+  {name:'logo', glow:[58,58,64]},
+  // price = DEMO estimate (avg of Gymshark + Brazilian boutique sets, Oct 2026) — replace with VYRA's real prices
+  {name:'red',   word:'Strength',   c:'#a3161f', glow:[122,24,32],  k:'01 / 04 · Red set',   h:'The <i>Red</i> Set',   p:'Four women, one iconic color. Top + high-waist leggings.', price:95,
+    chips:[{t:'Bra top · stays put on jumps', at:[0.06,0.44], side:'r'}, {t:'High waist · no rolling in squats', at:[-0.04,-0.46], side:'l'}],
+    note:{t:'Made for leg day. The high waist holds through deep squats and hip thrusts, and the red makes every rep pop on camera.', best:['Leg day','Glutes','Gym selfies']}},
+  {name:'blue',  word:'Movement',   c:'#2bb6e8', glow:[24,104,138], k:'02 / 04 · Sky set',   h:'The <i>Sky</i> Set',   p:'Bold tones. Strong presence. Bra top + flare leggings.', price:95,
+    chips:[{t:'Bra top · arms free overhead', at:[0.0,0.43], side:'l'}, {t:'Flare · for Pilates & stretch days', at:[0.08,-0.62], side:'r'}],
+    note:{t:'Your low-impact day set. The flare moves with you through Pilates and mobility work, then still looks right for coffee after.', best:['Pilates','Mobility','Rest-day walks']}},
+  {name:'brown', word:'Confidence', c:'#4a2a20', glow:[96,58,40],   k:'03 / 04 · Fall Collection', h:'The <i>Brown</i> One', p:'One tone, infinite versions. Earthy, timeless — new for Fall.', price:95,
+    chips:[{t:'Halter · open shoulders for pull day', at:[0.02,0.40], side:'r'}, {t:'Deep tone · hides sweat', at:[-0.02,-0.42], side:'l'}],
+    note:{t:'The long-session set. The deep tone hides sweat on cardio and double days, and the halter frees your back on rows.', best:['Back day','Cardio','Fall layering']}},
+  {name:'black', word:'Made to move', c:'#111214', glow:[86,86,96],  k:'04 / 04 · Black set', h:'Black, never <i>basic</i>', p:'Off-shoulder long sleeve + shorts. From training to lifestyle.', price:85,
+    chips:[{t:'Long sleeve · warm through warm-up', at:[0.14,0.44], side:'r'}, {t:'Shorts · check your knees on lunges', at:[0.0,-0.40], side:'l'}],
+    note:{t:'Sleeves keep your shoulders warm for the first sets, the shorts let you watch your form on squats and lunges. Goes with every sneaker you own.', best:['Leg day','Warm-ups','Gym to street']}},
+];
+const layers = document.getElementById('layers');
+STATES.forEach((s,i)=>{ if(!s.word) return;
+  const letters = w => [...w].map((ch,j)=>`<span style="--d:${((j*37)%11)-5}">${ch===' '?'&nbsp;':ch}</span>`).join('');
+  layers.insertAdjacentHTML('beforeend',
+    `<div class="word" data-s="${i}" aria-hidden="true">${letters(s.word)}</div>`+
+    `<div class="word front" data-s="${i}" aria-hidden="true">${letters(s.word)}</div>`+
+    `<div class="info" data-s="${i}"><div class="ff">${s.note.t}</div><div class="k">${s.k}</div><h2>${s.h}</h2><p>${s.p}</p>`+
+      `<div class="buy"><span class="price">$${s.price}<small>est.</small></span><button class="cta add" data-name="${s.name}">Add to bag +</button><a class="link" href="#shop">View set</a></div></div>`+
+    `<aside class="fact" data-s="${i}"><div class="fk">Why it works</div><p>${s.note.t}</p><div class="best">${s.note.best.map(b=>`<span>${b}</span>`).join('')}</div></aside>`);
+});
+// Add to bag / View set -> handled by assets/shop.js (opens the product drawer to pick a size)
+document.getElementById('sw').innerHTML = STATES.slice(1).map((s,i)=>`<button style="--c:${s.c}" data-go="${i+1}" aria-label="${s.k}"></button>`).join('');
+
+// ---------- load dot maps ----------
+const meta = await (await fetch('assets/points.json')).json();
+const buf = await (await fetch('assets/points.bin')).arrayBuffer();
+const NS = meta.states.length, NF = meta.N;
+const phone = innerWidth < 760;
+const stride = phone ? 2 : 1, N = Math.floor(NF / stride);
+const half = new Uint16Array(buf, 0, NS * NF * 2), cols = new Uint8Array(buf, NS * NF * 2 * 2);
+const POS = [], COL = [];
+for (let s = 0; s < NS; s++) {
+  const p = new Float32Array(N * 2), c = new Uint8Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    const j = i * stride;
+    p[i*2]   = THREE.DataUtils.fromHalfFloat(half[(s*NF + j)*2]);
+    p[i*2+1] = THREE.DataUtils.fromHalfFloat(half[(s*NF + j)*2 + 1]);
+    c.set(cols.subarray((s*NF + j)*3, (s*NF + j)*3 + 3), i*3);
+  }
+  POS.push(p); COL.push(c);
+}
+// ---------- three setup ----------
+const canvas = document.getElementById('gl');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:false, alpha:true, powerPreference:'high-performance'});
+const DPR = Math.min(devicePixelRatio, innerWidth < 760 ? 1.5 : 2);   // 1.5 on a 2x Mac = canvas stretched 33% = soft photos
+renderer.setPixelRatio(DPR);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 50);
+const DIST = 4.6; camera.position.set(0, 0, DIST);
+const geo = new THREE.BufferGeometry();
+const pA = new THREE.BufferAttribute(POS[0].slice(), 2), pB = new THREE.BufferAttribute(POS[1].slice(), 2);
+const cA = new THREE.BufferAttribute(COL[0].slice(), 3, true), cB = new THREE.BufferAttribute(COL[1].slice(), 3, true);
+const seed = new Float32Array(N); for (let i = 0; i < N; i++) seed[i] = Math.random();
+geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
+geo.setAttribute('pA', pA); geo.setAttribute('pB', pB); geo.setAttribute('cA', cA); geo.setAttribute('cB', cB);
+geo.setAttribute('seed', new THREE.BufferAttribute(seed, 1));
+const U = {uT:{value:0}, uTime:{value:0}, uIntro:{value:0}, uSize:{value:2.2 * DPR}, uScaleA:{value:1}, uScaleB:{value:1}, uBurst:{value:1}, uVortex:{value:1}, uAlpha:{value:1}};
+const mat = new THREE.ShaderMaterial({uniforms:U, transparent:true, depthWrite:false, depthTest:false,
+vertexShader:`
+uniform float uT,uTime,uIntro,uSize,uScaleA,uScaleB,uBurst,uVortex;
+attribute vec2 pA; attribute vec2 pB; attribute vec3 cA; attribute vec3 cB; attribute float seed;
+varying vec3 vCol;
+void main(){
+  float r1=fract(seed*12.9898), r2=fract(seed*78.233), r3=fract(seed*39.425);
+  vec2 a=pA*uScaleA, b=pB*uScaleB;
+  const float SP=0.42;
+  float delay=clamp(r1*0.22+(1.0-(a.y+1.0)*0.5)*0.2,0.0,SP);
+  float tt=clamp(uT*(1.0+SP)-delay,0.0,1.0); tt=tt*tt*(3.0-2.0*tt);
+  vec2 p=mix(a,b,tt);
+  float bu=sin(tt*3.14159);
+  float ang=r2*6.2831+uTime*0.5+p.y*1.5;
+  float rad=bu*uBurst*(0.18+0.95*r3);
+  vec3 pos=vec3(p+vec2(cos(ang),sin(ang))*rad, bu*uBurst*(r1-0.5)*2.2);
+  // vortex mode (wide logo -> tall figure): curve through a spinning column instead of a cloud
+  float va=r2*6.2831+tt*9.0+uTime*1.1; float vr=(0.10+0.22*r3)*(0.75+0.25*sin(b.y*3.0+uTime));
+  vec3 Hc=vec3(cos(va)*vr, b.y*1.06, sin(va)*vr*1.6);
+  float s1=smoothstep(0.0,0.42,tt), s2=smoothstep(0.58,1.0,tt);   // really pass THROUGH the column
+  vec3 bez=mix(mix(vec3(a,0.0),Hc,s1),vec3(b,0.0),s2);
+  pos=mix(pos,bez,uVortex);
+  pos.xy+=vec2(sin(uTime*1.3+seed*40.0),cos(uTime*1.1+seed*30.0))*0.0025;
+  vec3 sc=vec3((r1-0.5)*7.0,(r2-0.5)*4.5,(r3-0.5)*4.0);
+  float ii=clamp(uIntro*1.45-r3*0.45,0.0,1.0); ii=1.0-pow(1.0-ii,3.0);
+  pos=mix(sc,pos,ii);
+  vec4 mv=modelViewMatrix*vec4(pos,1.0);
+  gl_Position=projectionMatrix*mv;
+  gl_PointSize=uSize*(1.0+bu*0.5)*(${DIST.toFixed(2)}/-mv.z);
+  vCol=mix(cA,cB,tt)*(1.0+bu*0.18);
+}`,
+fragmentShader:`
+uniform float uAlpha; varying vec3 vCol;
+void main(){ vec2 c=gl_PointCoord-0.5; float d=length(c); if(d>0.5) discard;
+  gl_FragColor=vec4(vCol, smoothstep(0.5,0.18,d)*uAlpha); }`});
+const points = new THREE.Points(geo, mat); points.frustumCulled = false; points.renderOrder = 2;
+scene.add(points);
+// ---------- sharp rest photos (same spot as the dots) ----------
+const loader = new THREE.TextureLoader();
+const TEX = await Promise.all(meta.states.map(s => loader.loadAsync(`assets/${s.name === 'logo' ? 'logo.png' : s.name + '.webp'}`)));
+TEX.forEach(t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; });
+const plane = () => new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({
+  transparent:true, depthWrite:false, depthTest:false,
+  uniforms:{map:{value:null}, uO:{value:0}, uRim:{value:0}, uAsp:{value:.5}, uTx:{value:new THREE.Vector2(1e-3,1e-3)}, uRimCol:{value:new THREE.Color(1,.86,.74)}},
+  vertexShader:`varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+  fragmentShader:`uniform sampler2D map; uniform float uO,uRim,uAsp; uniform vec2 uTx; uniform vec3 uRimCol; varying vec2 vUv;
+  void main(){ vec4 t=texture2D(map,vUv,-0.5);
+    vec3 bl=(texture2D(map,vUv+vec2(uTx.x,0.0)).rgb+texture2D(map,vUv-vec2(uTx.x,0.0)).rgb+texture2D(map,vUv+vec2(0.0,uTx.y)).rgb+texture2D(map,vUv-vec2(0.0,uTx.y)).rgb)*0.25;
+    t.rgb=clamp(t.rgb+(t.rgb-bl)*0.45*smoothstep(0.92,1.0,t.a),0.0,1.0);   // unsharp, body only (no edge halo)
+    // soft BACKLIGHT halo outside the silhouette (no hard inner line = no sticker edge)
+    float g=0.0;
+    for(int i=0;i<12;i++){ float a=float(i)*0.5236; vec2 o=vec2(cos(a)/uAsp,sin(a))*0.012;
+      g+=texture2D(map,vUv+o).a+texture2D(map,vUv+o*2.0).a*0.6; }
+    g=clamp(g/19.2,0.0,1.0)*(1.0-t.a);
+    float a=t.a+g*uRim*0.55;
+    vec3 col=mix(uRimCol,t.rgb,t.a/max(a,1e-3));
+    gl_FragColor=vec4(col, a*uO); }`}));
+const planeA = plane(), planeB = plane(); planeA.renderOrder = planeB.renderOrder = 1;
+scene.add(planeA, planeB);
+const RIM = {logo:0, red:.12, blue:.12, brown:.26, black:.5};
+const BURST = [0.15, 1, 1, 1];  // logo->red uses the vortex (a burst there read as a formless cloud: wide->tall midpoint = oval)
+const VORTEX = [1, 0, 0, 0];
+let cur = -1;
+function setPair(k) {            // morph from state k -> k+1
+  if (k === cur) return; cur = k;
+  pA.array.set(POS[k]); pB.array.set(POS[k+1]); cA.array.set(COL[k]); cB.array.set(COL[k+1]);
+  [pA,pB,cA,cB].forEach(a => a.needsUpdate = true);
+  U.uVortex.value = VORTEX[k];
+  [[planeA,k],[planeB,k+1]].forEach(([m,s]) => { const st = meta.states[s];
+    m.material.uniforms.map.value = TEX[s]; m.material.uniforms.uRim.value = RIM[st.name]; m.material.uniforms.uAsp.value = st.w / st.h; m.material.uniforms.uTx.value.set(1 / TEX[s].image.width, 1 / TEX[s].image.height);
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) U.uBurst.value = BURST[k];  // (not `reduce`: it's declared later -> TDZ error on first call)
+    m.userData.w = st.w; m.userData.h = st.h; m.userData.logo = st.name === 'logo'; });
+  fitPlanes();
+}
+let logoScale = 1;
+function fitPlanes() { [[planeA,'uScaleA'],[planeB,'uScaleB']].forEach(([m,u]) => {
+  const s = m.userData.logo ? logoScale : 1; U[u].value = s; m.scale.set(m.userData.w * s, m.userData.h * s, 1); }); }
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h;
+  // figure (2 units) fills ~72% of the screen height
+  const visH = 2 / (w < 760 ? 0.62 : 0.72);
+  camera.fov = 2 * Math.atan(visH / 2 / DIST) * 180 / Math.PI; camera.updateProjectionMatrix();
+  camera.position.y = w < 760 ? -0.22 : 0;   // phone: lift the model ~7% so the info block never sits on her feet
+  logoScale = Math.min(1, (visH * camera.aspect * 0.78) / 2.4) * (w < 760 ? 1 : 0.62);
+  U.uSize.value = (w < 760 ? 2.6 : 2.2) * DPR * Math.max(0.8, h / 900);
+  fitPlanes(); fitWords(); placeChips();
+}
+function placeChips() {   // world point on the garment -> screen px
+  const v = new THREE.Vector3();
+  camera.updateMatrixWorld();   // project() reads matrixWorldInverse, which is stale until the first render
+  document.querySelectorAll('.chip').forEach(el => {
+    v.set(+el.dataset.x, +el.dataset.y, 0).project(camera);
+    el.style.left = ((v.x + 1) / 2 * innerWidth).toFixed(1) + 'px';
+    el.style.top = ((1 - v.y) / 2 * innerHeight).toFixed(1) + 'px';
+  });
+}
+function fitWords() {   // long words (CONFIDENCE, MADE TO MOVE) must fit inside 90% of the width
+  document.querySelectorAll('.word').forEach(el => {
+    el.style.fontSize = ''; const base = parseFloat(getComputedStyle(el).fontSize);
+    el.style.right = 'auto';   // a left:0/right:0 box always reports full width -> measure the text itself
+    const w = el.getBoundingClientRect().width, max = innerWidth * 0.9;
+    el.style.right = '';
+    if (w > max) el.style.fontSize = (base * max / w).toFixed(1) + 'px';
+  });
+}
+await document.fonts.ready;
+// ---------- orbit ring (replaced the pin bubbles): the set's words circle her waist and spin with scroll.
+// Back half renders BEFORE the photo (her body covers it), front half AFTER it -> it really wraps around her.
+const RINGTXT = {red:'High waist ✦ Squat-proof ✦ Leg day ✦ ', blue:'Flare cut ✦ Pilates ✦ Mobility ✦ ', brown:'Fall collection ✦ Halter back ✦ Hides sweat ✦ ', black:'Long sleeve ✦ Leg-day shorts ✦ Gym to street ✦ '};
+const RINGY = {red:-0.62, blue:-0.6, brown:-0.62, black:-0.58};   // shins: clear of the giant word band (waist ring collided with it)
+await document.fonts.load('300 80px Outfit');
+function ringTex(txt) {
+  const c = document.createElement('canvas'); c.width = 4096; c.height = 128; const g = c.getContext('2d');
+  g.font = '300 80px Outfit'; if ('letterSpacing' in g) g.letterSpacing = '14px';
+  const str = txt.toUpperCase(), w = g.measureText(str).width, reps = Math.max(1, Math.round(c.width / w));
+  g.fillStyle = '#ece9e4'; g.textBaseline = 'middle'; g.setTransform(c.width / (w * reps), 0, 0, 1, 0, 0);   // whole repeats -> no seam
+  for (let i = 0; i < reps; i++) g.fillText(str, i * w, 66);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+const RTEX = Object.fromEntries(Object.entries(RINGTXT).map(([k, txt]) => [k, ringTex(txt)]));
+const RU = {map:{value:null}, uO:{value:0}};
+const ringMat = side => new THREE.ShaderMaterial({transparent:true, depthWrite:false, depthTest:false, side:THREE.DoubleSide,
+  uniforms:{map:RU.map, uO:RU.uO, uSide:{value:side}},
+  vertexShader:`varying vec2 vUv; varying float vZ; void main(){ vUv=uv; vec4 w=modelMatrix*vec4(position,1.0); vZ=w.z; gl_Position=projectionMatrix*viewMatrix*w; }`,
+  fragmentShader:`uniform sampler2D map; uniform float uO,uSide; varying vec2 vUv; varying float vZ;
+  void main(){ if(vZ*uSide<0.0) discard; vec4 t=texture2D(map,vUv);
+    float side=mix(0.2,1.0,smoothstep(0.0,0.18,abs(vZ)));        // fade where the ring turns edge-on
+    gl_FragColor=vec4(t.rgb, t.a*uO*side*(uSide>0.0?0.95:0.35)); }`});
+const ringGeo = new THREE.CylinderGeometry(1, 1, 1, 160, 1, true);
+const ring = new THREE.Group(), ringB = new THREE.Mesh(ringGeo, ringMat(-1)), ringF = new THREE.Mesh(ringGeo, ringMat(1));
+ringB.renderOrder = 0; ringF.renderOrder = 3; ringB.frustumCulled = ringF.frustumCulled = false;
+ring.add(ringB, ringF); ring.rotation.set(0.34, 0, -0.06); scene.add(ring);   // +x tilt: front dips, back rises = seen from slightly above
+let ringState = '';
+function ringUpdate(u, time) {
+  const near = Math.round(u), st = meta.states[near];
+  const v = near === 0 ? 0 : 1 - Math.min(1, Math.max(0, (Math.abs(u - near) - 0.06) / 0.22));
+  if (st.name !== ringState && RTEX[st.name]) { ringState = st.name; RU.map.value = RTEX[st.name];
+    const r = Math.max(0.62, st.w * 0.72), H = r * 2 * Math.PI / 32;   // texture is 32:1 -> height that keeps glyphs undistorted
+    [ringB, ringF].forEach(m => m.scale.set(r, H, r)); ring.position.y = RINGY[st.name]; }
+  RU.uO.value = v * v;
+  const spin = u * Math.PI * 1.15 + time * 0.00022;   // scroll drives the spin, plus a slow idle drift
+  ringB.rotation.y = ringF.rotation.y = -spin;
+}
+addEventListener('resize', resize); setPair(0); resize();
+// ---------- scroll driver: ONE progress value drives everything ----------
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduce) U.uBurst.value = 0;
+gsap.registerPlugin(ScrollTrigger);
+const lenis = new Lenis({duration: 1.1, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t))});
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+window.__lenis = lenis;   // shop drawers stop/start page scroll
+const LAST = NS - 1;                       // 4 morphs
+// short pin (was 3.4 screens): with snapping, one flick = one whole morph
+const st = ScrollTrigger.create({trigger:'#hero', start:'top top', end:() => '+=' + innerHeight * 1.9, pin:true, scrub:true});
+const toU = p => Math.max(0, Math.min(LAST, p * (LAST + 0.5) - 0.18));
+const posFor = i => st.start + (st.end - st.start) * (i + 0.18) / (LAST + 0.5);
+let snapping = false, snapT = 0;
+const easeIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function snapNext() {           // after the user stops scrolling, finish the morph in the direction they went
+  const y = lenis.scroll; if (snapping || y < st.start - 2 || y > posFor(LAST) + 2) return;
+  const u = toU(st.progress), dir = lenis.direction || 1;
+  let k = dir > 0 ? Math.ceil(u - 0.03) : Math.floor(u + 0.03); k = Math.max(0, Math.min(LAST, k));
+  if (Math.abs(u - k) < 0.02) return;
+  snapping = true;
+  lenis.scrollTo(posFor(k), {duration: 1.35, easing: easeIO, lock: true, onComplete: () => { snapping = false; }});
+}
+lenis.on('scroll', () => { if (snapping) return; clearTimeout(snapT); snapT = setTimeout(snapNext, 110); });
+const glow = STATES.map(s => s.glow);
+const hero = document.getElementById('hero');
+const els = [...document.querySelectorAll('[data-s]')];
+const swb = [...document.querySelectorAll('#sw button')];
+swb.forEach(b => b.addEventListener('click', () => {
+  snapping = true;
+  lenis.scrollTo(posFor(+b.dataset.go), {duration: 1.6, easing: easeIO, onComplete: () => { snapping = false; }});
+}));
+document.querySelector('.nav a').addEventListener('click', e => { e.preventDefault(); lenis.scrollTo(0, {duration: 1.6}); });
+const ss = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+let lastU = -1;
+function frame(time) {
+  U.uTime.value = time / 1000;
+  const u = toU(st.progress);
+  const k = Math.min(Math.floor(u), LAST - 1), f = u - k;
+  const t = ss(0.16, 0.84, f);
+  setPair(k); U.uT.value = t; ringUpdate(u, time);
+  // sharp photos at rest, dots while moving (dots sit exactly on the photo, so the swap is invisible)
+  const a0 = 1 - ss(0.0, 0.06, t), b0 = ss(0.94, 1.0, t);
+  planeA.material.uniforms.uO.value = a0 * U.uIntro.value ** 4;
+  planeB.material.uniforms.uO.value = b0;
+  U.uAlpha.value = 1 - Math.max(a0 * U.uIntro.value ** 4, b0);
+  if (u !== lastU) {
+    lastU = u;
+    els.forEach(el => { const s = +el.dataset.s; const v = 1 - ss(0.1, 0.32, Math.abs(u - s)); el.style.setProperty('--v', v.toFixed(3)); el.classList.toggle('on', v > 0.6); });
+    const g = glow[k].map((c, i) => Math.round(c + (glow[k + 1][i] - c) * t));
+    hero.style.setProperty('--glow', g.join(','));
+    const near = Math.round(u); swb.forEach(b => b.classList.toggle('on', +b.dataset.go === near));
+  }
+  renderer.render(scene, camera);
+}
+// pause when the hero is off screen
+let visible = true;
+new IntersectionObserver(e => visible = e[0].isIntersecting).observe(hero);
+gsap.ticker.add(() => { if (visible) frame(performance.now()); });
+// intro: dots fly in and lock into the logo
+gsap.to(U.uIntro, {value: 1, duration: reduce ? 0.01 : 2.2, ease: 'power2.out', delay: 0.15});
+window.__vyra = {U, st, toU};
+</script>
+</body>
+</html>
