@@ -29,7 +29,7 @@ const D = {
   // colors + groups + tags
   'Red':'Vermelho', 'Sky':'Azul-céu', 'Brown':'Marrom', 'Black':'Preto', 'Slate':'Ardósia', 'Wine':'Vinho', 'Cream':'Creme', 'Pink':'Rosa',
   'Butter':'Manteiga', 'Ice blue':'Azul-gelo', 'Mint':'Menta', 'Navy':'Marinho', 'Ice':'Gelo', 'White':'Branco', 'Blue':'Azul',
-  'Pastel':'Pastel', 'Neutral':'Neutro', 'Earth':'Terrosos', 'Soft tones':'Tons suaves', 'All':'Todos', 'All colors':'Todas as cores',
+  'Pastel':'Pastel', 'Neutral':'Neutro', 'Earth':'Terrosos', 'Soft tones':'Tons suaves', 'All':'Todos', 'All colors':'Todas',
   'Iconic':'Icônico', '4 tones':'4 tons', 'Open back':'Costas abertas',
   // product copy
   'Bra top + high-waist leggings. Four women, one iconic color.':'Top + legging de cintura alta. Quatro mulheres, uma cor icônica.',

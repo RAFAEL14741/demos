@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link href="assets/shop.css?v=1792981500" rel="stylesheet">
+<link href="assets/shop.css?v=1792982900" rel="stylesheet">
 <style>
 :root{--bg:#0b0b0c;--ink:#ece9e4;--mute:rgba(236,233,228,.55);--line:rgba(236,233,228,.14);--glow:58,58,64}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -28,12 +28,14 @@ a{color:inherit;text-decoration:none}
 .nav .links a{opacity:.72;transition:opacity .2s}.nav .links a:hover{opacity:1}
 .bag{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.14em;border:1px solid var(--line);padding:9px 14px;border-radius:99px}
 @media(max-width:760px){.nav .links{display:none}}
+@media(max-width:370px){.bag{padding:9px 11px;letter-spacing:.08em}.lang button{padding:6px 8px}.navr{gap:6px}}
 .navr{display:flex;align-items:center;gap:8px}
 .lang{display:flex;border:1px solid var(--line);border-radius:99px;padding:3px}
 .lang button{font:inherit;font-size:12px;letter-spacing:.12em;color:inherit;background:none;border:0;border-radius:99px;padding:6px 10px;cursor:pointer;opacity:.6;transition:opacity .2s,background .2s}
 .lang button:hover{opacity:1}.lang button[aria-pressed="true"]{opacity:1;background:rgba(236,233,228,.14)}
 .nav.solid .lang button[aria-pressed="true"]{background:rgba(21,21,23,.08)}
 .lang button:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.lang button,.sw button{position:relative}.lang button::before{content:'';position:absolute;inset:-8px -2px}.sw button::before{content:'';position:absolute;inset:-12px -6px}
 #hero{position:relative;height:100vh;height:100svh;overflow:hidden;isolation:isolate;
   background:radial-gradient(ellipse 16% 3.2% at 50% 87%,rgba(255,240,225,.10),transparent 100%),
     radial-gradient(ellipse 34% 52% at 50% 54%,rgba(var(--glow),.55),rgba(var(--glow),.12) 55%,transparent 75%),var(--bg)}
@@ -64,7 +66,8 @@ html[lang=pt-BR] .sw::before{content:'Conjuntos'}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media(max-width:760px){#hero{background:radial-gradient(ellipse 30% 2.6% at 50% 74.6%,rgba(255,240,225,.10),transparent 100%),
     radial-gradient(ellipse 50% 42% at 50% 45%,rgba(var(--glow),.55),rgba(var(--glow),.12) 55%,transparent 75%),var(--bg)}
-  .word{font-size:min(19vw,22vh);top:40%}.logoTag{top:calc(43% + 70px)}.info{max-width:none;right:16px;bottom:18px}.info p{display:none}.sw{top:auto;bottom:auto;top:90px;transform:none}}
+  .word{font-size:min(19vw,22vh);top:40%;filter:none;clip-path:none}
+  .word.front{clip-path:none;color:transparent;-webkit-text-stroke:1px rgba(236,233,228,.62)}.logoTag{top:calc(43% + 70px)}.info{max-width:none;right:16px;bottom:18px}.info p{display:none}.sw{top:auto;bottom:auto;top:90px;transform:none}}
 /* --- buy row --- */
 .buy{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
 .buy .cta{margin:0;border:0;cursor:pointer;font-family:inherit}
@@ -113,8 +116,8 @@ html[lang=pt-BR] .sw::before{content:'Conjuntos'}
   <div class="sw" id="sw"></div>
 </section>
 <section id="shop" aria-label="Shop"></section>
-<script src="assets/shop.js?v=1792981500"></script>
-<script src="assets/i18n.js?v=1792981500"></script>
+<script src="assets/shop.js?v=1792982900"></script>
+<script src="assets/i18n.js?v=1792982900"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -156,6 +159,7 @@ const meta = await (await fetch('assets/points.json')).json();
 const buf = await (await fetch('assets/points.bin')).arrayBuffer();
 const NS = meta.states.length, NF = meta.N;
 const phone = innerWidth < 760;
+const TOUCH = matchMedia('(pointer: coarse)').matches;
 const stride = phone ? 2 : 1, N = Math.floor(NF / stride);
 const half = new Uint16Array(buf, 0, NS * NF * 2), cols = new Uint8Array(buf, NS * NF * 2 * 2);
 const POS = [], COL = [];
@@ -245,7 +249,7 @@ const plane = () => new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.Shad
 const planeA = plane(), planeB = plane(); planeA.renderOrder = planeB.renderOrder = 1;
 scene.add(planeA, planeB);
 const RIM = {logo:0, red:.12, blue:.12, brown:.26, black:.5};
-const BURST = [0.15, 1, 1, 1];  // logo->red uses the vortex (a burst there read as a formless cloud: wide->tall midpoint = oval)
+const BURST = phone ? [0.1, 0.55, 0.55, 0.55] : [0.15, 1, 1, 1];  // logo->red uses the vortex (a burst there read as a formless cloud: wide->tall midpoint = oval)
 const VORTEX = [1, 0, 0, 0];
 let cur = -1;
 function setPair(k) {            // morph from state k -> k+1
@@ -262,8 +266,11 @@ function setPair(k) {            // morph from state k -> k+1
 let logoScale = 1;
 function fitPlanes() { [[planeA,'uScaleA'],[planeB,'uScaleB']].forEach(([m,u]) => {
   const s = m.userData.logo ? logoScale : 1; U[u].value = s; m.scale.set(m.userData.w * s, m.userData.h * s, 1); }); }
+let lastW = 0, lastH = 0;
 function resize() {
-  const w = innerWidth, h = innerHeight;
+  const w = innerWidth, h = document.getElementById('hero').clientHeight || innerHeight;
+  if (TOUCH && w === lastW && Math.abs(h - lastH) < 160) return;   // address bar show/hide: don't jump the model
+  lastW = w; lastH = h;
   renderer.setSize(w, h, false); camera.aspect = w / h;
   // figure (2 units) fills ~72% of the screen height
   const visH = 2 / (w < 760 ? 0.62 : 0.72);
@@ -338,13 +345,14 @@ addEventListener('resize', resize); setPair(0); resize();
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (reduce) U.uBurst.value = 0;
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ignoreMobileResize: true});
 const lenis = new Lenis({duration: 1.1, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t))});
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
 window.__lenis = lenis;   // shop drawers stop/start page scroll
 const LAST = NS - 1;                       // 4 morphs
 // short pin (was 3.4 screens): with snapping, one flick = one whole morph
-const st = ScrollTrigger.create({trigger:'#hero', start:'top top', end:() => '+=' + innerHeight * 1.9, pin:true, scrub:true});
+const st = ScrollTrigger.create({trigger:'#hero', start:'top top', end:() => '+=' + innerHeight * (TOUCH ? 2.5 : 1.9), pin:true, scrub:true, anticipatePin:1});
 const toU = p => Math.max(0, Math.min(LAST, p * (LAST + 0.5) - 0.18));
 const posFor = i => st.start + (st.end - st.start) * (i + 0.18) / (LAST + 0.5);
 let snapping = false, snapT = 0;
@@ -352,10 +360,12 @@ const easeIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 function snapNext() {           // after the user stops scrolling, finish the morph in the direction they went
   const y = lenis.scroll; if (snapping || y < st.start - 2 || y > posFor(LAST) + 2) return;
   const u = toU(st.progress), dir = lenis.direction || 1;
-  let k = dir > 0 ? Math.ceil(u - 0.03) : Math.floor(u + 0.03); k = Math.max(0, Math.min(LAST, k));
+  // touch: only go on to the next set if the finger really meant it (~1/3 of the way); a small nudge springs back
+  const TH = TOUCH ? 0.34 : 0.03;
+  let k = dir > 0 ? Math.floor(u + 1 - TH) : Math.ceil(u - 1 + TH); k = Math.max(0, Math.min(LAST, k));
   if (Math.abs(u - k) < 0.02) return;
   snapping = true;
-  lenis.scrollTo(posFor(k), {duration: 1.35, easing: easeIO, lock: true, onComplete: () => { snapping = false; }});
+  lenis.scrollTo(posFor(k), {duration: TOUCH ? 1.0 : 1.35, easing: easeIO, lock: true, onComplete: () => { snapping = false; }});
 }
 lenis.on('scroll', () => { if (snapping) return; clearTimeout(snapT); snapT = setTimeout(snapNext, 110); });
 const glow = STATES.map(s => s.glow);
