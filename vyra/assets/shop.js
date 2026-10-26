@@ -234,7 +234,7 @@ document.body.insertAdjacentHTML('beforeend', `
     </div>
     <div class="s-qcol"><header><span>Product</span><button class="s-x" data-close aria-label="Close">×</button></header>
       <div class="s-body" data-lenis-prevent id="pdBody"></div>
-      <footer><button class="s-btn" id="pdAdd">Pick a size</button><a class="s-btn ghost" href="https://ig.me/m/vyra.movement" target="_blank" rel="noopener">Ask VYRA on Instagram</a></footer></div></aside>
+      <footer><button class="s-btn" id="pdAdd">Pick a size</button><a class="s-btn ghost" href="https://ig.me/m/vyra.movement" target="_blank" rel="noopener">Ask on Instagram</a></footer></div></aside>
   <aside class="s-dr" id="cart" role="dialog" aria-modal="true" aria-label="Bag" hidden><header><span>Your bag (<b id="cN">0</b>)</span><button class="s-x" data-close aria-label="Close">×</button></header>
     <div class="s-body" data-lenis-prevent><div class="s-ship" id="cShip"></div><div id="cLines"></div>
       <div class="s-co" id="cCo"><p>This is where secure checkout goes.</p><div class="s-note">Demo: on the live store this opens card / Apple Pay checkout. For now, send the order by DM.</div></div></div>
@@ -346,11 +346,12 @@ function drawProduct() {
                               : 'Fitted through the body with a little give at the torso. Between sizes? Go by your hips.';
   const also = P.filter(q => q.id !== p.id && q.w.some(k => p.w.includes(k))).slice(0, 3);
   $('#pdBody').innerHTML = `
-    <h3>${p.name}</h3><div class="s-p">${money(p.price)}<small>est. price</small></div><p class="s-d">${p.d}</p>
+    <h3>${p.name}</h3><div class="s-p">${money(p.price)}<small>est. price</small></div>
     <div class="s-lab">Color <b>${x.n}</b></div>
     <div class="s-vs">${p.vs.map((y,i)=>`<button data-vi="${i}" class="${i===vi?'on':''}" style="--c:${y.c}" aria-label="${y.n}" aria-pressed="${i===vi}"></button>`).join('')}</div>
     <div class="s-lab">Size <button data-open="sg">Find my size</button></div>
     <div class="s-sz">${SIZES.map(s=>`<button data-size="${s}" class="${s===size?'on':''}" aria-pressed="${s===size}">${s}</button>`).join('')}</div>
+    <p class="s-d">${p.d}</p>
     <div class="s-why"><b>Why it works</b><p>${p.why}</p><div class="s-best">${p.w.map(k=>`<span>${wkById[k].t}</span>`).join('')}</div></div>
     <div class="s-acc">
       <details open><summary>Fit</summary><p>${fit}</p></details>
@@ -471,8 +472,9 @@ $('#cLines').addEventListener('click', e => {
 $('#cCheck').addEventListener('click', () => { $('#cCo').classList.add('on'); $('#cCo').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'}); });
 // Instagram DMs can't be pre-filled -> copy the order, then open the DM
 $('#cDm').addEventListener('click', async () => {
-  const msg = 'Hi VYRA! I would like to order:\n' + bag.map(l => { const p = byId[l.id];
-    return `• ${l.q}x ${p.name} — ${p.vs[l.vi].n} — ${l.size}`; }).join('\n') + `\nTotal (est.): ${money(total())}`;
+  const T = s => (window.vyraT ? vyraT(s) : s), pt = window.vyraLang?.() === 'pt';
+  const msg = (pt ? 'Oi VYRA! Quero fazer este pedido:\n' : 'Hi VYRA! I would like to order:\n') + bag.map(l => { const p = byId[l.id];
+    return `• ${l.q}x ${T(p.name)} — ${T(p.vs[l.vi].n)} — ${l.size}`; }).join('\n') + `\nTotal (est.): ${money(total())}`;
   try { await navigator.clipboard.writeText(msg); say('Order copied. Paste it in the DM.'); } catch (e) { say('Opening Instagram…'); }
   window.open('https://ig.me/m/vyra.movement', '_blank', 'noopener');
 });

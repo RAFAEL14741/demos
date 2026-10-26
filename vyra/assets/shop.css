@@ -314,3 +314,15 @@
   .s-zhint{display:none}}
 @media(prefers-reduced-motion:reduce){.s-pd{transition:opacity .2s}.s-stage img{transition:none}}
 @media(max-width:760px){.s-pd .s-qcol header{position:absolute;z-index:4;top:14px;right:14px;padding:0;border:0}.s-pd .s-qcol header span{display:none}.s-pd .s-x{background:rgba(255,255,255,.9);border-color:transparent;box-shadow:0 4px 14px rgba(0,0,0,.15)}.s-pd .s-body{padding-top:18px}}
+
+/* ===== v5 (Oct 26): products sooner + sizes always in view ===== */
+.s-pd h3{margin-top:16px}
+.s-pd p.s-d{margin:18px 0 4px}
+@media(max-width:1000px){.s-wt{aspect-ratio:3/4}}
+@media(max-width:760px){
+  .s-wkrow{grid-template-columns:repeat(5,42vw)}
+  .s-wt span{left:11px;right:11px;bottom:11px}
+  .s-pd{grid-template-rows:minmax(0,40%) minmax(0,1fr)}
+  .s-pd h3{font-size:30px;margin-top:6px}
+  .s-pd .s-qcol footer{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;padding:12px 14px 14px}
+  .s-pd .s-qcol footer .s-btn{margin:0;padding-left:10px;padding-right:10px;font-size:11px;letter-spacing:.08em}}

@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link href="assets/shop.css?v=1792979081" rel="stylesheet">
+<link href="assets/shop.css?v=1792980600" rel="stylesheet">
 <style>
 :root{--bg:#0b0b0c;--ink:#ece9e4;--mute:rgba(236,233,228,.55);--line:rgba(236,233,228,.14);--glow:58,58,64}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -28,6 +28,12 @@ a{color:inherit;text-decoration:none}
 .nav .links a{opacity:.72;transition:opacity .2s}.nav .links a:hover{opacity:1}
 .bag{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.14em;border:1px solid var(--line);padding:9px 14px;border-radius:99px}
 @media(max-width:760px){.nav .links{display:none}}
+.navr{display:flex;align-items:center;gap:8px}
+.lang{display:flex;border:1px solid var(--line);border-radius:99px;padding:3px}
+.lang button{font:inherit;font-size:12px;letter-spacing:.12em;color:inherit;background:none;border:0;border-radius:99px;padding:6px 10px;cursor:pointer;opacity:.6;transition:opacity .2s,background .2s}
+.lang button:hover{opacity:1}.lang button[aria-pressed="true"]{opacity:1;background:rgba(236,233,228,.14)}
+.nav.solid .lang button[aria-pressed="true"]{background:rgba(21,21,23,.08)}
+.lang button:focus-visible{outline:2px solid currentColor;outline-offset:1px}
 #hero{position:relative;height:100vh;height:100svh;overflow:hidden;isolation:isolate;
   background:radial-gradient(ellipse 16% 3.2% at 50% 87%,rgba(255,240,225,.10),transparent 100%),
     radial-gradient(ellipse 34% 52% at 50% 54%,rgba(var(--glow),.55),rgba(var(--glow),.12) 55%,transparent 75%),var(--bg)}
@@ -95,7 +101,8 @@ a{color:inherit;text-decoration:none}
 <header class="nav">
   <a href="#hero" aria-label="VYRA home"><img src="assets/logo.png" alt="VYRA"></a>
   <nav class="links"><a href="#shop" data-go-shop="all">Shop</a><a href="#shop" data-go-shop="set">Sets</a><a href="#shop" data-go-shop="one">One-pieces</a><a href="#shop" data-go-shop="sg">Size guide</a></nav>
-  <a class="bag" href="#shop">BAG <span>0</span></a>
+  <div class="navr"><div class="lang" data-noi18n role="group" aria-label="Language / Idioma"><button data-l="en" aria-pressed="true">EN</button><button data-l="pt" aria-pressed="false">PT</button></div>
+  <a class="bag" href="#shop">BAG <span>0</span></a></div>
 </header>
 <section id="hero" aria-label="VYRA collections">
   <div id="layers"></div>
@@ -105,7 +112,8 @@ a{color:inherit;text-decoration:none}
   <div class="sw" id="sw"></div>
 </section>
 <section id="shop" aria-label="Shop"></section>
-<script src="assets/shop.js?v=1792979081"></script>
+<script src="assets/shop.js?v=1792980600"></script>
+<script src="assets/i18n.js?v=1792980600"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -286,6 +294,7 @@ await document.fonts.ready;
 // ---------- orbit ring (replaced the pin bubbles): the set's words circle her waist and spin with scroll.
 // Back half renders BEFORE the photo (her body covers it), front half AFTER it -> it really wraps around her.
 const RINGTXT = {red:'High waist ✦ Squat-proof ✦ Leg day ✦ ', blue:'Flare cut ✦ Pilates ✦ Mobility ✦ ', brown:'Fall collection ✦ Halter back ✦ Hides sweat ✦ ', black:'Long sleeve ✦ Leg-day shorts ✦ Gym to street ✦ '};
+const RINGPT = {red:'Cintura alta ✦ À prova de agachamento ✦ Dia de perna ✦ ', blue:'Corte flare ✦ Pilates ✦ Mobilidade ✦ ', brown:'Coleção outono ✦ Costas frente única ✦ Disfarça o suor ✦ ', black:'Manga longa ✦ Short de perna ✦ Da academia pra rua ✦ '};
 const RINGY = {red:-0.62, blue:-0.6, brown:-0.62, black:-0.58};   // shins: clear of the giant word band (waist ring collided with it)
 await document.fonts.load('300 80px Outfit');
 function ringTex(txt) {
@@ -297,6 +306,9 @@ function ringTex(txt) {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
 }
 const RTEX = Object.fromEntries(Object.entries(RINGTXT).map(([k, txt]) => [k, ringTex(txt)]));
+const RTEXPT = Object.fromEntries(Object.entries(RINGPT).map(([k, txt]) => [k, ringTex(txt)]));
+const rtex = () => (window.vyraLang && vyraLang() === 'pt') ? RTEXPT : RTEX;
+addEventListener('vyra:lang', () => { ringState = ''; });
 const RU = {map:{value:null}, uO:{value:0}};
 const ringMat = side => new THREE.ShaderMaterial({transparent:true, depthWrite:false, depthTest:false, side:THREE.DoubleSide,
   uniforms:{map:RU.map, uO:RU.uO, uSide:{value:side}},
@@ -313,7 +325,7 @@ let ringState = '';
 function ringUpdate(u, time) {
   const near = Math.round(u), st = meta.states[near];
   const v = near === 0 ? 0 : 1 - Math.min(1, Math.max(0, (Math.abs(u - near) - 0.06) / 0.22));
-  if (st.name !== ringState && RTEX[st.name]) { ringState = st.name; RU.map.value = RTEX[st.name];
+  if (st.name !== ringState && RTEX[st.name]) { ringState = st.name; RU.map.value = rtex()[st.name];
     const r = Math.max(0.62, st.w * 0.72), H = r * 2 * Math.PI / 32;   // texture is 32:1 -> height that keeps glyphs undistorted
     [ringB, ringF].forEach(m => m.scale.set(r, H, r)); ring.position.y = RINGY[st.name]; }
   RU.uO.value = v * v;
