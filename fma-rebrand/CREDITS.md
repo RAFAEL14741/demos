@@ -10,8 +10,16 @@
   Free under the Unsplash License. Downloaded Oct 27 2026. The other cabinet colors are generated in the browser from this one photo;
   the page says so under the swatches ("Example photo. Colors changed digitally to show options.").
 - `img/preview-before-after*.jpg`: made from the same Lisa Anna hero photo (left half original, right half recolored digitally). Labeled "digital mockup" on the page.
+- `img/looks/*` (cabinet photos for "What we install", "Pick a look", "How it works", budget cards, offer): free Unsplash License photos, cropped to 4:5 and given one shared light warm grade. Every one is labeled "Example photo(s)" on the page; none are FMA jobs.
+  white-1, white-2, white-5: Zac Gudakov (@zacgudakov) · white-3: Courtney Smith (@courtneysmith) · white-4, detail-1: Bailey Alexander (@baileyal3xander)
+  black-1, black-4: Sven Brandsma (@seffen99) · black-2: Clay Banks (@claybanks) · black-3: Salvo Media LLC (@salvomedia)
+  green-1: Decima Athens (@decimaandathens) · green-2: Janay Peters (@jpetersbydesign) · green-3, blue-4, wood-3, detail-5: Caroline Badran (@___atmos) · green-4: Alex Tyson (@alextyson195)
+  blue-1: Lisa Anna (@lisaanna195) · blue-2: Tazz Anderson (@tazzanderson) · wood-1: Brad Chapman (@brad_chapman) · wood-2: Kailun Zhang (@kailun2019)
+  wood-4: Sergei Sushchik (@sergeisushchik) · wood-5: Tile Merchant Ireland (@tilemerchant) · detail-2: Ruan Richard Rodrigues (@ricdeoliveira)
+  detail-3, detail-6: Matt Adams (@mandcpainting) · detail-4: Orgalux (@orgalux). Photo IDs in the commit message of this change; checked Oct 27 2026, none are Unsplash+.
+- `img/ba-before-*.jpg` / `img/ba-after-*.jpg`: square crop of the Lisa Anna hero photo; "after" is the same photo with the cabinets recolored digitally (labeled on the page).
 - `img/sm/*`: resized copies (600w/900w) of the cab-*.jpg / pantry.jpg photos below.
-- `img/cab-*.jpg`: stock kitchen photos carried over from v1. Every one is captioned "Example photo" on the page. None are FMA jobs.
+- `img/cab-*.jpg`, `img/sm/*`: older stock photos from v1, no longer shown on the home page.
 
 ## Logo
 - `brand/*.svg` and the paths inlined in `index.html`: official Maison files from RAFAEL14741/fma-ad `public/brand/maison/`, unmodified.

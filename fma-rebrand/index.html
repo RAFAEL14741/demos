@@ -181,9 +181,6 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .promise .ic{width:52px;height:52px;padding:12px;border-radius:999px;background:var(--oak);color:var(--black);flex:none}
 
 /* free color preview (oak action band) */
-#preview{background:var(--oak-base)}
-#preview .lede,#preview small{color:#3A3127}
-#preview .ba::after{background:var(--black)}
 .preview{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:center}
 .ba{position:relative;margin:0}
 .ba img{width:100%;height:auto;border-radius:4px;display:block}
@@ -267,8 +264,6 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .where small{display:block;margin-top:1.4rem;color:var(--mute-d);font-size:.88rem}
 
 /* faq (follows About on the same bone background, so it shares the spacing instead of doubling it) */
-#faq{padding-top:0}
-#faq .wrap::before{content:"";grid-column:1/-1;height:1px;background:var(--line-k);margin-bottom:calc(var(--sec) - clamp(2rem,6vw,6rem))}
 .faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:clamp(2rem,6vw,6rem);align-items:start}
 .faq-list{border-top:1px solid var(--line-k)}
 .faq-list details{border-bottom:1px solid var(--line-k)}
@@ -342,7 +337,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 
 /* footer */
 .ftr{background:var(--black);color:var(--bone);padding:88px 0 40px;border-top:1px solid var(--line-b)}
-.ftr-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:2.4rem}
+.ftr-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:2.4rem}
 .ftr .logo svg{height:64px;color:var(--oak)}
 .ftr-grid>div>p{color:var(--mute-d);margin-top:1.3rem;max-width:32ch;font-size:.95rem}
 .ftr h4{font-weight:600;font-size:.95rem;margin-bottom:1rem}
@@ -431,6 +426,100 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   .paint{top:calc(40svh - 12px)}
   .hero h1{font-size:clamp(2.3rem,10.5vw,3rem)}
 }
+
+/* ---- v4: photo-led, VYRA-style browsing ---- */
+:root{--gx:max(var(--gut),calc((100vw - 1320px) / 2 + var(--gut)))}
+.sec--top{padding-bottom:calc(var(--sec) / 2)}
+.sec--flush{padding-top:calc(var(--sec) / 2)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:28px}
+.head .note{margin:0}
+.swipe{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gx);padding:0 var(--gx) 6px;scrollbar-width:none;list-style:none}
+.swipe::-webkit-scrollbar{display:none}
+.card{position:relative;flex:none;width:clamp(240px,22vw,300px);aspect-ratio:4/5;border-radius:4px;overflow:hidden;scroll-snap-align:start;color:var(--bone);text-decoration:none;isolation:isolate;background:#2a2722}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .6s cubic-bezier(.2,0,0,1)}
+.card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(21,21,21,.75) 0%,rgba(21,21,21,.1) 42%,rgba(21,21,21,0) 60%)}
+.card:hover img{transform:scale(1.04)}
+.card:focus-visible{outline:3px solid var(--black);outline-offset:3px}
+.card .cap{position:absolute;left:18px;right:18px;bottom:16px;display:flex;flex-direction:column;gap:4px}
+.card b{font-family:var(--serif);font-weight:500;font-size:1.75rem;line-height:1.05}
+.card .cap span{font-size:.9rem;color:#E9E1D4}
+@media (min-width:1024px){.svc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}.svc .card{width:auto}.svc .card b{font-size:1.5rem}}
+
+.chips{display:flex;gap:8px;overflow-x:auto;margin:28px calc(var(--gut) * -1) 24px;padding:0 var(--gut) 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:0 1.15rem;border-radius:999px;border:1px solid var(--line-k);font-size:.95rem;font-weight:500;transition:background-color .2s,color .2s}
+.chip i{width:12px;height:12px;border-radius:999px;background:var(--c);box-shadow:0 0 0 1px rgba(21,21,21,.25)}
+.chip:hover{border-color:var(--black)}
+.chip[aria-pressed="true"]{background:var(--black);color:var(--bone);border-color:var(--black)}
+.looks-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 14px}
+.look[hidden]{display:none}
+.look figure{position:relative;margin:0}
+.look img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:#E2D7C5}
+.look-n{display:block;margin-top:.6rem;font-weight:600;font-size:.98rem;line-height:1.3}
+.save{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:999px;background:rgba(243,236,224,.94);color:var(--black);display:grid;place-items:center;transition:transform .15s,background-color .2s,color .2s}
+.save svg{width:20px;height:20px}
+.save:active{transform:scale(.88)}
+.save[aria-pressed="true"]{background:var(--black);color:var(--oak)}
+.save[aria-pressed="true"] path{fill:currentColor}
+.save:focus-visible{outline:2px solid var(--black);outline-offset:2px}
+.looks-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem 2rem;flex-wrap:wrap;margin-top:30px}
+.looks-foot .note{margin:0}
+.looks-foot .btn[hidden]{display:none}
+.saved{position:fixed;right:24px;bottom:24px;z-index:40;display:flex;align-items:center;gap:.8rem;padding:8px 8px 8px 10px;border-radius:999px;background:var(--black);color:var(--bone);text-decoration:none;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(calc(100% + 40px));visibility:hidden;transition:transform .35s cubic-bezier(.2,0,0,1),visibility 0s .35s}
+.saved.is-on{transform:none;visibility:visible;transition:transform .35s cubic-bezier(.2,0,0,1)}
+.saved .th{display:flex}
+.saved .th img{width:34px;height:34px;border-radius:999px;object-fit:cover;border:2px solid var(--black);margin-left:-10px}
+.saved .th img:first-child{margin-left:0}
+.saved em{font-style:normal;background:var(--oak);color:var(--black);border-radius:999px;padding:.55rem 1rem}
+.mini{display:flex;align-items:center;gap:8px;margin-bottom:1.4rem;flex-wrap:wrap}
+.mini img{width:52px;height:64px;object-fit:cover;border-radius:4px}
+.mini a{margin-left:.4rem;color:var(--oak);font-weight:600;font-size:.92rem}
+
+.ba{position:relative;margin:0;aspect-ratio:1;border-radius:4px;overflow:hidden;--x:50%;background:#2a2722}
+.ba::after{display:none}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
+.ba .ba-after{clip-path:inset(0 0 0 var(--x))}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--x);width:2px;margin-left:-1px;background:var(--bone);pointer-events:none}
+.ba-knob{position:absolute;top:50%;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:999px;background:var(--bone);color:var(--black);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.ba-knob svg{width:22px;height:22px}
+.ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+.ba:has(input:focus-visible) .ba-knob{outline:2px solid var(--oak);outline-offset:3px}
+.ba span.b1,.ba span.b2{z-index:1}
+#preview small,#preview .lede{color:var(--mute-d)}
+
+.steps .step{position:relative;flex:none;width:clamp(240px,23vw,300px);scroll-snap-align:start}
+.step-ph{position:relative}
+.step-ph img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:#E2D7C5}
+.step .n{position:absolute;left:16px;bottom:6px;font-family:var(--serif);font-size:4.4rem;line-height:1;color:var(--bone);text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.step h3{margin-top:1rem;font-size:1.5rem}
+.step p{color:var(--mute);margin-top:.25rem;font-size:.98rem;max-width:30ch}
+#process .lede{margin:.9rem 0 34px}
+#looks .lede{margin-top:.9rem}
+@media (min-width:1024px){.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.steps .step{width:auto}}
+
+.places{display:flex;flex-wrap:wrap;gap:8px;margin:1.6rem 0 1.4rem}
+.places li{padding:.55rem 1.05rem;border-radius:999px;border:1px solid rgba(210,180,138,.5);color:var(--bone);font-weight:500;font-size:.95rem}
+.places li:last-child{background:var(--oak);border-color:var(--oak);color:var(--black)}
+.where-p{color:var(--mute-d);font-size:.95rem;max-width:40ch}
+.offer-l img{width:84px;height:104px;object-fit:cover;border-radius:4px;flex:none}
+
+@media (max-width:767px){
+  .facts{display:none}
+  .hero-foot .wrap{padding-bottom:34px}
+  .head{margin-bottom:20px}
+  .card,.steps .step{width:72vw}
+  .card b{font-size:1.6rem}
+  .looks-grid{grid-template-columns:1fr 1fr;gap:20px 10px}
+  .look-n{font-size:.92rem}
+  .saved{display:none}
+  .ci div{grid-template-columns:1fr;gap:.1rem}
+  .ci dd{overflow-wrap:normal}
+  .wiz-nav .btn{flex:1}
+  .offer-l{align-items:flex-start}
+  .offer-l img{width:72px;height:90px}
+  .offer .btn{width:100%}
+  .where{gap:2rem}
+}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -444,14 +533,14 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
       <span class="wm" aria-hidden="true"><b>FMA</b> <small>CONSTRUCTIONS</small></span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="#work">Services</a><a href="#process">How it works</a><a href="#about">Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+      <a href="#work">Services</a><a href="#looks">Looks</a><a href="#process">How it works</a><a href="#about">Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
     </nav>
     <a href="tel:+12673673388" class="hdr-call" aria-label="Call (267) 367-3388"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg><span class="t">(267) 367-3388</span></a>
     <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
   </div>
 </header>
 <div class="drawer" id="drawer">
-  <nav aria-label="Menu"><a href="#work">Services</a><a href="#process">How it works</a><a href="#about">Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
+  <nav aria-label="Menu"><a href="#work">Services</a><a href="#looks">Looks</a><a href="#process">How it works</a><a href="#about">Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
   <a href="#contact" class="btn btn--oak">Get a free estimate</a>
   <p>Call or text (267) 367-3388<br>Mon–Fri 7am–6pm · Sat 7am–1pm</p>
 </div>
@@ -497,41 +586,51 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   </div>
 </section>
 
-<section class="sec sec--dark sec--process" id="process" aria-labelledby="process-h">
+<section class="sec sec--top" id="work" aria-labelledby="work-h">
+  <div class="wrap head"><h2 id="work-h">What we install.</h2><p class="note">Example photos</p></div>
+  <div class="swipe svc"><a class="card" href="#looks"><img src="img/looks/white-4-480.jpg" srcset="img/looks/white-4-480.jpg 480w, img/looks/white-4-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Kitchen cabinets</b><span>Base, wall and tall</span></span></a><a class="card" href="custom-kitchen-islands-philadelphia.html"><img src="img/looks/green-1-480.jpg" srcset="img/looks/green-1-480.jpg 480w, img/looks/green-1-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Islands</b><span>Built to your layout</span></span></a><a class="card" href="#contact"><img src="img/looks/detail-5-480.jpg" srcset="img/looks/detail-5-480.jpg 480w, img/looks/detail-5-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Pantries</b><span>Pull-outs and built-ins</span></span></a><a class="card" href="#contact"><img src="img/looks/detail-6-480.jpg" srcset="img/looks/detail-6-480.jpg 480w, img/looks/detail-6-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Crown &amp; trim</b><span>The finished look</span></span></a><a class="card" href="kitchen-cabinet-refacing-northeast-philadelphia.html"><img src="img/looks/blue-4-480.jpg" srcset="img/looks/blue-4-480.jpg 480w, img/looks/blue-4-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Refacing</b><span>New doors, same boxes</span></span></a></div>
+</section>
+
+<section class="sec sec--flush" id="looks" aria-labelledby="looks-h">
   <div class="wrap">
-    <div class="sec-head"><h2 id="process-h">Not a call center.</h2></div>
-    <ul class="promise"><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.4c.6-.2 1.3-.4 2-.4 2.5 0 4.5 2 4.5 4.5"/></svg><span>Our own crew. No subcontractors.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg><span>The person who measures is the one who installs.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg><span>And the one who answers your call.</span></li></ul>
-    <ol class="flow" aria-label="How it works"><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg></span><h3>Call or ask online</h3><p>Callback in 1 business day</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg></span><h3>Free estimate</h3><p>We measure and quote in writing</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="9" width="20" height="6" rx="1"/><circle cx="12" cy="12" r="1.6"/><path d="M8 9v6M16 9v6"/></svg></span><h3>We install</h3><p>Level, square, clean every day</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.6L16 9.6"/></svg></span><h3>Walkthrough</h3><p>We check every detail with you</p></li></ol>
+    <h2 id="looks-h">Pick a look.</h2>
+    <p class="lede">Tap the heart on the ones you like. We see them with your estimate request.</p>
+    <div class="chips" role="group" aria-label="Filter looks by color"><button type="button" class="chip" data-f="all" aria-pressed="true">All</button><button type="button" class="chip" data-f="white" aria-pressed="false"><i style=--c:#F2EEE6></i>White</button><button type="button" class="chip" data-f="black" aria-pressed="false"><i style=--c:#232323></i>Black</button><button type="button" class="chip" data-f="green" aria-pressed="false"><i style=--c:#6E8566></i>Green</button><button type="button" class="chip" data-f="blue" aria-pressed="false"><i style=--c:#33476A></i>Blue</button><button type="button" class="chip" data-f="wood" aria-pressed="false"><i style=--c:#B07D4F></i>Wood</button></div>
+    <ul class="looks-grid" id="looksGrid"><li class="look" data-c="white"><figure><img src="img/looks/white-1-480.jpg" srcset="img/looks/white-1-480.jpg 480w, img/looks/white-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White shaker" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save White shaker" data-n="White shaker" data-src="img/looks/white-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">White shaker</span></li><li class="look" data-c="green"><figure><img src="img/looks/green-2-480.jpg" srcset="img/looks/green-2-480.jpg 480w, img/looks/green-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Deep green shaker" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Deep green shaker" data-n="Deep green shaker" data-src="img/looks/green-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Deep green shaker</span></li><li class="look" data-c="black"><figure><img src="img/looks/black-2-480.jpg" srcset="img/looks/black-2-480.jpg 480w, img/looks/black-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Charcoal flat panel" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Charcoal flat panel" data-n="Charcoal flat panel" data-src="img/looks/black-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Charcoal flat panel</span></li><li class="look" data-c="wood"><figure><img src="img/looks/wood-1-480.jpg" srcset="img/looks/wood-1-480.jpg 480w, img/looks/wood-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Oak island" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Oak island" data-n="Oak island" data-src="img/looks/wood-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Oak island</span></li><li class="look" data-c="blue"><figure><img src="img/looks/blue-1-480.jpg" srcset="img/looks/blue-1-480.jpg 480w, img/looks/blue-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Navy with glass uppers" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Navy with glass uppers" data-n="Navy with glass uppers" data-src="img/looks/blue-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Navy with glass uppers</span></li><li class="look" data-c="white"><figure><img src="img/looks/white-3-480.jpg" srcset="img/looks/white-3-480.jpg 480w, img/looks/white-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Cream with glass uppers" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Cream with glass uppers" data-n="Cream with glass uppers" data-src="img/looks/white-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Cream with glass uppers</span></li><li class="look" data-c="green"><figure><img src="img/looks/green-3-480.jpg" srcset="img/looks/green-3-480.jpg 480w, img/looks/green-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Sage shaker" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Sage shaker" data-n="Sage shaker" data-src="img/looks/green-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Sage shaker</span></li><li class="look" data-c="black"><figure><img src="img/looks/black-3-480.jpg" srcset="img/looks/black-3-480.jpg 480w, img/looks/black-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Black pantry, oak shelves" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Black pantry, oak shelves" data-n="Black pantry, oak shelves" data-src="img/looks/black-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Black pantry, oak shelves</span></li><li class="look" data-c="wood"><figure><img src="img/looks/wood-4-480.jpg" srcset="img/looks/wood-4-480.jpg 480w, img/looks/wood-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Walnut wall" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Walnut wall" data-n="Walnut wall" data-src="img/looks/wood-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Walnut wall</span></li><li class="look" data-c="blue"><figure><img src="img/looks/blue-2-480.jpg" srcset="img/looks/blue-2-480.jpg 480w, img/looks/blue-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Blue island" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Blue island" data-n="Blue island" data-src="img/looks/blue-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Blue island</span></li><li class="look" data-c="white"><figure><img src="img/looks/white-2-480.jpg" srcset="img/looks/white-2-480.jpg 480w, img/looks/white-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White hutch" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save White hutch" data-n="White hutch" data-src="img/looks/white-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">White hutch</span></li><li class="look" data-c="black"><figure><img src="img/looks/black-4-480.jpg" srcset="img/looks/black-4-480.jpg 480w, img/looks/black-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Matte black" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Matte black" data-n="Matte black" data-src="img/looks/black-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Matte black</span></li></ul>
+    <div class="looks-foot"><button type="button" class="btn btn--line" id="looksMore">Show all 12 looks</button><p class="note">Example photos from Unsplash, not FMA jobs.</p></div>
   </div>
 </section>
 
-<section class="sec" id="work" aria-labelledby="work-h">
-  <div class="wrap">
-    <div class="sec-head"><h2 id="work-h">What we install.</h2></div>
-    <div class="tiles"><a class="tile" href="#contact"><img src="img/sm/cab-white-shaker-windows-600.jpg" srcset="img/sm/cab-white-shaker-windows-600.jpg 600w, img/sm/cab-white-shaker-windows-900.jpg 900w" sizes="(max-width:767px) 100vw, 40vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Kitchen cabinets</b><span>Base, wall and tall cabinets</span></span></a><a class="tile" href="custom-kitchen-islands-philadelphia.html"><img src="img/sm/cab-white-island-stools-600.jpg" srcset="img/sm/cab-white-island-stools-600.jpg 600w, img/sm/cab-white-island-stools-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Islands</b><span>Storage, prep and seating</span></span></a><a class="tile" href="#contact"><img src="img/sm/pantry-600.jpg" srcset="img/sm/pantry-600.jpg 600w, img/sm/pantry-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Pantries</b><span>Every inch used</span></span></a><a class="tile" href="#contact"><img src="img/sm/cab-crown-molding-hood-600.jpg" srcset="img/sm/cab-crown-molding-hood-600.jpg 600w, img/sm/cab-crown-molding-hood-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Crown &amp; trim</b><span>The built-in look</span></span></a><a class="tile" href="kitchen-cabinet-refacing-northeast-philadelphia.html"><img src="img/sm/cab-gray-raised-panel-600.jpg" srcset="img/sm/cab-gray-raised-panel-600.jpg 600w, img/sm/cab-gray-raised-panel-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Refacing</b><span>New doors, same boxes</span></span></a></div>
-    <p class="note">Example photos</p>
-  </div>
-</section>
-
-<section class="sec" id="preview" aria-labelledby="preview-h">
+<section class="sec sec--dark" id="preview" aria-labelledby="preview-h">
   <div class="wrap preview">
-    <figure class="ba"><img src="img/preview-before-after-600.jpg" srcset="img/preview-before-after-600.jpg 600w, img/preview-before-after.jpg 1200w" sizes="(max-width:900px) 100vw, 56vw" alt="The same kitchen cabinets shown in navy on the left and white on the right" loading="lazy" width="1200" height="750"><span class="b1">Before</span><span class="b2">After</span></figure>
+    <div class="ba" id="ba">
+      <img src="img/ba-before-600.jpg" srcset="img/ba-before-600.jpg 600w, img/ba-before-1000.jpg 1000w" sizes="(max-width:900px) 100vw, 50vw" width="600" height="600" alt="Kitchen with navy cabinets" loading="lazy" decoding="async">
+      <img class="ba-after" src="img/ba-after-600.jpg" srcset="img/ba-after-600.jpg 600w, img/ba-after-1000.jpg 1000w" sizes="(max-width:900px) 100vw, 50vw" width="600" height="600" alt="The same kitchen with white cabinets" loading="lazy" decoding="async">
+      <span class="b1">Before</span><span class="b2">After</span>
+      <i class="ba-line" aria-hidden="true"><i class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></i></i>
+      <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+    </div>
     <div>
       <h2 id="preview-h">See your kitchen in a new color. Free.</h2>
       <p class="lede">Text us a photo of your kitchen. We send it back with new cabinet colors.</p>
-      <div class="row">
-        <a class="btn btn--fill" href="sms:+12673673388?&amp;body=Hi%20FMA%2C%20here%27s%20a%20photo%20of%20my%20kitchen%20for%20a%20free%20color%20preview."><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Text a photo</a>
-        <a class="btn btn--line" href="mailto:fmaconstructions@gmail.com?subject=Free%20color%20preview">Email a photo</a>
-      </div>
-      <small>The preview is a digital mockup. Example photo shown.</small>
+      <div class="row"><a class="btn btn--oak" href="sms:+12673673388?&amp;body=Hi%20FMA%2C%20here%27s%20a%20photo%20of%20my%20kitchen%20for%20a%20free%20color%20preview.">Text us a photo</a></div>
+      <small>Drag the line. Digital mockup on an example photo.</small>
     </div>
   </div>
 </section>
 
-<section class="sec" aria-label="Budget">
+<section class="sec" id="process" aria-labelledby="process-h">
+  <div class="wrap">
+    <h2 id="process-h">How it works.</h2>
+    <p class="lede">Our own crew, no subcontractors. The person who measures is the one who installs, and the one who answers your call.</p>
+  </div>
+  <ol class="swipe steps"><li class="step"><div class="step-ph"><img src="img/looks/detail-2-480.jpg" srcset="img/looks/detail-2-480.jpg 480w, img/looks/detail-2-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">1</span></div><h3><span class="sr">Step 1: </span>Call or ask online</h3><p>We call back within 1 business day.</p></li><li class="step"><div class="step-ph"><img src="img/looks/detail-3-480.jpg" srcset="img/looks/detail-3-480.jpg 480w, img/looks/detail-3-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">2</span></div><h3><span class="sr">Step 2: </span>Free estimate</h3><p>We measure and send a written quote.</p></li><li class="step"><div class="step-ph"><img src="img/looks/detail-4-480.jpg" srcset="img/looks/detail-4-480.jpg 480w, img/looks/detail-4-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">3</span></div><h3><span class="sr">Step 3: </span>We install</h3><p>Level, square, and a clean site every day.</p></li><li class="step"><div class="step-ph"><img src="img/looks/detail-1-480.jpg" srcset="img/looks/detail-1-480.jpg 480w, img/looks/detail-1-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">4</span></div><h3><span class="sr">Step 4: </span>Walkthrough</h3><p>We check every door and drawer with you.</p></li></ol>
+</section>
+
+<section class="sec sec--flush" aria-labelledby="budget-h">
   <div class="wrap tiers">
-    <h2>Any budget.</h2>
-    <div class="tiers-grid"><div class="tier"><img src="img/sm/cab-everyday-white-600.jpg" srcset="img/sm/cab-everyday-white-600.jpg 600w, img/sm/cab-everyday-white-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Stock cabinets example" loading="lazy"><div class="tier-top"><h3>Stock</h3><span class="cost" aria-label="1 of 3 on price">$<i>$$</i></span></div><p>Fastest and most affordable</p></div><div class="tier"><img src="img/sm/cab-navy-white-uppers-600.jpg" srcset="img/sm/cab-navy-white-uppers-600.jpg 600w, img/sm/cab-navy-white-uppers-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Semi-custom cabinets example" loading="lazy"><div class="tier-top"><h3>Semi-custom</h3><span class="cost" aria-label="2 of 3 on price">$$<i>$</i></span></div><p>More sizes, colors and styles</p></div><div class="tier"><img src="img/sm/cab-crown-molding-hood-600.jpg" srcset="img/sm/cab-crown-molding-hood-600.jpg 600w, img/sm/cab-crown-molding-hood-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Custom cabinets example" loading="lazy"><div class="tier-top"><h3>Custom</h3><span class="cost" aria-label="3 of 3 on price">$$$<i></i></span></div><p>Made for your exact space</p></div></div>
+    <h2 id="budget-h">Any budget.</h2>
+    <div class="tiers-grid"><div class="tier"><img src="img/looks/white-5-480.jpg" srcset="img/looks/white-5-480.jpg 480w, img/looks/white-5-800.jpg 800w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Stock cabinets example" loading="lazy"><div class="tier-top"><h3>Stock</h3><span class="cost" aria-label="1 of 3 on price">$<i>$$</i></span></div><p>Fastest and most affordable</p></div><div class="tier"><img src="img/looks/green-4-480.jpg" srcset="img/looks/green-4-480.jpg 480w, img/looks/green-4-800.jpg 800w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Semi-custom cabinets example" loading="lazy"><div class="tier-top"><h3>Semi-custom</h3><span class="cost" aria-label="2 of 3 on price">$$<i>$</i></span></div><p>More sizes, colors and styles</p></div><div class="tier"><img src="img/looks/wood-3-480.jpg" srcset="img/looks/wood-3-480.jpg 480w, img/looks/wood-3-800.jpg 800w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Custom cabinets example" loading="lazy"><div class="tier-top"><h3>Custom</h3><span class="cost" aria-label="3 of 3 on price">$$$<i></i></span></div><p>Made for your exact space</p></div></div>
     <dl class="costs">
       <div><dt>Cabinet installation</dt><dd>$1,700–$7,200<small>per kitchen</small></dd></div>
       <div><dt>New cabinets, installed</dt><dd>$300–$650<small>per linear foot</small></dd></div>
@@ -546,11 +645,16 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
     <svg class="area-map" viewBox="0 0 800 726" role="img" aria-label="Map of the service area: Philadelphia, Bucks County, Montgomery County and nearby New Jersey"><rect width="800" height="726" fill="#1F1E1C"/><g fill="#1F1E1C" stroke="#34322E" stroke-width="1.5" stroke-linejoin="round"><path d="M628.8,-22.8L635.2,77.4L596.0,148.4L615.4,195.4L554.3,252.7L508.1,257.1L459.0,210.7L452.9,208.6L439.8,199.9L438.3,196.4L433.1,172.5L435.8,125.0L436.2,120.0L435.0,112.4L434.2,108.2L416.3,89.3L406.7,85.3L396.5,83.5L389.7,85.3L365.5,73.4L365.1,71.9L490.9,-16.4L535.4,-73.4L628.8,-22.8Z"/><path d="M268.9,460.4L238.4,478.0L226.7,519.9L155.0,581.6L136.8,629.1L136.3,629.2L114.2,634.4L110.4,635.7L98.3,641.1L85.2,648.5L67.7,662.6L54.9,676.9L27.4,714.5L21.0,714.4L15.1,714.4L-99.7,714.4L-107.9,714.5L-168.9,714.7L-130.0,686.3L-87.5,605.9L-83.8,554.8L-60.0,428.1L-20.7,407.6L60.4,343.0L79.1,330.1L138.0,342.2L148.9,364.5L154.8,363.0L158.1,355.7L162.6,368.8L175.7,399.1L268.9,460.4Z"/><path d="M155.0,581.6L226.7,519.9L238.4,478.0L268.9,460.4L271.5,462.5L275.5,469.8L316.7,525.9L324.6,600.1L337.1,603.2L351.1,600.5L353.8,608.1L340.2,614.8L319.7,620.1L299.8,619.9L261.3,637.6L252.5,644.5L238.4,655.4L231.1,649.9L216.5,641.7L191.0,632.1L168.1,628.4L145.2,628.2L145.2,628.2L137.8,629.0L137.4,629.0L136.8,629.1L155.0,581.6Z"/><path d="M205.0,-93.2L303.1,-126.4L404.9,-206.7L405.0,-206.7L405.0,-202.5L405.3,-201.8L406.5,-195.4L443.3,-135.6L444.2,-130.9L442.9,-126.6L411.7,-75.8L397.1,-63.0L388.6,-63.7L380.5,-66.4L376.0,-65.9L361.9,-46.6L357.8,-2.2L359.6,51.9L361.8,59.1L284.5,112.0L244.4,79.4L229.7,10.7L200.9,24.3L128.8,-73.0L205.0,-93.2Z"/><path d="M55.0,80.3L55.8,80.9L80.5,101.6L87.4,107.1L173.6,178.5L79.6,329.8L79.1,330.1L60.4,343.0L-20.7,407.6L-21.7,406.8L-144.1,303.7L-176.8,276.5L-177.7,275.4L-178.2,274.9L-341.1,142.4L-189.3,113.5L-99.2,81.9L-90.1,43.3L-88.4,36.1L-30.9,8.4L39.6,67.7L55.0,80.3Z"/><path d="M80.5,101.6L55.8,80.9L55.0,80.3L39.6,67.7L-30.9,8.4L44.6,-34.6L128.8,-73.0L200.9,24.3L229.7,10.7L244.4,79.4L284.5,112.0L281.6,114.2L265.8,128.0L265.1,128.6L241.4,148.2L199.4,199.6L173.6,178.5L87.4,107.1L80.5,101.6Z"/></g><g fill="#7A5C36" stroke="#151515" stroke-width="2" stroke-linejoin="round"><path d="M529.4,451.9L564.6,434.3L619.7,409.0L628.9,400.2L629.0,400.0L702.1,407.0L702.6,407.2L702.9,407.0L703.3,407.0L703.4,406.5L703.8,406.9L704.1,407.0L704.8,406.2L705.0,406.3L705.0,406.8L705.2,406.9L706.0,406.7L725.7,450.4L739.4,481.6L792.6,616.2L817.9,676.3L817.6,807.4L802.4,836.1L767.2,837.0L686.7,784.8L622.1,708.5L609.8,698.3L601.4,693.0L590.9,677.3L579.0,667.6L560.6,664.1L542.8,670.3L535.7,670.1L528.1,663.5L527.7,663.2L514.3,602.1L511.4,592.0L500.3,581.7L493.3,567.5L482.2,562.9L481.8,559.7L487.2,554.4L479.3,552.4L476.2,553.8L464.6,548.4L465.4,542.7L465.6,541.1L463.1,539.1L463.6,538.0L463.2,535.8L462.4,535.7L462.2,532.9L467.3,523.8L453.0,511.9L441.4,514.9L464.9,493.4L487.3,472.9L487.6,472.8L529.4,451.9Z"/><path d="M397.7,566.1L424.6,532.8L432.3,523.2L441.4,514.9L453.0,511.9L467.3,523.8L462.2,532.9L462.4,535.7L463.2,535.8L463.6,538.0L463.1,539.1L465.6,541.1L465.4,542.7L464.6,548.4L476.2,553.8L479.3,552.4L487.2,554.4L481.8,559.7L482.2,562.9L493.3,567.5L500.3,581.7L511.4,592.0L514.3,602.1L527.7,663.2L528.1,663.5L535.7,670.1L542.8,670.3L560.6,664.1L579.0,667.6L590.9,677.3L601.4,693.0L609.8,698.3L622.1,708.5L585.5,749.7L542.5,798.4L512.3,737.4L423.8,671.8L386.0,578.2L397.7,566.1Z"/><path d="M629.0,400.0L630.4,395.2L630.0,390.2L609.5,360.1L602.7,350.1L551.9,298.6L508.1,257.1L554.3,252.7L615.4,195.4L630.1,231.6L686.3,224.8L689.2,229.6L688.1,232.2L714.7,286.4L764.6,321.7L706.0,406.7L705.2,406.9L705.0,406.8L705.0,406.3L704.8,406.2L704.1,407.0L703.8,406.9L703.4,406.5L703.3,407.0L702.9,407.0L702.6,407.2L702.1,407.0L629.0,400.0Z"/><path d="M353.8,608.1L354.1,608.0L368.5,596.4L386.0,578.2L423.8,671.8L512.3,737.4L542.5,798.4L523.0,820.3L481.4,867.5L438.0,827.7L360.1,755.0L288.5,738.0L259.2,696.8L223.9,670.8L225.5,668.9L237.8,659.8L238.4,655.4L252.5,644.5L261.3,637.6L299.8,619.9L319.7,620.1L340.2,614.8L353.8,608.1Z"/></g><g stroke="#151515" stroke-width="2.5" stroke-linejoin="round"><path d="M323.5,468.9L373.3,446.3L387.3,456.9L396.6,463.8L400.1,466.7L402.4,468.5L411.2,475.0L423.6,461.9L418.3,457.9L464.5,406.9L468.2,409.9L469.7,410.9L483.2,420.0L492.8,421.2L494.9,436.8L497.8,438.1L496.3,447.9L489.3,454.4L481.6,466.5L487.6,472.8L487.3,472.9L464.9,493.4L441.4,514.9L432.3,523.2L424.6,532.8L397.7,566.1L386.0,578.2L368.5,596.4L354.1,608.0L353.8,608.1L351.1,600.5L337.1,603.2L324.6,600.1L316.7,525.9L324.0,521.7L328.2,518.3L332.2,515.9L323.5,468.9Z" fill="#F3ECE0"/><path d="M412.6,366.8L303.6,281.4L199.4,199.6L241.4,148.2L265.1,128.6L265.8,128.0L281.6,114.2L284.5,112.0L361.8,59.1L365.1,71.9L365.5,73.4L389.7,85.3L396.5,83.5L406.7,85.3L416.3,89.3L434.2,108.2L435.0,112.4L436.2,120.0L435.8,125.0L433.1,172.5L438.3,196.4L439.8,199.9L452.9,208.6L459.0,210.7L508.1,257.1L551.9,298.6L602.7,350.1L609.5,360.1L630.0,390.2L630.4,395.2L629.0,400.0L628.9,400.2L619.7,409.0L564.6,434.3L529.4,451.9L487.6,472.8L481.6,466.5L489.3,454.4L496.3,447.9L497.8,438.1L494.9,436.8L492.8,421.2L483.2,420.0L469.7,410.9L468.2,409.9L464.5,406.9L413.7,367.6L412.6,366.8Z" fill="#D2B48A"/><path d="M268.9,460.4L175.7,399.1L162.6,368.8L158.1,355.7L154.8,363.0L148.9,364.5L138.0,342.2L79.1,330.1L79.6,329.8L173.6,178.5L199.4,199.6L303.6,281.4L412.6,366.8L413.7,367.6L464.5,406.9L418.3,457.9L423.6,461.9L411.2,475.0L402.4,468.5L400.1,466.7L396.6,463.8L387.3,456.9L373.3,446.3L323.5,468.9L332.2,515.9L328.2,518.3L324.0,521.7L316.7,525.9L275.5,469.8L271.5,462.5L268.9,460.4Z" fill="#D2B48A"/></g><g font-family="Bodoni Moda, Georgia, serif" font-size="27" font-weight="500" text-anchor="middle"><text x="340" y="198" fill="#151515">Bucks</text><text x="244" y="351" fill="#151515">Montgomery</text><text x="619" y="575" fill="#F3ECE0">New Jersey</text><circle cx="380" cy="511" r="5" fill="#151515"/><path d="M374 514L300 573" stroke="#F3ECE0" stroke-width="1.2" fill="none"/><text x="230" y="581" fill="#F3ECE0">Philadelphia</text></g></svg>
     <div>
       <h2 id="about-h">We come to you.</h2>
-      <p class="lede">Philadelphia, Bucks and Montgomery counties, and New Jersey.</p>
-      <ul class="trust"><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.6"/></svg><span>Licensed and insured in PA</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg><span>Free on-site estimates</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Callback in 1 business day</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4l6 6"/><path d="M17 7L9 15"/><path d="M9 15l-5 5h8l1-4z"/></svg><span>Clean jobsite every day</span></li></ul>
-      <a class="btn btn--oak hide-sm" href="tel:+12673673388">Call (267) 367-3388</a>
-      <small>Founded by Flavio Mendanha Araujo.</small>
+      <ul class="places"><li>Philadelphia</li><li>Bucks County</li><li>Montgomery County</li><li>New Jersey</li></ul>
+      <p class="where-p">Licensed and insured in PA. Founded by Flavio Mendanha Araujo.</p>
     </div>
+  </div>
+</section>
+
+<section class="offer" aria-label="First-customer offer">
+  <div class="wrap">
+    <div class="offer-l"><img src="img/looks/wood-2-480.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"><div><b>Be one of our first kitchens.</b><span>A lower price in exchange for photos and an honest Google review.</span></div></div>
+    <a class="btn btn--fill" href="#contact">Ask about it</a>
   </div>
 </section>
 
@@ -558,16 +662,8 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   <div class="wrap faq">
     <aside>
       <h2 id="faq-h">Quick answers.</h2>
-      <a class="btn btn--fill hide-sm" href="tel:+12673673388">Call (267) 367-3388</a>
     </aside>
     <div class="faq-list"><details><summary>Can you install cabinets I already bought?</summary><p>Yes. Or we help you choose and order them, then install.</p></details><details><summary>Do you work in New Jersey?</summary><p>Yes. Philadelphia, Bucks and Montgomery counties, and New Jersey.</p></details><details><summary>Is the estimate free?</summary><p>Yes. We come to you, measure and send a written quote.</p></details><details><summary>How fast do you call back?</summary><p>Within 1 business day.</p></details><details><summary>Can I keep my cabinets?</summary><p>Often, yes. Refacing swaps doors, fronts and hardware.</p></details><details><summary>Are you licensed and insured?</summary><p>Yes, in Pennsylvania.</p></details></div>
-  </div>
-</section>
-
-<section class="offer" aria-label="First-customer offer">
-  <div class="wrap">
-    <div class="offer-l"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><div><b>Be one of our first kitchens.</b><span>A lower price in exchange for photos and an honest Google review.</span></div></div>
-    <a class="btn btn--fill" href="#contact">Ask about it</a>
   </div>
 </section>
 
@@ -579,7 +675,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
       <dl class="ci">
         <div><dt>Call or text</dt><dd><a href="tel:+12673673388">(267) 367-3388</a></dd></div>
         <div><dt>Email</dt><dd><a href="mailto:fmaconstructions@gmail.com">fmaconstructions@gmail.com</a></dd></div>
-        <div><dt>Hours</dt><dd>Mon–Fri 7am–6pm · Sat 7am–1pm</dd></div>
+        <div><dt>Hours</dt><dd>Mon–Fri 7am–6pm<br>Sat 7am–1pm</dd></div>
         <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/fmaconstructions/" target="_blank" rel="noopener">@fmaconstructions</a></dd></div>
       </dl>
     </div>
@@ -593,7 +689,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
       </div>
     </form>
     <form name="project-builder" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="bot-field"><input type="text" name="cabinets"><input type="text" name="project"><input type="text" name="scope"><input type="text" name="timeline">
+      <input type="text" name="bot-field"><input type="text" name="cabinets"><input type="text" name="looks"><input type="text" name="project"><input type="text" name="scope"><input type="text" name="timeline">
       <input type="text" name="name"><input type="tel" name="phone"><input type="email" name="email"><input type="text" name="zip"><textarea name="notes"></textarea>
     </form>
   </div>
@@ -611,7 +707,6 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
         <a href="#home" class="logo" aria-label="FMA Constructions, back to top"><svg viewBox="-85 -640 1072 2680" aria-hidden="true" focusable="false"><path d="M-22.3,-567.5 L-21.1,-567.4 L-20.0,-567.2 L-18.8,-567.1 L-17.7,-566.8 L-16.6,-566.5 L-15.5,-566.1 L-14.4,-565.7 L-13.4,-565.3 L-12.4,-564.7 L-11.4,-564.2 L-10.4,-563.6 L-9.5,-562.9 L-8.6,-562.2 L-7.7,-561.4 L-6.9,-560.6 L-6.1,-559.8 L-5.3,-558.9 L-4.6,-558.0 L-3.9,-557.1 L-3.3,-556.1 L-2.8,-555.1 L-2.2,-554.1 L-1.8,-553.1 L-1.4,-552.0 L-1.0,-550.9 L-0.7,-549.8 L-0.4,-548.7 L-0.3,-547.5 L-0.1,-546.4 L-0.0,-545.2 L0.0,-544.1 L0.0,948.3 L-0.0,949.6 L-0.1,950.8 L-0.3,952.1 L-0.5,953.3 L-0.8,954.6 L-1.1,955.8 L-1.5,957.0 L-2.0,958.1 L-2.5,959.3 L-3.0,960.4 L-3.7,961.5 L-4.3,962.6 L-5.1,963.6 L-5.8,964.6 L-6.7,965.6 L-7.5,966.5 L-8.4,967.3 L-9.4,968.2 L-10.4,968.9 L-11.4,969.7 L-12.5,970.3 L-13.6,971.0 L-14.7,971.5 L-15.9,972.0 L-17.0,972.5 L-18.2,972.9 L-19.4,973.2 L-20.7,973.5 L-21.9,973.7 L-23.2,973.9 L-24.4,974.0 L-25.7,974.0 L-41.2,974.0 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,974.0 L175.7,974.0 L174.4,974.0 L173.2,973.9 L171.9,973.7 L170.7,973.5 L169.4,973.2 L168.2,972.9 L167.0,972.5 L165.9,972.0 L164.7,971.5 L163.6,971.0 L162.5,970.3 L161.4,969.7 L160.4,968.9 L159.4,968.2 L158.4,967.3 L157.5,966.5 L156.7,965.6 L155.8,964.6 L155.1,963.6 L154.3,962.6 L153.7,961.5 L153.0,960.4 L152.5,959.3 L152.0,958.1 L151.5,957.0 L151.1,955.8 L150.8,954.6 L150.5,953.3 L150.3,952.1 L150.1,950.8 L150.0,949.6 L150.0,948.3 L150.0,33.9 L468.4,1111.6 L236.9,1974.0 L158.2,1974.0 L158.2,2000.0 L229.9,2000.0 L274.1,2000.0 L345.8,2000.0 L345.8,1974.0 L281.1,1974.0 L367.4,1652.5 L628.1,1652.5 L723.1,1974.0 L684.5,1974.0 L684.5,2000.0 L730.8,2000.0 L900.8,2000.0 L947.0,2000.0 L947.0,1974.0 L893.1,1974.0 L572.4,888.4 L775.8,130.8 L775.8,952.3 L775.8,953.3 L775.7,954.4 L775.6,955.5 L775.4,956.5 L775.1,957.5 L774.9,958.6 L774.5,959.6 L774.1,960.6 L773.7,961.6 L773.2,962.5 L772.7,963.4 L772.1,964.3 L771.5,965.2 L770.9,966.1 L770.2,966.9 L769.4,967.6 L768.7,968.4 L767.9,969.1 L767.0,969.7 L766.1,970.3 L765.2,970.9 L764.3,971.4 L763.4,971.9 L762.4,972.3 L761.4,972.7 L760.4,973.1 L759.3,973.3 L758.3,973.6 L757.3,973.8 L756.2,973.9 L755.1,974.0 L754.1,974.0 L715.4,974.0 L715.4,1000.0 L775.8,1000.0 L820.0,1000.0 L880.4,1000.0 L880.4,974.0 L841.7,974.0 L840.7,974.0 L839.6,973.9 L838.5,973.8 L837.5,973.6 L836.5,973.3 L835.4,973.1 L834.4,972.7 L833.4,972.3 L832.4,971.9 L831.5,971.4 L830.6,970.9 L829.7,970.3 L828.8,969.7 L827.9,969.1 L827.1,968.4 L826.4,967.6 L825.6,966.9 L824.9,966.1 L824.3,965.2 L823.7,964.3 L823.1,963.4 L822.6,962.5 L822.1,961.6 L821.7,960.6 L821.3,959.6 L820.9,958.6 L820.7,957.5 L820.4,956.5 L820.2,955.5 L820.1,954.4 L820.0,953.3 L820.0,952.3 L820.0,26.0 L880.0,26.0 L880.0,0.0 L820.0,0.0 L810.9,0.0 L775.8,0.0 L766.7,0.0 L738.3,0.0 L738.3,26.0 L759.7,26.0 L549.3,810.0 L310.0,0.0 L150.0,0.0 L150.0,-257.5 L150.0,-258.0 L150.0,-258.5 L150.1,-259.0 L150.2,-259.5 L150.3,-259.9 L150.4,-260.4 L150.6,-260.9 L150.8,-261.3 L151.0,-261.8 L151.2,-262.2 L151.4,-262.6 L151.7,-263.1 L152.0,-263.5 L152.3,-263.8 L152.6,-264.2 L152.9,-264.6 L153.3,-264.9 L153.7,-265.2 L154.0,-265.5 L154.4,-265.8 L154.9,-266.1 L155.3,-266.3 L155.7,-266.5 L156.2,-266.7 L156.6,-266.9 L157.1,-267.1 L157.6,-267.2 L158.0,-267.3 L158.5,-267.4 L159.0,-267.5 L159.5,-267.5 L160.0,-267.5 L324.4,-267.5 L365.0,-226.9 L365.0,-267.5 L365.0,-300.0 L365.0,-350.0 L324.4,-350.0 L324.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-555.5 L150.0,-556.1 L150.1,-556.7 L150.1,-557.3 L150.2,-557.8 L150.4,-558.4 L150.5,-559.0 L150.7,-559.5 L150.9,-560.1 L151.2,-560.6 L151.4,-561.2 L151.7,-561.7 L152.0,-562.2 L152.4,-562.6 L152.7,-563.1 L153.1,-563.6 L153.5,-564.0 L153.9,-564.4 L154.4,-564.8 L154.9,-565.1 L155.3,-565.5 L155.8,-565.8 L156.3,-566.1 L156.9,-566.3 L157.4,-566.6 L158.0,-566.8 L158.5,-567.0 L159.1,-567.1 L159.7,-567.3 L160.2,-567.4 L160.8,-567.4 L161.4,-567.5 L162.0,-567.5 L409.4,-567.5 L409.4,-490.6 L450.0,-450.0 L450.0,-567.5 L450.0,-600.0 L409.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-567.5 L-23.4,-567.5 L-22.3,-567.5Z M618.5,1620.0 L376.1,1620.0 L491.5,1190.0 L618.5,1620.0Z" fill="currentColor" fill-rule="evenodd"/></svg><span class="wm" aria-hidden="true"><b>FMA</b> <small>CONSTRUCTIONS</small></span></a>
         <p>Kitchen cabinet installation in Philadelphia. Licensed and insured, with free on-site estimates.</p>
       </div>
-      <div><h4>Explore</h4><ul><li><a href="#work">Services</a></li><li><a href="#process">How it works</a></li><li><a href="#about">Area</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Free estimate</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="#work">Kitchen cabinets</a></li><li><a href="custom-kitchen-islands-philadelphia.html">Custom kitchen islands</a></li><li><a href="kitchen-cabinet-refacing-northeast-philadelphia.html">Cabinet refacing</a></li><li><a href="cabinet-installation-service-areas.html">Service areas</a></li></ul></div>
       <div><h4>Contact</h4><ul><li><a href="tel:+12673673388">(267) 367-3388</a></li><li><a href="mailto:fmaconstructions@gmail.com">fmaconstructions@gmail.com</a></li><li>Mon–Fri 7am–6pm</li><li>Sat 7am–1pm</li></ul></div>
     </div>
@@ -651,6 +746,40 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
     new IntersectionObserver(([e]) => { atContact = e.isIntersecting; set(); }, { rootMargin: '0px 0px -30% 0px' }).observe(contact);
   }
 
+
+  /* looks: color chips, hearts, saved looks ride along with the estimate request */
+  const grid = $('#looksGrid'), more = $('#looksMore'), all = $$('.look', grid), FIRST = 8;
+  let filter = 'all', expanded = false;
+  const phone = matchMedia('(max-width:767px)');
+  const showLooks = () => {
+    let n = 0;
+    all.forEach(li => { const match = filter === 'all' || li.dataset.c === filter; const on = match && (expanded || filter !== 'all' || !phone.matches || n < FIRST); if (match) n++; li.hidden = !on; });
+    more.hidden = expanded || filter !== 'all' || !phone.matches;
+  };
+  $$('.chip').forEach(c => c.addEventListener('click', () => { filter = c.dataset.f; $$('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === c))); showLooks(); }));
+  more.addEventListener('click', () => { expanded = true; showLooks(); all[FIRST] && $('.save', all[FIRST]).focus({ preventScroll: true }); });
+  phone.addEventListener('change', showLooks); showLooks();
+  window.__saved = [];
+  const pillEl = document.createElement('a'); pillEl.className = 'saved'; pillEl.href = '#contact'; pillEl.setAttribute('aria-hidden', 'true'); pillEl.tabIndex = -1; document.body.appendChild(pillEl);
+  const estBtn = $('.callbar .btn--line');
+  const updateSaved = () => {
+    const s = window.__saved, n = s.length;
+    pillEl.innerHTML = `<span class="th">${s.slice(-3).map(l => `<img src="${l.src}" alt="">`).join('')}</span><span>${n} saved</span><em>Send with estimate</em>`;
+    pillEl.classList.toggle('is-on', n > 0); pillEl.setAttribute('aria-hidden', String(!n)); pillEl.tabIndex = n ? 0 : -1;
+    estBtn.textContent = n ? `Send my ${n} look${n > 1 ? 's' : ''}` : 'Free estimate';
+    window.__wizLooks && window.__wizLooks();
+  };
+  grid.addEventListener('click', e => {
+    const b = e.target.closest('.save'); if (!b) return;
+    const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
+    window.__saved = on ? [...window.__saved, { n: b.dataset.n, src: b.dataset.src }] : window.__saved.filter(l => l.n !== b.dataset.n);
+    updateSaved();
+  });
+
+  /* before / after: drag the line */
+  const ba = $('#ba'), range = $('input', ba);
+  range.addEventListener('input', () => ba.style.setProperty('--x', range.value + '%'));
+
   /* estimate wizard */
   const ICON = {
     kitchen: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18v10H3zM3 10V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4M8 14h2M14 14h2"/></svg>',
@@ -669,7 +798,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   };
   const STEPS = [
     { q: 'What are we building?', hint: 'Pick the closest one. We sort out the details on the call.', valid: s => !!s.project,
-      html: () => `<p class="sub-q" style="margin-top:0">Do you have the cabinets?</p><div class="pills" style="margin-bottom:1.6rem">${pill('cabinets', 'Yes, I bought them', 'Yes, I bought them')}${pill('cabinets', 'No, help me choose', 'No, help me choose')}${pill('cabinets', 'Not sure', 'Not sure')}</div><div class="taps">${tap('project', 'Kitchen cabinets', 'Kitchen cabinets', 'New cabinets, an island or a full set', 'kitchen')}${tap('project', 'Pantry / built-ins', 'Pantry or built-ins', 'Pantries, laundry, mudroom or storage walls', 'pantry')}${tap('project', 'Other project', 'Something else', 'Trim or other woodwork. Tell us on the call.', 'other')}</div>` },
+      html: () => `${(window.__saved || []).length ? `<p class="sub-q" style="margin-top:0">Looks you saved</p><div class="mini">${window.__saved.map(l => `<img src="${l.src}" alt="${l.n}" width="64" height="80">`).join('')}<a href="#looks">Change</a></div>` : ''}<p class="sub-q" style="margin-top:0">Do you have the cabinets?</p><div class="pills" style="margin-bottom:1.6rem">${pill('cabinets', 'Yes, I bought them', 'Yes, I bought them')}${pill('cabinets', 'No, help me choose', 'No, help me choose')}${pill('cabinets', 'Not sure', 'Not sure')}</div><div class="taps">${tap('project', 'Kitchen cabinets', 'Kitchen cabinets', 'New cabinets, an island or a full set', 'kitchen')}${tap('project', 'Pantry / built-ins', 'Pantry or built-ins', 'Pantries, laundry, mudroom or storage walls', 'pantry')}${tap('project', 'Other project', 'Something else', 'Trim or other woodwork. Tell us on the call.', 'other')}</div>` },
     { q: 'How big is the job?', hint: 'A rough idea is fine. The on-site estimate sorts out the rest.', valid: s => !!s.scope && !!s.timeline,
       html: () => `<div class="taps">${tap('scope', 'A few cabinets', 'A few cabinets', 'Add or replace some cabinets, hardware or trim', 'few')}${tap('scope', 'All new cabinets', 'All new cabinets', 'Replace every cabinet, same layout', 'all')}${tap('scope', 'New layout', 'New layout', 'Move cabinets around or add an island', 'layout')}</div><p class="sub-q">When would you like to start?</p><div class="pills">${pill('timeline', 'ASAP', 'As soon as possible')}${pill('timeline', '1–3 months', 'In 1–3 months')}${pill('timeline', 'Just planning', 'Just planning for now')}</div>` },
     { q: 'Where should we reach you?', hint: 'We call within one business day. No spam.', valid: s => (s.name || '').trim().length > 1 && /^1?\d{10}$/.test((s.phone || '').replace(/\D/g, '')),
@@ -704,11 +833,12 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
     body.insertAdjacentHTML('beforeend', '<p class="wiz-error" role="alert">We couldn’t send your request. Please try again, or call or text <a href="tel:+12673673388">(267) 367-3388</a>.</p>');
   };
   const finish = () => {
-    const rows = [['Cabinets', state.cabinets], ['Project', state.project], ['Scope', state.scope], ['Timeline', state.timeline], ['Name', state.name], ['Phone', state.phone], ['Email', state.email], ['Zip', state.zip]].filter(r => r[1]);
+    const rows = [['Looks', state.looks], ['Cabinets', state.cabinets], ['Project', state.project], ['Scope', state.scope], ['Timeline', state.timeline], ['Name', state.name], ['Phone', state.phone], ['Email', state.email], ['Zip', state.zip]].filter(r => r[1]);
     body.innerHTML = `<div class="done"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3 class="wiz-q" tabindex="-1">Got it, ${esc((state.name || '').trim().split(' ')[0])}. We'll call you.</h3><p class="wiz-hint">Expect a call from FMA within one business day to set up your free on-site estimate.</p><dl class="summary">${rows.map(r => `<div><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join('')}</dl></div>`;
     lbl.textContent = 'Done'; $('.wiz-top .of').hidden = true; bar.style.width = '100%'; $('#wizNav').hidden = true; $('.wiz-q', body).focus({ preventScroll: true });
   };
   window.__wizSet = (k, v) => { state[k] = v; if (step === 0) sync(); };
+  window.__wizLooks = () => { state.looks = (window.__saved || []).map(l => l.n).join(', '); if (step === 0) render(false); };
   render(false);
 })();
 </script>
