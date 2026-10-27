@@ -51,7 +51,7 @@
   --bone:#F3ECE0;--ink:#151515;--oak:#D2B48A;--oak-deep:#7A5C36;--mute:#6B6359;--mute-d:rgba(243,236,224,.62);
   --line:rgba(21,21,21,.13);--line-d:rgba(243,236,224,.16);
   --serif:'Bodoni Moda',Didot,Georgia,serif;--sans:'Inter',system-ui,-apple-system,sans-serif;
-  --pad:clamp(20px,4vw,56px);--sec:clamp(96px,13vh,160px);--hdr:68px;
+  --pad:clamp(20px,4vw,56px);--sec:clamp(80px,10vh,120px);--hdr:68px;
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-padding-top:var(--hdr)}
@@ -65,7 +65,7 @@ ul,ol{list-style:none}
 .skip{position:fixed;left:16px;top:-80px;z-index:100;background:var(--ink);color:var(--bone);padding:.7rem 1.1rem;border-radius:999px;text-decoration:none}
 .skip:focus{top:16px}
 h1,h2{font-family:var(--serif);font-weight:400;font-optical-sizing:auto;letter-spacing:-.02em;line-height:.94}
-h2{font-size:clamp(3rem,7vw,7rem);max-width:12ch}
+h2{font-size:clamp(3rem,7vw,7rem);max-width:12ch;text-wrap:balance}
 .kick{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;color:var(--mute);margin-bottom:1.1rem}
 .fine{font-size:.8rem;color:var(--mute);line-height:1.55;max-width:70ch}
 .fine a{color:inherit}
@@ -185,11 +185,11 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 #looks .fine{margin-top:34px}
 
 /* our crew: the one full-bleed photo moment */
-.crew{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:0 clamp(2rem,6vw,7rem);padding:0 var(--pad) var(--sec)}
-.crew-ph{grid-row:1/3}
+.crew{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:0 clamp(2rem,6vw,7rem);padding:0 var(--pad) var(--sec)}
+.crew-txt{max-width:560px}
 .crew-ph img{width:100%;height:min(84vh,800px);object-fit:cover;border-radius:4px}
 .crew-cap h2{font-size:clamp(3rem,6.2vw,6.4rem);max-width:10ch}
-.crew-p{font-size:1.15rem;color:var(--mute);max-width:32ch;margin-top:1.6rem}
+.crew-p{font-size:1.15rem;color:var(--mute);max-width:32ch;margin-top:2rem}
 
 /* what we install: a quiet list with thumbnails */
 .svc{border-top:1px solid var(--line)}
@@ -219,11 +219,11 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 .ba input{position:absolute;inset:0;z-index:2;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
 .ba:has(input:focus-visible) .ba-knob{outline:1.5px solid var(--oak);outline-offset:3px}
 .card--offer{grid-template-columns:minmax(0,.7fr) minmax(0,1fr)}
-.offer-ph img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.offer-ph img{width:100%;aspect-ratio:4/5;max-height:520px;object-fit:cover;object-position:50% 78%;border-radius:4px}
 
 /* steps */
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.steps li{border:1px solid var(--line);border-radius:4px;padding:24px 22px 26px;display:flex;flex-direction:column;gap:2.4rem;min-height:220px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.steps li{border-top:1px solid var(--ink);padding:22px 0 0;display:flex;flex-direction:column;gap:2rem}
 .steps b{font-family:var(--serif);font-weight:400;font-size:3.4rem;line-height:.8}
 .steps h3{font-weight:400;font-size:1.05rem}
 .steps p{font-size:.88rem;color:var(--mute);margin-top:.3rem}
@@ -237,7 +237,7 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 .tiers em{font-style:normal;opacity:.2}
 .prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;margin:36px 0 16px}
 .prices dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);line-height:1.5}
-.prices dd{font-family:var(--serif);font-size:clamp(1.6rem,2.4vw,2.2rem);line-height:1.05;margin-top:.5rem;font-variant-numeric:lining-nums;letter-spacing:-.01em}
+.prices dd{font-size:clamp(1.35rem,1.9vw,1.7rem);font-weight:400;line-height:1.1;margin-top:.5rem;font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.01em}
 .prices dd small{display:block;font-family:var(--sans);font-size:.78rem;color:var(--mute);margin-top:.35rem;letter-spacing:0}
 
 /* area */
@@ -246,7 +246,7 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 .places{font-family:var(--serif);font-size:clamp(2.2rem,4.4vw,4.2rem);line-height:1.06;letter-spacing:-.015em;margin:1.4rem 0 1.6rem;color:var(--oak-deep)}
 
 /* faq */
-#faq h2{font-size:clamp(2.8rem,5vw,5rem)}
+.split h2,#process h2{font-size:clamp(2.8rem,5vw,5rem)}
 .faq-list{border-top:1px solid var(--line)}
 .faq-list details{border-bottom:1px solid var(--line)}
 .faq-list summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1.4rem;padding:1.25rem 0;font-size:1.05rem;font-weight:400}
@@ -335,30 +335,29 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 }
 @media (max-width:900px){
   .split,.card,.card--offer,.crew{grid-template-columns:1fr}
-  .crew-ph{grid-row:auto}
   .prices{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
   .prices div{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:1rem;padding:16px 0;border-bottom:1px solid var(--line)}
   .prices dd{margin-top:0;text-align:right}
   .split--contact{gap:3rem}
 }
 @media (max-width:767px){
-  :root{--hdr:60px;--sec:76px}
-  body{padding-bottom:72px}
+  :root{--hdr:60px;--sec:64px}
   .hdr-call .t,.hdr-est{display:none}
   .hdr-call{width:44px;height:44px;justify-content:center}
   .hdr-call svg{width:18px;height:18px}
   .logo svg{height:32px}
   .logo .wm b{font-size:1.05rem}
   .hero{height:auto;min-height:0;max-height:none;background:var(--ink)}
-  .hero-media{position:relative;inset:auto;height:58svh;min-height:380px}
+  .hero-media{position:relative;inset:auto;height:46svh;min-height:330px}
   .hero-media img,.hero-media canvas{object-position:84% 50%}
-  .hero::after{height:max(58svh,380px);bottom:auto;background:linear-gradient(180deg,rgba(15,15,15,.55) 0%,rgba(15,15,15,0) 24%,rgba(15,15,15,0) 58%,rgba(15,15,15,.82) 100%)}
-  .hero-in{position:static;padding:30px var(--pad) 44px}
+  .hero::after{height:max(46svh,330px);bottom:auto;background:linear-gradient(180deg,rgba(15,15,15,.55) 0%,rgba(15,15,15,0) 24%,rgba(15,15,15,0) 58%,rgba(15,15,15,.82) 100%)}
+  .hero-in{position:static;padding:24px var(--pad) 40px}
+  .hero .kick{margin-bottom:.8rem}
   .hero h1{font-size:clamp(2.7rem,11.6vw,3.6rem);max-width:none}
   .hero-sub{margin-top:1.1rem;font-size:1rem}
-  .hero-actions{flex-direction:column;margin-top:1.7rem}
+  .hero-actions{flex-direction:column;gap:.55rem;margin-top:1.4rem}
   .hero-actions .btn{width:100%}
-  .paint{left:var(--pad);right:var(--pad);bottom:auto;top:calc(max(58svh,380px) - 14px);transform:translateY(-100%);align-items:flex-start;text-align:left}
+  .paint{left:var(--pad);right:var(--pad);bottom:auto;top:calc(max(46svh,330px) - 14px);transform:translateY(-100%);align-items:flex-start;text-align:left}
   .paint small{display:none}
   .paint-top b{font-size:1.45rem}
   .ways{grid-template-columns:1fr}
@@ -377,7 +376,7 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   .crew-ph{position:relative}
   .crew-ph img{border-radius:0;height:auto;aspect-ratio:4/5}
   .crew-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,15,15,.85) 0%,rgba(15,15,15,.3) 40%,rgba(15,15,15,0) 62%)}
-  .crew-cap{position:relative;margin-top:-190px;padding:0 var(--pad);z-index:1;color:var(--bone)}
+  .crew-cap{position:absolute;left:var(--pad);right:var(--pad);top:calc(125vw - 30px);transform:translateY(-100%);z-index:1;color:var(--bone)}
   .crew-cap h2{font-size:clamp(2.6rem,11.5vw,3.4rem)}
   .crew-p{padding:0 var(--pad);margin-top:1.8rem;font-size:1.05rem}
   .svc a{gap:1rem;padding:12px 0}
@@ -388,7 +387,7 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   .card--offer .offer-ph{order:-1}
   .offer-ph img{aspect-ratio:16/10}
   .steps{grid-template-columns:1fr;gap:8px}
-  .steps li{flex-direction:row;align-items:center;gap:1.2rem;min-height:0;padding:18px}
+  .steps li{flex-direction:row;align-items:flex-start;gap:1.2rem;padding:18px 0;border-top-color:var(--line)}
   .steps b{font-size:2.6rem;width:1.4ch}
   .tiers li{grid-template-columns:1fr auto;row-gap:.2rem}
   .tiers span{grid-column:1;grid-row:2}
@@ -398,10 +397,14 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   .ci div{grid-template-columns:1fr;gap:.2rem}
   .wiz{border:0;padding:0}
   .wiz-nav .btn{flex:1}
+  .back[hidden]{display:none}
   .ftr-grid{grid-template-columns:1fr}
   .callbar{display:flex}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}.js .look{opacity:1;transform:none}}
+
+.hdr.on-dark{background:rgba(21,21,21,.88);color:var(--bone);box-shadow:0 1px 0 var(--line-d)}
+.hdr.on-dark .logo svg{color:var(--oak)}
 
 </style>
 </head>
@@ -462,7 +465,7 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
     <div><p class="kick">Pick a look</p><h2 id="looks-h">Which kitchen is yours?</h2></div>
     <div class="ctrl">
       <div class="tabs" role="group" aria-label="Filter by door style"><button type="button" data-s="all" aria-pressed="true">All</button><button type="button" data-s="shaker" aria-pressed="false">Shaker</button><button type="button" data-s="flat" aria-pressed="false">Flat</button><button type="button" data-s="glass" aria-pressed="false">Glass</button></div>
-      <div class="dots" role="group" aria-label="Filter by color"><button type="button" class="dot dot--all" data-c="all" aria-pressed="true" aria-label="All colors">All</button><button type="button" class="dot" data-c="white" aria-pressed="false" aria-label="White" style=--c:#F2EEE6></button><button type="button" class="dot" data-c="black" aria-pressed="false" aria-label="Black" style=--c:#232323></button><button type="button" class="dot" data-c="green" aria-pressed="false" aria-label="Green" style=--c:#5F7458></button><button type="button" class="dot" data-c="blue" aria-pressed="false" aria-label="Blue" style=--c:#33476A></button><button type="button" class="dot" data-c="wood" aria-pressed="false" aria-label="Wood" style=--c:#A8764A></button></div>
+      <div class="dots" role="group" aria-label="Filter by color"><button type="button" class="dot" data-c="white" aria-pressed="false" aria-label="White" style="--c:#F2EEE6"></button><button type="button" class="dot" data-c="black" aria-pressed="false" aria-label="Black" style="--c:#232323"></button><button type="button" class="dot" data-c="green" aria-pressed="false" aria-label="Green" style="--c:#5F7458"></button><button type="button" class="dot" data-c="blue" aria-pressed="false" aria-label="Blue" style="--c:#33476A"></button><button type="button" class="dot" data-c="wood" aria-pressed="false" aria-label="Wood" style="--c:#A8764A"></button></div>
     </div>
   </div>
   <div class="meta"><span id="looksCount">12 looks</span><span>Tap + to save the ones you like</span></div>
@@ -473,8 +476,8 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 
 <section class="crew" aria-labelledby="crew-h">
   <div class="crew-ph"><img src="img/looks/green-3-480.jpg" srcset="img/looks/green-3-480.jpg 480w, img/looks/green-3-800.jpg 800w" sizes="100vw" width="480" height="600" alt="Sage green shaker cabinets, floor to ceiling" loading="lazy" decoding="async"></div>
-  <div class="crew-cap"><h2 id="crew-h">Our own crew. No subcontractors.</h2></div>
-  <p class="crew-p">The person who measures your kitchen is the one who installs it, and the one who answers your call.</p>
+  <div class="crew-txt"><div class="crew-cap"><h2 id="crew-h">Our own crew. No subcontractors.</h2></div>
+  <p class="crew-p">The person who measures your kitchen is the one who installs it, and the one who answers your call.</p></div>
 </section>
 
 <section class="sec" id="work" aria-labelledby="work-h">
@@ -502,7 +505,7 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 </section>
 
 <section class="sec" id="process" aria-labelledby="process-h">
-  <h2 id="process-h">Four steps. One crew.</h2>
+  <h2 id="process-h">Four steps.<br>One crew.</h2>
   <ol class="steps"><li><b aria-hidden="true">1</b><div><h3><span class="sr">Step 1: </span>Call or ask online</h3><p>We call back within 1 business day.</p></div></li><li><b aria-hidden="true">2</b><div><h3><span class="sr">Step 2: </span>Free estimate</h3><p>We measure and send a written quote.</p></div></li><li><b aria-hidden="true">3</b><div><h3><span class="sr">Step 3: </span>We install</h3><p>Level, square, and a clean site every day.</p></div></li><li><b aria-hidden="true">4</b><div><h3><span class="sr">Step 4: </span>Walkthrough</h3><p>We check every door and drawer with you.</p></div></li></ol>
 </section>
 
@@ -512,9 +515,9 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
     <div>
       <ul class="tiers"><li><b>Stock</b><span>Fastest and most affordable</span><i aria-label="1 of 3 on price">$<em>$$</em></i></li><li><b>Semi-custom</b><span>More sizes, colors and styles</span><i aria-label="2 of 3 on price">$$<em>$</em></i></li><li><b>Custom</b><span>Made for your exact space</span><i aria-label="3 of 3 on price">$$$<em></em></i></li></ul>
       <dl class="prices">
-      <div><dt>Cabinet installation</dt><dd>$1,700–$7,200<small>per kitchen</small></dd></div>
-      <div><dt>New cabinets, installed</dt><dd>$300–$650<small>per linear foot</small></dd></div>
-      <div><dt>Refacing</dt><dd>$150–$210<small>per door</small></dd></div>
+      <div><dt>Cabinet installation</dt><dd>$1,700 – $7,200<small>per kitchen</small></dd></div>
+      <div><dt>New cabinets, installed</dt><dd>$300 – $650<small>per linear foot</small></dd></div>
+      <div><dt>Refacing</dt><dd>$150 – $210<small>per door</small></dd></div>
     </dl>
       <p class="fine">Typical Philadelphia prices from public guides (<a href="https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/" rel="nofollow noopener" target="_blank">HomeAdvisor</a>, <a href="https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm" rel="nofollow noopener" target="_blank">HomeBlue 2024</a>, <a href="https://www.homeblue.com/cabinet-refacing/philadelphia-pa-cabinet-refacing-cost.htm" rel="nofollow noopener" target="_blank">HomeBlue 2022</a>). Not an FMA quote. Your price comes in a free written quote.</p>
     </div>
@@ -612,8 +615,8 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('is-open')) { setDrawer(false); burger.focus(); } });
 
   /* header: oak over the hero, black once #work reaches it */
-  const hdr = $('#hdr'), hero = $('.hero'); let tick = false;
-  const paint = () => { tick = false; hdr.classList.toggle('is-scrolled', hero.getBoundingClientRect().top < -2); };
+  const hdr = $('#hdr'), ftr = $('.ftr'), hero = $('.hero'); let tick = false;
+  const paint = () => { tick = false; hdr.classList.toggle('is-scrolled', hero.getBoundingClientRect().top < -2); hdr.classList.toggle('on-dark', ftr.getBoundingClientRect().top <= hdr.offsetHeight); };
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(paint); } }, { passive: true });
   addEventListener('resize', paint); paint();
 
@@ -623,10 +626,11 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   /* phone call bar: shows once the hero's call button has scrolled away, hides over the contact section */
   const callBar = $('#callbar'), heroCall = $('.hero .btn--bone'), contact = $('#contact');
   if ('IntersectionObserver' in window) {
-    let pastHero = false, atContact = false;
-    const set = () => { const on = pastHero && !atContact; callBar.classList.toggle('is-on', on); callBar.setAttribute('aria-hidden', String(!on)); $$('a', callBar).forEach(a => { a.tabIndex = on ? 0 : -1; }); };
+    let pastHero = false, atContact = false, atFooter = false;
+    const set = () => { const on = pastHero && !atContact && !atFooter; callBar.classList.toggle('is-on', on); callBar.setAttribute('aria-hidden', String(!on)); $$('a', callBar).forEach(a => { a.tabIndex = on ? 0 : -1; }); };
     new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting && e.boundingClientRect.top < 0; set(); }).observe(heroCall);
     new IntersectionObserver(([e]) => { atContact = e.isIntersecting; set(); }, { rootMargin: '0px 0px -30% 0px' }).observe(contact);
+    new IntersectionObserver(([e]) => { atFooter = e.isIntersecting; set(); }).observe($('.ftr'));
   }
 
 
@@ -641,8 +645,9 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   };
   const group = (sel, set) => $$(sel).forEach(b => b.addEventListener('click', () => { $$(sel).forEach(x => x.setAttribute('aria-pressed', String(x === b))); set(b); showLooks(); }));
   group('.tabs button', b => { fs = b.dataset.s; });
-  group('.dots .dot', b => { fc = b.dataset.c; });
-  $('#looksReset').addEventListener('click', () => { $('.tabs button[data-s="all"]').click(); $('.dots .dot[data-c="all"]').click(); });
+  /* color dots toggle: tap again to clear (no separate 'All' chip) */
+  $$('.dots .dot').forEach(b => b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') !== 'true'; $$('.dots .dot').forEach(x => x.setAttribute('aria-pressed', String(on && x === b))); fc = on ? b.dataset.c : 'all'; showLooks(); }));
+  $('#looksReset').addEventListener('click', () => { $('.tabs button[data-s="all"]').click(); $$('.dots .dot').forEach(x => x.setAttribute('aria-pressed', 'false')); fc = 'all'; showLooks(); });
   if ('IntersectionObserver' in window) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { grid.classList.add('in'); o.disconnect(); } }, { rootMargin: '0px 0px -15% 0px' }).observe(grid);
   else grid.classList.add('in');
   window.__saved = [];
