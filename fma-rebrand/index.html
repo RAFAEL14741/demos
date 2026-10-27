@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<script>(function(d){if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('m');setTimeout(function(){if(!window.__heroReady)d.classList.remove('m')},3500)}})(document.documentElement)</script>
+<link rel="preload" as="image" href="img/hero-kitchen-2400.jpg" imagesrcset="img/hero-kitchen-1200.jpg 1200w, img/hero-kitchen-2400.jpg 2400w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" href="fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
@@ -114,52 +114,44 @@ h3{font-size:clamp(1.45rem,2vw,1.8rem);line-height:1.15}
 html.drawer-open .hdr{background:var(--black);color:var(--bone)}
 html.drawer-open .hdr .logo svg{color:var(--oak)}
 
-/* ---- hero: "open the cabinet" ---- */
-.hero{position:relative;background:var(--oak-base);height:100vh;height:100svh;min-height:640px;overflow:hidden;isolation:isolate;
-  --copyw:min(640px,calc(52vw - 52px - max(var(--gut),(100vw - 1320px)/2 + var(--gut))))}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:center/cover;mix-blend-mode:multiply;opacity:.12;pointer-events:none}
-.ld .hero::before{background-image:url(img/oak-grain.jpg)}
-.hero-in{position:relative;height:100%;display:flex;align-items:center;padding-top:var(--hdr);padding-bottom:110px}
-.hero-copy{width:var(--copyw);position:relative;z-index:3}
-.hero h1{font-size:clamp(3rem,5.6vw,5.8rem);line-height:.98;letter-spacing:-.02em;max-width:9.4ch}
-.hero-sub{font-size:clamp(1.05rem,1.3vw,1.22rem);margin-top:1.6rem;max-width:34ch}
+/* ---- hero: "repaint" ----
+   One real kitchen photo. The cabinets repaint (navy, white, black, sage, gray) from frame 1;
+   visitors can pick a color. Colors are generated in the browser from the photo + a cabinet mask. */
+.hero{position:relative;height:100vh;height:100svh;min-height:660px;max-height:1100px;overflow:hidden;isolation:isolate;background:#20242c;color:var(--bone)}
+.hero-media{position:absolute;inset:0;z-index:-2}
+.hero-media img,.hero-media canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 60%}
+.hero-media canvas{-webkit-mask-image:linear-gradient(90deg,#000 var(--a,0%),transparent var(--b,0%));mask-image:linear-gradient(90deg,#000 var(--a,0%),transparent var(--b,0%))}
+.hero-media canvas.is-on{-webkit-mask-image:none;mask-image:none}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(21,21,21,.86) 0%,rgba(21,21,21,.7) 28%,rgba(21,21,21,.18) 50%,rgba(21,21,21,0) 60%),
+             linear-gradient(180deg,rgba(21,21,21,.55) 0%,rgba(21,21,21,0) 18%),
+             linear-gradient(0deg,rgba(21,21,21,.8) 0%,rgba(21,21,21,0) 26%)}
+.hero-in{position:relative;height:100%;display:flex;align-items:center;padding-top:var(--hdr);padding-bottom:120px}
+.hero-copy{max-width:600px}
+.hero h1{font-size:clamp(3rem,5.4vw,5.6rem);line-height:.98;letter-spacing:-.02em;max-width:9.6ch}
+.hero-sub{font-size:clamp(1.05rem,1.3vw,1.22rem);margin-top:1.5rem;max-width:36ch;color:#E9E1D4}
 .hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.2rem}
-.hero-info{margin-top:1.4rem;font-size:.92rem;font-variant-numeric:tabular-nums}
-.facts{position:absolute;left:var(--gut);bottom:0;width:var(--copyw);z-index:3}
-.facts ul{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);column-gap:1.6rem;row-gap:.25rem;border-top:1px solid var(--line-k);padding:1.05rem 0 1.25rem;font-size:.9rem;font-weight:500}
-
-/* stage = right part of the hero. Final state = full-height kitchen photo. */
-.stage{position:absolute;top:var(--hdr);right:0;bottom:0;left:52%;overflow:hidden;z-index:1;pointer-events:none}
-.hero-photo{position:absolute;inset:0;margin:0}
-.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:46% 62%;will-change:transform}
-.hero-photo figcaption{position:absolute;right:16px;bottom:14px;color:var(--bone);font-size:.8rem;text-shadow:0 1px 6px rgba(0,0,0,.65)}
-
-/* the cabinet (only exists when motion runs; reduced motion / no JS = photo end state) */
-.cab{display:none}
-.m .cab{display:block;position:absolute;--ch:min(62vh,62svh,47vw);height:var(--ch);width:calc(var(--ch) * .7);left:calc(50% - var(--ch) * .35);top:calc(50% - 40px - var(--ch) / 2);container-type:inline-size;z-index:2}
-.m .hero-photo{visibility:hidden}
-.cab-shadow{position:absolute;inset:3% -2% -5% 4%;background:rgba(70,45,15,.55);filter:blur(26px);border-radius:4px;mix-blend-mode:multiply;z-index:-1}
-.cab-frame{position:absolute;inset:0;border:4cqw solid #171716;box-shadow:inset 1px 1px 0 rgba(255,255,255,.08),0 0 0 1px rgba(0,0,0,.35),1px 1px 0 rgba(0,0,0,.4)}
-.cab-open{position:absolute;inset:4cqw;box-shadow:inset 0 0 0 1px #000,inset 0 3cqw 4cqw -1cqw rgba(0,0,0,.7),inset 3cqw 0 4cqw -2cqw rgba(0,0,0,.45);pointer-events:none}
-.doors{position:absolute;inset:1.6cqw;perspective:1700px;perspective-origin:50% 45%}
-.doors .gap{position:absolute;top:0;bottom:0;left:calc(50% - 3px);width:6px;background:#0b0b0b}
-.door{position:absolute;top:0;bottom:0;width:calc(50% - 1px);transform-style:preserve-3d}
-.door--l{left:0;transform-origin:0 50%}
-.door--r{right:0;transform-origin:100% 50%}
-.door .face,.door .back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.door .face{background:linear-gradient(165deg,#262524 0%,#1a1a19 38%,#141414 100%);box-shadow:inset 1px 1px 0 rgba(255,255,255,.09),inset -1px -1px 0 rgba(0,0,0,.7)}
-.door .back{transform:rotateY(180deg);background:#CDB085 center/cover;background-blend-mode:multiply;}
-.ld .door .back{background-image:url(img/oak-grain-v.jpg);box-shadow:inset 0 0 0 1px rgba(80,55,25,.5)}
-.door .panel{position:absolute;inset:7cqw;background:linear-gradient(180deg,#171716,#121212);box-shadow:inset 2px 3px 5px rgba(0,0,0,.75),inset -1px -1px 0 rgba(255,255,255,.07),0 0 0 1px rgba(0,0,0,.35)}
-.door .panel::before{content:"";position:absolute;inset:-1.1cqw;box-shadow:inset -1px -1px 0 rgba(255,255,255,.06),inset 1px 1px 0 rgba(0,0,0,.5);pointer-events:none}
-.door .pull{position:absolute;top:50%;width:1.6cqw;height:27cqw;translate:0 -50%;border-radius:1cqw;background:linear-gradient(90deg,#8E6D40 0%,#E6CB9E 42%,#C9A673 62%,#8E6D40 100%);box-shadow:2px 4px 5px rgba(0,0,0,.55)}
-.door--l .pull{right:3.6cqw}
-.door--r .pull{left:3.6cqw}
-.cab-draw{position:absolute;inset:0;width:100%;height:100%;overflow:visible;display:none;pointer-events:none}
-.m .cab-draw{display:block}
-.cab-draw path{fill:none;stroke:var(--black);stroke-width:1.5;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
-.m .cab-fill{opacity:0}
-.m .hero-photo figcaption{opacity:0}
+.hero .btn--line{border-color:var(--bone);color:var(--bone)}
+.hero .btn--line:hover{background:var(--bone);color:var(--black)}
+.hero-info{margin-top:1.4rem;font-size:.92rem;font-variant-numeric:tabular-nums;color:#E9E1D4}
+.hero-foot{position:absolute;left:0;right:0;bottom:0}
+.hero-foot .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding-bottom:26px}
+.facts ul{display:grid;grid-template-columns:auto auto;column-gap:2.2rem;row-gap:.3rem;font-size:.9rem;font-weight:500;color:#E9E1D4}
+.facts li{display:flex;gap:.55rem;align-items:center}
+.facts li::before{content:"";width:6px;height:6px;border-radius:999px;background:var(--oak);flex:none}
+.paint{display:flex;flex-direction:column;align-items:flex-end;gap:.55rem;text-align:right}
+.paint-top{display:flex;align-items:baseline;gap:.7rem;font-size:.95rem}
+.paint-top b{font-family:var(--serif);font-weight:500;font-size:1.6rem;min-width:6.5ch;text-align:left}
+.swatches{display:flex;gap:2px}
+.sw{width:44px;height:44px;display:grid;place-items:center;border-radius:999px}
+.sw i{width:30px;height:30px;border-radius:999px;background:var(--c);box-shadow:0 0 0 1px rgba(243,236,224,.55),0 2px 6px rgba(0,0,0,.35);transition:transform .2s,box-shadow .2s}
+.sw:hover i{transform:scale(1.1)}
+.sw[aria-pressed="true"] i{box-shadow:0 0 0 2px #151515,0 0 0 4px var(--bone)}
+.sw:focus-visible{outline:2px solid var(--bone);outline-offset:0}
+.paint small{font-size:.76rem;color:#C9BFB0}
+/* header sits on the photo until the page scrolls */
+.hdr:not(.is-scrolled):not(.is-dark){color:var(--bone)}
+.hdr:not(.is-scrolled):not(.is-dark) .logo svg{color:var(--oak)}
 
 /* ---- sections ---- */
 .sec{padding:var(--sec) 0}
@@ -293,17 +285,29 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   :root{--hdr:64px;--sec:88px}
   .logo svg{height:40px}
   .logo .wm b{font-size:1.15rem}
-  .hero{height:auto;min-height:0;--copyw:auto}
-  .stage{position:relative;left:auto;top:auto;right:auto;bottom:auto;height:48vh;height:48svh;margin-top:var(--hdr)}
-  .m .cab{--ch:min(40svh,40vh,80vw);top:calc(50% - var(--ch) / 2)}
-  .hero-in{display:block;height:auto;padding-top:32px;padding-bottom:0}
-  .hero-copy{width:auto}
+  .hero{height:auto;min-height:0;max-height:none;background:var(--black)}
+  .hero-media{position:relative;inset:auto;height:54vh;height:54svh}
+  .hero-media img,.hero-media canvas{object-position:84% 50%}
+  .hero::after{background:linear-gradient(180deg,rgba(21,21,21,.6) 0%,rgba(21,21,21,0) 22%,rgba(21,21,21,0) 60%,rgba(21,21,21,.85) 100%);height:54svh;bottom:auto}
+  .hero-in{display:block;height:auto;padding-top:28px;padding-bottom:0}
   .hero h1{font-size:clamp(2.6rem,11.5vw,3.4rem);max-width:none}
-  .hero-sub{margin-top:1.1rem}
-  .hero-actions{flex-direction:column;margin-top:1.8rem}
+  .hero-sub{margin-top:1rem}
+  .hero-actions{flex-direction:column;margin-top:1.7rem}
   .hero-actions .btn{width:100%}
-  .facts{position:static;width:auto;margin-top:40px}
-  .facts ul{grid-template-columns:1fr;row-gap:.35rem}
+  .hero-foot{position:static}
+  .hero-foot .wrap{display:block;padding-bottom:40px}
+  .paint{position:absolute;left:var(--gut);right:var(--gut);top:calc(54svh - 12px);transform:translateY(-100%);align-items:flex-start;text-align:left}
+  .paint-top b{font-size:1.4rem}
+  .paint small{display:none}
+  .hero-in::before{content:"Example photo, colors changed digitally.";display:block;font-size:.76rem;color:#A79D8F;margin:-12px 0 16px;white-space:nowrap}
+  .facts{margin-top:34px;border-top:1px solid var(--line-b);padding-top:18px}
+  .facts ul{grid-template-columns:1fr}
+}
+@media (max-width:767px) and (max-height:720px){
+  .hero-media{height:40svh}
+  .hero::after{height:40svh}
+  .paint{top:calc(40svh - 12px)}
+  .hero h1{font-size:clamp(2.3rem,10.5vw,3rem)}
   .gal figure{grid-column:1/-1}
   .budget{margin-top:88px}
   .budget dl div{grid-template-columns:1fr;gap:.3rem}
@@ -339,39 +343,34 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 
 <main id="main">
 <section class="hero" id="home" aria-labelledby="h1">
-  <div class="stage" aria-hidden="true">
-    <figure class="hero-photo"><img src="img/hero-black-kitchen.jpg" alt="" width="1400" height="1866" decoding="async" fetchpriority="low"><figcaption>Example photo</figcaption></figure>
-    <div class="cab">
-      <div class="cab-shadow cab-fill"></div>
-      <div class="cab-frame cab-fill"></div>
-      <div class="cab-open"></div>
-      <div class="doors">
-        <i class="gap cab-fill"></i>
-        <div class="door door--l cab-fill"><div class="face"><i class="panel"></i><i class="pull"></i></div><div class="back"></div></div>
-        <div class="door door--r cab-fill"><div class="face"><i class="panel"></i><i class="pull"></i></div><div class="back"></div></div>
-      </div>
-      <svg class="cab-draw" viewBox="0 0 700 1000" preserveAspectRatio="none">
-        <circle class="dot" cx="350" cy="500" r="5" fill="#151515"/>
-        <path class="seam" pathLength="1" d="M350 500V11"/><path class="seam" pathLength="1" d="M350 500V989"/>
-        <path class="outer" pathLength="1" d="M350 1H1V999H699V1Z"/>
-        <path class="dr" pathLength="1" d="M348 11H11V989H348"/><path class="dr" pathLength="1" d="M352 11H689V989H352"/>
-        <path class="pan" pathLength="1" d="M60 60H299V940H60Z"/><path class="pan" pathLength="1" d="M401 60H640V940H401Z"/>
-        <path class="pull" pathLength="1" d="M313 405V595"/><path class="pull" pathLength="1" d="M387 405V595"/>
-      </svg>
-    </div>
+  <div class="hero-media">
+    <img id="heroImg" src="img/hero-kitchen-2400.jpg" srcset="img/hero-kitchen-1200.jpg 1200w, img/hero-kitchen-2400.jpg 2400w" sizes="100vw" alt="Kitchen with raised-panel base cabinets and a drawer stack next to a built-in oven" width="2400" height="1030" fetchpriority="high">
   </div>
   <div class="wrap hero-in">
     <div class="hero-copy">
       <h1 id="h1">Kitchen cabinets, installed right.</h1>
       <p class="hero-sub">Cabinet installation, islands, pantries and trim across Philadelphia. Free on-site estimates.</p>
       <div class="hero-actions">
-        <a class="btn btn--fill" href="tel:+12673673388"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg>Call (267) 367-3388</a>
+        <a class="btn btn--oak" href="tel:+12673673388"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg>Call (267) 367-3388</a>
         <a class="btn btn--line" href="#contact">Get a free estimate</a>
       </div>
       <p class="hero-info">Mon–Fri 7am–6pm · Sat 7am–1pm · Licensed &amp; insured in PA</p>
     </div>
-    <div class="facts">
-      <ul aria-label="At a glance"><li>Free on-site estimates</li><li>Callback within 1 business day</li><li>Licensed &amp; insured in PA</li><li>Philadelphia, Bucks &amp; Montgomery counties</li></ul>
+  </div>
+  <div class="hero-foot">
+    <div class="wrap">
+      <div class="facts"><ul aria-label="At a glance"><li>Free on-site estimates</li><li>Callback within 1 business day</li><li>Licensed &amp; insured in PA</li><li>Philadelphia, Bucks &amp; Montgomery counties</li></ul></div>
+      <div class="paint" role="group" aria-label="Try a cabinet color">
+        <div class="paint-top"><span>Try a color</span><b id="paintName" aria-live="polite">Navy</b></div>
+        <div class="swatches">
+          <button type="button" class="sw" data-i="0" aria-pressed="true" style="--c:#2F3D57"><i></i><span class="sr">Navy</span></button>
+          <button type="button" class="sw" data-i="1" aria-pressed="false" style="--c:#F2EEE6"><i></i><span class="sr">Warm white</span></button>
+          <button type="button" class="sw" data-i="2" aria-pressed="false" style="--c:#2A2927"><i></i><span class="sr">Black</span></button>
+          <button type="button" class="sw" data-i="3" aria-pressed="false" style="--c:#93A285"><i></i><span class="sr">Sage</span></button>
+          <button type="button" class="sw" data-i="4" aria-pressed="false" style="--c:#B9B6AE"><i></i><span class="sr">Stone gray</span></button>
+        </div>
+        <small>Example photo. Colors changed digitally to show options.</small>
+      </div>
     </div>
   </div>
 </section>
@@ -568,83 +567,81 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   render(false);
 })();
 </script>
-<script src="vendor/gsap.min.js" defer></script>
-<script src="vendor/ScrollTrigger.min.js" defer></script>
 <script>
-/* The page's ONE orchestrated motion: "open the cabinet".
-   Load: a dot grows into a line drawing of the cabinet, which fills in.
-   Desktop (>=768px): scroll opens the doors and dives into the kitchen photo (pinned ~110vh).
-   Phone: same, played once after the drawing. Reduced motion: photo end state, no cabinet. */
-addEventListener('DOMContentLoaded', () => {
-  const d = document.documentElement;
-  if (!d.classList.contains('m')) return;
-  if (!window.gsap || !window.ScrollTrigger) { d.classList.remove('m'); return; }
-  gsap.registerPlugin(ScrollTrigger);
-  window.__heroReady = true;
-  const q = s => document.querySelector(s), qa = s => [...document.querySelectorAll(s)];
-  const stage = q('.stage'), cab = q('.cab'), open = q('.cab-open'), photo = q('.hero-photo'), img = photo.querySelector('img'), cap = photo.querySelector('figcaption');
-  const dl = q('.door--l'), dr = q('.door--r'), draw = q('.cab-draw');
+/* The page's one orchestrated motion: the cabinets in the hero photo repaint.
+   All five colors come from ONE photo + a cabinet mask: color = paint * (base + span * shade),
+   where shade is the photo's own light on each door, so bevels, knobs and shadows stay real. */
+(() => {
+  const img = document.getElementById('heroImg'), media = img.parentNode, nameEl = document.getElementById('paintName');
+  const sws = [...document.querySelectorAll('.sw')];
+  const LO = 0.0759, HI = 0.7744;                                   /* shade range of the cabinets in this photo */
+  const PAINT = [null, ['Warm white', '#F2EEE6', .72, .42], ['Black', '#2A2927', .55, .95], ['Sage', '#93A285', .62, .55], ['Stone gray', '#B9B6AE', .62, .5]];
+  const NAMES = ['Navy', 'Warm white', 'Black', 'Sage', 'Stone gray'];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let layers = [img], cur = 0, busy = false, timer = 0, held = 0, visible = true, queued = -1;
 
-  /* geometry from layout boxes (offset* ignore transforms, so refresh mid-animation is safe) */
-  const geo = () => {
-    const W = stage.clientWidth, H = stage.clientHeight;
-    const cl = cab.offsetLeft, ct = cab.offsetTop;   // never use CSS translate on .cab: GSAP takes it over
-    const ol = cl + open.offsetLeft, ot = ct + open.offsetTop, ow = open.offsetWidth, oh = open.offsetHeight;
-    return { W, H, ol, ot, ow, oh, s: Math.max(W / ow, H / oh) * 1.04, dx: W / 2 - (ol + ow / 2), dy: H / 2 - (ot + oh / 2), ox: open.offsetLeft + ow / 2, oy: open.offsetTop + oh / 2 };
-  };
-  const clip = { t: 0, r: 0, b: 0, l: 0 };
-  const paintClip = () => { photo.style.clipPath = `inset(${clip.t}px ${clip.r}px ${clip.b}px ${clip.l}px)`; };
-  const syncClip = () => { const g = geo(), x = +gsap.getProperty(cab, 'x') || 0, y = +gsap.getProperty(cab, 'y') || 0, s = +gsap.getProperty(cab, 'scale') || 1;
-    const cx = g.ol + g.ow / 2 + x, cy = g.ot + g.oh / 2 + y, w = g.ow * s, h = g.oh * s;
-    clip.t = Math.max(0, cy - h / 2); clip.l = Math.max(0, cx - w / 2); clip.r = Math.max(0, g.W - cx - w / 2); clip.b = Math.max(0, g.H - cy - h / 2); paintClip(); };
-  const startClip = syncClip;
-  startClip();
-
-  /* 1. draw-on intro (time based, both layouts) */
-  const intro = gsap.timeline({ delay: 0.2, paused: true });
-  intro.fromTo('.cab-draw .dot', { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.22, ease: 'back.out(2.2)' })
-    .to('.cab-draw .seam', { strokeDashoffset: 0, duration: 0.32, ease: 'sine.inOut' })
-    .to('.cab-draw .dot', { opacity: 0, duration: 0.12 }, '<0.1')
-    .to('.cab-draw .outer', { strokeDashoffset: 0, duration: 0.5, ease: 'sine.inOut' }, '-=0.08')
-    .to('.cab-draw .dr', { strokeDashoffset: 0, duration: 0.36, ease: 'sine.inOut' }, '-=0.22')
-    .to('.cab-draw .pan', { strokeDashoffset: 0, duration: 0.36, ease: 'sine.inOut', stagger: 0.05 }, '-=0.2')
-    .to('.cab-draw .pull', { strokeDashoffset: 0, duration: 0.2, ease: 'sine.out' }, '-=0.12')
-    .to('.cab-fill', { opacity: 1, duration: 0.45, ease: 'sine.out', stagger: 0.04 }, '-=0.02')
-    .to(draw, { opacity: 0, duration: 0.3 }, '-=0.25');
-
-  /* 2. open + dive, written once, used by scroll (desktop) or played (phone) */
-  const dive = (tl) => {
-    tl.set(photo, { visibility: 'visible' }, 0.004)
-      .to('.cab-shadow', { opacity: 0, duration: 0.12, ease: 'sine.out' }, 0)
-      .to('.doors .gap', { opacity: 0, duration: 0.03 }, 0)
-      .to(dl, { rotateY: -112, duration: 0.34, ease: 'sine.inOut' }, 0)
-      .to(dr, { rotateY: 112, duration: 0.34, ease: 'sine.inOut' }, 0.015)
-      .to('.doors', { opacity: 0, duration: 0.12, ease: 'sine.in' }, 0.44)
-      .fromTo(cab, { x: 0, y: 0, scale: 1 }, { x: () => geo().dx, y: () => geo().dy, scale: () => geo().s, duration: 0.46, ease: 'power2.inOut', immediateRender: false, onUpdate: syncClip }, 0.44)
-      .fromTo(img, { scale: 1.16 }, { scale: 1, duration: 0.66, ease: 'sine.inOut', immediateRender: false }, 0.24)
-      .to(cap, { opacity: 1, duration: 0.08 }, 0.88)
-      .to({}, { duration: 0.1 });                    /* hold the end frame before the unpin */
-    return tl;
-  };
-  const setOrigin = () => { const g = geo(); cab.style.transformOrigin = `${g.ox}px ${g.oy}px`; };
-  setOrigin();
-
-  const mm = gsap.matchMedia();
-  mm.add({ desk: '(min-width: 768px)', phone: '(max-width: 767px)' }, (ctx) => {
-    if (ctx.conditions.desk) {
-      const tl = dive(gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=110%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
-        onRefresh: () => { setOrigin(); if (tl.progress() === 0) startClip(); } } }));
-      window.__heroTL = tl;
-    } else {
-      const tl = dive(gsap.timeline({ paused: true, defaults: {} })).timeScale(0.55);
-      intro.eventCallback('onComplete', () => gsap.delayedCall(0.35, () => tl.play()));
-      window.__heroTL = tl;
-    }
-    return () => { window.__heroTL = null; gsap.set([dl, dr, cab, img, cap], { clearProps: 'transform,rotate,scale,opacity' }); startClip(); };
+  const build = () => new Promise(res => {
+    const w = img.naturalWidth, h = img.naturalHeight, mask = new Image();
+    mask.onload = () => {
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const x = c.getContext('2d', { willReadFrequently: true });
+      x.drawImage(mask, 0, 0, w, h); const M = x.getImageData(0, 0, w, h).data;
+      x.drawImage(img, 0, 0, w, h); const B = x.getImageData(0, 0, w, h).data;
+      const n = w * h, idx = [], sh = new Float32Array(n), mk = new Float32Array(n);
+      for (let p = 0, q = 0; p < n; p++, q += 4) { const m = M[q] / 255; if (m > 0.004) { idx.push(p); mk[p] = m; sh[p] = Math.min(1, Math.max(0, ((.2126 * B[q] + .7152 * B[q + 1] + .0722 * B[q + 2]) / 255 - LO) / (HI - LO))); } }
+      for (let k = 1; k < PAINT.length; k++) {
+        const [, hex, base, span] = PAINT[k], cr = parseInt(hex.slice(1, 3), 16), cg = parseInt(hex.slice(3, 5), 16), cb = parseInt(hex.slice(5, 7), 16);
+        const out = new ImageData(new Uint8ClampedArray(B), w, h), D = out.data;
+        for (const p of idx) { const q = p * 4, f = base + span * sh[p], m = mk[p];
+          D[q] = B[q] * (1 - m) + Math.min(255, cr * f) * m; D[q + 1] = B[q + 1] * (1 - m) + Math.min(255, cg * f) * m; D[q + 2] = B[q + 2] * (1 - m) + Math.min(255, cb * f) * m; }
+        const cv = document.createElement('canvas'); cv.width = w; cv.height = h; cv.setAttribute('aria-hidden', 'true');
+        cv.getContext('2d').putImageData(out, 0, 0); cv.style.visibility = 'hidden'; media.appendChild(cv); layers[k] = cv;
+      }
+      res();
+    };
+    mask.src = img.currentSrc.replace('hero-kitchen-', 'hero-mask-').replace('.jpg', '.png');
   });
-  document.fonts.ready.then(() => { ScrollTrigger.refresh(); intro.play(); });
-  window.__heroIntro = intro;
-});
+
+  const show = (k, instant) => {
+    if (busy) { queued = k; return; }
+    if (k === cur || !layers[k]) return;
+    busy = true;
+    const next = layers[k], prev = layers[cur];
+    sws.forEach((b, i) => b.setAttribute('aria-pressed', String(i === k)));
+    nameEl.textContent = NAMES[k];
+    const done = () => {
+      layers.forEach(l => { if (l !== img) { l.classList.remove('is-on'); l.style.visibility = 'hidden'; l.style.zIndex = ''; } });
+      if (next !== img) { next.classList.add('is-on'); next.style.visibility = 'visible'; next.style.zIndex = 1; }
+      cur = k; busy = false;
+      if (queued > -1) { const q = queued; queued = -1; show(q); }
+    };
+    if (instant || reduce) return done();
+    /* reveal the new color with a soft-edged wipe, left to right, like a fresh coat going on */
+    const top = next === img ? null : next;
+    if (!top) {                                            /* back to the photo itself: wipe the old layer away instead */
+      prev.style.zIndex = 1; prev.classList.remove('is-on');
+      animate(t => { prev.style.setProperty('--a', (t * 120 - 10) + '%'); prev.style.setProperty('--b', (t * 120 + 10) + '%'); prev.style.webkitMaskImage = prev.style.maskImage = `linear-gradient(90deg,transparent var(--a),#000 var(--b))`; },
+        () => { prev.style.webkitMaskImage = prev.style.maskImage = ''; done(); });
+      return;
+    }
+    top.style.zIndex = 2; top.style.visibility = 'visible'; top.classList.remove('is-on');
+    animate(t => { top.style.setProperty('--a', (t * 120 - 10) + '%'); top.style.setProperty('--b', (t * 120 + 10) + '%'); }, done);
+  };
+  const animate = (step, end) => { const t0 = performance.now(), D = 1100;
+    const f = now => { const u = Math.min(1, (now - t0) / D), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; step(e); u < 1 ? requestAnimationFrame(f) : end(); };
+    requestAnimationFrame(f); };
+
+  const loop = () => { clearTimeout(timer); if (reduce) return;
+    timer = setTimeout(() => { if (visible && !document.hidden && performance.now() > held) show((cur + 1) % NAMES.length); loop(); }, 3000); };
+  sws.forEach((b, i) => b.addEventListener('click', () => { held = performance.now() + 9000; show(i); }));
+  if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(media);
+
+  const start = () => build().then(() => {
+    window.__paintReady = true;
+    if (!reduce) setTimeout(() => { show(1); loop(); }, 700);    /* first repaint lands about 1 second after load */
+  });
+  (img.complete && img.naturalWidth) ? start() : img.addEventListener('load', start, { once: true });
+})();
 </script>
 </body>
 </html>

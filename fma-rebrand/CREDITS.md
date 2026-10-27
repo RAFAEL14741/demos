@@ -5,10 +5,10 @@
   "Close-up of light brown wood grain texture" by Zoshua Colah (@zoshuacolah) on Unsplash,
   https://unsplash.com/photos/close-up-of-light-brown-wood-grain-texture-IBy4mT_jDd0
   Free under the Unsplash License (not Unsplash+). Downloaded Oct 26 2026.
-- `img/hero-black-kitchen.jpg`: hero photo revealed when the cabinet opens. Captioned "Example photo".
-  "A modern kitchen with matte black cabinets, wooden flooring, and a green plant" by Sven Brandsma (@seffen99) on Unsplash,
-  https://unsplash.com/photos/modern-kitchen-with-black-cabinets-3hEGHI4b4gg . Free under the Unsplash License. Downloaded Oct 27 2026.
-- `img/oak-grain-v.jpg`: the same Zoshua Colah grain, rotated for the cabinet door backs.
+- `img/hero-kitchen-*.jpg` + `img/hero-mask-*.png`: hero photo (cropped to the base cabinets) and a cabinet mask made from it.
+  "A kitchen with blue cabinets and a rug on the floor" by Lisa Anna (@lisaanna195) on Unsplash, https://unsplash.com/photos/KBec8f4qG5k .
+  Free under the Unsplash License. Downloaded Oct 27 2026. The other cabinet colors are generated in the browser from this one photo;
+  the page says so under the swatches ("Example photo. Colors changed digitally to show options.").
 - `img/cab-*.jpg`: stock kitchen photos carried over from v1. Every one is captioned "Example photo" on the page. None are FMA jobs.
 
 ## Logo
@@ -21,6 +21,6 @@
 
 ## Fonts and code
 - Bodoni Moda and Inter: SIL Open Font License, self-hosted from @fontsource-variable.
-- GSAP 3.15 + ScrollTrigger: GSAP standard no-charge license, self-hosted in `vendor/`.
+- No animation libraries: the hero repaint is plain canvas + CSS masks.
 
 No AI images. No Higgsfield.
