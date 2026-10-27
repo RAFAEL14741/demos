@@ -159,6 +159,57 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .sec--dark .lede{color:var(--mute-d)}
 .sec-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:3rem;align-items:end;margin-bottom:72px}
 
+/* two ways to work with us (oak band, right under the hero) */
+.ways{background:var(--oak-base);position:relative;isolation:isolate;padding:0}
+.ways::before{content:"";position:absolute;inset:0;z-index:-1;background:center/cover;mix-blend-mode:multiply;opacity:.12;pointer-events:none}
+.ld .ways::before{background-image:url(img/oak-grain.jpg)}
+.ways-grid{display:grid;grid-template-columns:1fr 1fr}
+.way{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.4rem;padding:46px 0;text-decoration:none;color:var(--black)}
+.way+.way{border-left:1px solid var(--line-k);padding-left:clamp(1.5rem,4vw,3.5rem)}
+.way:first-child{padding-right:clamp(1.5rem,4vw,3.5rem)}
+.way .ic{width:58px;height:58px;padding:14px;border-radius:999px;background:var(--black);color:var(--oak)}
+.way small{display:block;font-size:.95rem;font-weight:500}
+.way b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,2.5vw,2.3rem);line-height:1.08;margin-top:.15rem}
+.way .go{width:46px;height:46px;border-radius:999px;border:1.5px solid var(--black);display:grid;place-items:center;transition:background-color .2s,color .2s}
+.way .go svg{width:18px;height:18px}
+.way:hover .go{background:var(--black);color:var(--oak)}
+.way:focus-visible{outline:2px solid var(--black);outline-offset:-6px}
+
+/* not a call center: 3 promises above the steps */
+.promise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;margin-bottom:88px;padding-bottom:64px;border-bottom:1px solid var(--line-b)}
+.promise li{display:flex;gap:1rem;align-items:center;font-family:var(--serif);font-size:clamp(1.3rem,1.8vw,1.6rem);line-height:1.2}
+.promise .ic{width:52px;height:52px;padding:12px;border-radius:999px;background:var(--oak);color:var(--black);flex:none}
+
+/* free color preview */
+.preview{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:center}
+.ba{position:relative;margin:0}
+.ba img{width:100%;height:auto;border-radius:4px;display:block}
+.ba::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:var(--bone)}
+.ba span{position:absolute;top:14px;padding:.3rem .8rem;border-radius:999px;background:rgba(21,21,21,.78);color:var(--bone);font-size:.82rem;font-weight:600}
+.ba .b1{left:14px}.ba .b2{right:14px}
+.preview h2{margin-bottom:.9rem}
+.preview .lede{color:var(--mute)}
+.preview .row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
+.preview small{display:block;margin-top:1rem;color:var(--mute);font-size:.82rem}
+
+/* philly prices (public data, labeled) */
+.costs{margin-top:34px;border-top:1px solid var(--line-k);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.costs div{padding:1.3rem 1.4rem 1.2rem 0}
+.costs div+div{padding-left:1.4rem;border-left:1px solid var(--line-k)}
+.costs dt{font-size:.92rem;color:var(--mute)}
+.costs dd{font-family:var(--serif);font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.15;margin-top:.2rem;font-variant-numeric:lining-nums}
+.costs dd small{font-family:var(--sans);font-size:.85rem;color:var(--mute);margin-left:.25rem}
+.costs-note{font-size:.82rem;color:var(--mute);margin-top:.8rem;max-width:80ch}
+.costs-note a{color:inherit}
+
+/* first-customer offer */
+.offer{background:var(--oak-base);padding:56px 0}
+.offer .wrap{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.offer-l{display:flex;gap:1.3rem;align-items:center}
+.offer .ic{width:58px;height:58px;padding:14px;border-radius:999px;background:var(--black);color:var(--oak);flex:none}
+.offer b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.08}
+.offer span{display:block;margin-top:.3rem}
+
 /* work: photo tiles (name on the photo, nothing to read) */
 .tiles{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:repeat(2,minmax(260px,32vh));gap:14px}
 .tile{position:relative;overflow:hidden;border-radius:4px;color:var(--bone);text-decoration:none;background:#2a2722;isolation:isolate}
@@ -172,7 +223,12 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .tile:first-child b{font-size:clamp(2rem,3vw,2.9rem)}
 .tile:focus-visible{outline:3px solid var(--black);outline-offset:3px}
 .note{margin-top:14px;font-size:.82rem;color:var(--mute)}
-.styles{margin-top:110px}
+.sec--tight{padding-top:0}
+/* light sections that follow each other share one gap instead of two */
+#work{padding-bottom:calc(var(--sec) / 2)}
+#preview{padding-top:calc(var(--sec) / 2)}
+.sec--tight+#about{padding-top:0}
+.styles{margin-top:0}
 .styles-head{display:flex;justify-content:space-between;align-items:baseline;gap:2rem;margin-bottom:22px}
 .styles-head .note{margin:0}
 .rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(var(--gut),(100vw - 1320px)/2 + var(--gut));padding:0 max(var(--gut),(100vw - 1320px)/2 + var(--gut)) 12px;scrollbar-width:thin}
@@ -303,7 +359,11 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   .ftr-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
-  .sec-head,.contact,.faq,.where{grid-template-columns:1fr}
+  .sec-head,.contact,.faq,.where,.preview{grid-template-columns:1fr}
+  .promise{grid-template-columns:1fr;gap:1.1rem;margin-bottom:56px;padding-bottom:44px}
+  .costs{grid-template-columns:1fr}
+  .costs div+div{padding-left:0;border-left:0;border-top:1px solid var(--line-k)}
+  .offer .wrap{flex-direction:column;align-items:flex-start}
   .tiles{grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:220px}
   .tile:first-child{grid-column:1/-1;grid-row:auto}
   .flow{grid-template-columns:1fr 1fr;row-gap:2.6rem}
@@ -354,6 +414,13 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   .flow h3{margin-top:0}
   .flow p{grid-column:2}
   .trust{grid-template-columns:1fr;gap:1rem}
+  .ways-grid{grid-template-columns:1fr}
+  .way{padding:26px 0;gap:1rem}
+  .way+.way{border-left:0;border-top:1px solid var(--line-k);padding-left:0}
+  .way:first-child{padding-right:0}
+  .way .ic{width:48px;height:48px;padding:11px}
+  .way .go{width:40px;height:40px}
+  .offer .ic{width:48px;height:48px;padding:11px}
   .callbar{display:flex}
   body{padding-bottom:76px}
 }
@@ -422,12 +489,45 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   </div>
 </section>
 
+<section class="ways" aria-label="Two ways to work with us">
+  <div class="wrap ways-grid">
+    <a class="way" href="#contact" data-cab="Yes, I bought them"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5L12 12l9-4.5M12 12v9"/></svg><span><small>Already bought your cabinets?</small><b>We install them.</b></span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <a class="way" href="#contact" data-cab="No, help me choose"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1"/><path d="M10 7l5.5-3.2 3.5 6-8.9 5.2"/><path d="M10 15.5L19.5 11l1.5 3.5L10 21"/></svg><span><small>Need cabinets?</small><b>We help you pick, order and install.</b></span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  </div>
+</section>
+
+<section class="sec sec--dark sec--process" id="process" aria-labelledby="process-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="process-h">Not a call center.</h2></div>
+    <ul class="promise"><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.4c.6-.2 1.3-.4 2-.4 2.5 0 4.5 2 4.5 4.5"/></svg><span>Our own crew. No subcontractors.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg><span>The person who measures is the one who installs.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg><span>And the one who answers your call.</span></li></ul>
+    <ol class="flow" aria-label="How it works"><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg></span><h3>Call or ask online</h3><p>Callback in 1 business day</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg></span><h3>Free estimate</h3><p>We measure and quote in writing</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="9" width="20" height="6" rx="1"/><circle cx="12" cy="12" r="1.6"/><path d="M8 9v6M16 9v6"/></svg></span><h3>We install</h3><p>Level, square, clean every day</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.6L16 9.6"/></svg></span><h3>Walkthrough</h3><p>We check every detail with you</p></li></ol>
+  </div>
+</section>
+
 <section class="sec" id="work" aria-labelledby="work-h">
   <div class="wrap">
     <div class="sec-head"><h2 id="work-h">What we install.</h2></div>
     <div class="tiles"><a class="tile" href="#contact"><img src="img/sm/cab-white-shaker-windows-600.jpg" srcset="img/sm/cab-white-shaker-windows-600.jpg 600w, img/sm/cab-white-shaker-windows-900.jpg 900w" sizes="(max-width:767px) 100vw, 40vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Kitchen cabinets</b><span>Base, wall and tall cabinets</span></span></a><a class="tile" href="custom-kitchen-islands-philadelphia.html"><img src="img/sm/cab-white-island-stools-600.jpg" srcset="img/sm/cab-white-island-stools-600.jpg 600w, img/sm/cab-white-island-stools-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Islands</b><span>Storage, prep and seating</span></span></a><a class="tile" href="#contact"><img src="img/sm/pantry-600.jpg" srcset="img/sm/pantry-600.jpg 600w, img/sm/pantry-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Pantries</b><span>Every inch used</span></span></a><a class="tile" href="#contact"><img src="img/sm/cab-crown-molding-hood-600.jpg" srcset="img/sm/cab-crown-molding-hood-600.jpg 600w, img/sm/cab-crown-molding-hood-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Crown &amp; trim</b><span>The built-in look</span></span></a><a class="tile" href="kitchen-cabinet-refacing-northeast-philadelphia.html"><img src="img/sm/cab-gray-raised-panel-600.jpg" srcset="img/sm/cab-gray-raised-panel-600.jpg 600w, img/sm/cab-gray-raised-panel-900.jpg 900w" sizes="(max-width:767px) 50vw, 25vw" decoding="async" alt="" loading="lazy"><span class="cap"><b>Refacing</b><span>New doors, same boxes</span></span></a></div>
     <p class="note">Example photos</p>
   </div>
+</section>
+
+<section class="sec" id="preview" aria-labelledby="preview-h">
+  <div class="wrap preview">
+    <figure class="ba"><img src="img/preview-before-after-600.jpg" srcset="img/preview-before-after-600.jpg 600w, img/preview-before-after.jpg 1200w" sizes="(max-width:900px) 100vw, 56vw" alt="The same kitchen cabinets shown in navy on the left and white on the right" loading="lazy" width="1200" height="750"><span class="b1">Before</span><span class="b2">After</span></figure>
+    <div>
+      <h2 id="preview-h">See your kitchen in a new color. Free.</h2>
+      <p class="lede">Text us a photo of your kitchen. We send it back with new cabinet colors.</p>
+      <div class="row">
+        <a class="btn btn--fill" href="sms:+12673673388?&amp;body=Hi%20FMA%2C%20here%27s%20a%20photo%20of%20my%20kitchen%20for%20a%20free%20color%20preview."><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Text a photo</a>
+        <a class="btn btn--line" href="mailto:fmaconstructions@gmail.com?subject=Free%20color%20preview">Email a photo</a>
+      </div>
+      <small>The preview is a digital mockup. Example photo shown.</small>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tight" aria-label="Styles and budget">
   <div class="styles">
     <div class="wrap styles-head"><h3>Any style</h3><p class="note">Example photos. Swipe for more.</p></div>
     <div class="rail" tabindex="0" role="region" aria-label="Cabinet styles, scroll sideways"><figure><img src="img/sm/cab-navy-island-hood-600.jpg" srcset="img/sm/cab-navy-island-hood-600.jpg 600w, img/sm/cab-navy-island-hood-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Two-tone kitchen cabinets" loading="lazy"><figcaption>Two-tone</figcaption></figure><figure><img src="img/sm/cab-blue-shaker-subway-600.jpg" srcset="img/sm/cab-blue-shaker-subway-600.jpg 600w, img/sm/cab-blue-shaker-subway-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Painted shaker kitchen cabinets" loading="lazy"><figcaption>Painted shaker</figcaption></figure><figure><img src="img/sm/cab-wood-granite-600.jpg" srcset="img/sm/cab-wood-granite-600.jpg 600w, img/sm/cab-wood-granite-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Stained wood kitchen cabinets" loading="lazy"><figcaption>Stained wood</figcaption></figure><figure><img src="img/sm/cab-white-shaker-island-600.jpg" srcset="img/sm/cab-white-shaker-island-600.jpg 600w, img/sm/cab-white-shaker-island-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="White shaker kitchen cabinets" loading="lazy"><figcaption>White shaker</figcaption></figure><figure><img src="img/sm/cab-glass-doors-island-600.jpg" srcset="img/sm/cab-glass-doors-island-600.jpg 600w, img/sm/cab-glass-doors-island-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Glass fronts kitchen cabinets" loading="lazy"><figcaption>Glass fronts</figcaption></figure><figure><img src="img/sm/cab-everyday-gray-white-600.jpg" srcset="img/sm/cab-everyday-gray-white-600.jpg 600w, img/sm/cab-everyday-gray-white-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Light gray kitchen cabinets" loading="lazy"><figcaption>Light gray</figcaption></figure></div>
@@ -435,13 +535,12 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   <div class="wrap tiers">
     <h3>Any budget</h3>
     <div class="tiers-grid"><div class="tier"><img src="img/sm/cab-everyday-white-600.jpg" srcset="img/sm/cab-everyday-white-600.jpg 600w, img/sm/cab-everyday-white-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Stock cabinets example" loading="lazy"><div class="tier-top"><h4>Stock</h4><span class="cost" aria-label="1 of 3 on price">$<i>$$</i></span></div><p>Fastest and most affordable</p></div><div class="tier"><img src="img/sm/cab-navy-white-uppers-600.jpg" srcset="img/sm/cab-navy-white-uppers-600.jpg 600w, img/sm/cab-navy-white-uppers-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Semi-custom cabinets example" loading="lazy"><div class="tier-top"><h4>Semi-custom</h4><span class="cost" aria-label="2 of 3 on price">$$<i>$</i></span></div><p>More sizes, colors and styles</p></div><div class="tier"><img src="img/sm/cab-crown-molding-hood-600.jpg" srcset="img/sm/cab-crown-molding-hood-600.jpg 600w, img/sm/cab-crown-molding-hood-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Custom cabinets example" loading="lazy"><div class="tier-top"><h4>Custom</h4><span class="cost" aria-label="3 of 3 on price">$$$<i></i></span></div><p>Made for your exact space</p></div></div>
-  </div>
-</section>
-
-<section class="sec sec--dark sec--process" id="process" aria-labelledby="process-h">
-  <div class="wrap">
-    <div class="sec-head"><h2 id="process-h">How it works.</h2></div>
-    <ol class="flow"><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg></span><h3>Call or ask online</h3><p>Callback in 1 business day</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h18v8H3z"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg></span><h3>Free estimate</h3><p>We measure and quote in writing</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="9" width="20" height="6" rx="1"/><circle cx="12" cy="12" r="1.6"/><path d="M8 9v6M16 9v6"/></svg></span><h3>We install</h3><p>Level, square, clean every day</p></li><li><span class="dot"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.6L16 9.6"/></svg></span><h3>Walkthrough</h3><p>We check every detail with you</p></li></ol>
+    <dl class="costs">
+      <div><dt>Install only, you have the cabinets</dt><dd>$1,700–$7,200<small>per kitchen</small></dd></div>
+      <div><dt>New cabinets, installed</dt><dd>$300–$650<small>per linear foot</small></dd></div>
+      <div><dt>Refacing</dt><dd>$150–$210<small>per door</small></dd></div>
+    </dl>
+    <p class="costs-note">Typical Philadelphia prices from public guides (<a href="https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/" rel="nofollow noopener" target="_blank">HomeAdvisor</a>, <a href="https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm" rel="nofollow noopener" target="_blank">HomeBlue 2024</a>, <a href="https://www.homeblue.com/cabinet-refacing/philadelphia-pa-cabinet-refacing-cost.htm" rel="nofollow noopener" target="_blank">HomeBlue 2022</a>). Not an FMA quote. Your price comes in a free written quote.</p>
   </div>
 </section>
 
@@ -464,7 +563,14 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
       <h2 id="faq-h">Quick answers.</h2>
       <a class="btn btn--fill" href="tel:+12673673388">Call (267) 367-3388</a>
     </aside>
-    <div class="faq-list"><details><summary>Is the estimate free?</summary><p>Yes. We come to you, measure and send a written quote.</p></details><details><summary>How fast do you call back?</summary><p>Within 1 business day.</p></details><details><summary>Can I keep my cabinets?</summary><p>Often, yes. Refacing swaps doors, fronts and hardware.</p></details><details><summary>Are you licensed and insured?</summary><p>Yes, in Pennsylvania.</p></details><details><summary>What are your hours?</summary><p>Mon–Fri 7am–6pm, Sat 7am–1pm.</p></details></div>
+    <div class="faq-list"><details><summary>Can you install cabinets I already bought?</summary><p>Yes. Or we help you choose and order them, then install.</p></details><details><summary>Is the estimate free?</summary><p>Yes. We come to you, measure and send a written quote.</p></details><details><summary>How fast do you call back?</summary><p>Within 1 business day.</p></details><details><summary>Can I keep my cabinets?</summary><p>Often, yes. Refacing swaps doors, fronts and hardware.</p></details><details><summary>Are you licensed and insured?</summary><p>Yes, in Pennsylvania.</p></details></div>
+  </div>
+</section>
+
+<section class="offer" aria-label="First-customer offer">
+  <div class="wrap">
+    <div class="offer-l"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><div><b>Be one of our first kitchens.</b><span>A lower price in exchange for photos and an honest Google review.</span></div></div>
+    <a class="btn btn--fill" href="#contact">Ask about it</a>
   </div>
 </section>
 
@@ -490,7 +596,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
       </div>
     </form>
     <form name="project-builder" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="bot-field"><input type="text" name="project"><input type="text" name="scope"><input type="text" name="timeline">
+      <input type="text" name="bot-field"><input type="text" name="cabinets"><input type="text" name="project"><input type="text" name="scope"><input type="text" name="timeline">
       <input type="text" name="name"><input type="tel" name="phone"><input type="email" name="email"><input type="text" name="zip"><textarea name="notes"></textarea>
     </form>
   </div>
@@ -536,6 +642,9 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(paint); } }, { passive: true });
   addEventListener('resize', paint); paint();
 
+  /* 'two ways' links pre-answer the wizard's first question */
+  $$('[data-cab]').forEach(a => a.addEventListener('click', () => window.__wizSet && window.__wizSet('cabinets', a.dataset.cab)));
+
   /* phone call bar: shows once the hero's call button has scrolled away, hides over the contact section */
   const callBar = $('#callbar'), heroCall = $('.hero .btn--oak'), contact = $('#contact');
   if ('IntersectionObserver' in window) {
@@ -563,7 +672,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   };
   const STEPS = [
     { q: 'What are we building?', hint: 'Pick the closest one. We sort out the details on the call.', valid: s => !!s.project,
-      html: () => `<div class="taps">${tap('project', 'Kitchen cabinets', 'Kitchen cabinets', 'New cabinets, an island or a full set', 'kitchen')}${tap('project', 'Pantry / built-ins', 'Pantry or built-ins', 'Pantries, laundry, mudroom or storage walls', 'pantry')}${tap('project', 'Other project', 'Something else', 'Trim or other woodwork. Tell us on the call.', 'other')}</div>` },
+      html: () => `<p class="sub-q" style="margin-top:0">Do you have the cabinets?</p><div class="pills" style="margin-bottom:1.6rem">${pill('cabinets', 'Yes, I bought them', 'Yes, I bought them')}${pill('cabinets', 'No, help me choose', 'No, help me choose')}${pill('cabinets', 'Not sure', 'Not sure')}</div><div class="taps">${tap('project', 'Kitchen cabinets', 'Kitchen cabinets', 'New cabinets, an island or a full set', 'kitchen')}${tap('project', 'Pantry / built-ins', 'Pantry or built-ins', 'Pantries, laundry, mudroom or storage walls', 'pantry')}${tap('project', 'Other project', 'Something else', 'Trim or other woodwork. Tell us on the call.', 'other')}</div>` },
     { q: 'How big is the job?', hint: 'A rough idea is fine. The on-site estimate sorts out the rest.', valid: s => !!s.scope && !!s.timeline,
       html: () => `<div class="taps">${tap('scope', 'A few cabinets', 'A few cabinets', 'Add or replace some cabinets, hardware or trim', 'few')}${tap('scope', 'All new cabinets', 'All new cabinets', 'Replace every cabinet, same layout', 'all')}${tap('scope', 'New layout', 'New layout', 'Move cabinets around or add an island', 'layout')}</div><p class="sub-q">When would you like to start?</p><div class="pills">${pill('timeline', 'ASAP', 'As soon as possible')}${pill('timeline', '1–3 months', 'In 1–3 months')}${pill('timeline', 'Just planning', 'Just planning for now')}</div>` },
     { q: 'Where should we reach you?', hint: 'We call within one business day. No spam.', valid: s => (s.name || '').trim().length > 1 && /^1?\d{10}$/.test((s.phone || '').replace(/\D/g, '')),
@@ -598,10 +707,11 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
     body.insertAdjacentHTML('beforeend', '<p class="wiz-error" role="alert">We couldn’t send your request. Please try again, or call or text <a href="tel:+12673673388">(267) 367-3388</a>.</p>');
   };
   const finish = () => {
-    const rows = [['Project', state.project], ['Scope', state.scope], ['Timeline', state.timeline], ['Name', state.name], ['Phone', state.phone], ['Email', state.email], ['Zip', state.zip]].filter(r => r[1]);
+    const rows = [['Cabinets', state.cabinets], ['Project', state.project], ['Scope', state.scope], ['Timeline', state.timeline], ['Name', state.name], ['Phone', state.phone], ['Email', state.email], ['Zip', state.zip]].filter(r => r[1]);
     body.innerHTML = `<div class="done"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3 class="wiz-q" tabindex="-1">Got it, ${esc((state.name || '').trim().split(' ')[0])}. We'll call you.</h3><p class="wiz-hint">Expect a call from FMA within one business day to set up your free on-site estimate.</p><dl class="summary">${rows.map(r => `<div><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join('')}</dl></div>`;
     lbl.textContent = 'Done'; $('.wiz-top .of').hidden = true; bar.style.width = '100%'; $('#wizNav').hidden = true; $('.wiz-q', body).focus({ preventScroll: true });
   };
+  window.__wizSet = (k, v) => { state[k] = v; if (step === 0) sync(); };
   render(false);
 })();
 </script>
