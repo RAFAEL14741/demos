@@ -33,7 +33,7 @@
   "telephone": "+12673673388",
   "email": "fmaconstructions@gmail.com",
   "address": { "@type": "PostalAddress", "addressLocality": "Philadelphia", "addressRegion": "PA", "addressCountry": "US" },
-  "areaServed": ["Philadelphia", "Bucks County PA", "Montgomery County PA"],
+  "areaServed": ["Philadelphia", "Bucks County PA", "Montgomery County PA", "New Jersey"],
   "openingHoursSpecification": [
     { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "18:00" },
     { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "07:00", "closes": "13:00" }
@@ -84,10 +84,10 @@ h3{font-size:clamp(1.45rem,2vw,1.8rem);line-height:1.15}
 /* ---- header ---- */
 .hdr{position:fixed;inset:0 0 auto;z-index:50;isolation:isolate;height:var(--hdr);color:var(--black);transition:background-color .25s,color .25s,box-shadow .25s}
 .hdr .wrap{height:100%;display:flex;align-items:center;gap:2rem}
-.hdr.is-scrolled{background:var(--oak-base);box-shadow:0 1px 0 var(--line-k)}
+.hdr.is-scrolled{background:var(--black);color:var(--bone);box-shadow:0 1px 0 var(--line-b)}
+.hdr.is-scrolled .logo svg{color:var(--oak)}
 .ld .hdr::before{background-image:url(img/oak-grain.jpg)}
 .hdr::before{content:"";position:absolute;inset:0;z-index:-1;background:center/cover fixed;mix-blend-mode:multiply;opacity:0;pointer-events:none}
-.hdr.is-scrolled::before{opacity:.12}
 .hdr.is-dark::before{opacity:0}
 .hdr.is-dark{background:var(--black);color:var(--bone);box-shadow:0 1px 0 var(--line-b)}
 .logo{display:flex;align-items:center;gap:.85rem;text-decoration:none;margin-right:auto}
@@ -180,7 +180,10 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .promise li{display:flex;gap:1rem;align-items:center;font-family:var(--serif);font-size:clamp(1.3rem,1.8vw,1.6rem);line-height:1.2}
 .promise .ic{width:52px;height:52px;padding:12px;border-radius:999px;background:var(--oak);color:var(--black);flex:none}
 
-/* free color preview */
+/* free color preview (oak action band) */
+#preview{background:var(--oak-base)}
+#preview .lede,#preview small{color:#3A3127}
+#preview .ba::after{background:var(--black)}
 .preview{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:center}
 .ba{position:relative;margin:0}
 .ba img{width:100%;height:auto;border-radius:4px;display:block}
@@ -225,9 +228,6 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .note{margin-top:14px;font-size:.82rem;color:var(--mute)}
 .sec--tight{padding-top:0}
 /* light sections that follow each other share one gap instead of two */
-#work{padding-bottom:calc(var(--sec) / 2)}
-#preview{padding-top:calc(var(--sec) / 2)}
-.sec--tight+#about{padding-top:0}
 .styles{margin-top:0}
 .styles-head{display:flex;justify-content:space-between;align-items:baseline;gap:2rem;margin-bottom:22px}
 .styles-head .note{margin:0}
@@ -237,11 +237,11 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .rail figcaption{margin-top:.6rem;font-weight:600;font-size:.98rem}
 
 /* budget: 3 photo cards */
-.tiers{margin-top:110px}
+.tiers{margin-top:0}
 .tiers-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
 .tier img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px;background:#E2D7C5}
 .tier-top{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem}
-.tier h4{font-family:var(--serif);font-weight:500;font-size:1.6rem}
+.tier h3{font-family:var(--serif);font-weight:500;font-size:1.6rem}
 .tier .cost{font-family:var(--serif);font-size:1.6rem;letter-spacing:.06em}
 .tier .cost i{font-style:normal;opacity:.22}
 .tier p{color:var(--mute);margin-top:.15rem}
@@ -260,11 +260,11 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .where{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:center}
 .area-map{width:100%;height:auto;display:block;border-radius:4px}
 .where h2{margin-bottom:.8rem}
-.where .lede{color:var(--mute)}
+.where .lede{color:var(--mute-d)}
 .trust{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem 1.4rem;margin:2.4rem 0 2.2rem}
 .trust li{display:flex;gap:.8rem;align-items:center;font-weight:500;line-height:1.3}
-.trust .ic{width:40px;height:40px;padding:9px;border-radius:999px;background:var(--black);color:var(--oak);flex:none}
-.where small{display:block;margin-top:1.4rem;color:var(--mute);font-size:.88rem}
+.trust .ic{width:40px;height:40px;padding:9px;border-radius:999px;background:var(--oak);color:var(--black);flex:none}
+.where small{display:block;margin-top:1.4rem;color:var(--mute-d);font-size:.88rem}
 
 /* faq (follows About on the same bone background, so it shares the spacing instead of doubling it) */
 #faq{padding-top:0}
@@ -405,14 +405,15 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   .tile .cap span{display:none}
   .tile:first-child .cap span{display:block;font-size:.85rem}
   .tile:first-child b{font-size:1.9rem}
-  .styles,.tiers{margin-top:80px}
   .rail figure{width:62vw}
   .tiers-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:22px calc(var(--gut) * -1) 0;padding:0 var(--gut) 8px;scroll-padding-inline:var(--gut);gap:12px}
   .tier{flex:none;width:76vw;scroll-snap-align:start}
   .flow{grid-template-columns:1fr;row-gap:1.8rem}
-  .flow li{display:grid;grid-template-columns:64px 1fr;column-gap:1.1rem;align-items:center}
-  .flow h3{margin-top:0}
-  .flow p{grid-column:2}
+  .flow li{display:grid;grid-template-columns:64px 1fr;column-gap:1.1rem;row-gap:.2rem}
+  .flow .dot{grid-row:span 2}
+  .flow h3{margin-top:0;align-self:end}
+  .flow p{grid-column:2;margin-top:0;align-self:start}
+  .hide-sm{display:none}
   .trust{grid-template-columns:1fr;gap:1rem}
   .ways-grid{grid-template-columns:1fr}
   .way{padding:26px 0;gap:1rem}
@@ -473,7 +474,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   </div>
   <div class="hero-foot">
     <div class="wrap">
-      <div class="facts"><ul aria-label="At a glance"><li>Free on-site estimates</li><li>Callback within 1 business day</li><li>Licensed &amp; insured in PA</li><li>Philadelphia, Bucks &amp; Montgomery counties</li></ul></div>
+      <div class="facts"><ul aria-label="At a glance"><li>Free on-site estimates</li><li>Callback within 1 business day</li><li>Licensed &amp; insured in PA</li><li>Philadelphia, Bucks, Montgomery &amp; New Jersey</li></ul></div>
       <div class="paint" role="group" aria-label="Try a cabinet color">
         <div class="paint-top"><span>Try a color</span><b id="paintName" aria-live="polite">Navy</b></div>
         <div class="swatches">
@@ -527,16 +528,12 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   </div>
 </section>
 
-<section class="sec sec--tight" aria-label="Styles and budget">
-  <div class="styles">
-    <div class="wrap styles-head"><h3>Any style</h3><p class="note">Example photos. Swipe for more.</p></div>
-    <div class="rail" tabindex="0" role="region" aria-label="Cabinet styles, scroll sideways"><figure><img src="img/sm/cab-navy-island-hood-600.jpg" srcset="img/sm/cab-navy-island-hood-600.jpg 600w, img/sm/cab-navy-island-hood-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Two-tone kitchen cabinets" loading="lazy"><figcaption>Two-tone</figcaption></figure><figure><img src="img/sm/cab-blue-shaker-subway-600.jpg" srcset="img/sm/cab-blue-shaker-subway-600.jpg 600w, img/sm/cab-blue-shaker-subway-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Painted shaker kitchen cabinets" loading="lazy"><figcaption>Painted shaker</figcaption></figure><figure><img src="img/sm/cab-wood-granite-600.jpg" srcset="img/sm/cab-wood-granite-600.jpg 600w, img/sm/cab-wood-granite-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Stained wood kitchen cabinets" loading="lazy"><figcaption>Stained wood</figcaption></figure><figure><img src="img/sm/cab-white-shaker-island-600.jpg" srcset="img/sm/cab-white-shaker-island-600.jpg 600w, img/sm/cab-white-shaker-island-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="White shaker kitchen cabinets" loading="lazy"><figcaption>White shaker</figcaption></figure><figure><img src="img/sm/cab-glass-doors-island-600.jpg" srcset="img/sm/cab-glass-doors-island-600.jpg 600w, img/sm/cab-glass-doors-island-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Glass fronts kitchen cabinets" loading="lazy"><figcaption>Glass fronts</figcaption></figure><figure><img src="img/sm/cab-everyday-gray-white-600.jpg" srcset="img/sm/cab-everyday-gray-white-600.jpg 600w, img/sm/cab-everyday-gray-white-900.jpg 900w" sizes="(max-width:767px) 62vw, 300px" decoding="async" alt="Light gray kitchen cabinets" loading="lazy"><figcaption>Light gray</figcaption></figure></div>
-  </div>
+<section class="sec" aria-label="Budget">
   <div class="wrap tiers">
-    <h3>Any budget</h3>
-    <div class="tiers-grid"><div class="tier"><img src="img/sm/cab-everyday-white-600.jpg" srcset="img/sm/cab-everyday-white-600.jpg 600w, img/sm/cab-everyday-white-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Stock cabinets example" loading="lazy"><div class="tier-top"><h4>Stock</h4><span class="cost" aria-label="1 of 3 on price">$<i>$$</i></span></div><p>Fastest and most affordable</p></div><div class="tier"><img src="img/sm/cab-navy-white-uppers-600.jpg" srcset="img/sm/cab-navy-white-uppers-600.jpg 600w, img/sm/cab-navy-white-uppers-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Semi-custom cabinets example" loading="lazy"><div class="tier-top"><h4>Semi-custom</h4><span class="cost" aria-label="2 of 3 on price">$$<i>$</i></span></div><p>More sizes, colors and styles</p></div><div class="tier"><img src="img/sm/cab-crown-molding-hood-600.jpg" srcset="img/sm/cab-crown-molding-hood-600.jpg 600w, img/sm/cab-crown-molding-hood-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Custom cabinets example" loading="lazy"><div class="tier-top"><h4>Custom</h4><span class="cost" aria-label="3 of 3 on price">$$$<i></i></span></div><p>Made for your exact space</p></div></div>
+    <h2>Any budget.</h2>
+    <div class="tiers-grid"><div class="tier"><img src="img/sm/cab-everyday-white-600.jpg" srcset="img/sm/cab-everyday-white-600.jpg 600w, img/sm/cab-everyday-white-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Stock cabinets example" loading="lazy"><div class="tier-top"><h3>Stock</h3><span class="cost" aria-label="1 of 3 on price">$<i>$$</i></span></div><p>Fastest and most affordable</p></div><div class="tier"><img src="img/sm/cab-navy-white-uppers-600.jpg" srcset="img/sm/cab-navy-white-uppers-600.jpg 600w, img/sm/cab-navy-white-uppers-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Semi-custom cabinets example" loading="lazy"><div class="tier-top"><h3>Semi-custom</h3><span class="cost" aria-label="2 of 3 on price">$$<i>$</i></span></div><p>More sizes, colors and styles</p></div><div class="tier"><img src="img/sm/cab-crown-molding-hood-600.jpg" srcset="img/sm/cab-crown-molding-hood-600.jpg 600w, img/sm/cab-crown-molding-hood-900.jpg 900w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Custom cabinets example" loading="lazy"><div class="tier-top"><h3>Custom</h3><span class="cost" aria-label="3 of 3 on price">$$$<i></i></span></div><p>Made for your exact space</p></div></div>
     <dl class="costs">
-      <div><dt>Install only, you have the cabinets</dt><dd>$1,700–$7,200<small>per kitchen</small></dd></div>
+      <div><dt>Cabinet installation</dt><dd>$1,700–$7,200<small>per kitchen</small></dd></div>
       <div><dt>New cabinets, installed</dt><dd>$300–$650<small>per linear foot</small></dd></div>
       <div><dt>Refacing</dt><dd>$150–$210<small>per door</small></dd></div>
     </dl>
@@ -544,14 +541,14 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   </div>
 </section>
 
-<section class="sec" id="about" aria-labelledby="about-h">
+<section class="sec sec--dark" id="about" aria-labelledby="about-h">
   <div class="wrap where">
-    <svg class="area-map" viewBox="0 0 800 741" role="img" aria-label="Map of the service area: Philadelphia, Bucks County and Montgomery County"><rect width="800" height="741" fill="#E7DDCC"/><g fill="#E7DDCC" stroke="#F3ECE0" stroke-width="1.5" stroke-linejoin="round"><path d="M441.4,628.3L471.2,591.3L479.8,580.7L489.8,571.5L502.7,568.1L518.6,581.3L512.9,591.4L513.2,594.6L514.0,594.7L514.5,597.0L514.0,598.3L516.7,600.5L516.5,602.3L515.6,608.6L528.5,614.6L531.9,613.1L540.7,615.3L534.7,621.1L535.2,624.7L547.5,629.8L555.2,645.6L567.5,657.0L570.8,668.2L585.7,736.0L586.1,736.3L594.6,743.7L602.4,743.8L622.1,737.0L642.6,740.9L655.8,751.7L667.4,769.0L676.7,775.0L690.4,786.3L649.8,832.0L602.0,886.0L568.5,818.3L470.3,745.5L428.4,641.7L441.4,628.3Z"/><path d="M392.6,674.9L393.0,674.7L408.9,661.8L428.4,641.7L470.3,745.5L568.5,818.3L602.0,886.0L580.4,910.4L534.2,962.7L486.1,918.5L399.7,837.9L320.2,819.0L287.7,773.3L248.5,744.4L250.2,742.4L263.9,732.2L264.6,727.3L280.2,715.2L289.9,707.6L332.7,687.9L354.9,688.2L377.5,682.4L392.6,674.9Z"/><path d="M697.9,-25.3L704.9,85.9L661.4,164.7L683.0,216.9L615.1,280.4L563.9,285.4L509.4,233.9L502.7,231.5L488.0,221.9L486.4,217.9L480.7,191.4L483.7,138.7L484.1,133.2L482.7,124.8L481.9,120.0L462.0,99.1L451.4,94.6L440.0,92.6L432.5,94.7L405.7,81.4L405.2,79.8L544.8,-18.2L594.1,-81.4L697.9,-25.3Z"/><path d="M698.0,443.9L699.6,438.6L699.2,433.0L676.4,399.6L668.8,388.5L612.5,331.3L563.9,285.4L615.1,280.4L683.0,216.9L699.3,257.1L761.6,249.5L764.9,254.8L763.6,257.7L793.1,317.8L848.5,357.0L783.5,451.4L782.6,451.5L782.4,451.4L782.4,451.0L782.2,450.8L781.4,451.6L781.1,451.6L780.6,451.2L780.5,451.7L780.1,451.7L779.7,451.9L779.2,451.7L698.0,443.9Z"/><path d="M298.4,511.0L264.6,530.5L251.6,577.0L172.1,645.4L151.8,698.2L151.2,698.3L126.8,704.0L122.5,705.5L109.1,711.4L94.6,719.7L75.2,735.3L60.9,751.2L30.4,792.9L23.3,792.9L16.8,792.8L-110.6,792.8L-119.7,792.9L-187.5,793.1L-144.2,761.6L-97.2,672.4L-93.0,615.7L-66.6,475.1L-23.0,452.3L67.1,380.6L87.8,366.4L153.2,379.8L165.3,404.6L171.8,402.9L175.4,394.8L180.4,409.3L195.0,442.9L298.4,511.0Z"/><path d="M172.1,645.4L251.6,577.0L264.6,530.5L298.4,511.0L301.3,513.3L305.7,521.4L351.5,583.6L360.3,666.0L374.1,669.4L389.6,666.4L392.6,674.9L377.5,682.4L354.9,688.2L332.7,687.9L289.9,707.6L280.2,715.2L264.6,727.3L256.4,721.2L240.3,712.1L212.0,701.5L186.6,697.4L161.2,697.2L161.2,697.2L152.9,698.0L152.5,698.1L151.8,698.2L172.1,645.4Z"/><path d="M227.5,-103.5L336.4,-140.2L449.3,-229.4L449.4,-229.4L449.5,-224.8L449.7,-224.0L451.1,-216.9L492.0,-150.5L493.0,-145.2L491.5,-140.5L456.9,-84.1L440.6,-69.9L431.3,-70.7L422.3,-73.7L417.3,-73.1L401.7,-51.7L397.0,-2.4L399.0,57.6L401.5,65.6L315.7,124.3L271.3,88.1L254.9,11.8L222.9,26.9L142.9,-81.0L227.5,-103.5Z"/><path d="M61.1,89.1L61.9,89.8L89.4,112.7L97.0,118.9L192.7,198.1L88.3,366.0L87.8,366.4L67.1,380.6L-23.0,452.3L-24.1,451.5L-160.0,337.0L-196.2,306.8L-197.3,305.6L-197.8,305.1L-378.6,158.0L-210.1,126.0L-110.1,90.9L-100.0,48.1L-98.1,40.1L-34.3,9.3L43.9,75.1L61.1,89.1Z"/><path d="M89.4,112.7L61.9,89.8L61.1,89.1L43.9,75.1L-34.3,9.3L49.5,-38.4L142.9,-81.0L222.9,26.9L254.9,11.8L271.3,88.1L315.7,124.3L312.5,126.7L295.0,142.0L294.2,142.7L267.9,164.5L221.3,221.6L192.7,198.1L97.0,118.9L89.4,112.7Z"/><path d="M587.6,501.5L626.6,482.0L687.7,453.9L697.9,444.2L698.0,443.9L779.2,451.7L779.7,451.9L780.1,451.7L780.5,451.7L780.6,451.2L781.1,451.6L781.4,451.6L782.2,450.8L782.4,451.0L782.4,451.4L782.6,451.5L783.5,451.4L805.3,499.9L820.6,534.4L879.6,683.8L907.7,750.6L907.4,896.1L890.5,927.9L851.5,928.9L762.1,871.0L690.4,786.3L676.7,775.0L667.4,769.0L655.8,751.7L642.6,740.9L622.1,737.0L602.4,743.8L594.6,743.7L586.1,736.3L585.7,736.0L570.8,668.2L567.5,657.0L555.2,645.6L547.5,629.8L535.2,624.7L534.7,621.1L540.7,615.3L531.9,613.1L528.5,614.6L515.6,608.6L516.5,602.3L516.7,600.5L514.0,598.3L514.5,597.0L514.0,594.7L513.2,594.6L512.9,591.4L518.6,581.3L502.7,568.1L489.8,571.5L516.0,547.5L540.8,524.8L541.1,524.7L587.6,501.5Z"/></g><g stroke="#F3ECE0" stroke-width="2.5" stroke-linejoin="round"><path d="M359.1,520.4L414.3,495.3L429.9,507.1L440.2,514.7L444.0,517.9L446.6,519.9L456.3,527.2L470.1,512.6L464.3,508.2L515.5,451.6L519.6,454.9L521.2,456.1L536.3,466.1L546.9,467.5L549.2,484.8L552.5,486.2L550.8,497.1L543.0,504.3L534.4,517.8L541.1,524.7L540.8,524.8L516.0,547.5L489.8,571.5L479.8,580.7L471.2,591.3L441.4,628.3L428.4,641.7L408.9,661.8L393.0,674.7L392.6,674.9L389.6,666.4L374.1,669.4L360.3,666.0L351.5,583.6L359.5,579.0L364.3,575.2L368.6,572.5L359.1,520.4Z" fill="#151515"/><path d="M457.9,407.0L336.9,312.3L221.3,221.6L267.9,164.5L294.2,142.7L295.0,142.0L312.5,126.7L315.7,124.3L401.5,65.6L405.2,79.8L405.7,81.4L432.5,94.7L440.0,92.6L451.4,94.6L462.0,99.1L481.9,120.0L482.7,124.8L484.1,133.2L483.7,138.7L480.7,191.4L486.4,217.9L488.0,221.9L502.7,231.5L509.4,233.9L563.9,285.4L612.5,331.3L668.8,388.5L676.4,399.6L699.2,433.0L699.6,438.6L698.0,443.9L697.9,444.2L687.7,453.9L626.6,482.0L587.6,501.5L541.1,524.7L534.4,517.8L543.0,504.3L550.8,497.1L552.5,486.2L549.2,484.8L546.9,467.5L536.3,466.1L521.2,456.1L519.6,454.9L515.5,451.6L459.2,408.0L457.9,407.0Z" fill="#D2B48A"/><path d="M298.4,511.0L195.0,442.9L180.4,409.3L175.4,394.8L171.8,402.9L165.3,404.6L153.2,379.8L87.8,366.4L88.3,366.0L192.7,198.1L221.3,221.6L336.9,312.3L457.9,407.0L459.2,408.0L515.5,451.6L464.3,508.2L470.1,512.6L456.3,527.2L446.6,519.9L444.0,517.9L440.2,514.7L429.9,507.1L414.3,495.3L359.1,520.4L368.6,572.5L364.3,575.2L359.5,579.0L351.5,583.6L305.7,521.4L301.3,513.3L298.4,511.0Z" fill="#D2B48A"/></g><g font-family="Bodoni Moda, Georgia, serif" font-size="27" font-weight="500" text-anchor="middle"><text x="377" y="219" fill="#151515">Bucks</text><text x="271" y="389" fill="#151515">Montgomery</text><circle cx="422" cy="568" r="5" fill="#D2B48A"/><path d="M428 571L472 622" stroke="#151515" stroke-width="1.2" fill="none"/><text x="542" y="630" fill="#151515">Philadelphia</text></g><text x="736" y="311" fill="#8F826D" font-family="Inter, system-ui, sans-serif" font-size="16" text-anchor="middle">New Jersey</text></svg>
+    <svg class="area-map" viewBox="0 0 800 726" role="img" aria-label="Map of the service area: Philadelphia, Bucks County, Montgomery County and nearby New Jersey"><rect width="800" height="726" fill="#1F1E1C"/><g fill="#1F1E1C" stroke="#34322E" stroke-width="1.5" stroke-linejoin="round"><path d="M628.8,-22.8L635.2,77.4L596.0,148.4L615.4,195.4L554.3,252.7L508.1,257.1L459.0,210.7L452.9,208.6L439.8,199.9L438.3,196.4L433.1,172.5L435.8,125.0L436.2,120.0L435.0,112.4L434.2,108.2L416.3,89.3L406.7,85.3L396.5,83.5L389.7,85.3L365.5,73.4L365.1,71.9L490.9,-16.4L535.4,-73.4L628.8,-22.8Z"/><path d="M268.9,460.4L238.4,478.0L226.7,519.9L155.0,581.6L136.8,629.1L136.3,629.2L114.2,634.4L110.4,635.7L98.3,641.1L85.2,648.5L67.7,662.6L54.9,676.9L27.4,714.5L21.0,714.4L15.1,714.4L-99.7,714.4L-107.9,714.5L-168.9,714.7L-130.0,686.3L-87.5,605.9L-83.8,554.8L-60.0,428.1L-20.7,407.6L60.4,343.0L79.1,330.1L138.0,342.2L148.9,364.5L154.8,363.0L158.1,355.7L162.6,368.8L175.7,399.1L268.9,460.4Z"/><path d="M155.0,581.6L226.7,519.9L238.4,478.0L268.9,460.4L271.5,462.5L275.5,469.8L316.7,525.9L324.6,600.1L337.1,603.2L351.1,600.5L353.8,608.1L340.2,614.8L319.7,620.1L299.8,619.9L261.3,637.6L252.5,644.5L238.4,655.4L231.1,649.9L216.5,641.7L191.0,632.1L168.1,628.4L145.2,628.2L145.2,628.2L137.8,629.0L137.4,629.0L136.8,629.1L155.0,581.6Z"/><path d="M205.0,-93.2L303.1,-126.4L404.9,-206.7L405.0,-206.7L405.0,-202.5L405.3,-201.8L406.5,-195.4L443.3,-135.6L444.2,-130.9L442.9,-126.6L411.7,-75.8L397.1,-63.0L388.6,-63.7L380.5,-66.4L376.0,-65.9L361.9,-46.6L357.8,-2.2L359.6,51.9L361.8,59.1L284.5,112.0L244.4,79.4L229.7,10.7L200.9,24.3L128.8,-73.0L205.0,-93.2Z"/><path d="M55.0,80.3L55.8,80.9L80.5,101.6L87.4,107.1L173.6,178.5L79.6,329.8L79.1,330.1L60.4,343.0L-20.7,407.6L-21.7,406.8L-144.1,303.7L-176.8,276.5L-177.7,275.4L-178.2,274.9L-341.1,142.4L-189.3,113.5L-99.2,81.9L-90.1,43.3L-88.4,36.1L-30.9,8.4L39.6,67.7L55.0,80.3Z"/><path d="M80.5,101.6L55.8,80.9L55.0,80.3L39.6,67.7L-30.9,8.4L44.6,-34.6L128.8,-73.0L200.9,24.3L229.7,10.7L244.4,79.4L284.5,112.0L281.6,114.2L265.8,128.0L265.1,128.6L241.4,148.2L199.4,199.6L173.6,178.5L87.4,107.1L80.5,101.6Z"/></g><g fill="#7A5C36" stroke="#151515" stroke-width="2" stroke-linejoin="round"><path d="M529.4,451.9L564.6,434.3L619.7,409.0L628.9,400.2L629.0,400.0L702.1,407.0L702.6,407.2L702.9,407.0L703.3,407.0L703.4,406.5L703.8,406.9L704.1,407.0L704.8,406.2L705.0,406.3L705.0,406.8L705.2,406.9L706.0,406.7L725.7,450.4L739.4,481.6L792.6,616.2L817.9,676.3L817.6,807.4L802.4,836.1L767.2,837.0L686.7,784.8L622.1,708.5L609.8,698.3L601.4,693.0L590.9,677.3L579.0,667.6L560.6,664.1L542.8,670.3L535.7,670.1L528.1,663.5L527.7,663.2L514.3,602.1L511.4,592.0L500.3,581.7L493.3,567.5L482.2,562.9L481.8,559.7L487.2,554.4L479.3,552.4L476.2,553.8L464.6,548.4L465.4,542.7L465.6,541.1L463.1,539.1L463.6,538.0L463.2,535.8L462.4,535.7L462.2,532.9L467.3,523.8L453.0,511.9L441.4,514.9L464.9,493.4L487.3,472.9L487.6,472.8L529.4,451.9Z"/><path d="M397.7,566.1L424.6,532.8L432.3,523.2L441.4,514.9L453.0,511.9L467.3,523.8L462.2,532.9L462.4,535.7L463.2,535.8L463.6,538.0L463.1,539.1L465.6,541.1L465.4,542.7L464.6,548.4L476.2,553.8L479.3,552.4L487.2,554.4L481.8,559.7L482.2,562.9L493.3,567.5L500.3,581.7L511.4,592.0L514.3,602.1L527.7,663.2L528.1,663.5L535.7,670.1L542.8,670.3L560.6,664.1L579.0,667.6L590.9,677.3L601.4,693.0L609.8,698.3L622.1,708.5L585.5,749.7L542.5,798.4L512.3,737.4L423.8,671.8L386.0,578.2L397.7,566.1Z"/><path d="M629.0,400.0L630.4,395.2L630.0,390.2L609.5,360.1L602.7,350.1L551.9,298.6L508.1,257.1L554.3,252.7L615.4,195.4L630.1,231.6L686.3,224.8L689.2,229.6L688.1,232.2L714.7,286.4L764.6,321.7L706.0,406.7L705.2,406.9L705.0,406.8L705.0,406.3L704.8,406.2L704.1,407.0L703.8,406.9L703.4,406.5L703.3,407.0L702.9,407.0L702.6,407.2L702.1,407.0L629.0,400.0Z"/><path d="M353.8,608.1L354.1,608.0L368.5,596.4L386.0,578.2L423.8,671.8L512.3,737.4L542.5,798.4L523.0,820.3L481.4,867.5L438.0,827.7L360.1,755.0L288.5,738.0L259.2,696.8L223.9,670.8L225.5,668.9L237.8,659.8L238.4,655.4L252.5,644.5L261.3,637.6L299.8,619.9L319.7,620.1L340.2,614.8L353.8,608.1Z"/></g><g stroke="#151515" stroke-width="2.5" stroke-linejoin="round"><path d="M323.5,468.9L373.3,446.3L387.3,456.9L396.6,463.8L400.1,466.7L402.4,468.5L411.2,475.0L423.6,461.9L418.3,457.9L464.5,406.9L468.2,409.9L469.7,410.9L483.2,420.0L492.8,421.2L494.9,436.8L497.8,438.1L496.3,447.9L489.3,454.4L481.6,466.5L487.6,472.8L487.3,472.9L464.9,493.4L441.4,514.9L432.3,523.2L424.6,532.8L397.7,566.1L386.0,578.2L368.5,596.4L354.1,608.0L353.8,608.1L351.1,600.5L337.1,603.2L324.6,600.1L316.7,525.9L324.0,521.7L328.2,518.3L332.2,515.9L323.5,468.9Z" fill="#F3ECE0"/><path d="M412.6,366.8L303.6,281.4L199.4,199.6L241.4,148.2L265.1,128.6L265.8,128.0L281.6,114.2L284.5,112.0L361.8,59.1L365.1,71.9L365.5,73.4L389.7,85.3L396.5,83.5L406.7,85.3L416.3,89.3L434.2,108.2L435.0,112.4L436.2,120.0L435.8,125.0L433.1,172.5L438.3,196.4L439.8,199.9L452.9,208.6L459.0,210.7L508.1,257.1L551.9,298.6L602.7,350.1L609.5,360.1L630.0,390.2L630.4,395.2L629.0,400.0L628.9,400.2L619.7,409.0L564.6,434.3L529.4,451.9L487.6,472.8L481.6,466.5L489.3,454.4L496.3,447.9L497.8,438.1L494.9,436.8L492.8,421.2L483.2,420.0L469.7,410.9L468.2,409.9L464.5,406.9L413.7,367.6L412.6,366.8Z" fill="#D2B48A"/><path d="M268.9,460.4L175.7,399.1L162.6,368.8L158.1,355.7L154.8,363.0L148.9,364.5L138.0,342.2L79.1,330.1L79.6,329.8L173.6,178.5L199.4,199.6L303.6,281.4L412.6,366.8L413.7,367.6L464.5,406.9L418.3,457.9L423.6,461.9L411.2,475.0L402.4,468.5L400.1,466.7L396.6,463.8L387.3,456.9L373.3,446.3L323.5,468.9L332.2,515.9L328.2,518.3L324.0,521.7L316.7,525.9L275.5,469.8L271.5,462.5L268.9,460.4Z" fill="#D2B48A"/></g><g font-family="Bodoni Moda, Georgia, serif" font-size="27" font-weight="500" text-anchor="middle"><text x="340" y="198" fill="#151515">Bucks</text><text x="244" y="351" fill="#151515">Montgomery</text><text x="619" y="575" fill="#F3ECE0">New Jersey</text><circle cx="380" cy="511" r="5" fill="#151515"/><path d="M374 514L300 573" stroke="#F3ECE0" stroke-width="1.2" fill="none"/><text x="230" y="581" fill="#F3ECE0">Philadelphia</text></g></svg>
     <div>
       <h2 id="about-h">We come to you.</h2>
-      <p class="lede">Philadelphia, Bucks and Montgomery counties.</p>
+      <p class="lede">Philadelphia, Bucks and Montgomery counties, and New Jersey.</p>
       <ul class="trust"><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.6"/></svg><span>Licensed and insured in PA</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg><span>Free on-site estimates</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Callback in 1 business day</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4l6 6"/><path d="M17 7L9 15"/><path d="M9 15l-5 5h8l1-4z"/></svg><span>Clean jobsite every day</span></li></ul>
-      <a class="btn btn--fill" href="tel:+12673673388">Call (267) 367-3388</a>
+      <a class="btn btn--oak hide-sm" href="tel:+12673673388">Call (267) 367-3388</a>
       <small>Founded by Flavio Mendanha Araujo.</small>
     </div>
   </div>
@@ -561,9 +558,9 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   <div class="wrap faq">
     <aside>
       <h2 id="faq-h">Quick answers.</h2>
-      <a class="btn btn--fill" href="tel:+12673673388">Call (267) 367-3388</a>
+      <a class="btn btn--fill hide-sm" href="tel:+12673673388">Call (267) 367-3388</a>
     </aside>
-    <div class="faq-list"><details><summary>Can you install cabinets I already bought?</summary><p>Yes. Or we help you choose and order them, then install.</p></details><details><summary>Is the estimate free?</summary><p>Yes. We come to you, measure and send a written quote.</p></details><details><summary>How fast do you call back?</summary><p>Within 1 business day.</p></details><details><summary>Can I keep my cabinets?</summary><p>Often, yes. Refacing swaps doors, fronts and hardware.</p></details><details><summary>Are you licensed and insured?</summary><p>Yes, in Pennsylvania.</p></details></div>
+    <div class="faq-list"><details><summary>Can you install cabinets I already bought?</summary><p>Yes. Or we help you choose and order them, then install.</p></details><details><summary>Do you work in New Jersey?</summary><p>Yes. Philadelphia, Bucks and Montgomery counties, and New Jersey.</p></details><details><summary>Is the estimate free?</summary><p>Yes. We come to you, measure and send a written quote.</p></details><details><summary>How fast do you call back?</summary><p>Within 1 business day.</p></details><details><summary>Can I keep my cabinets?</summary><p>Often, yes. Refacing swaps doors, fronts and hardware.</p></details><details><summary>Are you licensed and insured?</summary><p>Yes, in Pennsylvania.</p></details></div>
   </div>
 </section>
 

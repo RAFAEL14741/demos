@@ -22,7 +22,7 @@
 - `og-maison.png`: official `og-1200x630.png` from the brand kit.
 
 ## Price figures (shown as public data, not FMA quotes)
-- Install only, Philadelphia: HomeAdvisor cost page, typical $1,684–$7,205 (checked Oct 27 2026) https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/
+- Cabinet installation, Philadelphia: HomeAdvisor cost page, typical $1,684–$7,205 (checked Oct 27 2026) https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/
 - New cabinets installed: HomeBlue Philadelphia, $300–$650 per linear foot (dated Jun 3 2024) https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm
 - Refacing: HomeBlue Philadelphia, $150–$210 per door (dated Aug 9 2022) https://www.homeblue.com/cabinet-refacing/philadelphia-pa-cabinet-refacing-cost.htm
 
