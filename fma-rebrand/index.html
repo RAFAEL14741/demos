@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="FMA Constructions">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#D2B48A">
+<meta name="theme-color" content="#F3ECE0">
 <link rel="icon" type="image/svg+xml" href="favicon-maison.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -42,507 +42,386 @@
 }
 </script>
 <style>
-/* FMA v2 · oak #D2B48A · black #151515 · bone #F3ECE0 · oak deep #7A5C36
-   Bodoni Moda (headlines, optical sizes) + Inter (body). Radius scale: 4px images, 999px buttons, nothing else. */
+/* FMA v6 "Gallery" · bone #F3ECE0 · ink #151515 · oak #D2B48A · oak deep #7A5C36
+   Bodoni Moda 400 for display (big, tight, light) + Inter 300/400. Images 4px, buttons 999px. */
 @font-face{font-family:'Bodoni Moda';src:url(fonts/bodoni-moda.woff2) format('woff2');font-weight:400 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Inter';src:url(fonts/inter.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --oak:#D2B48A;--oak-base:#D7B98E;--black:#151515;--bone:#F3ECE0;--oak-deep:#7A5C36;--mute:#5A5249;--mute-d:#B9AE9E;
-  --line-k:rgba(21,21,21,.18);--line-b:rgba(243,236,224,.16);
+  --bone:#F3ECE0;--ink:#151515;--oak:#D2B48A;--oak-deep:#7A5C36;--mute:#6B6359;--mute-d:rgba(243,236,224,.62);
+  --line:rgba(21,21,21,.13);--line-d:rgba(243,236,224,.16);
   --serif:'Bodoni Moda',Didot,Georgia,serif;--sans:'Inter',system-ui,-apple-system,sans-serif;
-  --hdr:84px;--gut:clamp(20px,5vw,72px);--sec:140px;
+  --pad:clamp(20px,4vw,56px);--sec:clamp(96px,13vh,160px);--hdr:68px;
+  --ease:cubic-bezier(.2,.8,.2,1);
 }
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-padding-top:var(--hdr)}
-body{background:var(--bone);color:var(--black);font:400 1.0625rem/1.65 var(--sans);overflow-x:clip}
+body{background:var(--bone);color:var(--ink);font:300 1rem/1.6 var(--sans);overflow-x:clip}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 ul,ol{list-style:none}
-.wrap{width:100%;max-width:1320px;margin:0 auto;padding:0 var(--gut)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-:focus-visible{outline:2px solid currentColor;outline-offset:4px}
-.skip{position:fixed;left:16px;top:-80px;z-index:100;background:var(--black);color:var(--bone);padding:.7rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600}
+:focus-visible{outline:1.5px solid currentColor;outline-offset:4px}
+.skip{position:fixed;left:16px;top:-80px;z-index:100;background:var(--ink);color:var(--bone);padding:.7rem 1.1rem;border-radius:999px;text-decoration:none}
 .skip:focus{top:16px}
-h1,h2,h3{font-family:var(--serif);font-weight:500;font-optical-sizing:auto;letter-spacing:-.01em;line-height:1.04}
-h2{font-size:clamp(2.3rem,4.4vw,4rem);max-width:16ch}
-h3{font-size:clamp(1.45rem,2vw,1.8rem);line-height:1.15}
-.lede{font-size:1.15rem;max-width:46ch;color:var(--mute)}
+h1,h2{font-family:var(--serif);font-weight:400;font-optical-sizing:auto;letter-spacing:-.02em;line-height:.94}
+h2{font-size:clamp(3rem,7vw,7rem);max-width:12ch}
+.kick{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;color:var(--mute);margin-bottom:1.1rem}
+.fine{font-size:.8rem;color:var(--mute);line-height:1.55;max-width:70ch}
+.fine a{color:inherit}
+.lede{font-size:1.08rem;color:var(--mute);max-width:40ch;margin-top:1.2rem}
 
-/* ---- buttons (999px only) ---- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:54px;padding:0 1.7rem;border-radius:999px;font-weight:600;font-size:1rem;text-decoration:none;white-space:nowrap;transition:background-color .2s,color .2s,border-color .2s}
-.btn svg{width:18px;height:18px;flex:none}
-.btn--fill{background:var(--black);color:var(--bone);border:1.5px solid var(--black)}
-.btn--fill:hover{background:#000}
-.btn--line{border:1.5px solid var(--black);color:var(--black)}
-.btn--line:hover{background:var(--black);color:var(--oak)}
-.btn--oak{background:var(--oak);color:var(--black);border:1.5px solid var(--oak)}
-.btn--oak:hover{background:var(--bone);border-color:var(--bone)}
-.lnk{color:var(--oak-deep);font-weight:600;text-decoration:underline;text-underline-offset:.22em;text-decoration-thickness:1px}
-.lnk:hover{text-decoration-thickness:2px}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:52px;padding:0 1.7rem;border-radius:999px;font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap;border:1px solid transparent;transition:background-color .25s,color .25s,border-color .25s}
+.btn--bone{background:var(--bone);color:var(--ink)}
+.btn--bone:hover{background:#fff}
+.btn--ghost{border-color:rgba(243,236,224,.55);color:var(--bone)}
+.btn--ghost:hover{background:var(--bone);color:var(--ink)}
+.btn--ink,.btn--oak{background:var(--ink);color:var(--bone)}
+.btn--ink:hover,.btn--oak:hover{background:#000}
+.btn--line{border-color:var(--ink);color:var(--ink)}
+.btn--line:hover{background:var(--ink);color:var(--bone)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
 
-/* ---- header ---- */
-.hdr{position:fixed;inset:0 0 auto;z-index:50;isolation:isolate;height:var(--hdr);color:var(--black);transition:background-color .25s,color .25s,box-shadow .25s}
-.hdr .wrap{height:100%;display:flex;align-items:center;gap:2rem}
-.hdr.is-scrolled{background:var(--black);color:var(--bone);box-shadow:0 1px 0 var(--line-b)}
-.hdr.is-scrolled .logo svg{color:var(--oak)}
-.ld .hdr::before{background-image:url(img/oak-grain.jpg)}
-.hdr::before{content:"";position:absolute;inset:0;z-index:-1;background:center/cover fixed;mix-blend-mode:multiply;opacity:0;pointer-events:none}
-.hdr.is-dark::before{opacity:0}
-.hdr.is-dark{background:var(--black);color:var(--bone);box-shadow:0 1px 0 var(--line-b)}
-.logo{display:flex;align-items:center;gap:.85rem;text-decoration:none;margin-right:auto}
-.logo svg{height:40px;width:auto;flex:none;color:var(--black);transition:color .25s}
-.hdr.is-dark .logo svg{color:var(--oak)}
+/* header */
+.hdr{position:fixed;inset:0 0 auto;z-index:50;height:var(--hdr);color:var(--bone);transition:background-color .3s,color .3s,box-shadow .3s}
+.hdr.is-scrolled{background:rgba(243,236,224,.84);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.bar{height:100%;display:flex;align-items:center;gap:clamp(1rem,2.4vw,2.2rem);padding:0 var(--pad)}
+.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;margin-right:auto}
+.logo svg{height:36px;width:auto;color:var(--oak);transition:color .3s}
+.hdr.is-scrolled .logo svg{color:var(--ink)}
 .logo .wm{display:flex;flex-direction:column;line-height:1;font-family:var(--serif)}
-.logo .wm b{font-weight:500;font-size:1.32rem;letter-spacing:.2em}
-.logo .wm small{font-weight:400;font-size:.58rem;letter-spacing:.34em;margin-top:.38rem}
-.nav{display:flex;gap:2rem;font-size:.95rem;font-weight:500}
-.nav a{text-decoration:none;padding:.4rem 0;background:linear-gradient(currentColor,currentColor) left 100%/0 1px no-repeat;transition:background-size .25s}
-.nav a:hover{background-size:100% 1px}
-.hdr-call{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;text-decoration:none;font-variant-numeric:tabular-nums}
-.hdr-call svg{width:17px;height:17px}
+.logo .wm b{font-weight:400;font-size:1.2rem;letter-spacing:.22em}
+.logo .wm small{font-size:.52rem;letter-spacing:.36em;margin-top:.36rem}
+.nav{display:flex;gap:clamp(1.2rem,2.2vw,2.2rem)}
+.nav a,.hdr-call,.hdr-est{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;text-decoration:none}
+.nav a{opacity:.78;transition:opacity .2s}.nav a:hover{opacity:1}
+.hdr-call{display:inline-flex;align-items:center;gap:.5rem;font-variant-numeric:tabular-nums}
+.hdr-call svg{width:15px;height:15px}
+.hdr-est{border:1px solid currentColor;border-radius:999px;padding:.7rem 1.1rem;opacity:.9}
+.hdr-est:hover{opacity:1}
 .burger{display:none;width:44px;height:44px;place-items:center}
-.burger span{display:block;width:22px;height:1.5px;background:currentColor;margin:3px 0;transition:transform .25s}
+.burger span{display:block;width:22px;height:1px;background:currentColor;margin:3.5px 0;transition:transform .25s}
 .burger[aria-expanded="true"] span:first-child{transform:translateY(4.5px) rotate(45deg)}
 .burger[aria-expanded="true"] span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
-.drawer{position:fixed;inset:0;z-index:45;background:var(--black);color:var(--bone);padding:calc(var(--hdr) + 32px) var(--gut) 32px;display:flex;flex-direction:column;gap:2rem;visibility:hidden;opacity:0;transition:opacity .25s,visibility 0s .25s}
+.drawer{position:fixed;inset:0;z-index:45;background:var(--bone);color:var(--ink);padding:calc(var(--hdr) + 28px) var(--pad) 32px;display:flex;flex-direction:column;gap:2rem;visibility:hidden;opacity:0;transition:opacity .25s,visibility 0s .25s}
 .drawer.is-open{visibility:visible;opacity:1;transition:opacity .25s}
 .drawer nav{display:flex;flex-direction:column}
-.drawer nav a{font-family:var(--serif);font-size:2.2rem;text-decoration:none;padding:.5rem 0;border-bottom:1px solid var(--line-b)}
-.drawer .btn{align-self:flex-start}
-.drawer p{color:var(--mute-d);font-size:.95rem}
-html.drawer-open .hdr{background:var(--black);color:var(--bone)}
-html.drawer-open .hdr .logo svg{color:var(--oak)}
+.drawer nav a{font-family:var(--serif);font-size:2.5rem;line-height:1.1;text-decoration:none;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.drawer p{color:var(--mute);font-size:.95rem}
+html.drawer-open .hdr{background:var(--bone);color:var(--ink);-webkit-backdrop-filter:none;backdrop-filter:none}
+html.drawer-open .hdr .logo svg{color:var(--ink)}
 
-/* ---- hero: "repaint" ----
-   One real kitchen photo. The cabinets repaint (navy, white, black, sage, gray) from frame 1;
-   visitors can pick a color. Colors are generated in the browser from the photo + a cabinet mask. */
-.hero{position:relative;height:100vh;height:100svh;min-height:660px;max-height:1100px;overflow:hidden;isolation:isolate;background:#20242c;color:var(--bone)}
+/* hero: the repaint (one photo + mask, colors generated in the browser) */
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;max-height:1100px;overflow:hidden;isolation:isolate;background:#1d2128;color:var(--bone)}
 .hero-media{position:absolute;inset:0;z-index:-2}
 .hero-media img,.hero-media canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 60%}
 .hero-media canvas{-webkit-mask-image:linear-gradient(90deg,#000 var(--a,0%),transparent var(--b,0%));mask-image:linear-gradient(90deg,#000 var(--a,0%),transparent var(--b,0%))}
 .hero-media canvas.is-on{-webkit-mask-image:none;mask-image:none}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(21,21,21,.86) 0%,rgba(21,21,21,.7) 28%,rgba(21,21,21,.18) 50%,rgba(21,21,21,0) 60%),
-             linear-gradient(180deg,rgba(21,21,21,.55) 0%,rgba(21,21,21,0) 18%),
-             linear-gradient(0deg,rgba(21,21,21,.8) 0%,rgba(21,21,21,0) 26%)}
-.hero-in{position:relative;height:100%;display:flex;align-items:center;padding-top:var(--hdr);padding-bottom:120px}
-.hero-copy{max-width:600px}
-.hero h1{font-size:clamp(3rem,5.4vw,5.6rem);line-height:.98;letter-spacing:-.02em;max-width:9.6ch}
-.hero-sub{font-size:clamp(1.05rem,1.3vw,1.22rem);margin-top:1.5rem;max-width:36ch;color:#E9E1D4}
-.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.2rem}
-.hero .btn--line{border-color:var(--bone);color:var(--bone)}
-.hero .btn--line:hover{background:var(--bone);color:var(--black)}
-.hero-info{margin-top:1.4rem;font-size:.92rem;font-variant-numeric:tabular-nums;color:#E9E1D4}
-.hero-foot{position:absolute;left:0;right:0;bottom:0}
-.hero-foot .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding-bottom:26px}
-.facts ul{display:grid;grid-template-columns:auto auto;column-gap:2.2rem;row-gap:.3rem;font-size:.9rem;font-weight:500;color:#E9E1D4}
-.facts li{display:flex;gap:.55rem;align-items:center}
-.facts li::before{content:"";width:6px;height:6px;border-radius:999px;background:var(--oak);flex:none}
-.paint{display:flex;flex-direction:column;align-items:flex-end;gap:.55rem;text-align:right}
-.paint-top{display:flex;align-items:baseline;gap:.7rem;font-size:.95rem}
-.paint-top b{font-family:var(--serif);font-weight:500;font-size:1.6rem;min-width:6.5ch;text-align:left}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(15,15,15,.8) 0%,rgba(15,15,15,.55) 30%,rgba(15,15,15,0) 58%),linear-gradient(180deg,rgba(15,15,15,.5) 0%,rgba(15,15,15,0) 16%),linear-gradient(0deg,rgba(15,15,15,.6) 0%,rgba(15,15,15,0) 30%)}
+.hero-in{position:absolute;left:var(--pad);bottom:clamp(48px,9vh,96px);max-width:640px}
+.hero .kick{color:rgba(243,236,224,.72)}
+.hero h1{font-size:clamp(3.4rem,7.2vw,7.6rem);line-height:.9;max-width:9.5ch}
+.hero-sub{font-size:1.05rem;margin-top:1.5rem;max-width:38ch;color:rgba(243,236,224,.82)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem}
+.hero-info{margin-top:1.3rem;font-size:.82rem;color:rgba(243,236,224,.66)}
+.paint{position:absolute;right:var(--pad);bottom:clamp(48px,9vh,96px);display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;text-align:right}
+.paint-top{display:flex;align-items:baseline;gap:.8rem;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(243,236,224,.72)}
+.paint-top b{font-family:var(--serif);font-weight:400;font-size:1.7rem;letter-spacing:-.01em;text-transform:none;color:var(--bone);min-width:6.4ch;text-align:left}
 .swatches{display:flex;gap:2px}
 .sw{width:44px;height:44px;display:grid;place-items:center;border-radius:999px}
-.sw i{width:30px;height:30px;border-radius:999px;background:var(--c);box-shadow:0 0 0 1px rgba(243,236,224,.55),0 2px 6px rgba(0,0,0,.35);transition:transform .2s,box-shadow .2s}
+.sw i{width:26px;height:26px;border-radius:999px;background:var(--c);box-shadow:0 0 0 1px rgba(243,236,224,.5);transition:transform .25s var(--ease),box-shadow .25s}
 .sw:hover i{transform:scale(1.1)}
-.sw[aria-pressed="true"] i{box-shadow:0 0 0 2px #151515,0 0 0 4px var(--bone)}
-.sw:focus-visible{outline:2px solid var(--bone);outline-offset:0}
-.paint small{font-size:.76rem;color:#C9BFB0}
-/* header sits on the photo until the page scrolls */
-.hdr:not(.is-scrolled):not(.is-dark){color:var(--bone)}
-.hdr:not(.is-scrolled):not(.is-dark) .logo svg{color:var(--oak)}
+.sw[aria-pressed="true"] i{transform:scale(1.12);box-shadow:0 0 0 3px rgba(21,21,21,.6),0 0 0 4px var(--bone)}
+.sw:focus-visible{outline:1.5px solid var(--bone);outline-offset:0}
+.paint small{font-size:.7rem;color:rgba(243,236,224,.55)}
 
-/* ---- sections ---- */
-.sec{padding:var(--sec) 0}
-.sec--dark{background:var(--black);color:var(--bone)}
-.sec--dark .lede{color:var(--mute-d)}
-.sec-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:3rem;align-items:end;margin-bottom:72px}
+/* sections */
+.sec{padding:var(--sec) var(--pad)}
+.sec>h2{margin-bottom:clamp(36px,5vw,64px)}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(2rem,6vw,7rem);align-items:start}
 
-/* two ways to work with us (oak band, right under the hero) */
-.ways{background:var(--oak-base);position:relative;isolation:isolate;padding:0}
-.ways::before{content:"";position:absolute;inset:0;z-index:-1;background:center/cover;mix-blend-mode:multiply;opacity:.12;pointer-events:none}
-.ld .ways::before{background-image:url(img/oak-grain.jpg)}
-.ways-grid{display:grid;grid-template-columns:1fr 1fr}
-.way{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.4rem;padding:46px 0;text-decoration:none;color:var(--black)}
-.way+.way{border-left:1px solid var(--line-k);padding-left:clamp(1.5rem,4vw,3.5rem)}
-.way:first-child{padding-right:clamp(1.5rem,4vw,3.5rem)}
-.way .ic{width:58px;height:58px;padding:14px;border-radius:999px;background:var(--black);color:var(--oak)}
-.way small{display:block;font-size:.95rem;font-weight:500}
-.way b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,2.5vw,2.3rem);line-height:1.08;margin-top:.15rem}
-.way .go{width:46px;height:46px;border-radius:999px;border:1.5px solid var(--black);display:grid;place-items:center;transition:background-color .2s,color .2s}
-.way .go svg{width:18px;height:18px}
-.way:hover .go{background:var(--black);color:var(--oak)}
-.way:focus-visible{outline:2px solid var(--black);outline-offset:-6px}
+/* two ways */
+.ways{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.way{display:grid;grid-template-columns:1fr auto;align-items:end;column-gap:1.5rem;padding:clamp(28px,4vw,48px) var(--pad);text-decoration:none}
+.way+.way{border-left:1px solid var(--line)}
+.way small{grid-column:1/-1;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin-bottom:.7rem}
+.way b{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,2.6vw,2.5rem);line-height:1.02;letter-spacing:-.015em}
+.way svg{width:26px;height:26px;transition:transform .3s var(--ease)}
+.way:hover svg{transform:translateX(6px)}
+.way:focus-visible{outline-offset:-8px}
 
-/* not a call center: 3 promises above the steps */
-.promise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;margin-bottom:88px;padding-bottom:64px;border-bottom:1px solid var(--line-b)}
-.promise li{display:flex;gap:1rem;align-items:center;font-family:var(--serif);font-size:clamp(1.3rem,1.8vw,1.6rem);line-height:1.2}
-.promise .ic{width:52px;height:52px;padding:12px;border-radius:999px;background:var(--oak);color:var(--black);flex:none}
+/* looks gallery */
+.looks-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem 3rem}
+.ctrl{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.tabs{display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px}
+.tabs button{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:var(--mute);padding:.7rem 1rem;border-radius:999px;min-height:40px;transition:background-color .25s,color .25s}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bone)}
+.dots{display:flex;gap:4px;align-items:center}
+.dot{width:36px;height:36px;display:grid;place-items:center;border-radius:999px;position:relative}
+.dot::before{content:"";width:20px;height:20px;border-radius:999px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(21,21,21,.22);transition:transform .25s var(--ease),box-shadow .25s}
+.dot[aria-pressed="true"]::before{transform:scale(1.1);box-shadow:inset 0 0 0 1px rgba(21,21,21,.22),0 0 0 3px var(--bone),0 0 0 4px var(--ink)}
+.dot--all{width:auto;padding:0 .8rem;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);height:28px;margin-right:4px}
+.dot--all::before{display:none}
+.dot--all[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.meta{display:flex;justify-content:space-between;gap:1rem;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border-top:1px solid var(--line);padding:14px 0;margin:34px 0 22px}
+.looks-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(26px,3vw,40px) clamp(10px,1.4vw,20px)}
+.look[hidden]{display:none}
+.js .look{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--k,0) * 70ms)}
+.js .looks-grid.in .look{opacity:1;transform:none}
+.look-ph{position:relative;aspect-ratio:3/4;border-radius:4px;overflow:hidden;background:#E4DACB}
+.look-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.03);transition:transform 1.1s var(--ease)}
+.look:hover .look-ph img{transform:scale(1.08)}
+.save{position:absolute;right:10px;bottom:10px;width:44px;height:44px;border-radius:999px;background:var(--bone);color:var(--ink);display:grid;place-items:center;transition:background-color .25s,color .25s,transform .2s}
+.save svg{width:18px;height:18px;transition:transform .35s var(--ease)}
+.save:active{transform:scale(.9)}
+.save[aria-pressed="true"]{background:var(--ink);color:var(--bone)}
+.save[aria-pressed="true"] svg{transform:rotate(135deg)}
+.look-n{font-size:.95rem;font-weight:400;margin-top:.85rem;line-height:1.3}
+.look-d{display:flex;align-items:center;gap:.45rem;font-size:.78rem;color:var(--mute);margin-top:.2rem}
+.look-d i{width:9px;height:9px;border-radius:999px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(21,21,21,.25)}
+.empty{padding:48px 0;text-align:center;color:var(--mute)}
+.empty button{text-decoration:underline;text-underline-offset:.2em}
+#looks .fine{margin-top:34px}
 
-/* free color preview (oak action band) */
-.preview{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:center}
-.ba{position:relative;margin:0}
-.ba img{width:100%;height:auto;border-radius:4px;display:block}
-.ba::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:var(--bone)}
-.ba span{position:absolute;top:14px;padding:.3rem .8rem;border-radius:999px;background:rgba(21,21,21,.78);color:var(--bone);font-size:.82rem;font-weight:600}
-.ba .b1{left:14px}.ba .b2{right:14px}
-.preview h2{margin-bottom:.9rem}
-.preview .lede{color:var(--mute)}
-.preview .row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
-.preview small{display:block;margin-top:1rem;color:var(--mute);font-size:.82rem}
+/* our crew: the one full-bleed photo moment */
+.crew{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:0 clamp(2rem,6vw,7rem);padding:0 var(--pad) var(--sec)}
+.crew-ph{grid-row:1/3}
+.crew-ph img{width:100%;height:min(84vh,800px);object-fit:cover;border-radius:4px}
+.crew-cap h2{font-size:clamp(3rem,6.2vw,6.4rem);max-width:10ch}
+.crew-p{font-size:1.15rem;color:var(--mute);max-width:32ch;margin-top:1.6rem}
 
-/* philly prices (public data, labeled) */
-.costs{margin-top:34px;border-top:1px solid var(--line-k);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.costs div{padding:1.3rem 1.4rem 1.2rem 0}
-.costs div+div{padding-left:1.4rem;border-left:1px solid var(--line-k)}
-.costs dt{font-size:.92rem;color:var(--mute)}
-.costs dd{font-family:var(--serif);font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.15;margin-top:.2rem;font-variant-numeric:lining-nums}
-.costs dd small{font-family:var(--sans);font-size:.85rem;color:var(--mute);margin-left:.25rem}
-.costs-note{font-size:.82rem;color:var(--mute);margin-top:.8rem;max-width:80ch}
-.costs-note a{color:inherit}
+/* what we install: a quiet list with thumbnails */
+.svc{border-top:1px solid var(--line)}
+.svc a{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(1rem,2.4vw,2.4rem);padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.svc img{width:clamp(72px,7vw,104px);aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.svc b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.4vw,3.2rem);line-height:1;letter-spacing:-.015em}
+.svc small{display:block;font-size:.85rem;color:var(--mute);margin-top:.45rem}
+.svc svg{width:26px;height:26px;transition:transform .3s var(--ease)}
+.svc a:hover svg{transform:translateX(6px)}
 
-/* first-customer offer */
-.offer{background:var(--oak-base);padding:56px 0}
-.offer .wrap{display:flex;align-items:center;justify-content:space-between;gap:2rem}
-.offer-l{display:flex;gap:1.3rem;align-items:center}
-.offer .ic{width:58px;height:58px;padding:14px;border-radius:999px;background:var(--black);color:var(--oak);flex:none}
-.offer b{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.08}
-.offer span{display:block;margin-top:.3rem}
+/* dark card (color preview, offer) */
+.sec--card{padding-top:0}
+.card{background:var(--ink);color:var(--bone);border-radius:4px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:center;padding:clamp(24px,4vw,56px)}
+.card .kick{color:var(--mute-d)}
+.card h2{font-size:clamp(2.8rem,5vw,5rem)}
+.card-copy>p{color:var(--mute-d);margin-top:1.1rem;max-width:36ch}
+.card .btn{margin-top:1.8rem}
+.card small{display:block;margin-top:1rem;font-size:.75rem;color:var(--mute-d)}
+.ba{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;--x:50%;background:#2a2722}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .ba-after{clip-path:inset(0 0 0 var(--x))}
+.ba-tag{position:absolute;top:12px;z-index:1;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;padding:.4rem .7rem;border-radius:999px;background:rgba(21,21,21,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--bone)}
+.ba-tag--l{left:12px}.ba-tag--r{right:12px}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--x);width:1.5px;margin-left:-.75px;background:var(--bone);pointer-events:none;z-index:1}
+.ba-knob{position:absolute;top:50%;left:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:999px;background:var(--bone);color:var(--ink);display:grid;place-items:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.ba-knob svg{width:20px;height:20px}
+.ba input{position:absolute;inset:0;z-index:2;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+.ba:has(input:focus-visible) .ba-knob{outline:1.5px solid var(--oak);outline-offset:3px}
+.card--offer{grid-template-columns:minmax(0,.7fr) minmax(0,1fr)}
+.offer-ph img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
 
-/* work: photo tiles (name on the photo, nothing to read) */
-.tiles{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:repeat(2,minmax(260px,32vh));gap:14px}
-.tile{position:relative;overflow:hidden;border-radius:4px;color:var(--bone);text-decoration:none;background:#2a2722;isolation:isolate}
-.tile:first-child{grid-row:span 2}
-.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,0,0,1);z-index:-2}
-.tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(21,21,21,.78) 0%,rgba(21,21,21,.15) 46%,rgba(21,21,21,0) 70%)}
-.tile:hover img{transform:scale(1.045)}
-.tile .cap{position:absolute;left:20px;right:20px;bottom:18px;display:flex;flex-direction:column;gap:6px}
-.tile b{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2.2vw,2.15rem);line-height:1.05}
-.tile .cap span{font-size:.9rem;color:#E9E1D4}
-.tile:first-child b{font-size:clamp(2rem,3vw,2.9rem)}
-.tile:focus-visible{outline:3px solid var(--black);outline-offset:3px}
-.note{margin-top:14px;font-size:.82rem;color:var(--mute)}
-.sec--tight{padding-top:0}
-/* light sections that follow each other share one gap instead of two */
-.styles{margin-top:0}
-.styles-head{display:flex;justify-content:space-between;align-items:baseline;gap:2rem;margin-bottom:22px}
-.styles-head .note{margin:0}
-.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(var(--gut),(100vw - 1320px)/2 + var(--gut));padding:0 max(var(--gut),(100vw - 1320px)/2 + var(--gut)) 12px;scrollbar-width:thin}
-.rail figure{flex:none;width:clamp(230px,22vw,300px);scroll-snap-align:start}
-.rail img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:#E2D7C5}
-.rail figcaption{margin-top:.6rem;font-weight:600;font-size:.98rem}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.steps li{border:1px solid var(--line);border-radius:4px;padding:24px 22px 26px;display:flex;flex-direction:column;gap:2.4rem;min-height:220px}
+.steps b{font-family:var(--serif);font-weight:400;font-size:3.4rem;line-height:.8}
+.steps h3{font-weight:400;font-size:1.05rem}
+.steps p{font-size:.88rem;color:var(--mute);margin-top:.3rem}
 
-/* budget: 3 photo cards */
-.tiers{margin-top:0}
-.tiers-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
-.tier img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px;background:#E2D7C5}
-.tier-top{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem}
-.tier h3{font-family:var(--serif);font-weight:500;font-size:1.6rem}
-.tier .cost{font-family:var(--serif);font-size:1.6rem;letter-spacing:.06em}
-.tier .cost i{font-style:normal;opacity:.22}
-.tier p{color:var(--mute);margin-top:.15rem}
+/* budget */
+.tiers{border-top:1px solid var(--line)}
+.tiers li{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:1.2rem;padding:20px 0;border-bottom:1px solid var(--line)}
+.tiers b{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,2.6vw,2.4rem);line-height:1}
+.tiers span{font-size:.85rem;color:var(--mute)}
+.tiers i{font-style:normal;font-family:var(--serif);font-size:1.5rem;letter-spacing:.08em}
+.tiers em{font-style:normal;opacity:.2}
+.prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;margin:36px 0 16px}
+.prices dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);line-height:1.5}
+.prices dd{font-family:var(--serif);font-size:clamp(1.6rem,2.4vw,2.2rem);line-height:1.05;margin-top:.5rem;font-variant-numeric:lining-nums;letter-spacing:-.01em}
+.prices dd small{display:block;font-family:var(--sans);font-size:.78rem;color:var(--mute);margin-top:.35rem;letter-spacing:0}
 
-/* process: 4 icons on a line */
-.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;position:relative;counter-reset:s}
-.flow::before{content:"";position:absolute;left:32px;right:12%;top:32px;height:1px;background:var(--line-b)}
-.flow li{position:relative}
-.flow .dot{width:64px;height:64px;border-radius:999px;background:var(--black);border:1px solid rgba(210,180,138,.55);display:grid;place-items:center;color:var(--oak);position:relative}
-.flow .dot .ic{width:28px;height:28px}
-.flow .dot::after{counter-increment:s;content:counter(s);position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:999px;background:var(--oak);color:var(--black);font-size:.78rem;font-weight:700;display:grid;place-items:center}
-.flow h3{margin-top:1.3rem;font-size:clamp(1.35rem,1.8vw,1.65rem)}
-.flow p{color:var(--mute-d);margin-top:.35rem;font-size:.98rem}
-
-/* area + trust */
-.where{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:center}
+/* area */
+.split--area{align-items:center}
 .area-map{width:100%;height:auto;display:block;border-radius:4px}
-.where h2{margin-bottom:.8rem}
-.where .lede{color:var(--mute-d)}
-.trust{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem 1.4rem;margin:2.4rem 0 2.2rem}
-.trust li{display:flex;gap:.8rem;align-items:center;font-weight:500;line-height:1.3}
-.trust .ic{width:40px;height:40px;padding:9px;border-radius:999px;background:var(--oak);color:var(--black);flex:none}
-.where small{display:block;margin-top:1.4rem;color:var(--mute-d);font-size:.88rem}
+.places{font-family:var(--serif);font-size:clamp(2.2rem,4.4vw,4.2rem);line-height:1.06;letter-spacing:-.015em;margin:1.4rem 0 1.6rem;color:var(--oak-deep)}
 
-/* faq (follows About on the same bone background, so it shares the spacing instead of doubling it) */
-.faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:clamp(2rem,6vw,6rem);align-items:start}
-.faq-list{border-top:1px solid var(--line-k)}
-.faq-list details{border-bottom:1px solid var(--line-k)}
-.faq-list summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1.4rem;padding:1.3rem 0;font-family:var(--serif);font-size:clamp(1.25rem,1.7vw,1.5rem);line-height:1.25}
+/* faq */
+#faq h2{font-size:clamp(2.8rem,5vw,5rem)}
+.faq-list{border-top:1px solid var(--line)}
+.faq-list details{border-bottom:1px solid var(--line)}
+.faq-list summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1.4rem;padding:1.25rem 0;font-size:1.05rem;font-weight:400}
 .faq-list summary::-webkit-details-marker{display:none}
-.faq-list summary::after{content:"";width:14px;height:14px;flex:none;background:linear-gradient(currentColor,currentColor) center/14px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 14px no-repeat;transition:transform .25s}
+.faq-list summary::after{content:"";width:13px;height:13px;flex:none;background:linear-gradient(currentColor,currentColor) center/13px 1px no-repeat,linear-gradient(currentColor,currentColor) center/1px 13px no-repeat;transition:transform .3s var(--ease)}
 .faq-list details[open] summary::after{transform:rotate(45deg)}
-.faq-list details p{padding:0 0 1.4rem;max-width:62ch;color:var(--mute)}
-.faq aside p{color:var(--mute);margin-top:1.2rem;max-width:34ch}
-.faq aside .btn{margin-top:1.6rem}
+.faq-list details p{padding:0 0 1.3rem;max-width:60ch;color:var(--mute)}
 
-/* phone call bar (shows after the hero) */
-.callbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;gap:8px;padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom));background:rgba(21,21,21,.96);border-top:1px solid var(--line-b);transform:translateY(110%);transition:transform .3s cubic-bezier(.2,0,0,1)}
-.callbar.is-on{transform:none}
-.callbar .btn{flex:1;min-height:50px;padding:0 1rem}
-.callbar .btn--line{border-color:var(--bone);color:var(--bone)}
-
-/* process (the one patterned section) */
-.sec--process{position:relative;isolation:isolate;overflow:hidden}
-.sec--process::before{content:"";position:absolute;inset:0;z-index:-1;background:url(brand/pattern-oak.svg) 0 0/170px 340px repeat;opacity:.04;pointer-events:none}
-
-/* contact + wizard (sits on the section, no card) */
-.contact{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(3rem,7vw,8rem)}
-.contact h2{margin-bottom:1.4rem}
-.ci{margin-top:2.6rem;border-top:1px solid var(--line-b)}
-.ci div{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line-b)}
-.ci dt{color:var(--mute-d);font-size:.92rem}
-.ci dd{min-width:0;overflow-wrap:anywhere}
-.ci a{text-decoration:none;border-bottom:1px solid var(--line-b)}
+/* contact + wizard (light) */
+#contact{border-top:1px solid var(--line)}
+#contact h2{font-size:clamp(2.8rem,5vw,5rem)}
+.ci{margin-top:2.4rem;border-top:1px solid var(--line)}
+.ci div{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:1rem;padding:.95rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.ci dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding-top:.2rem}
+.ci a{text-decoration:none;border-bottom:1px solid var(--line)}
 .ci a:hover{border-color:currentColor}
-.wiz-top{display:flex;justify-content:space-between;font-size:.92rem;color:var(--mute-d);padding-bottom:1rem}
-.prog{height:2px;background:var(--line-b);margin-bottom:2.4rem}
-.prog-bar{height:100%;width:33.33%;background:var(--oak);transition:width .45s cubic-bezier(.2,0,0,1)}
-.wiz-q{font-family:var(--serif);font-size:clamp(1.8rem,2.6vw,2.4rem);font-weight:500;line-height:1.1;margin-bottom:.6rem}
-.wiz-hint{color:var(--mute-d);margin-bottom:1.8rem}
-.taps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.tap{position:relative;text-align:left;padding:1.2rem 1.1rem 1.25rem;border:1px solid var(--line-b);display:flex;flex-direction:column;gap:.3rem;transition:border-color .2s,background-color .2s}
-.tap:hover{border-color:rgba(243,236,224,.45)}
-.tap b{font-weight:600}
-.tap small{color:var(--mute-d);font-size:.86rem;line-height:1.4}
-.tap.is-on{border-color:var(--oak);background:rgba(210,180,138,.08)}
-.tap .tick{position:absolute;top:.9rem;right:.9rem;width:20px;height:20px;border-radius:999px;background:var(--oak);color:var(--black);display:grid;place-items:center;opacity:0;transition:opacity .2s}
-.tap .tick svg{width:12px;height:12px}
+.wiz{border:1px solid var(--line);border-radius:4px;padding:clamp(22px,3vw,40px)}
+.wiz-top{display:flex;justify-content:space-between;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding-bottom:1rem}
+.prog{height:1px;background:var(--line);margin-bottom:2.2rem}
+.prog-bar{height:100%;width:33.33%;background:var(--ink);transition:width .45s var(--ease)}
+.wiz-q{font-family:var(--serif);font-size:clamp(2rem,3vw,2.8rem);font-weight:400;line-height:1;letter-spacing:-.015em;margin-bottom:.7rem}
+.wiz-hint{color:var(--mute);margin-bottom:1.8rem;font-size:.95rem}
+.taps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tap{position:relative;text-align:left;padding:1.1rem 1rem 1.15rem;border:1px solid var(--line);border-radius:4px;display:flex;flex-direction:column;gap:.25rem;transition:border-color .2s,background-color .2s}
+.tap:hover{border-color:rgba(21,21,21,.4)}
+.tap b{font-weight:500;font-size:.95rem}
+.tap small{color:var(--mute);font-size:.8rem;line-height:1.4}
+.tap.is-on{border-color:var(--ink);background:rgba(21,21,21,.035)}
+.tap .tick{position:absolute;top:.8rem;right:.8rem;width:20px;height:20px;border-radius:999px;background:var(--ink);color:var(--bone);display:grid;place-items:center;opacity:0;transition:opacity .2s}
+.tap .tick svg{width:11px;height:11px}
 .tap.is-on .tick{opacity:1}
-.tap .ico{width:24px;height:24px;margin-bottom:.5rem;color:var(--oak)}
-.sub-q{margin:2rem 0 .9rem;font-weight:600}
-.pills{display:flex;flex-wrap:wrap;gap:.6rem}
-.pill{min-height:44px;padding:0 1.15rem;border-radius:999px;border:1px solid var(--line-b);font-size:.95rem}
-.pill:hover{border-color:rgba(243,236,224,.45)}
-.pill.is-on{background:var(--oak);border-color:var(--oak);color:var(--black);font-weight:600}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem 1.6rem}
+.tap .ico{width:22px;height:22px;margin-bottom:.5rem;color:var(--oak-deep)}
+.sub-q{margin:1.8rem 0 .8rem;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:400}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.pill{min-height:44px;padding:0 1.1rem;border-radius:999px;border:1px solid var(--line);font-size:.9rem;transition:background-color .2s,border-color .2s,color .2s}
+.pill:hover{border-color:rgba(21,21,21,.4)}
+.pill.is-on{background:var(--ink);border-color:var(--ink);color:var(--bone)}
+.mini{display:flex;align-items:center;gap:8px;margin-bottom:.4rem;flex-wrap:wrap}
+.mini img{width:48px;height:60px;object-fit:cover;border-radius:4px}
+.mini a{margin-left:.4rem;font-size:.85rem;text-underline-offset:.2em}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem 1.6rem}
 .fields .full{grid-column:1/-1}
-.field label{display:block;font-size:.88rem;color:var(--mute-d);margin-bottom:.35rem}
-.field input,.field textarea{width:100%;padding:.7rem 0;border:0;border-bottom:1px solid rgba(243,236,224,.35);background:transparent;color:var(--bone);font:inherit;font-size:16px;border-radius:0}
-.field input::placeholder,.field textarea::placeholder{color:#8F877C}
-.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--oak);box-shadow:0 1px 0 var(--oak)}
-.field textarea{resize:vertical;min-height:84px}
-.wiz-nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--line-b)}
+.field label{display:block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:.3rem}
+.field input,.field textarea{width:100%;padding:.7rem 0;border:0;border-bottom:1px solid rgba(21,21,21,.3);background:transparent;color:var(--ink);font:inherit;font-size:16px;font-weight:400;border-radius:0}
+.field input::placeholder,.field textarea::placeholder{color:#A39A8E}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--ink);box-shadow:0 1px 0 var(--ink)}
+.field textarea{resize:vertical;min-height:80px}
+.wiz-nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:2.2rem;padding-top:1.5rem;border-top:1px solid var(--line)}
 .wiz-nav[hidden]{display:none}
-.back{display:inline-flex;align-items:center;gap:.4rem;color:var(--mute-d);font-weight:500;min-height:44px}
+.back{display:inline-flex;align-items:center;gap:.4rem;color:var(--mute);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;min-height:44px}
 .back[hidden]{visibility:hidden;display:inline-flex}
-.back svg{width:16px;height:16px}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.wiz-error{margin-top:1.2rem;color:#F0B9A8}
-.wiz-error a{color:inherit;font-weight:600}
-.done .mk{width:52px;height:52px;border-radius:999px;background:var(--oak);display:grid;place-items:center;margin-bottom:1.4rem}
-.done .mk svg{width:24px;height:24px}
-.summary{margin-top:1.6rem;border-top:1px solid var(--line-b)}
-.summary div{display:grid;grid-template-columns:7rem 1fr;padding:.7rem 0;border-bottom:1px solid var(--line-b);font-size:.95rem}
-.summary dt{color:var(--mute-d)}
+.back svg{width:15px;height:15px}
+.wiz-error{margin-top:1.2rem;color:#9B2C1F}
+.wiz-error a{color:inherit;font-weight:500}
+.done .mk{width:52px;height:52px;border-radius:999px;background:var(--ink);display:grid;place-items:center;margin-bottom:1.4rem}
+.done .mk svg{width:22px;height:22px}
+.summary{margin-top:1.6rem;border-top:1px solid var(--line)}
+.summary div{display:grid;grid-template-columns:7rem 1fr;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.summary dt{color:var(--mute)}
 
 /* footer */
-.ftr{background:var(--black);color:var(--bone);padding:88px 0 40px;border-top:1px solid var(--line-b)}
+.ftr{background:var(--ink);color:var(--bone);padding:clamp(72px,10vw,120px) var(--pad) 36px}
+.ftr .wrap{padding:0}
 .ftr-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:2.4rem}
-.ftr .logo svg{height:64px;color:var(--oak)}
-.ftr-grid>div>p{color:var(--mute-d);margin-top:1.3rem;max-width:32ch;font-size:.95rem}
-.ftr h4{font-weight:600;font-size:.95rem;margin-bottom:1rem}
-.ftr li{padding:.25rem 0;color:var(--mute-d);font-size:.95rem}
-.ftr li a{text-decoration:none}
-.ftr li a:hover{color:var(--bone)}
-.ftr-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:72px;padding-top:1.6rem;border-top:1px solid var(--line-b);color:var(--mute-d);font-size:.86rem}
+.ftr .logo svg{height:60px;color:var(--oak)}
+.ftr-grid>div>p{color:var(--mute-d);margin-top:1.3rem;max-width:32ch;font-size:.9rem}
+.ftr h4{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:var(--mute-d);margin-bottom:1rem}
+.ftr li{padding:.25rem 0;font-size:.92rem}
+.ftr li a{text-decoration:none;opacity:.85}
+.ftr li a:hover{opacity:1}
+.ftr-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:64px;padding-top:1.4rem;border-top:1px solid var(--line-d);color:var(--mute-d);font-size:.78rem}
 
-/* ---- responsive ---- */
+/* phone call bar */
+.callbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;gap:8px;padding:10px var(--pad) calc(10px + env(safe-area-inset-bottom));background:rgba(243,236,224,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s var(--ease)}
+.callbar.is-on{transform:none}
+.callbar .btn{flex:1;min-height:48px;padding:0 1rem}
+
+/* responsive */
 @media (max-width:1100px){
-  .nav,.hdr-call .t{display:none}
+  .nav{display:none}
   .burger{display:grid}
-  .hdr .wrap{gap:1rem}
-  .ftr-grid{grid-template-columns:1fr 1fr}
+  .looks-head{grid-template-columns:1fr}
+  .ctrl{align-items:flex-start}
+  .looks-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .steps{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
-  .sec-head,.contact,.faq,.where,.preview{grid-template-columns:1fr}
-  .promise{grid-template-columns:1fr;gap:1.1rem;margin-bottom:56px;padding-bottom:44px}
-  .costs{grid-template-columns:1fr}
-  .costs div+div{padding-left:0;border-left:0;border-top:1px solid var(--line-k)}
-  .offer .wrap{flex-direction:column;align-items:flex-start}
-  .tiles{grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:220px}
-  .tile:first-child{grid-column:1/-1;grid-row:auto}
-  .flow{grid-template-columns:1fr 1fr;row-gap:2.6rem}
-  .flow::before{display:none}
-  .sec-head{gap:1.4rem;margin-bottom:52px}
-  .gal{column-gap:16px;row-gap:40px}
-  .gal .g-lead,.gal .g-side,.gal .g-wide{grid-column:1/-1;grid-row:auto}
-  .gal .g-lead img{height:auto;min-height:0;aspect-ratio:4/5}
-  .gal figure{grid-column:span 6}
-  .taps{grid-template-columns:1fr}
+  .split,.card,.card--offer,.crew{grid-template-columns:1fr}
+  .crew-ph{grid-row:auto}
+  .prices{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
+  .prices div{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:1rem;padding:16px 0;border-bottom:1px solid var(--line)}
+  .prices dd{margin-top:0;text-align:right}
+  .split--contact{gap:3rem}
 }
 @media (max-width:767px){
-  :root{--hdr:64px;--sec:88px}
-  .logo svg{height:40px}
-  .logo .wm b{font-size:1.15rem}
-  .hero{height:auto;min-height:0;max-height:none;background:var(--black)}
-  .hero-media{position:relative;inset:auto;height:54vh;height:54svh}
+  :root{--hdr:60px;--sec:76px}
+  body{padding-bottom:72px}
+  .hdr-call .t,.hdr-est{display:none}
+  .hdr-call{width:44px;height:44px;justify-content:center}
+  .hdr-call svg{width:18px;height:18px}
+  .logo svg{height:32px}
+  .logo .wm b{font-size:1.05rem}
+  .hero{height:auto;min-height:0;max-height:none;background:var(--ink)}
+  .hero-media{position:relative;inset:auto;height:58svh;min-height:380px}
   .hero-media img,.hero-media canvas{object-position:84% 50%}
-  .hero::after{background:linear-gradient(180deg,rgba(21,21,21,.6) 0%,rgba(21,21,21,0) 22%,rgba(21,21,21,0) 60%,rgba(21,21,21,.85) 100%);height:54svh;bottom:auto}
-  .hero-in{display:block;height:auto;padding-top:28px;padding-bottom:0}
-  .hero h1{font-size:clamp(2.6rem,11.5vw,3.4rem);max-width:none}
-  .hero-sub{margin-top:1rem}
+  .hero::after{height:max(58svh,380px);bottom:auto;background:linear-gradient(180deg,rgba(15,15,15,.55) 0%,rgba(15,15,15,0) 24%,rgba(15,15,15,0) 58%,rgba(15,15,15,.82) 100%)}
+  .hero-in{position:static;padding:30px var(--pad) 44px}
+  .hero h1{font-size:clamp(2.7rem,11.6vw,3.6rem);max-width:none}
+  .hero-sub{margin-top:1.1rem;font-size:1rem}
   .hero-actions{flex-direction:column;margin-top:1.7rem}
   .hero-actions .btn{width:100%}
-  .hero-foot{position:static}
-  .hero-foot .wrap{display:block;padding-bottom:40px}
-  .paint{position:absolute;left:var(--gut);right:var(--gut);top:calc(54svh - 12px);transform:translateY(-100%);align-items:flex-start;text-align:left}
-  .paint-top b{font-size:1.4rem}
+  .paint{left:var(--pad);right:var(--pad);bottom:auto;top:calc(max(58svh,380px) - 14px);transform:translateY(-100%);align-items:flex-start;text-align:left}
   .paint small{display:none}
-  .hero-in::before{content:"Example photo, colors changed digitally.";display:block;font-size:.76rem;color:#A79D8F;margin:-12px 0 16px;white-space:nowrap}
-  .facts{margin-top:34px;border-top:1px solid var(--line-b);padding-top:18px}
-  .facts ul{grid-template-columns:1fr}
+  .paint-top b{font-size:1.45rem}
+  .ways{grid-template-columns:1fr}
+  .way+.way{border-left:0;border-top:1px solid var(--line)}
+  .way b{font-size:1.75rem}
+  h2{font-size:clamp(2.9rem,13vw,4rem)}
+  .tabs{width:100%}
+  .tabs button{flex:1;padding:.7rem .4rem}
+  .dots{flex-wrap:wrap}
+  .looks-grid{grid-template-columns:1fr 1fr;gap:26px 10px}
+  .look-n{font-size:.88rem}
+  .look-d{font-size:.74rem}
+  .save{width:40px;height:40px;right:8px;bottom:8px}
+  .meta span+span{display:none}
+  .crew{padding:0 0 var(--sec);gap:0}
+  .crew-ph{position:relative}
+  .crew-ph img{border-radius:0;height:auto;aspect-ratio:4/5}
+  .crew-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,15,15,.85) 0%,rgba(15,15,15,.3) 40%,rgba(15,15,15,0) 62%)}
+  .crew-cap{position:relative;margin-top:-190px;padding:0 var(--pad);z-index:1;color:var(--bone)}
+  .crew-cap h2{font-size:clamp(2.6rem,11.5vw,3.4rem)}
+  .crew-p{padding:0 var(--pad);margin-top:1.8rem;font-size:1.05rem}
+  .svc a{gap:1rem;padding:12px 0}
+  .svc b{font-size:1.65rem}
+  .sec--card{padding-left:12px;padding-right:12px}
+  .card{padding:28px 20px 22px;gap:1.8rem}
+  .card .btn{width:100%}
+  .card--offer .offer-ph{order:-1}
+  .offer-ph img{aspect-ratio:16/10}
+  .steps{grid-template-columns:1fr;gap:8px}
+  .steps li{flex-direction:row;align-items:center;gap:1.2rem;min-height:0;padding:18px}
+  .steps b{font-size:2.6rem;width:1.4ch}
+  .tiers li{grid-template-columns:1fr auto;row-gap:.2rem}
+  .tiers span{grid-column:1;grid-row:2}
+  .tiers i{grid-row:1/3;grid-column:2;align-self:center}
+  .taps{grid-template-columns:1fr}
   .fields{grid-template-columns:1fr}
-  .ftr-grid{grid-template-columns:1fr}
-  .ci div{grid-template-columns:6.2rem minmax(0,1fr)}
-  .tiles{grid-template-rows:250px;grid-auto-rows:170px;gap:10px}
-  .tile .cap{left:14px;right:14px;bottom:12px}
-  .tile b{font-size:1.3rem}
-  .tile .cap span{display:none}
-  .tile:first-child .cap span{display:block;font-size:.85rem}
-  .tile:first-child b{font-size:1.9rem}
-  .rail figure{width:62vw}
-  .tiers-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:22px calc(var(--gut) * -1) 0;padding:0 var(--gut) 8px;scroll-padding-inline:var(--gut);gap:12px}
-  .tier{flex:none;width:76vw;scroll-snap-align:start}
-  .flow{grid-template-columns:1fr;row-gap:1.8rem}
-  .flow li{display:grid;grid-template-columns:64px 1fr;column-gap:1.1rem;row-gap:.2rem}
-  .flow .dot{grid-row:span 2}
-  .flow h3{margin-top:0;align-self:end}
-  .flow p{grid-column:2;margin-top:0;align-self:start}
-  .hide-sm{display:none}
-  .trust{grid-template-columns:1fr;gap:1rem}
-  .ways-grid{grid-template-columns:1fr}
-  .way{padding:26px 0;gap:1rem}
-  .way+.way{border-left:0;border-top:1px solid var(--line-k);padding-left:0}
-  .way:first-child{padding-right:0}
-  .way .ic{width:48px;height:48px;padding:11px}
-  .way .go{width:40px;height:40px}
-  .offer .ic{width:48px;height:48px;padding:11px}
-  .callbar{display:flex}
-  body{padding-bottom:76px}
-}
-@media (max-width:767px) and (max-height:720px){
-  .hero-media{height:40svh}
-  .hero::after{height:40svh}
-  .paint{top:calc(40svh - 12px)}
-  .hero h1{font-size:clamp(2.3rem,10.5vw,3rem)}
-}
-
-/* ---- v4: photo-led, VYRA-style browsing ---- */
-:root{--gx:max(var(--gut),calc((100vw - 1320px) / 2 + var(--gut)))}
-.sec--top{padding-bottom:calc(var(--sec) / 2)}
-.sec--flush{padding-top:calc(var(--sec) / 2)}
-.head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:28px}
-.head .note{margin:0}
-.swipe{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gx);padding:0 var(--gx) 6px;scrollbar-width:none;list-style:none}
-.swipe::-webkit-scrollbar{display:none}
-.card{position:relative;flex:none;width:clamp(240px,22vw,300px);aspect-ratio:4/5;border-radius:4px;overflow:hidden;scroll-snap-align:start;color:var(--bone);text-decoration:none;isolation:isolate;background:#2a2722}
-.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .6s cubic-bezier(.2,0,0,1)}
-.card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(21,21,21,.75) 0%,rgba(21,21,21,.1) 42%,rgba(21,21,21,0) 60%)}
-.card:hover img{transform:scale(1.04)}
-.card:focus-visible{outline:3px solid var(--black);outline-offset:3px}
-.card .cap{position:absolute;left:18px;right:18px;bottom:16px;display:flex;flex-direction:column;gap:4px}
-.card b{font-family:var(--serif);font-weight:500;font-size:1.75rem;line-height:1.05}
-.card .cap span{font-size:.9rem;color:#E9E1D4}
-@media (min-width:1024px){.svc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}.svc .card{width:auto}.svc .card b{font-size:1.5rem}}
-
-.chips{display:flex;gap:8px;overflow-x:auto;margin:28px calc(var(--gut) * -1) 24px;padding:0 var(--gut) 2px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:0 1.15rem;border-radius:999px;border:1px solid var(--line-k);font-size:.95rem;font-weight:500;transition:background-color .2s,color .2s}
-.chip i{width:12px;height:12px;border-radius:999px;background:var(--c);box-shadow:0 0 0 1px rgba(21,21,21,.25)}
-.chip:hover{border-color:var(--black)}
-.chip[aria-pressed="true"]{background:var(--black);color:var(--bone);border-color:var(--black)}
-.looks-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 14px}
-.look[hidden]{display:none}
-.look figure{position:relative;margin:0}
-.look img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:#E2D7C5}
-.look-n{display:block;margin-top:.6rem;font-weight:600;font-size:.98rem;line-height:1.3}
-.save{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:999px;background:rgba(243,236,224,.94);color:var(--black);display:grid;place-items:center;transition:transform .15s,background-color .2s,color .2s}
-.save svg{width:20px;height:20px}
-.save:active{transform:scale(.88)}
-.save[aria-pressed="true"]{background:var(--black);color:var(--oak)}
-.save[aria-pressed="true"] path{fill:currentColor}
-.save:focus-visible{outline:2px solid var(--black);outline-offset:2px}
-.looks-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem 2rem;flex-wrap:wrap;margin-top:30px}
-.looks-foot .note{margin:0}
-.looks-foot .btn[hidden]{display:none}
-.saved{position:fixed;right:24px;bottom:24px;z-index:40;display:flex;align-items:center;gap:.8rem;padding:8px 8px 8px 10px;border-radius:999px;background:var(--black);color:var(--bone);text-decoration:none;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(calc(100% + 40px));visibility:hidden;transition:transform .35s cubic-bezier(.2,0,0,1),visibility 0s .35s}
-.saved.is-on{transform:none;visibility:visible;transition:transform .35s cubic-bezier(.2,0,0,1)}
-.saved .th{display:flex}
-.saved .th img{width:34px;height:34px;border-radius:999px;object-fit:cover;border:2px solid var(--black);margin-left:-10px}
-.saved .th img:first-child{margin-left:0}
-.saved em{font-style:normal;background:var(--oak);color:var(--black);border-radius:999px;padding:.55rem 1rem}
-.mini{display:flex;align-items:center;gap:8px;margin-bottom:1.4rem;flex-wrap:wrap}
-.mini img{width:52px;height:64px;object-fit:cover;border-radius:4px}
-.mini a{margin-left:.4rem;color:var(--oak);font-weight:600;font-size:.92rem}
-
-.ba{position:relative;margin:0;aspect-ratio:1;border-radius:4px;overflow:hidden;--x:50%;background:#2a2722}
-.ba::after{display:none}
-.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
-.ba .ba-after{clip-path:inset(0 0 0 var(--x))}
-.ba-line{position:absolute;top:0;bottom:0;left:var(--x);width:2px;margin-left:-1px;background:var(--bone);pointer-events:none}
-.ba-knob{position:absolute;top:50%;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:999px;background:var(--bone);color:var(--black);display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
-.ba-knob svg{width:22px;height:22px}
-.ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
-.ba:has(input:focus-visible) .ba-knob{outline:2px solid var(--oak);outline-offset:3px}
-.ba span.b1,.ba span.b2{z-index:1}
-#preview small,#preview .lede{color:var(--mute-d)}
-
-.steps .step{position:relative;flex:none;width:clamp(240px,23vw,300px);scroll-snap-align:start}
-.step-ph{position:relative}
-.step-ph img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:#E2D7C5}
-.step .n{position:absolute;left:16px;bottom:6px;font-family:var(--serif);font-size:4.4rem;line-height:1;color:var(--bone);text-shadow:0 2px 18px rgba(0,0,0,.45)}
-.step h3{margin-top:1rem;font-size:1.5rem}
-.step p{color:var(--mute);margin-top:.25rem;font-size:.98rem;max-width:30ch}
-#process .lede{margin:.9rem 0 34px}
-#looks .lede{margin-top:.9rem}
-@media (min-width:1024px){.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.steps .step{width:auto}}
-
-.places{display:flex;flex-wrap:wrap;gap:8px;margin:1.6rem 0 1.4rem}
-.places li{padding:.55rem 1.05rem;border-radius:999px;border:1px solid rgba(210,180,138,.5);color:var(--bone);font-weight:500;font-size:.95rem}
-.places li:last-child{background:var(--oak);border-color:var(--oak);color:var(--black)}
-.where-p{color:var(--mute-d);font-size:.95rem;max-width:40ch}
-.offer-l img{width:84px;height:104px;object-fit:cover;border-radius:4px;flex:none}
-
-@media (max-width:767px){
-  .facts{display:none}
-  .hero-foot .wrap{padding-bottom:34px}
-  .head{margin-bottom:20px}
-  .card,.steps .step{width:72vw}
-  .card b{font-size:1.6rem}
-  .looks-grid{grid-template-columns:1fr 1fr;gap:20px 10px}
-  .look-n{font-size:.92rem}
-  .saved{display:none}
-  .ci div{grid-template-columns:1fr;gap:.1rem}
-  .ci dd{overflow-wrap:normal}
+  .ci div{grid-template-columns:1fr;gap:.2rem}
+  .wiz{border:0;padding:0}
   .wiz-nav .btn{flex:1}
-  .offer-l{align-items:flex-start}
-  .offer-l img{width:72px;height:90px}
-  .offer .btn{width:100%}
-  .where{gap:2rem}
+  .ftr-grid{grid-template-columns:1fr}
+  .callbar{display:flex}
 }
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}.js .look{opacity:1;transform:none}}
+
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-
 <header class="hdr" id="hdr">
-  <div class="wrap">
+  <div class="bar">
     <a href="#home" class="logo" aria-label="FMA Constructions home">
       <svg viewBox="-77 -610 967 2620" aria-hidden="true" focusable="false"><path d="M-57.9,-515.4 L-54.9,-515.2 L-51.9,-514.8 L-49.0,-514.3 L-46.1,-513.7 L-43.2,-512.9 L-40.3,-511.9 L-37.6,-510.9 L-34.8,-509.7 L-32.2,-508.3 L-29.6,-506.8 L-27.0,-505.2 L-24.6,-503.5 L-22.2,-501.7 L-20.0,-499.7 L-17.8,-497.7 L-15.8,-495.5 L-13.8,-493.3 L-12.0,-490.9 L-10.3,-488.5 L-8.7,-485.9 L-7.2,-483.3 L-5.8,-480.7 L-4.6,-477.9 L-3.6,-475.2 L-2.6,-472.3 L-1.8,-469.4 L-1.2,-466.5 L-0.7,-463.6 L-0.3,-460.6 L-0.1,-457.6 L0.0,-454.7 L0.0,865.6 L-0.1,868.9 L-0.3,872.2 L-0.7,875.4 L-1.3,878.6 L-2.0,881.8 L-2.9,885.0 L-3.9,888.1 L-5.1,891.2 L-6.4,894.2 L-7.9,897.1 L-9.5,899.9 L-11.3,902.7 L-13.1,905.4 L-15.2,908.0 L-17.3,910.5 L-19.6,912.8 L-21.9,915.1 L-24.4,917.2 L-27.0,919.3 L-29.7,921.1 L-32.5,922.9 L-35.3,924.5 L-38.2,926.0 L-41.2,927.3 L-44.3,928.5 L-47.4,929.5 L-50.6,930.4 L-53.8,931.1 L-57.0,931.7 L-60.2,932.1 L-63.5,932.3 L-66.8,932.4 L-41.2,932.4 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,932.4 L216.8,932.4 L213.5,932.3 L210.2,932.1 L207.0,931.7 L203.8,931.1 L200.6,930.4 L197.4,929.5 L194.3,928.5 L191.2,927.3 L188.2,926.0 L185.3,924.5 L182.5,922.9 L179.7,921.1 L177.0,919.3 L174.4,917.2 L171.9,915.1 L169.6,912.8 L167.3,910.5 L165.2,908.0 L163.1,905.4 L161.3,902.7 L159.5,899.9 L157.9,897.1 L156.4,894.2 L155.1,891.2 L153.9,888.1 L152.9,885.0 L152.0,881.8 L151.3,878.6 L150.7,875.4 L150.3,872.2 L150.1,868.9 L150.0,865.6 L150.0,38.5 L414.0,1053.6 L190.9,1932.4 L137.5,1932.4 L137.5,2000.0 L173.7,2000.0 L288.7,2000.0 L325.0,2000.0 L325.0,1932.4 L305.8,1932.4 L363.7,1704.5 L583.2,1704.5 L642.5,1932.4 L613.8,1932.4 L613.8,2000.0 L660.1,2000.0 L830.1,2000.0 L876.3,2000.0 L876.3,1932.4 L812.5,1932.4 L556.1,946.4 L705.1,359.5 L705.1,875.9 L705.0,878.7 L704.8,881.4 L704.5,884.2 L704.0,886.9 L703.4,889.6 L702.6,892.3 L701.8,894.9 L700.8,897.5 L699.7,900.0 L698.4,902.5 L697.0,904.9 L695.6,907.3 L694.0,909.6 L692.3,911.7 L690.4,913.8 L688.5,915.8 L686.5,917.8 L684.4,919.6 L682.2,921.3 L680.0,922.9 L677.6,924.4 L675.2,925.7 L672.7,927.0 L670.2,928.1 L667.6,929.1 L665.0,930.0 L662.3,930.7 L659.6,931.3 L656.9,931.8 L654.1,932.1 L651.3,932.3 L648.6,932.4 L680.0,932.4 L680.0,1000.0 L705.1,1000.0 L820.0,1000.0 L845.0,1000.0 L845.0,932.4 L876.5,932.4 L873.7,932.3 L871.0,932.1 L868.2,931.8 L865.5,931.3 L862.8,930.7 L860.1,930.0 L857.5,929.1 L854.9,928.1 L852.4,927.0 L849.9,925.7 L847.5,924.4 L845.1,922.9 L842.8,921.3 L840.7,919.6 L838.6,917.8 L836.6,915.8 L834.6,913.8 L832.8,911.7 L831.1,909.6 L829.5,907.3 L828.0,904.9 L826.7,902.5 L825.4,900.0 L824.3,897.5 L823.3,894.9 L822.4,892.3 L821.7,889.6 L821.1,886.9 L820.6,884.2 L820.3,881.4 L820.1,878.7 L820.0,875.9 L820.0,67.6 L880.0,67.6 L880.0,0.0 L820.0,0.0 L796.3,0.0 L705.1,0.0 L681.4,0.0 L667.6,0.0 L667.6,54.5 L498.0,722.8 L310.0,0.0 L150.0,0.0 L150.0,-205.5 L150.0,-206.0 L150.0,-206.5 L150.1,-207.0 L150.2,-207.5 L150.3,-207.9 L150.4,-208.4 L150.6,-208.9 L150.8,-209.3 L151.0,-209.8 L151.2,-210.2 L151.4,-210.6 L151.7,-211.1 L152.0,-211.5 L152.3,-211.8 L152.6,-212.2 L152.9,-212.6 L153.3,-212.9 L153.7,-213.2 L154.0,-213.5 L154.4,-213.8 L154.9,-214.1 L155.3,-214.3 L155.7,-214.5 L156.2,-214.7 L156.6,-214.9 L157.1,-215.1 L157.6,-215.2 L158.0,-215.3 L158.5,-215.4 L159.0,-215.5 L159.5,-215.5 L160.0,-215.5 L259.4,-215.5 L365.0,-109.9 L365.0,-215.5 L365.0,-300.0 L365.0,-350.0 L259.4,-350.0 L259.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-503.5 L150.0,-504.1 L150.1,-504.7 L150.1,-505.3 L150.2,-505.8 L150.4,-506.4 L150.5,-507.0 L150.7,-507.5 L150.9,-508.1 L151.2,-508.6 L151.4,-509.2 L151.7,-509.7 L152.0,-510.2 L152.4,-510.6 L152.7,-511.1 L153.1,-511.6 L153.5,-512.0 L153.9,-512.4 L154.4,-512.8 L154.9,-513.1 L155.3,-513.5 L155.8,-513.8 L156.3,-514.1 L156.9,-514.3 L157.4,-514.6 L158.0,-514.8 L158.5,-515.0 L159.1,-515.1 L159.7,-515.3 L160.2,-515.4 L160.8,-515.4 L161.4,-515.5 L162.0,-515.5 L344.4,-515.5 L450.0,-409.9 L450.0,-515.5 L450.0,-600.0 L344.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-515.5 L-60.8,-515.5 L-57.9,-515.4Z M561.3,1620.0 L385.1,1620.0 L472.1,1277.2 L561.3,1620.0Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <span class="wm" aria-hidden="true"><b>FMA</b> <small>CONSTRUCTIONS</small></span>
     </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="#work">Services</a><a href="#looks">Looks</a><a href="#process">How it works</a><a href="#about">Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
-    </nav>
-    <a href="tel:+12673673388" class="hdr-call" aria-label="Call (267) 367-3388"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg><span class="t">(267) 367-3388</span></a>
+    <nav class="nav" aria-label="Primary"><a href="#looks">Looks</a><a href="#work">Services</a><a href="#process">How it works</a><a href="#area">Area</a><a href="#faq">FAQ</a></nav>
+    <a href="tel:+12673673388" class="hdr-call" aria-label="Call (267) 367-3388"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"/></svg><span class="t">(267) 367-3388</span></a>
+    <a href="#contact" class="hdr-est">Free estimate</a>
     <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
   </div>
 </header>
 <div class="drawer" id="drawer">
-  <nav aria-label="Menu"><a href="#work">Services</a><a href="#looks">Looks</a><a href="#process">How it works</a><a href="#about">Area</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
-  <a href="#contact" class="btn btn--oak">Get a free estimate</a>
-  <p>Call or text (267) 367-3388<br>Mon–Fri 7am–6pm · Sat 7am–1pm</p>
+  <nav aria-label="Menu"><a href="#looks">Looks</a><a href="#work">Services</a><a href="#process">How it works</a><a href="#area">Area</a><a href="#faq">FAQ</a><a href="#contact">Free estimate</a></nav>
+  <p>Call or text <a href="tel:+12673673388">(267) 367-3388</a><br>Mon–Fri 7am–6pm, Sat 7am–1pm</p>
 </div>
 
 <main id="main">
@@ -550,126 +429,131 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   <div class="hero-media">
     <img id="heroImg" src="img/hero-kitchen-2400.jpg" srcset="img/hero-kitchen-1200.jpg 1200w, img/hero-kitchen-2400.jpg 2400w" sizes="100vw" alt="Kitchen with raised-panel base cabinets and a drawer stack next to a built-in oven" width="2400" height="1030" fetchpriority="high">
   </div>
-  <div class="wrap hero-in">
-    <div class="hero-copy">
-      <h1 id="h1">Kitchen cabinets, installed right.</h1>
-      <p class="hero-sub">Cabinet installation, islands, pantries and trim across Philadelphia. Free on-site estimates.</p>
-      <div class="hero-actions">
-        <a class="btn btn--oak" href="tel:+12673673388"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg>Call (267) 367-3388</a>
-        <a class="btn btn--line" href="#contact">Get a free estimate</a>
-      </div>
-      <p class="hero-info">Mon–Fri 7am–6pm · Sat 7am–1pm · Licensed &amp; insured in PA</p>
+  <div class="hero-in">
+    <p class="kick">Philadelphia cabinet installers</p>
+    <h1 id="h1">Kitchen cabinets, installed right.</h1>
+    <p class="hero-sub">Cabinets, islands, pantries and trim. Free on-site estimates across Philadelphia, Bucks, Montgomery and New Jersey.</p>
+    <div class="hero-actions">
+      <a class="btn btn--bone" href="tel:+12673673388">Call (267) 367-3388</a>
+      <a class="btn btn--ghost" href="#contact">Free estimate</a>
     </div>
+    <p class="hero-info">Mon–Fri 7am–6pm, Sat 7am–1pm. Licensed and insured in PA.</p>
   </div>
-  <div class="hero-foot">
-    <div class="wrap">
-      <div class="facts"><ul aria-label="At a glance"><li>Free on-site estimates</li><li>Callback within 1 business day</li><li>Licensed &amp; insured in PA</li><li>Philadelphia, Bucks, Montgomery &amp; New Jersey</li></ul></div>
-      <div class="paint" role="group" aria-label="Try a cabinet color">
-        <div class="paint-top"><span>Try a color</span><b id="paintName" aria-live="polite">Navy</b></div>
-        <div class="swatches">
-          <button type="button" class="sw" data-i="0" aria-pressed="true" style="--c:#2F3D57"><i></i><span class="sr">Navy</span></button>
-          <button type="button" class="sw" data-i="1" aria-pressed="false" style="--c:#F2EEE6"><i></i><span class="sr">Warm white</span></button>
-          <button type="button" class="sw" data-i="2" aria-pressed="false" style="--c:#2A2927"><i></i><span class="sr">Black</span></button>
-          <button type="button" class="sw" data-i="3" aria-pressed="false" style="--c:#93A285"><i></i><span class="sr">Sage</span></button>
-          <button type="button" class="sw" data-i="4" aria-pressed="false" style="--c:#B9B6AE"><i></i><span class="sr">Stone gray</span></button>
-        </div>
-        <small>Example photo. Colors changed digitally to show options.</small>
-      </div>
+  <div class="paint" role="group" aria-label="Try a cabinet color">
+    <p class="paint-top"><span>Try a color</span><b id="paintName" aria-live="polite">Navy</b></p>
+    <div class="swatches">
+      <button type="button" class="sw" data-i="0" aria-pressed="true" style="--c:#2F3D57"><i></i><span class="sr">Navy</span></button>
+      <button type="button" class="sw" data-i="1" aria-pressed="false" style="--c:#F2EEE6"><i></i><span class="sr">Warm white</span></button>
+      <button type="button" class="sw" data-i="2" aria-pressed="false" style="--c:#2A2927"><i></i><span class="sr">Black</span></button>
+      <button type="button" class="sw" data-i="3" aria-pressed="false" style="--c:#93A285"><i></i><span class="sr">Sage</span></button>
+      <button type="button" class="sw" data-i="4" aria-pressed="false" style="--c:#B9B6AE"><i></i><span class="sr">Stone gray</span></button>
     </div>
+    <small>Example photo, colors changed digitally.</small>
   </div>
 </section>
 
 <section class="ways" aria-label="Two ways to work with us">
-  <div class="wrap ways-grid">
-    <a class="way" href="#contact" data-cab="Yes, I bought them"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5L12 12l9-4.5M12 12v9"/></svg><span><small>Already bought your cabinets?</small><b>We install them.</b></span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-    <a class="way" href="#contact" data-cab="No, help me choose"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="1"/><path d="M10 7l5.5-3.2 3.5 6-8.9 5.2"/><path d="M10 15.5L19.5 11l1.5 3.5L10 21"/></svg><span><small>Need cabinets?</small><b>We help you pick, order and install.</b></span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  </div>
+  <a class="way" href="#contact" data-cab="Yes, I bought them"><small>Already bought your cabinets?</small><b>We install them.</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <a class="way" href="#contact" data-cab="No, help me choose"><small>Need cabinets?</small><b>We help you pick, order and install.</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 </section>
 
-<section class="sec sec--top" id="work" aria-labelledby="work-h">
-  <div class="wrap head"><h2 id="work-h">What we install.</h2><p class="note">Example photos</p></div>
-  <div class="swipe svc"><a class="card" href="#looks"><img src="img/looks/white-4-480.jpg" srcset="img/looks/white-4-480.jpg 480w, img/looks/white-4-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Kitchen cabinets</b><span>Base, wall and tall</span></span></a><a class="card" href="custom-kitchen-islands-philadelphia.html"><img src="img/looks/green-1-480.jpg" srcset="img/looks/green-1-480.jpg 480w, img/looks/green-1-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Islands</b><span>Built to your layout</span></span></a><a class="card" href="#contact"><img src="img/looks/detail-5-480.jpg" srcset="img/looks/detail-5-480.jpg 480w, img/looks/detail-5-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Pantries</b><span>Pull-outs and built-ins</span></span></a><a class="card" href="#contact"><img src="img/looks/detail-6-480.jpg" srcset="img/looks/detail-6-480.jpg 480w, img/looks/detail-6-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Crown &amp; trim</b><span>The finished look</span></span></a><a class="card" href="kitchen-cabinet-refacing-northeast-philadelphia.html"><img src="img/looks/blue-4-480.jpg" srcset="img/looks/blue-4-480.jpg 480w, img/looks/blue-4-800.jpg 800w" sizes="(max-width:767px) 72vw, 20vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="cap"><b>Refacing</b><span>New doors, same boxes</span></span></a></div>
-</section>
-
-<section class="sec sec--flush" id="looks" aria-labelledby="looks-h">
-  <div class="wrap">
-    <h2 id="looks-h">Pick a look.</h2>
-    <p class="lede">Tap the heart on the ones you like. We see them with your estimate request.</p>
-    <div class="chips" role="group" aria-label="Filter looks by color"><button type="button" class="chip" data-f="all" aria-pressed="true">All</button><button type="button" class="chip" data-f="white" aria-pressed="false"><i style=--c:#F2EEE6></i>White</button><button type="button" class="chip" data-f="black" aria-pressed="false"><i style=--c:#232323></i>Black</button><button type="button" class="chip" data-f="green" aria-pressed="false"><i style=--c:#6E8566></i>Green</button><button type="button" class="chip" data-f="blue" aria-pressed="false"><i style=--c:#33476A></i>Blue</button><button type="button" class="chip" data-f="wood" aria-pressed="false"><i style=--c:#B07D4F></i>Wood</button></div>
-    <ul class="looks-grid" id="looksGrid"><li class="look" data-c="white"><figure><img src="img/looks/white-1-480.jpg" srcset="img/looks/white-1-480.jpg 480w, img/looks/white-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White shaker" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save White shaker" data-n="White shaker" data-src="img/looks/white-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">White shaker</span></li><li class="look" data-c="green"><figure><img src="img/looks/green-2-480.jpg" srcset="img/looks/green-2-480.jpg 480w, img/looks/green-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Deep green shaker" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Deep green shaker" data-n="Deep green shaker" data-src="img/looks/green-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Deep green shaker</span></li><li class="look" data-c="black"><figure><img src="img/looks/black-2-480.jpg" srcset="img/looks/black-2-480.jpg 480w, img/looks/black-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Charcoal flat panel" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Charcoal flat panel" data-n="Charcoal flat panel" data-src="img/looks/black-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Charcoal flat panel</span></li><li class="look" data-c="wood"><figure><img src="img/looks/wood-1-480.jpg" srcset="img/looks/wood-1-480.jpg 480w, img/looks/wood-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Oak island" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Oak island" data-n="Oak island" data-src="img/looks/wood-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Oak island</span></li><li class="look" data-c="blue"><figure><img src="img/looks/blue-1-480.jpg" srcset="img/looks/blue-1-480.jpg 480w, img/looks/blue-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Navy with glass uppers" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Navy with glass uppers" data-n="Navy with glass uppers" data-src="img/looks/blue-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Navy with glass uppers</span></li><li class="look" data-c="white"><figure><img src="img/looks/white-3-480.jpg" srcset="img/looks/white-3-480.jpg 480w, img/looks/white-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Cream with glass uppers" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Cream with glass uppers" data-n="Cream with glass uppers" data-src="img/looks/white-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Cream with glass uppers</span></li><li class="look" data-c="green"><figure><img src="img/looks/green-3-480.jpg" srcset="img/looks/green-3-480.jpg 480w, img/looks/green-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Sage shaker" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Sage shaker" data-n="Sage shaker" data-src="img/looks/green-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Sage shaker</span></li><li class="look" data-c="black"><figure><img src="img/looks/black-3-480.jpg" srcset="img/looks/black-3-480.jpg 480w, img/looks/black-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Black pantry, oak shelves" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Black pantry, oak shelves" data-n="Black pantry, oak shelves" data-src="img/looks/black-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Black pantry, oak shelves</span></li><li class="look" data-c="wood"><figure><img src="img/looks/wood-4-480.jpg" srcset="img/looks/wood-4-480.jpg 480w, img/looks/wood-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Walnut wall" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Walnut wall" data-n="Walnut wall" data-src="img/looks/wood-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Walnut wall</span></li><li class="look" data-c="blue"><figure><img src="img/looks/blue-2-480.jpg" srcset="img/looks/blue-2-480.jpg 480w, img/looks/blue-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Blue island" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Blue island" data-n="Blue island" data-src="img/looks/blue-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Blue island</span></li><li class="look" data-c="white"><figure><img src="img/looks/white-2-480.jpg" srcset="img/looks/white-2-480.jpg 480w, img/looks/white-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White hutch" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save White hutch" data-n="White hutch" data-src="img/looks/white-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">White hutch</span></li><li class="look" data-c="black"><figure><img src="img/looks/black-4-480.jpg" srcset="img/looks/black-4-480.jpg 480w, img/looks/black-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Matte black" decoding="async" loading="lazy"><button type="button" class="save" aria-pressed="false" aria-label="Save Matte black" data-n="Matte black" data-src="img/looks/black-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3s-7.8-4.6-7.8-10.2A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.8 2.7c0 5.6-7.8 10.2-7.8 10.2z"/></svg></button></figure><span class="look-n">Matte black</span></li></ul>
-    <div class="looks-foot"><button type="button" class="btn btn--line" id="looksMore">Show all 12 looks</button><p class="note">Example photos from Unsplash, not FMA jobs.</p></div>
-  </div>
-</section>
-
-<section class="sec sec--dark" id="preview" aria-labelledby="preview-h">
-  <div class="wrap preview">
-    <div class="ba" id="ba">
-      <img src="img/ba-before-600.jpg" srcset="img/ba-before-600.jpg 600w, img/ba-before-1000.jpg 1000w" sizes="(max-width:900px) 100vw, 50vw" width="600" height="600" alt="Kitchen with navy cabinets" loading="lazy" decoding="async">
-      <img class="ba-after" src="img/ba-after-600.jpg" srcset="img/ba-after-600.jpg 600w, img/ba-after-1000.jpg 1000w" sizes="(max-width:900px) 100vw, 50vw" width="600" height="600" alt="The same kitchen with white cabinets" loading="lazy" decoding="async">
-      <span class="b1">Before</span><span class="b2">After</span>
-      <i class="ba-line" aria-hidden="true"><i class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></i></i>
-      <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+<section class="sec" id="looks" aria-labelledby="looks-h">
+  <div class="looks-head">
+    <div><p class="kick">Pick a look</p><h2 id="looks-h">Which kitchen is yours?</h2></div>
+    <div class="ctrl">
+      <div class="tabs" role="group" aria-label="Filter by door style"><button type="button" data-s="all" aria-pressed="true">All</button><button type="button" data-s="shaker" aria-pressed="false">Shaker</button><button type="button" data-s="flat" aria-pressed="false">Flat</button><button type="button" data-s="glass" aria-pressed="false">Glass</button></div>
+      <div class="dots" role="group" aria-label="Filter by color"><button type="button" class="dot dot--all" data-c="all" aria-pressed="true" aria-label="All colors">All</button><button type="button" class="dot" data-c="white" aria-pressed="false" aria-label="White" style=--c:#F2EEE6></button><button type="button" class="dot" data-c="black" aria-pressed="false" aria-label="Black" style=--c:#232323></button><button type="button" class="dot" data-c="green" aria-pressed="false" aria-label="Green" style=--c:#5F7458></button><button type="button" class="dot" data-c="blue" aria-pressed="false" aria-label="Blue" style=--c:#33476A></button><button type="button" class="dot" data-c="wood" aria-pressed="false" aria-label="Wood" style=--c:#A8764A></button></div>
     </div>
-    <div>
-      <h2 id="preview-h">See your kitchen in a new color. Free.</h2>
-      <p class="lede">Text us a photo of your kitchen. We send it back with new cabinet colors.</p>
-      <div class="row"><a class="btn btn--oak" href="sms:+12673673388?&amp;body=Hi%20FMA%2C%20here%27s%20a%20photo%20of%20my%20kitchen%20for%20a%20free%20color%20preview.">Text us a photo</a></div>
+  </div>
+  <div class="meta"><span id="looksCount">12 looks</span><span>Tap + to save the ones you like</span></div>
+  <ul class="looks-grid" id="looksGrid"><li class="look" data-c="white" data-s="shaker" style="--k:0"><div class="look-ph"><img src="img/looks/white-1-480.jpg" srcset="img/looks/white-1-480.jpg 480w, img/looks/white-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White shaker" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save White shaker" data-n="White shaker" data-src="img/looks/white-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">White shaker</p><p class="look-d"><i style="--c:#F2EEE6"></i>Brass pulls</p></li><li class="look" data-c="green" data-s="shaker" style="--k:1"><div class="look-ph"><img src="img/looks/green-2-480.jpg" srcset="img/looks/green-2-480.jpg 480w, img/looks/green-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Deep green shaker" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Deep green shaker" data-n="Deep green shaker" data-src="img/looks/green-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Deep green shaker</p><p class="look-d"><i style="--c:#3F5A44"></i>Black pulls</p></li><li class="look" data-c="black" data-s="flat" style="--k:2"><div class="look-ph"><img src="img/looks/black-2-480.jpg" srcset="img/looks/black-2-480.jpg 480w, img/looks/black-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Charcoal flat panel" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Charcoal flat panel" data-n="Charcoal flat panel" data-src="img/looks/black-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Charcoal flat panel</p><p class="look-d"><i style="--c:#2A2927"></i>Handleless</p></li><li class="look" data-c="wood" data-s="flat" style="--k:3"><div class="look-ph"><img src="img/looks/wood-1-480.jpg" srcset="img/looks/wood-1-480.jpg 480w, img/looks/wood-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Oak island" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Oak island" data-n="Oak island" data-src="img/looks/wood-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Oak island</p><p class="look-d"><i style="--c:#B07D4F"></i>Slab doors</p></li><li class="look" data-c="blue" data-s="glass" style="--k:0"><div class="look-ph"><img src="img/looks/blue-1-480.jpg" srcset="img/looks/blue-1-480.jpg 480w, img/looks/blue-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Navy and glass" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Navy and glass" data-n="Navy and glass" data-src="img/looks/blue-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Navy and glass</p><p class="look-d"><i style="--c:#33476A"></i>Leaded glass uppers</p></li><li class="look" data-c="white" data-s="glass" style="--k:1"><div class="look-ph"><img src="img/looks/white-3-480.jpg" srcset="img/looks/white-3-480.jpg 480w, img/looks/white-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Cream and glass" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Cream and glass" data-n="Cream and glass" data-src="img/looks/white-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Cream and glass</p><p class="look-d"><i style="--c:#EDE6D8"></i>Crown molding</p></li><li class="look" data-c="green" data-s="shaker" style="--k:2"><div class="look-ph"><img src="img/looks/green-3-480.jpg" srcset="img/looks/green-3-480.jpg 480w, img/looks/green-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Sage shaker" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Sage shaker" data-n="Sage shaker" data-src="img/looks/green-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Sage shaker</p><p class="look-d"><i style="--c:#7E8C72"></i>Full-height wall</p></li><li class="look" data-c="black" data-s="flat" style="--k:3"><div class="look-ph"><img src="img/looks/black-3-480.jpg" srcset="img/looks/black-3-480.jpg 480w, img/looks/black-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Black pantry" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Black pantry" data-n="Black pantry" data-src="img/looks/black-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Black pantry</p><p class="look-d"><i style="--c:#1E1E1E"></i>Oak shelves</p></li><li class="look" data-c="wood" data-s="flat" style="--k:0"><div class="look-ph"><img src="img/looks/wood-4-480.jpg" srcset="img/looks/wood-4-480.jpg 480w, img/looks/wood-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Walnut wall" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Walnut wall" data-n="Walnut wall" data-src="img/looks/wood-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Walnut wall</p><p class="look-d"><i style="--c:#6B4630"></i>Waterfall island</p></li><li class="look" data-c="blue" data-s="shaker" style="--k:1"><div class="look-ph"><img src="img/looks/blue-2-480.jpg" srcset="img/looks/blue-2-480.jpg 480w, img/looks/blue-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Blue island" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Blue island" data-n="Blue island" data-src="img/looks/blue-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Blue island</p><p class="look-d"><i style="--c:#2F5E85"></i>Beadboard panels</p></li><li class="look" data-c="white" data-s="glass" style="--k:2"><div class="look-ph"><img src="img/looks/white-2-480.jpg" srcset="img/looks/white-2-480.jpg 480w, img/looks/white-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White hutch" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save White hutch" data-n="White hutch" data-src="img/looks/white-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">White hutch</p><p class="look-d"><i style="--c:#F4F1EA"></i>Glass doors</p></li><li class="look" data-c="black" data-s="flat" style="--k:3"><div class="look-ph"><img src="img/looks/black-4-480.jpg" srcset="img/looks/black-4-480.jpg 480w, img/looks/black-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Matte black" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Matte black" data-n="Matte black" data-src="img/looks/black-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Matte black</p><p class="look-d"><i style="--c:#232323"></i>Handleless</p></li></ul>
+  <p class="empty" id="looksEmpty" hidden>No looks in that combination yet. <button type="button" id="looksReset">Show all</button></p>
+  <p class="fine">Example photos from Unsplash, not FMA jobs. Saved looks go with your estimate request.</p>
+</section>
+
+<section class="crew" aria-labelledby="crew-h">
+  <div class="crew-ph"><img src="img/looks/green-3-480.jpg" srcset="img/looks/green-3-480.jpg 480w, img/looks/green-3-800.jpg 800w" sizes="100vw" width="480" height="600" alt="Sage green shaker cabinets, floor to ceiling" loading="lazy" decoding="async"></div>
+  <div class="crew-cap"><h2 id="crew-h">Our own crew. No subcontractors.</h2></div>
+  <p class="crew-p">The person who measures your kitchen is the one who installs it, and the one who answers your call.</p>
+</section>
+
+<section class="sec" id="work" aria-labelledby="work-h">
+  <h2 id="work-h">What we install.</h2>
+  <ul class="svc"><li><a href="#contact"><img src="img/looks/white-4-480.jpg" srcset="img/looks/white-4-480.jpg 480w, img/looks/white-4-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Kitchen cabinets</b><small>Base, wall and tall cabinets</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="custom-kitchen-islands-philadelphia.html"><img src="img/looks/green-1-480.jpg" srcset="img/looks/green-1-480.jpg 480w, img/looks/green-1-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Islands</b><small>Built to your layout</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#contact"><img src="img/looks/detail-5-480.jpg" srcset="img/looks/detail-5-480.jpg 480w, img/looks/detail-5-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Pantries</b><small>Pull-outs and built-ins</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#contact"><img src="img/looks/detail-6-480.jpg" srcset="img/looks/detail-6-480.jpg 480w, img/looks/detail-6-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Crown and trim</b><small>The finished look</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="kitchen-cabinet-refacing-northeast-philadelphia.html"><img src="img/looks/blue-4-480.jpg" srcset="img/looks/blue-4-480.jpg 480w, img/looks/blue-4-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Refacing</b><small>New doors, same boxes</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
+</section>
+
+<section class="sec sec--card" id="preview" aria-labelledby="preview-h">
+  <div class="card">
+    <div class="card-copy">
+      <p class="kick">Free color preview</p>
+      <h2 id="preview-h">Can't picture it?</h2>
+      <p>Text us a photo of your kitchen. We send it back with new cabinet colors.</p>
+      <a class="btn btn--bone" href="sms:+12673673388?&amp;body=Hi%20FMA%2C%20here%27s%20a%20photo%20of%20my%20kitchen%20for%20a%20free%20color%20preview.">Text us a photo</a>
       <small>Drag the line. Digital mockup on an example photo.</small>
+    </div>
+    <div class="ba" id="ba">
+      <img src="img/ba-before-600.jpg" srcset="img/ba-before-600.jpg 600w, img/ba-before-1000.jpg 1000w" sizes="(max-width:900px) 92vw, 44vw" width="600" height="600" alt="Kitchen with navy cabinets" loading="lazy" decoding="async">
+      <img class="ba-after" src="img/ba-after-600.jpg" srcset="img/ba-after-600.jpg 600w, img/ba-after-1000.jpg 1000w" sizes="(max-width:900px) 92vw, 44vw" width="600" height="600" alt="The same kitchen with white cabinets" loading="lazy" decoding="async">
+      <span class="ba-tag ba-tag--l">Before</span><span class="ba-tag ba-tag--r">After</span>
+      <i class="ba-line" aria-hidden="true"><i class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></i></i>
+      <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
     </div>
   </div>
 </section>
 
 <section class="sec" id="process" aria-labelledby="process-h">
-  <div class="wrap">
-    <h2 id="process-h">How it works.</h2>
-    <p class="lede">Our own crew, no subcontractors. The person who measures is the one who installs, and the one who answers your call.</p>
-  </div>
-  <ol class="swipe steps"><li class="step"><div class="step-ph"><img src="img/looks/detail-2-480.jpg" srcset="img/looks/detail-2-480.jpg 480w, img/looks/detail-2-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">1</span></div><h3><span class="sr">Step 1: </span>Call or ask online</h3><p>We call back within 1 business day.</p></li><li class="step"><div class="step-ph"><img src="img/looks/detail-3-480.jpg" srcset="img/looks/detail-3-480.jpg 480w, img/looks/detail-3-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">2</span></div><h3><span class="sr">Step 2: </span>Free estimate</h3><p>We measure and send a written quote.</p></li><li class="step"><div class="step-ph"><img src="img/looks/detail-4-480.jpg" srcset="img/looks/detail-4-480.jpg 480w, img/looks/detail-4-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">3</span></div><h3><span class="sr">Step 3: </span>We install</h3><p>Level, square, and a clean site every day.</p></li><li class="step"><div class="step-ph"><img src="img/looks/detail-1-480.jpg" srcset="img/looks/detail-1-480.jpg 480w, img/looks/detail-1-800.jpg 800w" sizes="(max-width:767px) 72vw, 23vw" width="480" height="600" alt="" decoding="async" loading="lazy"><span class="n" aria-hidden="true">4</span></div><h3><span class="sr">Step 4: </span>Walkthrough</h3><p>We check every door and drawer with you.</p></li></ol>
+  <h2 id="process-h">Four steps. One crew.</h2>
+  <ol class="steps"><li><b aria-hidden="true">1</b><div><h3><span class="sr">Step 1: </span>Call or ask online</h3><p>We call back within 1 business day.</p></div></li><li><b aria-hidden="true">2</b><div><h3><span class="sr">Step 2: </span>Free estimate</h3><p>We measure and send a written quote.</p></div></li><li><b aria-hidden="true">3</b><div><h3><span class="sr">Step 3: </span>We install</h3><p>Level, square, and a clean site every day.</p></div></li><li><b aria-hidden="true">4</b><div><h3><span class="sr">Step 4: </span>Walkthrough</h3><p>We check every door and drawer with you.</p></div></li></ol>
 </section>
 
-<section class="sec sec--flush" aria-labelledby="budget-h">
-  <div class="wrap tiers">
+<section class="sec" id="budget" aria-labelledby="budget-h">
+  <div class="split">
     <h2 id="budget-h">Any budget.</h2>
-    <div class="tiers-grid"><div class="tier"><img src="img/looks/white-5-480.jpg" srcset="img/looks/white-5-480.jpg 480w, img/looks/white-5-800.jpg 800w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Stock cabinets example" loading="lazy"><div class="tier-top"><h3>Stock</h3><span class="cost" aria-label="1 of 3 on price">$<i>$$</i></span></div><p>Fastest and most affordable</p></div><div class="tier"><img src="img/looks/green-4-480.jpg" srcset="img/looks/green-4-480.jpg 480w, img/looks/green-4-800.jpg 800w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Semi-custom cabinets example" loading="lazy"><div class="tier-top"><h3>Semi-custom</h3><span class="cost" aria-label="2 of 3 on price">$$<i>$</i></span></div><p>More sizes, colors and styles</p></div><div class="tier"><img src="img/looks/wood-3-480.jpg" srcset="img/looks/wood-3-480.jpg 480w, img/looks/wood-3-800.jpg 800w" sizes="(max-width:767px) 76vw, 33vw" decoding="async" alt="Custom cabinets example" loading="lazy"><div class="tier-top"><h3>Custom</h3><span class="cost" aria-label="3 of 3 on price">$$$<i></i></span></div><p>Made for your exact space</p></div></div>
-    <dl class="costs">
+    <div>
+      <ul class="tiers"><li><b>Stock</b><span>Fastest and most affordable</span><i aria-label="1 of 3 on price">$<em>$$</em></i></li><li><b>Semi-custom</b><span>More sizes, colors and styles</span><i aria-label="2 of 3 on price">$$<em>$</em></i></li><li><b>Custom</b><span>Made for your exact space</span><i aria-label="3 of 3 on price">$$$<em></em></i></li></ul>
+      <dl class="prices">
       <div><dt>Cabinet installation</dt><dd>$1,700–$7,200<small>per kitchen</small></dd></div>
       <div><dt>New cabinets, installed</dt><dd>$300–$650<small>per linear foot</small></dd></div>
       <div><dt>Refacing</dt><dd>$150–$210<small>per door</small></dd></div>
     </dl>
-    <p class="costs-note">Typical Philadelphia prices from public guides (<a href="https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/" rel="nofollow noopener" target="_blank">HomeAdvisor</a>, <a href="https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm" rel="nofollow noopener" target="_blank">HomeBlue 2024</a>, <a href="https://www.homeblue.com/cabinet-refacing/philadelphia-pa-cabinet-refacing-cost.htm" rel="nofollow noopener" target="_blank">HomeBlue 2022</a>). Not an FMA quote. Your price comes in a free written quote.</p>
-  </div>
-</section>
-
-<section class="sec sec--dark" id="about" aria-labelledby="about-h">
-  <div class="wrap where">
-    <svg class="area-map" viewBox="0 0 800 726" role="img" aria-label="Map of the service area: Philadelphia, Bucks County, Montgomery County and nearby New Jersey"><rect width="800" height="726" fill="#1F1E1C"/><g fill="#1F1E1C" stroke="#34322E" stroke-width="1.5" stroke-linejoin="round"><path d="M628.8,-22.8L635.2,77.4L596.0,148.4L615.4,195.4L554.3,252.7L508.1,257.1L459.0,210.7L452.9,208.6L439.8,199.9L438.3,196.4L433.1,172.5L435.8,125.0L436.2,120.0L435.0,112.4L434.2,108.2L416.3,89.3L406.7,85.3L396.5,83.5L389.7,85.3L365.5,73.4L365.1,71.9L490.9,-16.4L535.4,-73.4L628.8,-22.8Z"/><path d="M268.9,460.4L238.4,478.0L226.7,519.9L155.0,581.6L136.8,629.1L136.3,629.2L114.2,634.4L110.4,635.7L98.3,641.1L85.2,648.5L67.7,662.6L54.9,676.9L27.4,714.5L21.0,714.4L15.1,714.4L-99.7,714.4L-107.9,714.5L-168.9,714.7L-130.0,686.3L-87.5,605.9L-83.8,554.8L-60.0,428.1L-20.7,407.6L60.4,343.0L79.1,330.1L138.0,342.2L148.9,364.5L154.8,363.0L158.1,355.7L162.6,368.8L175.7,399.1L268.9,460.4Z"/><path d="M155.0,581.6L226.7,519.9L238.4,478.0L268.9,460.4L271.5,462.5L275.5,469.8L316.7,525.9L324.6,600.1L337.1,603.2L351.1,600.5L353.8,608.1L340.2,614.8L319.7,620.1L299.8,619.9L261.3,637.6L252.5,644.5L238.4,655.4L231.1,649.9L216.5,641.7L191.0,632.1L168.1,628.4L145.2,628.2L145.2,628.2L137.8,629.0L137.4,629.0L136.8,629.1L155.0,581.6Z"/><path d="M205.0,-93.2L303.1,-126.4L404.9,-206.7L405.0,-206.7L405.0,-202.5L405.3,-201.8L406.5,-195.4L443.3,-135.6L444.2,-130.9L442.9,-126.6L411.7,-75.8L397.1,-63.0L388.6,-63.7L380.5,-66.4L376.0,-65.9L361.9,-46.6L357.8,-2.2L359.6,51.9L361.8,59.1L284.5,112.0L244.4,79.4L229.7,10.7L200.9,24.3L128.8,-73.0L205.0,-93.2Z"/><path d="M55.0,80.3L55.8,80.9L80.5,101.6L87.4,107.1L173.6,178.5L79.6,329.8L79.1,330.1L60.4,343.0L-20.7,407.6L-21.7,406.8L-144.1,303.7L-176.8,276.5L-177.7,275.4L-178.2,274.9L-341.1,142.4L-189.3,113.5L-99.2,81.9L-90.1,43.3L-88.4,36.1L-30.9,8.4L39.6,67.7L55.0,80.3Z"/><path d="M80.5,101.6L55.8,80.9L55.0,80.3L39.6,67.7L-30.9,8.4L44.6,-34.6L128.8,-73.0L200.9,24.3L229.7,10.7L244.4,79.4L284.5,112.0L281.6,114.2L265.8,128.0L265.1,128.6L241.4,148.2L199.4,199.6L173.6,178.5L87.4,107.1L80.5,101.6Z"/></g><g fill="#7A5C36" stroke="#151515" stroke-width="2" stroke-linejoin="round"><path d="M529.4,451.9L564.6,434.3L619.7,409.0L628.9,400.2L629.0,400.0L702.1,407.0L702.6,407.2L702.9,407.0L703.3,407.0L703.4,406.5L703.8,406.9L704.1,407.0L704.8,406.2L705.0,406.3L705.0,406.8L705.2,406.9L706.0,406.7L725.7,450.4L739.4,481.6L792.6,616.2L817.9,676.3L817.6,807.4L802.4,836.1L767.2,837.0L686.7,784.8L622.1,708.5L609.8,698.3L601.4,693.0L590.9,677.3L579.0,667.6L560.6,664.1L542.8,670.3L535.7,670.1L528.1,663.5L527.7,663.2L514.3,602.1L511.4,592.0L500.3,581.7L493.3,567.5L482.2,562.9L481.8,559.7L487.2,554.4L479.3,552.4L476.2,553.8L464.6,548.4L465.4,542.7L465.6,541.1L463.1,539.1L463.6,538.0L463.2,535.8L462.4,535.7L462.2,532.9L467.3,523.8L453.0,511.9L441.4,514.9L464.9,493.4L487.3,472.9L487.6,472.8L529.4,451.9Z"/><path d="M397.7,566.1L424.6,532.8L432.3,523.2L441.4,514.9L453.0,511.9L467.3,523.8L462.2,532.9L462.4,535.7L463.2,535.8L463.6,538.0L463.1,539.1L465.6,541.1L465.4,542.7L464.6,548.4L476.2,553.8L479.3,552.4L487.2,554.4L481.8,559.7L482.2,562.9L493.3,567.5L500.3,581.7L511.4,592.0L514.3,602.1L527.7,663.2L528.1,663.5L535.7,670.1L542.8,670.3L560.6,664.1L579.0,667.6L590.9,677.3L601.4,693.0L609.8,698.3L622.1,708.5L585.5,749.7L542.5,798.4L512.3,737.4L423.8,671.8L386.0,578.2L397.7,566.1Z"/><path d="M629.0,400.0L630.4,395.2L630.0,390.2L609.5,360.1L602.7,350.1L551.9,298.6L508.1,257.1L554.3,252.7L615.4,195.4L630.1,231.6L686.3,224.8L689.2,229.6L688.1,232.2L714.7,286.4L764.6,321.7L706.0,406.7L705.2,406.9L705.0,406.8L705.0,406.3L704.8,406.2L704.1,407.0L703.8,406.9L703.4,406.5L703.3,407.0L702.9,407.0L702.6,407.2L702.1,407.0L629.0,400.0Z"/><path d="M353.8,608.1L354.1,608.0L368.5,596.4L386.0,578.2L423.8,671.8L512.3,737.4L542.5,798.4L523.0,820.3L481.4,867.5L438.0,827.7L360.1,755.0L288.5,738.0L259.2,696.8L223.9,670.8L225.5,668.9L237.8,659.8L238.4,655.4L252.5,644.5L261.3,637.6L299.8,619.9L319.7,620.1L340.2,614.8L353.8,608.1Z"/></g><g stroke="#151515" stroke-width="2.5" stroke-linejoin="round"><path d="M323.5,468.9L373.3,446.3L387.3,456.9L396.6,463.8L400.1,466.7L402.4,468.5L411.2,475.0L423.6,461.9L418.3,457.9L464.5,406.9L468.2,409.9L469.7,410.9L483.2,420.0L492.8,421.2L494.9,436.8L497.8,438.1L496.3,447.9L489.3,454.4L481.6,466.5L487.6,472.8L487.3,472.9L464.9,493.4L441.4,514.9L432.3,523.2L424.6,532.8L397.7,566.1L386.0,578.2L368.5,596.4L354.1,608.0L353.8,608.1L351.1,600.5L337.1,603.2L324.6,600.1L316.7,525.9L324.0,521.7L328.2,518.3L332.2,515.9L323.5,468.9Z" fill="#F3ECE0"/><path d="M412.6,366.8L303.6,281.4L199.4,199.6L241.4,148.2L265.1,128.6L265.8,128.0L281.6,114.2L284.5,112.0L361.8,59.1L365.1,71.9L365.5,73.4L389.7,85.3L396.5,83.5L406.7,85.3L416.3,89.3L434.2,108.2L435.0,112.4L436.2,120.0L435.8,125.0L433.1,172.5L438.3,196.4L439.8,199.9L452.9,208.6L459.0,210.7L508.1,257.1L551.9,298.6L602.7,350.1L609.5,360.1L630.0,390.2L630.4,395.2L629.0,400.0L628.9,400.2L619.7,409.0L564.6,434.3L529.4,451.9L487.6,472.8L481.6,466.5L489.3,454.4L496.3,447.9L497.8,438.1L494.9,436.8L492.8,421.2L483.2,420.0L469.7,410.9L468.2,409.9L464.5,406.9L413.7,367.6L412.6,366.8Z" fill="#D2B48A"/><path d="M268.9,460.4L175.7,399.1L162.6,368.8L158.1,355.7L154.8,363.0L148.9,364.5L138.0,342.2L79.1,330.1L79.6,329.8L173.6,178.5L199.4,199.6L303.6,281.4L412.6,366.8L413.7,367.6L464.5,406.9L418.3,457.9L423.6,461.9L411.2,475.0L402.4,468.5L400.1,466.7L396.6,463.8L387.3,456.9L373.3,446.3L323.5,468.9L332.2,515.9L328.2,518.3L324.0,521.7L316.7,525.9L275.5,469.8L271.5,462.5L268.9,460.4Z" fill="#D2B48A"/></g><g font-family="Bodoni Moda, Georgia, serif" font-size="27" font-weight="500" text-anchor="middle"><text x="340" y="198" fill="#151515">Bucks</text><text x="244" y="351" fill="#151515">Montgomery</text><text x="619" y="575" fill="#F3ECE0">New Jersey</text><circle cx="380" cy="511" r="5" fill="#151515"/><path d="M374 514L300 573" stroke="#F3ECE0" stroke-width="1.2" fill="none"/><text x="230" y="581" fill="#F3ECE0">Philadelphia</text></g></svg>
-    <div>
-      <h2 id="about-h">We come to you.</h2>
-      <ul class="places"><li>Philadelphia</li><li>Bucks County</li><li>Montgomery County</li><li>New Jersey</li></ul>
-      <p class="where-p">Licensed and insured in PA. Founded by Flavio Mendanha Araujo.</p>
+      <p class="fine">Typical Philadelphia prices from public guides (<a href="https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/" rel="nofollow noopener" target="_blank">HomeAdvisor</a>, <a href="https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm" rel="nofollow noopener" target="_blank">HomeBlue 2024</a>, <a href="https://www.homeblue.com/cabinet-refacing/philadelphia-pa-cabinet-refacing-cost.htm" rel="nofollow noopener" target="_blank">HomeBlue 2022</a>). Not an FMA quote. Your price comes in a free written quote.</p>
     </div>
   </div>
 </section>
 
-<section class="offer" aria-label="First-customer offer">
-  <div class="wrap">
-    <div class="offer-l"><img src="img/looks/wood-2-480.jpg" width="480" height="600" alt="" loading="lazy" decoding="async"><div><b>Be one of our first kitchens.</b><span>A lower price in exchange for photos and an honest Google review.</span></div></div>
-    <a class="btn btn--fill" href="#contact">Ask about it</a>
+<section class="sec" id="area" aria-labelledby="area-h">
+  <div class="split split--area">
+    <svg class="area-map" viewBox="0 0 800 726" role="img" aria-label="Map of the service area: Philadelphia, Bucks County, Montgomery County and nearby New Jersey"><rect width="800" height="726" fill="#E9E2D6"/><g fill="#E9E2D6" stroke="#D8CDBB" stroke-width="1.5" stroke-linejoin="round"><path d="M628.8,-22.8L635.2,77.4L596.0,148.4L615.4,195.4L554.3,252.7L508.1,257.1L459.0,210.7L452.9,208.6L439.8,199.9L438.3,196.4L433.1,172.5L435.8,125.0L436.2,120.0L435.0,112.4L434.2,108.2L416.3,89.3L406.7,85.3L396.5,83.5L389.7,85.3L365.5,73.4L365.1,71.9L490.9,-16.4L535.4,-73.4L628.8,-22.8Z"/><path d="M268.9,460.4L238.4,478.0L226.7,519.9L155.0,581.6L136.8,629.1L136.3,629.2L114.2,634.4L110.4,635.7L98.3,641.1L85.2,648.5L67.7,662.6L54.9,676.9L27.4,714.5L21.0,714.4L15.1,714.4L-99.7,714.4L-107.9,714.5L-168.9,714.7L-130.0,686.3L-87.5,605.9L-83.8,554.8L-60.0,428.1L-20.7,407.6L60.4,343.0L79.1,330.1L138.0,342.2L148.9,364.5L154.8,363.0L158.1,355.7L162.6,368.8L175.7,399.1L268.9,460.4Z"/><path d="M155.0,581.6L226.7,519.9L238.4,478.0L268.9,460.4L271.5,462.5L275.5,469.8L316.7,525.9L324.6,600.1L337.1,603.2L351.1,600.5L353.8,608.1L340.2,614.8L319.7,620.1L299.8,619.9L261.3,637.6L252.5,644.5L238.4,655.4L231.1,649.9L216.5,641.7L191.0,632.1L168.1,628.4L145.2,628.2L145.2,628.2L137.8,629.0L137.4,629.0L136.8,629.1L155.0,581.6Z"/><path d="M205.0,-93.2L303.1,-126.4L404.9,-206.7L405.0,-206.7L405.0,-202.5L405.3,-201.8L406.5,-195.4L443.3,-135.6L444.2,-130.9L442.9,-126.6L411.7,-75.8L397.1,-63.0L388.6,-63.7L380.5,-66.4L376.0,-65.9L361.9,-46.6L357.8,-2.2L359.6,51.9L361.8,59.1L284.5,112.0L244.4,79.4L229.7,10.7L200.9,24.3L128.8,-73.0L205.0,-93.2Z"/><path d="M55.0,80.3L55.8,80.9L80.5,101.6L87.4,107.1L173.6,178.5L79.6,329.8L79.1,330.1L60.4,343.0L-20.7,407.6L-21.7,406.8L-144.1,303.7L-176.8,276.5L-177.7,275.4L-178.2,274.9L-341.1,142.4L-189.3,113.5L-99.2,81.9L-90.1,43.3L-88.4,36.1L-30.9,8.4L39.6,67.7L55.0,80.3Z"/><path d="M80.5,101.6L55.8,80.9L55.0,80.3L39.6,67.7L-30.9,8.4L44.6,-34.6L128.8,-73.0L200.9,24.3L229.7,10.7L244.4,79.4L284.5,112.0L281.6,114.2L265.8,128.0L265.1,128.6L241.4,148.2L199.4,199.6L173.6,178.5L87.4,107.1L80.5,101.6Z"/></g><g fill="#CDB591" stroke="#F3ECE0" stroke-width="2" stroke-linejoin="round"><path d="M529.4,451.9L564.6,434.3L619.7,409.0L628.9,400.2L629.0,400.0L702.1,407.0L702.6,407.2L702.9,407.0L703.3,407.0L703.4,406.5L703.8,406.9L704.1,407.0L704.8,406.2L705.0,406.3L705.0,406.8L705.2,406.9L706.0,406.7L725.7,450.4L739.4,481.6L792.6,616.2L817.9,676.3L817.6,807.4L802.4,836.1L767.2,837.0L686.7,784.8L622.1,708.5L609.8,698.3L601.4,693.0L590.9,677.3L579.0,667.6L560.6,664.1L542.8,670.3L535.7,670.1L528.1,663.5L527.7,663.2L514.3,602.1L511.4,592.0L500.3,581.7L493.3,567.5L482.2,562.9L481.8,559.7L487.2,554.4L479.3,552.4L476.2,553.8L464.6,548.4L465.4,542.7L465.6,541.1L463.1,539.1L463.6,538.0L463.2,535.8L462.4,535.7L462.2,532.9L467.3,523.8L453.0,511.9L441.4,514.9L464.9,493.4L487.3,472.9L487.6,472.8L529.4,451.9Z"/><path d="M397.7,566.1L424.6,532.8L432.3,523.2L441.4,514.9L453.0,511.9L467.3,523.8L462.2,532.9L462.4,535.7L463.2,535.8L463.6,538.0L463.1,539.1L465.6,541.1L465.4,542.7L464.6,548.4L476.2,553.8L479.3,552.4L487.2,554.4L481.8,559.7L482.2,562.9L493.3,567.5L500.3,581.7L511.4,592.0L514.3,602.1L527.7,663.2L528.1,663.5L535.7,670.1L542.8,670.3L560.6,664.1L579.0,667.6L590.9,677.3L601.4,693.0L609.8,698.3L622.1,708.5L585.5,749.7L542.5,798.4L512.3,737.4L423.8,671.8L386.0,578.2L397.7,566.1Z"/><path d="M629.0,400.0L630.4,395.2L630.0,390.2L609.5,360.1L602.7,350.1L551.9,298.6L508.1,257.1L554.3,252.7L615.4,195.4L630.1,231.6L686.3,224.8L689.2,229.6L688.1,232.2L714.7,286.4L764.6,321.7L706.0,406.7L705.2,406.9L705.0,406.8L705.0,406.3L704.8,406.2L704.1,407.0L703.8,406.9L703.4,406.5L703.3,407.0L702.9,407.0L702.6,407.2L702.1,407.0L629.0,400.0Z"/><path d="M353.8,608.1L354.1,608.0L368.5,596.4L386.0,578.2L423.8,671.8L512.3,737.4L542.5,798.4L523.0,820.3L481.4,867.5L438.0,827.7L360.1,755.0L288.5,738.0L259.2,696.8L223.9,670.8L225.5,668.9L237.8,659.8L238.4,655.4L252.5,644.5L261.3,637.6L299.8,619.9L319.7,620.1L340.2,614.8L353.8,608.1Z"/></g><g stroke="#F3ECE0" stroke-width="2.5" stroke-linejoin="round"><path d="M323.5,468.9L373.3,446.3L387.3,456.9L396.6,463.8L400.1,466.7L402.4,468.5L411.2,475.0L423.6,461.9L418.3,457.9L464.5,406.9L468.2,409.9L469.7,410.9L483.2,420.0L492.8,421.2L494.9,436.8L497.8,438.1L496.3,447.9L489.3,454.4L481.6,466.5L487.6,472.8L487.3,472.9L464.9,493.4L441.4,514.9L432.3,523.2L424.6,532.8L397.7,566.1L386.0,578.2L368.5,596.4L354.1,608.0L353.8,608.1L351.1,600.5L337.1,603.2L324.6,600.1L316.7,525.9L324.0,521.7L328.2,518.3L332.2,515.9L323.5,468.9Z" fill="#151515"/><path d="M412.6,366.8L303.6,281.4L199.4,199.6L241.4,148.2L265.1,128.6L265.8,128.0L281.6,114.2L284.5,112.0L361.8,59.1L365.1,71.9L365.5,73.4L389.7,85.3L396.5,83.5L406.7,85.3L416.3,89.3L434.2,108.2L435.0,112.4L436.2,120.0L435.8,125.0L433.1,172.5L438.3,196.4L439.8,199.9L452.9,208.6L459.0,210.7L508.1,257.1L551.9,298.6L602.7,350.1L609.5,360.1L630.0,390.2L630.4,395.2L629.0,400.0L628.9,400.2L619.7,409.0L564.6,434.3L529.4,451.9L487.6,472.8L481.6,466.5L489.3,454.4L496.3,447.9L497.8,438.1L494.9,436.8L492.8,421.2L483.2,420.0L469.7,410.9L468.2,409.9L464.5,406.9L413.7,367.6L412.6,366.8Z" fill="#D2B48A"/><path d="M268.9,460.4L175.7,399.1L162.6,368.8L158.1,355.7L154.8,363.0L148.9,364.5L138.0,342.2L79.1,330.1L79.6,329.8L173.6,178.5L199.4,199.6L303.6,281.4L412.6,366.8L413.7,367.6L464.5,406.9L418.3,457.9L423.6,461.9L411.2,475.0L402.4,468.5L400.1,466.7L396.6,463.8L387.3,456.9L373.3,446.3L323.5,468.9L332.2,515.9L328.2,518.3L324.0,521.7L316.7,525.9L275.5,469.8L271.5,462.5L268.9,460.4Z" fill="#D2B48A"/></g><g font-family="Bodoni Moda, Georgia, serif" font-size="27" font-weight="400" text-anchor="middle"><text x="340" y="198" fill="#151515">Bucks</text><text x="244" y="351" fill="#151515">Montgomery</text><text x="619" y="575" fill="#151515">New Jersey</text><circle cx="380" cy="511" r="5" fill="#D2B48A"/><path d="M374 514L300 573" stroke="#151515" stroke-width="1.2" fill="none"/><text x="230" y="581" fill="#151515">Philadelphia</text></g></svg>
+    <div>
+      <h2 id="area-h">We come to you.</h2>
+      <p class="places">Philadelphia<br>Bucks County<br>Montgomery County<br>New Jersey</p>
+      <p class="fine">Licensed and insured in PA. Founded by Flavio Mendanha Araujo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--card" aria-label="First-customer offer">
+  <div class="card card--offer">
+    <div class="offer-ph"><img src="img/looks/wood-2-480.jpg" srcset="img/looks/wood-2-480.jpg 480w, img/looks/wood-2-800.jpg 800w" sizes="(max-width:767px) 92vw, 30vw" width="480" height="600" alt="" loading="lazy" decoding="async"></div>
+    <div class="card-copy">
+      <h2>Be one of our first kitchens.</h2>
+      <p>A lower price in exchange for photos and an honest Google review.</p>
+      <a class="btn btn--bone" href="#contact">Ask about it</a>
+    </div>
   </div>
 </section>
 
 <section class="sec" id="faq" aria-labelledby="faq-h">
-  <div class="wrap faq">
-    <aside>
-      <h2 id="faq-h">Quick answers.</h2>
-    </aside>
+  <div class="split">
+    <h2 id="faq-h">Questions before you call.</h2>
     <div class="faq-list"><details><summary>Can you install cabinets I already bought?</summary><p>Yes. Or we help you choose and order them, then install.</p></details><details><summary>Do you work in New Jersey?</summary><p>Yes. Philadelphia, Bucks and Montgomery counties, and New Jersey.</p></details><details><summary>Is the estimate free?</summary><p>Yes. We come to you, measure and send a written quote.</p></details><details><summary>How fast do you call back?</summary><p>Within 1 business day.</p></details><details><summary>Can I keep my cabinets?</summary><p>Often, yes. Refacing swaps doors, fronts and hardware.</p></details><details><summary>Are you licensed and insured?</summary><p>Yes, in Pennsylvania.</p></details></div>
   </div>
 </section>
 
-<section class="sec sec--dark" id="contact" aria-labelledby="contact-h">
-  <div class="wrap contact">
+<section class="sec" id="contact" aria-labelledby="contact-h">
+  <div class="split split--contact">
     <div>
+      <p class="kick">Free estimate</p>
       <h2 id="contact-h">Tell us about your kitchen.</h2>
       <p class="lede">3 quick taps. We call you back in 1 business day.</p>
       <dl class="ci">
@@ -696,7 +580,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 </section>
 </main>
 <div class="callbar" id="callbar" aria-hidden="true">
-  <a class="btn btn--oak" href="tel:+12673673388" tabindex="-1">Call now</a>
+  <a class="btn btn--ink" href="tel:+12673673388" tabindex="-1">Call now</a>
   <a class="btn btn--line" href="#contact" tabindex="-1">Free estimate</a>
 </div>
 
@@ -713,12 +597,11 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
     <div class="ftr-bottom"><span>© <span id="year">2026</span> FMA Constructions</span><span>Philadelphia, PA · Licensed &amp; insured</span></div>
   </div>
 </footer>
-
 <script>
 (() => {
   const d = document.documentElement; d.classList.replace('no-js', 'js');
   const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
-  $('#year').textContent = new Date().getFullYear();
+  const yr = $('#year'); if (yr) yr.textContent = new Date().getFullYear();
   addEventListener('load', () => d.classList.add('ld'));   /* decorative textures after first paint */
 
   /* drawer */
@@ -729,8 +612,8 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('is-open')) { setDrawer(false); burger.focus(); } });
 
   /* header: oak over the hero, black once #work reaches it */
-  const hdr = $('#hdr'), work = $('#work'), hero = $('.hero'); let tick = false;
-  const paint = () => { tick = false; hdr.classList.toggle('is-scrolled', hero.getBoundingClientRect().top < -2); hdr.classList.toggle('is-dark', work.getBoundingClientRect().top <= hdr.offsetHeight); };
+  const hdr = $('#hdr'), hero = $('.hero'); let tick = false;
+  const paint = () => { tick = false; hdr.classList.toggle('is-scrolled', hero.getBoundingClientRect().top < -2); };
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(paint); } }, { passive: true });
   addEventListener('resize', paint); paint();
 
@@ -738,7 +621,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   $$('[data-cab]').forEach(a => a.addEventListener('click', () => window.__wizSet && window.__wizSet('cabinets', a.dataset.cab)));
 
   /* phone call bar: shows once the hero's call button has scrolled away, hides over the contact section */
-  const callBar = $('#callbar'), heroCall = $('.hero .btn--oak'), contact = $('#contact');
+  const callBar = $('#callbar'), heroCall = $('.hero .btn--bone'), contact = $('#contact');
   if ('IntersectionObserver' in window) {
     let pastHero = false, atContact = false;
     const set = () => { const on = pastHero && !atContact; callBar.classList.toggle('is-on', on); callBar.setAttribute('aria-hidden', String(!on)); $$('a', callBar).forEach(a => { a.tabIndex = on ? 0 : -1; }); };
@@ -747,31 +630,32 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   }
 
 
-  /* looks: color chips, hearts, saved looks ride along with the estimate request */
-  const grid = $('#looksGrid'), more = $('#looksMore'), all = $$('.look', grid), FIRST = 8;
-  let filter = 'all', expanded = false;
-  const phone = matchMedia('(max-width:767px)');
+  /* looks: door-style tabs + color dots; "+" saves a look, saved looks ride along with the estimate request */
+  const grid = $('#looksGrid'), all = $$('.look', grid), count = $('#looksCount'), empty = $('#looksEmpty');
+  let fc = 'all', fs = 'all';
   const showLooks = () => {
     let n = 0;
-    all.forEach(li => { const match = filter === 'all' || li.dataset.c === filter; const on = match && (expanded || filter !== 'all' || !phone.matches || n < FIRST); if (match) n++; li.hidden = !on; });
-    more.hidden = expanded || filter !== 'all' || !phone.matches;
+    all.forEach(li => { const on = (fc === 'all' || li.dataset.c === fc) && (fs === 'all' || li.dataset.s === fs); li.hidden = !on; if (on) { li.style.setProperty('--k', n % 4); n++; } });
+    count.textContent = n + (n === 1 ? ' look' : ' looks'); empty.hidden = n > 0;
+    grid.classList.remove('in'); void grid.offsetWidth; grid.classList.add('in');
   };
-  $$('.chip').forEach(c => c.addEventListener('click', () => { filter = c.dataset.f; $$('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === c))); showLooks(); }));
-  more.addEventListener('click', () => { expanded = true; showLooks(); all[FIRST] && $('.save', all[FIRST]).focus({ preventScroll: true }); });
-  phone.addEventListener('change', showLooks); showLooks();
+  const group = (sel, set) => $$(sel).forEach(b => b.addEventListener('click', () => { $$(sel).forEach(x => x.setAttribute('aria-pressed', String(x === b))); set(b); showLooks(); }));
+  group('.tabs button', b => { fs = b.dataset.s; });
+  group('.dots .dot', b => { fc = b.dataset.c; });
+  $('#looksReset').addEventListener('click', () => { $('.tabs button[data-s="all"]').click(); $('.dots .dot[data-c="all"]').click(); });
+  if ('IntersectionObserver' in window) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { grid.classList.add('in'); o.disconnect(); } }, { rootMargin: '0px 0px -15% 0px' }).observe(grid);
+  else grid.classList.add('in');
   window.__saved = [];
-  const pillEl = document.createElement('a'); pillEl.className = 'saved'; pillEl.href = '#contact'; pillEl.setAttribute('aria-hidden', 'true'); pillEl.tabIndex = -1; document.body.appendChild(pillEl);
-  const estBtn = $('.callbar .btn--line');
+  const estBtn = $('.callbar .btn--line'), hdrEst = $('.hdr-est');
   const updateSaved = () => {
-    const s = window.__saved, n = s.length;
-    pillEl.innerHTML = `<span class="th">${s.slice(-3).map(l => `<img src="${l.src}" alt="">`).join('')}</span><span>${n} saved</span><em>Send with estimate</em>`;
-    pillEl.classList.toggle('is-on', n > 0); pillEl.setAttribute('aria-hidden', String(!n)); pillEl.tabIndex = n ? 0 : -1;
-    estBtn.textContent = n ? `Send my ${n} look${n > 1 ? 's' : ''}` : 'Free estimate';
+    const n = window.__saved.length, t = n ? `Send my ${n} look${n > 1 ? 's' : ''}` : 'Free estimate';
+    estBtn.textContent = t; hdrEst.textContent = t;
     window.__wizLooks && window.__wizLooks();
   };
   grid.addEventListener('click', e => {
     const b = e.target.closest('.save'); if (!b) return;
     const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
+    b.setAttribute('aria-label', (on ? 'Saved: ' : 'Save ') + b.dataset.n);
     window.__saved = on ? [...window.__saved, { n: b.dataset.n, src: b.dataset.src }] : window.__saved.filter(l => l.n !== b.dataset.n);
     updateSaved();
   });
@@ -834,7 +718,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   };
   const finish = () => {
     const rows = [['Looks', state.looks], ['Cabinets', state.cabinets], ['Project', state.project], ['Scope', state.scope], ['Timeline', state.timeline], ['Name', state.name], ['Phone', state.phone], ['Email', state.email], ['Zip', state.zip]].filter(r => r[1]);
-    body.innerHTML = `<div class="done"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#151515" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3 class="wiz-q" tabindex="-1">Got it, ${esc((state.name || '').trim().split(' ')[0])}. We'll call you.</h3><p class="wiz-hint">Expect a call from FMA within one business day to set up your free on-site estimate.</p><dl class="summary">${rows.map(r => `<div><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join('')}</dl></div>`;
+    body.innerHTML = `<div class="done"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="#F3ECE0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3 class="wiz-q" tabindex="-1">Got it, ${esc((state.name || '').trim().split(' ')[0])}. We'll call you.</h3><p class="wiz-hint">Expect a call from FMA within one business day to set up your free on-site estimate.</p><dl class="summary">${rows.map(r => `<div><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join('')}</dl></div>`;
     lbl.textContent = 'Done'; $('.wiz-top .of').hidden = true; bar.style.width = '100%'; $('#wizNav').hidden = true; $('.wiz-q', body).focus({ preventScroll: true });
   };
   window.__wizSet = (k, v) => { state[k] = v; if (step === 0) sync(); };
