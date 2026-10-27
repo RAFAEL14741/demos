@@ -20,6 +20,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+<script>(function(d){if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('m');setTimeout(function(){if(!window.__heroReady)d.classList.remove('m')},3500)}})(document.documentElement)</script>
 <link rel="preload" href="fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
@@ -84,7 +85,8 @@ h3{font-size:clamp(1.45rem,2vw,1.8rem);line-height:1.15}
 .hdr{position:fixed;inset:0 0 auto;z-index:50;isolation:isolate;height:var(--hdr);color:var(--black);transition:background-color .25s,color .25s,box-shadow .25s}
 .hdr .wrap{height:100%;display:flex;align-items:center;gap:2rem}
 .hdr.is-scrolled{background:var(--oak-base);box-shadow:0 1px 0 var(--line-k)}
-.hdr::before{content:"";position:absolute;inset:0;z-index:-1;background:url(img/oak-grain.jpg) center/cover fixed;mix-blend-mode:multiply;opacity:0;pointer-events:none}
+.ld .hdr::before{background-image:url(img/oak-grain.jpg)}
+.hdr::before{content:"";position:absolute;inset:0;z-index:-1;background:center/cover fixed;mix-blend-mode:multiply;opacity:0;pointer-events:none}
 .hdr.is-scrolled::before{opacity:.12}
 .hdr.is-dark::before{opacity:0}
 .hdr.is-dark{background:var(--black);color:var(--bone);box-shadow:0 1px 0 var(--line-b)}
@@ -112,24 +114,52 @@ h3{font-size:clamp(1.45rem,2vw,1.8rem);line-height:1.15}
 html.drawer-open .hdr{background:var(--black);color:var(--bone)}
 html.drawer-open .hdr .logo svg{color:var(--oak)}
 
-/* ---- hero ---- */
-.hero{position:relative;background:var(--oak-base);height:100vh;height:100svh;min-height:640px;overflow:hidden;isolation:isolate}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:url(img/oak-grain.jpg) center/cover;mix-blend-mode:multiply;opacity:.12;pointer-events:none}
-.hero-in{height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4vw;padding-top:var(--hdr);padding-bottom:84px}
-.hero-copy{max-width:640px;position:relative;z-index:2}
-.hero h1{font-size:clamp(3.2rem,6vw,6.1rem);line-height:.98;letter-spacing:-.02em;max-width:9.4ch}
-.hero-sub{font-size:clamp(1.08rem,1.3vw,1.22rem);margin-top:1.7rem;max-width:34ch}
-.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.3rem}
-.hero-info{margin-top:1.5rem;font-size:.92rem;font-variant-numeric:tabular-nums}
-.hero-mark{height:min(76vh,calc(100vh - var(--hdr) - 150px));height:min(76svh,calc(100svh - var(--hdr) - 150px));width:auto;max-width:42vw;display:block;color:var(--black);margin-right:2vw}
-.hero-mark .m-rest,.hero-mark .m-diag{display:none}
-.hero-mark.is-split .m-rest,.hero-mark.is-split .m-diag{display:inline}
-.hero-mark.is-split .m-full{display:none}
-.hero-mark.is-split.is-whole .m-full{display:inline}
-.hero-mark.is-split.is-whole .m-rest,.hero-mark.is-split.is-whole .m-diag{display:none}
-.facts{position:absolute;left:0;right:0;bottom:0;z-index:2}
-.facts ul{display:flex;flex-wrap:wrap;column-gap:1.1rem;row-gap:.2rem;border-top:1px solid var(--line-k);padding:1.15rem 0 1.3rem;font-size:.92rem;font-weight:500}
-.facts li+li::before{content:"·";margin-right:1.1rem}
+/* ---- hero: "open the cabinet" ---- */
+.hero{position:relative;background:var(--oak-base);height:100vh;height:100svh;min-height:640px;overflow:hidden;isolation:isolate;
+  --copyw:min(640px,calc(52vw - 52px - max(var(--gut),(100vw - 1320px)/2 + var(--gut))))}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:center/cover;mix-blend-mode:multiply;opacity:.12;pointer-events:none}
+.ld .hero::before{background-image:url(img/oak-grain.jpg)}
+.hero-in{position:relative;height:100%;display:flex;align-items:center;padding-top:var(--hdr);padding-bottom:110px}
+.hero-copy{width:var(--copyw);position:relative;z-index:3}
+.hero h1{font-size:clamp(3rem,5.6vw,5.8rem);line-height:.98;letter-spacing:-.02em;max-width:9.4ch}
+.hero-sub{font-size:clamp(1.05rem,1.3vw,1.22rem);margin-top:1.6rem;max-width:34ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.2rem}
+.hero-info{margin-top:1.4rem;font-size:.92rem;font-variant-numeric:tabular-nums}
+.facts{position:absolute;left:var(--gut);bottom:0;width:var(--copyw);z-index:3}
+.facts ul{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);column-gap:1.6rem;row-gap:.25rem;border-top:1px solid var(--line-k);padding:1.05rem 0 1.25rem;font-size:.9rem;font-weight:500}
+
+/* stage = right part of the hero. Final state = full-height kitchen photo. */
+.stage{position:absolute;top:var(--hdr);right:0;bottom:0;left:52%;overflow:hidden;z-index:1;pointer-events:none}
+.hero-photo{position:absolute;inset:0;margin:0}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:46% 62%;will-change:transform}
+.hero-photo figcaption{position:absolute;right:16px;bottom:14px;color:var(--bone);font-size:.8rem;text-shadow:0 1px 6px rgba(0,0,0,.65)}
+
+/* the cabinet (only exists when motion runs; reduced motion / no JS = photo end state) */
+.cab{display:none}
+.m .cab{display:block;position:absolute;--ch:min(62vh,62svh,47vw);height:var(--ch);width:calc(var(--ch) * .7);left:calc(50% - var(--ch) * .35);top:calc(50% - 40px - var(--ch) / 2);container-type:inline-size;z-index:2}
+.m .hero-photo{visibility:hidden}
+.cab-shadow{position:absolute;inset:3% -2% -5% 4%;background:rgba(70,45,15,.55);filter:blur(26px);border-radius:4px;mix-blend-mode:multiply;z-index:-1}
+.cab-frame{position:absolute;inset:0;border:4cqw solid #171716;box-shadow:inset 1px 1px 0 rgba(255,255,255,.08),0 0 0 1px rgba(0,0,0,.35),1px 1px 0 rgba(0,0,0,.4)}
+.cab-open{position:absolute;inset:4cqw;box-shadow:inset 0 0 0 1px #000,inset 0 3cqw 4cqw -1cqw rgba(0,0,0,.7),inset 3cqw 0 4cqw -2cqw rgba(0,0,0,.45);pointer-events:none}
+.doors{position:absolute;inset:1.6cqw;perspective:1700px;perspective-origin:50% 45%}
+.doors .gap{position:absolute;top:0;bottom:0;left:calc(50% - 3px);width:6px;background:#0b0b0b}
+.door{position:absolute;top:0;bottom:0;width:calc(50% - 1px);transform-style:preserve-3d}
+.door--l{left:0;transform-origin:0 50%}
+.door--r{right:0;transform-origin:100% 50%}
+.door .face,.door .back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.door .face{background:linear-gradient(165deg,#262524 0%,#1a1a19 38%,#141414 100%);box-shadow:inset 1px 1px 0 rgba(255,255,255,.09),inset -1px -1px 0 rgba(0,0,0,.7)}
+.door .back{transform:rotateY(180deg);background:#CDB085 center/cover;background-blend-mode:multiply;}
+.ld .door .back{background-image:url(img/oak-grain-v.jpg);box-shadow:inset 0 0 0 1px rgba(80,55,25,.5)}
+.door .panel{position:absolute;inset:7cqw;background:linear-gradient(180deg,#171716,#121212);box-shadow:inset 2px 3px 5px rgba(0,0,0,.75),inset -1px -1px 0 rgba(255,255,255,.07),0 0 0 1px rgba(0,0,0,.35)}
+.door .panel::before{content:"";position:absolute;inset:-1.1cqw;box-shadow:inset -1px -1px 0 rgba(255,255,255,.06),inset 1px 1px 0 rgba(0,0,0,.5);pointer-events:none}
+.door .pull{position:absolute;top:50%;width:1.6cqw;height:27cqw;translate:0 -50%;border-radius:1cqw;background:linear-gradient(90deg,#8E6D40 0%,#E6CB9E 42%,#C9A673 62%,#8E6D40 100%);box-shadow:2px 4px 5px rgba(0,0,0,.55)}
+.door--l .pull{right:3.6cqw}
+.door--r .pull{left:3.6cqw}
+.cab-draw{position:absolute;inset:0;width:100%;height:100%;overflow:visible;display:none;pointer-events:none}
+.m .cab-draw{display:block}
+.cab-draw path{fill:none;stroke:var(--black);stroke-width:1.5;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
+.m .cab-fill{opacity:0}
+.m .hero-photo figcaption{opacity:0}
 
 /* ---- sections ---- */
 .sec{padding:var(--sec) 0}
@@ -243,10 +273,6 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 .ftr-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:72px;padding-top:1.6rem;border-top:1px solid var(--line-b);color:var(--mute-d);font-size:.86rem}
 
 /* ---- responsive ---- */
-@media (max-width:1199px){
-  .facts ul{display:grid;grid-template-columns:1fr 1fr;column-gap:2rem}
-  .facts li+li::before{content:none}
-}
 @media (max-width:1100px){
   .nav,.hdr-call .t{display:none}
   .burger{display:grid}
@@ -267,16 +293,17 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   :root{--hdr:64px;--sec:88px}
   .logo svg{height:40px}
   .logo .wm b{font-size:1.15rem}
-  .hero{height:auto;min-height:0}
-  .hero-in{display:flex;flex-direction:column;align-items:stretch;gap:0;padding-top:calc(var(--hdr) + 20px);padding-bottom:0}
-  .hero-mark{order:-1;height:40vh;height:40svh;max-width:none;margin:0 auto 32px}
+  .hero{height:auto;min-height:0;--copyw:auto}
+  .stage{position:relative;left:auto;top:auto;right:auto;bottom:auto;height:48vh;height:48svh;margin-top:var(--hdr)}
+  .m .cab{--ch:min(40svh,40vh,80vw);top:calc(50% - var(--ch) / 2)}
+  .hero-in{display:block;height:auto;padding-top:32px;padding-bottom:0}
+  .hero-copy{width:auto}
   .hero h1{font-size:clamp(2.6rem,11.5vw,3.4rem);max-width:none}
   .hero-sub{margin-top:1.1rem}
   .hero-actions{flex-direction:column;margin-top:1.8rem}
   .hero-actions .btn{width:100%}
-  .facts{position:static;margin-top:40px}
-  .facts ul{flex-direction:column;row-gap:.35rem}
-  .facts li+li::before{content:none}
+  .facts{position:static;width:auto;margin-top:40px}
+  .facts ul{grid-template-columns:1fr;row-gap:.35rem}
   .gal figure{grid-column:1/-1}
   .budget{margin-top:88px}
   .budget dl div{grid-template-columns:1fr;gap:.3rem}
@@ -293,9 +320,9 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 
 <header class="hdr" id="hdr">
   <div class="wrap">
-    <a href="#home" class="logo" aria-label="FMA Constructions, home">
+    <a href="#home" class="logo" aria-label="FMA Constructions home">
       <svg viewBox="-77 -610 967 2620" aria-hidden="true" focusable="false"><path d="M-57.9,-515.4 L-54.9,-515.2 L-51.9,-514.8 L-49.0,-514.3 L-46.1,-513.7 L-43.2,-512.9 L-40.3,-511.9 L-37.6,-510.9 L-34.8,-509.7 L-32.2,-508.3 L-29.6,-506.8 L-27.0,-505.2 L-24.6,-503.5 L-22.2,-501.7 L-20.0,-499.7 L-17.8,-497.7 L-15.8,-495.5 L-13.8,-493.3 L-12.0,-490.9 L-10.3,-488.5 L-8.7,-485.9 L-7.2,-483.3 L-5.8,-480.7 L-4.6,-477.9 L-3.6,-475.2 L-2.6,-472.3 L-1.8,-469.4 L-1.2,-466.5 L-0.7,-463.6 L-0.3,-460.6 L-0.1,-457.6 L0.0,-454.7 L0.0,865.6 L-0.1,868.9 L-0.3,872.2 L-0.7,875.4 L-1.3,878.6 L-2.0,881.8 L-2.9,885.0 L-3.9,888.1 L-5.1,891.2 L-6.4,894.2 L-7.9,897.1 L-9.5,899.9 L-11.3,902.7 L-13.1,905.4 L-15.2,908.0 L-17.3,910.5 L-19.6,912.8 L-21.9,915.1 L-24.4,917.2 L-27.0,919.3 L-29.7,921.1 L-32.5,922.9 L-35.3,924.5 L-38.2,926.0 L-41.2,927.3 L-44.3,928.5 L-47.4,929.5 L-50.6,930.4 L-53.8,931.1 L-57.0,931.7 L-60.2,932.1 L-63.5,932.3 L-66.8,932.4 L-41.2,932.4 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,932.4 L216.8,932.4 L213.5,932.3 L210.2,932.1 L207.0,931.7 L203.8,931.1 L200.6,930.4 L197.4,929.5 L194.3,928.5 L191.2,927.3 L188.2,926.0 L185.3,924.5 L182.5,922.9 L179.7,921.1 L177.0,919.3 L174.4,917.2 L171.9,915.1 L169.6,912.8 L167.3,910.5 L165.2,908.0 L163.1,905.4 L161.3,902.7 L159.5,899.9 L157.9,897.1 L156.4,894.2 L155.1,891.2 L153.9,888.1 L152.9,885.0 L152.0,881.8 L151.3,878.6 L150.7,875.4 L150.3,872.2 L150.1,868.9 L150.0,865.6 L150.0,38.5 L414.0,1053.6 L190.9,1932.4 L137.5,1932.4 L137.5,2000.0 L173.7,2000.0 L288.7,2000.0 L325.0,2000.0 L325.0,1932.4 L305.8,1932.4 L363.7,1704.5 L583.2,1704.5 L642.5,1932.4 L613.8,1932.4 L613.8,2000.0 L660.1,2000.0 L830.1,2000.0 L876.3,2000.0 L876.3,1932.4 L812.5,1932.4 L556.1,946.4 L705.1,359.5 L705.1,875.9 L705.0,878.7 L704.8,881.4 L704.5,884.2 L704.0,886.9 L703.4,889.6 L702.6,892.3 L701.8,894.9 L700.8,897.5 L699.7,900.0 L698.4,902.5 L697.0,904.9 L695.6,907.3 L694.0,909.6 L692.3,911.7 L690.4,913.8 L688.5,915.8 L686.5,917.8 L684.4,919.6 L682.2,921.3 L680.0,922.9 L677.6,924.4 L675.2,925.7 L672.7,927.0 L670.2,928.1 L667.6,929.1 L665.0,930.0 L662.3,930.7 L659.6,931.3 L656.9,931.8 L654.1,932.1 L651.3,932.3 L648.6,932.4 L680.0,932.4 L680.0,1000.0 L705.1,1000.0 L820.0,1000.0 L845.0,1000.0 L845.0,932.4 L876.5,932.4 L873.7,932.3 L871.0,932.1 L868.2,931.8 L865.5,931.3 L862.8,930.7 L860.1,930.0 L857.5,929.1 L854.9,928.1 L852.4,927.0 L849.9,925.7 L847.5,924.4 L845.1,922.9 L842.8,921.3 L840.7,919.6 L838.6,917.8 L836.6,915.8 L834.6,913.8 L832.8,911.7 L831.1,909.6 L829.5,907.3 L828.0,904.9 L826.7,902.5 L825.4,900.0 L824.3,897.5 L823.3,894.9 L822.4,892.3 L821.7,889.6 L821.1,886.9 L820.6,884.2 L820.3,881.4 L820.1,878.7 L820.0,875.9 L820.0,67.6 L880.0,67.6 L880.0,0.0 L820.0,0.0 L796.3,0.0 L705.1,0.0 L681.4,0.0 L667.6,0.0 L667.6,54.5 L498.0,722.8 L310.0,0.0 L150.0,0.0 L150.0,-205.5 L150.0,-206.0 L150.0,-206.5 L150.1,-207.0 L150.2,-207.5 L150.3,-207.9 L150.4,-208.4 L150.6,-208.9 L150.8,-209.3 L151.0,-209.8 L151.2,-210.2 L151.4,-210.6 L151.7,-211.1 L152.0,-211.5 L152.3,-211.8 L152.6,-212.2 L152.9,-212.6 L153.3,-212.9 L153.7,-213.2 L154.0,-213.5 L154.4,-213.8 L154.9,-214.1 L155.3,-214.3 L155.7,-214.5 L156.2,-214.7 L156.6,-214.9 L157.1,-215.1 L157.6,-215.2 L158.0,-215.3 L158.5,-215.4 L159.0,-215.5 L159.5,-215.5 L160.0,-215.5 L259.4,-215.5 L365.0,-109.9 L365.0,-215.5 L365.0,-300.0 L365.0,-350.0 L259.4,-350.0 L259.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-503.5 L150.0,-504.1 L150.1,-504.7 L150.1,-505.3 L150.2,-505.8 L150.4,-506.4 L150.5,-507.0 L150.7,-507.5 L150.9,-508.1 L151.2,-508.6 L151.4,-509.2 L151.7,-509.7 L152.0,-510.2 L152.4,-510.6 L152.7,-511.1 L153.1,-511.6 L153.5,-512.0 L153.9,-512.4 L154.4,-512.8 L154.9,-513.1 L155.3,-513.5 L155.8,-513.8 L156.3,-514.1 L156.9,-514.3 L157.4,-514.6 L158.0,-514.8 L158.5,-515.0 L159.1,-515.1 L159.7,-515.3 L160.2,-515.4 L160.8,-515.4 L161.4,-515.5 L162.0,-515.5 L344.4,-515.5 L450.0,-409.9 L450.0,-515.5 L450.0,-600.0 L344.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-515.5 L-60.8,-515.5 L-57.9,-515.4Z M561.3,1620.0 L385.1,1620.0 L472.1,1277.2 L561.3,1620.0Z" fill="currentColor" fill-rule="evenodd"/></svg>
-      <span class="wm" aria-hidden="true"><b>FMA</b><small>CONSTRUCTIONS</small></span>
+      <span class="wm" aria-hidden="true"><b>FMA</b> <small>CONSTRUCTIONS</small></span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="#work">Our work</a><a href="#process">How it works</a><a href="#about">About</a><a href="#contact">Contact</a>
@@ -312,6 +339,27 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 
 <main id="main">
 <section class="hero" id="home" aria-labelledby="h1">
+  <div class="stage" aria-hidden="true">
+    <figure class="hero-photo"><img src="img/hero-black-kitchen.jpg" alt="" width="1400" height="1866" decoding="async" fetchpriority="low"><figcaption>Example photo</figcaption></figure>
+    <div class="cab">
+      <div class="cab-shadow cab-fill"></div>
+      <div class="cab-frame cab-fill"></div>
+      <div class="cab-open"></div>
+      <div class="doors">
+        <i class="gap cab-fill"></i>
+        <div class="door door--l cab-fill"><div class="face"><i class="panel"></i><i class="pull"></i></div><div class="back"></div></div>
+        <div class="door door--r cab-fill"><div class="face"><i class="panel"></i><i class="pull"></i></div><div class="back"></div></div>
+      </div>
+      <svg class="cab-draw" viewBox="0 0 700 1000" preserveAspectRatio="none">
+        <circle class="dot" cx="350" cy="500" r="5" fill="#151515"/>
+        <path class="seam" pathLength="1" d="M350 500V11"/><path class="seam" pathLength="1" d="M350 500V989"/>
+        <path class="outer" pathLength="1" d="M350 1H1V999H699V1Z"/>
+        <path class="dr" pathLength="1" d="M348 11H11V989H348"/><path class="dr" pathLength="1" d="M352 11H689V989H352"/>
+        <path class="pan" pathLength="1" d="M60 60H299V940H60Z"/><path class="pan" pathLength="1" d="M401 60H640V940H401Z"/>
+        <path class="pull" pathLength="1" d="M313 405V595"/><path class="pull" pathLength="1" d="M387 405V595"/>
+      </svg>
+    </div>
+  </div>
   <div class="wrap hero-in">
     <div class="hero-copy">
       <h1 id="h1">Kitchen cabinets, installed right.</h1>
@@ -322,16 +370,8 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
       </div>
       <p class="hero-info">Mon–Fri 7am–6pm · Sat 7am–1pm · Licensed &amp; insured in PA</p>
     </div>
-    <svg class="hero-mark" id="heroMark" viewBox="-85 -640 1072 2680" role="img" aria-label="FMA Constructions monogram">
-      <defs><clipPath id="belowTop" clipPathUnits="userSpaceOnUse"><rect x="-2000" y="0" width="5000" height="4000"/></clipPath></defs>
-      <path class="m-full" d="M-22.3,-567.5 L-21.1,-567.4 L-20.0,-567.2 L-18.8,-567.1 L-17.7,-566.8 L-16.6,-566.5 L-15.5,-566.1 L-14.4,-565.7 L-13.4,-565.3 L-12.4,-564.7 L-11.4,-564.2 L-10.4,-563.6 L-9.5,-562.9 L-8.6,-562.2 L-7.7,-561.4 L-6.9,-560.6 L-6.1,-559.8 L-5.3,-558.9 L-4.6,-558.0 L-3.9,-557.1 L-3.3,-556.1 L-2.8,-555.1 L-2.2,-554.1 L-1.8,-553.1 L-1.4,-552.0 L-1.0,-550.9 L-0.7,-549.8 L-0.4,-548.7 L-0.3,-547.5 L-0.1,-546.4 L-0.0,-545.2 L0.0,-544.1 L0.0,948.3 L-0.0,949.6 L-0.1,950.8 L-0.3,952.1 L-0.5,953.3 L-0.8,954.6 L-1.1,955.8 L-1.5,957.0 L-2.0,958.1 L-2.5,959.3 L-3.0,960.4 L-3.7,961.5 L-4.3,962.6 L-5.1,963.6 L-5.8,964.6 L-6.7,965.6 L-7.5,966.5 L-8.4,967.3 L-9.4,968.2 L-10.4,968.9 L-11.4,969.7 L-12.5,970.3 L-13.6,971.0 L-14.7,971.5 L-15.9,972.0 L-17.0,972.5 L-18.2,972.9 L-19.4,973.2 L-20.7,973.5 L-21.9,973.7 L-23.2,973.9 L-24.4,974.0 L-25.7,974.0 L-41.2,974.0 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,974.0 L175.7,974.0 L174.4,974.0 L173.2,973.9 L171.9,973.7 L170.7,973.5 L169.4,973.2 L168.2,972.9 L167.0,972.5 L165.9,972.0 L164.7,971.5 L163.6,971.0 L162.5,970.3 L161.4,969.7 L160.4,968.9 L159.4,968.2 L158.4,967.3 L157.5,966.5 L156.7,965.6 L155.8,964.6 L155.1,963.6 L154.3,962.6 L153.7,961.5 L153.0,960.4 L152.5,959.3 L152.0,958.1 L151.5,957.0 L151.1,955.8 L150.8,954.6 L150.5,953.3 L150.3,952.1 L150.1,950.8 L150.0,949.6 L150.0,948.3 L150.0,33.9 L468.4,1111.6 L236.9,1974.0 L158.2,1974.0 L158.2,2000.0 L229.9,2000.0 L274.1,2000.0 L345.8,2000.0 L345.8,1974.0 L281.1,1974.0 L367.4,1652.5 L628.1,1652.5 L723.1,1974.0 L684.5,1974.0 L684.5,2000.0 L730.8,2000.0 L900.8,2000.0 L947.0,2000.0 L947.0,1974.0 L893.1,1974.0 L572.4,888.4 L775.8,130.8 L775.8,952.3 L775.8,953.3 L775.7,954.4 L775.6,955.5 L775.4,956.5 L775.1,957.5 L774.9,958.6 L774.5,959.6 L774.1,960.6 L773.7,961.6 L773.2,962.5 L772.7,963.4 L772.1,964.3 L771.5,965.2 L770.9,966.1 L770.2,966.9 L769.4,967.6 L768.7,968.4 L767.9,969.1 L767.0,969.7 L766.1,970.3 L765.2,970.9 L764.3,971.4 L763.4,971.9 L762.4,972.3 L761.4,972.7 L760.4,973.1 L759.3,973.3 L758.3,973.6 L757.3,973.8 L756.2,973.9 L755.1,974.0 L754.1,974.0 L715.4,974.0 L715.4,1000.0 L775.8,1000.0 L820.0,1000.0 L880.4,1000.0 L880.4,974.0 L841.7,974.0 L840.7,974.0 L839.6,973.9 L838.5,973.8 L837.5,973.6 L836.5,973.3 L835.4,973.1 L834.4,972.7 L833.4,972.3 L832.4,971.9 L831.5,971.4 L830.6,970.9 L829.7,970.3 L828.8,969.7 L827.9,969.1 L827.1,968.4 L826.4,967.6 L825.6,966.9 L824.9,966.1 L824.3,965.2 L823.7,964.3 L823.1,963.4 L822.6,962.5 L822.1,961.6 L821.7,960.6 L821.3,959.6 L820.9,958.6 L820.7,957.5 L820.4,956.5 L820.2,955.5 L820.1,954.4 L820.0,953.3 L820.0,952.3 L820.0,26.0 L880.0,26.0 L880.0,0.0 L820.0,0.0 L810.9,0.0 L775.8,0.0 L766.7,0.0 L738.3,0.0 L738.3,26.0 L759.7,26.0 L549.3,810.0 L310.0,0.0 L150.0,0.0 L150.0,-257.5 L150.0,-258.0 L150.0,-258.5 L150.1,-259.0 L150.2,-259.5 L150.3,-259.9 L150.4,-260.4 L150.6,-260.9 L150.8,-261.3 L151.0,-261.8 L151.2,-262.2 L151.4,-262.6 L151.7,-263.1 L152.0,-263.5 L152.3,-263.8 L152.6,-264.2 L152.9,-264.6 L153.3,-264.9 L153.7,-265.2 L154.0,-265.5 L154.4,-265.8 L154.9,-266.1 L155.3,-266.3 L155.7,-266.5 L156.2,-266.7 L156.6,-266.9 L157.1,-267.1 L157.6,-267.2 L158.0,-267.3 L158.5,-267.4 L159.0,-267.5 L159.5,-267.5 L160.0,-267.5 L324.4,-267.5 L365.0,-226.9 L365.0,-267.5 L365.0,-300.0 L365.0,-350.0 L324.4,-350.0 L324.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-555.5 L150.0,-556.1 L150.1,-556.7 L150.1,-557.3 L150.2,-557.8 L150.4,-558.4 L150.5,-559.0 L150.7,-559.5 L150.9,-560.1 L151.2,-560.6 L151.4,-561.2 L151.7,-561.7 L152.0,-562.2 L152.4,-562.6 L152.7,-563.1 L153.1,-563.6 L153.5,-564.0 L153.9,-564.4 L154.4,-564.8 L154.9,-565.1 L155.3,-565.5 L155.8,-565.8 L156.3,-566.1 L156.9,-566.3 L157.4,-566.6 L158.0,-566.8 L158.5,-567.0 L159.1,-567.1 L159.7,-567.3 L160.2,-567.4 L160.8,-567.4 L161.4,-567.5 L162.0,-567.5 L409.4,-567.5 L409.4,-490.6 L450.0,-450.0 L450.0,-567.5 L450.0,-600.0 L409.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-567.5 L-23.4,-567.5 L-22.3,-567.5Z M618.5,1620.0 L376.1,1620.0 L491.5,1190.0 L618.5,1620.0Z" fill="currentColor" fill-rule="evenodd"/>
-      <path class="m-rest" d="M-21.1,-567.4 L-20.0,-567.2 L-18.8,-567.1 L-17.7,-566.8 L-16.6,-566.5 L-15.5,-566.1 L-14.4,-565.7 L-13.4,-565.3 L-12.4,-564.7 L-11.4,-564.2 L-10.4,-563.6 L-9.5,-562.9 L-8.6,-562.2 L-7.7,-561.4 L-6.9,-560.6 L-6.1,-559.8 L-5.3,-558.9 L-4.6,-558.0 L-3.9,-557.1 L-3.3,-556.1 L-2.8,-555.1 L-2.2,-554.1 L-1.8,-553.1 L-1.4,-552.0 L-1.0,-550.9 L-0.7,-549.8 L-0.4,-548.7 L-0.3,-547.5 L-0.1,-546.4 L-0.0,-545.2 L0.0,-544.1 L0.0,948.3 L-0.0,949.6 L-0.1,950.8 L-0.3,952.1 L-0.5,953.3 L-0.8,954.6 L-1.1,955.8 L-1.5,957.0 L-2.0,958.1 L-2.5,959.3 L-3.0,960.4 L-3.7,961.5 L-4.3,962.6 L-5.1,963.6 L-5.8,964.6 L-6.7,965.6 L-7.5,966.5 L-8.4,967.3 L-9.4,968.2 L-10.4,968.9 L-11.4,969.7 L-12.5,970.3 L-13.6,971.0 L-14.7,971.5 L-15.9,972.0 L-17.0,972.5 L-18.2,972.9 L-19.4,973.2 L-20.7,973.5 L-21.9,973.7 L-23.2,973.9 L-24.4,974.0 L-25.7,974.0 L-41.2,974.0 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,974.0 L175.7,974.0 L174.4,974.0 L173.2,973.9 L171.9,973.7 L170.7,973.5 L169.4,973.2 L168.2,972.9 L167.0,972.5 L165.9,972.0 L164.7,971.5 L163.6,971.0 L162.5,970.3 L161.4,969.7 L160.4,968.9 L159.4,968.2 L158.4,967.3 L157.5,966.5 L156.7,965.6 L155.8,964.6 L155.1,963.6 L154.3,962.6 L153.7,961.5 L153.0,960.4 L152.5,959.3 L152.0,958.1 L151.5,957.0 L151.1,955.8 L150.8,954.6 L150.5,953.3 L150.3,952.1 L150.1,950.8 L150.0,949.6 L150.0,948.3 L150.0,33.9 L140.0,0.0 L150.0,0.0 L150.0,-257.5 L150.0,-258.0 L150.0,-258.5 L150.1,-259.0 L150.2,-259.5 L150.3,-259.9 L150.4,-260.4 L150.6,-260.9 L150.8,-261.3 L151.0,-261.8 L151.2,-262.2 L151.4,-262.6 L151.7,-263.1 L152.0,-263.5 L152.3,-263.8 L152.6,-264.2 L152.9,-264.6 L153.3,-264.9 L153.7,-265.2 L154.0,-265.5 L154.4,-265.8 L154.9,-266.1 L155.3,-266.3 L155.7,-266.5 L156.2,-266.7 L156.6,-266.9 L157.1,-267.1 L157.6,-267.2 L158.0,-267.3 L158.5,-267.4 L159.0,-267.5 L159.5,-267.5 L160.0,-267.5 L324.4,-267.5 L365.0,-226.9 L365.0,-267.5 L365.0,-300.0 L365.0,-350.0 L324.4,-350.0 L324.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-555.5 L150.0,-556.1 L150.1,-556.7 L150.1,-557.3 L150.2,-557.8 L150.4,-558.4 L150.5,-559.0 L150.7,-559.5 L150.9,-560.1 L151.2,-560.6 L151.4,-561.2 L151.7,-561.7 L152.0,-562.2 L152.4,-562.6 L152.7,-563.1 L153.1,-563.6 L153.5,-564.0 L153.9,-564.4 L154.4,-564.8 L154.9,-565.1 L155.3,-565.5 L155.8,-565.8 L156.3,-566.1 L156.9,-566.3 L157.4,-566.6 L158.0,-566.8 L158.5,-567.0 L159.1,-567.1 L159.7,-567.3 L160.2,-567.4 L160.8,-567.4 L161.4,-567.5 L162.0,-567.5 L409.4,-567.5 L409.4,-490.6 L450.0,-450.0 L450.0,-567.5 L450.0,-600.0 L409.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-567.5 L-23.4,-567.5 L-22.3,-567.5 L-21.1,-567.4Z M236.9,1974.0 L158.2,1974.0 L158.2,2000.0 L229.9,2000.0 L274.1,2000.0 L345.8,2000.0 L345.8,1974.0 L281.1,1974.0 L367.4,1652.5 L628.1,1652.5 L618.5,1620.0 L376.1,1620.0 L491.5,1190.0 L468.4,1111.6 L236.9,1974.0Z M684.5,1974.0 L684.5,2000.0 L730.8,2000.0 L723.1,1974.0 L684.5,1974.0Z M947.0,2000.0 L947.0,1974.0 L893.1,1974.0 L900.8,2000.0 L947.0,2000.0Z M775.8,130.8 L775.8,952.3 L775.8,953.3 L775.7,954.4 L775.6,955.5 L775.4,956.5 L775.1,957.5 L774.9,958.6 L774.5,959.6 L774.1,960.6 L773.7,961.6 L773.2,962.5 L772.7,963.4 L772.1,964.3 L771.5,965.2 L770.9,966.1 L770.2,966.9 L769.4,967.6 L768.7,968.4 L767.9,969.1 L767.0,969.7 L766.1,970.3 L765.2,970.9 L764.3,971.4 L763.4,971.9 L762.4,972.3 L761.4,972.7 L760.4,973.1 L759.3,973.3 L758.3,973.6 L757.3,973.8 L756.2,973.9 L755.1,974.0 L754.1,974.0 L715.4,974.0 L715.4,1000.0 L775.8,1000.0 L820.0,1000.0 L880.4,1000.0 L880.4,974.0 L841.7,974.0 L840.7,974.0 L839.6,973.9 L838.5,973.8 L837.5,973.6 L836.5,973.3 L835.4,973.1 L834.4,972.7 L833.4,972.3 L832.4,971.9 L831.5,971.4 L830.6,970.9 L829.7,970.3 L828.8,969.7 L827.9,969.1 L827.1,968.4 L826.4,967.6 L825.6,966.9 L824.9,966.1 L824.3,965.2 L823.7,964.3 L823.1,963.4 L822.6,962.5 L822.1,961.6 L821.7,960.6 L821.3,959.6 L820.9,958.6 L820.7,957.5 L820.4,956.5 L820.2,955.5 L820.1,954.4 L820.0,953.3 L820.0,952.3 L820.0,26.0 L880.0,26.0 L880.0,0.0 L820.0,0.0 L810.9,0.0 L775.8,0.0 L766.7,0.0 L738.3,0.0 L738.3,26.0 L759.7,26.0 L549.3,810.0 L572.4,888.4 L775.8,130.8Z" fill="currentColor" fill-rule="evenodd"/>
-      <g clip-path="url(#belowTop)"><path class="m-diag" d="M468.4,1111.6 L491.5,1190.0 L500.9,1221.8 L618.5,1620.0 L628.1,1652.5 L723.1,1974.0 L730.8,2000.0 L900.8,2000.0 L893.1,1974.0 L716.2,1375.2 L572.4,888.4 L549.3,810.0 L310.0,0.0 L150.0,0.0 L140.0,0.0 L150.0,33.9 L468.4,1111.6Z" fill="currentColor" fill-rule="evenodd" data-dx="-177.24" data-dy="-600.00"/></g>
-    </svg>
-  </div>
-  <div class="facts">
-    <div class="wrap">
-      <ul aria-label="At a glance"><li>Free on-site estimates</li><li>Licensed &amp; insured in PA</li><li>Callback within 1 business day</li><li>Philadelphia, Bucks &amp; Montgomery counties</li></ul>
+    <div class="facts">
+      <ul aria-label="At a glance"><li>Free on-site estimates</li><li>Callback within 1 business day</li><li>Licensed &amp; insured in PA</li><li>Philadelphia, Bucks &amp; Montgomery counties</li></ul>
     </div>
   </div>
 </section>
@@ -437,7 +477,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   <div class="wrap">
     <div class="ftr-grid">
       <div>
-        <a href="#home" class="logo" aria-label="FMA Constructions, back to top"><svg viewBox="-85 -640 1072 2680" aria-hidden="true" focusable="false"><path d="M-22.3,-567.5 L-21.1,-567.4 L-20.0,-567.2 L-18.8,-567.1 L-17.7,-566.8 L-16.6,-566.5 L-15.5,-566.1 L-14.4,-565.7 L-13.4,-565.3 L-12.4,-564.7 L-11.4,-564.2 L-10.4,-563.6 L-9.5,-562.9 L-8.6,-562.2 L-7.7,-561.4 L-6.9,-560.6 L-6.1,-559.8 L-5.3,-558.9 L-4.6,-558.0 L-3.9,-557.1 L-3.3,-556.1 L-2.8,-555.1 L-2.2,-554.1 L-1.8,-553.1 L-1.4,-552.0 L-1.0,-550.9 L-0.7,-549.8 L-0.4,-548.7 L-0.3,-547.5 L-0.1,-546.4 L-0.0,-545.2 L0.0,-544.1 L0.0,948.3 L-0.0,949.6 L-0.1,950.8 L-0.3,952.1 L-0.5,953.3 L-0.8,954.6 L-1.1,955.8 L-1.5,957.0 L-2.0,958.1 L-2.5,959.3 L-3.0,960.4 L-3.7,961.5 L-4.3,962.6 L-5.1,963.6 L-5.8,964.6 L-6.7,965.6 L-7.5,966.5 L-8.4,967.3 L-9.4,968.2 L-10.4,968.9 L-11.4,969.7 L-12.5,970.3 L-13.6,971.0 L-14.7,971.5 L-15.9,972.0 L-17.0,972.5 L-18.2,972.9 L-19.4,973.2 L-20.7,973.5 L-21.9,973.7 L-23.2,973.9 L-24.4,974.0 L-25.7,974.0 L-41.2,974.0 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,974.0 L175.7,974.0 L174.4,974.0 L173.2,973.9 L171.9,973.7 L170.7,973.5 L169.4,973.2 L168.2,972.9 L167.0,972.5 L165.9,972.0 L164.7,971.5 L163.6,971.0 L162.5,970.3 L161.4,969.7 L160.4,968.9 L159.4,968.2 L158.4,967.3 L157.5,966.5 L156.7,965.6 L155.8,964.6 L155.1,963.6 L154.3,962.6 L153.7,961.5 L153.0,960.4 L152.5,959.3 L152.0,958.1 L151.5,957.0 L151.1,955.8 L150.8,954.6 L150.5,953.3 L150.3,952.1 L150.1,950.8 L150.0,949.6 L150.0,948.3 L150.0,33.9 L468.4,1111.6 L236.9,1974.0 L158.2,1974.0 L158.2,2000.0 L229.9,2000.0 L274.1,2000.0 L345.8,2000.0 L345.8,1974.0 L281.1,1974.0 L367.4,1652.5 L628.1,1652.5 L723.1,1974.0 L684.5,1974.0 L684.5,2000.0 L730.8,2000.0 L900.8,2000.0 L947.0,2000.0 L947.0,1974.0 L893.1,1974.0 L572.4,888.4 L775.8,130.8 L775.8,952.3 L775.8,953.3 L775.7,954.4 L775.6,955.5 L775.4,956.5 L775.1,957.5 L774.9,958.6 L774.5,959.6 L774.1,960.6 L773.7,961.6 L773.2,962.5 L772.7,963.4 L772.1,964.3 L771.5,965.2 L770.9,966.1 L770.2,966.9 L769.4,967.6 L768.7,968.4 L767.9,969.1 L767.0,969.7 L766.1,970.3 L765.2,970.9 L764.3,971.4 L763.4,971.9 L762.4,972.3 L761.4,972.7 L760.4,973.1 L759.3,973.3 L758.3,973.6 L757.3,973.8 L756.2,973.9 L755.1,974.0 L754.1,974.0 L715.4,974.0 L715.4,1000.0 L775.8,1000.0 L820.0,1000.0 L880.4,1000.0 L880.4,974.0 L841.7,974.0 L840.7,974.0 L839.6,973.9 L838.5,973.8 L837.5,973.6 L836.5,973.3 L835.4,973.1 L834.4,972.7 L833.4,972.3 L832.4,971.9 L831.5,971.4 L830.6,970.9 L829.7,970.3 L828.8,969.7 L827.9,969.1 L827.1,968.4 L826.4,967.6 L825.6,966.9 L824.9,966.1 L824.3,965.2 L823.7,964.3 L823.1,963.4 L822.6,962.5 L822.1,961.6 L821.7,960.6 L821.3,959.6 L820.9,958.6 L820.7,957.5 L820.4,956.5 L820.2,955.5 L820.1,954.4 L820.0,953.3 L820.0,952.3 L820.0,26.0 L880.0,26.0 L880.0,0.0 L820.0,0.0 L810.9,0.0 L775.8,0.0 L766.7,0.0 L738.3,0.0 L738.3,26.0 L759.7,26.0 L549.3,810.0 L310.0,0.0 L150.0,0.0 L150.0,-257.5 L150.0,-258.0 L150.0,-258.5 L150.1,-259.0 L150.2,-259.5 L150.3,-259.9 L150.4,-260.4 L150.6,-260.9 L150.8,-261.3 L151.0,-261.8 L151.2,-262.2 L151.4,-262.6 L151.7,-263.1 L152.0,-263.5 L152.3,-263.8 L152.6,-264.2 L152.9,-264.6 L153.3,-264.9 L153.7,-265.2 L154.0,-265.5 L154.4,-265.8 L154.9,-266.1 L155.3,-266.3 L155.7,-266.5 L156.2,-266.7 L156.6,-266.9 L157.1,-267.1 L157.6,-267.2 L158.0,-267.3 L158.5,-267.4 L159.0,-267.5 L159.5,-267.5 L160.0,-267.5 L324.4,-267.5 L365.0,-226.9 L365.0,-267.5 L365.0,-300.0 L365.0,-350.0 L324.4,-350.0 L324.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-555.5 L150.0,-556.1 L150.1,-556.7 L150.1,-557.3 L150.2,-557.8 L150.4,-558.4 L150.5,-559.0 L150.7,-559.5 L150.9,-560.1 L151.2,-560.6 L151.4,-561.2 L151.7,-561.7 L152.0,-562.2 L152.4,-562.6 L152.7,-563.1 L153.1,-563.6 L153.5,-564.0 L153.9,-564.4 L154.4,-564.8 L154.9,-565.1 L155.3,-565.5 L155.8,-565.8 L156.3,-566.1 L156.9,-566.3 L157.4,-566.6 L158.0,-566.8 L158.5,-567.0 L159.1,-567.1 L159.7,-567.3 L160.2,-567.4 L160.8,-567.4 L161.4,-567.5 L162.0,-567.5 L409.4,-567.5 L409.4,-490.6 L450.0,-450.0 L450.0,-567.5 L450.0,-600.0 L409.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-567.5 L-23.4,-567.5 L-22.3,-567.5Z M618.5,1620.0 L376.1,1620.0 L491.5,1190.0 L618.5,1620.0Z" fill="currentColor" fill-rule="evenodd"/></svg><span class="wm" aria-hidden="true"><b>FMA</b><small>CONSTRUCTIONS</small></span></a>
+        <a href="#home" class="logo" aria-label="FMA Constructions, back to top"><svg viewBox="-85 -640 1072 2680" aria-hidden="true" focusable="false"><path d="M-22.3,-567.5 L-21.1,-567.4 L-20.0,-567.2 L-18.8,-567.1 L-17.7,-566.8 L-16.6,-566.5 L-15.5,-566.1 L-14.4,-565.7 L-13.4,-565.3 L-12.4,-564.7 L-11.4,-564.2 L-10.4,-563.6 L-9.5,-562.9 L-8.6,-562.2 L-7.7,-561.4 L-6.9,-560.6 L-6.1,-559.8 L-5.3,-558.9 L-4.6,-558.0 L-3.9,-557.1 L-3.3,-556.1 L-2.8,-555.1 L-2.2,-554.1 L-1.8,-553.1 L-1.4,-552.0 L-1.0,-550.9 L-0.7,-549.8 L-0.4,-548.7 L-0.3,-547.5 L-0.1,-546.4 L-0.0,-545.2 L0.0,-544.1 L0.0,948.3 L-0.0,949.6 L-0.1,950.8 L-0.3,952.1 L-0.5,953.3 L-0.8,954.6 L-1.1,955.8 L-1.5,957.0 L-2.0,958.1 L-2.5,959.3 L-3.0,960.4 L-3.7,961.5 L-4.3,962.6 L-5.1,963.6 L-5.8,964.6 L-6.7,965.6 L-7.5,966.5 L-8.4,967.3 L-9.4,968.2 L-10.4,968.9 L-11.4,969.7 L-12.5,970.3 L-13.6,971.0 L-14.7,971.5 L-15.9,972.0 L-17.0,972.5 L-18.2,972.9 L-19.4,973.2 L-20.7,973.5 L-21.9,973.7 L-23.2,973.9 L-24.4,974.0 L-25.7,974.0 L-41.2,974.0 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,974.0 L175.7,974.0 L174.4,974.0 L173.2,973.9 L171.9,973.7 L170.7,973.5 L169.4,973.2 L168.2,972.9 L167.0,972.5 L165.9,972.0 L164.7,971.5 L163.6,971.0 L162.5,970.3 L161.4,969.7 L160.4,968.9 L159.4,968.2 L158.4,967.3 L157.5,966.5 L156.7,965.6 L155.8,964.6 L155.1,963.6 L154.3,962.6 L153.7,961.5 L153.0,960.4 L152.5,959.3 L152.0,958.1 L151.5,957.0 L151.1,955.8 L150.8,954.6 L150.5,953.3 L150.3,952.1 L150.1,950.8 L150.0,949.6 L150.0,948.3 L150.0,33.9 L468.4,1111.6 L236.9,1974.0 L158.2,1974.0 L158.2,2000.0 L229.9,2000.0 L274.1,2000.0 L345.8,2000.0 L345.8,1974.0 L281.1,1974.0 L367.4,1652.5 L628.1,1652.5 L723.1,1974.0 L684.5,1974.0 L684.5,2000.0 L730.8,2000.0 L900.8,2000.0 L947.0,2000.0 L947.0,1974.0 L893.1,1974.0 L572.4,888.4 L775.8,130.8 L775.8,952.3 L775.8,953.3 L775.7,954.4 L775.6,955.5 L775.4,956.5 L775.1,957.5 L774.9,958.6 L774.5,959.6 L774.1,960.6 L773.7,961.6 L773.2,962.5 L772.7,963.4 L772.1,964.3 L771.5,965.2 L770.9,966.1 L770.2,966.9 L769.4,967.6 L768.7,968.4 L767.9,969.1 L767.0,969.7 L766.1,970.3 L765.2,970.9 L764.3,971.4 L763.4,971.9 L762.4,972.3 L761.4,972.7 L760.4,973.1 L759.3,973.3 L758.3,973.6 L757.3,973.8 L756.2,973.9 L755.1,974.0 L754.1,974.0 L715.4,974.0 L715.4,1000.0 L775.8,1000.0 L820.0,1000.0 L880.4,1000.0 L880.4,974.0 L841.7,974.0 L840.7,974.0 L839.6,973.9 L838.5,973.8 L837.5,973.6 L836.5,973.3 L835.4,973.1 L834.4,972.7 L833.4,972.3 L832.4,971.9 L831.5,971.4 L830.6,970.9 L829.7,970.3 L828.8,969.7 L827.9,969.1 L827.1,968.4 L826.4,967.6 L825.6,966.9 L824.9,966.1 L824.3,965.2 L823.7,964.3 L823.1,963.4 L822.6,962.5 L822.1,961.6 L821.7,960.6 L821.3,959.6 L820.9,958.6 L820.7,957.5 L820.4,956.5 L820.2,955.5 L820.1,954.4 L820.0,953.3 L820.0,952.3 L820.0,26.0 L880.0,26.0 L880.0,0.0 L820.0,0.0 L810.9,0.0 L775.8,0.0 L766.7,0.0 L738.3,0.0 L738.3,26.0 L759.7,26.0 L549.3,810.0 L310.0,0.0 L150.0,0.0 L150.0,-257.5 L150.0,-258.0 L150.0,-258.5 L150.1,-259.0 L150.2,-259.5 L150.3,-259.9 L150.4,-260.4 L150.6,-260.9 L150.8,-261.3 L151.0,-261.8 L151.2,-262.2 L151.4,-262.6 L151.7,-263.1 L152.0,-263.5 L152.3,-263.8 L152.6,-264.2 L152.9,-264.6 L153.3,-264.9 L153.7,-265.2 L154.0,-265.5 L154.4,-265.8 L154.9,-266.1 L155.3,-266.3 L155.7,-266.5 L156.2,-266.7 L156.6,-266.9 L157.1,-267.1 L157.6,-267.2 L158.0,-267.3 L158.5,-267.4 L159.0,-267.5 L159.5,-267.5 L160.0,-267.5 L324.4,-267.5 L365.0,-226.9 L365.0,-267.5 L365.0,-300.0 L365.0,-350.0 L324.4,-350.0 L324.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-555.5 L150.0,-556.1 L150.1,-556.7 L150.1,-557.3 L150.2,-557.8 L150.4,-558.4 L150.5,-559.0 L150.7,-559.5 L150.9,-560.1 L151.2,-560.6 L151.4,-561.2 L151.7,-561.7 L152.0,-562.2 L152.4,-562.6 L152.7,-563.1 L153.1,-563.6 L153.5,-564.0 L153.9,-564.4 L154.4,-564.8 L154.9,-565.1 L155.3,-565.5 L155.8,-565.8 L156.3,-566.1 L156.9,-566.3 L157.4,-566.6 L158.0,-566.8 L158.5,-567.0 L159.1,-567.1 L159.7,-567.3 L160.2,-567.4 L160.8,-567.4 L161.4,-567.5 L162.0,-567.5 L409.4,-567.5 L409.4,-490.6 L450.0,-450.0 L450.0,-567.5 L450.0,-600.0 L409.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-567.5 L-23.4,-567.5 L-22.3,-567.5Z M618.5,1620.0 L376.1,1620.0 L491.5,1190.0 L618.5,1620.0Z" fill="currentColor" fill-rule="evenodd"/></svg><span class="wm" aria-hidden="true"><b>FMA</b> <small>CONSTRUCTIONS</small></span></a>
         <p>Kitchen cabinet installation in Philadelphia. Licensed and insured, with free on-site estimates.</p>
       </div>
       <div><h4>Explore</h4><ul><li><a href="#work">Our work</a></li><li><a href="#process">How it works</a></li><li><a href="#about">About</a></li><li><a href="#contact">Free estimate</a></li></ul></div>
@@ -453,6 +493,7 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
   const d = document.documentElement; d.classList.replace('no-js', 'js');
   const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
   $('#year').textContent = new Date().getFullYear();
+  addEventListener('load', () => d.classList.add('ld'));   /* decorative textures after first paint */
 
   /* drawer */
   const burger = $('.burger'), drawer = $('#drawer');
@@ -530,27 +571,79 @@ html.drawer-open .hdr .logo svg{color:var(--oak)}
 <script src="vendor/gsap.min.js" defer></script>
 <script src="vendor/ScrollTrigger.min.js" defer></script>
 <script>
-/* The page's ONE orchestrated motion: the thick diagonal slides down its own angle into the monogram.
-   Desktop (≥768px) without reduced motion only. Ends on the official, whole mark (m-full), held still. */
+/* The page's ONE orchestrated motion: "open the cabinet".
+   Load: a dot grows into a line drawing of the cabinet, which fills in.
+   Desktop (>=768px): scroll opens the doors and dives into the kitchen photo (pinned ~110vh).
+   Phone: same, played once after the drawing. Reduced motion: photo end state, no cabinet. */
 addEventListener('DOMContentLoaded', () => {
-  if (!window.gsap || !window.ScrollTrigger) return;
+  const d = document.documentElement;
+  if (!d.classList.contains('m')) return;
+  if (!window.gsap || !window.ScrollTrigger) { d.classList.remove('m'); return; }
   gsap.registerPlugin(ScrollTrigger);
-  const mark = document.getElementById('heroMark'), diag = mark.querySelector('.m-diag');
-  const DX = +diag.dataset.dx, DY = +diag.dataset.dy;
-  gsap.matchMedia().add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-    mark.classList.add('is-split');
-    gsap.set(diag, { x: DX, y: DY, opacity: 0 });
-    const tl = gsap.timeline({
-      defaults: { duration: 1 },
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=120%', pin: true, scrub: 1, anticipatePin: 1 },
-      onUpdate() { mark.classList.toggle('is-whole', tl.progress() >= 0.86); }
-    });
-    tl.to(diag, { x: 0, y: 0, ease: 'sine.inOut', duration: 0.86 }, 0)
-      .to(diag, { opacity: 1, ease: 'sine.out', duration: 0.32 }, 0)
-      .to({}, { duration: 0.14 });                       // hold: mark whole and still before the unpin
-    window.__heroTL = tl;
-    return () => { mark.classList.remove('is-split', 'is-whole'); gsap.set(diag, { clearProps: 'all' }); };
+  window.__heroReady = true;
+  const q = s => document.querySelector(s), qa = s => [...document.querySelectorAll(s)];
+  const stage = q('.stage'), cab = q('.cab'), open = q('.cab-open'), photo = q('.hero-photo'), img = photo.querySelector('img'), cap = photo.querySelector('figcaption');
+  const dl = q('.door--l'), dr = q('.door--r'), draw = q('.cab-draw');
+
+  /* geometry from layout boxes (offset* ignore transforms, so refresh mid-animation is safe) */
+  const geo = () => {
+    const W = stage.clientWidth, H = stage.clientHeight;
+    const cl = cab.offsetLeft, ct = cab.offsetTop;   // never use CSS translate on .cab: GSAP takes it over
+    const ol = cl + open.offsetLeft, ot = ct + open.offsetTop, ow = open.offsetWidth, oh = open.offsetHeight;
+    return { W, H, ol, ot, ow, oh, s: Math.max(W / ow, H / oh) * 1.04, dx: W / 2 - (ol + ow / 2), dy: H / 2 - (ot + oh / 2), ox: open.offsetLeft + ow / 2, oy: open.offsetTop + oh / 2 };
+  };
+  const clip = { t: 0, r: 0, b: 0, l: 0 };
+  const paintClip = () => { photo.style.clipPath = `inset(${clip.t}px ${clip.r}px ${clip.b}px ${clip.l}px)`; };
+  const syncClip = () => { const g = geo(), x = +gsap.getProperty(cab, 'x') || 0, y = +gsap.getProperty(cab, 'y') || 0, s = +gsap.getProperty(cab, 'scale') || 1;
+    const cx = g.ol + g.ow / 2 + x, cy = g.ot + g.oh / 2 + y, w = g.ow * s, h = g.oh * s;
+    clip.t = Math.max(0, cy - h / 2); clip.l = Math.max(0, cx - w / 2); clip.r = Math.max(0, g.W - cx - w / 2); clip.b = Math.max(0, g.H - cy - h / 2); paintClip(); };
+  const startClip = syncClip;
+  startClip();
+
+  /* 1. draw-on intro (time based, both layouts) */
+  const intro = gsap.timeline({ delay: 0.2, paused: true });
+  intro.fromTo('.cab-draw .dot', { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.22, ease: 'back.out(2.2)' })
+    .to('.cab-draw .seam', { strokeDashoffset: 0, duration: 0.32, ease: 'sine.inOut' })
+    .to('.cab-draw .dot', { opacity: 0, duration: 0.12 }, '<0.1')
+    .to('.cab-draw .outer', { strokeDashoffset: 0, duration: 0.5, ease: 'sine.inOut' }, '-=0.08')
+    .to('.cab-draw .dr', { strokeDashoffset: 0, duration: 0.36, ease: 'sine.inOut' }, '-=0.22')
+    .to('.cab-draw .pan', { strokeDashoffset: 0, duration: 0.36, ease: 'sine.inOut', stagger: 0.05 }, '-=0.2')
+    .to('.cab-draw .pull', { strokeDashoffset: 0, duration: 0.2, ease: 'sine.out' }, '-=0.12')
+    .to('.cab-fill', { opacity: 1, duration: 0.45, ease: 'sine.out', stagger: 0.04 }, '-=0.02')
+    .to(draw, { opacity: 0, duration: 0.3 }, '-=0.25');
+
+  /* 2. open + dive, written once, used by scroll (desktop) or played (phone) */
+  const dive = (tl) => {
+    tl.set(photo, { visibility: 'visible' }, 0.004)
+      .to('.cab-shadow', { opacity: 0, duration: 0.12, ease: 'sine.out' }, 0)
+      .to('.doors .gap', { opacity: 0, duration: 0.03 }, 0)
+      .to(dl, { rotateY: -112, duration: 0.34, ease: 'sine.inOut' }, 0)
+      .to(dr, { rotateY: 112, duration: 0.34, ease: 'sine.inOut' }, 0.015)
+      .to('.doors', { opacity: 0, duration: 0.12, ease: 'sine.in' }, 0.44)
+      .fromTo(cab, { x: 0, y: 0, scale: 1 }, { x: () => geo().dx, y: () => geo().dy, scale: () => geo().s, duration: 0.46, ease: 'power2.inOut', immediateRender: false, onUpdate: syncClip }, 0.44)
+      .fromTo(img, { scale: 1.16 }, { scale: 1, duration: 0.66, ease: 'sine.inOut', immediateRender: false }, 0.24)
+      .to(cap, { opacity: 1, duration: 0.08 }, 0.88)
+      .to({}, { duration: 0.1 });                    /* hold the end frame before the unpin */
+    return tl;
+  };
+  const setOrigin = () => { const g = geo(); cab.style.transformOrigin = `${g.ox}px ${g.oy}px`; };
+  setOrigin();
+
+  const mm = gsap.matchMedia();
+  mm.add({ desk: '(min-width: 768px)', phone: '(max-width: 767px)' }, (ctx) => {
+    if (ctx.conditions.desk) {
+      const tl = dive(gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=110%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
+        onRefresh: () => { setOrigin(); if (tl.progress() === 0) startClip(); } } }));
+      window.__heroTL = tl;
+    } else {
+      const tl = dive(gsap.timeline({ paused: true, defaults: {} })).timeScale(0.55);
+      intro.eventCallback('onComplete', () => gsap.delayedCall(0.35, () => tl.play()));
+      window.__heroTL = tl;
+    }
+    return () => { window.__heroTL = null; gsap.set([dl, dr, cab, img, cap], { clearProps: 'transform,rotate,scale,opacity' }); startClip(); };
   });
+  document.fonts.ready.then(() => { ScrollTrigger.refresh(); intro.play(); });
+  window.__heroIntro = intro;
 });
 </script>
 </body>
