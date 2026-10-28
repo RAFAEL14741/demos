@@ -487,3 +487,5 @@ html.sheet-open{overflow:hidden}
 @media (max-width:767px){.chips{align-self:stretch;flex-wrap:nowrap;overflow-x:auto;margin:0 calc(var(--pad) * -1);padding:0 var(--pad) 2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{flex:none}.more-wrap .btn{width:100%}}
 .looks-head>*{min-width:0}
 .ctrl{max-width:100%}
+
+.ex-note{margin:.9rem 0 0;padding:.7rem .9rem;border-left:2px solid var(--oak-deep);background:rgba(210,180,138,.16);font-size:.84rem;line-height:1.5;color:var(--ink);max-width:52ch}

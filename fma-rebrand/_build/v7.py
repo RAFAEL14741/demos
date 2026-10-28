@@ -173,18 +173,18 @@ BODY = f'''<body>
 <section class="sec" id="kitchens" aria-labelledby="kitchens-h">
   <div class="looks-head">
     <div><p class="kick">Kitchens</p><h2 id="kitchens-h">Find a kitchen like yours.</h2>
-    <p class="lede">Rowhome galley, rental or big family kitchen, nothing fancy needed. Tap one to see every photo.</p></div>
+    <p class="lede">Example kitchens to browse for styles, not ones we sell. Rowhome galley, rental or big family kitchen, tap one to see every photo.</p></div>
     <div class="ctrl">
       <div class="tabs" role="group" aria-label="Filter by kitchen size">{ktabs}</div>
       <div class="dots" role="group" aria-label="Filter by color">{kdots}</div>
       <div class="chips" role="group" aria-label="Filter by door style">{kstyles}</div>
     </div>
   </div>
-  <div class="meta"><span id="kitCount">{len(KITS)} kitchens</span><span>Tap + to save the ones you like</span></div>
+  <div class="meta"><span id="kitCount">{len(KITS)} kitchens</span><span>Examples for browsing styles. Tap + to save the ones you like</span></div>
   <ul class="looks-grid" id="kitGrid">{kits}</ul>
   <div class="more-wrap"><button type="button" class="btn btn--line" id="kitMore" hidden>Show all {len(KITS)} kitchens</button></div>
   <p class="empty" id="kitEmpty" hidden>No kitchens in that combination yet. <button type="button" id="kitReset">Show all</button></p>
-  <p class="fine">Example photos from Unsplash, not FMA jobs. Saved kitchens go with your estimate request.</p>
+  <p class="fine">Example photos from Unsplash, for browsing styles. They are not FMA jobs and not kitchens we sell. Saved styles go with your estimate request so we know what you like.</p>
 </section>
 
 <section class="crew" aria-labelledby="crew-h">
@@ -281,13 +281,14 @@ BODY = f'''<body>
     <div class="sheet-info">
       <p class="kick" id="sheetSize"></p>
       <h3 id="sheetName"></h3>
+      <p class="ex-note">Example kitchen for browsing styles. You are not buying this exact kitchen. Save what you like and we will build your quote from your own space.</p>
       <dl class="spec" id="sheetSpec"></dl>
       <div class="sp">
         <div class="sp-head"><p id="spHead"></p><label class="sr" for="spArea">Your area</label><select id="spArea"><option value="philly">Philadelphia</option><option value="bucks">Bucks</option><option value="montco">Montgomery</option><option value="nj">New Jersey</option></select></div>
         <dl class="sp-rows"><div><dt>Install only</dt><dd id="spA"></dd></div><div><dt>New cabinets, installed</dt><dd id="spB"></dd></div></dl>
         <p class="fine" id="spNote"></p>
       </div>
-      <div class="sheet-act"><button type="button" class="btn btn--ink" id="sheetSave" aria-pressed="false">I want this look</button><a class="btn btn--line" href="#contact" data-close>Free estimate</a></div>
+      <div class="sheet-act"><button type="button" class="btn btn--ink" id="sheetSave" aria-pressed="false">Save this style</button><a class="btn btn--line" href="#contact" data-close>Free estimate</a></div>
       <p class="fine" id="sheetCredit"></p>
     </div>
   </div>
@@ -346,7 +347,7 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
   const setSaved = (name, src, on) => {
     window.__saved = on ? (isSaved(name) ? window.__saved : [...window.__saved, { n: name, src }]) : window.__saved.filter(l => l.n !== name);
     $$('.kit .save').forEach(b => { if (b.dataset.n === name) { b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', (on ? 'Saved: ' : 'Save ') + name); } });
-    const n = window.__saved.length, t = n ? `Send my ${n} look${n > 1 ? 's' : ''}` : 'Free estimate';
+    const n = window.__saved.length, t = n ? `Send my ${n} style${n > 1 ? 's' : ''}` : 'Free estimate';
     estBtn.textContent = t; hdrEst.textContent = t;
     window.__wizLooks && window.__wizLooks();
     syncSheetSave();
@@ -370,7 +371,7 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
   const sheet = $('#sheet'), panel = $('.sheet-panel', sheet), track = $('#galTrack'), gc = $('#galCount'), sSave = $('#sheetSave');
   let cur = null, opener = null, hideT = 0;
   const fillPrice = () => { const p = PRICE[cur.z]; $('#spHead').textContent = `${cur.z[0].toUpperCase() + cur.z.slice(1)} kitchen, ${p[0]}`; $('#spA').textContent = p[1]; $('#spB').textContent = p[2]; $('#spNote').textContent = areaNote() + ' Typical public data, not an FMA quote.'; };
-  function syncSheetSave() { if (!cur) return; const on = isSaved(cur.t); sSave.setAttribute('aria-pressed', String(on)); sSave.textContent = on ? 'Saved for my estimate' : 'I want this look'; }
+  function syncSheetSave() { if (!cur) return; const on = isSaved(cur.t); sSave.setAttribute('aria-pressed', String(on)); sSave.textContent = on ? 'Style saved for my estimate' : 'Save this style'; }
   const openSheet = (k, from) => {
     clearTimeout(hideT); cur = KIT[k]; opener = from;
     $('.sheet-info', sheet).scrollTop = 0;
@@ -381,7 +382,7 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
     $('#sheetSize').textContent = cur.z[0].toUpperCase() + cur.z.slice(1) + ' kitchen';
     $('#sheetName').textContent = cur.t;
     $('#sheetSpec').innerHTML = [['Layout', cur.lay], ['Doors', cur.dr], ['Details', cur.det]].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
-    $('#sheetCredit').innerHTML = `Example photos by ${cur.ph} on Unsplash. Not an FMA job.`;
+    $('#sheetCredit').innerHTML = `Example photos by ${cur.ph} on Unsplash. Not an FMA job, and not a kitchen we sell.`;
     fillPrice(); syncSheetSave();
     sheet.hidden = false; d.classList.add('sheet-open'); $$('main, header, footer, .callbar').forEach(el => { el.inert = true; });
     requestAnimationFrame(() => { sheet.classList.add('is-open'); panel.focus({ preventScroll: true }); });
@@ -409,6 +410,8 @@ srep("$('#year').textContent = new Date().getFullYear();", "const yr = $('#year'
 srep("heroCall = $('.hero .btn--oak')", "heroCall = $('.hero .btn--bone')")
 # dead anchors: #work / #looks were renamed to #kitchens
 srep('<a href="#looks">Change</a>', '<a href="#kitchens">Change</a>')
+srep('Looks you saved', 'Styles you saved')
+srep("[['Looks', state.looks]", "[['Styles', state.looks]")
 srep('alt="${l.n}" width="64" height="80"', 'alt="${l.n}" width="64" height="48"')
 s = s.replace('stroke="#151515" stroke-width="2.6"', 'stroke="#F3ECE0" stroke-width="2.6"')
 
