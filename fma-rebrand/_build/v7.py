@@ -87,6 +87,9 @@ PREV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=
 NEXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
 import json as _json
 # slug, name, size, color, style, photos, layout, doors, details, photographer, handle
+GAL = _json.load(open('/home/claude/work/gal.json'))
+import os as _os
+CARD_RATIO = float(_os.environ.get('CARD_RATIO', 4 / 3)); CARD_H = round(480 / CARD_RATIO)
 KITS = [tuple(k[x] for x in ('s','t','z','c','st','n','lay','dr','det','ph','hd')) for k in _json.load(open('/home/claude/work/kits.json'))]
 SW_ALL = {'white': '#F2EEE6', 'cream': '#EDE3CC', 'gray': '#B9B6AE', 'greige': '#B3A796', 'green': '#6E8566', 'blue': '#33476A', 'lightblue': '#A9BCCB', 'wood': '#C49A6C', 'black': '#232323', 'twotone': 'linear-gradient(90deg,#F2EEE6 50%,#33476A 50%)', 'other': '#B5654A'}
 CNAME = {'lightblue': 'Light blue', 'twotone': 'Two-tone', 'other': 'Other colors'}
@@ -101,12 +104,12 @@ PRICE = {'small': ('about 15 ft of cabinets', '$750 – $3,000', '$4,400 – $9,
          'large': ('about 40 ft of cabinets', '$2,000 – $8,000', '$11,800 – $26,000')}
 kits = ''.join(
     f'<li class="kit" data-size="{z}" data-c="{c}" data-st="{s_}" style="--k:{i % 4}"><div class="kit-ph">'
-    f'<button type="button" class="kit-open" data-k="{i}" aria-label="Open {t}, {n} photos"><img src="img/k/{sl}-c-480.jpg" srcset="img/k/{sl}-c-480.jpg 480w, img/k/{sl}-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button>'
+    f'<button type="button" class="kit-open" data-k="{i}" aria-label="Open {t}, {n} photos"><img src="img/k/{sl}-c-480.jpg" srcset="img/k/{sl}-c-480.jpg 480w, img/k/{sl}-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="{CARD_H}" alt="" loading="lazy" decoding="async"></button>'
     f'<span class="kit-size">{SIZE[z]}</span><span class="kit-n">{n} photos</span>'
     f'<button type="button" class="save" aria-pressed="false" aria-label="Save {t}" data-n="{t}" data-src="img/k/{sl}-c-480.jpg">{PLUS}</button></div>'
     f'<p class="kit-name">{t}</p><p class="kit-d"><i style="--c:{SW[c]}"></i>{dr}</p></li>'
     for i, (sl, t, z, c, s_, n, lay, dr, det, ph, hd) in enumerate(KITS))
-KJSON = _json.dumps([{'s': sl, 't': t, 'z': z, 'n': n, 'lay': lay, 'dr': dr, 'det': det, 'ph': ph, 'hd': hd} for (sl, t, z, c, s_, n, lay, dr, det, ph, hd) in KITS]).replace('</', '<\\/')
+KJSON = _json.dumps([{'s': sl, 't': t, 'z': z, 'n': n, 'lay': lay, 'dr': dr, 'det': det, 'ph': ph, 'hd': hd, 'd': GAL[sl]} for (sl, t, z, c, s_, n, lay, dr, det, ph, hd) in KITS]).replace('</', '<\\/')
 PJSON = _json.dumps(PRICE)
 kdots = ''.join(f'<button type="button" class="dot" data-c="{k}" aria-pressed="false" aria-label="{CNAME.get(k, k.title())}" style="--c:{v}"></button>' for k, v in SW.items())
 ktabs = ''.join(f'<button type="button" data-z="{k}" aria-pressed="{"true" if k == "all" else "false"}">{t}</button>' for k, t in (('all', 'All'), ('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')))
@@ -168,7 +171,7 @@ BODY = f'''<body>
 <section class="sec" id="kitchens" aria-labelledby="kitchens-h">
   <div class="looks-head">
     <div><p class="kick">Kitchens</p><h2 id="kitchens-h">Find a kitchen like yours.</h2>
-    <p class="lede">Rowhome galley or big family kitchen, we install them all. Tap one to see every photo.</p></div>
+    <p class="lede">Rowhome galley, rental or big family kitchen, nothing fancy needed. Tap one to see every photo.</p></div>
     <div class="ctrl">
       <div class="tabs" role="group" aria-label="Filter by kitchen size">{ktabs}</div>
       <div class="dots" role="group" aria-label="Filter by color">{kdots}</div>
@@ -368,7 +371,8 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
   function syncSheetSave() { if (!cur) return; const on = isSaved(cur.t); sSave.setAttribute('aria-pressed', String(on)); sSave.textContent = on ? 'Saved for my estimate' : 'I want this look'; }
   const openSheet = (k, from) => {
     cur = KIT[k]; opener = from;
-    track.innerHTML = Array.from({ length: cur.n }, (_, i) => `<img src="img/k/${cur.s}-${i + 1}-720.jpg" srcset="img/k/${cur.s}-${i + 1}-720.jpg 720w, img/k/${cur.s}-${i + 1}-1200.jpg 1200w" sizes="(max-width:900px) 100vw, 58vw" width="720" height="540" alt="${cur.t}, photo ${i + 1} of ${cur.n}"${i ? ' loading="lazy"' : ''} decoding="async">`).join('');
+    $('.sheet-info', sheet).scrollTop = 0;
+    track.innerHTML = Array.from({ length: cur.n }, (_, i) => `<img src="img/k/${cur.s}-${i + 1}-720.jpg" srcset="img/k/${cur.s}-${i + 1}-720.jpg ${cur.d[i][0]}w, img/k/${cur.s}-${i + 1}-1200.jpg ${cur.d[i][2]}w" sizes="(max-width:900px) 100vw, 58vw" width="${cur.d[i][0]}" height="${cur.d[i][1]}" alt="${cur.t}, photo ${i + 1} of ${cur.n}"${i ? ' loading="lazy"' : ''} decoding="async">`).join('');
     track.scrollLeft = 0; gc.textContent = `1 / ${cur.n}`;
     $('#sheetSize').textContent = cur.z[0].toUpperCase() + cur.z.slice(1) + ' kitchen';
     $('#sheetName').textContent = cur.t;
