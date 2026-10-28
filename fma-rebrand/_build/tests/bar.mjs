@@ -1,0 +1,11 @@
+import { chromium } from '/home/claude/work/npm/node_modules/playwright/index.mjs';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
+const p = await b.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+await p.goto('http://127.0.0.1:8765/fma-rebrand/'); await p.waitForTimeout(800);
+const at = async (y, tag) => { await p.evaluate(y => scrollTo(0, y), y); await p.waitForTimeout(500);
+  const r = await p.evaluate(() => { const b = document.getElementById('callbar'); return { on: b.classList.contains('is-on'), top: Math.round(b.getBoundingClientRect().top), vh: innerHeight }; });
+  console.log(tag, y, JSON.stringify(r)); await p.screenshot({ path: `/home/claude/work/review/bar-${tag}.png` }); };
+await at(0, 'top'); await at(1600, 'mid');
+const cy = await p.evaluate(() => document.getElementById('contact').offsetTop); await at(cy + 100, 'contact');
+const fy = await p.evaluate(() => document.getElementById('faq').offsetTop); await at(fy, 'faq');
+await b.close();

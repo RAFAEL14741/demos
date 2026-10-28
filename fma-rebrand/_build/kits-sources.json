@@ -1,0 +1,155 @@
+{
+ "small-white-galley": [
+  "https://images.unsplash.com/photo-1646592491770-c113dd6f8827",
+  "https://images.unsplash.com/photo-1646592491577-051086451022",
+  "https://images.unsplash.com/photo-1646592491767-eed3c7a85eb8",
+  "https://images.unsplash.com/photo-1646592491578-01b3053d9053",
+  "https://images.unsplash.com/photo-1646592491435-6bc8cb477a04"
+ ],
+ "small-white-onewall-dining": [
+  "https://images.unsplash.com/photo-1630699294544-d3fb634e2de4",
+  "https://images.unsplash.com/photo-1630699293875-e56c25151c4b",
+  "https://images.unsplash.com/photo-1630699294512-64ecddd912c5"
+ ],
+ "small-gray-onewall": [
+  "https://images.unsplash.com/photo-1630699376331-7d70d7a3e417",
+  "https://images.unsplash.com/photo-1630699376167-3870469e7598",
+  "https://images.unsplash.com/photo-1630699376564-5506f3f1e2e1"
+ ],
+ "small-sage-checker-tile": [
+  "https://images.unsplash.com/photo-1737737238595-099398e24649",
+  "https://images.unsplash.com/photo-1737737247650-a71e84ec4c29",
+  "https://images.unsplash.com/photo-1737737168323-5462353e89a8",
+  "https://images.unsplash.com/photo-1737737241535-f81c4bbe0f5c",
+  "https://images.unsplash.com/photo-1737737253994-a543f89a637b"
+ ],
+ "medium-gray-shaker-island": [
+  "https://images.unsplash.com/photo-1630699144641-72fa7a6b8aa1",
+  "https://images.unsplash.com/photo-1630699144865-d3230bf37016",
+  "https://images.unsplash.com/photo-1630699144429-c9912507ef53",
+  "https://images.unsplash.com/photo-1630699144310-980c8ed310e3",
+  "https://images.unsplash.com/photo-1630699144994-8342162d81f7"
+ ],
+ "medium-green-rowhouse": [
+  "https://images.unsplash.com/photo-1652918320939-47f66eb1b684",
+  "https://images.unsplash.com/photo-1652918320929-2e905ad068de",
+  "https://images.unsplash.com/photo-1652918320907-f9ec8623ab30",
+  "https://images.unsplash.com/photo-1652918320926-3ea79953c717",
+  "https://images.unsplash.com/photo-1652918321143-917efc510571"
+ ],
+ "medium-navy-butcherblock": [
+  "https://images.unsplash.com/photo-1721522000830-8c41104b3f10",
+  "https://images.unsplash.com/photo-1721522000975-786b623a394d",
+  "https://images.unsplash.com/photo-1721522001128-60155e98b2c3",
+  "https://images.unsplash.com/photo-1721522000970-77e2c5ad2e0c",
+  "https://images.unsplash.com/photo-1721521999885-0c8d388693ee",
+  "https://images.unsplash.com/photo-1721522001138-4c6a6f14ad51"
+ ],
+ "medium-maple-island": [
+  "https://images.unsplash.com/photo-1630699033446-74038a4c9abc",
+  "https://images.unsplash.com/photo-1630699033581-0fa398e5829a",
+  "https://images.unsplash.com/photo-1630699034266-7f4d24832aee",
+  "https://images.unsplash.com/photo-1630699034276-0be879da7ebf"
+ ],
+ "large-cream-shaker-brass": [
+  "https://images.unsplash.com/photo-1774578341952-98cbacf88010",
+  "https://images.unsplash.com/photo-1774578341941-cd784a0d41eb",
+  "https://images.unsplash.com/photo-1774578341925-cd64c07195e9",
+  "https://images.unsplash.com/photo-1774578342017-3885f7f52825"
+ ],
+ "large-walnut-black": [
+  "https://images.unsplash.com/photo-1791493192335-c31b06c7e54d",
+  "https://images.unsplash.com/photo-1791493192259-a704517d6c7a",
+  "https://images.unsplash.com/photo-1791493192258-070274a53d36",
+  "https://images.unsplash.com/photo-1791493192207-d45742d40b7f",
+  "https://images.unsplash.com/photo-1791493192207-62dffb95c141"
+ ],
+ "large-dark-gray-marble": [
+  "https://images.unsplash.com/photo-1787539386494-470935ba15d4",
+  "https://images.unsplash.com/photo-1787539386484-714eebe18275",
+  "https://images.unsplash.com/photo-1787539386316-f3c2d915798d",
+  "https://images.unsplash.com/photo-1787539386359-94223e59f1d8"
+ ],
+ "small-dusty-blue-apartment": [
+  "https://images.unsplash.com/photo-1756906838783-af20777a584c",
+  "https://images.unsplash.com/photo-1756906838843-c80118e2416e",
+  "https://images.unsplash.com/photo-1756906839016-150c89522fef",
+  "https://images.unsplash.com/photo-1756906838898-eb72557735c7"
+ ],
+ "small-forest-green-cottage": [
+  "https://images.unsplash.com/photo-1787755336845-45d78fe7d580",
+  "https://images.unsplash.com/photo-1787755585375-bd05270923a8",
+  "https://images.unsplash.com/photo-1787755464323-e0f1d17c3b82"
+ ],
+ "small-butter-yellow-two-tone": [
+  "https://images.unsplash.com/photo-1793143519064-04352d3ef80e",
+  "https://images.unsplash.com/photo-1793143423580-988b85442c19",
+  "https://images.unsplash.com/photo-1793143765092-dd507da9bffe"
+ ],
+ "medium-walnut-island": [
+  "https://images.unsplash.com/photo-1788910432628-772fa22ed52a",
+  "https://images.unsplash.com/photo-1788217158679-5f7a52049ecc",
+  "https://images.unsplash.com/photo-1788910385096-929d5aab90eb"
+ ],
+ "medium-navy-raised-panel": [
+  "https://images.unsplash.com/photo-1722859033311-f82770f888a5",
+  "https://images.unsplash.com/photo-1722859033296-7cd6b97dd27e",
+  "https://images.unsplash.com/photo-1722859033329-7bab701dc3a9",
+  "https://images.unsplash.com/photo-1722859033305-78b01a6fd394"
+ ],
+ "medium-greige-shaker-island": [
+  "https://images.unsplash.com/photo-1722942625910-809539b20865",
+  "https://images.unsplash.com/photo-1722942626037-8b6391ab2c48",
+  "https://images.unsplash.com/photo-1722942625802-c4c87aa44cbc",
+  "https://images.unsplash.com/photo-1722942626030-864388d62b3d",
+  "https://images.unsplash.com/photo-1722942625998-087a85927e48"
+ ],
+ "large-black-oak-slab": [
+  "https://images.unsplash.com/photo-1753826944249-6bfc06c0c254",
+  "https://images.unsplash.com/photo-1753826944241-d18b2cec2b5e",
+  "https://images.unsplash.com/photo-1753826944273-66c18e506233",
+  "https://images.unsplash.com/photo-1753826944245-d133bdcd4152"
+ ],
+ "small-twotone-galley": [
+  "https://images.unsplash.com/photo-1668910231038-e342ad670789",
+  "https://images.unsplash.com/photo-1668910229698-b9e197573d44",
+  "https://images.unsplash.com/photo-1668910230576-f83566919753",
+  "https://images.unsplash.com/photo-1668910238897-4aec667ff550",
+  "https://images.unsplash.com/photo-1668910239369-e04284369c68",
+  "https://images.unsplash.com/photo-1668910225551-1080c3a12241"
+ ],
+ "small-rustic-cabin-panel": [
+  "https://images.unsplash.com/photo-1713707131810-d53b3b1ecced",
+  "https://images.unsplash.com/photo-1713707131805-f0d7d7432598",
+  "https://images.unsplash.com/photo-1713707131882-5086e8fd53b8",
+  "https://images.unsplash.com/photo-1713707131838-aba9002d410e"
+ ],
+ "medium-farmhouse-beadboard": [
+  "https://images.unsplash.com/photo-1754415267107-8a1f75a6a366",
+  "https://images.unsplash.com/photo-1754415163555-c583965c4fb2",
+  "https://images.unsplash.com/photo-1754415266974-404a215e6c62"
+ ],
+ "medium-open-shelving-inset": [
+  "https://images.unsplash.com/photo-1769745402932-4c93d9e76d98",
+  "https://images.unsplash.com/photo-1769745241584-be9b8227e126",
+  "https://images.unsplash.com/photo-1769745918779-f255f567664c"
+ ],
+ "medium-walnut-slab-apartment": [
+  "https://images.unsplash.com/photo-1781249144275-c04daed37031",
+  "https://images.unsplash.com/photo-1781249144389-4174c1164955",
+  "https://images.unsplash.com/photo-1781249144427-b675cf4fd2ad"
+ ],
+ "large-glass-front-uppers": [
+  "https://images.unsplash.com/photo-1778731525494-d8b8d02d69b8",
+  "https://images.unsplash.com/photo-1778731525491-775487baf5f9",
+  "https://images.unsplash.com/photo-1778731525509-6f6f07cb6ddb",
+  "https://images.unsplash.com/photo-1778731525458-ef8dbb0b6691"
+ ],
+ "large-twotone-slab-island": [
+  "https://images.unsplash.com/photo-1772567732969-c1506edf80a0",
+  "https://images.unsplash.com/photo-1772567732902-2d239d957f29",
+  "https://images.unsplash.com/photo-1772567733061-f7b44c0587b0",
+  "https://images.unsplash.com/photo-1772567733000-5d5acb9ef4f9",
+  "https://images.unsplash.com/photo-1772567732993-ef3c4acde6c3"
+ ]
+}
