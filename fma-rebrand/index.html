@@ -48,14 +48,14 @@
 @font-face{font-family:'Inter';src:url(fonts/inter.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bone:#F3ECE0;--ink:#151515;--oak:#D2B48A;--oak-deep:#7A5C36;--mute:#6B6359;--mute-d:rgba(243,236,224,.62);
+  --bone:#F3ECE0;--ink:#151515;--oak:#D2B48A;--oak-deep:#7A5C36;--mute:#5C554C;--mute-d:rgba(243,236,224,.62);
   --line:rgba(21,21,21,.13);--line-d:rgba(243,236,224,.16);
   --serif:'Bodoni Moda',Didot,Georgia,serif;--sans:'Inter',system-ui,-apple-system,sans-serif;
   --pad:clamp(20px,4vw,56px);--sec:clamp(80px,10vh,120px);--hdr:68px;
   --ease:cubic-bezier(.2,.8,.2,1);
 }
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-padding-top:var(--hdr)}
-body{background:var(--bone);color:var(--ink);font:300 1rem/1.6 var(--sans);overflow-x:clip}
+body{background:var(--bone);color:var(--ink);font:400 1rem/1.6 var(--sans);overflow-x:clip}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -64,15 +64,15 @@ ul,ol{list-style:none}
 :focus-visible{outline:1.5px solid currentColor;outline-offset:4px}
 .skip{position:fixed;left:16px;top:-80px;z-index:100;background:var(--ink);color:var(--bone);padding:.7rem 1.1rem;border-radius:999px;text-decoration:none}
 .skip:focus{top:16px}
-h1,h2{font-family:var(--serif);font-weight:400;font-optical-sizing:auto;letter-spacing:-.02em;line-height:.94}
+h1,h2{font-family:var(--serif);font-weight:500;font-optical-sizing:auto;letter-spacing:-.02em;line-height:.94}
 h2{font-size:clamp(3rem,7vw,7rem);max-width:12ch;text-wrap:balance}
-.kick{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;color:var(--mute);margin-bottom:1.1rem}
+.kick{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--mute);margin-bottom:1.1rem}
 .fine{font-size:.8rem;color:var(--mute);line-height:1.55;max-width:70ch}
 .fine a{color:inherit}
 .lede{font-size:1.08rem;color:var(--mute);max-width:40ch;margin-top:1.2rem}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:52px;padding:0 1.7rem;border-radius:999px;font-size:.78rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap;border:1px solid transparent;transition:background-color .25s,color .25s,border-color .25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:52px;padding:0 1.7rem;border-radius:999px;font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap;border:1px solid transparent;transition:background-color .25s,color .25s,border-color .25s}
 .btn--bone{background:var(--bone);color:var(--ink)}
 .btn--bone:hover{background:#fff}
 .btn--ghost{border-color:rgba(243,236,224,.55);color:var(--bone)}
@@ -406,6 +406,116 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 .hdr.on-dark{background:rgba(21,21,21,.88);color:var(--bone);box-shadow:0 1px 0 var(--line-d)}
 .hdr.on-dark .logo svg{color:var(--oak)}
 
+/* ---- v7: kitchens you can open, prices by size, bolder type ---- */
+.way b,.svc b,.tiers b,.places,.wiz-q,.card h2{font-weight:500}
+.paint-top b{font-weight:500}
+.look-n,.kit-name{font-weight:500}
+#kitchens .lede{margin-top:1rem}
+.kit[hidden]{display:none}
+.js .kit{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--k,0) * 70ms)}
+.js .looks-grid.in .kit{opacity:1;transform:none}
+.kit-ph{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:#E4DACB}
+.kit-open{position:absolute;inset:0;width:100%;height:100%;padding:0;cursor:zoom-in}
+.kit-open img{width:100%;height:100%;object-fit:cover;transform:scale(1.03);transition:transform 1.1s var(--ease)}
+.kit:hover .kit-open img{transform:scale(1.08)}
+.kit-open:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.kit-size,.kit-n{position:absolute;top:10px;z-index:1;pointer-events:none;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:.42rem .7rem;border-radius:999px}
+.kit-size{left:10px;background:var(--bone);color:var(--ink)}
+.kit-n{right:10px;background:rgba(21,21,21,.55);color:var(--bone);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.kit .save{z-index:2}
+.kit-name{font-size:1rem;margin-top:.85rem;line-height:1.3}
+.kit-d{display:flex;align-items:center;gap:.45rem;font-size:.8rem;color:var(--mute);margin-top:.2rem}
+.kit-d i{width:9px;height:9px;border-radius:999px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(21,21,21,.25);flex:none}
+.dots{flex-wrap:wrap}
+
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:80}
+.sheet[hidden]{display:none}
+.sheet-bg{position:absolute;inset:0;background:rgba(15,15,15,.55);opacity:0;transition:opacity .3s}
+.sheet.is-open .sheet-bg{opacity:1}
+.sheet-panel{position:absolute;left:50%;top:50%;width:min(1100px,calc(100vw - 48px));max-height:calc(100vh - 48px);overflow:auto;background:var(--bone);border-radius:4px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);transform:translate(-50%,-46%);opacity:0;transition:transform .35s var(--ease),opacity .3s;outline:none}
+.sheet.is-open .sheet-panel{transform:translate(-50%,-50%);opacity:1}
+html.sheet-open{overflow:hidden}
+.sheet-x{position:absolute;right:12px;top:12px;z-index:3;width:44px;height:44px;border-radius:999px;background:var(--bone);display:grid;place-items:center}
+.sheet-x svg{width:20px;height:20px}
+.gal{position:relative;background:#E4DACB;align-self:start}
+.gal-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gal-track::-webkit-scrollbar{display:none}
+.gal-track img{flex:0 0 100%;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:start}
+.gal-btn{position:absolute;top:50%;width:44px;height:44px;margin-top:-22px;border-radius:999px;background:rgba(243,236,224,.92);display:grid;place-items:center}
+.gal-btn svg{width:20px;height:20px}
+.gal-prev{left:12px}.gal-next{right:12px}
+.gal-count{position:absolute;left:12px;bottom:12px;font-size:.7rem;letter-spacing:.14em;font-weight:600;padding:.4rem .7rem;border-radius:999px;background:rgba(21,21,21,.6);color:var(--bone)}
+.sheet-info{padding:clamp(24px,3vw,40px);display:flex;flex-direction:column}
+.sheet-info .kick{margin-bottom:.6rem}
+#sheetName{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3vw,2.8rem);line-height:1;letter-spacing:-.015em}
+.spec{margin-top:1.4rem;border-top:1px solid var(--line)}
+.spec div,.sp-rows div{display:grid;grid-template-columns:6.5rem 1fr;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.spec dt,.sp-rows dt{color:var(--mute);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding-top:.2rem}
+.sp{margin-top:1.4rem;background:rgba(21,21,21,.04);border-radius:4px;padding:16px}
+.sp-head{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;font-size:.85rem;font-weight:600}
+.sp-head select{font:inherit;font-size:.82rem;font-weight:500;padding:.45rem .6rem;border:1px solid var(--line);border-radius:999px;background:var(--bone);color:var(--ink);min-height:36px}
+.sp-rows{margin-top:.6rem}
+.sp-rows div{grid-template-columns:1fr auto;align-items:baseline}
+.sp-rows div:last-child{border-bottom:0}
+.sp-rows dd{font-size:1.05rem;font-weight:600;font-variant-numeric:tabular-nums}
+.sp .fine{margin-top:.4rem;font-size:.75rem}
+.sheet-act{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem}
+.sheet-act .btn{flex:1}
+#sheetSave[aria-pressed="true"],#sheetSave[aria-pressed="true"]:hover{background:var(--oak);color:var(--ink)}
+#sheetCredit{margin-top:1rem;font-size:.75rem}
+
+/* prices */
+.split--prices{align-items:start}
+.split--prices .area-map{margin-top:2rem;max-width:520px}
+.where-line{margin-top:1rem}
+.tabs--area{margin-bottom:22px;flex-wrap:wrap;border-radius:24px}
+.ptable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.ptable th,.ptable td{text-align:left;padding:18px 12px 18px 0;border-bottom:1px solid var(--line);vertical-align:baseline}
+.ptable thead th{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--mute);border-bottom-color:var(--ink)}
+.ptable thead small{display:block;letter-spacing:0;text-transform:none;font-weight:400;font-size:.78rem;margin-top:.2rem}
+.ptable tbody th{font-family:var(--serif);font-weight:500;font-size:1.7rem;line-height:1}
+.ptable tbody th small{display:block;font-family:var(--sans);font-size:.78rem;color:var(--mute);margin-top:.4rem;font-weight:400}
+.ptable td{font-size:1.15rem;font-weight:600}
+.area-note{margin:16px 0 8px;font-weight:500;font-size:.95rem}
+.process-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.process-head h2{margin:0}
+.process-head .lede a{color:inherit;text-underline-offset:.2em}
+
+@media (min-width:901px){
+  .gal{align-self:stretch}
+  .gal-track{height:100%}
+  .gal-track img{height:100%;aspect-ratio:auto}
+}
+@media (max-width:900px){
+  .sheet-panel{grid-template-columns:1fr}
+  .process-head{grid-template-columns:1fr;gap:1rem}
+}
+@media (max-width:767px){
+  .sheet-panel{left:0;right:0;top:auto;bottom:0;width:100%;max-height:92vh;max-height:92svh;border-radius:14px 14px 0 0;transform:translateY(100%);opacity:1}
+  .sheet.is-open .sheet-panel{transform:none}
+  .gal-btn{display:none}
+  .sheet-info{padding:22px var(--pad) calc(22px + env(safe-area-inset-bottom))}
+  .sheet-act .btn{flex:1 1 100%}
+  .kit-name{font-size:.92rem}
+  .kit-d{font-size:.75rem}
+  .kit-n{display:none}
+  .ptable thead{display:none}
+  .ptable,.ptable tbody,.ptable tr{display:block}
+  .ptable tr{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1rem;padding:16px 0;border-bottom:1px solid var(--line)}
+  .ptable th,.ptable td{border:0;padding:0}
+  .ptable tbody th{grid-column:1/-1;font-size:1.5rem;margin-bottom:.4rem}
+  .ptable td::before{content:attr(data-l);display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--mute);margin-bottom:.15rem}
+  .ptable td{font-size:1.05rem}
+  .tabs--area{border:0;padding:0;gap:6px}
+  .tabs--area button{flex:1 1 40%;border:1px solid var(--line)}
+  .split--prices>div{display:contents}
+  .split--prices{gap:0}
+  .split--prices h2{order:1}.split--prices .lede{order:2;margin-bottom:24px}.tabs--area{order:3}.ptable{order:4}.area-note{order:5}
+  .split--prices .fine{order:6}.split--prices .area-map{order:7;margin-top:28px}.split--prices .where-line{order:8}
+}
+@media (prefers-reduced-motion:reduce){.js .kit{opacity:1;transform:none}}
+
 </style>
 </head>
 <body>
@@ -416,14 +526,14 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
       <svg viewBox="-77 -610 967 2620" aria-hidden="true" focusable="false"><path d="M-57.9,-515.4 L-54.9,-515.2 L-51.9,-514.8 L-49.0,-514.3 L-46.1,-513.7 L-43.2,-512.9 L-40.3,-511.9 L-37.6,-510.9 L-34.8,-509.7 L-32.2,-508.3 L-29.6,-506.8 L-27.0,-505.2 L-24.6,-503.5 L-22.2,-501.7 L-20.0,-499.7 L-17.8,-497.7 L-15.8,-495.5 L-13.8,-493.3 L-12.0,-490.9 L-10.3,-488.5 L-8.7,-485.9 L-7.2,-483.3 L-5.8,-480.7 L-4.6,-477.9 L-3.6,-475.2 L-2.6,-472.3 L-1.8,-469.4 L-1.2,-466.5 L-0.7,-463.6 L-0.3,-460.6 L-0.1,-457.6 L0.0,-454.7 L0.0,865.6 L-0.1,868.9 L-0.3,872.2 L-0.7,875.4 L-1.3,878.6 L-2.0,881.8 L-2.9,885.0 L-3.9,888.1 L-5.1,891.2 L-6.4,894.2 L-7.9,897.1 L-9.5,899.9 L-11.3,902.7 L-13.1,905.4 L-15.2,908.0 L-17.3,910.5 L-19.6,912.8 L-21.9,915.1 L-24.4,917.2 L-27.0,919.3 L-29.7,921.1 L-32.5,922.9 L-35.3,924.5 L-38.2,926.0 L-41.2,927.3 L-44.3,928.5 L-47.4,929.5 L-50.6,930.4 L-53.8,931.1 L-57.0,931.7 L-60.2,932.1 L-63.5,932.3 L-66.8,932.4 L-41.2,932.4 L-41.2,1000.0 L0.0,1000.0 L150.0,1000.0 L191.2,1000.0 L191.2,932.4 L216.8,932.4 L213.5,932.3 L210.2,932.1 L207.0,931.7 L203.8,931.1 L200.6,930.4 L197.4,929.5 L194.3,928.5 L191.2,927.3 L188.2,926.0 L185.3,924.5 L182.5,922.9 L179.7,921.1 L177.0,919.3 L174.4,917.2 L171.9,915.1 L169.6,912.8 L167.3,910.5 L165.2,908.0 L163.1,905.4 L161.3,902.7 L159.5,899.9 L157.9,897.1 L156.4,894.2 L155.1,891.2 L153.9,888.1 L152.9,885.0 L152.0,881.8 L151.3,878.6 L150.7,875.4 L150.3,872.2 L150.1,868.9 L150.0,865.6 L150.0,38.5 L414.0,1053.6 L190.9,1932.4 L137.5,1932.4 L137.5,2000.0 L173.7,2000.0 L288.7,2000.0 L325.0,2000.0 L325.0,1932.4 L305.8,1932.4 L363.7,1704.5 L583.2,1704.5 L642.5,1932.4 L613.8,1932.4 L613.8,2000.0 L660.1,2000.0 L830.1,2000.0 L876.3,2000.0 L876.3,1932.4 L812.5,1932.4 L556.1,946.4 L705.1,359.5 L705.1,875.9 L705.0,878.7 L704.8,881.4 L704.5,884.2 L704.0,886.9 L703.4,889.6 L702.6,892.3 L701.8,894.9 L700.8,897.5 L699.7,900.0 L698.4,902.5 L697.0,904.9 L695.6,907.3 L694.0,909.6 L692.3,911.7 L690.4,913.8 L688.5,915.8 L686.5,917.8 L684.4,919.6 L682.2,921.3 L680.0,922.9 L677.6,924.4 L675.2,925.7 L672.7,927.0 L670.2,928.1 L667.6,929.1 L665.0,930.0 L662.3,930.7 L659.6,931.3 L656.9,931.8 L654.1,932.1 L651.3,932.3 L648.6,932.4 L680.0,932.4 L680.0,1000.0 L705.1,1000.0 L820.0,1000.0 L845.0,1000.0 L845.0,932.4 L876.5,932.4 L873.7,932.3 L871.0,932.1 L868.2,931.8 L865.5,931.3 L862.8,930.7 L860.1,930.0 L857.5,929.1 L854.9,928.1 L852.4,927.0 L849.9,925.7 L847.5,924.4 L845.1,922.9 L842.8,921.3 L840.7,919.6 L838.6,917.8 L836.6,915.8 L834.6,913.8 L832.8,911.7 L831.1,909.6 L829.5,907.3 L828.0,904.9 L826.7,902.5 L825.4,900.0 L824.3,897.5 L823.3,894.9 L822.4,892.3 L821.7,889.6 L821.1,886.9 L820.6,884.2 L820.3,881.4 L820.1,878.7 L820.0,875.9 L820.0,67.6 L880.0,67.6 L880.0,0.0 L820.0,0.0 L796.3,0.0 L705.1,0.0 L681.4,0.0 L667.6,0.0 L667.6,54.5 L498.0,722.8 L310.0,0.0 L150.0,0.0 L150.0,-205.5 L150.0,-206.0 L150.0,-206.5 L150.1,-207.0 L150.2,-207.5 L150.3,-207.9 L150.4,-208.4 L150.6,-208.9 L150.8,-209.3 L151.0,-209.8 L151.2,-210.2 L151.4,-210.6 L151.7,-211.1 L152.0,-211.5 L152.3,-211.8 L152.6,-212.2 L152.9,-212.6 L153.3,-212.9 L153.7,-213.2 L154.0,-213.5 L154.4,-213.8 L154.9,-214.1 L155.3,-214.3 L155.7,-214.5 L156.2,-214.7 L156.6,-214.9 L157.1,-215.1 L157.6,-215.2 L158.0,-215.3 L158.5,-215.4 L159.0,-215.5 L159.5,-215.5 L160.0,-215.5 L259.4,-215.5 L365.0,-109.9 L365.0,-215.5 L365.0,-300.0 L365.0,-350.0 L259.4,-350.0 L259.4,-300.0 L160.0,-300.0 L159.5,-300.0 L159.0,-300.0 L158.5,-300.1 L158.0,-300.2 L157.6,-300.3 L157.1,-300.4 L156.6,-300.6 L156.2,-300.8 L155.7,-301.0 L155.3,-301.2 L154.9,-301.4 L154.4,-301.7 L154.0,-302.0 L153.7,-302.3 L153.3,-302.6 L152.9,-302.9 L152.6,-303.3 L152.3,-303.7 L152.0,-304.0 L151.7,-304.4 L151.4,-304.9 L151.2,-305.3 L151.0,-305.7 L150.8,-306.2 L150.6,-306.6 L150.4,-307.1 L150.3,-307.6 L150.2,-308.0 L150.1,-308.5 L150.0,-309.0 L150.0,-309.5 L150.0,-310.0 L150.0,-503.5 L150.0,-504.1 L150.1,-504.7 L150.1,-505.3 L150.2,-505.8 L150.4,-506.4 L150.5,-507.0 L150.7,-507.5 L150.9,-508.1 L151.2,-508.6 L151.4,-509.2 L151.7,-509.7 L152.0,-510.2 L152.4,-510.6 L152.7,-511.1 L153.1,-511.6 L153.5,-512.0 L153.9,-512.4 L154.4,-512.8 L154.9,-513.1 L155.3,-513.5 L155.8,-513.8 L156.3,-514.1 L156.9,-514.3 L157.4,-514.6 L158.0,-514.8 L158.5,-515.0 L159.1,-515.1 L159.7,-515.3 L160.2,-515.4 L160.8,-515.4 L161.4,-515.5 L162.0,-515.5 L344.4,-515.5 L450.0,-409.9 L450.0,-515.5 L450.0,-600.0 L344.4,-600.0 L150.0,-600.0 L0.0,-600.0 L-45.0,-600.0 L-45.0,-515.5 L-60.8,-515.5 L-57.9,-515.4Z M561.3,1620.0 L385.1,1620.0 L472.1,1277.2 L561.3,1620.0Z" fill="currentColor" fill-rule="evenodd"/></svg>
       <span class="wm" aria-hidden="true"><b>FMA</b> <small>CONSTRUCTIONS</small></span>
     </a>
-    <nav class="nav" aria-label="Primary"><a href="#looks">Looks</a><a href="#work">Services</a><a href="#process">How it works</a><a href="#area">Area</a><a href="#faq">FAQ</a></nav>
+    <nav class="nav" aria-label="Primary"><a href="#kitchens">Kitchens</a><a href="#process">How it works</a><a href="#prices">Prices</a><a href="#faq">FAQ</a></nav>
     <a href="tel:+12673673388" class="hdr-call" aria-label="Call (267) 367-3388"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"/></svg><span class="t">(267) 367-3388</span></a>
     <a href="#contact" class="hdr-est">Free estimate</a>
     <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
   </div>
 </header>
 <div class="drawer" id="drawer">
-  <nav aria-label="Menu"><a href="#looks">Looks</a><a href="#work">Services</a><a href="#process">How it works</a><a href="#area">Area</a><a href="#faq">FAQ</a><a href="#contact">Free estimate</a></nav>
+  <nav aria-label="Menu"><a href="#kitchens">Kitchens</a><a href="#process">How it works</a><a href="#prices">Prices</a><a href="#faq">FAQ</a><a href="#contact">Free estimate</a></nav>
   <p>Call or text <a href="tel:+12673673388">(267) 367-3388</a><br>Mon–Fri 7am–6pm, Sat 7am–1pm</p>
 </div>
 
@@ -460,29 +570,25 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   <a class="way" href="#contact" data-cab="No, help me choose"><small>Need cabinets?</small><b>We help you pick, order and install.</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 </section>
 
-<section class="sec" id="looks" aria-labelledby="looks-h">
+<section class="sec" id="kitchens" aria-labelledby="kitchens-h">
   <div class="looks-head">
-    <div><p class="kick">Pick a look</p><h2 id="looks-h">Which kitchen is yours?</h2></div>
+    <div><p class="kick">Kitchens</p><h2 id="kitchens-h">Find a kitchen like yours.</h2>
+    <p class="lede">Rowhome galley or big family kitchen, we install them all. Tap one to see every photo.</p></div>
     <div class="ctrl">
-      <div class="tabs" role="group" aria-label="Filter by door style"><button type="button" data-s="all" aria-pressed="true">All</button><button type="button" data-s="shaker" aria-pressed="false">Shaker</button><button type="button" data-s="flat" aria-pressed="false">Flat</button><button type="button" data-s="glass" aria-pressed="false">Glass</button></div>
-      <div class="dots" role="group" aria-label="Filter by color"><button type="button" class="dot" data-c="white" aria-pressed="false" aria-label="White" style="--c:#F2EEE6"></button><button type="button" class="dot" data-c="black" aria-pressed="false" aria-label="Black" style="--c:#232323"></button><button type="button" class="dot" data-c="green" aria-pressed="false" aria-label="Green" style="--c:#5F7458"></button><button type="button" class="dot" data-c="blue" aria-pressed="false" aria-label="Blue" style="--c:#33476A"></button><button type="button" class="dot" data-c="wood" aria-pressed="false" aria-label="Wood" style="--c:#A8764A"></button></div>
+      <div class="tabs" role="group" aria-label="Filter by kitchen size"><button type="button" data-z="all" aria-pressed="true">All</button><button type="button" data-z="small" aria-pressed="false">Small</button><button type="button" data-z="medium" aria-pressed="false">Medium</button><button type="button" data-z="large" aria-pressed="false">Large</button></div>
+      <div class="dots" role="group" aria-label="Filter by color"><button type="button" class="dot" data-c="white" aria-pressed="false" aria-label="White" style="--c:#F2EEE6"></button><button type="button" class="dot" data-c="gray" aria-pressed="false" aria-label="Gray" style="--c:#B9B6AE"></button><button type="button" class="dot" data-c="green" aria-pressed="false" aria-label="Green" style="--c:#6E8566"></button><button type="button" class="dot" data-c="blue" aria-pressed="false" aria-label="Blue" style="--c:#33476A"></button><button type="button" class="dot" data-c="wood" aria-pressed="false" aria-label="Wood" style="--c:#C49A6C"></button><button type="button" class="dot" data-c="black" aria-pressed="false" aria-label="Black" style="--c:#232323"></button></div>
     </div>
   </div>
-  <div class="meta"><span id="looksCount">12 looks</span><span>Tap + to save the ones you like</span></div>
-  <ul class="looks-grid" id="looksGrid"><li class="look" data-c="white" data-s="shaker" style="--k:0"><div class="look-ph"><img src="img/looks/white-1-480.jpg" srcset="img/looks/white-1-480.jpg 480w, img/looks/white-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White shaker" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save White shaker" data-n="White shaker" data-src="img/looks/white-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">White shaker</p><p class="look-d"><i style="--c:#F2EEE6"></i>Brass pulls</p></li><li class="look" data-c="green" data-s="shaker" style="--k:1"><div class="look-ph"><img src="img/looks/green-2-480.jpg" srcset="img/looks/green-2-480.jpg 480w, img/looks/green-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Deep green shaker" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Deep green shaker" data-n="Deep green shaker" data-src="img/looks/green-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Deep green shaker</p><p class="look-d"><i style="--c:#3F5A44"></i>Black pulls</p></li><li class="look" data-c="black" data-s="flat" style="--k:2"><div class="look-ph"><img src="img/looks/black-2-480.jpg" srcset="img/looks/black-2-480.jpg 480w, img/looks/black-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Charcoal flat panel" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Charcoal flat panel" data-n="Charcoal flat panel" data-src="img/looks/black-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Charcoal flat panel</p><p class="look-d"><i style="--c:#2A2927"></i>Handleless</p></li><li class="look" data-c="wood" data-s="flat" style="--k:3"><div class="look-ph"><img src="img/looks/wood-1-480.jpg" srcset="img/looks/wood-1-480.jpg 480w, img/looks/wood-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Oak island" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Oak island" data-n="Oak island" data-src="img/looks/wood-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Oak island</p><p class="look-d"><i style="--c:#B07D4F"></i>Slab doors</p></li><li class="look" data-c="blue" data-s="glass" style="--k:0"><div class="look-ph"><img src="img/looks/blue-1-480.jpg" srcset="img/looks/blue-1-480.jpg 480w, img/looks/blue-1-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Navy and glass" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Navy and glass" data-n="Navy and glass" data-src="img/looks/blue-1-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Navy and glass</p><p class="look-d"><i style="--c:#33476A"></i>Leaded glass uppers</p></li><li class="look" data-c="white" data-s="glass" style="--k:1"><div class="look-ph"><img src="img/looks/white-3-480.jpg" srcset="img/looks/white-3-480.jpg 480w, img/looks/white-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Cream and glass" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Cream and glass" data-n="Cream and glass" data-src="img/looks/white-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Cream and glass</p><p class="look-d"><i style="--c:#EDE6D8"></i>Crown molding</p></li><li class="look" data-c="green" data-s="shaker" style="--k:2"><div class="look-ph"><img src="img/looks/green-3-480.jpg" srcset="img/looks/green-3-480.jpg 480w, img/looks/green-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Sage shaker" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Sage shaker" data-n="Sage shaker" data-src="img/looks/green-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Sage shaker</p><p class="look-d"><i style="--c:#7E8C72"></i>Full-height wall</p></li><li class="look" data-c="black" data-s="flat" style="--k:3"><div class="look-ph"><img src="img/looks/black-3-480.jpg" srcset="img/looks/black-3-480.jpg 480w, img/looks/black-3-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Black pantry" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Black pantry" data-n="Black pantry" data-src="img/looks/black-3-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Black pantry</p><p class="look-d"><i style="--c:#1E1E1E"></i>Oak shelves</p></li><li class="look" data-c="wood" data-s="flat" style="--k:0"><div class="look-ph"><img src="img/looks/wood-4-480.jpg" srcset="img/looks/wood-4-480.jpg 480w, img/looks/wood-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Walnut wall" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Walnut wall" data-n="Walnut wall" data-src="img/looks/wood-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Walnut wall</p><p class="look-d"><i style="--c:#6B4630"></i>Waterfall island</p></li><li class="look" data-c="blue" data-s="shaker" style="--k:1"><div class="look-ph"><img src="img/looks/blue-2-480.jpg" srcset="img/looks/blue-2-480.jpg 480w, img/looks/blue-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Blue island" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Blue island" data-n="Blue island" data-src="img/looks/blue-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Blue island</p><p class="look-d"><i style="--c:#2F5E85"></i>Beadboard panels</p></li><li class="look" data-c="white" data-s="glass" style="--k:2"><div class="look-ph"><img src="img/looks/white-2-480.jpg" srcset="img/looks/white-2-480.jpg 480w, img/looks/white-2-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="White hutch" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save White hutch" data-n="White hutch" data-src="img/looks/white-2-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">White hutch</p><p class="look-d"><i style="--c:#F4F1EA"></i>Glass doors</p></li><li class="look" data-c="black" data-s="flat" style="--k:3"><div class="look-ph"><img src="img/looks/black-4-480.jpg" srcset="img/looks/black-4-480.jpg 480w, img/looks/black-4-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="Matte black" loading="lazy" decoding="async"><button type="button" class="save" aria-pressed="false" aria-label="Save Matte black" data-n="Matte black" data-src="img/looks/black-4-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="look-n">Matte black</p><p class="look-d"><i style="--c:#232323"></i>Handleless</p></li></ul>
-  <p class="empty" id="looksEmpty" hidden>No looks in that combination yet. <button type="button" id="looksReset">Show all</button></p>
-  <p class="fine">Example photos from Unsplash, not FMA jobs. Saved looks go with your estimate request.</p>
+  <div class="meta"><span id="kitCount">11 kitchens</span><span>Tap + to save the ones you like</span></div>
+  <ul class="looks-grid" id="kitGrid"><li class="kit" data-size="small" data-c="white" style="--k:0"><div class="kit-ph"><button type="button" class="kit-open" data-k="0" aria-label="Open White galley, 5 photos"><img src="img/k/small-white-galley-c-480.jpg" srcset="img/k/small-white-galley-c-480.jpg 480w, img/k/small-white-galley-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Small</span><span class="kit-n">5 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save White galley" data-n="White galley" data-src="img/k/small-white-galley-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">White galley</p><p class="kit-d"><i style="--c:#F2EEE6"></i>White shaker</p></li><li class="kit" data-size="medium" data-c="green" style="--k:1"><div class="kit-ph"><button type="button" class="kit-open" data-k="1" aria-label="Open Green shaker with island, 5 photos"><img src="img/k/medium-green-rowhouse-c-480.jpg" srcset="img/k/medium-green-rowhouse-c-480.jpg 480w, img/k/medium-green-rowhouse-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Medium</span><span class="kit-n">5 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Green shaker with island" data-n="Green shaker with island" data-src="img/k/medium-green-rowhouse-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Green shaker with island</p><p class="kit-d"><i style="--c:#6E8566"></i>Green shaker</p></li><li class="kit" data-size="small" data-c="green" style="--k:2"><div class="kit-ph"><button type="button" class="kit-open" data-k="2" aria-label="Open Sage compact U, 5 photos"><img src="img/k/small-sage-checker-tile-c-480.jpg" srcset="img/k/small-sage-checker-tile-c-480.jpg 480w, img/k/small-sage-checker-tile-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Small</span><span class="kit-n">5 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Sage compact U" data-n="Sage compact U" data-src="img/k/small-sage-checker-tile-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Sage compact U</p><p class="kit-d"><i style="--c:#6E8566"></i>Sage flat panel</p></li><li class="kit" data-size="medium" data-c="blue" style="--k:3"><div class="kit-ph"><button type="button" class="kit-open" data-k="3" aria-label="Open Navy and butcher block, 6 photos"><img src="img/k/medium-navy-butcherblock-c-480.jpg" srcset="img/k/medium-navy-butcherblock-c-480.jpg 480w, img/k/medium-navy-butcherblock-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Medium</span><span class="kit-n">6 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Navy and butcher block" data-n="Navy and butcher block" data-src="img/k/medium-navy-butcherblock-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Navy and butcher block</p><p class="kit-d"><i style="--c:#33476A"></i>Navy flat panel</p></li><li class="kit" data-size="small" data-c="white" style="--k:0"><div class="kit-ph"><button type="button" class="kit-open" data-k="4" aria-label="Open White one-wall, 3 photos"><img src="img/k/small-white-onewall-dining-c-480.jpg" srcset="img/k/small-white-onewall-dining-c-480.jpg 480w, img/k/small-white-onewall-dining-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Small</span><span class="kit-n">3 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save White one-wall" data-n="White one-wall" data-src="img/k/small-white-onewall-dining-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">White one-wall</p><p class="kit-d"><i style="--c:#F2EEE6"></i>White shaker</p></li><li class="kit" data-size="large" data-c="white" style="--k:1"><div class="kit-ph"><button type="button" class="kit-open" data-k="5" aria-label="Open Cream shaker and glass, 4 photos"><img src="img/k/large-cream-shaker-brass-c-480.jpg" srcset="img/k/large-cream-shaker-brass-c-480.jpg 480w, img/k/large-cream-shaker-brass-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Large</span><span class="kit-n">4 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Cream shaker and glass" data-n="Cream shaker and glass" data-src="img/k/large-cream-shaker-brass-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Cream shaker and glass</p><p class="kit-d"><i style="--c:#F2EEE6"></i>Cream shaker, glass uppers</p></li><li class="kit" data-size="medium" data-c="gray" style="--k:2"><div class="kit-ph"><button type="button" class="kit-open" data-k="6" aria-label="Open Gray shaker L, 5 photos"><img src="img/k/medium-gray-shaker-island-c-480.jpg" srcset="img/k/medium-gray-shaker-island-c-480.jpg 480w, img/k/medium-gray-shaker-island-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Medium</span><span class="kit-n">5 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Gray shaker L" data-n="Gray shaker L" data-src="img/k/medium-gray-shaker-island-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Gray shaker L</p><p class="kit-d"><i style="--c:#B9B6AE"></i>Gray shaker</p></li><li class="kit" data-size="small" data-c="gray" style="--k:3"><div class="kit-ph"><button type="button" class="kit-open" data-k="7" aria-label="Open Light gray one-wall, 3 photos"><img src="img/k/small-gray-onewall-c-480.jpg" srcset="img/k/small-gray-onewall-c-480.jpg 480w, img/k/small-gray-onewall-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Small</span><span class="kit-n">3 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Light gray one-wall" data-n="Light gray one-wall" data-src="img/k/small-gray-onewall-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Light gray one-wall</p><p class="kit-d"><i style="--c:#B9B6AE"></i>Light gray shaker</p></li><li class="kit" data-size="medium" data-c="wood" style="--k:0"><div class="kit-ph"><button type="button" class="kit-open" data-k="8" aria-label="Open Maple with island, 4 photos"><img src="img/k/medium-maple-island-c-480.jpg" srcset="img/k/medium-maple-island-c-480.jpg 480w, img/k/medium-maple-island-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Medium</span><span class="kit-n">4 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Maple with island" data-n="Maple with island" data-src="img/k/medium-maple-island-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Maple with island</p><p class="kit-d"><i style="--c:#C49A6C"></i>Natural maple shaker</p></li><li class="kit" data-size="large" data-c="black" style="--k:1"><div class="kit-ph"><button type="button" class="kit-open" data-k="9" aria-label="Open Walnut and black, 5 photos"><img src="img/k/large-walnut-black-c-480.jpg" srcset="img/k/large-walnut-black-c-480.jpg 480w, img/k/large-walnut-black-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Large</span><span class="kit-n">5 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Walnut and black" data-n="Walnut and black" data-src="img/k/large-walnut-black-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Walnut and black</p><p class="kit-d"><i style="--c:#232323"></i>Black flat panel, walnut island</p></li><li class="kit" data-size="large" data-c="black" style="--k:2"><div class="kit-ph"><button type="button" class="kit-open" data-k="10" aria-label="Open Charcoal and marble, 4 photos"><img src="img/k/large-dark-gray-marble-c-480.jpg" srcset="img/k/large-dark-gray-marble-c-480.jpg 480w, img/k/large-dark-gray-marble-c-800.jpg 800w" sizes="(max-width:767px) 46vw, 23vw" width="480" height="600" alt="" loading="lazy" decoding="async"></button><span class="kit-size">Large</span><span class="kit-n">4 photos</span><button type="button" class="save" aria-pressed="false" aria-label="Save Charcoal and marble" data-n="Charcoal and marble" data-src="img/k/large-dark-gray-marble-c-480.jpg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path class="v" d="M12 5v14"/><path d="M5 12h14"/></svg></button></div><p class="kit-name">Charcoal and marble</p><p class="kit-d"><i style="--c:#232323"></i>Charcoal flat and fluted</p></li></ul>
+  <p class="empty" id="kitEmpty" hidden>No kitchens in that combination yet. <button type="button" id="kitReset">Show all</button></p>
+  <p class="fine">Example photos from Unsplash, not FMA jobs. Saved kitchens go with your estimate request.</p>
 </section>
 
 <section class="crew" aria-labelledby="crew-h">
   <div class="crew-ph"><img src="img/looks/green-3-480.jpg" srcset="img/looks/green-3-480.jpg 480w, img/looks/green-3-800.jpg 800w" sizes="100vw" width="480" height="600" alt="Sage green shaker cabinets, floor to ceiling" loading="lazy" decoding="async"></div>
   <div class="crew-txt"><div class="crew-cap"><h2 id="crew-h">Our own crew. No subcontractors.</h2></div>
   <p class="crew-p">The person who measures your kitchen is the one who installs it, and the one who answers your call.</p></div>
-</section>
-
-<section class="sec" id="work" aria-labelledby="work-h">
-  <h2 id="work-h">What we install.</h2>
-  <ul class="svc"><li><a href="#contact"><img src="img/looks/white-4-480.jpg" srcset="img/looks/white-4-480.jpg 480w, img/looks/white-4-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Kitchen cabinets</b><small>Base, wall and tall cabinets</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="custom-kitchen-islands-philadelphia.html"><img src="img/looks/green-1-480.jpg" srcset="img/looks/green-1-480.jpg 480w, img/looks/green-1-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Islands</b><small>Built to your layout</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#contact"><img src="img/looks/detail-5-480.jpg" srcset="img/looks/detail-5-480.jpg 480w, img/looks/detail-5-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Pantries</b><small>Pull-outs and built-ins</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#contact"><img src="img/looks/detail-6-480.jpg" srcset="img/looks/detail-6-480.jpg 480w, img/looks/detail-6-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Crown and trim</b><small>The finished look</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="kitchen-cabinet-refacing-northeast-philadelphia.html"><img src="img/looks/blue-4-480.jpg" srcset="img/looks/blue-4-480.jpg 480w, img/looks/blue-4-800.jpg 800w" sizes="96px" width="480" height="600" alt="" loading="lazy" decoding="async"><span><b>Refacing</b><small>New doors, same boxes</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
 </section>
 
 <section class="sec sec--card" id="preview" aria-labelledby="preview-h">
@@ -505,32 +611,27 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
 </section>
 
 <section class="sec" id="process" aria-labelledby="process-h">
-  <h2 id="process-h">Four steps.<br>One crew.</h2>
+  <div class="process-head"><h2 id="process-h">Four steps.<br>One crew.</h2>
+  <p class="lede">We install kitchen cabinets, <a href="custom-kitchen-islands-philadelphia.html">islands</a>, pantries, crown and trim, and <a href="kitchen-cabinet-refacing-northeast-philadelphia.html">cabinet refacing</a>.</p></div>
   <ol class="steps"><li><b aria-hidden="true">1</b><div><h3><span class="sr">Step 1: </span>Call or ask online</h3><p>We call back within 1 business day.</p></div></li><li><b aria-hidden="true">2</b><div><h3><span class="sr">Step 2: </span>Free estimate</h3><p>We measure and send a written quote.</p></div></li><li><b aria-hidden="true">3</b><div><h3><span class="sr">Step 3: </span>We install</h3><p>Level, square, and a clean site every day.</p></div></li><li><b aria-hidden="true">4</b><div><h3><span class="sr">Step 4: </span>Walkthrough</h3><p>We check every door and drawer with you.</p></div></li></ol>
 </section>
 
-<section class="sec" id="budget" aria-labelledby="budget-h">
-  <div class="split">
-    <h2 id="budget-h">Any budget.</h2>
+<section class="sec" id="prices" aria-labelledby="prices-h">
+  <div class="split split--prices">
     <div>
-      <ul class="tiers"><li><b>Stock</b><span>Fastest and most affordable</span><i aria-label="1 of 3 on price">$<em>$$</em></i></li><li><b>Semi-custom</b><span>More sizes, colors and styles</span><i aria-label="2 of 3 on price">$$<em>$</em></i></li><li><b>Custom</b><span>Made for your exact space</span><i aria-label="3 of 3 on price">$$$<em></em></i></li></ul>
-      <dl class="prices">
-      <div><dt>Cabinet installation</dt><dd>$1,700 – $7,200<small>per kitchen</small></dd></div>
-      <div><dt>New cabinets, installed</dt><dd>$300 – $650<small>per linear foot</small></dd></div>
-      <div><dt>Refacing</dt><dd>$150 – $210<small>per door</small></dd></div>
-    </dl>
-      <p class="fine">Typical Philadelphia prices from public guides (<a href="https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/" rel="nofollow noopener" target="_blank">HomeAdvisor</a>, <a href="https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm" rel="nofollow noopener" target="_blank">HomeBlue 2024</a>, <a href="https://www.homeblue.com/cabinet-refacing/philadelphia-pa-cabinet-refacing-cost.htm" rel="nofollow noopener" target="_blank">HomeBlue 2022</a>). Not an FMA quote. Your price comes in a free written quote.</p>
+      <h2 id="prices-h">What it costs.</h2>
+      <p class="lede">Small kitchen? Most Philly homes have one, and less cabinet means a smaller bill.</p>
+      <svg class="area-map" viewBox="0 0 800 726" role="img" aria-label="Map of the service area: Philadelphia, Bucks County, Montgomery County and nearby New Jersey"><rect width="800" height="726" fill="#E9E2D6"/><g fill="#E9E2D6" stroke="#D8CDBB" stroke-width="1.5" stroke-linejoin="round"><path d="M628.8,-22.8L635.2,77.4L596.0,148.4L615.4,195.4L554.3,252.7L508.1,257.1L459.0,210.7L452.9,208.6L439.8,199.9L438.3,196.4L433.1,172.5L435.8,125.0L436.2,120.0L435.0,112.4L434.2,108.2L416.3,89.3L406.7,85.3L396.5,83.5L389.7,85.3L365.5,73.4L365.1,71.9L490.9,-16.4L535.4,-73.4L628.8,-22.8Z"/><path d="M268.9,460.4L238.4,478.0L226.7,519.9L155.0,581.6L136.8,629.1L136.3,629.2L114.2,634.4L110.4,635.7L98.3,641.1L85.2,648.5L67.7,662.6L54.9,676.9L27.4,714.5L21.0,714.4L15.1,714.4L-99.7,714.4L-107.9,714.5L-168.9,714.7L-130.0,686.3L-87.5,605.9L-83.8,554.8L-60.0,428.1L-20.7,407.6L60.4,343.0L79.1,330.1L138.0,342.2L148.9,364.5L154.8,363.0L158.1,355.7L162.6,368.8L175.7,399.1L268.9,460.4Z"/><path d="M155.0,581.6L226.7,519.9L238.4,478.0L268.9,460.4L271.5,462.5L275.5,469.8L316.7,525.9L324.6,600.1L337.1,603.2L351.1,600.5L353.8,608.1L340.2,614.8L319.7,620.1L299.8,619.9L261.3,637.6L252.5,644.5L238.4,655.4L231.1,649.9L216.5,641.7L191.0,632.1L168.1,628.4L145.2,628.2L145.2,628.2L137.8,629.0L137.4,629.0L136.8,629.1L155.0,581.6Z"/><path d="M205.0,-93.2L303.1,-126.4L404.9,-206.7L405.0,-206.7L405.0,-202.5L405.3,-201.8L406.5,-195.4L443.3,-135.6L444.2,-130.9L442.9,-126.6L411.7,-75.8L397.1,-63.0L388.6,-63.7L380.5,-66.4L376.0,-65.9L361.9,-46.6L357.8,-2.2L359.6,51.9L361.8,59.1L284.5,112.0L244.4,79.4L229.7,10.7L200.9,24.3L128.8,-73.0L205.0,-93.2Z"/><path d="M55.0,80.3L55.8,80.9L80.5,101.6L87.4,107.1L173.6,178.5L79.6,329.8L79.1,330.1L60.4,343.0L-20.7,407.6L-21.7,406.8L-144.1,303.7L-176.8,276.5L-177.7,275.4L-178.2,274.9L-341.1,142.4L-189.3,113.5L-99.2,81.9L-90.1,43.3L-88.4,36.1L-30.9,8.4L39.6,67.7L55.0,80.3Z"/><path d="M80.5,101.6L55.8,80.9L55.0,80.3L39.6,67.7L-30.9,8.4L44.6,-34.6L128.8,-73.0L200.9,24.3L229.7,10.7L244.4,79.4L284.5,112.0L281.6,114.2L265.8,128.0L265.1,128.6L241.4,148.2L199.4,199.6L173.6,178.5L87.4,107.1L80.5,101.6Z"/></g><g fill="#CDB591" stroke="#F3ECE0" stroke-width="2" stroke-linejoin="round"><path d="M529.4,451.9L564.6,434.3L619.7,409.0L628.9,400.2L629.0,400.0L702.1,407.0L702.6,407.2L702.9,407.0L703.3,407.0L703.4,406.5L703.8,406.9L704.1,407.0L704.8,406.2L705.0,406.3L705.0,406.8L705.2,406.9L706.0,406.7L725.7,450.4L739.4,481.6L792.6,616.2L817.9,676.3L817.6,807.4L802.4,836.1L767.2,837.0L686.7,784.8L622.1,708.5L609.8,698.3L601.4,693.0L590.9,677.3L579.0,667.6L560.6,664.1L542.8,670.3L535.7,670.1L528.1,663.5L527.7,663.2L514.3,602.1L511.4,592.0L500.3,581.7L493.3,567.5L482.2,562.9L481.8,559.7L487.2,554.4L479.3,552.4L476.2,553.8L464.6,548.4L465.4,542.7L465.6,541.1L463.1,539.1L463.6,538.0L463.2,535.8L462.4,535.7L462.2,532.9L467.3,523.8L453.0,511.9L441.4,514.9L464.9,493.4L487.3,472.9L487.6,472.8L529.4,451.9Z"/><path d="M397.7,566.1L424.6,532.8L432.3,523.2L441.4,514.9L453.0,511.9L467.3,523.8L462.2,532.9L462.4,535.7L463.2,535.8L463.6,538.0L463.1,539.1L465.6,541.1L465.4,542.7L464.6,548.4L476.2,553.8L479.3,552.4L487.2,554.4L481.8,559.7L482.2,562.9L493.3,567.5L500.3,581.7L511.4,592.0L514.3,602.1L527.7,663.2L528.1,663.5L535.7,670.1L542.8,670.3L560.6,664.1L579.0,667.6L590.9,677.3L601.4,693.0L609.8,698.3L622.1,708.5L585.5,749.7L542.5,798.4L512.3,737.4L423.8,671.8L386.0,578.2L397.7,566.1Z"/><path d="M629.0,400.0L630.4,395.2L630.0,390.2L609.5,360.1L602.7,350.1L551.9,298.6L508.1,257.1L554.3,252.7L615.4,195.4L630.1,231.6L686.3,224.8L689.2,229.6L688.1,232.2L714.7,286.4L764.6,321.7L706.0,406.7L705.2,406.9L705.0,406.8L705.0,406.3L704.8,406.2L704.1,407.0L703.8,406.9L703.4,406.5L703.3,407.0L702.9,407.0L702.6,407.2L702.1,407.0L629.0,400.0Z"/><path d="M353.8,608.1L354.1,608.0L368.5,596.4L386.0,578.2L423.8,671.8L512.3,737.4L542.5,798.4L523.0,820.3L481.4,867.5L438.0,827.7L360.1,755.0L288.5,738.0L259.2,696.8L223.9,670.8L225.5,668.9L237.8,659.8L238.4,655.4L252.5,644.5L261.3,637.6L299.8,619.9L319.7,620.1L340.2,614.8L353.8,608.1Z"/></g><g stroke="#F3ECE0" stroke-width="2.5" stroke-linejoin="round"><path d="M323.5,468.9L373.3,446.3L387.3,456.9L396.6,463.8L400.1,466.7L402.4,468.5L411.2,475.0L423.6,461.9L418.3,457.9L464.5,406.9L468.2,409.9L469.7,410.9L483.2,420.0L492.8,421.2L494.9,436.8L497.8,438.1L496.3,447.9L489.3,454.4L481.6,466.5L487.6,472.8L487.3,472.9L464.9,493.4L441.4,514.9L432.3,523.2L424.6,532.8L397.7,566.1L386.0,578.2L368.5,596.4L354.1,608.0L353.8,608.1L351.1,600.5L337.1,603.2L324.6,600.1L316.7,525.9L324.0,521.7L328.2,518.3L332.2,515.9L323.5,468.9Z" fill="#151515"/><path d="M412.6,366.8L303.6,281.4L199.4,199.6L241.4,148.2L265.1,128.6L265.8,128.0L281.6,114.2L284.5,112.0L361.8,59.1L365.1,71.9L365.5,73.4L389.7,85.3L396.5,83.5L406.7,85.3L416.3,89.3L434.2,108.2L435.0,112.4L436.2,120.0L435.8,125.0L433.1,172.5L438.3,196.4L439.8,199.9L452.9,208.6L459.0,210.7L508.1,257.1L551.9,298.6L602.7,350.1L609.5,360.1L630.0,390.2L630.4,395.2L629.0,400.0L628.9,400.2L619.7,409.0L564.6,434.3L529.4,451.9L487.6,472.8L481.6,466.5L489.3,454.4L496.3,447.9L497.8,438.1L494.9,436.8L492.8,421.2L483.2,420.0L469.7,410.9L468.2,409.9L464.5,406.9L413.7,367.6L412.6,366.8Z" fill="#D2B48A"/><path d="M268.9,460.4L175.7,399.1L162.6,368.8L158.1,355.7L154.8,363.0L148.9,364.5L138.0,342.2L79.1,330.1L79.6,329.8L173.6,178.5L199.4,199.6L303.6,281.4L412.6,366.8L413.7,367.6L464.5,406.9L418.3,457.9L423.6,461.9L411.2,475.0L402.4,468.5L400.1,466.7L396.6,463.8L387.3,456.9L373.3,446.3L323.5,468.9L332.2,515.9L328.2,518.3L324.0,521.7L316.7,525.9L275.5,469.8L271.5,462.5L268.9,460.4Z" fill="#D2B48A"/></g><g font-family="Bodoni Moda, Georgia, serif" font-size="27" font-weight="400" text-anchor="middle"><text x="340" y="198" fill="#151515">Bucks</text><text x="244" y="351" fill="#151515">Montgomery</text><text x="619" y="575" fill="#151515">New Jersey</text><circle cx="380" cy="511" r="5" fill="#D2B48A"/><path d="M374 514L300 573" stroke="#151515" stroke-width="1.2" fill="none"/><text x="230" y="581" fill="#151515">Philadelphia</text></g></svg>
+      <p class="fine where-line">We come to Philadelphia, Bucks and Montgomery counties, and New Jersey. Licensed and insured in PA. Founded by Flavio Mendanha Araujo.</p>
     </div>
-  </div>
-</section>
-
-<section class="sec" id="area" aria-labelledby="area-h">
-  <div class="split split--area">
-    <svg class="area-map" viewBox="0 0 800 726" role="img" aria-label="Map of the service area: Philadelphia, Bucks County, Montgomery County and nearby New Jersey"><rect width="800" height="726" fill="#E9E2D6"/><g fill="#E9E2D6" stroke="#D8CDBB" stroke-width="1.5" stroke-linejoin="round"><path d="M628.8,-22.8L635.2,77.4L596.0,148.4L615.4,195.4L554.3,252.7L508.1,257.1L459.0,210.7L452.9,208.6L439.8,199.9L438.3,196.4L433.1,172.5L435.8,125.0L436.2,120.0L435.0,112.4L434.2,108.2L416.3,89.3L406.7,85.3L396.5,83.5L389.7,85.3L365.5,73.4L365.1,71.9L490.9,-16.4L535.4,-73.4L628.8,-22.8Z"/><path d="M268.9,460.4L238.4,478.0L226.7,519.9L155.0,581.6L136.8,629.1L136.3,629.2L114.2,634.4L110.4,635.7L98.3,641.1L85.2,648.5L67.7,662.6L54.9,676.9L27.4,714.5L21.0,714.4L15.1,714.4L-99.7,714.4L-107.9,714.5L-168.9,714.7L-130.0,686.3L-87.5,605.9L-83.8,554.8L-60.0,428.1L-20.7,407.6L60.4,343.0L79.1,330.1L138.0,342.2L148.9,364.5L154.8,363.0L158.1,355.7L162.6,368.8L175.7,399.1L268.9,460.4Z"/><path d="M155.0,581.6L226.7,519.9L238.4,478.0L268.9,460.4L271.5,462.5L275.5,469.8L316.7,525.9L324.6,600.1L337.1,603.2L351.1,600.5L353.8,608.1L340.2,614.8L319.7,620.1L299.8,619.9L261.3,637.6L252.5,644.5L238.4,655.4L231.1,649.9L216.5,641.7L191.0,632.1L168.1,628.4L145.2,628.2L145.2,628.2L137.8,629.0L137.4,629.0L136.8,629.1L155.0,581.6Z"/><path d="M205.0,-93.2L303.1,-126.4L404.9,-206.7L405.0,-206.7L405.0,-202.5L405.3,-201.8L406.5,-195.4L443.3,-135.6L444.2,-130.9L442.9,-126.6L411.7,-75.8L397.1,-63.0L388.6,-63.7L380.5,-66.4L376.0,-65.9L361.9,-46.6L357.8,-2.2L359.6,51.9L361.8,59.1L284.5,112.0L244.4,79.4L229.7,10.7L200.9,24.3L128.8,-73.0L205.0,-93.2Z"/><path d="M55.0,80.3L55.8,80.9L80.5,101.6L87.4,107.1L173.6,178.5L79.6,329.8L79.1,330.1L60.4,343.0L-20.7,407.6L-21.7,406.8L-144.1,303.7L-176.8,276.5L-177.7,275.4L-178.2,274.9L-341.1,142.4L-189.3,113.5L-99.2,81.9L-90.1,43.3L-88.4,36.1L-30.9,8.4L39.6,67.7L55.0,80.3Z"/><path d="M80.5,101.6L55.8,80.9L55.0,80.3L39.6,67.7L-30.9,8.4L44.6,-34.6L128.8,-73.0L200.9,24.3L229.7,10.7L244.4,79.4L284.5,112.0L281.6,114.2L265.8,128.0L265.1,128.6L241.4,148.2L199.4,199.6L173.6,178.5L87.4,107.1L80.5,101.6Z"/></g><g fill="#CDB591" stroke="#F3ECE0" stroke-width="2" stroke-linejoin="round"><path d="M529.4,451.9L564.6,434.3L619.7,409.0L628.9,400.2L629.0,400.0L702.1,407.0L702.6,407.2L702.9,407.0L703.3,407.0L703.4,406.5L703.8,406.9L704.1,407.0L704.8,406.2L705.0,406.3L705.0,406.8L705.2,406.9L706.0,406.7L725.7,450.4L739.4,481.6L792.6,616.2L817.9,676.3L817.6,807.4L802.4,836.1L767.2,837.0L686.7,784.8L622.1,708.5L609.8,698.3L601.4,693.0L590.9,677.3L579.0,667.6L560.6,664.1L542.8,670.3L535.7,670.1L528.1,663.5L527.7,663.2L514.3,602.1L511.4,592.0L500.3,581.7L493.3,567.5L482.2,562.9L481.8,559.7L487.2,554.4L479.3,552.4L476.2,553.8L464.6,548.4L465.4,542.7L465.6,541.1L463.1,539.1L463.6,538.0L463.2,535.8L462.4,535.7L462.2,532.9L467.3,523.8L453.0,511.9L441.4,514.9L464.9,493.4L487.3,472.9L487.6,472.8L529.4,451.9Z"/><path d="M397.7,566.1L424.6,532.8L432.3,523.2L441.4,514.9L453.0,511.9L467.3,523.8L462.2,532.9L462.4,535.7L463.2,535.8L463.6,538.0L463.1,539.1L465.6,541.1L465.4,542.7L464.6,548.4L476.2,553.8L479.3,552.4L487.2,554.4L481.8,559.7L482.2,562.9L493.3,567.5L500.3,581.7L511.4,592.0L514.3,602.1L527.7,663.2L528.1,663.5L535.7,670.1L542.8,670.3L560.6,664.1L579.0,667.6L590.9,677.3L601.4,693.0L609.8,698.3L622.1,708.5L585.5,749.7L542.5,798.4L512.3,737.4L423.8,671.8L386.0,578.2L397.7,566.1Z"/><path d="M629.0,400.0L630.4,395.2L630.0,390.2L609.5,360.1L602.7,350.1L551.9,298.6L508.1,257.1L554.3,252.7L615.4,195.4L630.1,231.6L686.3,224.8L689.2,229.6L688.1,232.2L714.7,286.4L764.6,321.7L706.0,406.7L705.2,406.9L705.0,406.8L705.0,406.3L704.8,406.2L704.1,407.0L703.8,406.9L703.4,406.5L703.3,407.0L702.9,407.0L702.6,407.2L702.1,407.0L629.0,400.0Z"/><path d="M353.8,608.1L354.1,608.0L368.5,596.4L386.0,578.2L423.8,671.8L512.3,737.4L542.5,798.4L523.0,820.3L481.4,867.5L438.0,827.7L360.1,755.0L288.5,738.0L259.2,696.8L223.9,670.8L225.5,668.9L237.8,659.8L238.4,655.4L252.5,644.5L261.3,637.6L299.8,619.9L319.7,620.1L340.2,614.8L353.8,608.1Z"/></g><g stroke="#F3ECE0" stroke-width="2.5" stroke-linejoin="round"><path d="M323.5,468.9L373.3,446.3L387.3,456.9L396.6,463.8L400.1,466.7L402.4,468.5L411.2,475.0L423.6,461.9L418.3,457.9L464.5,406.9L468.2,409.9L469.7,410.9L483.2,420.0L492.8,421.2L494.9,436.8L497.8,438.1L496.3,447.9L489.3,454.4L481.6,466.5L487.6,472.8L487.3,472.9L464.9,493.4L441.4,514.9L432.3,523.2L424.6,532.8L397.7,566.1L386.0,578.2L368.5,596.4L354.1,608.0L353.8,608.1L351.1,600.5L337.1,603.2L324.6,600.1L316.7,525.9L324.0,521.7L328.2,518.3L332.2,515.9L323.5,468.9Z" fill="#151515"/><path d="M412.6,366.8L303.6,281.4L199.4,199.6L241.4,148.2L265.1,128.6L265.8,128.0L281.6,114.2L284.5,112.0L361.8,59.1L365.1,71.9L365.5,73.4L389.7,85.3L396.5,83.5L406.7,85.3L416.3,89.3L434.2,108.2L435.0,112.4L436.2,120.0L435.8,125.0L433.1,172.5L438.3,196.4L439.8,199.9L452.9,208.6L459.0,210.7L508.1,257.1L551.9,298.6L602.7,350.1L609.5,360.1L630.0,390.2L630.4,395.2L629.0,400.0L628.9,400.2L619.7,409.0L564.6,434.3L529.4,451.9L487.6,472.8L481.6,466.5L489.3,454.4L496.3,447.9L497.8,438.1L494.9,436.8L492.8,421.2L483.2,420.0L469.7,410.9L468.2,409.9L464.5,406.9L413.7,367.6L412.6,366.8Z" fill="#D2B48A"/><path d="M268.9,460.4L175.7,399.1L162.6,368.8L158.1,355.7L154.8,363.0L148.9,364.5L138.0,342.2L79.1,330.1L79.6,329.8L173.6,178.5L199.4,199.6L303.6,281.4L412.6,366.8L413.7,367.6L464.5,406.9L418.3,457.9L423.6,461.9L411.2,475.0L402.4,468.5L400.1,466.7L396.6,463.8L387.3,456.9L373.3,446.3L323.5,468.9L332.2,515.9L328.2,518.3L324.0,521.7L316.7,525.9L275.5,469.8L271.5,462.5L268.9,460.4Z" fill="#D2B48A"/></g><g font-family="Bodoni Moda, Georgia, serif" font-size="27" font-weight="400" text-anchor="middle"><text x="340" y="198" fill="#151515">Bucks</text><text x="244" y="351" fill="#151515">Montgomery</text><text x="619" y="575" fill="#151515">New Jersey</text><circle cx="380" cy="511" r="5" fill="#D2B48A"/><path d="M374 514L300 573" stroke="#151515" stroke-width="1.2" fill="none"/><text x="230" y="581" fill="#151515">Philadelphia</text></g></svg>
     <div>
-      <h2 id="area-h">We come to you.</h2>
-      <p class="places">Philadelphia<br>Bucks County<br>Montgomery County<br>New Jersey</p>
-      <p class="fine">Licensed and insured in PA. Founded by Flavio Mendanha Araujo.</p>
+      <div class="tabs tabs--area" role="group" aria-label="Your area"><button type="button" data-a="philly" aria-pressed="true">Philadelphia</button><button type="button" data-a="bucks" aria-pressed="false">Bucks</button><button type="button" data-a="montco" aria-pressed="false">Montgomery</button><button type="button" data-a="nj" aria-pressed="false">New Jersey</button></div>
+      <table class="ptable">
+        <thead><tr><th scope="col">Kitchen</th><th scope="col">Install only<small>you have the cabinets</small></th><th scope="col">New cabinets<small>supplied and installed</small></th></tr></thead>
+        <tbody><tr><th scope="row">Small<small>about 15 ft of cabinets</small></th><td data-l="Install only">$750 – $3,000</td><td data-l="New, installed">$4,400 – $9,800</td></tr><tr><th scope="row">Medium<small>about 25 ft of cabinets</small></th><td data-l="Install only">$1,250 – $5,000</td><td data-l="New, installed">$7,400 – $16,300</td></tr><tr><th scope="row">Large<small>about 40 ft of cabinets</small></th><td data-l="Install only">$2,000 – $8,000</td><td data-l="New, installed">$11,800 – $26,000</td></tr></tbody>
+      </table>
+      <p class="area-note" id="areaNote" aria-live="polite">Philadelphia prices.</p>
+      <p class="fine">Typical public prices, not an FMA quote. Install only uses a national labor rate (<a href="https://www.fixr.com/costs/cabinets-installation" rel="nofollow noopener" target="_blank">Fixr</a>, $50–$200 per linear foot, 2026). New cabinets use Philadelphia data (<a href="https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm" rel="nofollow noopener" target="_blank">HomeBlue</a>, 2024). Your exact price comes in a free written quote.</p>
     </div>
   </div>
 </section>
@@ -582,6 +683,32 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   </div>
 </section>
 </main>
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-bg" data-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetName" tabindex="-1">
+    <button type="button" class="sheet-x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="gal">
+      <div class="gal-track" id="galTrack"></div>
+      <button type="button" class="gal-btn gal-prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" class="gal-btn gal-next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <p class="gal-count" id="galCount" aria-live="polite"></p>
+    </div>
+    <div class="sheet-info">
+      <p class="kick" id="sheetSize"></p>
+      <h3 id="sheetName"></h3>
+      <dl class="spec" id="sheetSpec"></dl>
+      <div class="sp">
+        <div class="sp-head"><p id="spHead"></p><label class="sr" for="spArea">Your area</label><select id="spArea"><option value="philly">Philadelphia</option><option value="bucks">Bucks</option><option value="montco">Montgomery</option><option value="nj">New Jersey</option></select></div>
+        <dl class="sp-rows"><div><dt>Install only</dt><dd id="spA"></dd></div><div><dt>New cabinets, installed</dt><dd id="spB"></dd></div></dl>
+        <p class="fine" id="spNote"></p>
+      </div>
+      <div class="sheet-act"><button type="button" class="btn btn--ink" id="sheetSave" aria-pressed="false">I want this look</button><a class="btn btn--line" href="#contact" data-close>Free estimate</a></div>
+      <p class="fine" id="sheetCredit"></p>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="kitData">[{"s": "small-white-galley", "t": "White galley", "z": "small", "n": 5, "lay": "Galley", "dr": "White shaker", "det": "Quartz counters, subway tile", "ph": "Point3D Commercial Imaging", "hd": "3dottawa"}, {"s": "medium-green-rowhouse", "t": "Green shaker with island", "z": "medium", "n": 5, "lay": "L-shape with island", "dr": "Green shaker", "det": "Brass pulls, marble counters", "ph": "Decima Athens", "hd": "decimaandathens"}, {"s": "small-sage-checker-tile", "t": "Sage compact U", "z": "small", "n": 5, "lay": "Compact U-shape", "dr": "Sage flat panel", "det": "Checkerboard tile", "ph": "Huy Phan", "hd": "huyphan2602"}, {"s": "medium-navy-butcherblock", "t": "Navy and butcher block", "z": "medium", "n": 6, "lay": "U-shape with island", "dr": "Navy flat panel", "det": "Butcher block counters, open shelves", "ph": "Alex Tyson", "hd": "alextyson195"}, {"s": "small-white-onewall-dining", "t": "White one-wall", "z": "small", "n": 3, "lay": "One wall", "dr": "White shaker", "det": "Chrome pulls, room for a table", "ph": "Point3D Commercial Imaging", "hd": "3dottawa"}, {"s": "large-cream-shaker-brass", "t": "Cream shaker and glass", "z": "large", "n": 4, "lay": "Island kitchen", "dr": "Cream shaker, glass uppers", "det": "Brass hardware", "ph": "Franco Debartolo", "hd": "francotheshooter"}, {"s": "medium-gray-shaker-island", "t": "Gray shaker L", "z": "medium", "n": 5, "lay": "L-shape with island", "dr": "Gray shaker", "det": "Quartz counters, subway tile", "ph": "Point3D Commercial Imaging", "hd": "3dottawa"}, {"s": "small-gray-onewall", "t": "Light gray one-wall", "z": "small", "n": 3, "lay": "One wall", "dr": "Light gray shaker", "det": "Stainless appliances", "ph": "Point3D Commercial Imaging", "hd": "3dottawa"}, {"s": "medium-maple-island", "t": "Maple with island", "z": "medium", "n": 4, "lay": "Galley with island", "dr": "Natural maple shaker", "det": "White quartz counters", "ph": "Point3D Commercial Imaging", "hd": "3dottawa"}, {"s": "large-walnut-black", "t": "Walnut and black", "z": "large", "n": 5, "lay": "Open plan with island", "dr": "Black flat panel, walnut island", "det": "Granite, wine wall", "ph": "Franco Debartolo", "hd": "francotheshooter"}, {"s": "large-dark-gray-marble", "t": "Charcoal and marble", "z": "large", "n": 4, "lay": "Island kitchen", "dr": "Charcoal flat and fluted", "det": "Black marble counters", "ph": "Franco Debartolo", "hd": "francotheshooter"}]</script>
+<script type="application/json" id="priceData">{"small": ["about 15 ft of cabinets", "$750 \u2013 $3,000", "$4,400 \u2013 $9,800"], "medium": ["about 25 ft of cabinets", "$1,250 \u2013 $5,000", "$7,400 \u2013 $16,300"], "large": ["about 40 ft of cabinets", "$2,000 \u2013 $8,000", "$11,800 \u2013 $26,000"]}</script>
 <div class="callbar" id="callbar" aria-hidden="true">
   <a class="btn btn--ink" href="tel:+12673673388" tabindex="-1">Call now</a>
   <a class="btn btn--line" href="#contact" tabindex="-1">Free estimate</a>
@@ -634,36 +761,83 @@ html.drawer-open .hdr .logo svg{color:var(--ink)}
   }
 
 
-  /* looks: door-style tabs + color dots; "+" saves a look, saved looks ride along with the estimate request */
-  const grid = $('#looksGrid'), all = $$('.look', grid), count = $('#looksCount'), empty = $('#looksEmpty');
-  let fc = 'all', fs = 'all';
-  const showLooks = () => {
+  /* kitchens: size tabs + color dots; tap a kitchen for a photo sheet; "+" or "I want this look" saves it for the estimate */
+  const grid = $('#kitGrid'), all = $$('.kit', grid), count = $('#kitCount'), empty = $('#kitEmpty');
+  const KIT = JSON.parse($('#kitData').textContent), PRICE = JSON.parse($('#priceData').textContent);
+  const AREA = { philly: 'Philadelphia', bucks: 'Bucks County', montco: 'Montgomery County', nj: 'New Jersey' };
+  let fc = 'all', fz = 'all', area = 'philly';
+  const showKits = () => {
     let n = 0;
-    all.forEach(li => { const on = (fc === 'all' || li.dataset.c === fc) && (fs === 'all' || li.dataset.s === fs); li.hidden = !on; if (on) { li.style.setProperty('--k', n % 4); n++; } });
-    count.textContent = n + (n === 1 ? ' look' : ' looks'); empty.hidden = n > 0;
+    all.forEach(li => { const on = (fc === 'all' || li.dataset.c === fc) && (fz === 'all' || li.dataset.size === fz); li.hidden = !on; if (on) { li.style.setProperty('--k', n % 4); n++; } });
+    count.textContent = n + (n === 1 ? ' kitchen' : ' kitchens'); empty.hidden = n > 0;
     grid.classList.remove('in'); void grid.offsetWidth; grid.classList.add('in');
   };
-  const group = (sel, set) => $$(sel).forEach(b => b.addEventListener('click', () => { $$(sel).forEach(x => x.setAttribute('aria-pressed', String(x === b))); set(b); showLooks(); }));
-  group('.tabs button', b => { fs = b.dataset.s; });
-  /* color dots toggle: tap again to clear (no separate 'All' chip) */
-  $$('.dots .dot').forEach(b => b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') !== 'true'; $$('.dots .dot').forEach(x => x.setAttribute('aria-pressed', String(on && x === b))); fc = on ? b.dataset.c : 'all'; showLooks(); }));
-  $('#looksReset').addEventListener('click', () => { $('.tabs button[data-s="all"]').click(); $$('.dots .dot').forEach(x => x.setAttribute('aria-pressed', 'false')); fc = 'all'; showLooks(); });
+  $$('#kitchens .tabs button').forEach(b => b.addEventListener('click', () => { $$('#kitchens .tabs button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); fz = b.dataset.z; showKits(); }));
+  $$('#kitchens .dot').forEach(b => b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') !== 'true'; $$('#kitchens .dot').forEach(x => x.setAttribute('aria-pressed', String(on && x === b))); fc = on ? b.dataset.c : 'all'; showKits(); }));
+  $('#kitReset').addEventListener('click', () => { $('#kitchens .tabs button[data-z="all"]').click(); $$('#kitchens .dot').forEach(x => x.setAttribute('aria-pressed', 'false')); fc = 'all'; showKits(); });
   if ('IntersectionObserver' in window) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { grid.classList.add('in'); o.disconnect(); } }, { rootMargin: '0px 0px -15% 0px' }).observe(grid);
   else grid.classList.add('in');
+
+  /* saved kitchens */
   window.__saved = [];
   const estBtn = $('.callbar .btn--line'), hdrEst = $('.hdr-est');
-  const updateSaved = () => {
+  const isSaved = name => window.__saved.some(l => l.n === name);
+  const setSaved = (name, src, on) => {
+    window.__saved = on ? (isSaved(name) ? window.__saved : [...window.__saved, { n: name, src }]) : window.__saved.filter(l => l.n !== name);
+    $$('.kit .save').forEach(b => { if (b.dataset.n === name) { b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', (on ? 'Saved: ' : 'Save ') + name); } });
     const n = window.__saved.length, t = n ? `Send my ${n} look${n > 1 ? 's' : ''}` : 'Free estimate';
     estBtn.textContent = t; hdrEst.textContent = t;
     window.__wizLooks && window.__wizLooks();
+    syncSheetSave();
   };
   grid.addEventListener('click', e => {
-    const b = e.target.closest('.save'); if (!b) return;
-    const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
-    b.setAttribute('aria-label', (on ? 'Saved: ' : 'Save ') + b.dataset.n);
-    window.__saved = on ? [...window.__saved, { n: b.dataset.n, src: b.dataset.src }] : window.__saved.filter(l => l.n !== b.dataset.n);
-    updateSaved();
+    const b = e.target.closest('.save'); if (b) { setSaved(b.dataset.n, b.dataset.src, b.getAttribute('aria-pressed') !== 'true'); return; }
+    const o = e.target.closest('.kit-open'); if (o) openSheet(+o.dataset.k, o);
   });
+
+  /* area: prices section tabs + the sheet's select share one value */
+  const areaNote = () => area === 'philly' ? 'Philadelphia prices.' : `No public cabinet prices for ${AREA[area]} yet, so these are the Philadelphia numbers. Your exact price comes in the free quote.`;
+  const setArea = a => {
+    area = a;
+    $$('.tabs--area button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.a === a)));
+    $('#areaNote').textContent = areaNote(); $('#spArea').value = a; if (cur) fillPrice();
+  };
+  $$('.tabs--area button').forEach(b => b.addEventListener('click', () => setArea(b.dataset.a)));
+  $('#spArea').addEventListener('change', e => setArea(e.target.value));
+
+  /* the sheet */
+  const sheet = $('#sheet'), panel = $('.sheet-panel', sheet), track = $('#galTrack'), gc = $('#galCount'), sSave = $('#sheetSave');
+  let cur = null, opener = null;
+  const fillPrice = () => { const p = PRICE[cur.z]; $('#spHead').textContent = `${cur.z[0].toUpperCase() + cur.z.slice(1)} kitchen, ${p[0]}`; $('#spA').textContent = p[1]; $('#spB').textContent = p[2]; $('#spNote').textContent = areaNote() + ' Typical public data, not an FMA quote.'; };
+  function syncSheetSave() { if (!cur) return; const on = isSaved(cur.t); sSave.setAttribute('aria-pressed', String(on)); sSave.textContent = on ? 'Saved for my estimate' : 'I want this look'; }
+  const openSheet = (k, from) => {
+    cur = KIT[k]; opener = from;
+    track.innerHTML = Array.from({ length: cur.n }, (_, i) => `<img src="img/k/${cur.s}-${i + 1}-720.jpg" srcset="img/k/${cur.s}-${i + 1}-720.jpg 720w, img/k/${cur.s}-${i + 1}-1200.jpg 1200w" sizes="(max-width:900px) 100vw, 58vw" width="720" height="540" alt="${cur.t}, photo ${i + 1} of ${cur.n}"${i ? ' loading="lazy"' : ''} decoding="async">`).join('');
+    track.scrollLeft = 0; gc.textContent = `1 / ${cur.n}`;
+    $('#sheetSize').textContent = cur.z[0].toUpperCase() + cur.z.slice(1) + ' kitchen';
+    $('#sheetName').textContent = cur.t;
+    $('#sheetSpec').innerHTML = [['Layout', cur.lay], ['Doors', cur.dr], ['Details', cur.det]].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
+    $('#sheetCredit').innerHTML = `Example photos by ${cur.ph} on Unsplash. Not an FMA job.`;
+    fillPrice(); syncSheetSave();
+    sheet.hidden = false; d.classList.add('sheet-open'); $$('main, header, footer, .callbar').forEach(el => { el.inert = true; });
+    requestAnimationFrame(() => { sheet.classList.add('is-open'); panel.focus({ preventScroll: true }); });
+  };
+  const closeSheet = () => {
+    if (sheet.hidden) return;
+    sheet.classList.remove('is-open'); d.classList.remove('sheet-open'); $$('main, header, footer, .callbar').forEach(el => { el.inert = false; });
+    setTimeout(() => { sheet.hidden = true; }, 320); opener && opener.focus({ preventScroll: true });
+  };
+  sheet.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });
+  addEventListener('keydown', e => {
+    if (sheet.hidden) return;
+    if (e.key === 'Escape') closeSheet();
+    if (e.key === 'ArrowRight') galStep(1); if (e.key === 'ArrowLeft') galStep(-1);
+    if (e.key === 'Tab') { const f = $$('button, a, select', panel).filter(x => x.offsetParent); const a = f[0], z = f[f.length - 1]; if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } }
+  });
+  const galStep = dir => track.scrollBy({ left: dir * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  $('.gal-prev').addEventListener('click', () => galStep(-1)); $('.gal-next').addEventListener('click', () => galStep(1));
+  track.addEventListener('scroll', () => { if (cur) gc.textContent = `${Math.min(cur.n, Math.round(track.scrollLeft / track.clientWidth) + 1)} / ${cur.n}`; }, { passive: true });
+  sSave.addEventListener('click', () => setSaved(cur.t, `img/k/${cur.s}-c-480.jpg`, !isSaved(cur.t)));
 
   /* before / after: drag the line */
   const ba = $('#ba'), range = $('input', ba);

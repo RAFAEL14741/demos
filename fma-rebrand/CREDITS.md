@@ -10,6 +10,8 @@
   Free under the Unsplash License. Downloaded Oct 27 2026. The other cabinet colors are generated in the browser from this one photo;
   the page says so under the swatches ("Example photo. Colors changed digitally to show options.").
 - `img/preview-before-after*.jpg`: made from the same Lisa Anna hero photo (left half original, right half recolored digitally). Labeled "digital mockup" on the page.
+- `img/k/*` (the "Find a kitchen like yours" sets, 11 kitchens / 49 photos): free Unsplash License photos, each set is one kitchen from one photographer's upload batch; cropped and given the same light warm grade. Labeled as example photos, not FMA jobs, on the cards and in each kitchen sheet (which names the photographer).
+  Point3D Commercial Imaging (@3dottawa): small-white-galley, small-white-onewall-dining, small-gray-onewall, medium-gray-shaker-island, medium-maple-island · Huy Phan (@huyphan2602): small-sage-checker-tile · Decima Athens (@decimaandathens): medium-green-rowhouse · Alex Tyson (@alextyson195): medium-navy-butcherblock · Franco Debartolo (@francotheshooter): large-cream-shaker-brass, large-walnut-black, large-dark-gray-marble. Checked Oct 27 2026, none are Unsplash+.
 - `img/looks/*` (cabinet photos for "What we install", "Pick a look", "How it works", budget cards, offer): free Unsplash License photos, cropped to 4:5 and given one shared light warm grade. Every one is labeled "Example photo(s)" on the page; none are FMA jobs.
   white-1, white-2, white-5: Zac Gudakov (@zacgudakov) · white-3: Courtney Smith (@courtneysmith) · white-4, detail-1: Bailey Alexander (@baileyal3xander)
   black-1, black-4: Sven Brandsma (@seffen99) · black-2: Clay Banks (@claybanks) · black-3: Salvo Media LLC (@salvomedia)
@@ -30,6 +32,9 @@
 - `og-maison.png`: official `og-1200x630.png` from the brand kit.
 
 ## Price figures (shown as public data, not FMA quotes)
+- Price table by kitchen size (v7): install only = Fixr national labor $50–$200 per linear foot (updated Jan 22 2026) × about 15 / 25 / 40 ft (Fixr's kitchen-size guide); new cabinets installed = HomeBlue Philadelphia per-kitchen totals for 15 / 25 / 40 linear ft (Jun 3 2024). No public cabinet prices were found for Bucks, Montgomery or South Jersey, so the page says so and shows the Philadelphia numbers.
+  https://www.fixr.com/costs/cabinets-installation · https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm
+- Older figures (v6 and before):
 - Cabinet installation, Philadelphia: HomeAdvisor cost page, typical $1,684–$7,205 (checked Oct 27 2026) https://embedded.homeadvisor.com/tloc/Philadelphia-PA/Cabinets-Install/
 - New cabinets installed: HomeBlue Philadelphia, $300–$650 per linear foot (dated Jun 3 2024) https://www.homeblue.com/cabinets/philadelphia-pa-cost-of-kitchen-cabinets.htm
 - Refacing: HomeBlue Philadelphia, $150–$210 per door (dated Aug 9 2022) https://www.homeblue.com/cabinet-refacing/philadelphia-pa-cabinet-refacing-cost.htm
