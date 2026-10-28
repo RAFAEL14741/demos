@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SuperAtivo Fitness | Semi-private training in Northeast Philly</title>
+<meta name="description" content="Semi-private strength training at 9350 Ashton Rd, Philadelphia since 2015. 2 to 5 days a week with a coach every class, plus Witor's online nutrition plan.">
+<meta name="robots" content="noindex"><!-- preview: remove at launch -->
+<meta property="og:title" content="SuperAtivo Fitness">
+<meta property="og:description" content="A coach with you every class. Semi-private training in Northeast Philly since 2015.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://rafael14741.github.io/demos/superativo/og.jpg">
+<meta property="og:url" content="https://rafael14741.github.io/demos/superativo/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#000000">
+<link rel="preload" href="assets/fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/img/t2026-before.jpg" as="image" fetchpriority="high">
+<style>
+@font-face{font-family:"Stencil";src:url(assets/fonts/big-shoulders-stencil-display-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Stencil";src:url(assets/fonts/big-shoulders-stencil-display-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Archivo";src:url(assets/fonts/archivo-latin-wdth-normal.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+
+:root{
+  --black:#000;--steel:#1c1c1a;--line:#33332f;--block:#ebebe6;--block-2:#dcdcd5;
+  --concrete:#8c8c86;--mute-dark:#a9a9a3;--mute-light:#5d5d58;--red:#b3121b;--red-hi:#d4212b;
+  --hdr:68px;--wrap:1200px;--pad:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 12px);-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--black);color:#fff;font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.55;font-stretch:100%}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red-hi);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+h1,h2,h3{font-family:"Stencil",Impact,sans-serif;font-weight:800;line-height:.92;margin:0;letter-spacing:.005em;text-wrap:balance}
+h1{font-size:clamp(58px,8.4vw,128px)}
+h2{font-size:clamp(44px,5.6vw,84px)}
+h3{font-size:clamp(28px,2.6vw,36px);font-weight:700;line-height:1}
+p{margin:0}
+.lede{font-size:clamp(18px,1.6vw,21px);max-width:34em}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:#000;padding:8px 14px;z-index:100}
+.skip:focus{left:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font:600 16px/1 "Archivo",sans-serif;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:var(--red-hi)}
+.btn-ghost{border-color:currentColor;background:transparent}
+.btn-ghost:hover{background:#fff;color:#000;border-color:#fff}
+.on-light .btn-ghost:hover{background:#000;color:#fff;border-color:#000}
+
+/* header */
+.hdr{position:fixed;inset:0 0 auto 0;height:var(--hdr);z-index:50;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+.hdr.solid{background:rgba(0,0,0,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+.hdr .wrap{height:100%;display:flex;align-items:center;gap:28px;max-width:1360px}
+.hdr-logo{flex:none;display:flex}
+.hdr-logo img{height:30px;width:auto}
+.hdr nav{display:flex;gap:24px;margin-left:auto}
+.hdr nav a{text-decoration:none;font-size:15px;font-weight:500;color:#d8d8d2}
+.hdr nav a:hover{color:#fff}
+.lang{display:flex;border:1px solid #55554f;border-radius:999px;overflow:hidden;flex:none}
+.lang button{background:none;border:0;color:#cfcfc9;font:600 13px/1 "Archivo";padding:9px 11px;cursor:pointer}
+.lang button[aria-pressed=true]{background:#fff;color:#000}
+.hdr .btn{min-height:42px;padding:0 18px;font-size:15px}
+@media (max-width:1040px){.hdr nav{display:none}.hdr .lang{margin-left:auto}}
+@media (max-width:520px){.hdr .wrap{gap:12px}.hdr-logo img{height:22px}.hdr .btn span{display:none}.hdr .btn{padding:0 13px}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;padding:calc(var(--hdr) + clamp(16px,3vh,40px)) 0 0;background:
+  radial-gradient(120% 70% at 85% 10%,rgba(255,255,255,.07),transparent 55%),var(--black);overflow:hidden}
+.hero-grid{flex:1;width:100%;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,80px);align-items:center}
+.hero-copy{padding-bottom:clamp(24px,4vh,48px)}
+.hero h1{margin-bottom:26px}
+.hero .lede{color:#d9d9d3;margin-bottom:34px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.ba{position:relative;aspect-ratio:1/2;--bah:min(calc(100svh - var(--hdr) - 190px),760px);max-height:var(--bah);margin-left:auto;width:100%;max-width:calc(var(--bah)/2);border-radius:6px;overflow:hidden;background:#222;user-select:none;-webkit-user-select:none;touch-action:pan-y;--p:50%}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;pointer-events:none}
+.ba .ba-after{clip-path:inset(0 0 0 var(--p))}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:#fff;pointer-events:none;box-shadow:0 0 18px rgba(255,255,255,.45)}
+.ba-knob{position:absolute;top:50%;left:var(--p);width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;pointer-events:none;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.ba-knob svg{width:26px;height:26px}
+.ba-tag{position:absolute;top:14px;font:800 26px/1 "Stencil";padding:6px 10px 5px;background:rgba(0,0,0,.72);color:#fff;border-radius:3px;pointer-events:none}
+.ba-tag.l{left:14px}.ba-tag.r{right:14px;background:var(--red)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba input:focus-visible+.ba-ring{outline:3px solid var(--red-hi);outline-offset:-3px}
+.ba-ring{position:absolute;inset:0;pointer-events:none;border-radius:6px}
+.ba-cap{font-size:14px;color:var(--mute-dark);margin-top:10px;text-align:right}
+.hero-visual{padding-bottom:clamp(12px,2vh,24px)}
+.hero-info{display:none}
+
+.rail{border-top:1px solid var(--line)}
+.rail .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.rail-cell{padding:20px 24px 22px 0;display:flex;gap:14px;align-items:flex-start;text-decoration:none;min-width:0}
+.rail-cell+.rail-cell{padding-left:24px;border-left:1px solid var(--line)}
+.rail-cell svg{width:24px;height:24px;flex:none;color:var(--red-hi);margin-top:2px}
+.rail-k{font-size:13px;color:var(--mute-dark);font-stretch:85%;font-weight:600}
+.rail-v{font-size:17px;font-weight:600;line-height:1.3}
+.rail-s{font-size:13px;color:var(--mute-dark);margin-top:2px}
+a.rail-cell:hover .rail-v{text-decoration:underline}
+
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-copy{padding-bottom:8px}
+  .hero-visual{order:2}
+  .ba{aspect-ratio:3/4;max-height:none;max-width:none;margin:0}
+  .ba img{object-position:50% 12%}
+  .ba-cap{text-align:left}
+  .hero{min-height:0;padding-bottom:28px}
+  .rail{display:none}
+  .hero-info{display:grid;gap:10px;margin:26px 0 4px;font-size:15px}
+  .hero-info a{display:flex;gap:10px;align-items:center;text-decoration:none;color:#e6e6e0}
+  .hero-info svg{width:20px;height:20px;flex:none;color:var(--red-hi)}
+}
+
+/* sections */
+section{position:relative}
+.sec{padding:clamp(72px,10vw,128px) 0}
+.on-light{background:var(--block);color:#111;
+  background-image:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);
+  background-size:100% 64px,128px 64px}
+.on-light .muted{color:var(--mute-light)}
+.on-dark .muted{color:var(--mute-dark)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.sec-head .lede{justify-self:start}
+@media (max-width:860px){.sec-head{grid-template-columns:1fr}}
+
+/* how */
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid #111}
+.fact{padding:26px 22px 8px 0}
+.fact+.fact{padding-left:22px;border-left:1px solid rgba(0,0,0,.18)}
+.fact svg{width:40px;height:40px;margin-bottom:18px}
+.fact h3{margin-bottom:10px}
+.fact p{font-size:16px}
+@media (max-width:980px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(3){padding-left:0;border-left:0}.fact:nth-child(n+3){border-top:1px solid rgba(0,0,0,.18)}}
+@media (max-width:520px){.facts{grid-template-columns:1fr}.fact,.fact+.fact{padding:22px 0 14px;border-left:0}.fact+.fact{border-top:1px solid rgba(0,0,0,.18)}}
+
+/* board */
+.board{background:var(--steel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.days{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.days button{flex:1 0 auto;min-width:76px;background:none;border:0;border-right:1px solid var(--line);color:#cfcfc9;padding:16px 14px 14px;font:inherit;cursor:pointer;text-align:left;position:relative}
+.days button:last-child{border-right:0}
+.days .dname{display:block;font:800 26px/1 "Stencil"}
+.days .dopen{display:block;font-size:13px;color:var(--mute-dark);margin-top:5px;font-stretch:85%}
+.days button[aria-selected=true]{background:#fff;color:#000}
+.days button[aria-selected=true] .dopen{color:var(--mute-light)}
+.slots{list-style:none;margin:0;padding:0}
+.slot{display:grid;grid-template-columns:88px minmax(0,1fr) auto auto;gap:18px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}
+.slot:last-child{border-bottom:0}
+.slot-time{font:800 26px/1 "Stencil"}
+.slot-who{min-width:0}
+.slot-coach{font-weight:600}
+.slot-tag{display:inline-block;font-size:12px;font-weight:600;border:1px solid #6b6b65;border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:2px;color:#d6d6d0}
+.dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;max-width:240px}
+.dots i{width:11px;height:11px;border-radius:50%;background:#4a4a45}
+.dots i.open{background:transparent;box-shadow:inset 0 0 0 2px #fff}
+.slot-count{font-size:15px;font-weight:600;text-align:right;white-space:nowrap}
+.slot-count.full{color:var(--mute-dark);font-weight:500}
+.slot .btn{min-height:42px;padding:0 16px;font-size:14px}
+.slot.is-full{opacity:.55}
+.slot.is-full .btn{visibility:hidden}
+.board-foot{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;padding:14px 20px;font-size:13px;color:var(--mute-dark);border-top:1px solid var(--line)}
+.legend{display:flex;gap:16px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%;background:#4a4a45;display:inline-block}
+.legend i.open{background:transparent;box-shadow:inset 0 0 0 2px #fff}
+@media (max-width:700px){
+  .days button{flex:1 1 0;min-width:0;padding:12px 6px 10px;text-align:center}
+  .days .dname{font-size:22px}
+  .days .dopen{font-size:11px}
+  .slot{grid-template-columns:64px minmax(0,1fr) auto;gap:6px 12px;padding:14px 16px}
+  .slot-time{font-size:22px}
+  .slot .btn{grid-column:2/4;justify-self:start;margin-top:4px}
+  .slot.is-full .btn{display:none}
+}
+
+/* prices */
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:#111;border:2px solid #111}
+.plan{background:var(--block);padding:28px 24px 26px;display:flex;flex-direction:column;gap:6px;position:relative}
+.plan-days{font-weight:600;font-size:17px}
+.plan-price{font:800 clamp(64px,6vw,88px)/.9 "Stencil";margin-top:10px}
+.plan-price small{font:600 17px/1 "Archivo";margin-left:4px}
+.plan-per{font-size:15px;color:var(--mute-light)}
+.pay-note{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:28px;font-size:15px}
+.pay-note div{display:flex;gap:12px;align-items:flex-start}
+.pay-note svg{width:22px;height:22px;flex:none;margin-top:2px;color:var(--red)}
+@media (max-width:900px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}.pay-note{grid-template-columns:1fr}}
+@media (max-width:420px){.plans{grid-template-columns:1fr}.plan{flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:space-between}.plan-price{margin-top:0;font-size:60px}.plan-per{width:100%}}
+
+/* results */
+.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.result .ba{aspect-ratio:1/2;max-height:none;max-width:none;margin:0;border-radius:6px}
+.result .ba-tag{font-size:20px}
+.result .ba-knob{width:40px;height:40px;margin:-20px 0 0 -20px}
+.result p{margin-top:14px;font-size:16px;max-width:30em}
+.result p b{font:800 24px/1 "Stencil";display:block;margin-bottom:6px}
+.stage{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:24px;margin-top:clamp(64px,8vw,104px);align-items:end}
+.stage-intro{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 48px;align-items:end;margin-bottom:8px}
+.stage figure{margin:0}
+.stage img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:6px}
+.stage figcaption{font-size:15px;margin-top:12px}
+.stage figcaption b{display:block;font-weight:700}
+@media (max-width:900px){.results{grid-template-columns:1fr 1fr}.results .result:last-child{display:none}.stage{grid-template-columns:1fr 1fr}.stage figure:first-of-type{grid-column:1/-1}}
+@media (max-width:560px){.results{grid-template-columns:1fr}.results .result:last-child{display:block}.result .ba{aspect-ratio:2/3}.result .ba img{object-position:50% 20%}.stage{grid-template-columns:1fr}}
+
+/* nutrition */
+.nutri{background:var(--red);color:#fff}
+.nutri-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);align-items:start}
+.nutri h2{margin-bottom:22px}
+.nutri .lede{margin-bottom:34px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;padding:18px 0;border-top:1px solid rgba(255,255,255,.35)}
+.steps li::before{content:counter(s);font:800 40px/1 "Stencil"}
+.steps b{display:block;font-size:18px}
+.steps span{font-size:15px;opacity:.9}
+.nutri-buy{background:#fff;color:#111;border-radius:8px;padding:clamp(24px,3vw,36px)}
+.nutri-prices{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px;background:#111;border:2px solid #111;margin:18px 0 22px}
+.nutri-prices div{background:#fff;padding:18px}
+.nutri-prices .np{font:800 64px/.9 "Stencil";margin-top:8px}
+.nutri-prices small{display:block;font-size:14px;color:var(--mute-light);margin-top:6px}
+.nutri-buy .btn{width:100%;justify-content:center}
+@media (max-width:420px){.nutri-prices .np{font-size:50px}.nutri-prices div{padding:14px}}
+.fine{font-size:13px;color:var(--mute-light);margin-top:14px}
+@media (max-width:900px){.nutri-grid{grid-template-columns:minmax(0,1fr)}}
+.nutri-buy .btn{white-space:normal;text-align:center;padding-top:12px;padding-bottom:12px;line-height:1.2}
+
+/* story */
+.story-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(36px,6vw,96px);align-items:start}
+.story-grid img{width:100%;border-radius:6px}
+.story h2{margin-bottom:34px}
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 30px 32px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--black);box-shadow:0 0 0 2px #fff}
+.timeline li:last-child{padding-bottom:0}
+.timeline li:last-child::before{background:var(--red-hi);box-shadow:0 0 0 2px var(--red-hi)}
+.timeline .yr{font:800 40px/1 "Stencil";display:block;margin-bottom:6px}
+.timeline p{color:#d9d9d3;max-width:32em}
+@media (max-width:860px){.story-grid{grid-template-columns:minmax(0,1fr)}.story-grid img{max-width:420px}}
+
+/* first class */
+.check{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px;list-style:none;margin:0;padding:0;border-top:2px solid #111}
+.check li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:14px;padding:22px 0;border-bottom:1px solid rgba(0,0,0,.18)}
+.check svg{width:28px;height:28px;color:var(--red)}
+.check b{display:block;font-size:18px}
+.check span{font-size:16px}
+.check a{font-weight:600}
+@media (max-width:760px){.check{grid-template-columns:1fr}}
+
+/* footer */
+.foot{padding:clamp(80px,10vw,128px) 0 40px;background:var(--black)}
+.foot h2{font-size:clamp(52px,7.5vw,112px);max-width:12ch;margin-bottom:34px}
+.foot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin-top:clamp(56px,7vw,96px);padding-top:28px;border-top:1px solid var(--line);font-size:15px}
+.foot-grid b{display:block;font-size:13px;color:var(--mute-dark);font-weight:600;margin-bottom:6px;font-stretch:85%}
+.foot-grid a{text-decoration:none}
+.foot-grid a:hover{text-decoration:underline}
+.foot-logo{height:26px;width:auto;margin-top:48px;opacity:.9}
+.foot small{display:block;color:var(--mute-dark);margin-top:14px;font-size:13px}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.foot-grid{grid-template-columns:1fr}}
+
+/* sticky phone bar */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;display:none;transform:translateY(140%);transition:transform .3s}
+.mbar.show{transform:none}
+.mbar .btn{width:100%;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.45)}
+@media (max-width:700px){.mbar{display:block}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-t="skip">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="hdr-logo" href="#top" aria-label="SuperAtivo Fitness, home"><img src="assets/img/logo.png" alt="SuperAtivo" width="886" height="186"></a>
+    <nav aria-label="Main">
+      <a href="#classes" data-t="nav_classes">Open classes</a>
+      <a href="#prices" data-t="nav_prices">Prices</a>
+      <a href="#results" data-t="nav_results">Results</a>
+      <a href="#nutrition" data-t="nav_nutrition">Nutrition plan</a>
+      <a href="#story" data-t="nav_story">Our story</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+    <a class="btn btn-red" data-wa="general" href="https://wa.me/12673389078" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 data-t="h1">A coach with you every class.</h1>
+      <p class="lede" data-t="hero_p">Semi-private strength training in Northeast Philly since 2015. Pick 2 to 5 days a week, and a coach runs every class with you.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-red" data-wa="book" href="https://wa.me/12673389078" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-t="cta_book">Book your first class</span></a>
+        <a class="btn btn-ghost" href="#nutrition" data-t="cta_nutri">Online nutrition plan</a>
+      </div>
+      <div class="hero-info">
+        <a href="https://www.google.com/maps/search/?api=1&query=9350+Ashton+Rd+Philadelphia+PA" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>9350 Ashton Rd, Philadelphia</a>
+        <a href="#classes"><svg aria-hidden="true"><use href="#i-clock"/></svg><span data-t="info_short">Mon to Fri, 7 to 9 AM and 5 to 9 PM</span></a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="ba" data-ba data-auto>
+        <img src="assets/img/t2026-before.jpg" alt="" width="540" height="1080" fetchpriority="high" data-t-alt="alt_hero_before">
+        <img class="ba-after" src="assets/img/t2026-after.jpg" alt="" width="539" height="1080" data-t-alt="alt_hero_after">
+        <span class="ba-tag l">2024</span><span class="ba-tag r">2026</span>
+        <div class="ba-line"></div>
+        <div class="ba-knob"><svg aria-hidden="true"><use href="#i-arrows"/></svg></div>
+        <input type="range" min="0" max="100" value="50" data-t-aria="slider_aria" aria-label="Drag to compare 2024 and 2026">
+        <div class="ba-ring"></div>
+      </div>
+      <p class="ba-cap" data-t="hero_cap">A SuperAtivo client, two years apart.</p>
+    </div>
+  </div>
+  <div class="rail">
+    <div class="wrap">
+      <a class="rail-cell" href="https://www.google.com/maps/search/?api=1&query=9350+Ashton+Rd+Philadelphia+PA" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#i-pin"/></svg>
+        <div><div class="rail-k" data-t="rail_where">Where</div><div class="rail-v">9350 Ashton Rd, Philadelphia</div><div class="rail-s" data-t="rail_where_s">Northeast Philly</div></div>
+      </a>
+      <a class="rail-cell" href="#classes">
+        <svg aria-hidden="true"><use href="#i-clock"/></svg>
+        <div><div class="rail-k" data-t="rail_when">Classes, Monday to Friday</div><div class="rail-v" data-t="rail_when_v">7 to 9 AM and 5 to 9 PM</div><div class="rail-s" data-t="rail_when_s">No Wednesday mornings. Fridays end at 8 PM.</div></div>
+      </a>
+      <a class="rail-cell" data-wa="general" href="https://wa.me/12673389078" target="_blank" rel="noopener">
+        <svg aria-hidden="true"><use href="#i-wa"/></svg>
+        <div><div class="rail-k" data-t="rail_talk">WhatsApp</div><div class="rail-v">(267) 338-9078</div><div class="rail-s">English, Português, Español</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sec on-light" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-t="how_h">Not a gym where you're on your own.</h2>
+      <p class="lede muted" data-t="how_p">Small group, set time, and a coach running the whole class.</p>
+    </div>
+    <div class="facts">
+      <div class="fact">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="#b3121b" stroke-width="2.4"><circle cx="13" cy="13" r="5"/><circle cx="27" cy="13" r="5"/><path d="M4 32c1-6 5-9 9-9s8 3 9 9M18 32c1-6 5-9 9-9s8 3 9 9"/></g></svg>
+        <h3 data-t="f1_h">Small groups</h3><p data-t="f1_p">5 to 8 people in most classes.</p>
+      </div>
+      <div class="fact">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="#b3121b" stroke-width="2.4"><rect x="5" y="8" width="30" height="27" rx="2"/><path d="M5 16h30M13 4v8M27 4v8"/><path d="M12 24l4 4 9-9" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+        <h3 data-t="f2_h">Your days, fixed</h3><p data-t="f2_p">2 to 5 days, same times every week.</p>
+      </div>
+      <div class="fact">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="#b3121b" stroke-width="2.4" stroke-linecap="round"><path d="M4 20h32M9 13v14M14 10v20M26 10v20M31 13v14"/></g></svg>
+        <h3 data-t="f3_h">1 to 1.5 hours</h3><p data-t="f3_p">Muscle gain, fat loss, lean mass.</p>
+      </div>
+      <div class="fact">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="#b3121b" stroke-width="2.4" stroke-linecap="round"><circle cx="20" cy="22" r="13"/><path d="M14 22a6 6 0 0 0 12 0M20 9V4M16 5c2 0 4 2 4 4"/></g></svg>
+        <h3 data-t="f4_h">Food plans too</h3><p data-t="f4_p">Personalized meal plans.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec on-dark" id="classes">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-t="board_h">Open spots this week.</h2>
+      <p class="lede muted" data-t="board_p">Pick a class with room. Ask for it on WhatsApp.</p>
+    </div>
+    <div class="board" id="board">
+      <div class="days" role="tablist" data-t-aria="days_aria" aria-label="Day of the week"></div>
+      <ul class="slots" id="slots" role="tabpanel"></ul>
+      <div class="board-foot">
+        <div class="legend"><span><i class="open"></i><span data-t="lg_open">Open spot</span></span><span><i></i><span data-t="lg_taken">Taken</span></span></div>
+        <span data-t="board_note">Updated weekly. Week of October 26.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec on-light" id="prices">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-t="price_h">One fixed price per week.</h2>
+      <p class="lede muted" data-t="price_p">Paid at your first class each week.</p>
+    </div>
+    <div class="plans" id="plans"></div>
+    <div class="pay-note">
+      <div><svg aria-hidden="true"><use href="#i-check"/></svg><span data-t="pay1">Venmo, card or cash.</span></div>
+      <div><svg aria-hidden="true"><use href="#i-check"/></svg><span data-t="pay2">Missed classes are charged, except emergency, illness or travel.</span></div>
+      <div><svg aria-hidden="true"><use href="#i-check"/></svg><span data-t="pay3">We try to reschedule within the same week.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec on-dark" id="results">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-t="res_h">What the work looks like.</h2>
+      <p class="lede muted" data-t="res_p">Drag to compare.</p>
+    </div>
+    <div class="results">
+      <div class="result">
+        <div class="ba" data-ba>
+          <img src="assets/img/t47-before.jpg" alt="" width="540" height="1350" loading="lazy" data-t-alt="alt_before">
+          <img class="ba-after" src="assets/img/t47-after.jpg" alt="" width="539" height="1350" loading="lazy" data-t-alt="alt_after">
+          <span class="ba-tag l" data-t="before">Before</span><span class="ba-tag r" data-t="after">After</span>
+          <div class="ba-line"></div><div class="ba-knob"><svg aria-hidden="true"><use href="#i-arrows"/></svg></div>
+          <input type="range" min="0" max="100" value="50" data-t-aria="slider_aria2" aria-label="Drag to compare before and after"><div class="ba-ring"></div>
+        </div>
+        <p><b data-t="r1_h">Age 47</b><span data-t="r1_p">No going hungry, no crazy diets.</span></p>
+      </div>
+      <div class="result">
+        <div class="ba" data-ba>
+          <img src="assets/img/t51-before.jpg" alt="" width="540" height="1080" loading="lazy" data-t-alt="alt_before">
+          <img class="ba-after" src="assets/img/t51-after.jpg" alt="" width="539" height="1080" loading="lazy" data-t-alt="alt_after">
+          <span class="ba-tag l" data-t="before">Before</span><span class="ba-tag r" data-t="after">After</span>
+          <div class="ba-line"></div><div class="ba-knob"><svg aria-hidden="true"><use href="#i-arrows"/></svg></div>
+          <input type="range" min="0" max="100" value="50" data-t-aria="slider_aria2" aria-label="Drag to compare before and after"><div class="ba-ring"></div>
+        </div>
+        <p><b data-t="r2_h">Age 51</b><span data-t="r2_p">Training, food and routine, together.</span></p>
+      </div>
+      <div class="result">
+        <div class="ba" data-ba>
+          <img src="assets/img/tbeach-before.jpg" alt="" width="540" height="1080" loading="lazy" data-t-alt="alt_before">
+          <img class="ba-after" src="assets/img/tbeach-after.jpg" alt="" width="539" height="1080" loading="lazy" data-t-alt="alt_after">
+          <span class="ba-tag l" data-t="before">Before</span><span class="ba-tag r" data-t="after">After</span>
+          <div class="ba-line"></div><div class="ba-knob"><svg aria-hidden="true"><use href="#i-arrows"/></svg></div>
+          <input type="range" min="0" max="100" value="50" data-t-aria="slider_aria2" aria-label="Drag to compare before and after"><div class="ba-ring"></div>
+        </div>
+        <p><b data-t="r3_h">Nutrition client</b><span data-t="r3_p">No restrictive diet.</span></p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-intro">
+        <h3 data-t="stage_h">We also coach athletes to the stage.</h3>
+        <p class="muted" data-t="stage_p">The 2026 competition season.</p>
+      </div>
+      <figure><img src="assets/img/stage-duo.jpg" alt="" width="768" height="1024" loading="lazy" data-t-alt="alt_stage1"><figcaption><b>NY Pro Amateur</b><span data-t="s1">First year open to amateurs.</span></figcaption></figure>
+      <figure><img src="assets/img/stage-medals.jpg" alt="" width="1080" height="1080" loading="lazy" data-t-alt="alt_stage2"><figcaption><b>NPC Jay Cutler Classic</b><span data-t="s2">Placed in every category entered.</span></figcaption></figure>
+      <figure><img src="assets/img/stage-solo.jpg" alt="" width="1080" height="1080" loading="lazy" data-t-alt="alt_stage3"><figcaption><b>Rhode Island Championship</b><span data-t="s3">A bigger stage, a better physique.</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec nutri" id="nutrition">
+  <div class="wrap nutri-grid">
+    <div>
+      <h2 data-t="n_h">Online nutrition plan with Witor.</h2>
+      <p class="lede" data-t="n_p">Built around your routine, with Witor on WhatsApp. No going hungry.</p>
+      <ol class="steps">
+        <li><div><b data-t="n1">Tell Witor your goal and routine</b><span data-t="n1s">On WhatsApp.</span></div></li>
+        <li><div><b data-t="n2">Get your plan in 5 to 7 business days</b><span data-t="n2s">Made only for you.</span></div></li>
+        <li><div><b data-t="n3">Ask questions any weekday</b><span data-t="n3s">Replies in 24 to 36 business hours.</span></div></li>
+        <li><div><b data-t="n4">Your plan is adjusted as you change</b><span data-t="n4s">About every 15 business days.</span></div></li>
+      </ol>
+    </div>
+    <div class="nutri-buy">
+      <h3 data-t="n_buy_h">Choose your plan</h3>
+      <div class="nutri-prices">
+        <div><span data-t="n_m">Monthly</span><div class="np">$150</div><small data-t="n_m_s">per month</small></div>
+        <div><span data-t="n_q">3 months</span><div class="np">$360</div><small data-t="n_q_s">$120 a month, 20% less</small></div>
+      </div>
+      <a class="btn btn-red" data-wa="nutri" href="https://wa.me/12673389078" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-t="n_cta">Ask Witor about the plan</span></a>
+      <p class="fine" data-t="n_fine">Cash, card or Venmo. No refunds.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec on-dark story" id="story">
+  <div class="wrap story-grid">
+    <img src="assets/img/story.jpg" alt="" width="1080" height="1350" loading="lazy" data-t-alt="alt_story">
+    <div>
+      <h2 data-t="st_h">From house calls to 11 years.</h2>
+      <ol class="timeline">
+        <li><span class="yr">2014</span><p data-t="st1">Witor trains clients house to house, then in his basement from 5 AM to 11 PM.</p></li>
+        <li><span class="yr">2015</span><p data-t="st2">He leaves college and opens SuperAtivo with $50 left.</p></li>
+        <li><span class="yr">2020</span><p data-t="st3">COVID closes the gym. The members come back.</p></li>
+        <li><span class="yr">2024</span><p data-t="st4">He survives an accident that almost took his life.</p></li>
+        <li><span class="yr">2026</span><p data-t="st5">11 years, and the best phase yet.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec on-light" id="first">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-t="fc_h">Before your first class.</h2>
+      <p class="lede muted" data-t="fc_p">Four quick things.</p>
+    </div>
+    <ul class="check">
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b data-t="c1">Sign the waiver online</b><span><a href="https://waiver.smartwaiver.com/v/superativofitness/" target="_blank" rel="noopener" data-t="c1s">Fill it out here</a>. <span data-t="c1x">Only once.</span></span></div></li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b data-t="c2">Arrive 15 minutes early</b><span data-t="c2s">10-minute warm-up required.</span></div></li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b data-t="c3">Phone away during class</b><span data-t="c3s">This hour is yours.</span></div></li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg><div><b data-t="c4">Bring water</b><span data-t="c4s">Fill your bottle before class.</span></div></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer class="foot on-dark">
+  <div class="wrap">
+    <h2 data-t="ft_h">Your first class is one message away.</h2>
+    <div class="hero-ctas">
+      <a class="btn btn-red" data-wa="book" href="https://wa.me/12673389078" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-t="cta_book">Book your first class</span></a>
+      <a class="btn btn-ghost" href="#classes" data-t="ft_see">See open classes</a>
+    </div>
+    <div class="foot-grid">
+      <div><b data-t="rail_where">Where</b><a href="https://www.google.com/maps/search/?api=1&query=9350+Ashton+Rd+Philadelphia+PA" target="_blank" rel="noopener">9350 Ashton Rd<br>Philadelphia, PA</a></div>
+      <div><b data-t="ft_hours">Class times</b><span data-t="ft_hours_v">Mon, Tue, Thu, Fri: 7 to 9 AM<br>Mon to Thu: 5 to 9 PM<br>Fri: 5 to 8 PM</span></div>
+      <div><b>WhatsApp</b><a data-wa="general" href="https://wa.me/12673389078" target="_blank" rel="noopener">(267) 338-9078</a></div>
+      <div><b>Instagram</b><a href="https://www.instagram.com/superativofitness/" target="_blank" rel="noopener">@superativofitness</a></div>
+    </div>
+    <img class="foot-logo" src="assets/img/logo.png" alt="SuperAtivo" width="886" height="186" loading="lazy">
+    <small>© 2026 SuperAtivo Fitness</small>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a class="btn btn-red" data-wa="book" href="https://wa.me/12673389078" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-t="cta_book">Book your first class</span></a></div>
+
+<script>
+(function(){
+var WA='12673389078';
+var T={
+en:{skip:'Skip to content',nav_classes:'Open classes',nav_prices:'Prices',nav_results:'Results',nav_nutrition:'Nutrition plan',nav_story:'Our story',
+h1:'A coach with you every class.',hero_p:'Semi-private strength training in Northeast Philly since 2015. Pick 2 to 5 days a week, and a coach runs every class with you.',
+cta_book:'Book your first class',cta_nutri:'Online nutrition plan',hero_cap:'A SuperAtivo client, two years apart.',slider_aria:'Drag to compare 2024 and 2026',slider_aria2:'Drag to compare before and after',
+info_short:'Mon to Fri, 7 to 9 AM and 5 to 9 PM',rail_where:'Where',rail_where_s:'Northeast Philly',rail_when:'Classes, Monday to Friday',rail_when_v:'7 to 9 AM and 5 to 9 PM',rail_when_s:'No Wednesday mornings. Fridays end at 8 PM.',rail_talk:'WhatsApp',
+how_h:"Not a gym where you're on your own.",how_p:'Small group, set time, and a coach running the whole class.',
+f1_h:'Small groups',f1_p:'5 to 8 people in most classes.',f2_h:'Your days, fixed',f2_p:'2 to 5 days, same times every week.',f3_h:'1 to 1.5 hours',f3_p:'Muscle gain, fat loss, lean mass.',f4_h:'Food plans too',f4_p:'Personalized meal plans.',
+board_h:'Open spots this week.',board_p:"Pick a class with room. Ask for it on WhatsApp.",days_aria:'Day of the week',lg_open:'Open spot',lg_taken:'Taken',board_note:'Updated weekly. Week of October 26.',
+price_h:'One fixed price per week.',price_p:'Paid at your first class each week.',
+pay1:'Venmo, card or cash.',pay2:"Missed classes are charged, except emergency, illness or travel.",pay3:"We try to reschedule within the same week.",
+res_h:'What the work looks like.',res_p:'Drag to compare.',before:'Before',after:'After',
+r1_h:'Age 47',r1_p:'No going hungry, no crazy diets.',r2_h:'Age 51',r2_p:'Training, food and routine, together.',r3_h:'Nutrition client',r3_p:'No restrictive diet.',
+stage_h:'We also coach athletes to the stage.',stage_p:'The 2026 competition season.',s1:"First year open to amateurs.",s2:'Placed in every category entered.',s3:'A bigger stage, a better physique.',
+n_h:'Online nutrition plan with Witor.',n_p:'Built around your routine, with Witor on WhatsApp. No going hungry.',
+n1:'Tell Witor your goal and routine',n1s:'On WhatsApp.',n2:'Get your plan in 5 to 7 business days',n2s:"Made only for you.",n3:'Ask questions any weekday',n3s:'Replies in 24 to 36 business hours.',n4:'Your plan is adjusted as you change',n4s:'About every 15 business days.',
+n_buy_h:'Choose your plan',n_m:'Monthly',n_m_s:'per month',n_q:'3 months',n_q_s:'$120 a month, 20% less',n_cta:'Ask Witor about the plan',n_fine:'Cash, card or Venmo. No refunds.',
+st_h:'From house calls to 11 years.',st1:"Witor trains clients house to house, then in his basement from 5 AM to 11 PM.",st2:'He leaves college and opens SuperAtivo with $50 left.',st3:'COVID closes the gym. The members come back.',st4:'He survives an accident that almost took his life.',st5:"11 years, and the best phase yet.",
+fc_h:'Before your first class.',fc_p:'Four quick things.',c1:'Sign the waiver online',c1s:'Fill it out here',c1x:'Only once.',c2:'Arrive 15 minutes early',c2s:'10-minute warm-up required.',c3:'Phone away during class',c3s:'This hour is yours.',c4:'Bring water',c4s:'Fill your bottle before class.',
+ft_h:'Your first class is one message away.',ft_see:'See open classes',ft_hours:'Class times',ft_hours_v:'Mon, Tue, Thu, Fri: 7 to 9 AM<br>Mon to Thu: 5 to 9 PM<br>Fri: 5 to 8 PM',
+alt_hero_before:'Client in 2024, front view',alt_hero_after:'The same client in 2026, leaner and more muscular',alt_before:'Before',alt_after:'After',alt_stage1:'Two SuperAtivo athletes with their medals at the NY Pro Amateur',alt_stage2:'Two SuperAtivo athletes holding medals at the NPC Jay Cutler Classic',alt_stage3:'SuperAtivo athlete with medals at the Rhode Island Championship',alt_story:'Witor training a client in 2014, the first gym in 2015, and the gym in 2026',
+days:{Mon:'Mon',Tue:'Tue',Wed:'Wed',Thu:'Thu',Fri:'Fri'},dayFull:{Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday'},
+open:function(n){return n===1?'1 spot open':n+' spots open'},dayOpen:function(n){return n+' open'},full:'Full',men:"Men's class",ask:'Ask for this spot',
+plan:function(d){return d+' days a week'},week:'/week',perClass:function(v,exact){return (exact?'':'about ')+'$'+v+' a class'},
+wa:{general:'Hi! I have a question about SuperAtivo.',book:"Hi! I'd like to book my first class at SuperAtivo.",nutri:"Hi Witor! I'd like to know more about the online nutrition plan.",slot:function(day,h,c){return "Hi! I'd like to try the "+day+' '+h+' class with '+c+'. Is the spot still open?'}}},
+pt:{skip:'Pular para o conteúdo',nav_classes:'Horários livres',nav_prices:'Valores',nav_results:'Resultados',nav_nutrition:'Consultoria',nav_story:'Nossa história',
+h1:'Um coach com você em todo treino.',hero_p:'Treino semi-privado de musculação em Northeast Philly desde 2015. Escolha de 2 a 5 dias por semana, e um coach comanda cada aula com você.',
+cta_book:'Agende sua primeira aula',cta_nutri:'Consultoria online',hero_cap:'Uma aluna da Superativo, com dois anos de diferença.',slider_aria:'Arraste para comparar 2024 e 2026',slider_aria2:'Arraste para comparar antes e depois',
+info_short:'Seg a sex, 7h às 9h e 17h às 21h',rail_where:'Onde',rail_where_s:'Northeast Philly',rail_when:'Aulas de segunda a sexta',rail_when_v:'7h às 9h e 17h às 21h',rail_when_s:'Quarta de manhã fechado. Sexta até as 20h.',rail_talk:'WhatsApp',
+how_h:'Aqui você não treina sozinho.',how_p:'Grupo pequeno, horário fixo e um coach comandando a aula toda.',
+f1_h:'Grupos pequenos',f1_p:'De 5 a 8 pessoas na maioria das aulas.',f2_h:'Seus dias, fixos',f2_p:'De 2 a 5 dias, mesmos horários toda semana.',f3_h:'1h a 1h30',f3_p:'Hipertrofia, perda de gordura, massa magra.',f4_h:'Plano alimentar',f4_p:'Planos alimentares personalizados.',
+board_h:'Vagas desta semana.',board_p:'Escolha uma aula com vaga e peça pelo WhatsApp.',days_aria:'Dia da semana',lg_open:'Vaga livre',lg_taken:'Ocupada',board_note:'Atualizado toda semana. Semana de 26 de outubro.',
+price_h:'Um valor fixo por semana.',price_p:'Pago no primeiro treino de cada semana.',
+pay1:'Venmo, cartão ou dinheiro.',pay2:'Aula perdida é cobrada, exceto emergência, doença ou viagem.',pay3:'Tentamos remarcar na mesma semana.',
+res_h:'O resultado do trabalho.',res_p:'Arraste para comparar.',before:'Antes',after:'Depois',
+r1_h:'47 anos',r1_p:'Sem passar fome, sem dietas malucas.',r2_h:'51 anos',r2_p:'Treino, alimentação e rotina, juntos.',r3_h:'Cliente da consultoria',r3_p:'Sem dieta restritiva.',
+stage_h:'Também preparamos atletas para o palco.',stage_p:'Temporada de campeonatos 2026.',s1:'Primeira edição aberta a amadores.',s2:'Colocação em todas as categorias.',s3:'Palco maior, físico melhor.',
+n_h:'Consultoria online com o Witor.',n_p:'Montado para a sua rotina, com o Witor no WhatsApp. Sem passar fome.',
+n1:'Conte ao Witor seu objetivo e sua rotina',n1s:'Pelo WhatsApp.',n2:'Receba seu plano em 5 a 7 dias úteis',n2s:'Feito só para você.',n3:'Tire dúvidas durante a semana',n3s:'Resposta em 24 a 36 horas úteis.',n4:'Seu plano é ajustado conforme você evolui',n4s:'A cada 15 dias úteis, mais ou menos.',
+n_buy_h:'Escolha seu plano',n_m:'Mensal',n_m_s:'por mês',n_q:'Trimestral',n_q_s:'$120 por mês, 20% a menos',n_cta:'Falar com o Witor sobre a consultoria',n_fine:'Dinheiro, cartão ou Venmo. Sem devolução.',
+st_h:'Da casa dos alunos aos 11 anos.',st1:'O Witor atende de casa em casa, depois no basement, das 5h às 23h.',st2:'Ele deixa a faculdade e abre a Superativo com $50 no bolso.',st3:'A COVID fecha a academia. Os alunos voltam.',st4:'Ele sobrevive a um acidente que quase tirou a sua vida.',st5:'11 anos, e a melhor fase até aqui.',
+fc_h:'Antes da sua primeira aula.',fc_p:'Quatro coisas rápidas.',c1:'Assine o termo online',c1s:'Preencha aqui',c1x:'Só uma vez.',c2:'Chegue 15 minutos antes',c2s:'Aquecimento de 10 minutos obrigatório.',c3:'Celular guardado na aula',c3s:'Esse momento é só seu.',c4:'Traga água',c4s:'Encha a garrafinha antes da aula.',
+ft_h:'Sua primeira aula está a uma mensagem.',ft_see:'Ver horários livres',ft_hours:'Horários',ft_hours_v:'Seg, ter, qui, sex: 7h às 9h<br>Seg a qui: 17h às 21h<br>Sex: 17h às 20h',
+alt_hero_before:'Aluna em 2024, de frente',alt_hero_after:'A mesma aluna em 2026, mais definida e com mais massa muscular',alt_before:'Antes',alt_after:'Depois',alt_stage1:'Duas atletas da Superativo com medalhas no NY Pro Amateur',alt_stage2:'Duas atletas da Superativo com medalhas no NPC Jay Cutler Classic',alt_stage3:'Atleta da Superativo com medalhas no Rhode Island Championship',alt_story:'Witor treinando uma aluna em 2014, a primeira academia em 2015 e a academia em 2026',
+days:{Mon:'Seg',Tue:'Ter',Wed:'Qua',Thu:'Qui',Fri:'Sex'},dayFull:{Mon:'segunda',Tue:'terça',Wed:'quarta',Thu:'quinta',Fri:'sexta'},
+open:function(n){return n===1?'1 vaga':n+' vagas'},dayOpen:function(n){return n+' vagas'},full:'Lotada',men:'Turma masculina',ask:'Pedir esta vaga',
+plan:function(d){return d+'x na semana'},week:'/semana',perClass:function(v,exact){return (exact?'':'cerca de ')+'$'+v+' por aula'},
+wa:{general:'Oi! Tenho uma dúvida sobre a Superativo.',book:'Oi! Quero agendar minha primeira aula na Superativo.',nutri:'Oi Witor! Quero saber mais sobre a consultoria online.',slot:function(day,h,c){return 'Oi! Quero experimentar a aula de '+day+' às '+h+' com '+(c==='Witor'?'o ':'a ')+c+'. A vaga ainda está livre?'}}}
+};
+var hourPt={'7 AM':'7h','8 AM':'8h','9 AM':'9h','5 PM':'17h','6 PM':'18h','7 PM':'19h','8 PM':'20h','9 PM':'21h'};
+var lang='en';
+try{var saved=localStorage.getItem('sa-lang');if(saved==='pt'||saved==='en')lang=saved;else if((navigator.language||'').toLowerCase().indexOf('pt')===0)lang='pt';}catch(e){}
+
+function waLink(msg){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg)}
+function applyLang(){
+  var d=T[lang];document.documentElement.lang=lang==='pt'?'pt-BR':'en';
+  document.querySelectorAll('[data-t]').forEach(function(el){var v=d[el.getAttribute('data-t')];if(typeof v==='string'){if(v.indexOf('<br>')>-1)el.innerHTML=v;else el.textContent=v;}});
+  document.querySelectorAll('[data-t-alt]').forEach(function(el){var v=d[el.getAttribute('data-t-alt')];if(v)el.alt=v;});
+  document.querySelectorAll('[data-t-aria]').forEach(function(el){var v=d[el.getAttribute('data-t-aria')];if(v)el.setAttribute('aria-label',v);});
+  document.querySelectorAll('[data-wa]').forEach(function(el){var k=el.getAttribute('data-wa');el.href=waLink(d.wa[k]);});
+  document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===lang?'true':'false');});
+  renderPlans();renderBoard();
+}
+document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){lang=b.getAttribute('data-lang');try{localStorage.setItem('sa-lang',lang)}catch(e){}applyLang();});});
+
+/* plans */
+var PLANS=[{d:2,p:70},{d:3,p:100},{d:4,p:125},{d:5,p:150}];
+function renderPlans(){
+  var d=T[lang],el=document.getElementById('plans');
+  el.innerHTML=PLANS.map(function(x){var per=x.p/x.d,exact=Math.round(per)===per;return '<div class="plan"><div class="plan-days">'+d.plan(x.d)+'</div><div class="plan-price">$'+x.p+'<small>'+d.week+'</small></div><div class="plan-per">'+d.perClass(Math.round(per),exact)+'</div></div>';}).join('');
+}
+
+/* board */
+var SPOTS=[],DAYS=['Mon','Tue','Wed','Thu','Fri'],cur=null;
+function hourLabel(h){return lang==='pt'?hourPt[h]:h}
+function renderBoard(){
+  if(!SPOTS.length)return;
+  var d=T[lang],tabs=document.querySelector('.days');
+  if(!cur){var wd=new Date().getDay();cur=(wd>=1&&wd<=5)?DAYS[wd-1]:'Mon';}
+  tabs.innerHTML=DAYS.map(function(day){var open=SPOTS.filter(function(s){return s.d===day}).reduce(function(a,s){return a+s.cap-s.taken},0);
+    return '<button type="button" role="tab" id="tab-'+day+'" aria-selected="'+(day===cur)+'" tabindex="'+(day===cur?0:-1)+'" data-day="'+day+'"><span class="dname">'+d.days[day]+'</span><span class="dopen">'+d.dayOpen(open)+'</span></button>';}).join('');
+  var list=SPOTS.filter(function(s){return s.d===cur});
+  var ul=document.getElementById('slots');ul.setAttribute('aria-labelledby','tab-'+cur);
+  ul.innerHTML=list.map(function(s){var open=s.cap-s.taken,dots='';for(var i=0;i<s.cap;i++)dots+='<i'+(i>=s.taken?' class="open"':'')+'></i>';
+    var msg=d.wa.slot(d.dayFull[s.d],hourLabel(s.h),s.coach);
+    return '<li class="slot'+(open?'':' is-full')+'"><span class="slot-time">'+hourLabel(s.h)+'</span><div class="slot-who"><span class="slot-coach">'+s.coach+'</span>'+(s.men?'<span class="slot-tag">'+d.men+'</span>':'')+'<div class="dots" aria-hidden="true">'+dots+'</div></div><span class="slot-count'+(open?'':' full')+'">'+(open?d.open(open):d.full)+'</span><a class="btn btn-red" href="'+waLink(msg)+'" target="_blank" rel="noopener"'+(open?'':' tabindex="-1" aria-hidden="true"')+'><svg aria-hidden="true"><use href="#i-wa"/></svg>'+d.ask+'</a></li>';}).join('');
+}
+document.querySelector('.days').addEventListener('click',function(e){var b=e.target.closest('button[data-day]');if(!b)return;cur=b.getAttribute('data-day');renderBoard();document.getElementById('tab-'+cur).focus();});
+document.querySelector('.days').addEventListener('keydown',function(e){if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var i=DAYS.indexOf(cur)+(e.key==='ArrowRight'?1:-1);cur=DAYS[(i+5)%5];renderBoard();document.getElementById('tab-'+cur).focus();e.preventDefault();});
+fetch('assets/spots.json').then(function(r){return r.json()}).then(function(j){SPOTS=j;renderBoard();}).catch(function(){document.getElementById('board').style.display='none';});
+
+/* before/after sliders */
+function setP(ba,v){ba.style.setProperty('--p',v+'%');}
+document.querySelectorAll('[data-ba]').forEach(function(ba){
+  var r=ba.querySelector('input');
+  r.addEventListener('input',function(){ba.dataset.touched='1';setP(ba,r.value);});
+  ba.addEventListener('pointerdown',function(){ba.dataset.touched='1';});
+});
+var hero=document.querySelector('[data-auto]');
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(hero&&!reduce){
+  setP(hero,100);
+  var start=null,dur=2200;
+  // 100 -> 8 -> 50 : show 2024, sweep to reveal 2026, settle in the middle
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  function step(ts){if(hero.dataset.touched){return;}if(!start)start=ts;var t=Math.min((ts-start)/dur,1),v;
+    if(t<.62){v=100-92*ease(t/.62);}else{v=8+42*ease((t-.62)/.38);}
+    setP(hero,v.toFixed(2));hero.querySelector('input').value=Math.round(v);if(t<1)requestAnimationFrame(step);}
+  setTimeout(function(){requestAnimationFrame(step)},450);
+}
+
+/* header + phone bar */
+var hdr=document.getElementById('hdr'),heroSec=document.getElementById('top'),mbar=document.getElementById('mbar'),foot=document.querySelector('.foot');
+function onScroll(){var top=heroSec.getBoundingClientRect();hdr.classList.toggle('solid',top.top<-2);
+  var pastHero=top.bottom<0,footIn=foot.getBoundingClientRect().top<window.innerHeight;mbar.classList.toggle('show',pastHero&&!footIn);}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+applyLang();
+})();
+</script>
+</body>
+</html>
