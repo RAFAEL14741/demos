@@ -137,7 +137,7 @@ def build(p):
 <meta name="description" content="{e(p['desc'])}">
 <meta property="og:title" content="{e(p['title'])}">
 <meta property="og:description" content="{e(p['desc'])}">
-<meta property="og:image" content="{HOST}og-maison.png">
+<meta property="og:image" content="{HOST}og-fma.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="{url}">
@@ -146,7 +146,7 @@ def build(p):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="{url}">
 <meta name="theme-color" content="#F3ECE0">
-<link rel="icon" type="image/svg+xml" href="favicon-maison.svg">
+<link rel="icon" type="image/svg+xml" href="favicon-fma.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
@@ -193,3 +193,8 @@ for p in PAGES:
     open(ROOT + p['file'], 'w').write(build(p))
     print('wrote', p['file'])
 import shutil; shutil.copy('/home/claude/work/sub.css', ROOT + 'sub.css')
+
+
+# Oct 28: door-M logo replaces Maison everywhere (see brand_doorm.py)
+import importlib.util as _u, os as _o
+_s=_u.spec_from_file_location("bd", _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "brand_doorm.py")); _m=_u.module_from_spec(_s); _s.loader.exec_module(_m); _m.run()

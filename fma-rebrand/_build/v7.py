@@ -499,3 +499,8 @@ assert out.count('</body>') == 1
 out = out.replace('</body>', MOTION + '</body>')
 open(SRC, 'w').write(out)
 print('ok', len(out))
+
+
+# Oct 28: door-M logo replaces Maison everywhere (see brand_doorm.py)
+import importlib.util as _u, os as _o
+_s=_u.spec_from_file_location("bd", _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "brand_doorm.py")); _m=_u.module_from_spec(_s); _s.loader.exec_module(_m); _m.run()
