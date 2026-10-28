@@ -6,7 +6,7 @@
     { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
     { "src": "/fma-logo.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#0b131e",
-  "background_color": "#0b131e",
+  "theme_color": "#151515",
+  "background_color": "#151515",
   "display": "browser"
 }
