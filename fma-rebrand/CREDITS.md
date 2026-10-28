@@ -5,7 +5,7 @@
   "Close-up of light brown wood grain texture" by Zoshua Colah (@zoshuacolah) on Unsplash,
   https://unsplash.com/photos/close-up-of-light-brown-wood-grain-texture-IBy4mT_jDd0
   Free under the Unsplash License (not Unsplash+). Downloaded Oct 26 2026.
-- `img/hero-kitchen-*.jpg` + `img/hero-mask-*.png`: hero photo (cropped to the base cabinets) and a cabinet mask made from it.
+- `img/hero-kitchen-*.jpg` + `img/hero-mask-*.png`: hero photo (Alex Tyson, Unsplash: navy base cabinets and butcher-block peninsula; cropped and mirrored) and a cabinet mask made from it. The before/after images below are still the Lisa Anna photo.
   "A kitchen with blue cabinets and a rug on the floor" by Lisa Anna (@lisaanna195) on Unsplash, https://unsplash.com/photos/KBec8f4qG5k .
   Free under the Unsplash License. Downloaded Oct 27 2026. The other cabinet colors are generated in the browser from this one photo;
   the page says so under the swatches ("Example photo. Colors changed digitally to show options.").

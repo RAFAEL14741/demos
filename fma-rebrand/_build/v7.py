@@ -142,7 +142,7 @@ BODY = f'''<body>
 <main id="main">
 <section class="hero" id="home" aria-labelledby="h1">
   <div class="hero-media">
-    <img id="heroImg" src="img/hero-kitchen-2400.jpg" srcset="img/hero-kitchen-1200.jpg 1200w, img/hero-kitchen-2400.jpg 2400w" sizes="100vw" alt="Kitchen with raised-panel base cabinets and a drawer stack next to a built-in oven" width="2400" height="1030" fetchpriority="high">
+    <img id="heroImg" src="img/hero-kitchen-2400.jpg" srcset="img/hero-kitchen-1200.jpg 1200w, img/hero-kitchen-2400.jpg 2400w" sizes="100vw" alt="Bright kitchen with navy base cabinets, a butcher-block peninsula and two stools" width="2400" height="1500" fetchpriority="high">
   </div>
   <div class="hero-in">
     <p class="kick">Philadelphia cabinet installers</p>
@@ -327,7 +327,7 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
   let fc = 'all', fz = 'all', fst = 'all', area = 'philly', expanded = false;
   const more = $('#kitMore'), phoneMQ = matchMedia('(max-width:767px)');
   const showKits = () => {
-    let n = 0; const cap = expanded || fc !== 'all' || fz !== 'all' || fst !== 'all' ? Infinity : (phoneMQ.matches ? 8 : 12);
+    let n = 0; const cap = expanded || fc !== 'all' || fz !== 'all' || fst !== 'all' ? Infinity : (phoneMQ.matches ? 6 : 8);
     all.forEach(li => { const match = (fc === 'all' || li.dataset.c === fc) && (fz === 'all' || li.dataset.size === fz) && (fst === 'all' || li.dataset.st === fst); const on = match && n < cap; li.hidden = !on; if (match) { if (on) li.style.setProperty('--k', n % 4); n++; } });
     more.hidden = n <= cap;
     count.textContent = n + (n === 1 ? ' kitchen' : ' kitchens'); empty.hidden = n > 0;
@@ -454,10 +454,48 @@ srep("heroCall = $('.hero .btn--oak')", "heroCall = $('.hero .btn--bone')")
 # dead anchors: #work / #looks were renamed to #kitchens
 srep('<a href="#looks">Change</a>', '<a href="#kitchens">Change</a>')
 srep('Looks you saved', 'Styles you saved')
+srep('const LO = 0.0759, HI = 0.7744;', 'const LO = 0.067, HI = 0.489;')
 srep("[['Looks', state.looks]", "[['Styles', state.looks]")
 srep('alt="${l.n}" width="64" height="80"', 'alt="${l.n}" width="64" height="48"')
 s = s.replace('stroke="#151515" stroke-width="2.6"', 'stroke="#F3ECE0" stroke-width="2.6"')
 
 out = head + '<style>\n' + CSS + '\n</style>\n</head>\n' + BODY + s
+
+# ---- motion polish (v7.5): split display headings into words (static HTML, so the LCP text never waits on JS) ----
+def _split(m):
+    lvl, attrs, inner = m.group(1), m.group(2), m.group(3)
+    assert '<' not in inner.replace('<br>', ''), inner
+    n = 0; res = ''
+    for part in re.split(r'(<br>)', inner):
+        if part == '<br>': res += part; continue
+        for w in part.split():
+            n += 1; res += f'<span class="w"><span class="wi" style="--i:{n}">{w}</span></span> '
+        res = res.rstrip(' ') + ' ' if part.strip() else res
+    return f'<h{lvl}{attrs} data-split>{res.strip()}</h{lvl}>'
+out, nsplit = re.subn(r'<h([12])((?: [^>]*)?)>([^<]*(?:<br>[^<]*)*)</h\1>', _split, out)
+assert nsplit == 9, nsplit
+MOTION = """<script>
+/* motion: headline words rise when they scroll in; smooth scroll on desktop only (mouse + no reduced-motion) */
+(() => {
+  const d = document.documentElement, rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hs = [...document.querySelectorAll('[data-split]')].filter(h => !h.closest('.hero'));
+  if (rm || !('IntersectionObserver' in window)) hs.forEach(h => h.classList.add('in'));
+  else { const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px', threshold: .15 }); hs.forEach(h => io.observe(h)); }
+  if (rm || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const s = document.createElement('script'); s.src = 'js/lenis.min.js';
+  s.onload = () => {
+    if (!window.Lenis) return;
+    const lenis = new Lenis({ lerp: .1, wheelMultiplier: .95, anchors: true });
+    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf);
+    const lock = () => { const on = d.classList.contains('sheet-open') || d.classList.contains('drawer-open'); on ? lenis.stop() : lenis.start(); };
+    new MutationObserver(lock).observe(d, { attributes: true, attributeFilter: ['class'] });
+    window.__lenis = lenis;
+  };
+  document.head.appendChild(s);
+})();
+</script>
+"""
+assert out.count('</body>') == 1
+out = out.replace('</body>', MOTION + '</body>')
 open(SRC, 'w').write(out)
 print('ok', len(out))
