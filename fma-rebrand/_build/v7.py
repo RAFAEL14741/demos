@@ -111,7 +111,9 @@ kits = ''.join(
     f'<button type="button" class="save" aria-pressed="false" aria-label="Save {t}" data-n="{t}" data-src="img/k/{sl}-c-480.jpg">{PLUS}</button></div>'
     f'<p class="kit-name">{t}</p><p class="kit-d"><i style="--c:{SW[c]}"></i>{dr}</p></li>'
     for i, (sl, t, z, c, s_, n, lay, dr, det, ph, hd) in enumerate(KITS))
-KJSON = _json.dumps([{'s': sl, 't': t, 'z': z, 'n': n, 'lay': lay, 'dr': dr, 'det': det, 'ph': ph, 'hd': hd, 'd': GAL[sl]} for (sl, t, z, c, s_, n, lay, dr, det, ph, hd) in KITS]).replace('</', '<\\/')
+COVER = {}
+exec(open('/home/claude/work/cover.py').read())
+KJSON = _json.dumps([{'s': sl, 't': t, 'z': z, 'n': n, 'lay': lay, 'dr': dr, 'det': det, 'ph': ph, 'hd': hd, 'd': GAL[sl], 'cv': COVER.get(sl, (1, .5, .5))[0], 'f': list(COVER.get(sl, (1, .5, .5))[1:])} for (sl, t, z, c, s_, n, lay, dr, det, ph, hd) in KITS]).replace('</', '<\\/')
 PJSON = _json.dumps(PRICE)
 kdots = ''.join(f'<button type="button" class="dot" data-c="{k}" aria-pressed="false" aria-label="{CNAME.get(k, k.title())}" style="--c:{v}"></button>' for k, v in SW.items())
 ktabs = ''.join(f'<button type="button" data-z="{k}" aria-pressed="{"true" if k == "all" else "false"}">{t}</button>' for k, t in (('all', 'All'), ('small', 'Small'), ('medium', 'Medium'), ('large', 'Large')))
@@ -367,6 +369,23 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
   $$('.tabs--area button').forEach(b => b.addEventListener('click', () => setArea(b.dataset.a)));
   $('#spArea').addEventListener('change', e => setArea(e.target.value));
 
+  /* morph: the card photo flies into the sheet's first photo, and flies back to its card on close */
+  const RM = matchMedia('(prefers-reduced-motion: reduce)'), FLY = 560, EASE = 'cubic-bezier(.2,.8,.2,1)';
+  let flyEls = [], flyUndo = [];
+  const endFly = () => { flyEls.forEach(el => { el.getAnimations().forEach(a => a.cancel()); el.remove(); }); flyUndo.forEach(fn => fn()); flyEls = []; flyUndo = []; };
+  const drawn = (el, r) => { const E = el.getBoundingClientRect(); let w = E.width, h = E.height; if (w / h > r) w = h * r; else h = w / r; return { left: E.left + (E.width - w) / 2, top: E.top + (E.height - h) / 2, width: w, height: h }; };
+  const cropOf = (r, cr, fx, fy) => { const cl = (v, a, b) => Math.min(Math.max(v, a), b); if (r >= cr) { const wf = cr / r, x0 = cl(fx - wf / 2, 0, 1 - wf); return [x0, 0, x0 + wf, 1]; } const hf = r / cr, y0 = cl(fy - hf / 2, 0, 1 - hf); return [0, y0, 1, y0 + hf]; };
+  /* photo box T (the photo as the sheet shows it) <-> card box C (what the card shows of it). dir 'in' = card -> sheet, 'out' = sheet -> card */
+  const flyPhoto = (src, T, C, crop, dir) => {
+    const [x0, y0, x1, y1] = crop, sc = C.width / (T.width * (x1 - x0));
+    const tx = C.left - T.left - x0 * T.width * sc, ty = C.top - T.top - y0 * T.height * sc;
+    const el = document.createElement('div'); el.className = 'fly';
+    el.style.cssText = `left:${T.left}px;top:${T.top}px;width:${T.width}px;height:${T.height}px`;
+    el.innerHTML = `<img src="${src}" alt="">`; document.body.appendChild(el); flyEls.push(el);
+    const a = { transform: `translate(${tx}px,${ty}px) scale(${sc})`, clipPath: `inset(${y0 * 100}% ${(1 - x1) * 100}% ${(1 - y1) * 100}% ${x0 * 100}%)` }, b = { transform: 'none', clipPath: 'inset(0% 0% 0% 0%)' };
+    return el.animate(dir === 'in' ? [a, b] : [b, a], { duration: FLY, easing: EASE, fill: 'both' }).finished;
+  };
+
   /* the sheet */
   const sheet = $('#sheet'), panel = $('.sheet-panel', sheet), track = $('#galTrack'), gc = $('#galCount'), sSave = $('#sheetSave');
   let cur = null, opener = null, hideT = 0;
@@ -385,10 +404,34 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
     $('#sheetCredit').innerHTML = `Example photos by ${cur.ph} on Unsplash. Not an FMA job, and not a kitchen we sell.`;
     fillPrice(); syncSheetSave();
     sheet.hidden = false; d.classList.add('sheet-open'); $$('main, header, footer, .callbar').forEach(el => { el.inert = true; });
+    endFly();
+    const img0 = track.firstElementChild, card = from && $('img', from);
+    if (card && img0 && !RM.matches && cur.cv === 1) {
+      const C = card.getBoundingClientRect();
+      if (C.width && C.bottom > 0 && C.top < innerHeight) {
+        panel.style.transition = 'none'; panel.style.transform = matchMedia('(max-width:767px)').matches ? 'none' : 'translate(-50%,-50%)';
+        const T = drawn(img0, cur.d[0][0] / cur.d[0][1]);
+        panel.style.transform = ''; void panel.offsetWidth; panel.style.transition = '';
+        img0.style.opacity = '0'; card.style.visibility = 'hidden';
+        flyUndo.push(() => { img0.style.opacity = ''; card.style.visibility = ''; });
+        flyPhoto(`img/k/${cur.s}-1-720.jpg`, T, C, cropOf(T.width / T.height, C.width / C.height, cur.f[0], cur.f[1]), 'in').then(() => { img0.style.opacity = ''; flyEls.forEach(el => el.remove()); flyEls = []; });
+      }
+    }
     requestAnimationFrame(() => { sheet.classList.add('is-open'); panel.focus({ preventScroll: true }); });
   };
   const closeSheet = () => {
     if (sheet.hidden) return;
+    const card = opener && $('img', opener), ix = cur ? Math.min(cur.n - 1, Math.round(track.scrollLeft / Math.max(1, track.clientWidth))) : 0, imgN = track.children[ix];
+    if (card && imgN && !RM.matches && cur.cv === 1) {
+      const C = card.getBoundingClientRect(), vis = C.width && C.bottom > 0 && C.top < innerHeight;
+      if (vis) {
+        endFly();
+        const r = cur.d[ix][0] / cur.d[ix][1], T = drawn(imgN, r);
+        imgN.style.opacity = '0'; card.style.visibility = 'hidden';
+        flyUndo.push(() => { imgN.style.opacity = ''; card.style.visibility = ''; });
+        flyPhoto(`img/k/${cur.s}-${ix + 1}-720.jpg`, T, C, cropOf(r, C.width / C.height, cur.f[0], cur.f[1]), 'out').then(() => { endFly(); });
+      }
+    }
     sheet.classList.remove('is-open'); d.classList.remove('sheet-open'); $$('main, header, footer, .callbar').forEach(el => { el.inert = false; });
     clearTimeout(hideT); hideT = setTimeout(() => { sheet.hidden = true; }, 320); opener && opener.focus({ preventScroll: true });
   };
