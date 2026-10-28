@@ -19,6 +19,8 @@ faqlist = between(old, '<div class="faq-list">', '</details></div>')
 ci = between(old, '<dl class="ci">', '</dl>')
 wizform = between(old, '<form class="wiz"', '</form>') + '\n    ' + between(old, '<form name="project-builder"', '</form>')
 footer = between(old, '<footer class="ftr">', '</footer>')
+assert footer.count('href="#work"') == 1
+footer = footer.replace('href="#work"', 'href="#kitchens"')  # #work no longer exists
 logo_small = between(old, '<a href="#home" class="logo"', '</a>')
 
 # ---- light map ----
@@ -366,11 +368,11 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
 
   /* the sheet */
   const sheet = $('#sheet'), panel = $('.sheet-panel', sheet), track = $('#galTrack'), gc = $('#galCount'), sSave = $('#sheetSave');
-  let cur = null, opener = null;
+  let cur = null, opener = null, hideT = 0;
   const fillPrice = () => { const p = PRICE[cur.z]; $('#spHead').textContent = `${cur.z[0].toUpperCase() + cur.z.slice(1)} kitchen, ${p[0]}`; $('#spA').textContent = p[1]; $('#spB').textContent = p[2]; $('#spNote').textContent = areaNote() + ' Typical public data, not an FMA quote.'; };
   function syncSheetSave() { if (!cur) return; const on = isSaved(cur.t); sSave.setAttribute('aria-pressed', String(on)); sSave.textContent = on ? 'Saved for my estimate' : 'I want this look'; }
   const openSheet = (k, from) => {
-    cur = KIT[k]; opener = from;
+    clearTimeout(hideT); cur = KIT[k]; opener = from;
     $('.sheet-info', sheet).scrollTop = 0;
     const tall = cur.d.filter(d => d[0] / d[1] < .8).length;
     track.style.setProperty('--gr', tall * 2 >= cur.n ? '1 / 1' : '4 / 3');
@@ -387,13 +389,13 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
   const closeSheet = () => {
     if (sheet.hidden) return;
     sheet.classList.remove('is-open'); d.classList.remove('sheet-open'); $$('main, header, footer, .callbar').forEach(el => { el.inert = false; });
-    setTimeout(() => { sheet.hidden = true; }, 320); opener && opener.focus({ preventScroll: true });
+    clearTimeout(hideT); hideT = setTimeout(() => { sheet.hidden = true; }, 320); opener && opener.focus({ preventScroll: true });
   };
   sheet.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });
   addEventListener('keydown', e => {
     if (sheet.hidden) return;
     if (e.key === 'Escape') closeSheet();
-    if (e.key === 'ArrowRight') galStep(1); if (e.key === 'ArrowLeft') galStep(-1);
+    if (!/^(SELECT|INPUT|TEXTAREA)$/.test(e.target.tagName)) { if (e.key === 'ArrowRight') galStep(1); if (e.key === 'ArrowLeft') galStep(-1); }
     if (e.key === 'Tab') { const f = $$('button, a, select', panel).filter(x => x.offsetParent); const a = f[0], z = f[f.length - 1]; if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } }
   });
   const galStep = dir => track.scrollBy({ left: dir * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -405,6 +407,9 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
 s = s[:i] + LOOKSJS + s[j:]
 srep("$('#year').textContent = new Date().getFullYear();", "const yr = $('#year'); if (yr) yr.textContent = new Date().getFullYear();")
 srep("heroCall = $('.hero .btn--oak')", "heroCall = $('.hero .btn--bone')")
+# dead anchors: #work / #looks were renamed to #kitchens
+srep('<a href="#looks">Change</a>', '<a href="#kitchens">Change</a>')
+srep('alt="${l.n}" width="64" height="80"', 'alt="${l.n}" width="64" height="48"')
 s = s.replace('stroke="#151515" stroke-width="2.6"', 'stroke="#F3ECE0" stroke-width="2.6"')
 
 out = head + '<style>\n' + CSS + '\n</style>\n</head>\n' + BODY + s
