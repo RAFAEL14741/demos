@@ -372,6 +372,8 @@ LOOKSJS = '''  /* kitchens: size tabs + color dots; tap a kitchen for a photo sh
   const openSheet = (k, from) => {
     cur = KIT[k]; opener = from;
     $('.sheet-info', sheet).scrollTop = 0;
+    const tall = cur.d.filter(d => d[0] / d[1] < .8).length;
+    track.style.setProperty('--gr', tall * 2 >= cur.n ? '1 / 1' : '4 / 3');
     track.innerHTML = Array.from({ length: cur.n }, (_, i) => `<img src="img/k/${cur.s}-${i + 1}-720.jpg" srcset="img/k/${cur.s}-${i + 1}-720.jpg ${cur.d[i][0]}w, img/k/${cur.s}-${i + 1}-1200.jpg ${cur.d[i][2]}w" sizes="(max-width:900px) 100vw, 58vw" width="${cur.d[i][0]}" height="${cur.d[i][1]}" alt="${cur.t}, photo ${i + 1} of ${cur.n}"${i ? ' loading="lazy"' : ''} decoding="async">`).join('');
     track.scrollLeft = 0; gc.textContent = `1 / ${cur.n}`;
     $('#sheetSize').textContent = cur.z[0].toUpperCase() + cur.z.slice(1) + ' kitchen';

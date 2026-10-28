@@ -143,19 +143,6 @@
   "hd": "lisaanna195"
  },
  {
-  "s": "small-butter-yellow-two-tone",
-  "t": "Cream and butter yellow",
-  "z": "small",
-  "c": "twotone",
-  "st": "shaker",
-  "n": 3,
-  "lay": "U-shape with peninsula",
-  "dr": "Cream uppers, yellow lowers",
-  "det": "Wood counters, brass knobs",
-  "ph": "Clay Banks",
-  "hd": "claybanks"
- },
- {
   "s": "medium-navy-raised-panel",
   "t": "Navy raised panel",
   "z": "medium",
@@ -208,19 +195,6 @@
   "hd": "huyphan2602"
  },
  {
-  "s": "medium-farmhouse-beadboard",
-  "t": "Cream farmhouse",
-  "z": "medium",
-  "c": "cream",
-  "st": "beadboard",
-  "n": 3,
-  "lay": "Galley with big island",
-  "dr": "Cream beadboard",
-  "det": "Butcher block island, drainboard sink",
-  "ph": "Clay Banks",
-  "hd": "claybanks"
- },
- {
   "s": "medium-navy-butcherblock",
   "t": "Navy and butcher block",
   "z": "medium",
@@ -232,18 +206,5 @@
   "det": "Butcher block counters, open shelves",
   "ph": "Alex Tyson",
   "hd": "alextyson195"
- },
- {
-  "s": "medium-open-shelving-inset",
-  "t": "White with open shelves",
-  "z": "medium",
-  "c": "white",
-  "st": "open",
-  "n": 3,
-  "lay": "U-shape",
-  "dr": "White shaker lowers, oak built-ins",
-  "det": "Open shelves, butcher block",
-  "ph": "Clay Banks",
-  "hd": "claybanks"
  }
 ]
