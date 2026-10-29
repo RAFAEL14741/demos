@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SuperAtivo Fitness | Small-group coaching in Northeast Philadelphia</title>
+<meta name="description" content="Semi-private coaching studio at 9350 Ashton Rd, Philadelphia. Groups of 5 to 8, a coach at every class. Book your first class on WhatsApp.">
+<link rel="preload" href="../assets/fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/y2024.webp" as="image" fetchpriority="high">
+<link rel="preload" href="img/y2026.webp" as="image">
+<style>
+@font-face{font-family:"BS Stencil";src:url(../assets/fonts/big-shoulders-stencil-display-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:block}
+@font-face{font-family:"BS Stencil";src:url(../assets/fonts/big-shoulders-stencil-display-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:block}
+@font-face{font-family:"Archivo";src:url(../assets/fonts/archivo-latin-wdth-normal.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+
+:root{
+  --ink:#0d0c0b; --set:#1d1b19; --chalk:#f3efe8; --stone:#a69e93; --tungsten:#ffd29c; --block:#e8e4dd;
+  --pad:clamp(20px,4.4vw,64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);-webkit-text-size-adjust:100%}
+body{font-family:Archivo,system-ui,sans-serif;color:var(--chalk);background:var(--ink);font-size:17px;line-height:1.45;overflow-x:clip}
+a{color:inherit}
+img{display:block}
+
+/* ---------- header ---------- */
+.sab-top{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--pad);pointer-events:none}
+.sab-top > *{pointer-events:auto}
+.sab-logo img{height:30px;width:auto}
+.sab-top nav{display:flex;gap:30px;align-items:center;font-size:16px;font-weight:500;font-stretch:96%}
+.sab-top nav a{text-decoration:none;color:#d9d3ca}
+.sab-top nav a:hover{color:var(--chalk)}
+.sab-top .sab-wa{display:inline-flex;gap:9px;align-items:center;color:var(--chalk);font-variant-numeric:tabular-nums}
+.sab-wa svg{width:18px;height:18px;flex:none}
+
+/* ---------- hero ---------- */
+.sab-hero{position:relative;height:100vh;height:100svh;min-height:640px;overflow:hidden;isolation:isolate}
+.sab-set{position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(42% 58% at var(--fx,69%) 44%, #34302b 0%, #24211e 38%, rgba(20,18,17,0) 72%),
+    linear-gradient(180deg,#161514 0%,#131211 calc(var(--floor,93%) - 8%),#0c0b0b calc(var(--floor,93%) + 3%),#0a0909 100%);
+}
+/* floor plane: soft horizon + pool of light under the figure */
+.sab-set::after{content:"";position:absolute;left:0;right:0;top:var(--floor,93%);bottom:0;
+  background:radial-gradient(30% 120% at var(--fx,69%) 0%, rgba(255,214,170,.10), rgba(0,0,0,0) 70%)}
+.sab-grain{position:absolute;inset:-50%;z-index:3;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sab-shadow{position:absolute;z-index:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(0,0,0,.75),rgba(0,0,0,0))}
+#sab-gl{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block}
+.sab-fb{position:absolute;z-index:2;filter:brightness(.86);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(180deg,transparent,#000 13%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(180deg,transparent,#000 13%);mask-composite:intersect}
+.sab-fb img{position:absolute;inset:0;width:100%;height:100%}
+.sab-fb .a{clip-path:inset(0 calc(100% - var(--p,0%)) 0 0)}
+.gl-ready .sab-fb{display:none}
+
+/* beam tags */
+.sab-tag{position:absolute;z-index:4;top:0;left:0;font-weight:650;font-stretch:88%;font-size:16px;letter-spacing:.01em;
+  color:var(--chalk);white-space:nowrap;will-change:transform,opacity;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.sab-tag i{font-style:normal;color:var(--stone);font-weight:450}
+.sab-tag.l{text-align:right}
+
+/* copy column */
+.sab-copy{position:absolute;z-index:5;left:var(--pad);top:0;bottom:0;width:min(560px,42vw);
+  display:flex;flex-direction:column;justify-content:center;padding-top:76px;padding-bottom:28px}
+.sab-kick{font-size:17px;font-weight:500;font-stretch:92%;color:#cfc8bd;max-width:30ch;text-wrap:balance}
+.sab-year{font-family:"BS Stencil",Impact,sans-serif;font-weight:800;line-height:1;align-items:flex-start;
+  font-size:min(17.5vw,29vh);letter-spacing:-.005em;display:flex;margin:-.02em 0 -.04em -.03em;color:var(--chalk);
+  font-variant-numeric:tabular-nums}
+.sab-roll{display:inline-block;height:1em;overflow:hidden;position:relative;vertical-align:top}
+.sab-roll .r > span{display:block;height:1em;line-height:1}
+.sab-roll .r{display:block;will-change:transform}
+.sab-year .lit{position:relative}
+h1.sab-h{font-size:clamp(28px,2.6vw,40px);line-height:1.08;font-weight:640;font-stretch:84%;letter-spacing:-.012em;
+  text-wrap:balance;max-width:none}
+h1.sab-h em{font-style:normal;color:var(--tungsten);display:block}
+.sab-sub{margin-top:14px;font-size:18px;color:#cbc4b9;max-width:38ch;text-wrap:pretty}
+.sab-info{margin-top:26px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px 22px;font-size:16px;
+  padding-top:18px;border-top:1px solid rgba(243,239,232,.14);max-width:500px}
+.sab-info dt{color:var(--stone);font-weight:500}
+.sab-info .sm{display:none}
+.sab-info dd{color:var(--chalk);font-variant-numeric:tabular-nums}
+.sab-info dd a{text-decoration:none;border-bottom:1px solid rgba(243,239,232,.35)}
+.sab-act{margin-top:24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.sab-cta{display:inline-flex;align-items:center;gap:12px;padding:17px 26px 17px 22px;background:var(--chalk);color:var(--ink);
+  text-decoration:none;font-weight:700;font-stretch:92%;font-size:17px;border-radius:2px;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 18px 40px -16px rgba(255,210,156,.45);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+.sab-cta:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 24px 46px -14px rgba(255,210,156,.6)}
+.sab-cta svg{width:20px;height:20px}
+.sab-spots{font-size:16px;color:#cbc4b9;max-width:22ch;line-height:1.3}
+.sab-spots b{color:var(--chalk);font-weight:650}
+
+.sab-note{margin-top:22px;font-size:13px;color:#8a837a;max-width:46ch;line-height:1.4}
+.sab-top.solid{background:rgba(13,12,11,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding-top:14px;padding-bottom:14px;transition:padding .3s}
+
+/* ---------- next section slice ---------- */
+.sab-next{position:relative;z-index:1;background:var(--block);color:var(--ink);padding:clamp(56px,8vw,110px) var(--pad) 120px}
+.sab-next h2{font-family:"BS Stencil",Impact,sans-serif;font-weight:800;font-size:clamp(44px,6.6vw,104px);line-height:.9;letter-spacing:-.005em;
+  text-wrap:balance;max-width:14ch}
+.sab-next p{margin-top:18px;font-size:18px;max-width:46ch;color:#3d3833}
+.sab-hours{margin-top:42px;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:0;border-top:2px solid var(--ink);max-width:1100px}
+.sab-hours div{padding:14px 10px 0 0}
+.sab-hours b{display:block;font-family:"BS Stencil",Impact,sans-serif;font-size:clamp(30px,3.4vw,52px);line-height:1;font-weight:800}
+.sab-hours span{font-size:16px;color:#4a443e}
+.sab-hours .bar{height:6px;background:var(--ink);margin:10px 10px 8px 0;transform-origin:left}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  .sab-top{padding:14px 18px}
+  .sab-logo img{height:24px}
+  .sab-top nav a:not(.sab-wa){display:none}
+  .sab-top .sab-wa span{display:none}
+  .sab-top .sab-wa{width:44px;height:44px;justify-content:center;border:1px solid rgba(243,239,232,.25);border-radius:50%;background:rgba(13,12,11,.4)}
+  .sab-hero{min-height:540px}
+  .sab-copy{left:0;right:0;width:auto;top:auto;bottom:0;justify-content:flex-end;padding:0 18px 18px;
+    background:linear-gradient(180deg,rgba(13,12,11,0) 0,rgba(13,12,11,.88) 54px,#0d0c0b 100px)}
+  .sab-kick{display:none}
+  .sab-year{position:fixed;display:none}
+  h1.sab-h{font-size:27px;max-width:none;padding-top:46px}
+  .sab-sub{display:none}
+  .sab-info{margin-top:14px;padding-top:12px;gap:4px 14px;grid-template-columns:auto minmax(0,1fr)}
+  .sab-info dt{font-stretch:82%}
+  .sab-info .sm{display:inline} .sab-info .lg{display:none}
+  .sab-act{margin-top:16px;gap:12px}
+  .sab-cta{width:100%;justify-content:center;padding:16px}
+  .sab-spots{max-width:none}
+  .sab-note{display:none}
+  .sab-pyear{display:flex !important}
+  .sab-hours{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:22px}
+}
+.sab-pyear{display:none;position:absolute;z-index:5;left:18px;top:74px;font-family:"BS Stencil",Impact,sans-serif;font-weight:800;
+  font-size:min(30vw,128px);line-height:1;align-items:flex-start;color:var(--chalk)}
+.sab-pcap{display:none}
+@media (max-width:760px){
+  .sab-pcap{display:block;position:absolute;z-index:5;left:20px;top:calc(74px + min(30vw,128px)*.92 + 6px);max-width:8.5em;font-size:16px;line-height:1.3;color:#d6cfc5;max-width:9.5em;text-shadow:0 1px 12px rgba(0,0,0,.8)}
+}
+@media (max-width:360px){ h1.sab-h{font-size:24px} .sab-info .xl{display:none} .sab-pyear{font-size:96px} .sab-pcap{display:none!important} .sab-spots{font-size:16px} }
+@media (max-width:760px) and (max-height:700px){ h1.sab-h{font-size:24px;padding-top:40px} .sab-info{margin-top:10px;padding-top:10px} .sab-act{margin-top:12px} .sab-cta{padding:14px} .sab-spots{display:none} .sab-pyear{font-size:92px} .sab-pcap{display:none!important} }
+@media (max-height:880px) and (min-width:761px){ .sab-year{font-size:min(17.5vw,24vh)} .sab-sub{font-size:17px;margin-top:10px} .sab-info{margin-top:18px;padding-top:14px;gap:6px 22px} .sab-act{margin-top:18px} .sab-note{margin-top:14px} .sab-cta{padding:15px 24px 15px 20px} }
+@media (max-height:780px) and (min-width:761px){ .sab-sub{display:none} .sab-year{font-size:min(17.5vw,23vh)} .sab-copy{padding-top:70px} }
+@media (prefers-reduced-motion:reduce){ .sab-cta{transition:none} }
+</style>
+</head>
+<body>
+<header class="sab-top">
+  <a class="sab-logo" href="#top" aria-label="SuperAtivo Fitness home"><img src="../assets/img/logo.png" alt="SuperAtivo Fitness" width="886" height="186"></a>
+  <nav aria-label="Main">
+    <a href="#sab-next">Classes</a>
+    <a href="#sab-next">Nutrition plan</a>
+    <a class="sab-wa" href="https://wa.me/12673389078" aria-label="WhatsApp (267) 338-9078">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.3Z"/></svg>
+      <span>(267) 338-9078</span>
+    </a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="sab-hero" id="sab-hero" aria-label="SuperAtivo Fitness: one member, 2024 and 2026">
+  <div class="sab-set" aria-hidden="true"></div>
+  <div class="sab-shadow" aria-hidden="true"></div>
+  <canvas id="sab-gl" aria-hidden="true"></canvas>
+  <div class="sab-fb" aria-hidden="true">
+    <img src="img/y2024.webp" alt="" class="b">
+    <img src="img/y2026.webp" alt="" class="a">
+  </div>
+  <div class="sab-grain" aria-hidden="true"></div>
+
+  <div class="sab-tag l" aria-hidden="true">2026 <i>after</i></div>
+  <div class="sab-tag r" aria-hidden="true"><i>before</i> 2024</div>
+
+  <div class="sab-pyear" aria-hidden="true"><span>202</span><span class="sab-roll"><span class="r"><span>4</span><span>5</span><span>6</span></span></span></div>
+  <p class="sab-pcap" aria-hidden="true">Real member, 2024 and 2026. Results vary.</p>
+
+  <div class="sab-copy">
+    <p class="sab-kick">SuperAtivo Fitness, a semi-private coaching studio in Northeast Philly</p>
+    <div class="sab-year" role="img" aria-label="2024 to 2026"><span>202</span><span class="sab-roll"><span class="r"><span>4</span><span>5</span><span>6</span></span></span></div>
+    <h1 class="sab-h">Same member. Two years. <em>A coach at every class.</em></h1>
+    <p class="sab-sub">Groups of 5 to 8 people, 2 to 5 times a week, built around muscle gain and fat loss.</p>
+    <dl class="sab-info">
+      <dt>Where</dt><dd>9350 Ashton Rd, <span class="lg">Philadelphia</span><span class="sm">NE Philly</span></dd>
+      <dt>Mornings</dt><dd>7–9 AM, Mon<span class="lg">, </span><span class="sm"> </span>Tue<span class="lg">, </span><span class="sm"> </span>Thu<span class="lg">, </span><span class="sm"> </span>Fri</dd>
+      <dt>Evenings</dt><dd>5–9 PM Mon–Thu, <span class="lg">5–8 PM Fri</span><span class="sm">Fri to 8</span></dd>
+      <dt>WhatsApp</dt><dd><a href="https://wa.me/12673389078">(267) 338-9078</a><span class="xl"> in PT, EN or ES</span></dd>
+    </dl>
+    <div class="sab-act">
+      <a class="sab-cta" href="https://wa.me/12673389078?text=Hi!%20I%27d%20like%20to%20book%20my%20first%20class%20at%20SuperAtivo." >
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.4-.3Z"/></svg>
+        Book your first class</a>
+      <p class="sab-spots"><b>140 open spots</b> this week, most at 5 and 6 PM</p>
+    </div>
+    <p class="sab-note">Real SuperAtivo member, 2024 and 2026. Backgrounds removed and color matched on both photos; bodies untouched. Results vary.</p>
+  </div>
+</section>
+
+<section class="sab-next" id="sab-next">
+  <h2>Pick your hour. A coach is already there.</h2>
+  <p>Open spots this week by class time. Every class starts on the hour and runs 1 to 1.5 hours.</p>
+  <div class="sab-hours" id="sab-hours"></div>
+</section>
+</main>
+
+<script src="../lib/gsap.min.js"></script>
+<script src="../lib/ScrollTrigger.min.js"></script>
+<script src="../lib/lenis.min.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = document.getElementById('sab-hero');
+  const cv = document.getElementById('sab-gl');
+  const set = hero.querySelector('.sab-set');
+  const shadow = hero.querySelector('.sab-shadow');
+  const tagL = hero.querySelector('.sab-tag.l'), tagR = hero.querySelector('.sab-tag.r');
+  const rolls = [...document.querySelectorAll('.sab-roll .r')];
+  const fb = hero.querySelector('.sab-fb');
+  const h1 = hero.querySelector('h1');
+  const top = document.querySelector('.sab-top');
+  const solid = () => top.classList.toggle('solid', hero.getBoundingClientRect().top < -2 || scrollY > hero.offsetHeight*2.4);
+  addEventListener('scroll', solid, {passive:true});
+
+  // shared state: load (0..1 intro), s (0..1 scroll through the pin)
+  const st = { load: reduce ? 1 : 0, s: 0, glow: reduce ? 1 : 0 };
+  const P_REST = 0.40, P_END = 1.16;
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+  const beamP = () => -0.14 + (P_REST + 0.14) * st.load + (P_END - P_REST) * ease(st.s);
+
+  // ---------- layout: where the figure stands ----------
+  let W = 0, H = 0, R = {x:0,y:0,w:0,h:0}, phone = false;
+  const TILT = -0.10; // beam leans: top slightly right of bottom
+  function layout(){
+    W = hero.clientWidth; H = hero.clientHeight; phone = W <= 760;
+    let fh, cx, top;
+    if (phone){ fh = Math.min(H*0.62, W*1.5); cx = W*0.62; top = 26; }
+    else { fh = H*1.03; cx = W*0.69; top = -H*0.075; }
+    R = { w: fh*0.5, h: fh, x: cx - fh*0.25, y: top };
+    const floor = R.y + R.h*0.992;
+    set.style.setProperty('--fx', (cx/W*100).toFixed(2)+'%');
+    set.style.setProperty('--floor', (floor/H*100).toFixed(2)+'%');
+    Object.assign(shadow.style,{ left:(cx - R.w*0.48)+'px', width:(R.w*0.96)+'px', top:(floor - R.w*0.07)+'px', height:(R.w*0.14)+'px' });
+    Object.assign(fb.style,{ left:R.x+'px', top:R.y+'px', width:R.w+'px', height:R.h+'px' });
+    resizeGL();
+  }
+
+  // ---------- WebGL ----------
+  let gl, prog, U = {}, texB, texA, ready = false;
+  const VS = `attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;v.y=1.-v.y;gl_Position=vec4(p,0.,1.);}`;
+  const FS = `precision highp float;
+  varying vec2 v; uniform sampler2D uB,uA; uniform vec2 uRes; uniform vec4 uR; uniform float uP,uT,uG,uTilt,uFloor;
+  float h(float n){return fract(sin(n)*43758.5453);}
+  float n1(float x){float i=floor(x),f=fract(x);f=f*f*(3.-2.*f);return mix(h(i),h(i+1.),f);}
+  void main(){
+    vec2 px=v*uRes; vec2 sp=px; float refl=1.;
+    if(px.y>uFloor){ sp.y=2.*uFloor-px.y; refl=.18*exp(-(px.y-uFloor)/(uR.w*.03)); }
+    vec2 uv=(sp-uR.xy)/uR.zw;
+    float inside=step(0.,uv.x)*step(uv.x,1.)*step(0.,uv.y)*step(uv.y,1.);
+    float edge=smoothstep(0.,.10,uv.x)*smoothstep(1.,.90,uv.x)*smoothstep(0.,.13,uv.y);
+    vec4 B=texture2D(uB,uv)*inside*edge, A=texture2D(uA,uv)*inside*edge; // premultiplied
+    // beam edge in screen px (tilted light sheet with a slow organic wobble)
+    float midY=uR.y+uR.w*.5;
+    float xe=uR.x+uP*uR.z + uTilt*(sp.y-midY) + (n1(sp.y*.012+uT*.35)-.5)*uR.z*.03;
+    float d=px.x-xe;
+    float fe=uR.z*.018;
+    float rev=1.-smoothstep(-fe,fe,d);
+    vec4 c=mix(B,A,rev)*refl;
+    // one shared key light for both photos: soft overhead-left, falling off to the sides and the neck
+    float hx=exp(-pow(abs(uv.x-.47)/.47,3.));
+    float top=smoothstep(.0,.2,uv.y);
+    float key=mix(.16,1.,hx*top)*(1.04-.10*uv.y);
+    key*=mix(.80,1.,rev);                       // the past sits a step darker
+    vec3 col=c.rgb*key;
+    float lum=dot(c.rgb,vec3(.299,.587,.114));
+    vec3 warm=vec3(1.,.80,.56);
+    float core=exp(-pow(d/(uR.z*.016),2.)), halo=exp(-pow(d/(uR.z*.20),2.));
+    float g=uG*(1.-smoothstep(1.02,1.14,uP))*smoothstep(-.12,-.02,uP)*smoothstep(.02,.2,px.y/uRes.y);
+    col+=warm*(core*.70+halo*.26)*c.a*g*(.28+lum*1.1);    // light hitting the body
+    // light sheet in the air + pool on the floor
+    float vy=smoothstep(-.2,.55,px.y/uRes.y);
+    float air=(core*.07+halo*.025)*g*vy;
+    float fl=exp(-pow((px.y-uFloor)/(uR.z*.05),2.))*exp(-pow(d/(uR.z*.28),2.))*.35*g;
+    float add=(air+fl)*(1.-c.a);
+    gl_FragColor=vec4(col+warm*add, c.a+add*.55);
+  }`;
+  function initGL(){
+    try{ gl = cv.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false}); }catch(e){}
+    if(!gl) return false;
+    const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(o);return o;};
+    prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(prog);gl.useProgram(prog);
+    const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    const loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    ['uB','uA','uRes','uR','uP','uT','uG','uTilt','uFloor'].forEach(k=>U[k]=gl.getUniformLocation(prog,k));
+    gl.uniform1i(U.uB,0);gl.uniform1i(U.uA,1);
+    gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
+    return true;
+  }
+  function tex(img,unit){
+    const t=gl.createTexture();gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,true);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    return t;
+  }
+  let dpr=1;
+  function resizeGL(){
+    dpr=Math.min(devicePixelRatio||1,1.5);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+    if(gl) gl.viewport(0,0,cv.width,cv.height);
+  }
+  const loadImg=src=>new Promise((res,rej)=>{const i=new Image();i.decoding='async';i.onload=()=>res(i);i.onerror=rej;i.src=src;});
+
+  // ---------- per-frame ----------
+  const t0=performance.now();
+  function draw(now){
+    const p=beamP();
+    // tags ride the beam at floor level
+    const floorY=R.y+R.h*0.992;
+    const tagY = phone ? Math.min(floorY - 26, h1.getBoundingClientRect().top - hero.getBoundingClientRect().top - 2) : floorY + 8;
+    const xe=R.x+p*R.w+TILT*(tagY-(R.y+R.h*.5));
+    const m = phone ? 12 : 24;
+    const lx = Math.max(m, Math.min(W - m - tagL.offsetWidth - 28 - tagR.offsetWidth, xe - 14 - tagL.offsetWidth));
+    const rx = Math.min(W - m - tagR.offsetWidth, Math.max(lx + tagL.offsetWidth + 28, xe + 14));
+    tagL.style.transform=`translate(${lx.toFixed(1)}px,${tagY.toFixed(1)}px)`;
+    tagR.style.transform=`translate(${rx.toFixed(1)}px,${tagY.toFixed(1)}px)`;
+    tagL.style.opacity = Math.max(0,Math.min(1,(p-0.04)/0.12)) * Math.max(0,Math.min(1,(1.10-p)/0.08)) ;
+    tagR.style.opacity = Math.max(0,Math.min(1,(1.0-p)/0.10)) * Math.max(0,Math.min(1,(p+0.02)/0.10));
+    if(p>1.06) tagL.style.opacity = 0;
+    // year odometer: holds on whole years, rolls between them
+    const v=st.s*2, i=Math.min(2,Math.floor(v)), f=v-i;
+    const yr = reduce ? 2 : Math.min(2, i + (i<2 ? gsap.parseEase('power2.inOut')(Math.min(1,Math.max(0,(f-.15)/.7))) : 0));
+    rolls.forEach(r=>{ r.style.transform=`translateY(${(-yr).toFixed(4)}em)`; });
+    fb.style.setProperty('--p',(Math.max(0,Math.min(1,p))*100).toFixed(2)+'%');
+    if(ready){
+      gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform2f(U.uRes,W,H);gl.uniform4f(U.uR,R.x,R.y,R.w,R.h);
+      gl.uniform1f(U.uP,p);gl.uniform1f(U.uT,(now-t0)/1000);gl.uniform1f(U.uG,st.glow);
+      gl.uniform1f(U.uTilt,TILT);gl.uniform1f(U.uFloor,floorY);
+      gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    }
+  }
+  let visible=true, raf=0;
+  function loop(now){ if(visible) draw(now); raf=requestAnimationFrame(loop); }
+  new IntersectionObserver(e=>{visible=e[0].isIntersecting;},{rootMargin:'50px'}).observe(hero);
+
+  // intro: the light sheet walks in from the left and stops mid-body, so frame one already shows both years
+  let introStarted=false;
+  function startIntro(){
+    if(introStarted||reduce) return; introStarted=true;
+    gsap.to(st,{glow:1,duration:.45,ease:'power2.out'});
+    gsap.to(st,{load:1,duration:1.6,ease:'power3.out',delay:.06});
+  }
+
+  // ---------- boot ----------
+  layout();
+  addEventListener('resize',()=>{layout();});
+  // GL starts after the first paint so the poster + copy show instantly; the intro runs on whichever layer is live
+  requestAnimationFrame(()=>setTimeout(bootGL,0));
+  setTimeout(startIntro, 150);
+  function bootGL(){
+  let okGL=false; try{ okGL = initGL(); }catch(e){ okGL=false; }
+  if(!okGL) document.documentElement.classList.add('no-gl');
+  else Promise.all([loadImg('img/y2024.webp'),loadImg('img/y2026.webp')]).then(([b,a])=>{
+    texB=tex(b,0);texA=tex(a,1);ready=true;
+    draw(performance.now()); document.documentElement.classList.add('gl-ready');
+    startIntro();
+  }).catch(()=>{document.documentElement.classList.add('no-gl');startIntro();});
+  }
+  requestAnimationFrame(loop);
+
+
+  // scroll: one short pin, one value
+  if(!reduce){
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ignoreMobileResize:true});
+    const lenis = new Lenis({lerp:.11, smoothWheel:true});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
+    gsap.to(st,{s:1,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:()=>'+='+Math.round(innerHeight*(phone?1.0:1.2)),pin:true,scrub:.7,invalidateOnRefresh:true}});
+  }
+
+  // next-section slice: open spots by hour from this week's schedule
+  fetch('../assets/spots.json').then(r=>r.json()).then(d=>{
+    const order=['7 AM','8 AM','9 AM','5 PM','6 PM','7 PM','8 PM','9 PM'], open={};
+    d.forEach(c=>{open[c.h]=(open[c.h]||0)+Math.max(0,c.cap-c.taken);});
+    const max=Math.max(...order.map(h=>open[h]||0));
+    document.getElementById('sab-hours').innerHTML=order.map(h=>`<div><b>${h.replace(' ',' ')}</b><div class="bar" style="transform:scaleX(${((open[h]||0)/max).toFixed(3)})"></div><span>${open[h]||0} open</span></div>`).join('');
+  }).catch(()=>{});
+})();
+</script>
+</body>
+</html>

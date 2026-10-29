@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SuperAtivo Fitness | Small-group coaching in Northeast Philadelphia</title>
+<meta name="description" content="Small-group coaching gym at 9350 Ashton Rd, Northeast Philadelphia. Classes of 5 to 8 with a coach running every one. Book your first class on WhatsApp.">
+<link rel="preload" href="../assets/fonts/big-shoulders-stencil-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:,">
+<link rel="preload" href="img/duo.jpg" as="image" fetchpriority="high">
+<style>
+@font-face{font-family:"Stencil";src:url(../assets/fonts/big-shoulders-stencil-display-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Stencil";src:url(../assets/fonts/big-shoulders-stencil-display-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Archivo";src:url(../assets/fonts/archivo-latin-wdth-normal.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+
+:root{
+  --black:#0B0A09; --velvet:#17110E; --light:#FFE9C4; --amber:#D9A35B; --bone:#EEE7DC; --mute:#A39787;
+  --bar:72px; --lip:clamp(118px,15.5svh,140px); --rise:2.4svh;
+  --dx:64%; --mx:72%;
+  --top:calc(var(--bar) + 4px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--black);color:var(--bone);font-family:"Archivo",system-ui,sans-serif;font-stretch:100%;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{min-height:100vh;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:none}
+
+/* ---------- top bar ---------- */
+.bar{position:fixed;inset:0 0 auto 0;height:var(--bar);z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5.6vw,84px);transition:background .3s}
+.bar.solid{background:var(--black);box-shadow:0 1px 0 #1d1712}
+.bar .logo{height:26px;width:auto}
+.bar nav{display:flex;align-items:center;gap:26px;font-size:16px;color:var(--mute)}
+.bar nav a{text-decoration:none}
+.bar nav .wa{color:var(--bone);font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.bar nav .wa svg{width:18px;height:18px;fill:var(--amber)}
+.bar nav .wa:hover{color:var(--light)}
+
+/* ---------- hero / stage ---------- */
+.hero{position:relative}
+.stage{--dh:calc(100svh - var(--lip) - var(--rise) - var(--top));--mh:calc(var(--dh) * .84);position:relative;height:100svh;min-height:560px;overflow:hidden;isolation:isolate;background:var(--black)}
+/* drawn backdrop: velvet curtain folds + floor + lip */
+.set{position:absolute;inset:0 0 var(--lip) 0;z-index:0}
+.curtain{position:absolute;inset:0 0 calc(var(--rise) + 4.5svh) 0;
+  background:
+   radial-gradient(120% 70% at 64% 30%,rgba(60,38,24,.30),transparent 60%),
+   repeating-linear-gradient(90deg,#0b0807 0,#1a120e 34px,#24170f 52px,#130d0a 78px,#0b0807 104px);
+}
+.curtain::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,9,.85),rgba(11,10,9,0) 26%,rgba(11,10,9,0) 80%,rgba(11,10,9,.7))}
+.floor{position:absolute;left:0;right:0;bottom:0;height:calc(var(--rise) + 4.5svh);
+  background:linear-gradient(180deg,#090706 0,#16100c 40%,#1d150f 100%)}
+.floor::before{content:"";position:absolute;inset:0;opacity:.5;
+  background:repeating-linear-gradient(90deg,transparent 0,transparent 118px,rgba(0,0,0,.55) 118px,rgba(0,0,0,.55) 120px)}
+.lipedge{position:absolute;left:0;right:0;bottom:var(--lip);height:2px;z-index:6;background:linear-gradient(90deg,rgba(217,163,91,.12),rgba(255,233,196,.55) 64%,rgba(217,163,91,.12));box-shadow:0 0 18px rgba(255,200,120,.25)}
+
+/* the acts (photos on stage) */
+.act{position:absolute;z-index:1;bottom:calc(var(--lip) + var(--rise));transform-origin:50% 100%;will-change:transform}
+.act img{width:100%;height:100%;object-fit:cover}
+.duo{height:var(--dh);width:calc(var(--dh) * .75);left:calc(var(--dx) - var(--dh) * .375);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent),linear-gradient(180deg,transparent,#000 9%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent),linear-gradient(180deg,transparent,#000 9%);mask-composite:intersect}
+.shadow{position:absolute;z-index:1;bottom:calc(var(--lip) + var(--rise) - 14px);height:28px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.85),transparent);filter:blur(2px)}
+.duo-shadow{width:calc(var(--dh) * .6);left:calc(var(--dx) - var(--dh) * .3)}
+.glint{position:absolute;width:24%;aspect-ratio:1;margin:-12% 0 0 -12%;mix-blend-mode:screen;opacity:0;pointer-events:none;transform:scale(0)}
+.glint::before,.glint::after{content:"";position:absolute;inset:0;background:radial-gradient(closest-side,rgba(255,255,255,1),rgba(255,240,210,.75) 10%,rgba(255,226,180,.18) 32%,transparent 62%)}
+.glint::after{background:linear-gradient(90deg,transparent 0,rgba(255,250,235,.95) 50%,transparent 100%) center/100% 3px no-repeat,linear-gradient(0deg,transparent 0,rgba(255,250,235,.95) 50%,transparent 100%) center/3px 70% no-repeat}
+
+.member{height:var(--mh);width:calc(var(--mh) + 10px);left:calc(var(--mx) - var(--mh) * .5 - 5px);display:flex;gap:10px;visibility:hidden}
+.member .ph{position:relative;flex:1 1 0;min-width:0;height:100%;overflow:hidden;background:#000;box-shadow:0 30px 60px -20px rgba(0,0,0,.9)}
+.member .ph::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(8,6,5,.55) 100%),linear-gradient(180deg,rgba(8,6,5,.35),transparent 18%)}
+.member .yr{z-index:1;position:absolute;left:12px;bottom:10px;font:800 clamp(28px,4.4vh,44px)/1 "Stencil";color:var(--light);text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.mem-shadow{width:calc(var(--mh) * 1.05);left:calc(var(--mx) - var(--mh) * .525);visibility:hidden}
+
+/* light rig canvases */
+.rig{position:absolute;left:0;top:0;width:100%;pointer-events:none}
+canvas.dark{z-index:3}
+canvas.beam{z-index:4;mix-blend-mode:screen}
+
+/* placards (stage captions) */
+.placard{position:absolute;z-index:7;bottom:calc(var(--lip) + 18px);font-size:16px;line-height:1.35;max-width:260px}
+.placard b{display:block;font-weight:650;color:var(--bone)}
+.placard span{color:var(--mute)}
+.pl-duo{left:calc(var(--dx) + var(--dh) * .3)}
+.pl-mem{left:auto;right:calc(100% - var(--mx) - var(--mh) * .5 - 5px);bottom:auto;top:calc(100svh - var(--lip) - var(--rise) - var(--mh) - 74px);text-align:right;opacity:0;visibility:hidden;max-width:none}
+.pl-mem .spots{color:var(--amber)}
+
+/* copy */
+.copy{position:absolute;z-index:8;left:clamp(20px,5.6vw,84px);top:calc(var(--bar) + 7svh);width:min(38vw,600px)}
+.kicker{font-size:18px;color:var(--amber);font-weight:500;margin-bottom:18px;text-wrap:balance}
+h1{font:800 clamp(54px,min(6vw,9.4svh),112px)/.9 "Stencil";letter-spacing:.005em;text-wrap:balance}
+h1 span{display:block;text-wrap:balance}
+h1 .l1{color:var(--bone)}
+h1 .l2{color:#857767;margin-top:.12em}
+.sub{margin-top:24px;font-size:clamp(17px,1.35vw,20px);line-height:1.5;color:#cfc6b8;max-width:30em;text-wrap:pretty}
+
+/* the pit: stage credits */
+.pit{position:absolute;z-index:8;left:0;right:0;bottom:0;height:var(--lip);
+  background:radial-gradient(60% 120% at 64% 0,rgba(255,190,110,.07),transparent 70%),linear-gradient(180deg,#0e0b09,#070605);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) minmax(0,1fr) auto;align-items:center;gap:clamp(18px,2.6vw,48px);padding:0 clamp(20px,5.6vw,84px)}
+.pit dl{min-width:0}
+.pit dt{font-size:16px;font-style:italic;color:var(--amber);margin-bottom:4px}
+.pit dd{font-size:17px;line-height:1.38;color:var(--bone);font-stretch:92%}
+.pit dd small{display:block;font-size:16px;color:var(--mute)}
+.cta{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;text-decoration:none;
+  padding:14px 26px 13px;border-radius:3px;color:#1a120b;
+  background:linear-gradient(180deg,#FFF1D8,#F3CF95);box-shadow:0 0 0 1px rgba(255,236,200,.6) inset,0 10px 40px -8px rgba(255,190,100,.45);transition:transform .25s,box-shadow .25s}
+.cta strong{font-size:18px;font-weight:700;letter-spacing:.005em;white-space:nowrap}
+.cta em{font-style:normal;font-size:15px;opacity:.78;display:inline-flex;align-items:center;gap:6px}
+.cta em svg{width:15px;height:15px;fill:currentColor}
+.cta:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(255,236,200,.8) inset,0 14px 50px -8px rgba(255,190,100,.6)}
+
+/* ---------- next section slice: this week's open spots ---------- */
+.week{position:relative;z-index:2;background:var(--black);padding:clamp(72px,10vw,132px) clamp(20px,5.6vw,84px) 120px;border-top:1px solid #1d1712}
+.week-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:40px;align-items:end;margin-bottom:48px}
+.week h2{font:800 clamp(44px,5.4vw,84px)/.92 "Stencil";text-wrap:balance}
+.week h2 em{font-style:normal;color:var(--light)}
+.week-head p{font-size:18px;line-height:1.5;color:#cfc6b8;max-width:34em}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.day h3{font:700 22px/1 "Stencil";color:var(--amber);margin-bottom:12px;letter-spacing:.02em}
+.slot{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #221b15;font-size:16px}
+.slot .t{width:52px;flex:none;color:var(--bone);font-weight:600}
+.bulbs{display:flex;flex-wrap:wrap;gap:4px;min-width:0}
+.bulbs i{width:7px;height:7px;border-radius:50%;background:#FFE3AE;box-shadow:0 0 6px rgba(255,200,120,.8)}
+.bulbs i.off{background:#2a221b;box-shadow:none}
+.slot .n{margin-left:auto;color:var(--mute);white-space:nowrap}
+
+/* ---------- phone / portrait ---------- */
+@media (max-width:760px), (max-aspect-ratio:4/5){
+  :root{--bar:58px;--lip:auto;--dx:50%;--mx:50%;--rise:1.6svh}
+  .bar .logo{height:21px}
+  .bar nav .hide-s{display:none}
+  .bar nav .wa span{display:none}
+  .bar nav .wa svg{width:24px;height:24px}
+  .stage{min-height:640px}
+  .copy{left:20px;right:20px;width:auto;top:calc(var(--bar) + 10px)}
+  .kicker{font-size:16px;margin-bottom:10px;max-width:22em}
+  h1{font-size:clamp(36px,10.6vw,58px)}
+  .sub{display:none}
+  .pit{height:auto;grid-template-columns:minmax(0,1fr);gap:8px;padding:14px 20px calc(16px + env(safe-area-inset-bottom));align-items:start}
+  .pit dl{display:flex;gap:10px;align-items:baseline}
+  .pit dt{flex:none;width:58px;margin:0}
+  .pit dd{font-size:16px}
+  .pit dd small{display:inline;font-size:16px}
+  .pit .grp{display:none}
+  .pit dl.cls dd small{display:block}
+  .cta{width:100%;align-items:center;margin-top:6px;padding:12px 16px}
+  .placard{font-size:16px;max-width:none}
+  .pl-duo{left:20px;right:auto;bottom:calc(var(--lip) + 12px);display:none}
+  .pl-mem{display:none}
+  .week-head{grid-template-columns:minmax(0,1fr)}
+  .grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  .cta{transition:none}
+}
+</style>
+</head>
+<body>
+<header class="bar" id="bar">
+  <img class="logo" src="img/logo.png" alt="SuperAtivo Fitness" width="886" height="186">
+  <nav>
+    <span class="hide-s">English, Português, Español</span>
+    <a class="wa" href="https://wa.me/12673389078" aria-label="WhatsApp (267) 338-9078"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.4-.3z"/></svg><span>(267) 338-9078</span></a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="hero" aria-label="SuperAtivo Fitness">
+  <div class="stage" id="stage">
+    <div class="set" aria-hidden="true"><div class="curtain"></div><div class="floor"></div></div>
+
+    <div class="shadow duo-shadow" id="duoShadow" aria-hidden="true"></div>
+    <figure class="act duo" id="duo">
+      <img src="img/duo.jpg" width="768" height="1024" alt="Two SuperAtivo athletes smiling on stage with their medals at the 2026 NY Pro Amateur" fetchpriority="high">
+      <span class="glint" style="left:19%;top:34.5%"></span>
+      <span class="glint" style="left:72%;top:34%"></span>
+    </figure>
+
+    <div class="shadow mem-shadow" id="memShadow" aria-hidden="true"></div>
+    <figure class="act member" id="member" aria-label="The same SuperAtivo member in 2024 and in 2026">
+      <div class="ph"><img src="img/m-before.jpg" width="540" height="1080" alt="Member in 2024, before coaching" loading="eager" fetchpriority="low"><span class="yr">2024</span></div>
+      <div class="ph"><img src="img/m-after.jpg" width="539" height="1080" alt="The same member in 2026, leaner and more muscular" loading="eager" fetchpriority="low"><span class="yr">2026</span></div>
+    </figure>
+
+    <canvas class="rig dark" id="dark" aria-hidden="true"></canvas>
+    <canvas class="rig beam" id="beam" aria-hidden="true"></canvas>
+    <div class="lipedge" aria-hidden="true"></div>
+
+    <p class="placard pl-duo" id="plDuo"><b>NY Pro Amateur, 2026</b><span>Our athletes, coached here</span></p>
+    <p class="placard pl-mem" id="plMem"><b>Same member, 2024 and 2026</b><span>No stage. Same coaching.</span></p>
+
+    <div class="copy">
+      <p class="kicker">Small-group coaching in Northeast Philly, since&nbsp;2015</p>
+      <h1><span class="l1" id="l1">Coached for the stage.</span><span class="l2" id="l2">Same coaching at 6&nbsp;PM.</span></h1>
+      <p class="sub">Classes of 5 to 8 people, with a coach running every one. The team that took our athletes onto three stages in 2026 runs your class too.</p>
+    </div>
+
+    <div class="pit">
+      <dl><dt>Where</dt><dd>9350 Ashton Rd <small>Northeast Philadelphia</small></dd></dl>
+      <dl class="cls"><dt>Classes</dt><dd>Mon–Thu 5–9 PM, Fri 5–8 PM <small>Mornings 7–9 AM, except Wed</small></dd></dl>
+      <dl class="grp"><dt>Groups</dt><dd>5 to 8 people, 2–5 days a week <small>From $70 a week</small></dd></dl>
+      <a class="cta" href="https://wa.me/12673389078"><strong>Book your first class</strong><em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>WhatsApp (267) 338-9078</em></a>
+    </div>
+  </div>
+</section>
+
+<section class="week" id="week" aria-labelledby="weekH">
+  <div class="week-head">
+    <h2 id="weekH">This week: <em>140 open spots.</em></h2>
+    <p>Every lit bulb is a free place in an evening class. Most of them are at 5 and 6 PM. Pick an hour and send us a WhatsApp.</p>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+</main>
+
+<script src="../lib/gsap.min.js"></script>
+<script src="../lib/ScrollTrigger.min.js"></script>
+<script src="../lib/lenis.min.js"></script>
+<script>
+(() => {
+  /* ---------------- schedule slice (real data from spots.json, summed per class hour) ---------------- */
+  const SLOTS = [["Mon","5 PM",5,14],["Mon","6 PM",7,19],["Mon","7 PM",3,19],["Mon","8 PM",3,19],["Mon","9 PM",2,20],
+    ["Tue","5 PM",8,14],["Tue","6 PM",14,19],["Tue","7 PM",3,19],["Tue","8 PM",3,19],["Tue","9 PM",2,20],
+    ["Wed","5 PM",8,14],["Wed","6 PM",15,19],["Wed","7 PM",3,19],["Wed","8 PM",7,19],["Wed","9 PM",0,20],
+    ["Thu","5 PM",7,14],["Thu","6 PM",10,19],["Thu","7 PM",9,19],["Thu","8 PM",1,19],["Thu","9 PM",3,20],
+    ["Fri","5 PM",3,6],["Fri","6 PM",4,6],["Fri","7 PM",5,14],["Fri","8 PM",3,20]];
+  const wkGrid = document.getElementById('grid');
+  const days = {Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday"};
+  Object.keys(days).forEach(d => {
+    const col = document.createElement('div'); col.className = 'day';
+    col.innerHTML = `<h3>${days[d]}</h3>` + SLOTS.filter(s => s[0] === d).map(s =>
+      `<div class="slot"><span class="t">${s[1]}</span><span class="bulbs" aria-hidden="true">${'<i></i>'.repeat(s[2])}</span><span class="n">${s[2] ? s[2] + ' open' : 'full'}</span></div>`).join('');
+    wkGrid.appendChild(col);
+  });
+
+  /* ---------------- light rig ---------------- */
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.getElementById('stage');
+  const duo = document.getElementById('duo'), mem = document.getElementById('member');
+  const cvD = document.getElementById('dark'), cvB = document.getElementById('beam');
+  const xD = cvD.getContext('2d'), xB = cvB.getContext('2d');
+  const pit = document.querySelector('.pit');
+  let W = 0, H = 0, LIP = 0, COPYB = 0;
+
+  // light state: a = load sweep (start -> duo), b = scroll hand-off (duo -> member)
+  const S = { a: 0, b: 0, I: 0, amb: .62, haze: 1 };
+
+  // tileable warm haze texture (value noise, 2 octaves)
+  const hz = document.createElement('canvas'); hz.width = hz.height = 256;
+  (function makeNoise() {
+    const g = hz.getContext('2d'), img = g.createImageData(256, 256);
+    const grid = (n) => Array.from({ length: n * n }, () => Math.random());
+    const o1 = grid(8), o2 = grid(16), o3 = grid(32);
+    const smp = (o, n, x, y) => {
+      const fx = x * n / 256, fy = y * n / 256, x0 = Math.floor(fx), y0 = Math.floor(fy);
+      const tx = fx - x0, ty = fy - y0, sx = tx * tx * (3 - 2 * tx), sy = ty * ty * (3 - 2 * ty);
+      const v = (i, j) => o[((j % n) * n) + (i % n)];
+      const a = v(x0, y0), b = v(x0 + 1, y0), c = v(x0, y0 + 1), d = v(x0 + 1, y0 + 1);
+      return a + (b - a) * sx + (c - a) * sy + (a - b - c + d) * sx * sy;
+    };
+    for (let y = 0; y < 256; y++) for (let x = 0; x < 256; x++) {
+      let n = smp(o1, 8, x, y) * .55 + smp(o2, 16, x, y) * .3 + smp(o3, 32, x, y) * .15;
+      n = Math.max(0, Math.min(1, (n - .3) * 1.35));
+      const k = (y * 256 + x) * 4;
+      img.data[k] = 255; img.data[k + 1] = 226; img.data[k + 2] = 178; img.data[k + 3] = n * 255;
+    }
+    g.putImageData(img, 0, 0);
+  })();
+  const hzc = document.createElement('canvas'), hx = hzc.getContext('2d');
+
+  function size() {
+    const r = stage.getBoundingClientRect();
+    W = Math.round(r.width); H = Math.round(r.height);
+    LIP = H - pit.offsetHeight;
+    stage.style.setProperty('--lipPx', (H - LIP) + 'px');
+    if (getComputedStyle(document.documentElement).getPropertyValue('--lip').trim() === 'auto') {
+      // phone: the pit has natural height -> feed it back so acts stand on the lip
+      stage.style.setProperty('--lip', (H - LIP) + 'px');
+    }
+    const phone = W < 761 || W / H < .8;
+    const cb = document.querySelector('.copy').getBoundingClientRect().bottom - r.top;
+    stage.style.setProperty('--top', phone ? Math.round(cb + 6) + 'px' : '');
+    COPYB = cb;
+    const scl = Math.min(1, 1400 / W);
+    [cvD, cvB].forEach(c => { c.width = Math.round(W * scl); c.height = Math.round(LIP * scl); c.style.height = LIP + 'px'; });
+    hzc.width = Math.round(W * .5); hzc.height = Math.round(LIP * .5);
+  }
+
+  function box(el) {
+    const r = el.getBoundingClientRect(), s = stage.getBoundingClientRect();
+    return { x: r.left - s.left + r.width / 2, y: r.top - s.top + r.height * .47, w: r.width, h: r.height, foot: r.bottom - s.top - r.height * .025 };
+  }
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const mix = (p, q, t) => ({ x: lerp(p.x, q.x, t), y: lerp(p.y, q.y, t), w: lerp(p.w, q.w, t), h: lerp(p.h, q.h, t), foot: lerp(p.foot, q.foot, t) });
+
+  let t0 = performance.now();
+  function render(now) {
+    const sc = cvD.width / W;
+    const d = box(duo), m = box(mem);
+    const start = { ...d, x: d.x + Math.max(220, W * .2), w: d.w * .8 };
+    const T = mix(mix(start, d, S.a), m, S.b);
+    const kx = lerp(.62, .5, S.b);
+    const isPhone = W < 761 || W / H < .8;
+    const src = isPhone ? { x: W * 1.02, y: -H * .32 } : { x: W * .47, y: -H * .42 };
+
+    // ---- darkness (everything outside the spot sinks) ----
+    xD.setTransform(sc, 0, 0, sc, 0, 0);
+    xD.globalCompositeOperation = 'source-over';
+    xD.clearRect(0, 0, W, LIP);
+    xD.fillStyle = `rgba(9,7,6,${S.amb})`;
+    xD.fillRect(0, 0, W, LIP);
+    xD.globalCompositeOperation = 'destination-out';
+    const cut = (cx, cy, rx, ry, a, stops) => {
+      xD.save(); xD.translate(cx, cy); xD.scale(1, ry / rx);
+      const g = xD.createRadialGradient(0, 0, 0, 0, 0, rx);
+      stops.forEach(([o, k]) => g.addColorStop(o, `rgba(0,0,0,${a * k})`));
+      xD.fillStyle = g; xD.beginPath(); xD.arc(0, 0, rx, 0, Math.PI * 2); xD.fill(); xD.restore();
+    };
+    const I = S.I;
+    cut(T.x, T.y, T.w * 1.05, T.h * .9, I * .38, [[0, 1], [.55, .6], [1, 0]]);          // spill
+    cut(T.x, T.y, T.w * kx, T.h * .64, I, [[0, 1], [.6, .9], [1, 0]]);                // key
+    cut(T.x, T.foot, T.w * .78, Math.max(18, T.h * .07), I, [[0, 1], [.6, .8], [1, 0]]); // floor pool
+
+    // ---- beam, haze, pool glow (screen-blended) ----
+    xB.setTransform(sc, 0, 0, sc, 0, 0);
+    xB.globalCompositeOperation = 'source-over';
+    xB.clearRect(0, 0, W, LIP);
+    if (I > .001) {
+      const px = T.x, py = T.foot, pr = T.w * .72;
+      const cone = (k) => {
+        // cone from a small lamp aperture to the pool's width, k narrows it (soft edge passes)
+        const ang = Math.atan2(py - src.y, px - src.x) + Math.PI / 2;
+        const ca = Math.cos(ang), sa = Math.sin(ang);
+        xB.beginPath();
+        xB.moveTo(src.x - ca * 14 * k, src.y - sa * 14 * k);
+        xB.lineTo(src.x + ca * 14 * k, src.y + sa * 14 * k);
+        xB.lineTo(px + ca * pr * k, py + sa * pr * k * .2);
+        xB.lineTo(px - ca * pr * k, py - sa * pr * k * .2);
+        xB.closePath();
+      };
+      const headY = Math.max(10, T.y - T.h * .47), clearY = isPhone ? Math.max(0, COPYB - 30) : 0;
+      const grad = (ctx, a) => {
+        const g = ctx.createLinearGradient(0, 0, 0, py);
+        const f = (y) => Math.min(.999, Math.max(0, y / py));
+        g.addColorStop(0, `rgba(255,233,196,${clearY ? 0 : a * .9})`);
+        if (clearY) g.addColorStop(f(clearY), `rgba(255,233,196,${a * .35})`);
+        g.addColorStop(f(headY), `rgba(255,228,186,${a})`);
+        g.addColorStop(f(T.y - T.h * .2), `rgba(255,222,176,${a * .22})`);
+        g.addColorStop(f(T.y + T.h * .2), `rgba(255,218,170,${a * .1})`);
+        g.addColorStop(1, `rgba(255,214,160,${a * .28})`);
+        return g;
+      };
+      [1.0, .82, .64, .46].forEach(k => { cone(k); xB.fillStyle = grad(xB, .05 * I); xB.fill(); });
+
+      // haze: drifting noise clipped to the cone
+      const hs = hzc.width / W;
+      hx.setTransform(1, 0, 0, 1, 0, 0);
+      hx.globalCompositeOperation = 'source-over';
+      hx.clearRect(0, 0, hzc.width, hzc.height);
+      const tt = (now - t0) / 1000 * S.haze;
+      const pat = hx.createPattern(hz, 'repeat');
+      hx.save(); hx.scale(1.1, 1.1); hx.translate(-(tt * 9) % 256, -(tt * 4) % 256);
+      hx.fillStyle = pat; hx.globalAlpha = .9; hx.fillRect(0, 0, hzc.width + 512, hzc.height + 512); hx.restore();
+      hx.save(); hx.scale(1.9, 1.9); hx.translate((tt * 5) % 256, -(tt * 2.5) % 256);
+      hx.fillStyle = pat; hx.globalAlpha = .6; hx.fillRect(-256, -256, hzc.width + 512, hzc.height + 512); hx.restore();
+      hx.globalAlpha = 1;
+      hx.globalCompositeOperation = 'destination-in';
+      hx.save(); hx.scale(hs, hs);
+      const cn = (k) => {
+        const ang = Math.atan2(py - src.y, px - src.x) + Math.PI / 2, ca = Math.cos(ang), sa = Math.sin(ang);
+        hx.beginPath(); hx.moveTo(src.x - ca * 14 * k, src.y - sa * 14 * k); hx.lineTo(src.x + ca * 14 * k, src.y + sa * 14 * k);
+        hx.lineTo(px + ca * pr * k, py + sa * pr * k * .2); hx.lineTo(px - ca * pr * k, py - sa * pr * k * .2); hx.closePath();
+      };
+      cn(.9); hx.fillStyle = grad(hx, 1); hx.fill(); hx.restore();
+      xB.globalAlpha = .2 * I;
+      xB.drawImage(hzc, 0, 0, W, LIP);
+      xB.globalAlpha = 1;
+
+      // floor pool glow + warm lift on the body
+      const glow = (cx, cy, rx, ry, a) => {
+        xB.save(); xB.translate(cx, cy); xB.scale(1, ry / rx);
+        const g = xB.createRadialGradient(0, 0, 0, 0, 0, rx);
+        g.addColorStop(0, `rgba(255,228,184,${a})`); g.addColorStop(.6, `rgba(255,214,160,${a * .35})`); g.addColorStop(1, 'rgba(255,200,140,0)');
+        xB.fillStyle = g; xB.beginPath(); xB.arc(0, 0, rx, 0, Math.PI * 2); xB.fill(); xB.restore();
+      };
+      glow(px, py, T.w * .8, Math.max(16, T.h * .065), .30 * I);
+      glow(T.x, T.y - T.h * .1, T.w * .55, T.h * .45, .07 * I);
+    }
+  }
+
+  size();
+  addEventListener('resize', () => { size(); ScrollTrigger.refresh(); });
+  gsap.ticker.add(() => render(performance.now()));
+
+  /* ---------------- load moment: strike, sweep, land, glint ---------------- */
+  const l1 = document.getElementById('l1'), l2 = document.getElementById('l2');
+  const glints = duo.querySelectorAll('.glint');
+  if (RM) {
+    Object.assign(S, { a: 1, I: 1, amb: .84, haze: 0 });
+  } else {
+    const tl = gsap.timeline({ delay: .08 }); window.__heroT0 = performance.now();
+    tl.to(S, { I: .55, duration: .06, ease: 'none' })                  // arc strikes
+      .to(S, { I: .32, duration: .07, ease: 'none' })
+      .to(S, { I: 1, duration: .3, ease: 'power2.out' })
+      .to(S, { amb: .84, duration: .9, ease: 'power2.inOut' }, .1)     // house dims as the spot comes up
+      .to(S, { a: 1.04, duration: 1.0, ease: 'power3.inOut' }, .12)  // sweep, slight overshoot...
+      .to(S, { a: 1, duration: .32, ease: 'power2.out' }, 1.12)       // ...and settle
+      .fromTo(glints, { scale: 0, opacity: 0, rotate: -30 }, { scale: 1, opacity: 1, rotate: 15, duration: .28, ease: 'power2.out', stagger: .16 }, 1.18)
+      .to(glints, { scale: .2, opacity: 0, rotate: 45, duration: .42, ease: 'power2.in', stagger: .16 }, 1.46);
+  }
+
+  /* ---------------- scroll hand-off: the light leaves the stage and finds a member ---------------- */
+  gsap.registerPlugin(ScrollTrigger);
+  const isPhone = () => innerWidth < 761 || innerWidth / innerHeight < .8;
+  const show = (els) => els.forEach(e => e.style.visibility = 'visible');
+  const memEls = [mem, document.getElementById('memShadow'), document.getElementById('plMem')];
+
+  if (!RM) {
+    const lenis = new Lenis({ lerp: .11, anchors: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    show(memEls);
+    const off = () => stage.clientWidth - mem.offsetLeft + 40;
+    const st = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: { trigger: stage, start: 'top top', end: () => '+=' + Math.round(innerHeight * (isPhone() ? .75 : 1)), pin: true, scrub: .6, invalidateOnRefresh: true }
+    });
+    st.fromTo([mem, '#memShadow'], { x: off }, { x: 0, duration: 1, ease: 'power2.inOut' }, 0)
+      .to([duo, '#duoShadow'], { x: () => -innerWidth * (isPhone() ? .14 : .03), scale: .8, duration: 1, ease: 'power2.inOut' }, 0)
+      .fromTo(duo.querySelector('img'), { filter: 'brightness(1)' }, { filter: 'brightness(.5)', duration: 1 }, 0)
+      .to(S, { b: 1, duration: 1, ease: 'power2.inOut' }, .06)
+      .fromTo(mem.querySelectorAll('img'), { filter: 'brightness(.35)' }, { filter: 'brightness(1)', duration: .7, ease: 'power1.in' }, .3)
+      .to('#plDuo', { opacity: 0, duration: .3 }, 0)
+      .to('#plMem', { opacity: 1, duration: .3 }, .7)
+      .to(l1, { color: '#857767', duration: .5 }, .2)
+      .to(l2, { color: '#FFE9C4', textShadow: '0 0 28px rgba(255,200,120,.35)', duration: .5 }, .35);
+  } else {
+    // reduced motion: no pin, no travel. The light and the line swap in place past 30% scroll.
+    gsap.set(mem, { opacity: 0 });
+    show(memEls);
+    gsap.set('#plMem', { opacity: 0 });
+    ScrollTrigger.create({
+      trigger: stage, start: 'top -30%', end: 'bottom top',
+      onToggle: (self) => {
+        const on = self.isActive || self.progress > 0;
+        S.b = on ? 1 : 0;
+        gsap.set(duo, { opacity: on ? .25 : 1 }); gsap.set(mem, { opacity: on ? 1 : 0 });
+        gsap.set('#plDuo', { opacity: on ? 0 : 1 }); gsap.set('#plMem', { opacity: on ? 1 : 0 });
+        l1.style.color = on ? '#857767' : ''; l2.style.color = on ? '#FFE9C4' : '';
+      }
+    });
+  }
+
+  // header turns solid once the hero has scrolled away
+  const bar = document.getElementById('bar');
+  // the stage unpins exactly when #week enters from below: from then on the hero slides under the bar
+  ScrollTrigger.create({ trigger: '#week', start: 'top bottom-=2', end: 'max', onToggle: s => bar.classList.toggle('solid', s.isActive) });
+  document.fonts && document.fonts.ready.then(() => { size(); ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>

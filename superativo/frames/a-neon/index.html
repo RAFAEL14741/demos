@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SuperAtivo Fitness | Small-group coaching in Northeast Philly</title>
+<meta name="description" content="Semi-private coaching studio at 9350 Ashton Rd, Philadelphia. Classes of 5 to 8 with a coach running every one. Book on WhatsApp (267) 338-9078.">
+<link rel="icon" href="data:,">
+<link rel="preload" href="../assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Archivo";src:url(../assets/fonts/archivo-latin-wdth-normal.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"BSS";src:url(../assets/fonts/big-shoulders-stencil-display-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+:root{
+  --black:#0b0b0d; --steel:#1c1d21; --core:#f6f8ff; --halo:#a9c2ff; --paper:#ece8df; --mute:#8d929c;
+  --on:0;               /* neon intensity 0..1, driven by JS */
+  --beam:112px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--black);color:var(--core);-webkit-text-size-adjust:100%}
+body{font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.45;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+
+/* ---------- header ---------- */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(16px,4vw,48px)}
+.hdr .logo{height:30px;width:auto;opacity:calc(.55 + var(--on)*.45)}
+.hdr nav{display:flex;align-items:center;gap:22px}
+.hdr .tel{white-space:nowrap;font-size:16px;text-decoration:none;color:#cfd3dc;font-variant-numeric:tabular-nums}
+.hdr .tel:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:6px;
+  background:var(--core);color:#0b0b0d;font-weight:700;font-stretch:88%;font-size:17px;text-decoration:none;white-space:nowrap;
+  box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 0 calc(var(--on)*26px) rgba(169,194,255,calc(var(--on)*.45)), 0 10px 24px -10px rgba(0,0,0,.8);
+  transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.btn:hover{transform:translateY(-1px)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:600px;overflow:hidden;background:#060607}
+.plane{position:absolute;inset:0;will-change:transform;transform-origin:70% 60%}
+.wall{position:absolute;display:block}
+.wall.lit{mix-blend-mode:screen;opacity:var(--on)}
+.layout{position:absolute;inset:0 0 var(--beam) 0;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);
+  column-gap:clamp(24px,4vw,72px);padding:84px clamp(20px,6vw,96px) 26px}
+
+/* neon sign */
+.sign{grid-column:1 / -1;justify-self:center;width:min(58vw,820px,calc((100svh - 300px) * 4.4));position:relative;z-index:2}
+.sign svg{display:block;width:100%;height:auto;overflow:visible}
+.tube-off{fill:none;stroke:#3b3e46;stroke-width:6.5;stroke-linecap:round;stroke-linejoin:round}
+.tube-off-hi{fill:none;stroke:#5d616b;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;transform:translate(-1.2px,-1.4px);opacity:.7}
+.tube-halo{fill:none;stroke:var(--halo);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;opacity:calc(var(--on)*.95);filter:url(#bloomL)}
+.tube-glow{fill:none;stroke:#e4ecff;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;opacity:calc(var(--on)*.95);filter:url(#bloomS)}
+.tube-core{fill:none;stroke:#fff;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;opacity:var(--on)}
+
+/* headline block */
+.copy{grid-column:1;grid-row:2;align-self:center;max-width:620px;position:relative;z-index:2}
+.copy h1{font-weight:800;font-stretch:66%;font-size:clamp(44px,5.6vw,92px);line-height:.94;letter-spacing:-.01em;text-wrap:balance;
+  color:#fff;text-shadow:0 0 calc(var(--on)*30px) rgba(169,194,255,calc(var(--on)*.35)), 0 2px 0 rgba(0,0,0,.6)}
+.copy h1 em{font-style:normal;color:#cfd8f0}
+.copy p{margin-top:18px;max-width:30em;color:#c4c8d1;font-size:clamp(17px,1.25vw,19px);text-wrap:pretty}
+.copy .row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:26px}
+.copy .price{color:#aeb3bd;font-size:16px}
+.copy .price b{color:#fff;font-weight:700}
+
+/* prints */
+.proof{grid-column:2;grid-row:2;justify-self:center;position:relative;z-index:2;height:100%;min-height:0;max-height:560px;
+  display:flex;flex-direction:column;align-items:center;padding-top:26px}
+.pair{flex:1 1 auto;min-height:0;height:100%;display:flex;align-items:flex-start;justify-content:center;gap:clamp(18px,2vw,34px)}
+.print{position:relative;height:100%;width:auto;aspect-ratio:540/1150;flex:0 1 auto;max-width:calc(50% - 10px);background:var(--paper);padding:7px 7px 40px;
+  filter:brightness(calc(.42 + var(--on)*var(--pl,.8)*.62));
+  box-shadow:0 calc(14px + var(--on)*18px) calc(22px + var(--on)*20px) -6px rgba(0,0,0,.85), 0 2px 3px rgba(0,0,0,.6);
+  transform:rotate(var(--r,0deg))}
+.print:nth-child(1){--r:-1.6deg;margin-top:14px}
+.print:nth-child(2){--r:1.2deg}
+.print img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;background:#222}
+.print .yr{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-family:"BSS",sans-serif;font-weight:800;font-size:28px;color:#16161a;letter-spacing:.02em;line-height:1}
+.print::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(214,226,255,calc(var(--on)*.22)) 0%,rgba(214,226,255,0) 38%),
+             linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,calc(var(--on)*.07)) 48%,rgba(255,255,255,0) 62%)}
+.clamp{position:absolute;top:-16px;left:50%;width:46px;height:26px;margin-left:-23px;z-index:3;
+  background:linear-gradient(180deg,#2a2b30,#111214 60%,#08080a);border-radius:3px 3px 2px 2px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,calc(.08 + var(--on)*.35)),0 6px 8px -2px rgba(0,0,0,.8)}
+.clamp::before{content:"";position:absolute;left:8px;right:8px;top:-9px;height:12px;border:2px solid #3a3c43;border-bottom:0;border-radius:6px 6px 0 0;
+  border-top-color:rgba(220,228,255,calc(.25 + var(--on)*.5))}
+.proof figcaption{flex:none;margin-top:16px;color:#d7dae1;text-shadow:0 1px 2px #000;font-size:16px;text-align:center;max-width:24em;justify-self:center;text-wrap:balance}
+
+/* steel beam with painted info */
+.beam{position:absolute;left:0;right:0;bottom:0;height:var(--beam);z-index:5;
+  background:
+    linear-gradient(180deg,rgba(225,232,255,calc(.10 + var(--on)*.42)) 0,rgba(225,232,255,0) 2px),
+    linear-gradient(180deg,#26272c 0,#1a1b1f 10px,#121316 11px,#16171a 14px,#101114 70%,#0b0b0d 100%);
+  box-shadow:0 -18px 40px -10px rgba(0,0,0,.9)}
+.beam::before{content:"";position:absolute;inset:14px 0 auto 0;height:1px;background:rgba(0,0,0,.6)}
+.beam .rivets{position:absolute;inset:6px 0 auto 0;height:4px;background:radial-gradient(circle at 2px 2px,#3a3c42 1.6px,transparent 2.2px) 0 0/64px 4px repeat-x;opacity:.8}
+.info{position:relative;height:100%;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.6fr) minmax(0,1.1fr);align-items:center;gap:24px;
+  padding:16px clamp(20px,6vw,96px) 8px}
+.info div{min-width:0}
+.info small{display:block;color:var(--mute);font-size:16px;line-height:1.2;margin-bottom:4px}
+.info b,.info a{font-weight:600;font-stretch:90%;color:#eef0f5;font-size:17px;line-height:1.3;text-decoration:none;display:block}
+.info a:hover{text-decoration:underline}
+.info .times b{font-weight:500}
+
+.ceil{position:absolute;inset:0 0 auto 0;height:140px;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,5,.72),rgba(4,4,5,0))}
+.hdr{transition:background-color .3s}
+.hdr.solid{background:rgba(8,8,10,.92);backdrop-filter:blur(8px)}
+/* ---------- next section, seen through the neon O ---------- */
+.through{position:absolute;inset:0;z-index:4;visibility:hidden;background:#08080a;clip-path:inset(50% 50% 50% 50%);will-change:clip-path}
+.through::before{content:"";position:absolute;inset:0;background-image:var(--wallimg);background-size:var(--wallsize);background-position:var(--wallpos,0 0);opacity:.9}
+.through::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 55% at 50% 0%,rgba(169,194,255,.16),rgba(0,0,0,0) 65%),linear-gradient(180deg,rgba(6,6,7,.2),rgba(9,9,10,.75) 80%)}
+.tin{position:relative;z-index:1;height:100%;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:clamp(24px,5vw,80px);align-items:center;
+  padding:96px clamp(20px,6vw,96px) calc(var(--beam) + 36px);transform-origin:50% 45%}
+.tcopy h2{font-weight:800;font-stretch:66%;font-size:clamp(40px,4.6vw,76px);line-height:.95;text-wrap:balance}
+.tcopy p{margin-top:16px;color:#c4c8d1;max-width:26em;text-wrap:pretty}
+.tcopy ul{list-style:none;margin-top:20px;display:grid;gap:8px}
+.tcopy li{color:#e8eaf0}
+.tcopy li span{display:block;color:var(--mute);font-size:16px}
+.shots{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);gap:clamp(12px,1.6vw,24px);align-items:center;max-height:100%;min-height:0}
+.shot{background:var(--paper);padding:6px 6px 34px;position:relative;box-shadow:0 26px 40px -12px rgba(0,0,0,.9)}
+.shot img{width:100%;aspect-ratio:4/5;object-fit:cover;max-height:calc(100svh - var(--beam) - 220px)}
+.shot:nth-child(2) img{aspect-ratio:3/4}
+.shot:nth-child(1){transform:rotate(-1.2deg)}
+.shot:nth-child(3){transform:rotate(1deg)}
+.shot span{position:absolute;left:8px;right:8px;bottom:7px;color:#1a1a1e;font-size:16px;font-weight:600;font-stretch:85%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.foot{padding:56px clamp(20px,6vw,96px) 72px;background:#08080a;color:#aeb3bd;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;border-top:1px solid #1c1d21}
+.foot a{color:#eef0f5}
+.info .beam-cta{display:none;color:#0b0b0d;font-weight:700;font-size:17px;text-decoration:none}
+.info .times i{font-style:normal;color:var(--mute)}
+.info .t{white-space:nowrap}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  :root{--beam:196px}
+  body{font-size:16px}
+  .hdr{padding:12px 16px}
+  .hdr .logo{height:22px}
+  .hdr .btn{display:none}
+  .hdr .tel{white-space:nowrap;font-size:16px;padding:8px 12px;border:1px solid rgba(255,255,255,.22);border-radius:6px;background:rgba(10,10,12,.55);backdrop-filter:blur(6px)}
+  .hero{min-height:640px}
+  .layout{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);padding:64px 16px 14px}
+  .sign{width:min(94vw,520px)}
+  .copy{grid-column:1;grid-row:2;margin-top:18px;align-self:start}
+  .copy h1{font-size:clamp(36px,10.6vw,46px)}
+  .copy p{margin-top:10px;font-size:16px}
+  .copy .row{display:none}
+  .proof{grid-column:1;grid-row:3;padding-top:22px;max-height:none}
+  .pair{gap:16px}
+  .print{padding:5px 5px 30px}
+  .print .yr{font-size:22px;bottom:3px}
+  .clamp{width:36px;height:20px;margin-left:-18px;top:-12px}
+  .proof figcaption{display:none}
+  .info{grid-template-columns:minmax(0,1fr);gap:10px;padding:20px 16px 14px;align-content:center}
+  .info .wa{display:none}
+  .info > div:first-child small{display:none}
+  .info .times i:first-of-type{display:none}
+  .info .times .t:first-child{display:block}
+  .info .beam-cta{display:flex;width:100%}
+  .tin{grid-template-columns:minmax(0,1fr);align-content:center;gap:22px;padding:70px 16px calc(var(--beam) + 20px)}
+  .tcopy p{display:none}
+  .tcopy h2{font-size:clamp(36px,10.6vw,46px)}
+  .tcopy ul{margin-top:12px;gap:4px}
+  .tcopy li span{display:none}
+  .shots{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .shot:nth-child(1){display:none}
+  .shot img{max-height:calc(100svh - var(--beam) - 400px)}
+}
+@media (max-width:380px){.hdr .tel .w{display:none}}
+@media (max-width:760px) and (max-height:760px){.copy p{display:none}}
+@media (min-width:761px) and (max-height:800px){.copy p{display:none}.layout{padding-top:76px}}
+@media (prefers-reduced-motion:reduce){:root{--on:1}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a href="#top" aria-label="SuperAtivo Fitness home"><img class="logo" src="../assets/img/logo.png" width="886" height="186" alt="SuperAtivo Fitness"></a>
+  <nav>
+    <a class="tel" href="https://wa.me/12673389078"><span class="w">WhatsApp </span>(267) 338-9078</a>
+    <a class="btn" href="https://wa.me/12673389078?text=Hi!%20I%27d%20like%20to%20book%20my%20first%20class." >Book your first class</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero" aria-label="SuperAtivo Fitness">
+  <div class="plane">
+    <canvas class="wall dark" aria-hidden="true"></canvas>
+    <canvas class="wall lit" aria-hidden="true"></canvas>
+
+    <div class="layout">
+      <div class="sign" aria-hidden="true">
+        <svg viewBox="-30 -34 674 168" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="bloomL" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="11"/></filter>
+            <filter id="bloomS" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="2.6"/></filter>
+            <g id="letters">
+              <!-- hand-drawn centre-line tubes, condensed rounded sans, cap height 100 -->
+              <path d="M47 17 C43 7 35 2 25 2 C12 2 4 10 4 23 C4 37 13 43 26 48 C40 54 48 61 48 76 C48 90 39 98 25 98 C13 98 5 92 2 82"/>
+              <path transform="translate(66 0)" d="M4 2 L4 72 C4 88 12 98 26 98 C40 98 48 88 48 72 L48 2"/>
+              <path transform="translate(132 0)" d="M5 98 L5 2 L27 2 C41 2 48 11 48 26 C48 41 41 50 27 50 L5 50"/>
+              <path transform="translate(198 0)" d="M46 2 L5 2 L5 98 L46 98 M5 50 L38 50"/>
+              <path transform="translate(260 0)" d="M5 98 L5 2 L27 2 C41 2 48 11 48 26 C48 41 41 50 27 50 L5 50 M27 50 L49 98"/>
+              <path transform="translate(326 0)" d="M2 98 L22 6 C23.5 0 28.5 0 30 6 L50 98 M10 64 L42 64"/>
+              <path transform="translate(392 0)" d="M2 2 L50 2 M26 2 L26 98"/>
+              <path transform="translate(456 0)" d="M8 2 L8 98"/>
+              <path transform="translate(482 0)" d="M2 2 L22 92 C23.5 99 28.5 99 30 92 L50 2"/>
+              <path transform="translate(548 0)" d="M26 2 C40 2 48 10 48 26 L48 74 C48 90 40 98 26 98 C12 98 4 90 4 74 L4 26 C4 10 12 2 26 2 Z"/>
+            </g>
+          </defs>
+          <use href="#letters" class="tube-off"/>
+          <use href="#letters" class="tube-off-hi"/>
+          <use href="#letters" class="tube-halo"/>
+          <use href="#letters" class="tube-glow"/>
+          <use href="#letters" class="tube-core"/>
+        </svg>
+      </div>
+
+      <div class="copy">
+        <h1>Small-group coaching in Northeast&nbsp;Philly.</h1>
+        <p>Classes of 5 to 8 people, 2 to 5 days a week, with a coach running every one. Muscle gain, fat loss, lean mass. Since 2015.</p>
+        <div class="row">
+          <a class="btn" href="https://wa.me/12673389078?text=Hi!%20I%27d%20like%20to%20book%20my%20first%20class.">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+            Book your first class</a>
+          <span class="price">2 classes a week from <b>$70</b></span>
+        </div>
+      </div>
+
+      <figure class="proof"><div class="pair">
+        <div class="print" data-light><span class="clamp"></span><img src="../assets/img/t2026-before.jpg" width="540" height="1080" alt="Member in 2024, before coaching, neck to feet"><span class="yr">2024</span></div>
+        <div class="print" data-light><span class="clamp"></span><img src="../assets/img/t2026-after.jpg" width="539" height="1080" alt="The same member in 2026 after two years of coached training"><span class="yr">2026</span></div></div>
+        <figcaption>Same member, two years of coached classes.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="ceil" aria-hidden="true"></div>
+  <div class="through" aria-label="On stage, 2026 season">
+    <div class="tin">
+      <div class="tcopy">
+        <h2>Coached here. Medaled on stage.</h2>
+        <p>The same coaches who run your class prepped these members for the 2026 season.</p>
+        <ul>
+          <li>NPC Jay Cutler Classic <span>placed in every category entered</span></li>
+          <li>NY Pro Amateur <span>first edition open to amateurs</span></li>
+          <li>Rhode Island Championship</li>
+        </ul>
+      </div>
+      <div class="shots">
+        <div class="shot"><img src="../assets/img/stage-medals.jpg" alt="Two members with medals at the NPC Jay Cutler Classic" fetchpriority="low"><span>Jay Cutler Classic</span></div>
+        <div class="shot"><img src="../assets/img/stage-duo.jpg" alt="Two members with medals at the NY Pro Amateur" fetchpriority="low"><span>NY Pro Amateur</span></div>
+        <div class="shot"><img src="../assets/img/stage-solo.jpg" alt="Member with medals at the Rhode Island Championship" fetchpriority="low"><span>Rhode Island</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="beam">
+    <span class="rivets"></span>
+    <div class="info">
+      <div><small>Where</small><a href="https://maps.google.com/?q=9350+Ashton+Rd+Philadelphia+PA">9350 Ashton Rd, Philadelphia</a></div>
+      <div class="times"><small>Classes, on the hour</small><b><span class="t">Mon, Tue, Thu, Fri 7–9 AM</span> <i>/</i> <span class="t">Mon–Thu 5–9 PM</span> <i>/</i> <span class="t">Fri 5–8 PM</span></b></div>
+      <div class="wa"><small>Book on WhatsApp</small><a href="https://wa.me/12673389078">(267) 338-9078</a></div>
+      <a class="btn beam-cta" href="https://wa.me/12673389078?text=Hi!%20I%27d%20like%20to%20book%20my%20first%20class.">Book your first class</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>SuperAtivo Fitness, 9350 Ashton Rd, Philadelphia. Coaching since 2015.</p>
+  <a href="https://instagram.com/superativofitness">Instagram @superativofitness</a>
+</footer>
+</main>
+
+<script src="../lib/gsap.min.js"></script>
+<script src="../lib/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = document.querySelector('.hero');
+  const plane = document.querySelector('.plane');
+  const cDark = document.querySelector('.wall.dark');
+  const cLit = document.querySelector('.wall.lit');
+  const sign = document.querySelector('.sign');
+  const prints = [...document.querySelectorAll('[data-light]')];
+
+  /* seeded random so the wall is the same every load */
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+  /* light source = the sign's tube line, in plane coordinates */
+  function lightGeom() {
+    const pr = plane.getBoundingClientRect(), sr = sign.getBoundingClientRect();
+    const sx = pr.width / plane.offsetWidth || 1;
+    return { x0: (sr.left - pr.left) / sx + sr.width * .05, x1: (sr.right - pr.left) / sx - sr.width * .05,
+             y: (sr.top - pr.top) / sx + sr.height * .48, w: sr.width };
+  }
+  function intensityAt(px, py, L, z) {
+    const lx = Math.max(L.x0, Math.min(L.x1, px));
+    const dx = px - lx, dy = py - L.y;
+    const d = Math.sqrt(dx * dx + dy * dy + z * z);
+    const r0 = L.w * .17;
+    return { I: 1 / (1 + (d / r0) * (d / r0)), dx, dy, d };
+  }
+
+  /* draw the black-painted brick wall: ambient pass + neon-lit pass */
+  function drawWall() {
+    // the wall runs past the frame on every side so the camera pan never finds its edge
+    const PW = plane.offsetWidth, PH = plane.offsetHeight;
+    const mx = Math.round(PW * .32), mt = Math.round(PH * .42);
+    const W = PW + mx * 2, H = Math.round(PH * 1.75) + mt;
+    const dpr = PW > 900 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+    [cDark, cLit].forEach(c => { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+      Object.assign(c.style, { left: -mx + 'px', top: -mt + 'px', width: W + 'px', height: H + 'px' }); });
+    const L0 = lightGeom(), L = { ...L0, x0: L0.x0 + mx, x1: L0.x1 + mx, y: L0.y + mt };
+    const g = cDark.getContext('2d'), l = cLit.getContext('2d');
+    g.setTransform(dpr, 0, 0, dpr, 0, 0); l.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = '#050506'; g.fillRect(0, 0, W, H);
+    l.fillStyle = '#000'; l.fillRect(0, 0, W, H);
+    const bw = W < 700 ? 40 : 52, bh = Math.round(bw / 3.1), m = 3;
+    seed = 7;
+    for (let row = 0, y = 0; y < H; row++, y += bh + m) {
+      const off = row % 2 ? -(bw + m) / 2 : 0;
+      for (let x = off + (rnd() - .5) * 4; x < W; ) {
+        const t = rnd();
+        const w = bw + (rnd() - .5) * 3, yj = y + (rnd() - .5) * .8, hh = bh + (rnd() - .5) * .8;
+        const base = 14 + t * 8;                       // painted black, uneven
+        g.fillStyle = `rgb(${base},${base},${base + 2})`;
+        g.fillRect(x, yj, w, hh);
+        if (rnd() > .7) { g.fillStyle = 'rgba(255,255,255,.022)'; g.fillRect(x + rnd() * w * .6, yj + 1, w * .3, hh - 2); }
+        if (rnd() > .9) { g.fillStyle = '#060607'; g.fillRect(x + (rnd() > .5 ? 0 : w - 4), yj, 4, 3); }   // chipped corner
+        // lit pass: intensity sampled at both ends so the light falls off smoothly across each brick
+        const cy = yj + hh / 2;
+        const A = intensityAt(x, cy, L, 34), B = intensityAt(x + w, cy, L, 34);
+        if (A.I + B.I > .008) {
+          const shade = q => Math.min(.62, q.I * (.25 + .75 * (34 / q.d))) * (0.8 + t * .4);
+          const col = k => `rgb(${Math.round(150 * k)},${Math.round(160 * k)},${Math.round(190 * k)})`;
+          const lg = l.createLinearGradient(x, 0, x + w, 0);
+          lg.addColorStop(0, col(shade(A))); lg.addColorStop(1, col(shade(B)));
+          l.fillStyle = lg; l.fillRect(x, yj, w, hh);
+          const C = intensityAt(x + w / 2, cy, L, 34);
+          const ex = -C.dx / C.d, ey = -C.dy / C.d, ei = Math.min(1, C.I * 1.05);
+          l.fillStyle = `rgba(222,232,255,${Math.min(.9, ei * Math.max(0, ey))})`; l.fillRect(x, yj + hh - 1.5, w, 1.5);
+          l.fillStyle = `rgba(222,232,255,${Math.min(.9, ei * Math.max(0, -ey))})`; l.fillRect(x, yj, w, 1.5);
+          l.fillStyle = `rgba(222,232,255,${Math.min(.8, ei * Math.max(0, ex))})`; l.fillRect(x + w - 1.5, yj, 1.5, hh);
+          l.fillStyle = `rgba(222,232,255,${Math.min(.8, ei * Math.max(0, -ex))})`; l.fillRect(x, yj, 1.5, hh);
+        }
+        x += w + m;
+      }
+    }
+    // fine grain on both passes
+    const n = document.createElement('canvas'); n.width = n.height = 160;
+    const nx = n.getContext('2d'), id = nx.createImageData(160, 160);
+    for (let i = 0; i < id.data.length; i += 4) { const v = rnd() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 22; }
+    nx.putImageData(id, 0, 0);
+    [g, l].forEach(ctx => { ctx.fillStyle = ctx.createPattern(n, 'repeat'); ctx.globalCompositeOperation = 'overlay'; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = 'source-over'; });
+    // soft wall wash right around the tubes (light spill)
+    const grd = l.createRadialGradient((L.x0 + L.x1) / 2, L.y, 0, (L.x0 + L.x1) / 2, L.y, L.w * .62);
+    grd.addColorStop(0, 'rgba(150,170,230,.22)'); grd.addColorStop(.4, 'rgba(110,130,200,.05)'); grd.addColorStop(1, 'rgba(0,0,0,0)');
+    l.save(); l.translate(0, 0); l.scale(1, .55); l.fillStyle = grd;
+    l.fillRect(0, 0, W, H / .55); l.restore();
+    // vignette on the ambient pass
+    const v = g.createRadialGradient(W / 2, mt + PH * .45, 0, W / 2, mt + PH * .45, Math.max(PW, PH) * .85);
+    v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.7)');
+    g.fillStyle = v; g.fillRect(0, 0, W, H);
+
+    // how much neon each print receives
+    prints.forEach(p => {
+      const pr = p.getBoundingClientRect(), pl = plane.getBoundingClientRect();
+      const s = pl.width / plane.offsetWidth || 1;
+      const { I } = intensityAt((pr.left + pr.width / 2 - pl.left) / s + mx, (pr.top + pr.height * .3 - pl.top) / s + mt, L, 60);
+      p.style.setProperty('--pl', Math.min(1, .45 + I * 1.6).toFixed(3));
+    });
+
+    // the next section reuses a dim slice of the same wall
+    const th = document.querySelector('.through');
+    th.style.setProperty('--wallimg', `url(${cDark.toDataURL('image/jpeg', .7)})`); th.style.setProperty('--wallsize', `${W}px ${H}px`); th.style.setProperty('--wallpos', `${-mx}px ${-mt}px`);
+  }
+
+  /* neon strike: 2 short flickers, on at ~1.2 s */
+  const on = { v: 0 };
+  const setOn = () => root.style.setProperty('--on', on.v.toFixed(3));
+  function strike() {
+    if (reduce) { on.v = 1; setOn(); return; }
+    gsap.timeline({ delay: .15, onUpdate: setOn })
+      .to(on, { v: .85, duration: .04, ease: 'none' })
+      .to(on, { v: .05, duration: .06, ease: 'none' }, '+=.05')
+      .to(on, { v: .55, duration: .03, ease: 'none' }, '+=.16')
+      .to(on, { v: .12, duration: .05, ease: 'none' }, '+=.04')
+      .to(on, { v: 1, duration: .38, ease: 'power2.out' }, '+=.11');
+  }
+
+  /* scroll: the camera pushes through the neon O into the next section */
+  const svg = sign.querySelector('svg');
+  const through = document.querySelector('.through'), tin = document.querySelector('.tin');
+  // inner hole of the O in sign units (viewBox -30 -34 674 168)
+  const HOLE = { x0: 555.5, x1: 592.5, y0: 6, y1: 94, r: 17 };
+  function holeRect() {
+    const r = svg.getBoundingClientRect(), k = r.width / 674;
+    return { l: r.left + (HOLE.x0 + 30) * k, r: r.left + (HOLE.x1 + 30) * k, t: r.top + (HOLE.y0 + 34) * k, b: r.top + (HOLE.y1 + 34) * k, rad: HOLE.r * k };
+  }
+  let base = null;   // hole rect at rest (no transform)
+  function setOrigin() {
+    gsap.set(plane, { clearProps: 'transform' });
+    const h = holeRect(), p = plane.getBoundingClientRect();
+    base = { cx: (h.l + h.r) / 2 - p.left, cy: (h.t + h.b) / 2 - p.top, w: h.r - h.l, h: h.b - h.t };
+    plane.style.transformOrigin = `${base.cx}px ${base.cy}px`;
+  }
+  const smooth = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+  function render(prog) {
+    const W = innerWidth, Hh = hero.offsetHeight;
+    const S = Math.max(W / base.w, Hh / base.h) * 1.12;
+    // camera aims at the O, then pushes through it (exponential = constant perceived speed)
+    const pan = smooth(prog / .55), s = Math.pow(S, Math.pow(prog, 1.45));
+    gsap.set(plane, { x: (W / 2 - base.cx) * pan, y: (Hh * .46 - base.cy) * pan, scale: s });
+    const h = holeRect();
+    const hw = h.r - h.l;
+    const vis = smooth((hw - 50) / 170);                // the next room glows inside the O once it is big enough to read
+    const open = smooth((prog - .86) / .14);            // guarantee a clean full frame at the end
+    const L = gsap.utils.interpolate;
+    const l = L(h.l, 0, open), r = L(h.r, W, open), t = L(h.t, 0, open), b = L(h.b, Hh, open), rad = L(h.rad, 0, open);
+    through.style.visibility = vis > 0 ? 'visible' : 'hidden';
+    through.style.opacity = vis.toFixed(3);
+    through.style.clipPath = `inset(${Math.max(0, t)}px ${Math.max(0, W - r)}px ${Math.max(0, Hh - b)}px ${Math.max(0, l)}px round ${rad}px)`;
+    const k = smooth((prog - .45) / .55);
+    tin.style.transform = `scale(${(.8 + .2 * k).toFixed(4)})`;
+  }
+  function scrollMove() {
+    if (reduce || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const st = { p: 0 };
+    gsap.timeline({ defaults: { ease: 'none' },
+      scrollTrigger: { trigger: hero, start: 'top top', end: '+=120%', pin: true, scrub: .9, anticipatePin: 1,
+        onRefreshInit: () => { gsap.set(plane, { clearProps: 'transform' }); }, onRefresh: () => { setOrigin(); render(st.p); } } })
+      .to(st, { p: 1, duration: 1, onUpdate: () => render(st.p) })
+      .to({}, { duration: .15 });
+  }
+
+  addEventListener('scroll', () => document.querySelector('.hdr').classList.toggle('solid', hero.getBoundingClientRect().top < -2), { passive: true });
+  if (reduce) { hero.after(through); Object.assign(through.style, { position: 'relative', visibility: 'visible', clipPath: 'none', height: '100svh', minHeight: '640px' }); }
+  const go = () => { drawWall(); setOrigin(); strike(); scrollMove(); };
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
+  let rw = innerWidth, t;
+  addEventListener('resize', () => { if (innerWidth === rw) return; rw = innerWidth; clearTimeout(t); t = setTimeout(() => { drawWall(); window.ScrollTrigger && ScrollTrigger.refresh(); }, 200); });
+})();
+</script>
+</body>
+</html>
