@@ -171,15 +171,12 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .lb .opt{font-size:12px;color:#857C70}
 .icons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .icons button{aspect-ratio:1.6;display:grid;place-items:center;color:#D6CEC2;background:rgba(237,230,218,.04);border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:background .15s var(--ease),border-color .15s var(--ease)}
-.icons button svg{width:24px;height:24px}
+.icons button svg{width:26px;height:26px}.icons.i3{grid-template-columns:repeat(3,1fr)}.seg.lk5{grid-template-columns:repeat(5,1fr)}
 .icons button:hover{border-color:rgba(237,230,218,.3)}
 .icons button[aria-pressed=true]{background:var(--bone);color:var(--graphite);border-color:var(--bone)}
 .icons button:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
-#c-tag{width:100%;font:400 15px Hanken,sans-serif;color:var(--bone);background:rgba(237,230,218,.05);border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none}
-#c-tag:focus{border-color:rgba(237,230,218,.45)}
-.mark.stack{flex-direction:column;gap:.35em;text-align:center}
-.mark.stack .wm{font-size:.8em}
-.out .mark .mono,.out .ico .ini{border-radius:var(--shp,50%)}
+#c-tag,#c-desc{width:100%;font:400 15px Hanken,sans-serif;color:var(--bone);background:rgba(237,230,218,.05);border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none}
+#c-tag:focus,#c-desc:focus{border-color:rgba(237,230,218,.45)}
 .tile{container-type:inline-size}
 .fol,.wb-nav .pill,.wb-btn{background:var(--a)!important;color:var(--ai)!important;border-radius:var(--rb,8px)!important}
 .bcard,.board,.web{border-radius:var(--rc,10px)}
@@ -191,23 +188,32 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .fx{transition:opacity .2s var(--ease)}
 .fading .fx{opacity:0}
 .mark{display:flex;align-items:center;gap:.5em;color:var(--m);transition:color .45s var(--ease)}
-.mark .mono{width:1.9em;height:1.9em;border-radius:50%;background:var(--m);color:var(--g);display:grid;place-items:center;font-size:1em;flex:0 0 auto;transition:background .45s var(--ease),color .45s var(--ease)}
 .mark .wm{font-size:1em;white-space:nowrap;line-height:1}
-.mark .sym{width:1.8em;height:1.8em;display:block;flex:0 0 auto}
-.mark .badge{width:4.2em;height:4.2em;display:block}
 .ico{display:grid;place-items:center;line-height:1}
-.ico .sym{width:55%;height:55%}
-.ico .ini{font-size:1em}
+.ico .sym{width:56%;height:56%}.ico .mg{width:72%;height:72%}
+/* lockups */
+.tile{--kn:var(--g)}.on-b,.app,.tote .ico{--kn:var(--b)}.ig-av,.q1{--kn:var(--f)}
+.mark .sym{width:1.55em;height:1.55em;display:block;flex:0 0 auto}
+.mark .mg{width:1.7em;height:1.7em;display:block;flex:0 0 auto}
+.mark .nm{display:flex;flex-direction:column;gap:.34em}
+.mark .ds{font:600 .26em/1 Hanken,sans-serif;letter-spacing:.3em;text-transform:uppercase;opacity:.78;white-space:nowrap}
+.lk-row{gap:.42em}
+.lk-stack{flex-direction:column;gap:.3em;text-align:center}.lk-stack .sym{width:1.9em;height:1.9em;margin-bottom:.12em}
+.lk-stack .ds{display:flex;align-items:center;gap:.7em}.lk-stack .ds::before,.lk-stack .ds::after{content:"";width:1.6em;height:1px;background:currentColor;opacity:.6}
+.lk-word{flex-direction:column;align-items:center;gap:.4em}.lk-word .ds{letter-spacing:.42em}
+.lk-crest .crest{width:4.4em;height:4.4em;display:block}
+.board .lk-crest .crest,.board .lk-stack .sym{width:2.6em;height:2.6em}.board .lk-stack .ds{display:none}
+.wb-nav .lk-crest .crest{width:2.3em;height:2.3em}.wb-nav .ds{display:none}.wb-nav .lk-stack .sym{display:none}
+.bcard .lk-crest .crest{width:3.4em;height:3.4em}
 /* logo */
 .t-logo{display:grid;place-items:center}
-.t-logo .mark{font-size:clamp(26px,2.6vw,40px)}
+.t-logo .mark{font-size:clamp(30px,3.4vw,54px)}
 /* card */
 .t-card,.t-merch,.t-sign{background:radial-gradient(120% 90% at 30% 20%,#2A2622,#151311 70%);color:#CFC7BB}
 .t-card{display:grid;place-items:center}
 .bcard{width:70%;aspect-ratio:1.75;border-radius:10px;background:var(--b);color:var(--bi);padding:6% 7%;display:flex;flex-direction:column;justify-content:space-between;
   box-shadow:0 18px 40px rgba(0,0,0,.4),0 2px 6px rgba(0,0,0,.25);transform:rotate(-4deg);transition:background .45s var(--ease),color .45s var(--ease)}
 .on-b .mark{color:var(--bi)}
-.on-b .mark .mono{background:var(--bi);color:var(--b)}
 .bcard .mark{font-size:clamp(14px,1.3vw,19px)}
 .bcard .tl{font-size:clamp(11px,.9vw,13px);opacity:.88;line-height:1.35}
 .bcard .hd{font-family:Mono;font-size:10px;opacity:.7;margin-top:5px}
@@ -229,7 +235,6 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .t-sign{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;background:#0F0E0D}
 .board{background:var(--b);color:var(--bi);padding:13px 24px;border-radius:6px;max-width:86%;box-shadow:0 0 0 6px #1B1917,0 20px 50px color-mix(in srgb,var(--b) 45%,transparent);transition:background .45s var(--ease),box-shadow .45s var(--ease)}
 .board .mark{font-size:clamp(18px,1.8vw,26px)}
-.board .mark .badge{width:2.6em;height:2.6em}
 .apps{display:flex;gap:12px;align-items:center;max-width:86%}
 .app{width:46px;height:46px;border-radius:12px;background:var(--b);color:var(--bi);flex:0 0 46px;font-size:16px;transition:background .45s var(--ease),color .45s var(--ease)}
 .t-sign .tl{color:#CFC7BB;font-size:13px}
@@ -240,7 +245,7 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .wb-bar{display:flex;gap:5px;padding:8px 10px;background:color-mix(in srgb,var(--g) 85%,#000)}
 .wb-bar i{width:7px;height:7px;border-radius:50%;background:color-mix(in srgb,var(--ik) 30%,transparent)}
 .wb-nav{display:flex;align-items:center;gap:14px;padding:10px 16px;font-size:11px}
-.wb-nav .mark{font-size:13px}.wb-nav .mark .badge{width:2.2em;height:2.2em}
+.wb-nav .mark{font-size:13px}
 .wb-nav .sp{margin-left:auto}
 .wb-nav .pill{background:var(--f);color:var(--fi);border-radius:6px;padding:5px 10px;font-weight:600}
 .wb-h{padding:6% 16px 0;font-size:clamp(18px,1.9vw,28px);line-height:1.05;max-width:85%}
@@ -250,9 +255,7 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .tote{position:relative;width:34%;aspect-ratio:.86;transform:rotate(-3deg)}
 .tote svg.bag{position:absolute;inset:0;width:100%;height:100%;color:var(--b);filter:drop-shadow(0 14px 22px rgba(0,0,0,.45));transition:color .45s var(--ease)}
 .tote .ico{position:absolute;left:0;right:0;top:34%;bottom:6%;color:var(--bi);font-size:26px}
-.tote .ico .badge{width:72%;height:auto}
 .sticker{width:24%;aspect-ratio:1;border-radius:50%;background:var(--g);color:var(--m);font-size:22px;transform:rotate(8deg);box-shadow:0 10px 20px rgba(0,0,0,.4);transition:background .45s var(--ease),color .45s var(--ease)}
-.sticker .badge{width:86%;height:auto}
 .sample{margin-top:14px;font-size:13px;color:var(--bone2);text-align:right}
 
 /* ---- 02 websites ---- */
@@ -424,7 +427,7 @@ body.look-b .chap.alt .reel button[aria-selected=true]{border-color:var(--ember)
 .gres{margin-top:14px}
 .sp{font-weight:700;font-size:13px}
 .gsite{display:flex;align-items:center;gap:10px;margin-top:8px}
-.fav{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 12px Hanken,sans-serif;background:#EEE;color:#333;transition:background .45s var(--ease),color .45s var(--ease)}
+.fav{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 12px Hanken,sans-serif;background:#EEE;color:#333;transition:background .45s var(--ease),color .45s var(--ease)}.fav .gsym{width:62%;height:62%;display:block}
 .gsite b{display:block;font-size:14px;font-weight:400}.gsite span{font-size:12px;color:#4D5156}
 .gh{margin-top:6px;font-size:20px;line-height:1.3;color:#1A0DAB}
 .gd{margin-top:4px;font-size:14px;line-height:1.5;color:#4D5156}
@@ -486,6 +489,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
   .tile{flex:0 0 74%}
   .seg.c4{grid-template-columns:repeat(2,minmax(0,1fr))}
   .seg.c4 button{font-size:14px}
+  .seg.lk5{grid-template-columns:repeat(3,minmax(0,1fr))}
   .cfg .pv .sample{display:none}
   .cfg .ctl::after{content:"Sample brand, built live. Yours starts from a real conversation.";display:block;margin-top:16px;font-size:12px;color:var(--bone2)}
   .sample{margin-top:8px;font-size:12px}
@@ -600,16 +604,16 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
     <div class="ctl">
      <div class="ctabs" role="tablist" aria-label="Brand options"><button type="button" role="tab" data-p="biz" aria-selected="true">Basics</button><button type="button" role="tab" data-p="logo" aria-selected="false">Logo</button><button type="button" role="tab" data-p="col" aria-selected="false">Colour</button><button type="button" role="tab" data-p="type" aria-selected="false">Type</button></div>
      <div class="pane" data-p="biz">
-      <div class="g"><label class="lb" for="c-name">Business name <button type="button" class="shuf" id="c-shuf"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h3l6 8h3M2 12h3l1.6-2.1M9.4 6.1L11 4h3M12 2l2 2-2 2M12 10l2 2-2 2"/></svg>Surprise me</button></label><input type="text" id="c-name" maxlength="18" value="Corvo Coffee" autocomplete="off" spellcheck="false"></div>
+      <div class="g"><label class="lb" for="c-name">Business name <button type="button" class="shuf" id="c-shuf"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h3l6 8h3M2 12h3l1.6-2.1M9.4 6.1L11 4h3M12 2l2 2-2 2M12 10l2 2-2 2"/></svg>Surprise me</button></label><input type="text" id="c-name" maxlength="18" value="Corvo" autocomplete="off" spellcheck="false"></div>
+      <div class="g"><label class="lb" for="c-desc">Line under the name</label><input type="text" id="c-desc" maxlength="22" value="Coffee Bar" autocomplete="off" spellcheck="false"></div>
       <div class="g"><span class="lb">Kind of business</span><div class="seg" data-k="kind"><button data-v="cafe">Café</button><button data-v="barber">Barber</button><button data-v="studio">Pilates</button><button data-v="grill">Restaurant</button><button data-v="salon">Salon</button><button data-v="gym">Gym</button></div></div>
       <div class="g"><span class="lb">Voice</span><div class="seg c4" data-k="voice"><button data-v="bold">Bold</button><button data-v="warm">Warm</button><button data-v="calm">Calm</button><button data-v="play">Playful</button></div></div>
       <div class="g"><label class="lb" for="c-tag">Your own tagline <span class="opt">optional</span></label><input type="text" id="c-tag" maxlength="40" placeholder="Write one, or keep the voice above" autocomplete="off"></div>
      </div>
      <div class="pane" data-p="logo" hidden>
-      <div class="g"><span class="lb">Logo style</span><div class="seg c4" data-k="mark"><button data-v="mono">Monogram</button><button data-v="word">Wordmark</button><button data-v="sym">Symbol</button><button data-v="badge">Badge</button></div></div>
-      <div class="g"><span class="lb">Icon</span><div class="icons" data-k="icon"><button data-v="cup" title="Cup" aria-label="Cup"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="cup"></svg></button><button data-v="pole" title="Pole" aria-label="Pole"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="pole"></svg></button><button data-v="orbit" title="Orbit" aria-label="Orbit"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="orbit"></svg></button><button data-v="flame" title="Flame" aria-label="Flame"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="flame"></svg></button><button data-v="leaf" title="Leaf" aria-label="Leaf"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="leaf"></svg></button><button data-v="bell" title="Weights" aria-label="Weights"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="bell"></svg></button><button data-v="spark" title="Spark" aria-label="Spark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="spark"></svg></button><button data-v="drop" title="Drop" aria-label="Drop"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="drop"></svg></button></div></div>
-      <div class="g"><span class="lb">Layout</span><div class="seg c2" data-k="lay"><button data-v="row">Side by side</button><button data-v="stack">Stacked</button></div></div>
-      <div class="g"><span class="lb">Icon shape</span><div class="seg" data-k="shape"><button data-v="circle">Circle</button><button data-v="round">Rounded</button><button data-v="square">Square</button></div></div>
+      <div class="g"><span class="lb">Logo style</span><div class="seg lk5" data-k="mark"><button data-v="sym">Symbol</button><button data-v="stack">Stacked</button><button data-v="mono">Monogram</button><button data-v="word">Wordmark</button><button data-v="crest">Crest</button></div></div>
+      <div class="g"><span class="lb">Symbol</span><div class="icons i3" data-k="icon"></div></div>
+      <div class="g"><span class="lb">App icon shape</span><div class="seg" data-k="shape"><button data-v="circle">Circle</button><button data-v="round">Rounded</button><button data-v="square">Square</button></div></div>
       <div class="g"><span class="lb">Letters</span><div class="seg" data-k="cs"><button data-v="as">Aa</button><button data-v="up">AA</button><button data-v="low">aa</button></div></div>
      </div>
      <div class="pane" data-p="col" hidden>
@@ -760,6 +764,6 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
 </main>
 <dialog id="cine" aria-label="Video"><div class="cbox" id="cbox"></div><button type="button" class="cx" id="cx" aria-label="Close">×</button></dialog>
 <dialog id="lb" aria-label="Post"><button type="button" class="lbx" aria-label="Close">×</button><div class="lbpost" id="lbpost"></div><div class="lbnav"><button type="button" id="lbp" aria-label="Previous slide">‹</button><span id="lbdots"></span><button type="button" id="lbn" aria-label="Next slide">›</button></div><p class="lbcap" id="lbcap"></p><p class="lbwhy" id="lbwhy"></p></dialog>
-<script src="I.js"></script>
+<script src="marks.js"></script><script src="I.js"></script>
 </body>
 </html>

@@ -60,25 +60,19 @@ const R=(()=>{const story=document.getElementById('story'),wrap=document.getElem
 
 /* ---------- 01 brand configurator ---------- */
 const CFG=(()=>{
-  const SYM={cup:'<path d="M8 16h20v8a10 10 0 0 1-20 0z"/><path d="M28 18h3a4 4 0 0 1 0 8h-3"/><path d="M14 6c-2 3 2 4 0 7M20 6c-2 3 2 4 0 7"/>',
-    pole:'<rect x="13" y="4" width="14" height="32" rx="7"/><path d="M13 14l14-6M13 22l14-6M13 30l14-6"/>',
-    orbit:'<circle cx="20" cy="20" r="14"/><path d="M6 20c8-7 20-7 28 0"/><circle cx="20" cy="11" r="2.2" fill="currentColor" stroke="none"/>',
-    flame:'<path d="M20 5c4 7 10 10 10 18a10 10 0 0 1-20 0c0-5 3-8 5-11 1 4 3 5 5 6 0-5-1-9 0-13z"/>',
-    leaf:'<path d="M8 32C8 16 18 8 32 8c0 14-8 24-24 24z"/><path d="M8 32l14-14"/>',
-    bell:'<path d="M5 15v10M10 11v18M30 11v18M35 15v10M10 20h20"/>',
-    spark:'<path d="M20 4l3.5 12.5L36 20l-12.5 3.5L20 36l-3.5-12.5L4 20l12.5-3.5z"/>',
-    drop:'<path d="M20 5c6 8 11 13 11 19a11 11 0 0 1-22 0c0-6 5-11 11-19z"/><path d="M15 25a5 5 0 0 0 5 5"/>'};
+  /* marks = MARKS from marks.js (local-AI concepts, traced to vectors). Names: fictional sample brands. */
   const KINDS={
-    cafe:{name:'Corvo Coffee',word:'Coffee',sym:'cup',nav:['Menu','Visit'],cta:'Order ahead',tag:{bold:'Strong coffee. No small talk.',warm:'Your corner table is waiting.',calm:'Slow mornings, done right.',play:'Stay for the croissant.'}},
-    barber:{name:'Hale Barbers',word:'Barbers',sym:'pole',nav:['Services','Team'],cta:'Book a cut',tag:{bold:'Sharp cuts. Every time.',warm:'Pull up a chair, we got you.',calm:'A clean cut, no rush.',play:'Fresh cut, fresh start.'}},
-    studio:{name:'Nova Pilates',word:'Pilates',sym:'orbit',nav:['Classes','Studio'],cta:'Book a class',tag:{bold:'Stronger in fifty minutes.',warm:'Move well, feel at home.',calm:'Breathe in. Move slow.',play:'Wobbly first class? Welcome.'}},
-    grill:{name:'Brasa Grill',word:'Grill',sym:'flame',nav:['Menu','Visit'],cta:'Reserve',tag:{bold:'Fire, meat, nothing else.',warm:'Sunday lunch, every day.',calm:'Good food, take your time.',play:'Come hungry. Leave happy.'}},
-    salon:{name:'Lumi Salon',word:'Salon',sym:'leaf',nav:['Services','Gallery'],cta:'Book now',tag:{bold:'Colour that turns heads.',warm:'Your hour, just for you.',calm:'Quiet chair, good hands.',play:'Every day is a hair day.'}},
-    gym:{name:'Iron Yard',word:'Gym',sym:'bell',nav:['Classes','Coaches'],cta:'Join',tag:{bold:'Show up. Lift heavy.',warm:'Stronger, together.',calm:'Train well. Rest well.',play:'Leg day is every day.'}}};
+    cafe:{names:[['Corvo','Coffee Bar'],['Marlo','Coffee House'],['Saltwood','Café & Bakery']],nav:['Menu','Visit'],cta:'Order ahead',tag:{bold:'Strong coffee. No small talk.',warm:'Your corner table is waiting.',calm:'Slow mornings, done right.',play:'Stay for the croissant.'}},
+    barber:{names:[['Hale & Co.','Barbers'],['Ironside','Barber Shop'],['Sterling','Barber Club']],nav:['Services','Team'],cta:'Book a cut',tag:{bold:'Sharp cuts. Every time.',warm:'Pull up a chair, we got you.',calm:'A clean cut, no rush.',play:'Fresh cut, fresh start.'}},
+    studio:{names:[['Still','Pilates Studio'],['Nova','Pilates'],['Arc','Reformer Studio']],nav:['Classes','Studio'],cta:'Book a class',tag:{bold:'Stronger in fifty minutes.',warm:'Move well, feel at home.',calm:'Breathe in. Move slow.',play:'Wobbly first class? Welcome.'}},
+    grill:{names:[['Brasa','Wood-fire Grill'],['Ember & Oak','Kitchen'],['Salt & Coal','Grill House']],nav:['Menu','Visit'],cta:'Reserve',tag:{bold:'Fire, meat, nothing else.',warm:'Sunday lunch, every day.',calm:'Good food, take your time.',play:'Come hungry. Leave happy.'}},
+    salon:{names:[['Lumi','Hair Studio'],['Muse','Salon'],['Velvet','Hair & Colour']],nav:['Services','Gallery'],cta:'Book now',tag:{bold:'Colour that turns heads.',warm:'Your hour, just for you.',calm:'Quiet chair, good hands.',play:'Every day is a hair day.'}},
+    gym:{names:[['Iron Yard','Strength Club'],['Forge','Training Co.'],['Atlas','Gym']],nav:['Classes','Coaches'],cta:'Join',tag:{bold:'Show up. Lift heavy.',warm:'Stronger, together.',calm:'Train well. Rest well.',play:'Leg day is every day.'}}};
+  for(const k in KINDS)KINDS[k].marks=Object.keys(MARKS).filter(id=>MARKS[id].kind===k);
   const COLS=[['Cobalt','#2A47C4'],['Forest','#1F5A43'],['Oxblood','#7A1F2A'],['Saffron','#E2A426'],['Rose','#E07A93'],['Plum','#5B2A6E'],['Teal','#0F7C7A'],['Coral','#F0623F'],['Sky','#7FB2EC'],['Ink','#18181C']];
   const TYPES={classic:{f:'Serif',w:400,ls:'-.01em',tt:'none',sz:1.08},elegant:{f:'Corm',w:500,ls:'.01em',tt:'none',sz:1.12},soft:{f:'Fraunces',w:600,ls:'-.02em',tt:'none',sz:.95},
     loud:{f:'Archivo',w:400,ls:'-.02em',tt:'none',sz:.86},modern:{f:'Syne',w:700,ls:'-.01em',tt:'none',sz:.92},tech:{f:'Mono',w:500,ls:'.03em',tt:'uppercase',sz:.82}};
-  const S={name:'Corvo Coffee',kind:'cafe',mark:'mono',col:0,custom:'#2A47C4',gr:'light',type:'classic',voice:'warm',named:false,icon:'cup',lay:'row',shape:'circle',cs:'as',acc:'same',customAcc:'#D9A441',sp:'normal',cor:'soft',tagOwn:''};
+  const S={name:'Corvo',desc:'Coffee Bar',ni:0,kind:'cafe',mark:'sym',col:0,custom:'#2A47C4',gr:'light',type:'classic',voice:'warm',named:false,icon:KINDS.cafe.marks[0],shape:'circle',cs:'as',acc:'same',customAcc:'#D9A441',sp:'normal',cor:'soft',tagOwn:''};
   const ACC=[['Same as main','same'],['Gold','#D9A441'],['Lime','#C6F23D'],['Coral','#F0623F'],['Sky','#7FB2EC'],['Rose','#E07A93'],['Cream','#F3E9D6'],['Ink','#18181C']];
   const box=document.getElementById('cfg'),out=document.getElementById('out'),brand=document.getElementById('brand'),nameI=document.getElementById('c-name');
   const swW=box.querySelector('[data-k=col]');
@@ -87,7 +81,8 @@ const CFG=(()=>{
   ACC.forEach(([n,c])=>{const b=document.createElement('button');b.type='button';b.dataset.v=c;b.title=n;b.setAttribute('aria-label',n);b.style.background=c==='same'?'conic-gradient(var(--bone2) 0 50%,transparent 0) , #2A2622':c;if(c==='same')b.innerHTML='<svg viewBox="0 0 30 30" style="width:100%;height:100%"><path d="M8 22L22 8" stroke="#EDE6DA" stroke-width="1.5"/></svg>',b.style.background='#2A2622';acW.appendChild(b)});
   const cusA=document.createElement('label');cusA.className='cus';cusA.title='Any accent';cusA.dataset.v='customA';cusA.innerHTML='<input type="color" value="#D9A441" aria-label="Pick any accent colour">';acW.appendChild(cusA);const cusAI=cusA.querySelector('input');
   cusAI.addEventListener('input',()=>{S.acc='customA';S.customAcc=cusAI.value;render(false)});cusA.addEventListener('click',()=>{if(S.acc!=='customA'){S.acc='customA';S.customAcc=cusAI.value;render(false)}});
-  box.querySelectorAll('[data-sym]').forEach(sv=>sv.innerHTML=SYM[sv.dataset.sym]);
+  const icW=box.querySelector('[data-k=icon]');
+  function icons(){icW.innerHTML=KINDS[S.kind].marks.map(id=>`<button type="button" data-v="${id}" title="${MARKS[id].n}" aria-label="${MARKS[id].n}">${msvg(id)}</button>`).join('')}
   box.querySelector('.ctabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;box.querySelectorAll('.ctabs button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));box.querySelectorAll('.pane').forEach(p=>p.hidden=p.dataset.p!==b.dataset.p)});
   const tagI=document.getElementById('c-tag');tagI.addEventListener('input',()=>{S.tagOwn=tagI.value;render(false)});
   const cus=document.createElement('label');cus.className='cus';cus.title='Any colour';cus.dataset.v='custom';
@@ -98,68 +93,81 @@ const CFG=(()=>{
   const lum=h=>{const [r,g,b]=hx(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b};
   function palette(){const b=S.col==='custom'?S.custom:COLS[S.col][1],L=lum(b),bi=L>.36?'#16130F':'#FBF8F3';let g,ik,m;
     if(S.gr==='light'){g=mix(b,'#FFFFFF',.9);ik=mix(b,'#0B0A09',.82);m=L>.45?mix(b,'#000000',.38):b}
-    else if(S.gr==='dark'){g=mix(b,'#0D0C0B',.88);ik='#F3EEE6';m=L<.06?mix(b,'#FFFFFF',.82):b}
+    else if(S.gr==='dark'){g=mix(b,'#0D0C0B',.88);ik='#F3EEE6';m=L<.06?mix(b,'#FFFFFF',.82):L<.16?mix(b,'#FFFFFF',.42):b}
     else{g=b;ik=bi;m=bi}
     const f=S.gr==='brand'?bi:b,fi=S.gr==='brand'?b:bi;
     let a=f,ai=fi,an='Same as main';if(S.acc!=='same'){a=S.acc==='customA'?S.customAcc:S.acc;ai=lum(a)>.36?'#16130F':'#FBF8F3';an=S.acc==='customA'?'Your accent':ACC.find(x=>x[1]===S.acc)[0]}
     return {b,bi,g,ik,m,f,fi,a,ai,an,n:S.col==='custom'?'Your colour':COLS[S.col][0]}}
   const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const nm=()=>S.name.trim()||'Your name';
-  const initials=()=>{const w=nm().split(/\s+/).filter(Boolean);return ((w[0]||'Y')[0]+(w[1]?w[1][0]:'')).toUpperCase()};
-  const sym=()=>`<svg class="sym" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${SYM[S.icon]}</svg>`;
+  const words=()=>nm().split(/\s+/).filter(w=>/^[\p{L}\p{N}]/u.test(w));
+  const initials=()=>{const w=words();return ((w[0]||'Y')[0]+(w[1]?w[1][0]:'')).toUpperCase()};
+  const dsc=()=>S.desc.trim();
   let uid=0;
-  function badge(){const ty=TYPES[S.type],id='bp'+(++uid),k=KINDS[S.kind];const top=esc(nm().toUpperCase()),bot=esc(k.word.toUpperCase());
-    const fs=Math.min(13,150/Math.max(6,top.length));
-    return `<svg class="badge" viewBox="0 0 120 120"><defs><path id="${id}a" d="M17,60 a43,43 0 1,1 86,0"/><path id="${id}b" d="M11,60 a49,49 0 0,0 98,0"/></defs>
-      <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="60" r="31" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
-      <text fill="currentColor" style="font-family:${ty.f};font-weight:${ty.w}" font-size="${fs}" letter-spacing="2"><textPath href="#${id}a" startOffset="50%" text-anchor="middle">${top}</textPath></text>
-      <text fill="currentColor" style="font-family:${ty.f};font-weight:${ty.w}" font-size="9" letter-spacing="3"><textPath href="#${id}b" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">${bot}</textPath></text>
-      <svg x="43" y="43" width="34" height="34" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${SYM[S.icon]}</svg></svg>`}
-  function full(){const n=esc(nm()),st=S.lay==='stack'?' stack':'';
-    if(S.mark==='mono')return `<div class="mark${st}"><span class="mono">${esc(initials())}</span><span class="wm">${n}</span></div>`;
-    if(S.mark==='sym')return `<div class="mark${st}">${sym()}<span class="wm">${n}</span></div>`;
-    if(S.mark==='badge')return `<div class="mark">${badge()}</div>`;
-    return `<div class="mark"><span class="wm">${n}</span></div>`}
-  function icon(){if(S.mark==='sym')return sym();if(S.mark==='badge')return badge();
-    return `<span class="ini">${esc(S.mark==='word'?nm()[0].toUpperCase():initials())}</span>`}
+  const msvg=(id,cls)=>MARKS[id]?`<svg class="${cls||'sym'}" viewBox="0 0 100 100" aria-hidden="true"><path fill-rule="evenodd" fill="currentColor" d="${MARKS[id].d}"/></svg>`:'';
+  const tyStyle=()=>{const ty=TYPES[S.type];return `font-family:${ty.f};font-weight:${ty.w}`};
+  /* interlocked monogram: 2nd letter cuts through the 1st with a knock-out stroke in the ground colour (--kn) */
+  function mono(cls){const ini=initials(),st=tyStyle();
+    if(ini.length<2)return `<svg class="${cls||'mg'}" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width=".8"/><text x="50" y="50" dy=".35em" text-anchor="middle" font-size="50" fill="currentColor" style="${st}">${esc(ini)}</text></svg>`;
+    return `<svg class="${cls||'mg'}" viewBox="0 0 100 100" aria-hidden="true"><text x="37" y="50" dy=".35em" text-anchor="middle" font-size="64" fill="currentColor" style="${st}">${esc(ini[0])}</text><text x="63" y="50" dy=".35em" text-anchor="middle" font-size="64" fill="currentColor" stroke="var(--kn)" stroke-width="5" paint-order="stroke" style="${st}">${esc(ini[1])}</text></svg>`}
+  function crest(){const st=tyStyle(),id='cr'+(++uid);const top=esc(nm().toUpperCase()),bot=esc(dsc().toUpperCase());
+    const fs=Math.min(12.5,150/Math.max(6,top.length)),fb=Math.min(8,120/Math.max(6,bot.length));
+    return `<svg class="crest" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="${id}a" d="M19,60 a41,41 0 1,1 82,0"/><path id="${id}b" d="M13,60 a47,47 0 0,0 94,0"/></defs>
+      <circle cx="60" cy="60" r="57.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="60" r="31" fill="none" stroke="currentColor" stroke-width=".9"/>
+      <circle cx="10" cy="60" r="1.8" fill="currentColor"/><circle cx="110" cy="60" r="1.8" fill="currentColor"/>
+      <text fill="currentColor" style="${st}" font-size="${fs}" letter-spacing="1.6"><textPath href="#${id}a" startOffset="50%" text-anchor="middle">${top}</textPath></text>
+      <text fill="currentColor" style="font-family:Hanken;font-weight:600" font-size="${fb}" letter-spacing="2.4"><textPath href="#${id}b" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">${bot}</textPath></text>
+      <svg x="42" y="42" width="36" height="36" viewBox="0 0 100 100"><path fill-rule="evenodd" fill="currentColor" d="${(MARKS[S.icon]||{}).d||''}"/></svg></svg>`}
+  function full(small){const n=esc(nm()),d=dsc()?`<span class="ds">${esc(dsc())}</span>`:'';
+    if(small&&S.mark==='crest')return `<div class="mark lk-row">${msvg(S.icon)}<span class="nm"><span class="wm">${n}</span>${d}</span></div>`;
+    if(S.mark==='sym')return `<div class="mark lk-row">${msvg(S.icon)}<span class="nm"><span class="wm">${n}</span>${d}</span></div>`;
+    if(S.mark==='stack')return `<div class="mark lk-stack">${msvg(S.icon)}<span class="wm">${n}</span>${d}</div>`;
+    if(S.mark==='mono')return `<div class="mark lk-row">${mono()}<span class="nm"><span class="wm">${n}</span>${d}</span></div>`;
+    if(S.mark==='crest')return `<div class="mark lk-crest">${crest()}</div>`;
+    return `<div class="mark lk-word"><span class="wm">${n}</span>${d}</div>`}
+  function icon(){if(S.mark==='mono'||S.mark==='word')return mono('mg');return msvg(S.icon)}
   function fit(){out.querySelectorAll('.mark').forEach(m=>{m.style.fontSize='';const box=m.closest('.board,.bcard,.wb-nav,.tile');
-    const max=(box.clientWidth||300)*(box.classList.contains('tile')?.84:box.classList.contains('wb-nav')?.42:.92);let i=0;
-    while(m.scrollWidth>max&&i<30){m.style.fontSize=(parseFloat(getComputedStyle(m).fontSize)*.93)+'px';i++}})}
+    const max=(box.clientWidth||300)*(box.classList.contains('tile')?.84:box.classList.contains('wb-nav')?.42:.92),maxH=box.classList.contains('wb-nav')?28:1e9;let i=0;
+    while((m.scrollWidth>max||m.offsetHeight>maxH)&&i<30){m.style.fontSize=(parseFloat(getComputedStyle(m).fontSize)*.93)+'px';i++}})}
   addEventListener('resize',()=>fit());
   function render(anim){const p=palette(),ty=TYPES[S.type],k=KINDS[S.kind];
+    if(icW.dataset.kind!==S.kind){icons();icW.dataset.kind=S.kind}if(!MARKS[S.icon]||MARKS[S.icon].kind!==S.kind)S.icon=k.marks[0];
     for(const v of['b','bi','g','ik','m','f','fi','a','ai'])out.style.setProperty('--'+v,p[v]);brand.style.setProperty('--bc',p.b);
     document.getElementById('c-cn').textContent=p.n;document.getElementById('c-an').textContent=p.an;
     out.style.setProperty('--shp',{circle:'50%',round:'28%',square:'8%'}[S.shape]);
     const C={sharp:['2px','2px','4px'],soft:['8px','10px','12px'],round:['99px','20px','16px']}[S.cor];out.style.setProperty('--rb',C[0]);out.style.setProperty('--rc',C[1]);out.style.setProperty('--rc2',C[2]);
     const draw=()=>{
       out.querySelectorAll('[data-slot]').forEach(el=>{const s=el.dataset.slot;
-        if(s==='full')el.innerHTML=full();else if(s.startsWith('icon'))el.innerHTML=icon();
+        if(s==='full')el.innerHTML=full(!!el.closest('.wb-nav,.board'));else if(s.startsWith('icon'))el.innerHTML=icon();
         else if(s==='tag')el.textContent=S.tagOwn.trim()||k.tag[S.voice];else if(s==='name')el.textContent=nm();
-        else if(s==='handle')el.textContent='@'+(nm().toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g,'')||'yourname');
+        else if(s==='handle')el.textContent='@'+((words().length>1?nm():nm()+(dsc().split(/\s+/)[0]||'')).toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g,'')||'yourname');
         else if(s==='cta')el.textContent=k.cta;else if(s==='nav1')el.textContent=k.nav[0];else if(s==='nav2')el.textContent=k.nav[1]});
       const LS={tight:'-.05em',normal:ty.ls,wide:'.14em'}[S.sp],TT=S.cs==='up'?'uppercase':S.cs==='low'?'lowercase':ty.tt;
-      out.querySelectorAll('.wm,.mono,.ini,.ig-nm').forEach(el=>{el.style.fontFamily=ty.f;el.style.fontWeight=ty.w;el.style.letterSpacing=LS;el.style.textTransform=TT});
+      out.querySelectorAll('.wm,.ig-nm').forEach(el=>{el.style.fontFamily=ty.f;el.style.fontWeight=ty.w;el.style.letterSpacing=LS;el.style.textTransform=TT});
       out.querySelectorAll('.wb-h').forEach(el=>{el.style.fontFamily=ty.f;el.style.fontWeight=ty.w;el.style.letterSpacing=ty.ls;el.style.textTransform=ty.tt});
-      out.querySelectorAll('.wm,.mono,.ini').forEach(el=>el.style.fontSize=ty.sz+'em');
+      out.querySelectorAll('.wm').forEach(el=>el.style.fontSize=ty.sz+'em');
       out.querySelectorAll('.tl,.ig-bio,.q2').forEach(el=>{const disp=S.type==='classic'||S.type==='elegant'||S.type==='soft';el.style.fontFamily=disp?ty.f:'Hanken';el.style.fontWeight=disp?ty.w:400;el.style.fontSize=disp?'1.1em':''});
       fit();out.classList.remove('fading')};
     if(anim){out.classList.add('fading');clearTimeout(render._t);render._t=setTimeout(draw,200)}else draw();
     box.querySelectorAll('[data-k]').forEach(g=>g.querySelectorAll('button,.cus').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v==String(S[g.dataset.k])||(g.dataset.k==='col'&&b.dataset.v==='custom'&&S.col==='custom')||(g.dataset.k==='acc'&&b.dataset.v==='customA'&&S.acc==='customA')))))}
   box.addEventListener('click',e=>{const b=e.target.closest('[data-k] button');if(!b)return;const k=b.closest('[data-k]').dataset.k;
     const v=k==='col'?+b.dataset.v:b.dataset.v;if(S[k]===v)return;S[k]=v;
-    if(k==='kind'){S.icon=KINDS[v].sym;if(!S.named){S.name=KINDS[v].name;nameI.value=S.name}}
+    if(k==='kind'){S.icon=KINDS[v].marks[0];icons();if(!S.named){[S.name,S.desc]=KINDS[v].names[0];S.ni=0;nameI.value=S.name;descI.value=S.desc}}
     render(!['col','gr','acc','shape','cor'].includes(k))});
   cusI.addEventListener('input',()=>{S.col='custom';S.custom=cusI.value;render(false)});
   cus.addEventListener('click',()=>{if(S.col!=='custom'){S.col='custom';S.custom=cusI.value;render(false)}});
   nameI.addEventListener('input',()=>{S.name=nameI.value;S.named=true;render(false)});
+  const descI=document.getElementById('c-desc');descI.addEventListener('input',()=>{S.desc=descI.value;S.named=true;render(false)});
   const pick=a=>a[Math.floor(Math.random()*a.length)];
   document.getElementById('c-shuf').addEventListener('click',e=>{e.preventDefault();
-    const kind=pick(Object.keys(KINDS).filter(x=>x!==S.kind));Object.assign(S,{kind,name:KINDS[kind].name,named:false,mark:pick(['mono','word','sym','badge']),
+    const kind=pick(Object.keys(KINDS).filter(x=>x!==S.kind)),K=KINDS[kind],ni=Math.floor(Math.random()*K.names.length);
+    Object.assign(S,{kind,name:K.names[ni][0],desc:K.names[ni][1],ni,named:false,mark:pick(['sym','sym','stack','mono','word','crest']),
       col:Math.floor(Math.random()*COLS.length),gr:pick(['light','light','dark','brand']),type:pick(Object.keys(TYPES)),voice:pick(['bold','warm','calm','play']),
-      icon:KINDS[kind].sym,lay:pick(['row','row','stack']),shape:pick(['circle','round','square']),cs:pick(['as','as','up']),acc:pick(['same','same',...ACC.slice(1,6).map(x=>x[1])]),sp:pick(['normal','normal','tight','wide']),cor:pick(['sharp','soft','round']),tagOwn:''});tagI.value='';
-    nameI.value=S.name;render(true)});
+      icon:pick(K.marks),shape:pick(['circle','round','square']),cs:pick(['as','as','up']),acc:pick(['same','same',...ACC.slice(1,6).map(x=>x[1])]),sp:pick(['normal','normal','tight','wide']),cor:pick(['sharp','soft','round']),tagOwn:''});tagI.value='';
+    nameI.value=S.name;descI.value=S.desc;icons();render(true)});
+  icons();
   document.fonts.ready.then(()=>fit());
-  render(false);return {S,render}})();
+  render(false);return {S,render,msvg}})();
 
 /* ---------- tweak bar (design preview only) ---------- */
 (()=>{const D={look:'a',pool:100,tex:55,rs:60,spark:'1',ember:'#CF5A1E',hs:100,top:13,len:240};
@@ -240,10 +248,10 @@ const CFG=(()=>{
   snd.setAttribute('aria-pressed',String(!v.muted));snd.querySelector('span').textContent=v.muted?'Sound on':'Sound off'});
  const WHERE={cafe:['coffee near me','Coffee, pastries and a seat by the window.'],barber:['barber near me','Walk-ins welcome. Book online in seconds.'],studio:['pilates classes near me','Small classes, real coaching, all levels.'],
   grill:['restaurant near me','Wood-fire grill. Book a table tonight.'],salon:['hair salon near me','Cuts, colour and care. Book online.'],gym:['gym near me','Coaching, classes and open gym.']};
- function g(){const S=CFG.S,o=document.getElementById('out'),cs=getComputedStyle(o);const nm=(S.name.trim()||'Your name'),k=S.kind;
+ function g(){const S=CFG.S,o=document.getElementById('out'),cs=getComputedStyle(o);const nm=((S.name.trim()||'Your name')+(S.desc.trim()&&S.name.trim().split(/\s+/).length<2?' '+S.desc.trim():'')),k=S.kind;
   const slug=nm.toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g,'')||'yourname';const tag=o.querySelector('[data-slot=tag]').textContent;
   document.getElementById('gq').textContent=WHERE[k][0];document.getElementById('gname').textContent=nm;document.getElementById('gurl').textContent='www.'+slug+'.com';
-  const f=document.getElementById('gfav');f.style.background=cs.getPropertyValue('--b');f.style.color=cs.getPropertyValue('--bi');f.textContent=nm[0].toUpperCase();
+  const f=document.getElementById('gfav');f.style.background=cs.getPropertyValue('--b');f.style.color=cs.getPropertyValue('--bi');f.innerHTML=CFG.msvg(S.icon,'gsym');
   document.getElementById('gh').textContent=nm+' | '+tag.replace(/\.$/,'');document.getElementById('gd').textContent=WHERE[k][1]}
  const orig=CFG.render;CFG.render=function(a){orig(a);setTimeout(g,a?260:0)};
  document.getElementById('cfg').addEventListener('click',()=>setTimeout(g,280));document.getElementById('c-name').addEventListener('input',()=>setTimeout(g,10));
