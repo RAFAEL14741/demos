@@ -347,6 +347,18 @@ body.look-b .chap.alt .meta em{border-color:rgba(20,18,16,.18)}
 .player{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:#000 url(img/ads/halftime-poster.jpg) center/cover;box-shadow:0 30px 60px -24px rgba(0,0,0,.65)}
 .player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .snd{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;font:500 13px Hanken,sans-serif;color:#fff;background:rgba(10,9,8,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 13px;cursor:pointer}
+.xp{position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;font:500 13px Hanken,sans-serif;color:#fff;background:rgba(10,9,8,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 13px;cursor:pointer;z-index:2}
+.xp svg{width:15px;height:15px}.xp:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+.snd{z-index:2}
+.player.vert::before{content:"";position:absolute;inset:-30px;background:inherit;background-size:cover;filter:blur(28px) brightness(.55);z-index:0}
+.player.vert video{object-fit:contain;z-index:1}
+#cine{margin:auto;border:0;padding:0;background:transparent;overflow:visible;max-width:none;max-height:none}
+#cine::backdrop{background:rgba(8,7,6,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.cbox{position:relative;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 40px 120px rgba(0,0,0,.7)}
+.cbox video{display:block;width:100%;height:100%;object-fit:contain}
+.cbox .snd{left:16px;bottom:16px}
+.cx{position:fixed;right:20px;top:20px;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(28,25,22,.9);color:#fff;font-size:24px;cursor:pointer}
+.cx:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 .snd svg{width:16px;height:16px}.snd .w{display:none}.snd[aria-pressed=true] .w{display:block}.snd[aria-pressed=true] .x{display:none}
 .snd:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 .vid figcaption{margin-top:14px}
@@ -652,11 +664,13 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
    <div class="ads">
     <figure class="vid">
      <div class="player" id="player"><video id="adv" muted playsinline loop preload="none" poster="img/ads/halftime-poster.jpg" data-src="img/ads/halftime-ad.mp4" aria-label="HalfTime Chews launch ad"></video>
-      <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6v4h2.5l3.5 3V3L5 6z" fill="currentColor" stroke="none"/><path class="w" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.8a6 6 0 0 1 0 8.4"/><path class="x" d="M11 6l4 4M15 6l-4 4"/></svg><span>Sound on</span></button></div>
+      <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6v4h2.5l3.5 3V3L5 6z" fill="currentColor" stroke="none"/><path class="w" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.8a6 6 0 0 1 0 8.4"/><path class="x" d="M11 6l4 4M15 6l-4 4"/></svg><span>Sound on</span></button>
+      <button type="button" class="xp" id="xp" aria-label="Expand video"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg><span>Expand</span></button></div>
      <figcaption><b id="adt">HalfTime Chews launch ad</b><span id="adsub">18-second product ad <em>Concept, class project</em></span></figcaption>
      <div class="reel" id="reel" role="tablist" aria-label="Ads">
       <button type="button" role="tab" aria-selected="true" data-i="0"><img src="img/ads/halftime-thumb.jpg" alt=""><span><b>HalfTime</b>Product launch</span></button>
       <button type="button" role="tab" aria-selected="false" data-i="1"><img src="img/ads/paydue-thumb.jpg" alt=""><span><b>Paydue</b>App launch</span></button>
+      <button type="button" role="tab" aria-selected="false" data-i="2"><img src="img/ads/fma-thumb.jpg" alt=""><span><b>FMA</b>Custom cabinets</span></button>
      </div>
     </figure>
     <div class="meta-ad" aria-label="Sample Instagram ad">
@@ -691,6 +705,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
   <div class="facts"><span>teamlaunchpointktg@gmail.com</span><span>@launchpointmktg</span><span>Philadelphia</span><span>English / Português</span></div>
  </section>
 </main>
+<dialog id="cine" aria-label="Video"><div class="cbox" id="cbox"></div><button type="button" class="cx" id="cx" aria-label="Close">×</button></dialog>
 <dialog id="lb" aria-label="Post"><button type="button" class="lbx" aria-label="Close">×</button><div class="lbpost" id="lbpost"></div><div class="lbnav"><button type="button" id="lbp" aria-label="Previous slide">‹</button><span id="lbdots"></span><button type="button" id="lbn" aria-label="Next slide">›</button></div><p class="lbcap" id="lbcap"></p><p class="lbwhy" id="lbwhy"></p></dialog>
 <script src="I.js"></script>
 </body>

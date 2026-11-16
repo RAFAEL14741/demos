@@ -203,12 +203,21 @@ const CFG=(()=>{
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.35}).observe(v);
  const ADS=[{src:'img/ads/halftime-ad.mp4',poster:'img/ads/halftime-poster.jpg',t:'HalfTime Chews launch ad',s:'18-second product ad',tag:'Concept, class project'},
-  {src:'img/ads/paydue-ad.mp4',poster:'img/ads/paydue-poster.jpg',t:'Paydue app launch ad',s:'27-second SaaS-style ad, sound design included',tag:'Concept, made-up app'}];
- window.LP_ADS=ADS;
+  {src:'img/ads/paydue-ad.mp4',poster:'img/ads/paydue-poster.jpg',t:'Paydue app launch ad',s:'27-second SaaS-style ad, sound design included',tag:'Concept, made-up app'},
+  {src:'img/ads/fma-ad.mp4',poster:'img/ads/fma-poster.jpg',t:'FMA Constructions custom cabinet ad',s:'20-second vertical ad for Reels',tag:'FMA Constructions',vert:true}];
+ window.LP_ADS=ADS;let cur=ADS[0];
+ const player=document.getElementById('player'),cine=document.getElementById('cine'),cbox=document.getElementById('cbox');
+ function fitCine(){const r=(v.videoWidth&&v.videoHeight)?v.videoWidth/v.videoHeight:(cur.vert?9/16:16/9);
+  let w=Math.min(innerWidth*.92,1600),h=w/r;const mh=innerHeight*.86;if(h>mh){h=mh;w=h*r}cbox.style.width=w+'px';cbox.style.height=h+'px'}
+ document.getElementById('xp').addEventListener('click',()=>{if(!v.src)v.src=v.dataset.src;cbox.appendChild(v);cbox.appendChild(snd);fitCine();
+  try{cine.showModal()}catch(e){cine.setAttribute('open','')}v.play().catch(()=>{})});
+ addEventListener('resize',()=>{if(cine.open)fitCine()});v.addEventListener('loadedmetadata',()=>{if(cine.open)fitCine()});
+ const back=()=>{player.insertBefore(snd,player.querySelector('.xp'));player.insertBefore(v,snd)};
+ cine.addEventListener('close',back);document.getElementById('cx').onclick=()=>cine.close();cine.addEventListener('click',e=>{if(e.target===cine)cine.close()});
  const reel=document.getElementById('reel');
  reel.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=ADS[+b.dataset.i];
   reel.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
-  v.pause();v.poster=a.poster;v.dataset.src=a.src;v.src=a.src;v.closest('.player').style.backgroundImage=`url(${a.poster})`;
+  v.pause();v.poster=a.poster;v.dataset.src=a.src;v.src=a.src;v.closest('.player')&&(v.closest('.player').style.backgroundImage=`url(${a.poster})`,v.closest('.player').classList.toggle('vert',!!a.vert));player.style.backgroundImage=`url(${a.poster})`;player.classList.toggle('vert',!!a.vert);cur=a;
   document.getElementById('adt').textContent=a.t;document.getElementById('adsub').innerHTML=a.s+' <em>'+a.tag+'</em>';
   if(!reduce)v.play().catch(()=>{})});
  snd.addEventListener('click',()=>{if(!v.src)v.src=v.dataset.src;v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play().catch(()=>{})}
