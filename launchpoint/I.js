@@ -20,8 +20,8 @@ if(Q!==null){set(parseFloat(Q))}else{addEventListener('scroll',onScroll,{passive
 
 /* ---------- the rock + trail ---------- */
 const R=(()=>{const story=document.getElementById('story'),wrap=document.getElementById('tw-wrap'),svg=document.getElementById('trail'),
-  tp=document.getElementById('tp'),tp0=document.getElementById('tp0'),rock=document.getElementById('rock'),fx=document.getElementById('fx');
-  let L=0,start=[0,0],photoW=80,sparks=true,last=null,alive=0;
+  tp=document.getElementById('tp'),tp0=document.getElementById('tp0'),tls=[...document.querySelectorAll('#trail .tl')],tcool=document.getElementById('tcool'),hots=[...document.querySelectorAll('#thot .tl')],rock=document.getElementById('rock'),fx=document.getElementById('fx');
+  let L=0,PRE=0,start=[0,0],photoW=80,sparks=true,last=null,alive=0;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const rs=()=>(parseFloat(getComputedStyle(root).getPropertyValue('--rs'))||60)*(story.clientWidth<640?.62:1);
   function emberPt(){const pl=document.querySelector('.plate').getBoundingClientRect(),sr=st.getBoundingClientRect();
@@ -38,9 +38,12 @@ const R=(()=>{const story=document.getElementById('story'),wrap=document.getElem
     secs.forEach((s,i)=>{const side=i%2?gutL:gutR;const top=Y(s),bot=B(s);
       pts.push([side,top+(phone?40:90)],[side,bot-(phone?30:60)])});
     const g=document.getElementById('land').getBoundingClientRect();pts.push([g.left-sr.left+5,g.top-sr.top+5]);
-    let d=`M${pts[0][0]},${pts[0][1]}`;
-    for(let i=1;i<pts.length;i++){const [x0,y0]=pts[i-1],[x1,y1]=pts[i],dy=(y1-y0)*.5;d+=` C${x0},${y0+dy} ${x1},${y1-dy} ${x1},${y1}`}
-    tp.setAttribute('d',d);tp0.setAttribute('d',d);L=tp.getTotalLength();tp.style.strokeDasharray=L;last=null;update()}
+    // start back on the photo's arc (it fades where the rock was painted out) and leave along its direction, so the streak continues instead of turning a corner
+    const arc=!phone,AD=[.96,-.27],pre=photoW*.9,P0=[start[0]-AD[0]*pre,start[1]-AD[1]*pre-photoW*.27];PRE=arc?Math.hypot(start[0]-P0[0],start[1]-P0[1]):0;
+    let d=arc?`M${P0[0]},${P0[1]} L${start[0]},${start[1]}`:`M${start[0]},${start[1]}`;
+    for(let i=1;i<pts.length;i++){const [x0,y0]=pts[i-1],[x1,y1]=pts[i],dy=(y1-y0)*.5;
+      d+=i===1&&arc?` C${Math.min(W-14,x0+Math.min(phone?90:200,Math.abs(x1-x0)+60))},${y0} ${x1},${y1-dy} ${x1},${y1}`:` C${x0},${y0+dy} ${x1},${y1-dy} ${x1},${y1}`}
+    tp.setAttribute('d',d);tp0.setAttribute('d',d);tls.forEach(p=>p.setAttribute('d',d));L=tp.getTotalLength();tcool.style.strokeDasharray=L;last=null;update()}
   function at(y){let a=0,b=L;for(let i=0;i<24;i++){const m=(a+b)/2;if(tp.getPointAtLength(m).y<y)a=m;else b=m}return a}
   function spark(x,y,ang){if(!sparks||reduce||alive>28)return;alive++;const s=document.createElement('i');s.className='spark';fx.appendChild(s);
     const back=ang+Math.PI+(Math.random()-.5)*1.1,dist=18+Math.random()*46;
@@ -51,8 +54,9 @@ const R=(()=>{const story=document.getElementById('story'),wrap=document.getElem
     const k=Q!==null&&heroP<1?ease(cl((heroP-.74)/.26)):ease(cl((scrollY/Math.max(1,hE)-.74)/.26));
     const anchor=Math.max(scrollY,hE)+innerHeight*.58-story.offsetTop;
     const target=start[1]+(anchor-start[1])*k;
-    const l=k<=0?0:Math.max(0,Math.min(L,at(target)));
-    tp.style.strokeDashoffset=L-l;
+    const l=k<=0?0:Math.max(PRE,Math.min(L,at(target)));
+    tcool.style.strokeDashoffset=L-l;const HOT=Math.min(560,innerHeight*.62);
+    hots.forEach(p=>{const h=Math.min(l,HOT*+p.dataset.f);p.style.strokeDasharray=`${h} ${L+h}`;p.style.strokeDashoffset=h-l});
     const pt=tp.getPointAtLength(l),p2=tp.getPointAtLength(Math.min(L,l+2)),ang=Math.atan2(p2.y-pt.y,p2.x-pt.x);
     const size=photoW+(rs()-photoW)*cl(k*1.6);
     rock.style.width=size+'px';
@@ -66,6 +70,31 @@ const R=(()=>{const story=document.getElementById('story'),wrap=document.getElem
   return {build,update,setSparks:v=>sparks=v}})();
 
 /* ---------- 01 brand configurator ---------- */
+/* ---------- photo mockups (I9): plate per kind+colour from mock.js, live ink warped on with matrix3d ---------- */
+const lpMock=(()=>{const D=window.LP_MOCK||{},SC={'t-card':'card','t-sign':'sign','t-merch':'merch','t-ig':'phone','t-web':'laptop'};
+ const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+ function near(b){const c=hx(b);let bi=0,bd=1e9;(window.LP_COLS||[]).forEach(([,h],i)=>{const d=hx(h).reduce((a,v,k)=>a+(v-c[k])**2,0);if(d<bd){bd=d;bi=i}});return bi}
+ function m3d(w,h,q){const[[x0,y0],[x1,y1],[x2,y2],[x3,y3]]=q,dx1=x1-x2,dx2=x3-x2,dx3=x0-x1+x2-x3,dy1=y1-y2,dy2=y3-y2,dy3=y0-y1+y2-y3,den=dx1*dy2-dx2*dy1,
+   g=(dx3*dy2-dx2*dy3)/den,k=(dx1*dy3-dx3*dy1)/den,a=x1-x0+g*x1,b=x3-x0+k*x3,d=y1-y0+g*y1,e=y3-y0+k*y3;
+   return `matrix3d(${a/w},${d/w},0,${g/w},${b/h},${e/h},0,${k/h},0,0,1,0,${x0},${y0},0,1)`}
+ const L=(p,q)=>Math.hypot(p[0]-q[0],p[1]-q[1]),ratio=q=>(L(q[0],q[3])+L(q[1],q[2]))/(L(q[0],q[1])+L(q[3],q[2]));
+ const src=k=>'img/mock/'+k;let armed=false,last=null;const warm=new Set();
+ function warmKey(kind,ci){Object.values(SC).forEach(sc=>{const k=`${kind}-${ci}-${sc}`;if(D[k]&&!warm.has(k)){warm.add(k);const i=new Image();i.src=src(k)+'.avif'}})}
+ function layout(t){const st=t.querySelector('.pst');if(!st||!st._d||!t.classList.contains('ph'))return;const d=st._d,W=t.clientWidth,H=t.clientHeight,s=Math.max(W/d.w,H/d.h);
+   const ox=Math.min(0,Math.max(W-d.w*s,W/2-d.f[0]*d.w*s)),oy=Math.min(0,Math.max(H-d.h*s,H/2-d.f[1]*d.h*s));
+   st.style.width=d.w+'px';st.style.height=d.h+'px';st.style.transform=`translate(${ox}px,${oy}px) scale(${s})`}
+ function sync(S,p){last=[S,p];if(!armed)return;const lb=hx(p.b).map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4}),lum=.2126*lb[0]+.7152*lb[1]+.0722*lb[2];
+   document.getElementById('out').style.setProperty('--sk',lum>.42?'#1C1A17':p.b);const ci=S.col==='custom'?near(p.b):S.col;
+   document.querySelectorAll('#out .tile').forEach(t=>{const c=Object.keys(SC).find(c=>t.classList.contains(c));if(!c)return;const key=`${S.kind}-${ci}-${SC[c]}`,d=D[key];
+     t.classList.toggle('ph',!!d);const cap=t.querySelector('.cap[data-phc]');if(cap){cap.dataset.org=cap.dataset.org||cap.textContent;cap.textContent=d?cap.dataset.phc:cap.dataset.org}if(!d)return;const st=t.querySelector('.pst');
+     if(st.dataset.k!==key){st.dataset.k=key;st._d=d;st.querySelector('source').srcset=src(key)+'.avif';st.querySelector('img').src=src(key)+'.webp';
+       st.querySelectorAll('.ink').forEach(ink=>{let q=d.q[ink.dataset.q];ink.hidden=!q;if(!q)return;const w=+ink.dataset.w,h=Math.round(w*ratio(q));if(ink.classList.contains('ink-scr')){const cx=q.reduce((a,p)=>a+p[0],0)/4,cy=q.reduce((a,p)=>a+p[1],0)/4;q=q.map(([x,y])=>[cx+(x-cx)*1.012,cy+(y-cy)*1.012])}
+         ink.style.width=w+'px';ink.style.height=h+'px';ink.style.transform=m3d(w,h,q)})}
+     layout(t)})}
+ const out=document.getElementById('out');
+ if(out){new ResizeObserver(es=>es.forEach(e=>layout(e.target))).observe(out);out.querySelectorAll('.tile').forEach(t=>new ResizeObserver(()=>layout(t)).observe(t));
+  new IntersectionObserver((es,io)=>{if(es.some(e=>e.isIntersecting)){armed=true;io.disconnect();if(last){typeof CFG!=='undefined'?CFG.render(false):sync(...last)}}},{rootMargin:'100% 0px'}).observe(out)}
+ return {sync,warmKey,near}})();
 const CFG=(()=>{
   /* marks = MARKS from marks.js (local-AI concepts, traced to vectors). Names: fictional sample brands. */
   const KINDS={
@@ -79,11 +108,14 @@ const CFG=(()=>{
   const COLS=[['Cobalt','#2A47C4'],['Forest','#1F5A43'],['Oxblood','#7A1F2A'],['Saffron','#E2A426'],['Rose','#E07A93'],['Plum','#5B2A6E'],['Teal','#0F7C7A'],['Coral','#F0623F'],['Sky','#7FB2EC'],['Ink','#18181C']];
   const TYPES={classic:{f:'Serif',w:400,ls:'-.01em',tt:'none',sz:1.08},elegant:{f:'Corm',w:500,ls:'.01em',tt:'none',sz:1.12},soft:{f:'Fraunces',w:600,ls:'-.02em',tt:'none',sz:.95},
     loud:{f:'Archivo',w:400,ls:'-.02em',tt:'none',sz:.86},modern:{f:'Syne',w:700,ls:'-.01em',tt:'none',sz:.92},tech:{f:'Mono',w:500,ls:'.03em',tt:'uppercase',sz:.82}};
+  window.LP_COLS=COLS;
   const S={name:'Corvo',desc:'Coffee Bar',ni:0,kind:'cafe',mark:'sym',col:0,custom:'#2A47C4',gr:'light',type:'classic',voice:'warm',named:false,icon:KINDS.cafe.marks[0],shape:'circle',cs:'as',acc:'same',customAcc:'#D9A441',sp:'normal',cor:'soft',tagOwn:''};
   const ACC=[['Same as main','same'],['Gold','#D9A441'],['Lime','#C6F23D'],['Coral','#F0623F'],['Sky','#7FB2EC'],['Rose','#E07A93'],['Cream','#F3E9D6'],['Ink','#18181C']];
   const box=document.getElementById('cfg'),out=document.getElementById('out'),brand=document.getElementById('brand'),nameI=document.getElementById('c-name');
   const swW=box.querySelector('[data-k=col]');
   COLS.forEach(([n,c],i)=>{const b=document.createElement('button');b.type='button';b.style.background=c;b.dataset.v=i;b.title=n;b.setAttribute('aria-label',n);swW.appendChild(b)});
+  swW.addEventListener('pointerover',e=>{const b=e.target.closest('button');if(b&&b.dataset.v!=null)lpMock.warmKey(S.kind,+b.dataset.v)});
+  box.querySelector('[data-k=kind]').addEventListener('pointerover',e=>{const b=e.target.closest('button');if(b)lpMock.warmKey(b.dataset.v,S.col==='custom'?lpMock.near(S.custom):S.col)});
   const acW=box.querySelector('[data-k=acc]');
   ACC.forEach(([n,c])=>{const b=document.createElement('button');b.type='button';b.dataset.v=c;b.title=n;b.setAttribute('aria-label',n);b.style.background=c==='same'?'conic-gradient(var(--bone2) 0 50%,transparent 0) , #2A2622':c;if(c==='same')b.innerHTML='<svg viewBox="0 0 30 30" style="width:100%;height:100%"><path d="M8 22L22 8" stroke="#EDE6DA" stroke-width="1.5"/></svg>',b.style.background='#2A2622';acW.appendChild(b)});
   const cusA=document.createElement('label');cusA.className='cus';cusA.title='Any accent';cusA.dataset.v='customA';cusA.innerHTML='<input type="color" value="#D9A441" aria-label="Pick any accent colour">';acW.appendChild(cusA);const cusAI=cusA.querySelector('input');
@@ -133,8 +165,8 @@ const CFG=(()=>{
     if(S.mark==='crest')return `<div class="mark lk-crest">${crest()}</div>`;
     return `<div class="mark lk-word"><span class="wm">${n}</span>${d}</div>`}
   function icon(){if(S.mark==='mono'||S.mark==='word')return mono('mg');return msvg(S.icon)}
-  function fit(){out.querySelectorAll('.mark').forEach(m=>{m.style.fontSize='';const box=m.closest('.board,.bcard,.wb-nav,.tile');
-    const max=(box.clientWidth||300)*(box.classList.contains('tile')?.84:box.classList.contains('wb-nav')?.42:.92),maxH=box.classList.contains('wb-nav')?28:1e9;let i=0;
+  function fit(){out.querySelectorAll('.mark').forEach(m=>{m.style.fontSize='';const box=m.closest('.ink,.board,.bcard,.wb-nav,.tile');
+    const max=(box.offsetWidth||300)*(box.classList.contains('ink')?.84:box.classList.contains('tile')?.84:box.classList.contains('wb-nav')?.42:.92),maxH=box.classList.contains('wb-nav')?28:box.classList.contains('ink')?box.offsetHeight*(+box.dataset.mh||.84):1e9;let i=0;
     while((m.scrollWidth>max||m.offsetHeight>maxH)&&i<30){m.style.fontSize=(parseFloat(getComputedStyle(m).fontSize)*.93)+'px';i++}})}
   addEventListener('resize',()=>fit());
   function render(anim){const p=palette(),ty=TYPES[S.type],k=KINDS[S.kind];
@@ -143,9 +175,9 @@ const CFG=(()=>{
     document.getElementById('c-cn').textContent=p.n;document.getElementById('c-an').textContent=p.an;
     out.style.setProperty('--shp',{circle:'50%',round:'28%',square:'8%'}[S.shape]);
     const C={sharp:['2px','2px','4px'],soft:['8px','10px','12px'],round:['99px','20px','16px']}[S.cor];out.style.setProperty('--rb',C[0]);out.style.setProperty('--rc',C[1]);out.style.setProperty('--rc2',C[2]);
-    const draw=()=>{
+    const draw=()=>{lpMock.sync(S,p);
       out.querySelectorAll('[data-slot]').forEach(el=>{const s=el.dataset.slot;
-        if(s==='full')el.innerHTML=full(!!el.closest('.wb-nav,.board'));else if(s.startsWith('icon'))el.innerHTML=icon();
+        if(s==='full')el.innerHTML=full(!!el.closest('.wb-nav,.board,.ik-sign'));else if(s.startsWith('icon'))el.innerHTML=icon();
         else if(s==='tag')el.textContent=S.tagOwn.trim()||k.tag[S.voice];else if(s==='name')el.textContent=nm();
         else if(s==='handle')el.textContent='@'+((words().length>1?nm():nm()+(dsc().split(/\s+/)[0]||'')).toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g,'')||'yourname');
         else if(s==='cta')el.textContent=k.cta;else if(s==='nav1')el.textContent=k.nav[0];else if(s==='nav2')el.textContent=k.nav[1]});

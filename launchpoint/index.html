@@ -90,7 +90,11 @@ h1 em{font-style:normal;color:var(--ember)}
 #tw-wrap{position:absolute;left:0;top:0;width:100%;height:0;pointer-events:none;z-index:6;will-change:transform}
 #trail{position:absolute;left:0;top:0;width:100%;overflow:visible}
 #trail .base{fill:none;stroke:rgba(237,230,218,.06);stroke-width:1.5}
-#trail .lit{fill:none;stroke:var(--ember);stroke-width:2.2;stroke-linecap:round;filter:drop-shadow(0 0 6px var(--ember)) drop-shadow(0 0 18px rgba(207,90,30,.45))}
+#trail .geo{fill:none;stroke:none}
+/* trail = the hero photo's light streak: hot tail behind the rock (core + stacked glow, tapering), cooled ember line behind it. Stacked strokes, no blur filter (repaints every scroll frame) */
+#trail .tl{fill:none;stroke-linecap:round;stroke-linejoin:round}
+#tcool .c1{stroke:#CF5A1E;stroke-width:16;opacity:.06}#tcool .c2{stroke:#E0692A;stroke-width:7;opacity:.15}#tcool .c3{stroke:#EFA27C;stroke-width:2.2;opacity:.6}
+#thot .h1{stroke:#CF5A1E;stroke-width:46;opacity:.05}#thot .h2{stroke:#E06A2E;stroke-width:24;opacity:.1}#thot .h3{stroke:#F07A3A;stroke-width:12;opacity:.28}#thot .h4{stroke:#EFA684;stroke-width:5.5;opacity:.92}#thot .h5{stroke:#FFE8D2;stroke-width:2;opacity:.95}
 #rock{position:absolute;left:0;top:0;width:var(--rs,60px);aspect-ratio:208/186;opacity:0;transition:opacity .25s}
 #rock img{width:100%;height:100%;display:block;filter:drop-shadow(0 0 10px rgba(255,120,40,.85)) drop-shadow(0 0 28px rgba(207,90,30,.55))}
 #rock::after{content:"";position:absolute;left:50%;top:50%;width:min(70vw,900px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
@@ -179,6 +183,29 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 #c-tag,#c-desc{width:100%;font:400 15px Hanken,sans-serif;color:var(--bone);background:rgba(237,230,218,.05);border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none}
 #c-tag:focus,#c-desc:focus{border-color:rgba(237,230,218,.45)}
 .tile{container-type:inline-size}
+/* ---- photo mockups (I9): real photo per kind+colour, live ink warped onto each surface ---- */
+.pst{display:none;position:absolute;left:0;top:0;transform-origin:0 0}
+.tile.ph{padding:0;background:#151311}
+.tile.ph>:not(.pst):not(.cap){display:none!important}
+.tile.ph .pst{display:block}
+.pst img{display:block;width:100%;height:100%}
+.tile.ph .cap{color:#F4EFE6!important;opacity:.85;text-shadow:0 1px 8px rgba(0,0,0,.7);z-index:2}
+.ink{position:absolute;left:0;top:0;transform-origin:0 0;box-sizing:border-box;overflow:hidden}
+.ink[hidden]{display:none}
+.ik-card{font-size:10px;color:var(--bi);display:flex;flex-direction:column;justify-content:space-between;padding:24px 27px 21px;opacity:.93;filter:blur(.25px)}
+.ik-card .mark{font-size:22px}.ik-card .tl{font-size:11px;opacity:.88;line-height:1.35}.ik-card .hd{font-family:Mono;font-size:10px;opacity:.7;margin-top:5px}
+.ik-card .lk-crest .crest{width:3.4em;height:3.4em}
+.ik-sign{display:grid;place-items:center;padding:0 40px;color:var(--sk);mix-blend-mode:multiply;opacity:.95}
+.ik-sign .mark{font-size:48px;color:var(--sk)}.ik-sign .lk-crest .crest,.ik-sign .lk-stack .sym{width:2.6em;height:2.6em}.ik-sign .lk-stack .ds{display:none}
+.ik-ico{color:var(--bi);opacity:.9;filter:blur(.3px)}.ik-ico .ico{width:100%;height:100%;font-size:44px}.ik-ico .ico .sym{width:48%;height:48%}.ik-ico .ico .mg{width:72%;height:72%}.ik-cup .ico .sym{width:80%;height:80%}
+.ik-cup .ico{font-size:20px}
+.ik-ig{background:var(--g);color:var(--ik);padding:52px 18px 0;display:flex;flex-direction:column;border-radius:34px}
+.ik-ig .notch{position:absolute;left:50%;top:9px;width:30%;height:22px;margin-left:-15%;border-radius:12px;background:#050505}
+.ik-ig .ig-grid{transform:none;margin:16px -18px 0;gap:2px}
+.ik-web .web{border-radius:0;height:100%}
+.ik-web .wb-nav{padding:14px 20px;font-size:12px}.ik-web .wb-h{padding:10% 20px 0;font-size:34px}.ik-web .wb-nav .mark{font-size:16px}.ik-web .wb-btn{margin:18px 20px 0}
+.ink.ink-scr::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.13),rgba(255,255,255,0) 38%);pointer-events:none}
+
 .fol,.wb-nav .pill,.wb-btn{background:var(--a)!important;color:var(--ai)!important;border-radius:var(--rb,8px)!important}
 .bcard,.board,.web{border-radius:var(--rc,10px)}
 .app{border-radius:var(--rc2,12px)}
@@ -588,7 +615,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
 
 <main class="story" id="story">
  <div id="tw-wrap" aria-hidden="true">
-  <svg id="trail"><path class="base" id="tp0"/><path class="lit" id="tp"/></svg>
+  <svg id="trail"><path class="base" id="tp0"/><path class="geo" id="tp"/><g id="tcool"><path class="tl c1"/><path class="tl c2"/><path class="tl c3"/></g><g id="thot"><path class="tl h1" data-f=".45"/><path class="tl h2" data-f=".65"/><path class="tl h3" data-f=".8"/><path class="tl h4" data-f="1"/><path class="tl h5" data-f=".55"/></g></svg>
   <div id="fx"></div>
   <div id="rock"><img src="img/ember-cut.webp" alt=""></div>
  </div>
@@ -631,11 +658,11 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
     <div class="pv">
      <div class="out" id="out">
       <div class="tile t-logo"><div class="fx" data-slot="full"></div><span class="cap">Logo</span></div>
-      <div class="tile t-card"><div class="bcard on-b"><div class="fx" data-slot="full"></div><div class="fx"><div class="tl" data-slot="tag"></div><div class="hd" data-slot="handle"></div></div></div><span class="cap">Business card</span></div>
-      <div class="tile t-ig"><div class="ig-top"><div class="ig-av ico fx" data-slot="icon"></div><div><div class="ig-nm fx" data-slot="name"></div><div class="ig-hd" data-slot="handle"></div></div><span class="fol">Follow</span></div><p class="ig-bio fx" data-slot="tag"></p><div class="ig-grid"><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div></div><span class="cap">Instagram</span></div>
-      <div class="tile t-web"><div class="web"><div class="wb-bar"><i></i><i></i><i></i></div><div class="wb-nav"><div class="fx" data-slot="full"></div><span class="sp" data-slot="nav1"></span><span data-slot="nav2"></span><span class="pill" data-slot="cta"></span></div><div class="wb-h fx" data-slot="tag"></div><div class="wb-btn" data-slot="cta"></div></div><span class="cap" style="color:#B8AFA2">Website</span></div>
-      <div class="tile t-sign"><div class="board on-b fx" data-slot="full"></div><div class="apps"><div class="app ico fx" data-slot="icon"></div><span class="tl fx" data-slot="tag"></span></div><span class="cap">Sign &amp; app icon</span></div>
-      <div class="tile t-merch"><div class="tote"><svg class="bag" viewBox="0 0 86 100"><path d="M24 30V20a19 19 0 0 1 38 0v10" fill="none" stroke="currentColor" stroke-width="4"/><path d="M8 28h70l-4 72H12z" fill="currentColor"/></svg><div class="ico fx" data-slot="icon-b"></div></div><div class="sticker ico fx" data-slot="icon-s"></div><span class="cap">Merch</span></div>
+      <div class="tile t-card"><div class="bcard on-b"><div class="fx" data-slot="full"></div><div class="fx"><div class="tl" data-slot="tag"></div><div class="hd" data-slot="handle"></div></div></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-card on-b" data-q="card" data-w="300" data-mh=".5"><div class="fx" data-slot="full"></div><div class="fx"><div class="tl" data-slot="tag"></div><div class="hd" data-slot="handle"></div></div></div></div><span class="cap">Business card</span></div>
+      <div class="tile t-ig"><div class="ig-top"><div class="ig-av ico fx" data-slot="icon"></div><div><div class="ig-nm fx" data-slot="name"></div><div class="ig-hd" data-slot="handle"></div></div><span class="fol">Follow</span></div><p class="ig-bio fx" data-slot="tag"></p><div class="ig-grid"><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-ig ink-scr" data-q="screen" data-w="300"><i class="notch"></i><div class="ig-top"><div class="ig-av ico fx" data-slot="icon"></div><div><div class="ig-nm fx" data-slot="name"></div><div class="ig-hd" data-slot="handle"></div></div><span class="fol">Follow</span></div><p class="ig-bio fx" data-slot="tag"></p><div class="ig-grid"><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div><div class="q3"></div><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div><div class="q1 ico" data-slot="icon"></div></div></div></div><span class="cap">Instagram</span></div>
+      <div class="tile t-web"><div class="web"><div class="wb-bar"><i></i><i></i><i></i></div><div class="wb-nav"><div class="fx" data-slot="full"></div><span class="sp" data-slot="nav1"></span><span data-slot="nav2"></span><span class="pill" data-slot="cta"></span></div><div class="wb-h fx" data-slot="tag"></div><div class="wb-btn" data-slot="cta"></div></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-web ink-scr" data-q="screen" data-w="430"><div class="web"><div class="wb-nav"><div class="fx" data-slot="full"></div><span class="sp" data-slot="nav1"></span><span data-slot="nav2"></span><span class="pill" data-slot="cta"></span></div><div class="wb-h fx" data-slot="tag"></div><div class="wb-btn" data-slot="cta"></div></div></div></div><span class="cap" style="color:#B8AFA2">Website</span></div>
+      <div class="tile t-sign"><div class="board on-b fx" data-slot="full"></div><div class="apps"><div class="app ico fx" data-slot="icon"></div><span class="tl fx" data-slot="tag"></span></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-sign" data-q="sign" data-w="560" data-mh=".8"><div class="fx" data-slot="full"></div></div></div><span class="cap" data-phc="Storefront">Sign &amp; app icon</span></div>
+      <div class="tile t-merch"><div class="tote"><svg class="bag" viewBox="0 0 86 100"><path d="M24 30V20a19 19 0 0 1 38 0v10" fill="none" stroke="currentColor" stroke-width="4"/><path d="M8 28h70l-4 72H12z" fill="currentColor"/></svg><div class="ico fx" data-slot="icon-b"></div></div><div class="sticker ico fx" data-slot="icon-s"></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-ico on-b" data-q="tote" data-w="140"><div class="ico fx" data-slot="icon-b"></div></div><div class="ink ik-ico on-b ik-cup" data-q="cup" data-w="60"><div class="ico fx" data-slot="icon-s"></div></div></div><span class="cap" data-phc="Tote &amp; cup">Merch</span></div>
      </div>
      <p class="sample">Sample brand, built live. Yours starts from a real conversation.</p>
     </div>
@@ -765,6 +792,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
 </main>
 <dialog id="cine" aria-label="Video"><div class="cbox" id="cbox"></div><button type="button" class="cx" id="cx" aria-label="Close">×</button></dialog>
 <dialog id="lb" aria-label="Post"><button type="button" class="lbx" aria-label="Close">×</button><div class="lbpost" id="lbpost"></div><div class="lbnav"><button type="button" id="lbp" aria-label="Previous slide">‹</button><span id="lbdots"></span><button type="button" id="lbn" aria-label="Next slide">›</button></div><p class="lbcap" id="lbcap"></p><p class="lbwhy" id="lbwhy"></p></dialog>
-<script src="marks.js"></script><script src="I.js"></script>
+<script src="marks.js"></script><script src="mock.js"></script>
+<script src="I.js"></script>
 </body>
 </html>
