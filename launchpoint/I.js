@@ -1,3 +1,10 @@
+/* ---------- images: AVIF/WebP backgrounds + lazy data-bg (speed pass, Nov 16 g) ---------- */
+const lpIS=b=>`image-set(url(${b}.avif) type("image/avif"),url(${b}.webp) type("image/webp"),url(${b}.jpg) type("image/jpeg"))`;
+function lpBg(el,p){const b=p.replace(/\.(jpg|webp|avif)$/,'');el.style.backgroundImage=`url(${b}.jpg)`;el.style.backgroundImage=lpIS(b)}
+const lpSmall=matchMedia('(max-width:700px)').matches,lpV=s=>lpSmall?s.replace(/\.mp4$/,'-480.mp4'):s;
+(()=>{const els=[...document.querySelectorAll('[data-bg]')];if(!('IntersectionObserver' in window)){els.forEach(e=>lpBg(e,e.dataset.bg));return}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){lpBg(e.target,e.target.dataset.bg);io.unobserve(e.target)}}),{rootMargin:'100% 0px'});
+ els.forEach(e=>io.observe(e))})();
 /* Launch Point frame I — hero, rock that travels the page, brand configurator, tweak bar */
 const root=document.documentElement,sc=document.getElementById('scroll'),st=document.getElementById('stage');
 const qs=new URLSearchParams(location.search),Q=qs.get('p');
@@ -54,7 +61,7 @@ const R=(()=>{const story=document.getElementById('story'),wrap=document.getElem
     if(gone&&last){const dx=pt.x-last[0],dy=pt.y-last[1];if(dx*dx+dy*dy>36){spark(pt.x,pt.y,ang);if(dx*dx+dy*dy>400)spark(pt.x,pt.y,ang)}}
     last=[pt.x,pt.y];
     document.getElementById('end').classList.toggle('lit',l>=L-4)}
-  addEventListener('scroll',update,{passive:true});addEventListener('resize',()=>{clearTimeout(R._t);R._t=setTimeout(build,120)});
+  let tick=0;addEventListener('scroll',()=>{if(!tick)tick=requestAnimationFrame(()=>{tick=0;update()})},{passive:true});addEventListener('resize',()=>{clearTimeout(R._t);R._t=setTimeout(build,120)});
   document.fonts.ready.then(build);addEventListener('load',build);
   return {build,update,setSparks:v=>sparks=v}})();
 
@@ -209,7 +216,7 @@ const CFG=(()=>{
  const box=document.getElementById('lbpost'),nav=lb.querySelector('.lbnav'),dots=document.getElementById('lbdots');let src=null,i=0;
  function show(){box.innerHTML='';let el;
   if(src.dataset.t==='carousel'&&i>0){if(SLIDES[i]==='split'){el=grid.querySelector('.p-split').cloneNode(true);el.insertAdjacentHTML('beforeend','<span class="cnt">4/4</span>')}
-   else{el=src.cloneNode(false);el.className='post p-car p-slide s'+(i+1);el.style.backgroundImage=`url(img/social/${i===1?'packb':'pack'}.jpg)`;el.innerHTML=SLIDES[i]}}
+   else{el=src.cloneNode(false);el.className='post p-car p-slide s'+(i+1);lpBg(el,`img/social/${i===1?'packb':'pack'}`);el.innerHTML=SLIDES[i]}}
   else el=src.cloneNode(true);
   el.removeAttribute('aria-label');el.tabIndex=-1;box.appendChild(el);
   dots.innerHTML=src.dataset.t==='carousel'?SLIDES.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join(''):'';nav.classList.toggle('on',src.dataset.t==='carousel')}
@@ -225,7 +232,7 @@ const CFG=(()=>{
 /* ---------- 04 ads: lazy autoplay video + Google ad from the configurator brand ---------- */
 (()=>{const v=document.getElementById('adv'),snd=document.getElementById('snd');if(!v)return;
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
- new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.35}).observe(v);
+ new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(v.dataset.poster&&!v.poster)v.poster=v.dataset.poster;if(!v.src)v.src=lpV(v.dataset.src);if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.35}).observe(v);
  const ADS=[{src:'img/ads/halftime-ad.mp4',poster:'img/ads/halftime-poster.jpg',t:'HalfTime Chews launch ad',s:'18-second product ad',tag:'Concept, class project'},
   {src:'img/ads/paydue-ad.mp4',poster:'img/ads/paydue-poster.jpg',t:'Paydue app launch ad',s:'27-second SaaS-style ad, sound design included',tag:'Concept, made-up app'},
   {src:'img/ads/fma-ad.mp4',poster:'img/ads/fma-poster.jpg',t:'FMA Constructions custom cabinet ad',s:'20-second vertical ad for Reels',tag:'FMA Constructions',vert:true,vt:'FMA Constructions',vd:'Custom built-ins, made to match. The ad walks through a real request: a photo, a finish, a free estimate booked in a few taps.'}];
@@ -233,7 +240,7 @@ const CFG=(()=>{
  const player=document.getElementById('player'),cine=document.getElementById('cine'),cbox=document.getElementById('cbox');
  function fitCine(){const r=(v.videoWidth&&v.videoHeight)?v.videoWidth/v.videoHeight:(cur.vert?9/16:16/9);
   let w=Math.min(innerWidth*.92,1600),h=w/r;const mh=innerHeight*.86;if(h>mh){h=mh;w=h*r}cbox.style.width=w+'px';cbox.style.height=h+'px'}
- document.getElementById('xp').addEventListener('click',()=>{if(!v.src)v.src=v.dataset.src;cbox.appendChild(v);cbox.appendChild(snd);fitCine();
+ document.getElementById('xp').addEventListener('click',()=>{if(!v.src)v.src=lpV(v.dataset.src);cbox.appendChild(v);cbox.appendChild(snd);fitCine();
   try{cine.showModal()}catch(e){cine.setAttribute('open','')}v.play().catch(()=>{})});
  addEventListener('resize',()=>{if(cine.open)fitCine()});v.addEventListener('loadedmetadata',()=>{if(cine.open)fitCine()});
  const back=()=>{player.insertBefore(snd,player.querySelector('.xp'));player.insertBefore(v,snd)};
@@ -241,10 +248,10 @@ const CFG=(()=>{
  const reel=document.getElementById('reel');
  reel.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=ADS[+b.dataset.i];
   reel.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
-  v.pause();v.poster=a.poster;v.dataset.src=a.src;v.src=a.src;v.closest('.player')&&(v.closest('.player').style.backgroundImage=`url(${a.poster})`,v.closest('.player').classList.toggle('vert',!!a.vert));player.style.backgroundImage=`url(${a.poster})`;player.classList.toggle('vert',!!a.vert);cur=a;if(a.vert){document.getElementById('vt').textContent=a.vt;document.getElementById('vd').textContent=a.vd}
+  v.pause();v.poster=a.poster.replace('.jpg','.avif');v.dataset.src=a.src;v.src=lpV(a.src);v.closest('.player')&&(lpBg(v.closest('.player'),a.poster),v.closest('.player').classList.toggle('vert',!!a.vert));lpBg(player,a.poster);player.classList.toggle('vert',!!a.vert);cur=a;if(a.vert){document.getElementById('vt').textContent=a.vt;document.getElementById('vd').textContent=a.vd}
   document.getElementById('adt').textContent=a.t;document.getElementById('adsub').innerHTML=a.s+' <em>'+a.tag+'</em>';
   if(!reduce)v.play().catch(()=>{})});
- snd.addEventListener('click',()=>{if(!v.src)v.src=v.dataset.src;v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play().catch(()=>{})}
+ snd.addEventListener('click',()=>{if(!v.src)v.src=lpV(v.dataset.src);v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play().catch(()=>{})}
   snd.setAttribute('aria-pressed',String(!v.muted));snd.querySelector('span').textContent=v.muted?'Sound on':'Sound off'});
  const WHERE={cafe:['coffee near me','Coffee, pastries and a seat by the window.'],barber:['barber near me','Walk-ins welcome. Book online in seconds.'],studio:['pilates classes near me','Small classes, real coaching, all levels.'],
   grill:['restaurant near me','Wood-fire grill. Book a table tonight.'],salon:['hair salon near me','Cuts, colour and care. Book online.'],gym:['gym near me','Coaching, classes and open gym.']};

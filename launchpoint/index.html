@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Launch Point — frame I (showcase)</title>
 <style>
+picture{display:contents}picture>source{display:none}
 
 @font-face{font-family:Serif;src:url(fonts/instrument-serif-latin-400-normal.woff2) format('woff2');font-weight:400}
 @font-face{font-family:Serif;src:url(fonts/instrument-serif-latin-400-italic.woff2) format('woff2');font-weight:400;font-style:italic}
@@ -98,7 +99,7 @@ h1 em{font-style:normal;color:var(--ember)}
 
 .chap{position:relative;padding:13vh 0 9vh;min-height:80vh}
 .env{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.env .tex{position:absolute;inset:0;background:url(img/stone.jpg) center/cover;opacity:.55;
+.env .tex{position:absolute;inset:0;background:url(img/stone.jpg) center/cover;background-image:image-set(url(img/stone.avif) type("image/avif"),url(img/stone.webp) type("image/webp"),url(img/stone.jpg) type("image/jpeg"));opacity:.55;
   -webkit-mask-image:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent)}
 .env .pool{position:absolute;border-radius:50%;filter:blur(10px);transition:background .6s var(--ease)}
 .in-wrap{position:relative;z-index:1;width:min(1180px,calc(100% - 200px));margin:0 auto}
@@ -128,13 +129,13 @@ body.look-b .chap.alt::after{bottom:0;background:linear-gradient(0deg,var(--grap
 body.look-b .chap.alt .env .pool{opacity:.5}
 
 /* ---- 01 configurator ---- */
-@font-face{font-family:Corm;src:url(fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2');font-weight:500}
-@font-face{font-family:Corm;src:url(fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2');font-weight:500;font-style:italic}
-@font-face{font-family:Fraunces;src:url(fonts/fraunces-latin-600-normal.woff2) format('woff2');font-weight:600}
-@font-face{font-family:Archivo;src:url(fonts/archivo-black-latin-400-normal.woff2) format('woff2');font-weight:400}
-@font-face{font-family:Syne;src:url(fonts/syne-latin-700-normal.woff2) format('woff2');font-weight:700}
-@font-face{font-family:Hanken;src:url(fonts/hanken-grotesk-latin-600-normal.woff2) format('woff2');font-weight:600}
-@font-face{font-family:Mono;src:url(fonts/geist-mono-latin-500-normal.woff2) format('woff2');font-weight:500}
+@font-face{font-family:Corm;src:url(fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:Corm;src:url(fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:Fraunces;src:url(fonts/fraunces-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Archivo;src:url(fonts/archivo-black-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Syne;src:url(fonts/syne-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Hanken;src:url(fonts/hanken-grotesk-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Mono;src:url(fonts/geist-mono-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
 .cfg>*{min-width:0}
 .story{overflow-x:clip}
 .cfg{display:grid;grid-template-columns:360px minmax(0,1fr);gap:24px;align-items:start}
@@ -372,7 +373,7 @@ body.look-b .chap.alt .meta em{border-color:rgba(20,18,16,.18)}
 /* ---- 04 ads ---- */
 .ads{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);grid-template-areas:"vid meta" "goog meta";gap:22px;align-items:start}
 .vid{grid-area:vid;margin:0}
-.player{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:#000 url(img/ads/halftime-poster.jpg) center/cover;box-shadow:0 30px 60px -24px rgba(0,0,0,.65)}
+.player{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:#000 center/cover;box-shadow:0 30px 60px -24px rgba(0,0,0,.65)}
 .player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .snd{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;font:500 13px Hanken,sans-serif;color:#fff;background:rgba(10,9,8,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 13px;cursor:pointer}
 .xp{position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;font:500 13px Hanken,sans-serif;color:#fff;background:rgba(10,9,8,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 13px;cursor:pointer;z-index:2}
@@ -528,14 +529,14 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
 <div class="scroll" id="scroll">
  <div class="stage" id="stage">
   <div class="plate">
-   <img src="img/launch-a.jpg" srcset="img/launch-a-sm.jpg 1600w, img/launch-a.jpg 3200w" sizes="100vw" alt="A small glowing ember resting on dark stone">
-   <img class="b" src="img/launch-b.jpg" srcset="img/launch-b-sm.jpg 1600w, img/launch-b.jpg 3200w" sizes="100vw" alt="" aria-hidden="true">
-   <img class="c" src="img/launch-c.jpg" srcset="img/launch-c-sm.jpg 1600w, img/launch-c.jpg 3200w" sizes="100vw" alt="" aria-hidden="true">
+   <picture><source type="image/avif" srcset="img/launch-a-sm.avif 1600w, img/launch-a.avif 3200w" sizes="100vw"><source type="image/webp" srcset="img/launch-a-sm.webp 1600w, img/launch-a.webp 3200w" sizes="100vw"><img fetchpriority="high" src="img/launch-a.jpg" srcset="img/launch-a-sm.jpg 1600w, img/launch-a.jpg 3200w" sizes="100vw" alt="A small glowing ember resting on dark stone"></picture>
+   <picture><source type="image/avif" srcset="img/launch-b-sm.avif 1600w, img/launch-b.avif 3200w" sizes="100vw"><source type="image/webp" srcset="img/launch-b-sm.webp 1600w, img/launch-b.webp 3200w" sizes="100vw"><img class="b" src="img/launch-b.jpg" srcset="img/launch-b-sm.jpg 1600w, img/launch-b.jpg 3200w" sizes="100vw" alt="" aria-hidden="true"></picture>
+   <picture><source type="image/avif" srcset="img/launch-c-sm.avif 1600w, img/launch-c.avif 3200w" sizes="100vw"><source type="image/webp" srcset="img/launch-c-sm.webp 1600w, img/launch-c.webp 3200w" sizes="100vw"><img class="c" src="img/launch-c.jpg" srcset="img/launch-c-sm.jpg 1600w, img/launch-c.jpg 3200w" sizes="100vw" alt="" aria-hidden="true"></picture>
    <div class="grain" aria-hidden="true"></div>
   </div>
   <div class="shade hero-ui"></div>
   <nav>
-   <a href="#"><img src="logo-bone.png" alt="Launch Point Marketing"></a>
+   <a href="#"><img src="logo-bone.webp" alt="Launch Point Marketing"></a>
    <div class="right">
     <ul><li><a href="#brand">Brand</a></li><li><a href="#websites">Websites</a></li><li><a href="#social">Social</a></li><li><a href="#ads">Ads</a></li></ul>
     <a class="cta" href="#end"><i></i>Start a project</a>
@@ -589,7 +590,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
  <div id="tw-wrap" aria-hidden="true">
   <svg id="trail"><path class="base" id="tp0"/><path class="lit" id="tp"/></svg>
   <div id="fx"></div>
-  <div id="rock"><img src="img/ember-cut.png" alt=""></div>
+  <div id="rock"><img src="img/ember-cut.webp" alt=""></div>
  </div>
 
  <section class="chap" id="brand" data-pool="brand">
@@ -651,34 +652,34 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
      <p class="tags">Hover a site to scroll through it. Open any of them and try it yourself.</p></div>
    </div>
    <div class="work">
-    <a class="site" href="https://rafael14741.github.io/halftime-chews-site/" target="_blank" rel="noopener" data-strip="img/work/halftime-strip.jpg">
+    <a class="site" href="https://rafael14741.github.io/halftime-chews-site/" target="_blank" rel="noopener" data-strip="img/work/halftime-strip.webp">
      <div class="win"><div class="wbar"><i></i><i></i><i></i><span class="url">halftime-chews-site</span></div>
-      <div class="shot"><img class="cover" src="img/work/halftime.jpg" alt="HalfTime Chews website, first screen" loading="lazy"><img class="strip" alt=""></div></div>
+      <div class="shot"><picture><source type="image/avif" srcset="img/work/halftime.avif"><source type="image/webp" srcset="img/work/halftime.webp"><img class="cover" src="img/work/halftime.jpg" alt="HalfTime Chews website, first screen" loading="lazy"></picture><img class="strip" alt=""></div></div>
      <div class="meta"><div><b>HalfTime Chews</b><span>Product launch site <em>Concept, class project</em></span></div><span class="go">Try it live <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></span></div>
     </a>
-    <a class="site " href="https://rafael14741.github.io/demos/vyra/" target="_blank" rel="noopener" data-strip="img/work/vyra-strip.jpg">
+    <a class="site " href="https://rafael14741.github.io/demos/vyra/" target="_blank" rel="noopener" data-strip="img/work/vyra-strip.webp">
      <div class="win"><div class="wbar"><i></i><i></i><i></i><span class="url">vyra</span></div>
-      <div class="shot"><img class="cover" src="img/work/vyra.jpg" alt="VYRA website, first screen" loading="lazy"><img class="strip" alt=""></div></div>
+      <div class="shot"><picture><source type="image/avif" srcset="img/work/vyra.avif"><source type="image/webp" srcset="img/work/vyra.webp"><img class="cover" src="img/work/vyra.jpg" alt="VYRA website, first screen" loading="lazy"></picture><img class="strip" alt=""></div></div>
      <div class="meta"><div><b>VYRA</b><span>Online clothing store <em>Concept</em></span></div><span class="go">Try it live <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></span></div>
     </a>
-    <a class="site " href="https://rafael14741.github.io/demos/k-laundry-demo.html" target="_blank" rel="noopener" data-strip="img/work/klaundry-strip.jpg">
+    <a class="site " href="https://rafael14741.github.io/demos/k-laundry-demo.html" target="_blank" rel="noopener" data-strip="img/work/klaundry-strip.webp">
      <div class="win"><div class="wbar"><i></i><i></i><i></i><span class="url">k-laundry</span></div>
-      <div class="shot"><img class="cover" src="img/work/klaundry.jpg" alt="K Laundry website, first screen" loading="lazy"><img class="strip" alt=""></div></div>
+      <div class="shot"><picture><source type="image/avif" srcset="img/work/klaundry.avif"><source type="image/webp" srcset="img/work/klaundry.webp"><img class="cover" src="img/work/klaundry.jpg" alt="K Laundry website, first screen" loading="lazy"></picture><img class="strip" alt=""></div></div>
      <div class="meta"><div><b>K Laundry</b><span>Laundromat <em>Spec demo</em></span></div><span class="go">Try it live <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></span></div>
     </a>
-    <a class="site " href="https://rafael14741.github.io/demos/gloss-theory-nails-demo.html" target="_blank" rel="noopener" data-strip="img/work/gloss-strip.jpg">
+    <a class="site " href="https://rafael14741.github.io/demos/gloss-theory-nails-demo.html" target="_blank" rel="noopener" data-strip="img/work/gloss-strip.webp">
      <div class="win"><div class="wbar"><i></i><i></i><i></i><span class="url">gloss-theory-nails</span></div>
-      <div class="shot"><img class="cover" src="img/work/gloss.jpg" alt="Gloss Theory website, first screen" loading="lazy"><img class="strip" alt=""></div></div>
+      <div class="shot"><picture><source type="image/avif" srcset="img/work/gloss.avif"><source type="image/webp" srcset="img/work/gloss.webp"><img class="cover" src="img/work/gloss.jpg" alt="Gloss Theory website, first screen" loading="lazy"></picture><img class="strip" alt=""></div></div>
      <div class="meta"><div><b>Gloss Theory</b><span>Nail salon <em>Spec demo</em></span></div><span class="go">Try it live <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></span></div>
     </a>
-    <a class="site " href="https://rafael14741.github.io/demos/fornaio-rosso-demo.html" target="_blank" rel="noopener" data-strip="img/work/fornaio-strip.jpg">
+    <a class="site " href="https://rafael14741.github.io/demos/fornaio-rosso-demo.html" target="_blank" rel="noopener" data-strip="img/work/fornaio-strip.webp">
      <div class="win"><div class="wbar"><i></i><i></i><i></i><span class="url">fornaio-rosso</span></div>
-      <div class="shot"><img class="cover" src="img/work/fornaio.jpg" alt="Fornaio Rosso website, first screen" loading="lazy"><img class="strip" alt=""></div></div>
+      <div class="shot"><picture><source type="image/avif" srcset="img/work/fornaio.avif"><source type="image/webp" srcset="img/work/fornaio.webp"><img class="cover" src="img/work/fornaio.jpg" alt="Fornaio Rosso website, first screen" loading="lazy"></picture><img class="strip" alt=""></div></div>
      <div class="meta"><div><b>Fornaio Rosso</b><span>Pizzeria <em>Spec demo</em></span></div><span class="go">Try it live <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></span></div>
     </a>
-    <a class="site" href="https://rafael14741.github.io/demos/nonno-ugos-bakery-demo.html" target="_blank" rel="noopener" data-strip="img/work/nonno-strip.jpg">
+    <a class="site" href="https://rafael14741.github.io/demos/nonno-ugos-bakery-demo.html" target="_blank" rel="noopener" data-strip="img/work/nonno-strip.webp">
      <div class="win"><div class="wbar"><i></i><i></i><i></i><span class="url">nonno-ugos-bakery</span></div>
-      <div class="shot"><img class="cover" src="img/work/nonno.jpg" alt="Nonno Ugo's website, first screen" loading="lazy"><img class="strip" alt=""></div></div>
+      <div class="shot"><picture><source type="image/avif" srcset="img/work/nonno.avif"><source type="image/webp" srcset="img/work/nonno.webp"><img class="cover" src="img/work/nonno.jpg" alt="Nonno Ugo's website, first screen" loading="lazy"></picture><img class="strip" alt=""></div></div>
      <div class="meta"><div><b>Nonno Ugo's</b><span>Bakery <em>Spec demo</em></span></div><span class="go">Try it live <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></span></div>
     </a>
    </div>
@@ -699,10 +700,10 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
     <div class="phwrap">
      <div class="phone"><div class="scr">
       <div class="igbar"><b>halftimechews</b><span class="dots"><i></i><i></i><i></i></span></div>
-      <div class="igpro"><span class="av"><img src="img/social/gummy-mark.png" alt=""></span><div><b>HalfTime Chews</b><span>Electrolyte chews for the second half.</span></div></div>
+      <div class="igpro"><span class="av"><img src="img/social/gummy-mark.webp" alt=""></span><div><b>HalfTime Chews</b><span>Electrolyte chews for the second half.</span></div></div>
       <div class="igact"><span class="f">Follow</span><span>Message</span></div>
       <div class="igtabs"><span class="on"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h3.5v3.5H2zM6.25 2h3.5v3.5h-3.5zM10.5 2H14v3.5h-3.5zM2 6.25h3.5v3.5H2zM6.25 6.25h3.5v3.5h-3.5zM10.5 6.25H14v3.5h-3.5zM2 10.5h3.5V14H2zM6.25 10.5h3.5V14h-3.5zM10.5 10.5H14V14h-3.5z"/></svg></span><span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="12" height="12" rx="3"/><path d="M6.5 5.5v5l4-2.5z" fill="currentColor"/></svg></span></div>
-      <div class="iggrid" id="iggrid"><button type="button" class="post p-reel" data-t="reel" data-cap="Tear. Chew. Keep going. Four soft chews for the second half." style="background-image:url(img/social/reel.jpg)" aria-label="Tear. Chew. Keep going. Four soft chews for the second half."><span class="t big">Tear. Chew.<br>Keep going.</span><svg class="ic" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.5v9l7.5-4.5z"/></svg></button><button type="button" class="post p-car" data-t="carousel" data-cap="Why chews, not a drink? Swipe through."  aria-label="Why chews, not a drink? Swipe through."><span class="t">Why chews,<br>not a drink<span class="d">?</span></span><span class="cnt">1/4</span><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="4.5" width="8" height="9" rx="1.5"/><path d="M5.5 2.5h7a1 1 0 0 1 1 1v8"/></svg></button><button type="button" class="post p-pack" data-t="product" data-cap="The pack. Four chews, fits in a sock." style="background-image:url(img/social/pack.jpg)" aria-label="The pack. Four chews, fits in a sock."></button><button type="button" class="post p-citrus" data-t="product" data-cap="Citrus is here." style="background-image:url(img/social/citrus.jpg)" aria-label="Citrus is here."><span class="t lo">Citrus.</span></button><button type="button" class="post p-tip" data-t="tip" data-cap="Cramp at minute 70? Sweat takes salt with it."  aria-label="Cramp at minute 70? Sweat takes salt with it."><span class="t sm">Cramp at<br>minute 70<span class="d">?</span></span><span class="s">Sweat takes salt with it. Put it back at halftime.</span></button><button type="button" class="post p-field" data-t="brand" data-cap="Built for the second half." style="background-image:url(img/social/field.jpg)" aria-label="Built for the second half."><span class="t lo">Built for the<br>second half.</span></button><button type="button" class="post p-box" data-t="offer" data-cap="Team box: twelve packs for the whole squad." style="background-image:url(img/social/box.jpg)" aria-label="Team box: twelve packs for the whole squad."><span class="t lo sm">Team box.</span><span class="tag">Order for the squad</span></button><button type="button" class="post p-split" data-t="product" data-cap="Soft in the middle, sugar on the outside." style="background-image:url(img/social/split.jpg)" aria-label="Soft in the middle, sugar on the outside."></button><button type="button" class="post p-berry" data-t="product" data-cap="Berry, the team favourite." style="background-image:url(img/social/berry.jpg)" aria-label="Berry, the team favourite."><span class="t lo">Berry.</span></button></div>
+      <div class="iggrid" id="iggrid"><button type="button" class="post p-reel" data-t="reel" data-cap="Tear. Chew. Keep going. Four soft chews for the second half." data-bg="img/social/reel.jpg" aria-label="Tear. Chew. Keep going. Four soft chews for the second half."><span class="t big">Tear. Chew.<br>Keep going.</span><svg class="ic" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.5v9l7.5-4.5z"/></svg></button><button type="button" class="post p-car" data-t="carousel" data-cap="Why chews, not a drink? Swipe through."  aria-label="Why chews, not a drink? Swipe through."><span class="t">Why chews,<br>not a drink<span class="d">?</span></span><span class="cnt">1/4</span><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="4.5" width="8" height="9" rx="1.5"/><path d="M5.5 2.5h7a1 1 0 0 1 1 1v8"/></svg></button><button type="button" class="post p-pack" data-t="product" data-cap="The pack. Four chews, fits in a sock." data-bg="img/social/pack.jpg" aria-label="The pack. Four chews, fits in a sock."></button><button type="button" class="post p-citrus" data-t="product" data-cap="Citrus is here." data-bg="img/social/citrus.jpg" aria-label="Citrus is here."><span class="t lo">Citrus.</span></button><button type="button" class="post p-tip" data-t="tip" data-cap="Cramp at minute 70? Sweat takes salt with it."  aria-label="Cramp at minute 70? Sweat takes salt with it."><span class="t sm">Cramp at<br>minute 70<span class="d">?</span></span><span class="s">Sweat takes salt with it. Put it back at halftime.</span></button><button type="button" class="post p-field" data-t="brand" data-cap="Built for the second half." data-bg="img/social/field.jpg" aria-label="Built for the second half."><span class="t lo">Built for the<br>second half.</span></button><button type="button" class="post p-box" data-t="offer" data-cap="Team box: twelve packs for the whole squad." data-bg="img/social/box.jpg" aria-label="Team box: twelve packs for the whole squad."><span class="t lo sm">Team box.</span><span class="tag">Order for the squad</span></button><button type="button" class="post p-split" data-t="product" data-cap="Soft in the middle, sugar on the outside." data-bg="img/social/split.jpg" aria-label="Soft in the middle, sugar on the outside."></button><button type="button" class="post p-berry" data-t="product" data-cap="Berry, the team favourite." data-bg="img/social/berry.jpg" aria-label="Berry, the team favourite."><span class="t lo">Berry.</span></button></div>
      </div></div>
      <p class="phcap">Concept feed for HalfTime Chews, a class project.</p>
     </div>
@@ -720,19 +721,19 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
    </div>
    <div class="ads">
     <figure class="vid">
-     <div class="player" id="player"><div class="vinfo" id="vinfo" aria-hidden="true"><p class="vk">Vertical ad, made for Reels</p><p class="vt" id="vt"></p><p class="vd" id="vd"></p><p class="vh">Tap Expand to watch it big.</p></div><video id="adv" muted playsinline loop preload="none" poster="img/ads/halftime-poster.jpg" data-src="img/ads/halftime-ad.mp4" aria-label="HalfTime Chews launch ad"></video>
+     <div class="player" id="player" data-bg="img/ads/halftime-poster.jpg"><div class="vinfo" id="vinfo" aria-hidden="true"><p class="vk">Vertical ad, made for Reels</p><p class="vt" id="vt"></p><p class="vd" id="vd"></p><p class="vh">Tap Expand to watch it big.</p></div><video id="adv" muted playsinline loop preload="none" data-poster="img/ads/halftime-poster.avif" data-src="img/ads/halftime-ad.mp4" aria-label="HalfTime Chews launch ad"></video>
       <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6v4h2.5l3.5 3V3L5 6z" fill="currentColor" stroke="none"/><path class="w" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.8a6 6 0 0 1 0 8.4"/><path class="x" d="M11 6l4 4M15 6l-4 4"/></svg><span>Sound on</span></button>
       <button type="button" class="xp" id="xp" aria-label="Expand video"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg><span>Expand</span></button></div>
      <figcaption><b id="adt">HalfTime Chews launch ad</b><span id="adsub">18-second product ad <em>Concept, class project</em></span></figcaption>
      <div class="reel" id="reel" role="tablist" aria-label="Ads">
-      <button type="button" role="tab" aria-selected="true" data-i="0"><img src="img/ads/halftime-thumb.jpg" alt=""><span><b>HalfTime</b>Product launch</span></button>
-      <button type="button" role="tab" aria-selected="false" data-i="1"><img src="img/ads/paydue-thumb.jpg" alt=""><span><b>Paydue</b>App launch</span></button>
-      <button type="button" role="tab" aria-selected="false" data-i="2"><img src="img/ads/fma-thumb.jpg" alt=""><span><b>FMA</b>Custom cabinets</span></button>
+      <button type="button" role="tab" aria-selected="true" data-i="0"><picture><source type="image/avif" srcset="img/ads/halftime-thumb.avif"><source type="image/webp" srcset="img/ads/halftime-thumb.webp"><img src="img/ads/halftime-thumb.jpg" alt=""></picture><span><b>HalfTime</b>Product launch</span></button>
+      <button type="button" role="tab" aria-selected="false" data-i="1"><picture><source type="image/avif" srcset="img/ads/paydue-thumb.avif"><source type="image/webp" srcset="img/ads/paydue-thumb.webp"><img src="img/ads/paydue-thumb.jpg" alt=""></picture><span><b>Paydue</b>App launch</span></button>
+      <button type="button" role="tab" aria-selected="false" data-i="2"><picture><source type="image/avif" srcset="img/ads/fma-thumb.avif"><source type="image/webp" srcset="img/ads/fma-thumb.webp"><img src="img/ads/fma-thumb.jpg" alt=""></picture><span><b>FMA</b>Custom cabinets</span></button>
      </div>
     </figure>
     <div class="meta-ad" aria-label="Sample Instagram ad">
-     <div class="ma-top"><span class="av"><img src="img/social/gummy-mark.png" alt=""></span><div><b>halftimechews</b><span>Sponsored</span></div></div>
-     <img class="ma-img" src="img/ads/meta.jpg" alt="Three HalfTime chews in light, hard and extreme strengths" loading="lazy">
+     <div class="ma-top"><span class="av"><img src="img/social/gummy-mark.webp" alt=""></span><div><b>halftimechews</b><span>Sponsored</span></div></div>
+     <picture><source type="image/avif" srcset="img/ads/meta.avif"><source type="image/webp" srcset="img/ads/meta.webp"><img class="ma-img" src="img/ads/meta.jpg" alt="Three HalfTime chews in light, hard and extreme strengths" loading="lazy"></picture>
      <div class="ma-cta"><span>Electrolytes in a chew</span><span class="b">Shop now</span></div>
      <p class="ma-txt"><b>halftimechews</b> Soft in the middle, built for the second half. Light, hard or extreme.</p>
      <p class="mock">Instagram ad, concept</p>
