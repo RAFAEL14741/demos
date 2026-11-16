@@ -550,6 +550,25 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
 
 #tw .row button.wide{flex:1 1 45%}
 @media (prefers-reduced-motion:reduce){h1 .l,.tile,.mark,.bcard,.board,.app,.ig-av,.fx{transition:none}.spark{display:none}}
+
+/* ---- phone polish (I10): readable labels, 44px thumb targets, trail glow scaled, tweak pill off the headline ---- */
+@media (max-width:640px){
+  h1{font-size:calc(min(44px,12.4vw) * var(--hs))}
+  .info{font-size:12px}.info .r{flex-wrap:wrap;gap:4px 14px}.info .r>span{white-space:nowrap}
+  .cap,.meta em,.mock{font-size:12px}
+  .end .facts{font-size:12px;gap:4px 16px}
+  #tw-btn{display:none}
+  #thot .h1{stroke-width:24}#thot .h2{stroke-width:13}#thot .h3{stroke-width:7}#thot .h4{stroke-width:3.6}#thot .h5{stroke-width:1.4}
+  #tcool .c1{stroke-width:9}#tcool .c2{stroke-width:4.5}#tcool .c3{stroke-width:1.6}
+}
+@media (max-width:640px) and (pointer:coarse){
+  nav>a:first-child{min-height:44px;display:flex;align-items:center}
+  .cta,.snd,.xp,.ctabs button,.seg button{min-height:44px}
+  .shuf{min-height:40px;padding:8px 12px}
+}
+@media (max-width:340px){.seg button{font-size:12.5px}}
+@media (max-width:380px){.info>div:first-child{display:none}}
+.end .facts{align-items:center}.end .facts>*{padding:14px 2px}.end .facts a{color:inherit;text-decoration:none}.end .facts a:hover{color:var(--bone)}
 </style>
 </head>
 <body class="look-a">
@@ -787,7 +806,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
   <h2>Your launch<br>point<em>.</em></h2>
   <p>Tell us where you want to go.</p>
   <a class="go" id="go" href="mailto:teamlaunchpointktg@gmail.com"><i id="land"></i>Start a project</a>
-  <div class="facts"><span>teamlaunchpointktg@gmail.com</span><span>@launchpointmktg</span><span>Philadelphia</span><span>English / Português</span></div>
+  <div class="facts"><a href="mailto:teamlaunchpointktg@gmail.com">teamlaunchpointktg@gmail.com</a><a href="https://www.instagram.com/launchpointmktg/" target="_blank" rel="noopener">@launchpointmktg</a><span>Philadelphia</span><span>English / Português</span></div>
  </section>
 </main>
 <dialog id="cine" aria-label="Video"><div class="cbox" id="cbox"></div><button type="button" class="cx" id="cx" aria-label="Close">×</button></dialog>

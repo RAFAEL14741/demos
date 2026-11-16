@@ -34,10 +34,15 @@ const R=(()=>{const story=document.getElementById('story'),wrap=document.getElem
     start=emberPt();const pts=[start];
     const secs=[...story.querySelectorAll('.chap')];
     const wrapEl=story.querySelector('.in-wrap'),wr=wrapEl.getBoundingClientRect();
-    const gutL=phone?W-22:Math.max(26,(wr.left-sr.left)/2),gutR=phone?W-22:W-Math.max(26,(wr.left-sr.left)/2);
+    const gutL=phone?W-12:Math.max(26,(wr.left-sr.left)/2),gutR=phone?W-12:W-Math.max(26,(wr.left-sr.left)/2);
     secs.forEach((s,i)=>{const side=i%2?gutL:gutR;const top=Y(s),bot=B(s);
       pts.push([side,top+(phone?40:90)],[side,bot-(phone?30:60)])});
-    const g=document.getElementById('land').getBoundingClientRect();pts.push([g.left-sr.left+5,g.top-sr.top+5]);
+    // phone ending: down the right edge, under the button, up into its dot (never through the headline)
+    // phone ending: down the right edge, across the gap ABOVE the button, then down into its dot. y only ever grows (the rock follows y), never through the headline
+    const g=document.getElementById('land').getBoundingClientRect();
+    {const gb=document.getElementById('go').getBoundingClientRect(),yt=gb.top-sr.top,lx=pts[pts.length-1][0],dx=g.left-sr.left,side=lx>dx?1:-1;
+     pts.push([lx,yt-(phone?40:70)],[dx+side*(phone?30:60),yt-16])}
+    pts.push([g.left-sr.left+5,g.top-sr.top+5]);
     // start back on the photo's arc (it fades where the rock was painted out) and leave along its direction, so the streak continues instead of turning a corner
     const arc=!phone,AD=[.96,-.27],pre=photoW*.9,P0=[start[0]-AD[0]*pre,start[1]-AD[1]*pre-photoW*.27];PRE=arc?Math.hypot(start[0]-P0[0],start[1]-P0[1]):0;
     let d=arc?`M${P0[0]},${P0[1]} L${start[0]},${start[1]}`:`M${start[0]},${start[1]}`;
@@ -54,7 +59,8 @@ const R=(()=>{const story=document.getElementById('story'),wrap=document.getElem
     const k=Q!==null&&heroP<1?ease(cl((heroP-.74)/.26)):ease(cl((scrollY/Math.max(1,hE)-.74)/.26));
     const anchor=Math.max(scrollY,hE)+innerHeight*.58-story.offsetTop;
     const target=start[1]+(anchor-start[1])*k;
-    const l=k<=0?0:Math.max(PRE,Math.min(L,at(target)));
+    let l=k<=0?0:Math.max(PRE,Math.min(L,at(target)));
+    if(k>=1&&scrollY>=document.documentElement.scrollHeight-innerHeight-4)l=L; // bottom of the page = landed
     tcool.style.strokeDashoffset=L-l;const HOT=Math.min(560,innerHeight*.62);
     hots.forEach(p=>{const h=Math.min(l,HOT*+p.dataset.f);p.style.strokeDasharray=`${h} ${L+h}`;p.style.strokeDashoffset=h-l});
     const pt=tp.getPointAtLength(l),p2=tp.getPointAtLength(Math.min(L,l+2)),ang=Math.atan2(p2.y-pt.y,p2.x-pt.x);
