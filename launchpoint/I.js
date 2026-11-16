@@ -202,6 +202,15 @@ const CFG=(()=>{
 (()=>{const v=document.getElementById('adv'),snd=document.getElementById('snd');if(!v)return;
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.35}).observe(v);
+ const ADS=[{src:'img/ads/halftime-ad.mp4',poster:'img/ads/halftime-poster.jpg',t:'HalfTime Chews launch ad',s:'18-second product ad',tag:'Concept, class project'},
+  {src:'img/ads/paydue-ad.mp4',poster:'img/ads/paydue-poster.jpg',t:'Paydue app launch ad',s:'27-second SaaS-style ad, sound design included',tag:'Concept, made-up app'}];
+ window.LP_ADS=ADS;
+ const reel=document.getElementById('reel');
+ reel.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=ADS[+b.dataset.i];
+  reel.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
+  v.pause();v.poster=a.poster;v.dataset.src=a.src;v.src=a.src;v.closest('.player').style.backgroundImage=`url(${a.poster})`;
+  document.getElementById('adt').textContent=a.t;document.getElementById('adsub').innerHTML=a.s+' <em>'+a.tag+'</em>';
+  if(!reduce)v.play().catch(()=>{})});
  snd.addEventListener('click',()=>{if(!v.src)v.src=v.dataset.src;v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play().catch(()=>{})}
   snd.setAttribute('aria-pressed',String(!v.muted));snd.querySelector('span').textContent=v.muted?'Sound on':'Sound off'});
  const WHERE={cafe:['coffee near me','Coffee, pastries and a seat by the window.'],barber:['barber near me','Walk-ins welcome. Book online in seconds.'],studio:['pilates classes near me','Small classes, real coaching, all levels.'],

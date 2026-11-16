@@ -350,6 +350,16 @@ body.look-b .chap.alt .meta em{border-color:rgba(20,18,16,.18)}
 .snd svg{width:16px;height:16px}.snd .w{display:none}.snd[aria-pressed=true] .w{display:block}.snd[aria-pressed=true] .x{display:none}
 .snd:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 .vid figcaption{margin-top:14px}
+.reel{display:flex;gap:10px;margin-top:16px;overflow-x:auto;scrollbar-width:none}
+.reel button{display:flex;align-items:center;gap:10px;flex:0 0 auto;text-align:left;background:rgba(28,25,22,.7);border:1px solid var(--line);border-radius:12px;padding:6px 14px 6px 6px;color:var(--bone);cursor:pointer;transition:border-color .2s var(--ease)}
+.reel button:hover{border-color:rgba(237,230,218,.32)}
+.reel button[aria-selected=true]{border-color:var(--ember)}
+.reel button:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+.reel img{width:72px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;display:block}
+.reel b{display:block;font-weight:500;font-size:14px}
+.reel span{font-size:12px;color:var(--bone2)}
+body.look-b .chap.alt .reel button{background:rgba(255,255,255,.5);color:var(--graphite);border-color:rgba(20,18,16,.15)}
+body.look-b .chap.alt .reel button[aria-selected=true]{border-color:var(--ember)}
 .vid figcaption b{display:block;font-weight:500;font-size:17px}
 .vid figcaption span{font-size:14px;color:var(--bone2)}
 .vid figcaption em,.mock{font-style:normal;font-family:Mono;font-size:11px;padding:3px 7px;border:1px solid var(--line);border-radius:6px;margin-left:6px;white-space:nowrap}
@@ -643,7 +653,11 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
     <figure class="vid">
      <div class="player" id="player"><video id="adv" muted playsinline loop preload="none" poster="img/ads/halftime-poster.jpg" data-src="img/ads/halftime-ad.mp4" aria-label="HalfTime Chews launch ad"></video>
       <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6v4h2.5l3.5 3V3L5 6z" fill="currentColor" stroke="none"/><path class="w" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.8a6 6 0 0 1 0 8.4"/><path class="x" d="M11 6l4 4M15 6l-4 4"/></svg><span>Sound on</span></button></div>
-     <figcaption><b>HalfTime Chews launch ad</b><span>18-second video ad <em>Concept, class project</em></span></figcaption>
+     <figcaption><b id="adt">HalfTime Chews launch ad</b><span id="adsub">18-second product ad <em>Concept, class project</em></span></figcaption>
+     <div class="reel" id="reel" role="tablist" aria-label="Ads">
+      <button type="button" role="tab" aria-selected="true" data-i="0"><img src="img/ads/halftime-thumb.jpg" alt=""><span><b>HalfTime</b>Product launch</span></button>
+      <button type="button" role="tab" aria-selected="false" data-i="1"><img src="img/ads/paydue-thumb.jpg" alt=""><span><b>Paydue</b>App launch</span></button>
+     </div>
     </figure>
     <div class="meta-ad" aria-label="Sample Instagram ad">
      <div class="ma-top"><span class="av"><img src="img/social/gummy-mark.png" alt=""></span><div><b>halftimechews</b><span>Sponsored</span></div></div>
