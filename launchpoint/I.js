@@ -65,7 +65,9 @@ const CFG=(()=>{
     orbit:'<circle cx="20" cy="20" r="14"/><path d="M6 20c8-7 20-7 28 0"/><circle cx="20" cy="11" r="2.2" fill="currentColor" stroke="none"/>',
     flame:'<path d="M20 5c4 7 10 10 10 18a10 10 0 0 1-20 0c0-5 3-8 5-11 1 4 3 5 5 6 0-5-1-9 0-13z"/>',
     leaf:'<path d="M8 32C8 16 18 8 32 8c0 14-8 24-24 24z"/><path d="M8 32l14-14"/>',
-    bell:'<path d="M5 15v10M10 11v18M30 11v18M35 15v10M10 20h20"/>'};
+    bell:'<path d="M5 15v10M10 11v18M30 11v18M35 15v10M10 20h20"/>',
+    spark:'<path d="M20 4l3.5 12.5L36 20l-12.5 3.5L20 36l-3.5-12.5L4 20l12.5-3.5z"/>',
+    drop:'<path d="M20 5c6 8 11 13 11 19a11 11 0 0 1-22 0c0-6 5-11 11-19z"/><path d="M15 25a5 5 0 0 0 5 5"/>'};
   const KINDS={
     cafe:{name:'Corvo Coffee',word:'Coffee',sym:'cup',nav:['Menu','Visit'],cta:'Order ahead',tag:{bold:'Strong coffee. No small talk.',warm:'Your corner table is waiting.',calm:'Slow mornings, done right.',play:'Stay for the croissant.'}},
     barber:{name:'Hale Barbers',word:'Barbers',sym:'pole',nav:['Services','Team'],cta:'Book a cut',tag:{bold:'Sharp cuts. Every time.',warm:'Pull up a chair, we got you.',calm:'A clean cut, no rush.',play:'Fresh cut, fresh start.'}},
@@ -76,10 +78,18 @@ const CFG=(()=>{
   const COLS=[['Cobalt','#2A47C4'],['Forest','#1F5A43'],['Oxblood','#7A1F2A'],['Saffron','#E2A426'],['Rose','#E07A93'],['Plum','#5B2A6E'],['Teal','#0F7C7A'],['Coral','#F0623F'],['Sky','#7FB2EC'],['Ink','#18181C']];
   const TYPES={classic:{f:'Serif',w:400,ls:'-.01em',tt:'none',sz:1.08},elegant:{f:'Corm',w:500,ls:'.01em',tt:'none',sz:1.12},soft:{f:'Fraunces',w:600,ls:'-.02em',tt:'none',sz:.95},
     loud:{f:'Archivo',w:400,ls:'-.02em',tt:'none',sz:.86},modern:{f:'Syne',w:700,ls:'-.01em',tt:'none',sz:.92},tech:{f:'Mono',w:500,ls:'.03em',tt:'uppercase',sz:.82}};
-  const S={name:'Corvo Coffee',kind:'cafe',mark:'mono',col:0,custom:'#2A47C4',gr:'light',type:'classic',voice:'warm',named:false};
+  const S={name:'Corvo Coffee',kind:'cafe',mark:'mono',col:0,custom:'#2A47C4',gr:'light',type:'classic',voice:'warm',named:false,icon:'cup',lay:'row',shape:'circle',cs:'as',acc:'same',customAcc:'#D9A441',sp:'normal',cor:'soft',tagOwn:''};
+  const ACC=[['Same as main','same'],['Gold','#D9A441'],['Lime','#C6F23D'],['Coral','#F0623F'],['Sky','#7FB2EC'],['Rose','#E07A93'],['Cream','#F3E9D6'],['Ink','#18181C']];
   const box=document.getElementById('cfg'),out=document.getElementById('out'),brand=document.getElementById('brand'),nameI=document.getElementById('c-name');
   const swW=box.querySelector('[data-k=col]');
   COLS.forEach(([n,c],i)=>{const b=document.createElement('button');b.type='button';b.style.background=c;b.dataset.v=i;b.title=n;b.setAttribute('aria-label',n);swW.appendChild(b)});
+  const acW=box.querySelector('[data-k=acc]');
+  ACC.forEach(([n,c])=>{const b=document.createElement('button');b.type='button';b.dataset.v=c;b.title=n;b.setAttribute('aria-label',n);b.style.background=c==='same'?'conic-gradient(var(--bone2) 0 50%,transparent 0) , #2A2622':c;if(c==='same')b.innerHTML='<svg viewBox="0 0 30 30" style="width:100%;height:100%"><path d="M8 22L22 8" stroke="#EDE6DA" stroke-width="1.5"/></svg>',b.style.background='#2A2622';acW.appendChild(b)});
+  const cusA=document.createElement('label');cusA.className='cus';cusA.title='Any accent';cusA.dataset.v='customA';cusA.innerHTML='<input type="color" value="#D9A441" aria-label="Pick any accent colour">';acW.appendChild(cusA);const cusAI=cusA.querySelector('input');
+  cusAI.addEventListener('input',()=>{S.acc='customA';S.customAcc=cusAI.value;render(false)});cusA.addEventListener('click',()=>{if(S.acc!=='customA'){S.acc='customA';S.customAcc=cusAI.value;render(false)}});
+  box.querySelectorAll('[data-sym]').forEach(sv=>sv.innerHTML=SYM[sv.dataset.sym]);
+  box.querySelector('.ctabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;box.querySelectorAll('.ctabs button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));box.querySelectorAll('.pane').forEach(p=>p.hidden=p.dataset.p!==b.dataset.p)});
+  const tagI=document.getElementById('c-tag');tagI.addEventListener('input',()=>{S.tagOwn=tagI.value;render(false)});
   const cus=document.createElement('label');cus.className='cus';cus.title='Any colour';cus.dataset.v='custom';
   cus.innerHTML='<input type="color" value="#2A47C4" aria-label="Pick any colour">';swW.appendChild(cus);const cusI=cus.querySelector('input');
   /* colour maths */
@@ -91,11 +101,12 @@ const CFG=(()=>{
     else if(S.gr==='dark'){g=mix(b,'#0D0C0B',.88);ik='#F3EEE6';m=L<.06?mix(b,'#FFFFFF',.82):b}
     else{g=b;ik=bi;m=bi}
     const f=S.gr==='brand'?bi:b,fi=S.gr==='brand'?b:bi;
-    return {b,bi,g,ik,m,f,fi,n:S.col==='custom'?'Your colour':COLS[S.col][0]}}
+    let a=f,ai=fi,an='Same as main';if(S.acc!=='same'){a=S.acc==='customA'?S.customAcc:S.acc;ai=lum(a)>.36?'#16130F':'#FBF8F3';an=S.acc==='customA'?'Your accent':ACC.find(x=>x[1]===S.acc)[0]}
+    return {b,bi,g,ik,m,f,fi,a,ai,an,n:S.col==='custom'?'Your colour':COLS[S.col][0]}}
   const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const nm=()=>S.name.trim()||'Your name';
   const initials=()=>{const w=nm().split(/\s+/).filter(Boolean);return ((w[0]||'Y')[0]+(w[1]?w[1][0]:'')).toUpperCase()};
-  const sym=()=>`<svg class="sym" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${SYM[KINDS[S.kind].sym]}</svg>`;
+  const sym=()=>`<svg class="sym" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${SYM[S.icon]}</svg>`;
   let uid=0;
   function badge(){const ty=TYPES[S.type],id='bp'+(++uid),k=KINDS[S.kind];const top=esc(nm().toUpperCase()),bot=esc(k.word.toUpperCase());
     const fs=Math.min(13,150/Math.max(6,top.length));
@@ -103,10 +114,10 @@ const CFG=(()=>{
       <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="60" r="31" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
       <text fill="currentColor" style="font-family:${ty.f};font-weight:${ty.w}" font-size="${fs}" letter-spacing="2"><textPath href="#${id}a" startOffset="50%" text-anchor="middle">${top}</textPath></text>
       <text fill="currentColor" style="font-family:${ty.f};font-weight:${ty.w}" font-size="9" letter-spacing="3"><textPath href="#${id}b" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">${bot}</textPath></text>
-      <svg x="43" y="43" width="34" height="34" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${SYM[k.sym]}</svg></svg>`}
-  function full(){const n=esc(nm());
-    if(S.mark==='mono')return `<div class="mark"><span class="mono">${esc(initials())}</span><span class="wm">${n}</span></div>`;
-    if(S.mark==='sym')return `<div class="mark">${sym()}<span class="wm">${n}</span></div>`;
+      <svg x="43" y="43" width="34" height="34" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${SYM[S.icon]}</svg></svg>`}
+  function full(){const n=esc(nm()),st=S.lay==='stack'?' stack':'';
+    if(S.mark==='mono')return `<div class="mark${st}"><span class="mono">${esc(initials())}</span><span class="wm">${n}</span></div>`;
+    if(S.mark==='sym')return `<div class="mark${st}">${sym()}<span class="wm">${n}</span></div>`;
     if(S.mark==='badge')return `<div class="mark">${badge()}</div>`;
     return `<div class="mark"><span class="wm">${n}</span></div>`}
   function icon(){if(S.mark==='sym')return sym();if(S.mark==='badge')return badge();
@@ -116,31 +127,36 @@ const CFG=(()=>{
     while(m.scrollWidth>max&&i<30){m.style.fontSize=(parseFloat(getComputedStyle(m).fontSize)*.93)+'px';i++}})}
   addEventListener('resize',()=>fit());
   function render(anim){const p=palette(),ty=TYPES[S.type],k=KINDS[S.kind];
-    for(const v of['b','bi','g','ik','m','f','fi'])out.style.setProperty('--'+v,p[v]);brand.style.setProperty('--bc',p.b);
-    document.getElementById('c-cn').textContent=p.n;
+    for(const v of['b','bi','g','ik','m','f','fi','a','ai'])out.style.setProperty('--'+v,p[v]);brand.style.setProperty('--bc',p.b);
+    document.getElementById('c-cn').textContent=p.n;document.getElementById('c-an').textContent=p.an;
+    out.style.setProperty('--shp',{circle:'50%',round:'28%',square:'8%'}[S.shape]);
+    const C={sharp:['2px','2px','4px'],soft:['8px','10px','12px'],round:['99px','20px','16px']}[S.cor];out.style.setProperty('--rb',C[0]);out.style.setProperty('--rc',C[1]);out.style.setProperty('--rc2',C[2]);
     const draw=()=>{
       out.querySelectorAll('[data-slot]').forEach(el=>{const s=el.dataset.slot;
         if(s==='full')el.innerHTML=full();else if(s.startsWith('icon'))el.innerHTML=icon();
-        else if(s==='tag')el.textContent=k.tag[S.voice];else if(s==='name')el.textContent=nm();
+        else if(s==='tag')el.textContent=S.tagOwn.trim()||k.tag[S.voice];else if(s==='name')el.textContent=nm();
         else if(s==='handle')el.textContent='@'+(nm().toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g,'')||'yourname');
         else if(s==='cta')el.textContent=k.cta;else if(s==='nav1')el.textContent=k.nav[0];else if(s==='nav2')el.textContent=k.nav[1]});
-      out.querySelectorAll('.wm,.mono,.ini,.ig-nm,.wb-h').forEach(el=>{el.style.fontFamily=ty.f;el.style.fontWeight=ty.w;el.style.letterSpacing=ty.ls;el.style.textTransform=ty.tt});
+      const LS={tight:'-.05em',normal:ty.ls,wide:'.14em'}[S.sp],TT=S.cs==='up'?'uppercase':S.cs==='low'?'lowercase':ty.tt;
+      out.querySelectorAll('.wm,.mono,.ini,.ig-nm').forEach(el=>{el.style.fontFamily=ty.f;el.style.fontWeight=ty.w;el.style.letterSpacing=LS;el.style.textTransform=TT});
+      out.querySelectorAll('.wb-h').forEach(el=>{el.style.fontFamily=ty.f;el.style.fontWeight=ty.w;el.style.letterSpacing=ty.ls;el.style.textTransform=ty.tt});
       out.querySelectorAll('.wm,.mono,.ini').forEach(el=>el.style.fontSize=ty.sz+'em');
       out.querySelectorAll('.tl,.ig-bio,.q2').forEach(el=>{const disp=S.type==='classic'||S.type==='elegant'||S.type==='soft';el.style.fontFamily=disp?ty.f:'Hanken';el.style.fontWeight=disp?ty.w:400;el.style.fontSize=disp?'1.1em':''});
       fit();out.classList.remove('fading')};
     if(anim){out.classList.add('fading');clearTimeout(render._t);render._t=setTimeout(draw,200)}else draw();
-    box.querySelectorAll('[data-k]').forEach(g=>g.querySelectorAll('button,.cus').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v==String(S[g.dataset.k]))))) }
+    box.querySelectorAll('[data-k]').forEach(g=>g.querySelectorAll('button,.cus').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v==String(S[g.dataset.k])||(g.dataset.k==='col'&&b.dataset.v==='custom'&&S.col==='custom')||(g.dataset.k==='acc'&&b.dataset.v==='customA'&&S.acc==='customA')))))}
   box.addEventListener('click',e=>{const b=e.target.closest('[data-k] button');if(!b)return;const k=b.closest('[data-k]').dataset.k;
     const v=k==='col'?+b.dataset.v:b.dataset.v;if(S[k]===v)return;S[k]=v;
-    if(k==='kind'&&!S.named){S.name=KINDS[v].name;nameI.value=S.name}
-    render(k!=='col'&&k!=='gr')});
+    if(k==='kind'){S.icon=KINDS[v].sym;if(!S.named){S.name=KINDS[v].name;nameI.value=S.name}}
+    render(!['col','gr','acc','shape','cor'].includes(k))});
   cusI.addEventListener('input',()=>{S.col='custom';S.custom=cusI.value;render(false)});
   cus.addEventListener('click',()=>{if(S.col!=='custom'){S.col='custom';S.custom=cusI.value;render(false)}});
   nameI.addEventListener('input',()=>{S.name=nameI.value;S.named=true;render(false)});
   const pick=a=>a[Math.floor(Math.random()*a.length)];
   document.getElementById('c-shuf').addEventListener('click',e=>{e.preventDefault();
     const kind=pick(Object.keys(KINDS).filter(x=>x!==S.kind));Object.assign(S,{kind,name:KINDS[kind].name,named:false,mark:pick(['mono','word','sym','badge']),
-      col:Math.floor(Math.random()*COLS.length),gr:pick(['light','light','dark','brand']),type:pick(Object.keys(TYPES)),voice:pick(['bold','warm','calm','play'])});
+      col:Math.floor(Math.random()*COLS.length),gr:pick(['light','light','dark','brand']),type:pick(Object.keys(TYPES)),voice:pick(['bold','warm','calm','play']),
+      icon:KINDS[kind].sym,lay:pick(['row','row','stack']),shape:pick(['circle','round','square']),cs:pick(['as','as','up']),acc:pick(['same','same',...ACC.slice(1,6).map(x=>x[1])]),sp:pick(['normal','normal','tight','wide']),cor:pick(['sharp','soft','round']),tagOwn:''});tagI.value='';
     nameI.value=S.name;render(true)});
   document.fonts.ready.then(()=>fit());
   render(false);return {S,render}})();
@@ -204,7 +220,7 @@ const CFG=(()=>{
  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.35}).observe(v);
  const ADS=[{src:'img/ads/halftime-ad.mp4',poster:'img/ads/halftime-poster.jpg',t:'HalfTime Chews launch ad',s:'18-second product ad',tag:'Concept, class project'},
   {src:'img/ads/paydue-ad.mp4',poster:'img/ads/paydue-poster.jpg',t:'Paydue app launch ad',s:'27-second SaaS-style ad, sound design included',tag:'Concept, made-up app'},
-  {src:'img/ads/fma-ad.mp4',poster:'img/ads/fma-poster.jpg',t:'FMA Constructions custom cabinet ad',s:'20-second vertical ad for Reels',tag:'FMA Constructions',vert:true}];
+  {src:'img/ads/fma-ad.mp4',poster:'img/ads/fma-poster.jpg',t:'FMA Constructions custom cabinet ad',s:'20-second vertical ad for Reels',tag:'FMA Constructions',vert:true,vt:'FMA Constructions',vd:'Custom built-ins, made to match. The ad walks through a real request: a photo, a finish, a free estimate booked in a few taps.'}];
  window.LP_ADS=ADS;let cur=ADS[0];
  const player=document.getElementById('player'),cine=document.getElementById('cine'),cbox=document.getElementById('cbox');
  function fitCine(){const r=(v.videoWidth&&v.videoHeight)?v.videoWidth/v.videoHeight:(cur.vert?9/16:16/9);
@@ -217,7 +233,7 @@ const CFG=(()=>{
  const reel=document.getElementById('reel');
  reel.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=ADS[+b.dataset.i];
   reel.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
-  v.pause();v.poster=a.poster;v.dataset.src=a.src;v.src=a.src;v.closest('.player')&&(v.closest('.player').style.backgroundImage=`url(${a.poster})`,v.closest('.player').classList.toggle('vert',!!a.vert));player.style.backgroundImage=`url(${a.poster})`;player.classList.toggle('vert',!!a.vert);cur=a;
+  v.pause();v.poster=a.poster;v.dataset.src=a.src;v.src=a.src;v.closest('.player')&&(v.closest('.player').style.backgroundImage=`url(${a.poster})`,v.closest('.player').classList.toggle('vert',!!a.vert));player.style.backgroundImage=`url(${a.poster})`;player.classList.toggle('vert',!!a.vert);cur=a;if(a.vert){document.getElementById('vt').textContent=a.vt;document.getElementById('vd').textContent=a.vd}
   document.getElementById('adt').textContent=a.t;document.getElementById('adsub').innerHTML=a.s+' <em>'+a.tag+'</em>';
   if(!reduce)v.play().catch(()=>{})});
  snd.addEventListener('click',()=>{if(!v.src)v.src=v.dataset.src;v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play().catch(()=>{})}

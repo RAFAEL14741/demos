@@ -160,6 +160,31 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .sw .cus input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
 .sw [aria-pressed=true]::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--bone)}
 
+.ctabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;background:rgba(237,230,218,.05);border-radius:12px;margin-bottom:20px}
+.ctabs button{font:500 14px Hanken,sans-serif;color:var(--bone2);background:none;border:0;border-radius:9px;padding:9px 4px;cursor:pointer;transition:background .2s var(--ease),color .2s var(--ease)}
+.ctabs button:hover{color:var(--bone)}
+.ctabs button[aria-selected=true]{background:var(--bone);color:var(--graphite)}
+.ctabs button:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+.pane{animation:pin .35s var(--ease)}
+@keyframes pin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.seg.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.lb .opt{font-size:12px;color:#857C70}
+.icons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.icons button{aspect-ratio:1.6;display:grid;place-items:center;color:#D6CEC2;background:rgba(237,230,218,.04);border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:background .15s var(--ease),border-color .15s var(--ease)}
+.icons button svg{width:24px;height:24px}
+.icons button:hover{border-color:rgba(237,230,218,.3)}
+.icons button[aria-pressed=true]{background:var(--bone);color:var(--graphite);border-color:var(--bone)}
+.icons button:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+#c-tag{width:100%;font:400 15px Hanken,sans-serif;color:var(--bone);background:rgba(237,230,218,.05);border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none}
+#c-tag:focus{border-color:rgba(237,230,218,.45)}
+.mark.stack{flex-direction:column;gap:.35em;text-align:center}
+.mark.stack .wm{font-size:.8em}
+.out .mark .mono,.out .ico .ini{border-radius:var(--shp,50%)}
+.tile{container-type:inline-size}
+.fol,.wb-nav .pill,.wb-btn{background:var(--a)!important;color:var(--ai)!important;border-radius:var(--rb,8px)!important}
+.bcard,.board,.web{border-radius:var(--rc,10px)}
+.app{border-radius:var(--rc2,12px)}
+@container (max-width:340px){.wb-nav [data-slot=nav1],.wb-nav [data-slot=nav2]{display:none}.ig-grid .q2{font-size:10px}.ig-bio{font-size:12px}}
 .out{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .tile{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;background:var(--g);color:var(--ik);transition:background .45s var(--ease),color .45s var(--ease)}
 .tile .cap{position:absolute;left:14px;bottom:10px;font-family:Mono;font-size:11px;opacity:.55}
@@ -351,7 +376,13 @@ body.look-b .chap.alt .meta em{border-color:rgba(20,18,16,.18)}
 .xp svg{width:15px;height:15px}.xp:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 .snd{z-index:2}
 .player.vert::before{content:"";position:absolute;inset:-30px;background:inherit;background-size:cover;filter:blur(28px) brightness(.55);z-index:0}
-.player.vert video{object-fit:contain;z-index:1}
+.player.vert video{object-fit:cover;z-index:1;left:7%;right:auto;width:31.64%;top:0;height:100%;border-radius:0;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 30px 60px rgba(0,0,0,.5)}
+.vinfo{display:none;position:absolute;left:46%;right:7%;top:50%;transform:translateY(-50%);z-index:1;color:#fff}
+.player.vert .vinfo{display:block}
+.vk{font:400 12px Mono,monospace;color:rgba(255,255,255,.7)}
+.vt{margin-top:12px;font-family:Serif;font-size:clamp(28px,2.6vw,40px);line-height:1}
+.vd{margin-top:12px;font-size:15px;line-height:1.5;color:rgba(255,255,255,.82);max-width:340px}
+.vh{margin-top:18px;font-size:13px;color:rgba(255,255,255,.6)}
 #cine{margin:auto;border:0;padding:0;background:transparent;overflow:visible;max-width:none;max-height:none}
 #cine::backdrop{background:rgba(8,7,6,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .cbox{position:relative;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 40px 120px rgba(0,0,0,.7)}
@@ -407,6 +438,11 @@ body.look-b .chap.alt .vid figcaption span,body.look-b .chap.alt .steps span,bod
 body.look-b .chap.alt .vid figcaption em,body.look-b .chap.alt .mock{border-color:rgba(20,18,16,.18)}
 body.look-b .chap.alt .steps li::before{background:var(--bone);color:var(--graphite)}
 @media (max-width:900px){.ads{grid-template-columns:minmax(0,1fr);grid-template-areas:"vid" "meta" "goog"}.meta-ad{max-width:440px}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.steps::before{display:none}}
+@media (max-width:640px){.player.vert{aspect-ratio:4/5}.player.vert video{left:0;width:100%;object-fit:contain}.player.vert .vinfo{display:none}
+  .reel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;overflow:visible}
+  .reel button{flex-direction:column;align-items:stretch;gap:6px;padding:6px 6px 8px}
+  .reel img{width:100%}
+  .reel span{padding:0 2px}}
 @media (max-width:640px){.steps{grid-template-columns:minmax(0,1fr);gap:18px;margin-top:40px}.steps li{padding:0 0 0 46px;min-height:31px}.gh{font-size:18px}.g-ad{padding:16px}}
 /* ---- old split layout (unused) ---- */
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4vw;align-items:center}
@@ -433,7 +469,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
   .split{grid-template-columns:1fr}.split.flip .txt{order:0}
   .obj{width:min(78vw,420px);order:-1}
 }
-@media (max-width:360px){.seg button{font-size:13px;padding:10px 2px}}
+@media (max-width:360px){.seg button{font-size:13px;padding:10px 2px}.ctabs button{font-size:13px;padding:9px 2px}}
 @media (max-width:640px){
   .in-wrap{width:auto;margin:0 44px 0 20px}
   .out{margin:0 -44px 0 -20px;padding:0 44px 6px 20px}
@@ -562,13 +598,30 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
    </div>
    <div class="cfg" id="cfg">
     <div class="ctl">
-     <div class="g"><label class="lb" for="c-name">Business name <button type="button" class="shuf" id="c-shuf"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h3l6 8h3M2 12h3l1.6-2.1M9.4 6.1L11 4h3M12 2l2 2-2 2M12 10l2 2-2 2"/></svg>Surprise me</button></label><input type="text" id="c-name" maxlength="18" value="Corvo Coffee" autocomplete="off" spellcheck="false"></div>
-     <div class="g"><span class="lb">Kind of business</span><div class="seg" data-k="kind"><button data-v="cafe">Café</button><button data-v="barber">Barber</button><button data-v="studio">Pilates</button><button data-v="grill">Restaurant</button><button data-v="salon">Salon</button><button data-v="gym">Gym</button></div></div>
-     <div class="g"><span class="lb">Logo style</span><div class="seg c4" data-k="mark"><button data-v="mono">Monogram</button><button data-v="word">Wordmark</button><button data-v="sym">Symbol</button><button data-v="badge">Badge</button></div></div>
-     <div class="g"><span class="lb"><span>Colour <b id="c-cn"></b></span></span><div class="sw" data-k="col"></div></div>
-     <div class="g"><span class="lb">Background</span><div class="seg" data-k="gr"><button data-v="light">Light</button><button data-v="dark">Dark</button><button data-v="brand">Colour</button></div></div>
-     <div class="g"><span class="lb">Typeface</span><div class="seg" data-k="type"><button data-v="classic" style="font-family:Serif;font-weight:400;font-size:16px">Classic</button><button data-v="elegant" style="font-family:Corm;font-weight:500;font-size:16px">Elegant</button><button data-v="soft" style="font-family:Fraunces;font-weight:600">Soft</button><button data-v="loud" style="font-family:Archivo;font-weight:400">Loud</button><button data-v="modern" style="font-family:Syne;font-weight:700">Modern</button><button data-v="tech" style="font-family:Mono;font-weight:500;font-size:12px;letter-spacing:.04em">TECH</button></div></div>
-     <div class="g"><span class="lb">Voice</span><div class="seg c4" data-k="voice"><button data-v="bold">Bold</button><button data-v="warm">Warm</button><button data-v="calm">Calm</button><button data-v="play">Playful</button></div></div>
+     <div class="ctabs" role="tablist" aria-label="Brand options"><button type="button" role="tab" data-p="biz" aria-selected="true">Basics</button><button type="button" role="tab" data-p="logo" aria-selected="false">Logo</button><button type="button" role="tab" data-p="col" aria-selected="false">Colour</button><button type="button" role="tab" data-p="type" aria-selected="false">Type</button></div>
+     <div class="pane" data-p="biz">
+      <div class="g"><label class="lb" for="c-name">Business name <button type="button" class="shuf" id="c-shuf"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h3l6 8h3M2 12h3l1.6-2.1M9.4 6.1L11 4h3M12 2l2 2-2 2M12 10l2 2-2 2"/></svg>Surprise me</button></label><input type="text" id="c-name" maxlength="18" value="Corvo Coffee" autocomplete="off" spellcheck="false"></div>
+      <div class="g"><span class="lb">Kind of business</span><div class="seg" data-k="kind"><button data-v="cafe">Café</button><button data-v="barber">Barber</button><button data-v="studio">Pilates</button><button data-v="grill">Restaurant</button><button data-v="salon">Salon</button><button data-v="gym">Gym</button></div></div>
+      <div class="g"><span class="lb">Voice</span><div class="seg c4" data-k="voice"><button data-v="bold">Bold</button><button data-v="warm">Warm</button><button data-v="calm">Calm</button><button data-v="play">Playful</button></div></div>
+      <div class="g"><label class="lb" for="c-tag">Your own tagline <span class="opt">optional</span></label><input type="text" id="c-tag" maxlength="40" placeholder="Write one, or keep the voice above" autocomplete="off"></div>
+     </div>
+     <div class="pane" data-p="logo" hidden>
+      <div class="g"><span class="lb">Logo style</span><div class="seg c4" data-k="mark"><button data-v="mono">Monogram</button><button data-v="word">Wordmark</button><button data-v="sym">Symbol</button><button data-v="badge">Badge</button></div></div>
+      <div class="g"><span class="lb">Icon</span><div class="icons" data-k="icon"><button data-v="cup" title="Cup" aria-label="Cup"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="cup"></svg></button><button data-v="pole" title="Pole" aria-label="Pole"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="pole"></svg></button><button data-v="orbit" title="Orbit" aria-label="Orbit"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="orbit"></svg></button><button data-v="flame" title="Flame" aria-label="Flame"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="flame"></svg></button><button data-v="leaf" title="Leaf" aria-label="Leaf"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="leaf"></svg></button><button data-v="bell" title="Weights" aria-label="Weights"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="bell"></svg></button><button data-v="spark" title="Spark" aria-label="Spark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="spark"></svg></button><button data-v="drop" title="Drop" aria-label="Drop"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" data-sym="drop"></svg></button></div></div>
+      <div class="g"><span class="lb">Layout</span><div class="seg c2" data-k="lay"><button data-v="row">Side by side</button><button data-v="stack">Stacked</button></div></div>
+      <div class="g"><span class="lb">Icon shape</span><div class="seg" data-k="shape"><button data-v="circle">Circle</button><button data-v="round">Rounded</button><button data-v="square">Square</button></div></div>
+      <div class="g"><span class="lb">Letters</span><div class="seg" data-k="cs"><button data-v="as">Aa</button><button data-v="up">AA</button><button data-v="low">aa</button></div></div>
+     </div>
+     <div class="pane" data-p="col" hidden>
+      <div class="g"><span class="lb"><span>Main colour <b id="c-cn"></b></span></span><div class="sw" data-k="col"></div></div>
+      <div class="g"><span class="lb"><span>Accent for buttons <b id="c-an"></b></span></span><div class="sw" data-k="acc"></div></div>
+      <div class="g"><span class="lb">Background</span><div class="seg" data-k="gr"><button data-v="light">Light</button><button data-v="dark">Dark</button><button data-v="brand">Colour</button></div></div>
+     </div>
+     <div class="pane" data-p="type" hidden>
+      <div class="g"><span class="lb">Typeface</span><div class="seg" data-k="type"><button data-v="classic" style="font-family:Serif;font-weight:400;font-size:16px">Classic</button><button data-v="elegant" style="font-family:Corm;font-weight:500;font-size:16px">Elegant</button><button data-v="soft" style="font-family:Fraunces;font-weight:600">Soft</button><button data-v="loud" style="font-family:Archivo;font-weight:400">Loud</button><button data-v="modern" style="font-family:Syne;font-weight:700">Modern</button><button data-v="tech" style="font-family:Mono;font-weight:500;font-size:12px;letter-spacing:.04em">TECH</button></div></div>
+      <div class="g"><span class="lb">Letter spacing</span><div class="seg" data-k="sp"><button data-v="tight">Tight</button><button data-v="normal">Normal</button><button data-v="wide">Wide</button></div></div>
+      <div class="g"><span class="lb">Corners</span><div class="seg" data-k="cor"><button data-v="sharp">Sharp</button><button data-v="soft">Soft</button><button data-v="round">Round</button></div></div>
+     </div>
     </div>
     <div class="pv">
      <div class="out" id="out">
@@ -663,7 +716,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
    </div>
    <div class="ads">
     <figure class="vid">
-     <div class="player" id="player"><video id="adv" muted playsinline loop preload="none" poster="img/ads/halftime-poster.jpg" data-src="img/ads/halftime-ad.mp4" aria-label="HalfTime Chews launch ad"></video>
+     <div class="player" id="player"><div class="vinfo" id="vinfo" aria-hidden="true"><p class="vk">Vertical ad, made for Reels</p><p class="vt" id="vt"></p><p class="vd" id="vd"></p><p class="vh">Tap Expand to watch it big.</p></div><video id="adv" muted playsinline loop preload="none" poster="img/ads/halftime-poster.jpg" data-src="img/ads/halftime-ad.mp4" aria-label="HalfTime Chews launch ad"></video>
       <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2.5 6v4h2.5l3.5 3V3L5 6z" fill="currentColor" stroke="none"/><path class="w" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.8a6 6 0 0 1 0 8.4"/><path class="x" d="M11 6l4 4M15 6l-4 4"/></svg><span>Sound on</span></button>
       <button type="button" class="xp" id="xp" aria-label="Expand video"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg><span>Expand</span></button></div>
      <figcaption><b id="adt">HalfTime Chews launch ad</b><span id="adsub">18-second product ad <em>Concept, class project</em></span></figcaption>
