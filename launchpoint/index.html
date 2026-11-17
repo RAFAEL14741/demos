@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add('lq')</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Launch Point — frame I (showcase)</title>
 <style>
@@ -12,7 +13,7 @@ picture{display:contents}picture>source{display:none}
 @font-face{font-family:Hanken;src:url(fonts/hanken-grotesk-latin-400-normal.woff2) format('woff2');font-weight:400}
 @font-face{font-family:Hanken;src:url(fonts/hanken-grotesk-latin-500-normal.woff2) format('woff2');font-weight:500}
 @font-face{font-family:Mono;src:url(fonts/geist-mono-latin-400-normal.woff2) format('woff2');font-weight:400}
-:root{--zd:9;--hs:1;--gr:.14;--bri:1;--top:13vh;--graphite:#141210;--bone:#EDE6DA;--bone2:#B8AFA2;--ember:#CF5A1E;--p:0;--ease:cubic-bezier(.22,1,.36,1)}
+:root{--zd:9;--hs:1;--gr:.14;--bri:1;--top:13vh;--graphite:#141210;--bone:#EDE6DA;--bone2:#B8AFA2;--ember:#CF5A1E;--p:0;--t:0;--u:0;--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--graphite);color:var(--bone);font-family:Hanken,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
@@ -84,6 +85,11 @@ h1 em{font-style:normal;color:var(--ember)}
 .plate .c{opacity:0}
 .stage.gone .plate .b{opacity:0}
 .stage.gone .plate .c{opacity:1}
+/* phone hero camera (I11): the arc spans ~52% of the photo but a full-height phone crop shows ~31%, so the plate pans right + down with the streak (--u 0..1 from I.js) and ends with the rock at 76% / ~44% of the screen */
+@media (max-width:640px){
+  .plate{left:calc((84px - var(--w) * .24) * (1 - var(--u)) + (76vw - var(--w) * .7789) * var(--u));top:calc(var(--u) * 27svh);
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);mask-image:linear-gradient(180deg,transparent 0,#000 9%)}
+}
 
 /* ---- story ---- */
 .story{position:relative;z-index:3}
@@ -180,6 +186,39 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .icons button:hover{border-color:rgba(237,230,218,.3)}
 .icons button[aria-pressed=true]{background:var(--bone);color:var(--graphite);border-color:var(--bone)}
 .icons button:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+/* ---- premium controls (I13): glass panel, sliding tab thumb, ember-glass selected state, visual kind tiles, voice previews ---- */
+.ctl{background:linear-gradient(180deg,rgba(42,38,33,.88),rgba(24,22,19,.88));border:1px solid rgba(237,230,218,.09);border-radius:22px;padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -40px rgba(0,0,0,.7)}
+.ctabs{position:relative;background:rgba(0,0,0,.3);box-shadow:inset 0 0 0 1px rgba(237,230,218,.06);border-radius:14px;padding:4px;gap:0}
+.ctabs button{position:relative;z-index:1;border-radius:10px;letter-spacing:.005em;transition:color .35s var(--ease)}
+.ctabs button[aria-selected=true]{background:rgba(237,230,218,.12);color:var(--bone)}
+.ctabs.has-th button[aria-selected=true]{background:none}
+.ct-thumb{position:absolute;top:4px;bottom:4px;left:0;width:0;border-radius:10px;background:linear-gradient(180deg,rgba(237,230,218,.16),rgba(237,230,218,.07));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 6px 18px -6px rgba(0,0,0,.6);pointer-events:none}
+.ct-thumb.go{transition:transform .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1)}
+.ctl .lb{font-weight:500;color:#B8AFA3;letter-spacing:.005em}
+.ctl input[type=text]{background:rgba(0,0,0,.26);border:1px solid rgba(237,230,218,.08);border-radius:12px;padding:13px 14px;box-shadow:inset 0 1px 2px rgba(0,0,0,.35);transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.ctl input[type=text]::placeholder{color:#7D7469}
+.ctl input[type=text]:focus{border-color:rgba(207,90,30,.7);box-shadow:inset 0 1px 2px rgba(0,0,0,.35),0 0 0 4px rgba(207,90,30,.13)}
+.seg{gap:7px}
+.seg button,.icons button{color:#CBC3B7;background:linear-gradient(180deg,rgba(237,230,218,.05),rgba(237,230,218,.025));border:1px solid rgba(237,230,218,.08);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease),transform .15s var(--ease)}
+.seg button:hover,.icons button:hover{color:var(--bone);border-color:rgba(237,230,218,.2);background:linear-gradient(180deg,rgba(237,230,218,.08),rgba(237,230,218,.04))}
+.seg button:active,.icons button:active{transform:scale(.97)}
+.seg button[aria-pressed=true],.icons button[aria-pressed=true]{color:#FBF4EA;background:linear-gradient(180deg,rgba(207,90,30,.26),rgba(207,90,30,.11));border-color:rgba(226,120,62,.75);box-shadow:inset 0 1px 0 rgba(255,214,186,.18),0 0 0 3px rgba(207,90,30,.07),0 8px 18px -12px rgba(207,90,30,.6)}
+.seg[data-k=kind] button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:13px 4px 11px}
+.seg[data-k=kind] .kt{width:24px;height:24px;opacity:.75;transition:opacity .25s var(--ease),transform .35s cubic-bezier(.2,.8,.2,1)}
+.seg[data-k=kind] button:hover .kt{opacity:1;transform:translateY(-1px)}
+.seg[data-k=kind] button[aria-pressed=true] .kt{opacity:1;color:#F3A774}
+.cfg.vf .seg[data-k=voice] button{font-size:15px}
+.cfg.vf [data-k=voice] [data-v=bold]{font-family:Archivo;font-weight:400;letter-spacing:.01em}
+.cfg.vf [data-k=voice] [data-v=warm]{font-family:Fraunces;font-weight:600}
+.cfg.vf [data-k=voice] [data-v=calm]{font-family:Corm;font-style:italic;font-weight:500;font-size:17px}
+.cfg.vf [data-k=voice] [data-v=play]{font-family:Syne;font-weight:700}
+.sw{gap:11px}
+.sw button,.sw .cus{width:32px;height:32px;flex:0 0 32px;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.sw button:hover,.sw .cus:hover{transform:scale(1.1)}
+.sw [aria-pressed=true]::after{inset:-5px;border:1.5px solid var(--bone);box-shadow:0 0 14px -2px rgba(237,230,218,.35)}
+.shuf{border-radius:999px;padding:6px 13px;background:linear-gradient(180deg,rgba(207,90,30,.22),rgba(207,90,30,.1));box-shadow:inset 0 1px 0 rgba(255,214,186,.15)}
+.shuf svg{transition:transform .5s cubic-bezier(.2,.8,.2,1)}.shuf:hover svg{transform:rotate(180deg)}
+.seg.lk5{grid-template-columns:repeat(3,minmax(0,1fr))}
 #c-tag,#c-desc{width:100%;font:400 15px Hanken,sans-serif;color:var(--bone);background:rgba(237,230,218,.05);border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none}
 #c-tag:focus,#c-desc:focus{border-color:rgba(237,230,218,.45)}
 .tile{container-type:inline-size}
@@ -284,7 +323,11 @@ body.look-b .chap.alt .env .pool{opacity:.5}
 .tote svg.bag{position:absolute;inset:0;width:100%;height:100%;color:var(--b);filter:drop-shadow(0 14px 22px rgba(0,0,0,.45));transition:color .45s var(--ease)}
 .tote .ico{position:absolute;left:0;right:0;top:34%;bottom:6%;color:var(--bi);font-size:26px}
 .sticker{width:24%;aspect-ratio:1;border-radius:50%;background:var(--g);color:var(--m);font-size:22px;transform:rotate(8deg);box-shadow:0 10px 20px rgba(0,0,0,.4);transition:background .45s var(--ease),color .45s var(--ease)}
-.sample{margin-top:14px;font-size:13px;color:var(--bone2);text-align:right}
+.lp-ex{display:flex;gap:12px;align-items:center;margin:0 0 14px;padding:12px 16px;border:1px solid rgba(207,90,30,.45);border-radius:12px;background:rgba(207,90,30,.08);font-size:16px;line-height:1.4;color:var(--bone)}
+.lp-ex i{flex:none;width:8px;height:8px;border-radius:50%;background:#CF5A1E;box-shadow:0 0 10px #CF5A1E}
+.lp-ex b{font-weight:600}.lp-ex-s{display:none}
+.lp-ex-tag{position:absolute;top:12px;right:12px;font-family:Mono;font-size:12px;padding:4px 9px;border-radius:999px;background:rgba(20,18,16,.78);color:#EDE6DA;letter-spacing:.02em;z-index:2}
+.sample{margin-top:14px;font-size:14px;color:var(--bone);opacity:.82;text-align:right}
 
 /* ---- 02 websites ---- */
 .work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
@@ -519,7 +562,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
   .seg.c4 button{font-size:14px}
   .seg.lk5{grid-template-columns:repeat(3,minmax(0,1fr))}
   .cfg .pv .sample{display:none}
-  .cfg .ctl::after{content:"Sample brand, built live. Yours starts from a real conversation.";display:block;margin-top:16px;font-size:12px;color:var(--bone2)}
+  .lp-ex{font-size:14px;padding:9px 12px;margin:0 0 10px;gap:10px}.lp-ex-l{display:none}.lp-ex-s{display:inline}
   .sample{margin-top:8px;font-size:12px}
   .split .txt p{font-size:16px}
   .end .facts{gap:14px;font-size:11px}
@@ -569,13 +612,58 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
 @media (max-width:340px){.seg button{font-size:12.5px}}
 @media (max-width:380px){.info>div:first-child{display:none}}
 .end .facts{align-items:center}.end .facts>*{padding:14px 2px}.end .facts a{color:inherit;text-decoration:none}.end .facts a:hover{color:var(--bone)}
+
+/* ---- phone redesign (I11): social chips, sticky bottom CTA, swipe dots, trail behind cards ---- */
+.lp-why,.lp-dots,.lp-bar{display:none}
+@media (max-width:640px){
+  .soc{gap:0}.soc .types{margin-top:22px}/* phone stays first (order -1): chips sit right under the feed grid they light up */
+  .types{display:flex;overflow-x:auto;gap:8px;margin:0 -20px;padding:2px 20px;scrollbar-width:none;scroll-snap-type:x proximity}
+  .types::-webkit-scrollbar{display:none}
+  .types li{flex:0 0 auto;scroll-snap-align:start}
+  .types button{padding:0 16px;min-height:44px;border-radius:12px;display:flex;align-items:center}
+  .types b{font-size:15px;white-space:nowrap}
+  .types span{display:none}
+  .lp-why{display:block;min-height:44px;margin:12px 0 0;font-size:15px;line-height:1.45;color:var(--bone2)}
+  .lp-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+  .lp-dots i{width:6px;height:6px;border-radius:3px;background:rgba(237,230,218,.25);transition:width .25s var(--ease),background .25s var(--ease)}
+  .lp-dots i.on{width:18px;background:var(--bone)}
+  .chap .in-wrap{z-index:7}/* trail (z 6) passes under all section content on phone */
+  .lp-bar{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;height:52px;align-items:center;justify-content:center;gap:10px;
+    border-radius:14px;background:rgba(28,25,22,.9);border:1px solid rgba(237,230,218,.16);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    color:var(--bone);font:500 16px Hanken,sans-serif;box-shadow:0 12px 30px -10px rgba(0,0,0,.7);
+    transform:translateY(calc(100% + 24px));opacity:0;transition:transform .35s var(--ease),opacity .25s var(--ease)}
+  .lp-bar i{width:7px;height:7px;border-radius:50%;background:var(--ember)}
+  .lp-bar svg{color:var(--bone2)}
+  .lp-bar.on{transform:none;opacity:1}
+  .lp-bar:active{background:rgba(40,36,32,.95)}
+}
+
+/* hero placeholder (I11 speed 1): ~1 KB blurred plate under the first photo, photo fades in when loaded; slow 4G never shows an empty screen */
+.plate{background:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAWACgDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAMEBQIG/8QAIBAAAgICAgIDAAAAAAAAAAAAAAECEQMEEiEiYUFRcf/EABYBAAMAAAAAAAAAAAAAAAAAAAABAv/EABcRAQEBAQAAAAAAAAAAAAAAAAABAjH/2gAMAwEAAhEDEQA/APAT0VEjeouPT7NzJBJ+V0jjZ1ViwwzxdqfQrZFTNvGBLC0RuDRobEHXL7Kko+xpQ0Dtxr5AB6rOqboq7GZvXUHbSdgCqs3qhmleH8KMn6AHE1G2AAD/2Q==) 0 0/100% 100% no-repeat}
+html.lq .plate .lq-a:not(.ld){opacity:0}
+.plate .lq-a{transition:opacity .6s var(--ease)}
+
+/* ---- roomier phone (I12): fewer things per screen, bigger type, more space between groups ---- */
+@media (max-width:640px){
+  .svc{display:none}/* the 4 chapters below are the service list */
+  h1{font-size:min(54px,calc((100vw - 40px) / 7.1))}
+  .sub{font-size:17px;line-height:1.5}
+  .chap{padding:15vh 0 11vh}
+  .chap h2{font-size:min(48px,calc((100vw - 40px) / 7.4))}
+  .head{margin-bottom:44px;gap:22px}
+  .head p{font-size:17px;line-height:1.55}
+  .ctl .g+.g{margin-top:26px}
+  .reel span{display:none}.reel b{font-size:15px}
+  .steps{gap:28px}.steps span{font-size:16px}
+  .lp-hint{display:none}/* hover hint is wrong on touch; social hint lives under the chips */
+}
 </style>
 </head>
 <body class="look-a">
 <div class="scroll" id="scroll">
  <div class="stage" id="stage">
   <div class="plate">
-   <picture><source type="image/avif" srcset="img/launch-a-sm.avif 1600w, img/launch-a.avif 3200w" sizes="100vw"><source type="image/webp" srcset="img/launch-a-sm.webp 1600w, img/launch-a.webp 3200w" sizes="100vw"><img fetchpriority="high" src="img/launch-a.jpg" srcset="img/launch-a-sm.jpg 1600w, img/launch-a.jpg 3200w" sizes="100vw" alt="A small glowing ember resting on dark stone"></picture>
+   <picture><source type="image/avif" srcset="img/launch-a-sm.avif 1600w, img/launch-a.avif 3200w" sizes="100vw"><source type="image/webp" srcset="img/launch-a-sm.webp 1600w, img/launch-a.webp 3200w" sizes="100vw"><img fetchpriority="high" onload="this.classList.add('ld')" class="lq-a" src="img/launch-a.jpg" srcset="img/launch-a-sm.jpg 1600w, img/launch-a.jpg 3200w" sizes="100vw" alt="A small glowing ember resting on dark stone"></picture>
    <picture><source type="image/avif" srcset="img/launch-b-sm.avif 1600w, img/launch-b.avif 3200w" sizes="100vw"><source type="image/webp" srcset="img/launch-b-sm.webp 1600w, img/launch-b.webp 3200w" sizes="100vw"><img class="b" src="img/launch-b.jpg" srcset="img/launch-b-sm.jpg 1600w, img/launch-b.jpg 3200w" sizes="100vw" alt="" aria-hidden="true"></picture>
    <picture><source type="image/avif" srcset="img/launch-c-sm.avif 1600w, img/launch-c.avif 3200w" sizes="100vw"><source type="image/webp" srcset="img/launch-c-sm.webp 1600w, img/launch-c.webp 3200w" sizes="100vw"><img class="c" src="img/launch-c.jpg" srcset="img/launch-c-sm.jpg 1600w, img/launch-c.jpg 3200w" sizes="100vw" alt="" aria-hidden="true"></picture>
    <div class="grain" aria-hidden="true"></div>
@@ -675,15 +763,15 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
      </div>
     </div>
     <div class="pv">
+     <p class="lp-ex"><i aria-hidden="true"></i><span><b>These are example logos.</b> <span class="lp-ex-l">Every client gets a custom logo, designed from scratch for their business.</span><span class="lp-ex-s">Yours is designed from scratch.</span></span></p>
      <div class="out" id="out">
-      <div class="tile t-logo"><div class="fx" data-slot="full"></div><span class="cap">Logo</span></div>
-      <div class="tile t-card"><div class="bcard on-b"><div class="fx" data-slot="full"></div><div class="fx"><div class="tl" data-slot="tag"></div><div class="hd" data-slot="handle"></div></div></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-card on-b" data-q="card" data-w="300" data-mh=".5"><div class="fx" data-slot="full"></div><div class="fx"><div class="tl" data-slot="tag"></div><div class="hd" data-slot="handle"></div></div></div></div><span class="cap">Business card</span></div>
-      <div class="tile t-ig"><div class="ig-top"><div class="ig-av ico fx" data-slot="icon"></div><div><div class="ig-nm fx" data-slot="name"></div><div class="ig-hd" data-slot="handle"></div></div><span class="fol">Follow</span></div><p class="ig-bio fx" data-slot="tag"></p><div class="ig-grid"><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-ig ink-scr" data-q="screen" data-w="300"><i class="notch"></i><div class="ig-top"><div class="ig-av ico fx" data-slot="icon"></div><div><div class="ig-nm fx" data-slot="name"></div><div class="ig-hd" data-slot="handle"></div></div><span class="fol">Follow</span></div><p class="ig-bio fx" data-slot="tag"></p><div class="ig-grid"><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div><div class="q3"></div><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div><div class="q1 ico" data-slot="icon"></div></div></div></div><span class="cap">Instagram</span></div>
-      <div class="tile t-web"><div class="web"><div class="wb-bar"><i></i><i></i><i></i></div><div class="wb-nav"><div class="fx" data-slot="full"></div><span class="sp" data-slot="nav1"></span><span data-slot="nav2"></span><span class="pill" data-slot="cta"></span></div><div class="wb-h fx" data-slot="tag"></div><div class="wb-btn" data-slot="cta"></div></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-web ink-scr" data-q="screen" data-w="430"><div class="web"><div class="wb-nav"><div class="fx" data-slot="full"></div><span class="sp" data-slot="nav1"></span><span data-slot="nav2"></span><span class="pill" data-slot="cta"></span></div><div class="wb-h fx" data-slot="tag"></div><div class="wb-btn" data-slot="cta"></div></div></div></div><span class="cap" style="color:#B8AFA2">Website</span></div>
-      <div class="tile t-sign"><div class="board on-b fx" data-slot="full"></div><div class="apps"><div class="app ico fx" data-slot="icon"></div><span class="tl fx" data-slot="tag"></span></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-sign" data-q="sign" data-w="560" data-mh=".8"><div class="fx" data-slot="full"></div></div></div><span class="cap" data-phc="Storefront">Sign &amp; app icon</span></div>
-      <div class="tile t-merch"><div class="tote"><svg class="bag" viewBox="0 0 86 100"><path d="M24 30V20a19 19 0 0 1 38 0v10" fill="none" stroke="currentColor" stroke-width="4"/><path d="M8 28h70l-4 72H12z" fill="currentColor"/></svg><div class="ico fx" data-slot="icon-b"></div></div><div class="sticker ico fx" data-slot="icon-s"></div><div class="pst" aria-hidden="true"><picture><source type="image/avif"><img alt=""></picture><div class="ink ik-ico on-b" data-q="tote" data-w="140"><div class="ico fx" data-slot="icon-b"></div></div><div class="ink ik-ico on-b ik-cup" data-q="cup" data-w="60"><div class="ico fx" data-slot="icon-s"></div></div></div><span class="cap" data-phc="Tote &amp; cup">Merch</span></div>
+      <div class="tile t-logo"><div class="fx" data-slot="full"></div><span class="cap">Logo</span><span class="lp-ex-tag">Example</span></div>
+      <div class="tile t-card"><div class="bcard on-b"><div class="fx" data-slot="full"></div><div class="fx"><div class="tl" data-slot="tag"></div><div class="hd" data-slot="handle"></div></div></div><div class="pst" aria-hidden="true"><picture><source type="image/webp"><img alt=""></picture><div class="ink ik-card on-b" data-q="card" data-w="300" data-mh=".5"><div class="fx" data-slot="full"></div><div class="fx"><div class="tl" data-slot="tag"></div><div class="hd" data-slot="handle"></div></div></div></div><span class="cap">Business card</span></div>
+      <div class="tile t-ig"><div class="ig-top"><div class="ig-av ico fx" data-slot="icon"></div><div><div class="ig-nm fx" data-slot="name"></div><div class="ig-hd" data-slot="handle"></div></div><span class="fol">Follow</span></div><p class="ig-bio fx" data-slot="tag"></p><div class="ig-grid"><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div></div><div class="pst" aria-hidden="true"><picture><source type="image/webp"><img alt=""></picture><div class="ink ik-ig ink-scr" data-q="screen" data-w="300"><i class="notch"></i><div class="ig-top"><div class="ig-av ico fx" data-slot="icon"></div><div><div class="ig-nm fx" data-slot="name"></div><div class="ig-hd" data-slot="handle"></div></div><span class="fol">Follow</span></div><p class="ig-bio fx" data-slot="tag"></p><div class="ig-grid"><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div><div class="q3"></div><div class="q1 ico" data-slot="icon"></div><div class="q2 fx" data-slot="tag"></div><div class="q2 fx" data-slot="tag"></div><div class="q3"></div><div class="q1 ico" data-slot="icon"></div></div></div></div><span class="cap">Instagram</span></div>
+      <div class="tile t-web"><div class="web"><div class="wb-bar"><i></i><i></i><i></i></div><div class="wb-nav"><div class="fx" data-slot="full"></div><span class="sp" data-slot="nav1"></span><span data-slot="nav2"></span><span class="pill" data-slot="cta"></span></div><div class="wb-h fx" data-slot="tag"></div><div class="wb-btn" data-slot="cta"></div></div><div class="pst" aria-hidden="true"><picture><source type="image/webp"><img alt=""></picture><div class="ink ik-web ink-scr" data-q="screen" data-w="430"><div class="web"><div class="wb-nav"><div class="fx" data-slot="full"></div><span class="sp" data-slot="nav1"></span><span data-slot="nav2"></span><span class="pill" data-slot="cta"></span></div><div class="wb-h fx" data-slot="tag"></div><div class="wb-btn" data-slot="cta"></div></div></div></div><span class="cap" style="color:#B8AFA2">Website</span></div>
+      <div class="tile t-sign"><div class="board on-b fx" data-slot="full"></div><div class="apps"><div class="app ico fx" data-slot="icon"></div><span class="tl fx" data-slot="tag"></span></div><div class="pst" aria-hidden="true"><picture><source type="image/webp"><img alt=""></picture><div class="ink ik-sign" data-q="sign" data-w="560" data-mh=".8"><div class="fx" data-slot="full"></div></div></div><span class="cap" data-phc="Storefront">Sign &amp; app icon</span></div>
+      <div class="tile t-merch"><div class="tote"><svg class="bag" viewBox="0 0 86 100"><path d="M24 30V20a19 19 0 0 1 38 0v10" fill="none" stroke="currentColor" stroke-width="4"/><path d="M8 28h70l-4 72H12z" fill="currentColor"/></svg><div class="ico fx" data-slot="icon-b"></div></div><div class="sticker ico fx" data-slot="icon-s"></div><div class="pst" aria-hidden="true"><picture><source type="image/webp"><img alt=""></picture><div class="ink ik-ico on-b" data-q="tote" data-w="140"><div class="ico fx" data-slot="icon-b"></div></div><div class="ink ik-ico on-b ik-cup" data-q="cup" data-w="60"><div class="ico fx" data-slot="icon-s"></div></div></div><span class="cap" data-phc="Tote &amp; cup">Merch</span></div>
      </div>
-     <p class="sample">Sample brand, built live. Yours starts from a real conversation.</p>
     </div>
    </div>
   </div>
@@ -695,7 +783,7 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
    <div class="head">
     <div><p class="n">02 — Websites</p><h2>A website that<br>does the selling<em>.</em></h2></div>
     <div><p>Fast, sharp sites that tell your story in seconds and turn visitors into messages, calls and orders.</p>
-     <p class="tags">Hover a site to scroll through it. Open any of them and try it yourself.</p></div>
+     <p class="tags lp-hint">Hover a site to scroll through it. Open any of them and try it yourself.</p></div>
    </div>
    <div class="work">
     <a class="site" href="https://rafael14741.github.io/halftime-chews-site/" target="_blank" rel="noopener" data-strip="img/work/halftime-strip.webp">
@@ -739,10 +827,11 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
    <div class="head">
     <div><p class="n">03 — Social</p><h2>Accounts people<br>actually follow<em>.</em></h2></div>
     <div><p>We plan, shoot, edit and post, so your Instagram and TikTok look like a brand, every week.</p>
-     <p class="tags">Tap a post type to see it in the feed. Tap any post to open it.</p></div>
+     <p class="tags lp-hint">Tap a post type to see it in the feed. Tap any post to open it.</p></div>
    </div>
    <div class="soc">
     <ul class="types" id="types"><li><button type="button" data-t="reel"><b>Reels</b><span>Short video gets shown to people who don't follow you yet.</span></button></li><li><button type="button" data-t="carousel"><b>Carousels</b><span>Swipe posts get saved and sent, so they keep travelling.</span></button></li><li><button type="button" data-t="product"><b>Product posts</b><span>Clean, matching shots so the feed looks like one brand.</span></button></li><li><button type="button" data-t="tip"><b>Tips</b><span>Something useful is a reason to follow.</span></button></li><li><button type="button" data-t="offer"><b>Offers</b><span>One clear reason to buy, one action.</span></button></li><li><button type="button" data-t="brand"><b>Brand moments</b><span>Mood posts that make the account feel like a place.</span></button></li></ul>
+    <p class="lp-why" id="lp-why" aria-live="polite">Six kinds of post, one feed. Tap a kind to find it, tap a post to open it.</p>
     <div class="phwrap">
      <div class="phone"><div class="scr">
       <div class="igbar"><b>halftimechews</b><span class="dots"><i></i><i></i><i></i></span></div>
@@ -811,7 +900,8 @@ body.look-b .chap.alt .split .txt p{color:#4A443D}
 </main>
 <dialog id="cine" aria-label="Video"><div class="cbox" id="cbox"></div><button type="button" class="cx" id="cx" aria-label="Close">×</button></dialog>
 <dialog id="lb" aria-label="Post"><button type="button" class="lbx" aria-label="Close">×</button><div class="lbpost" id="lbpost"></div><div class="lbnav"><button type="button" id="lbp" aria-label="Previous slide">‹</button><span id="lbdots"></span><button type="button" id="lbn" aria-label="Next slide">›</button></div><p class="lbcap" id="lbcap"></p><p class="lbwhy" id="lbwhy"></p></dialog>
-<script src="marks.js"></script><script src="mock.js"></script>
+<a class="lp-bar" id="lp-bar" href="mailto:teamlaunchpointktg@gmail.com" aria-hidden="true" tabindex="-1"><i></i>Start a project<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<script src="marks.js"></script>
 <script src="I.js"></script>
 </body>
 </html>
