@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head>
+<head><script>/[?&]tweak/.test(location.search)&&document.documentElement.classList.add("tw")</script>
 <meta charset="utf-8">
 <script>document.documentElement.classList.add('lq')</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -657,6 +657,44 @@ html.lq .plate .lq-a:not(.ld){opacity:0}
   .steps{gap:28px}.steps span{font-size:16px}
   .lp-hint{display:none}/* hover hint is wrong on touch; social hint lives under the chips */
 }
+
+/* ---- polish pass (I14): no mono labels, soft pills, glass chips on photos, glass option panels, fewer notes ---- */
+.n,.kicker,.svc span,.info,.info *,.tile .cap,.lp-ex-tag,.meta em,.vid figcaption em,.mock,.g-ad .mock,.end .facts,.wbar .url,.vk,.ig-hd,.ik-card .hd,.bcard .hd{font-family:Hanken,system-ui,sans-serif}
+.n{font-size:14px;font-weight:500;color:var(--bone2);letter-spacing:.005em;display:flex;align-items:center;gap:10px}
+.n i{font-style:normal;font-variant-numeric:tabular-nums;color:var(--ember);font-weight:600}
+.n i::after{content:"";display:inline-block;width:22px;height:1px;margin-left:10px;vertical-align:middle;background:linear-gradient(90deg,var(--ember),rgba(207,90,30,0))}
+.kicker{letter-spacing:.01em;text-transform:none;font-weight:500}
+.svc span{font-weight:600;font-variant-numeric:tabular-nums}
+.info{font-size:13px;letter-spacing:.005em}
+.head .tags{font-size:14px;color:#A39A8E;line-height:1.5}
+.tile .cap{left:12px;bottom:12px;font-size:12px;font-weight:500;opacity:1;color:#F3ECE1;background:rgba(20,18,16,.5);backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2);padding:5px 11px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);letter-spacing:.005em;z-index:2}
+.lp-ex-tag{font-size:12px;font-weight:500;background:rgba(20,18,16,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);padding:5px 11px;letter-spacing:.005em}
+.meta em,.vid figcaption em,.mock{font-size:12px;font-weight:500;letter-spacing:.005em;color:#C9C0B4;background:rgba(237,230,218,.07);border:0;border-radius:999px;padding:4px 10px;box-shadow:inset 0 0 0 1px rgba(237,230,218,.05)}
+.g-ad .mock{color:#6A6158;background:#F1ECE4;box-shadow:none;display:inline-block}
+body.look-b .chap.alt .meta em,body.look-b .chap.alt .vid figcaption em,body.look-b .chap.alt .mock{background:rgba(20,18,16,.06);color:#6A6158}
+.wbar{background:linear-gradient(180deg,#22201C,#1A1815);border-bottom:1px solid rgba(237,230,218,.06)}
+.wbar .url{font-size:12px;color:#9A9185;letter-spacing:.005em;margin-left:12px;padding:3px 10px;border-radius:7px;background:rgba(0,0,0,.25);flex:0 1 auto}
+.wnote{font-size:14px;color:#A39A8E}
+.wcta{background:linear-gradient(180deg,rgba(237,230,218,.07),rgba(237,230,218,.03));border-color:rgba(237,230,218,.14);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .2s var(--ease),background .2s var(--ease)}
+.wcta:hover{border-color:rgba(226,120,62,.75);background:linear-gradient(180deg,rgba(207,90,30,.2),rgba(207,90,30,.08))}
+.types{background:linear-gradient(180deg,rgba(42,38,33,.88),rgba(24,22,19,.88));border:1px solid rgba(237,230,218,.09);border-radius:22px;padding:10px;gap:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 40px 80px -40px rgba(0,0,0,.7)}
+.types button{background:transparent;border:1px solid transparent;border-radius:14px;padding:16px 18px;transition:background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.types button:hover{background:rgba(237,230,218,.04);border-color:rgba(237,230,218,.08)}
+.types button[aria-pressed=true]{background:linear-gradient(180deg,rgba(207,90,30,.24),rgba(207,90,30,.09));border-color:rgba(226,120,62,.7);box-shadow:inset 0 1px 0 rgba(255,214,186,.16),0 8px 18px -12px rgba(207,90,30,.6)}
+.types b{font-size:16px}.types span{color:#A39A8E}
+.types button[aria-pressed=true] span{color:#D8CFC3}
+.reel button{background:linear-gradient(180deg,rgba(237,230,218,.05),rgba(237,230,218,.025));border-color:rgba(237,230,218,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.reel button:hover{border-color:rgba(237,230,218,.2)}
+.reel button[aria-selected=true]{background:linear-gradient(180deg,rgba(207,90,30,.24),rgba(207,90,30,.09));border-color:rgba(226,120,62,.7);box-shadow:inset 0 1px 0 rgba(255,214,186,.16),0 8px 18px -12px rgba(207,90,30,.6)}
+.snd,.xp{background:rgba(14,12,11,.5);border-color:rgba(255,255,255,.12);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 8px 24px -10px rgba(0,0,0,.6);backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);transition:background .2s var(--ease),border-color .2s var(--ease)}
+.snd:hover,.xp:hover{background:rgba(14,12,11,.7);border-color:rgba(255,255,255,.24)}
+.vk{font-size:13px;font-weight:500}
+.steps li::before{font:600 13px Hanken,sans-serif;background:linear-gradient(180deg,#2A2621,#1A1815);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 4px var(--graphite)}
+.end .facts{font-size:14px;letter-spacing:.005em}
+.tile .cap,.tile.t-ig .cap,.tile.t-web .cap,.tile.ph .cap{top:auto;right:auto;left:12px;bottom:12px;opacity:1;text-shadow:none;color:#F3ECE1!important}
+.ik-ig .ig-grid .q2{color:transparent!important}.ik-ig .ig-grid .q3{background-image:none;background:linear-gradient(160deg,color-mix(in srgb,var(--b) 55%,#0C0B0A),color-mix(in srgb,var(--b) 22%,#0C0B0A))}.ik-ig .ig-bio,.ik-ig .ig-hd{visibility:hidden}
+@media (max-width:640px){.types{background:none;border:0;box-shadow:none;border-radius:0;padding:2px 20px;gap:8px}.types button{background:linear-gradient(180deg,rgba(237,230,218,.06),rgba(237,230,218,.03));border-color:rgba(237,230,218,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);padding:0 16px}}
+#tw-btn{display:none!important}:root.tw #tw-btn{display:block!important}
 </style>
 </head>
 <body class="look-a">
@@ -731,9 +769,8 @@ html.lq .plate .lq-a:not(.ld){opacity:0}
   <div class="env"><div class="tex"></div><div class="pool p1"></div><div class="pool p2"></div></div>
   <div class="in-wrap">
    <div class="head">
-    <div><p class="n">01 — Brand</p><h2>First, a brand<br>worth following<em>.</em></h2></div>
-    <div><p>Logo, colours, type and voice, built to look as good on a phone screen as on a storefront.</p>
-     <p class="tags">Try it: change anything and watch the brand rebuild.</p></div>
+    <div><p class="n"><i>01</i>Brand</p><h2>First, a brand<br>worth following<em>.</em></h2></div>
+    <div><p>Logo, colours, type and voice, built to look as good on a phone screen as on a storefront.</p></div>
    </div>
    <div class="cfg" id="cfg">
     <div class="ctl">
@@ -781,9 +818,9 @@ html.lq .plate .lq-a:not(.ld){opacity:0}
   <div class="env"><div class="tex"></div><div class="pool p1"></div></div>
   <div class="in-wrap">
    <div class="head">
-    <div><p class="n">02 — Websites</p><h2>A website that<br>does the selling<em>.</em></h2></div>
+    <div><p class="n"><i>02</i>Websites</p><h2>A website that<br>does the selling<em>.</em></h2></div>
     <div><p>Fast, sharp sites that tell your story in seconds and turn visitors into messages, calls and orders.</p>
-     <p class="tags lp-hint">Hover a site to scroll through it. Open any of them and try it yourself.</p></div>
+     <p class="tags lp-hint">Hover a site to scroll it. Open one to try it.</p></div>
    </div>
    <div class="work">
     <a class="site" href="https://rafael14741.github.io/halftime-chews-site/" target="_blank" rel="noopener" data-strip="img/work/halftime-strip.webp">
@@ -825,9 +862,9 @@ html.lq .plate .lq-a:not(.ld){opacity:0}
   <div class="env"><div class="tex"></div><div class="pool p1"></div></div>
   <div class="in-wrap">
    <div class="head">
-    <div><p class="n">03 — Social</p><h2>Accounts people<br>actually follow<em>.</em></h2></div>
+    <div><p class="n"><i>03</i>Social</p><h2>Accounts people<br>actually follow<em>.</em></h2></div>
     <div><p>We plan, shoot, edit and post, so your Instagram and TikTok look like a brand, every week.</p>
-     <p class="tags lp-hint">Tap a post type to see it in the feed. Tap any post to open it.</p></div>
+     <p class="tags lp-hint">Pick a post type to see it in the feed.</p></div>
    </div>
    <div class="soc">
     <ul class="types" id="types"><li><button type="button" data-t="reel"><b>Reels</b><span>Short video gets shown to people who don't follow you yet.</span></button></li><li><button type="button" data-t="carousel"><b>Carousels</b><span>Swipe posts get saved and sent, so they keep travelling.</span></button></li><li><button type="button" data-t="product"><b>Product posts</b><span>Clean, matching shots so the feed looks like one brand.</span></button></li><li><button type="button" data-t="tip"><b>Tips</b><span>Something useful is a reason to follow.</span></button></li><li><button type="button" data-t="offer"><b>Offers</b><span>One clear reason to buy, one action.</span></button></li><li><button type="button" data-t="brand"><b>Brand moments</b><span>Mood posts that make the account feel like a place.</span></button></li></ul>
@@ -850,9 +887,8 @@ html.lq .plate .lq-a:not(.ld){opacity:0}
   <div class="env"><div class="tex"></div><div class="pool p1"></div></div>
   <div class="in-wrap">
    <div class="head">
-    <div><p class="n">04 — Ads</p><h2>Ads that keep it<br>climbing<em>.</em></h2></div>
-    <div><p>Paid ads and video built to reach the right people, tested and tuned every month.</p>
-     <p class="tags">Meta ads, Google ads, short video. Here's the kind of thing we make.</p></div>
+    <div><p class="n"><i>04</i>Ads</p><h2>Ads that keep it<br>climbing<em>.</em></h2></div>
+    <div><p>Paid ads and video built to reach the right people, tested and tuned every month.</p></div>
    </div>
    <div class="ads">
     <figure class="vid">
